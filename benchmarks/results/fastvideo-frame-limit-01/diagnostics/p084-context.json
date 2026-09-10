@@ -1,0 +1,473 @@
+{
+  "checked_at": "2026-09-10T23:50:18.372416+00:00",
+  "question": "Is P084 B the same official FastH3 baseline, and why did it succeed earlier?",
+  "p084_b": {
+    "label": "Local FastH3 VSA research baseline using original MLX backend, not an untouched official CLI",
+    "model_geometry": [
+      1024,
+      576,
+      362
+    ],
+    "delivery_frames": 360,
+    "vsa_impl": "simd",
+    "vsa_kernel": "mere",
+    "versions": {
+      "mlx": "0.32.0",
+      "mlx-metal": "0.32.0",
+      "numpy": "2.4.6",
+      "transformers": "5.14.1"
+    },
+    "duration_handling": "Existing local runner admits up to 0.1 s model-grid overrun, then trims video and audio to the final requested 360 frames / 15 seconds.",
+    "packed_rows": 64391,
+    "packed_columns": 28672,
+    "packed_elements": 1846218752
+  },
+  "current_official": {
+    "label": "Official FastH3 / VSA + frame-limit fix",
+    "model_geometry": [
+      1376,
+      768,
+      362
+    ],
+    "delivery_geometry": [
+      1366,
+      768,
+      360
+    ],
+    "vsa_impl": "reference",
+    "versions": {
+      "mlx": "0.32.2",
+      "mlx-metal": "0.32.2"
+    },
+    "source_commit": "17825c79c4d839d03f3907769f6b19cc982ca5d4",
+    "source_feed_forward": "fastvideo/mlx_runtime/minimax_h3.py::_feed_forward still performs an unbounded split-view activation",
+    "duration_handling": "Entry aligned-frame fix is present; native pre-trim AAC validation rejects the original clips.",
+    "declared_runtime_files_unchanged_after_operator_check": true
+  },
+  "large_operator_probe": {
+    "purpose": "operator diagnostic only",
+    "shape": [
+      113183,
+      28672,
+      32
+    ],
+    "expected_projection": 32,
+    "expected_product": 1024,
+    "projection_samples": {
+      "0": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "32767": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "32768": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "65535": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "65536": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "74897": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "74898": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "74899": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "98303": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "98304": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ],
+      "113182": [
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0,
+        32.0
+      ]
+    },
+    "original_samples": {
+      "0": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "32767": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "32768": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "65535": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "65536": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "74897": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "74898": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "74899": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "98303": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "98304": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "113182": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "repaired_samples": {
+      "0": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "32767": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "32768": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "65535": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "65536": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "74897": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "74898": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "74899": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "98303": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "98304": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ],
+      "113182": [
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0,
+        1024.0
+      ]
+    },
+    "all_repaired_values_match": true,
+    "peak_mlx_gib": 15.120071411132812,
+    "script_sha256": "98200a821d72d1227f8c651d9ff04f2690d650068b5241c46fc6ee98a757a095"
+  },
+  "small_operator_control": {
+    "purpose": "operator exact-value control only; not full generation",
+    "rows": 64391,
+    "columns": 28672,
+    "packed_elements": 1846218752,
+    "expected_product": 1024,
+    "all_original_values_match": true,
+    "peak_mlx_gib": 6.023578649386764,
+    "versions": {
+      "mlx": "0.32.2",
+      "mlx-metal": "0.32.2"
+    },
+    "script_sha256": "1ede6e2c47fe17a2ada49e71c82b6a0310d430f53cd9e904efd955a488ca2b7e"
+  },
+  "interpretation": {
+    "established": [
+      "P084 B used a different geometry, local runner, sparse kernel and MLX release.",
+      "The current official MLX environment passes the exact-value operator control at the P084 576p shape.",
+      "The oversized original activation reproduces zero-valued outputs from sampled row 74899 onward instead of the expected 1024.",
+      "The existing bounded activation returns 1024 for every element at the large shape."
+    ],
+    "not_established": [
+      "This operator check does not establish that it is the sole cause of the two current corrupted videos.",
+      "No current official full trajectory comparison or repaired full video has been run.",
+      "P084 results cannot be used as an untouched official 768p performance baseline."
+    ]
+  },
+  "evidence": [
+    {
+      "path": "$RESEARCH/benchmarks/p084-mlx-nax-backend/long-B.json",
+      "sha256": "45deb1514024031b0e4cb35b0c69af16b991f6e490a5f48e2fed90f3e75c5eff"
+    },
+    {
+      "path": "$RESEARCH/scripts/run_p082_fast_t2va.py",
+      "sha256": "d20874b788f75d38b41d32b1b3a3f5ac9e7b5f1931f4c90d6ac0e6e8a7c6c331"
+    },
+    {
+      "path": "$RESEARCH/scripts/run_p084_fast_t2va.py",
+      "sha256": "092bb5fed85e1010f62b1dd38b7cb93602cf34658a01fe677a7af9ed47fbe2f6"
+    },
+    {
+      "path": "$RESEARCH/.local/experiments/p084-execution-20260905-01/long-pair-01.json",
+      "sha256": "7334338869fb166e6e388957a04e8cff47abf1674990235cb5a173ed6c71e3d7"
+    },
+    {
+      "path": "$RESEARCH/output/p091-character-reveal-768p-20260907-02/repair-evidence.json",
+      "sha256": "e6ee25188fd94da6eb426c1ddb3ac9d2f9b378dd974103ad519d14f278125e78"
+    },
+    {
+      "path": "$RESEARCH/output/p091-character-reveal-768p-20260907-02/reproduce_indexing.py",
+      "sha256": "98200a821d72d1227f8c651d9ff04f2690d650068b5241c46fc6ee98a757a095"
+    },
+    {
+      "path": "$PRODUCT/.local/validation/fastvideo-p084-identity-01/plan.json",
+      "sha256": "a0dbb6cef9d73c7bf9042dadc5e9caa201a03d0ae13ee9eb36e66b5e29a6eb4e"
+    },
+    {
+      "path": "$PRODUCT/.local/validation/fastvideo-p084-identity-01/execution.json",
+      "sha256": "0ff1c6a436596a81cf87e22bf0012637fc1e511e247f0eed086da9be952ff34d"
+    },
+    {
+      "path": "$PRODUCT/.local/validation/fastvideo-p084-identity-01/current-official-mlx-swiglu.json",
+      "sha256": "5cb12984f4b2e12db80d1c8cb8433fd1cb770c3f1e21644dd4011cb20e7abd60"
+    },
+    {
+      "path": "$PRODUCT/.local/validation/fastvideo-p084-identity-01/small-shape-control-plan.json",
+      "sha256": "1b74e428533da0a4fc7cf60f577c354cef3d523fdefbccb76921761d75d0e579"
+    },
+    {
+      "path": "$PRODUCT/.local/validation/fastvideo-p084-identity-01/small_shape_control.py",
+      "sha256": "1ede6e2c47fe17a2ada49e71c82b6a0310d430f53cd9e904efd955a488ca2b7e"
+    },
+    {
+      "path": "$PRODUCT/.local/validation/fastvideo-p084-identity-01/small-shape-control.json",
+      "sha256": "261d7f519cdd6a2a59a9fc4438b20abc1b4b91991c05db30e390c4c6adab69c9"
+    }
+  ]
+}
