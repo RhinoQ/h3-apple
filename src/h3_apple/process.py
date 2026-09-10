@@ -65,6 +65,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     worker_result = None
     try:
         environment = dict(os.environ, MLX_ENABLE_TF32="0", FASTVIDEO_MLX_DQ_GEMM="1",
+                           MLX_METAL_GPU_ARCH="",
                            HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1",
                            TOKENIZERS_PARALLELISM="false")
         environment["PATH"] = str(Path(sys.executable).parent) + os.pathsep + environment.get("PATH", "")

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Modified by H3 Apple: local package imports and explicit runtime integration; see docs/sources.json.
 """SIMD-group block-sparse attention for MiniMax H3 VSA.
 
 This backend is an explicit opt-in. It supports tile size 64 and head dimension

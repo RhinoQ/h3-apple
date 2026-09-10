@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Modified by H3 Apple: local package imports and explicit runtime integration; see docs/sources.json.
 """Pixel-space spatial resampling for decoded MLX Wan frames.
 
 Spatial fast mode denoises on a smaller latent grid and has to get back to

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Modified by H3 Apple: local package imports and explicit runtime integration; see docs/sources.json.
 # mypy: disable-error-code=no-untyped-call
 """MiniMax H3 joint audio-video DiT for the Apple Silicon MLX runtime.
 
@@ -1128,6 +1129,7 @@ def mlx_h3_dit_from_diffusers_safetensors(
     quantization: str | MLXQuantizationSpec | None = None,
     adaln_cache_timesteps: np.ndarray | None = None,
     include_vsa: bool = False,
+    _shard_loader=None,
 ) -> MLXMiniMaxH3DiT:
     """Load the released H3 transformer (diffusers layout) into MLX.
 
@@ -1192,7 +1194,8 @@ def mlx_h3_dit_from_diffusers_safetensors(
     if adaln_cache_timesteps is not None:
         cache_timesteps = np.unique(np.asarray(adaln_cache_timesteps, dtype=np.float32))
         for shard in _safetensors_shards(transformer_path):
-            shard_arrays = mx.load(str(shard))
+            shard_arrays = (mx.load(str(shard)) if _shard_loader is None
+                            else _shard_loader(shard, "time_embedder"))
             for key, source in shard_arrays.items():
                 if not key.startswith("time_embedder."):
                     continue
@@ -1218,7 +1221,8 @@ def mlx_h3_dit_from_diffusers_safetensors(
         cached_block_tables = [None] * num_blocks
 
     for shard in _safetensors_shards(transformer_path):
-        shard_arrays = mx.load(str(shard))
+        shard_arrays = (mx.load(str(shard)) if _shard_loader is None
+                        else _shard_loader(shard, "weights"))
         for key, source in shard_arrays.items():
             if _is_ignored_dense_key(key, include_vsa=include_vsa):
                 continue

@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Modified by H3 Apple: local package imports and explicit runtime integration; see docs/sources.json.
 """Chunked non-causal sliding-window self-attention for MLX scaling studies.
 
 This module is intentionally standalone (``mlx.core`` + stdlib only) so it can

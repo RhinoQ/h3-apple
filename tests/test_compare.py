@@ -81,10 +81,12 @@ def test_command_substitution_is_not_a_shell(tmp_path):
 def test_native_crop_and_trim_keeps_delivery_specification(tmp_path):
     native, output = tmp_path / "native.mp4", tmp_path / "output.mp4"
     subprocess.run([tool("ffmpeg"), "-v", "error", "-f", "lavfi", "-i", "testsrc2=s=96x64:r=10:d=2",
-                    "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=32000:duration=2", "-ac", "2",
+                    "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=32000:duration=2.016", "-ac", "2",
                     "-c:v", "libx264", "-c:a", "aac", str(native)], check=True)
     request = dict(width=64, height=64, num_frames=10, fps=10, audio_sample_rate=32000,
                    audio_channels=2, duration=1.0, model_width=96, model_height=64, model_num_frames=20)
+    with pytest.raises(ValueError, match="duration differs"):
+        validate(native, {**request, "width": 96, "num_frames": 20})
     compare.finish_native(native, output, request)
     assert validate(output, request)["streams"][0]["nb_read_frames"] == "10"
     assert native.exists()

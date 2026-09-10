@@ -16,6 +16,10 @@ def progress(event):
         line = f"Preparing {event['file']}"
     elif "tiles_completed" in event:
         line = f"Video decode: {event['tiles_completed']} tiles complete"
+    elif phase == "model_plan":
+        line = (f"Missing downloads: {event['download_bytes'] / 1024**3:.2f} GiB; "
+                f"additional space including conversion: {event['additional_disk_bytes'] / 1024**3:.2f} GiB; "
+                f"source-cache space requirement: {event['cache_additional_disk_bytes'] / 1024**3:.2f} GiB")
     else:
         line = phase.replace("_", " ").capitalize()
     print(line, file=sys.stderr, flush=True)
@@ -43,9 +47,15 @@ def parser():
     doctor.add_argument("--model-dir")
     models = commands.add_parser("models").add_subparsers(dest="model_command", required=True)
     prepare = models.add_parser("prepare", help="Prepare a verified local model bundle")
-    prepare.add_argument("--checkpoint", required=True, help="Existing converted FastH3 VSA checkpoint")
-    prepare.add_argument("--components", required=True, help="Existing text encoder, tokenizer and VAEs")
+    prepare.add_argument("--checkpoint", help="Existing converted FastH3 VSA checkpoint")
+    prepare.add_argument("--components", help="Existing text encoder, tokenizer and VAEs")
     prepare.add_argument("--model-dir")
+    prepare.add_argument("--cache-dir", help="Reusable source files; defaults beside the model bundle")
+    prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
+                         help="Search an existing source snapshot or FL2VA directory; repeat as needed")
+    prepare.add_argument("--plan", action="store_true", help="Show download and disk requirements without downloading")
+    prepare.add_argument("--allow-large-download", action="store_true",
+                         help="Explicitly confirm the displayed downloads when they exceed 20 GB")
     for name in ("status", "verify"):
         command = models.add_parser(name)
         command.add_argument("--model-dir")
@@ -70,7 +80,22 @@ def main(argv=None):
             name = args.pop("model_command")
             directory = args.pop("model_dir")
             if name == "prepare":
-                result = import_assets(directory=directory, progress=progress, **args)
+                checkpoint, components = args.pop("checkpoint"), args.pop("components")
+                if bool(checkpoint) != bool(components):
+                    raise ValueError("Provide both --checkpoint and --components to import converted assets.")
+                show_plan = args.pop("plan")
+                if checkpoint:
+                    if show_plan or args["cache_dir"] or args["reuse_dirs"] or args["allow_large_download"]:
+                        raise ValueError("Source-download options cannot be combined with converted-asset import.")
+                    result = import_assets(checkpoint, components, directory, progress=progress)
+                else:
+                    from .preparation import plan, prepare
+                    if show_plan:
+                        args.pop("allow_large_download")
+                        result = plan(directory, progress=progress, **args)
+                        print(json.dumps(result, indent=2, ensure_ascii=False))
+                        return 0
+                    result = prepare(directory, progress=progress, **args)
             else:
                 result = load_assets(directory, verify=name == "verify")
             result = {key: result[key] for key in ("directory", "identity", "checkpoint", "components")}

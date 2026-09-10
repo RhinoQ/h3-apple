@@ -10,7 +10,7 @@
       "upstream_path": "fastvideo/mlx_runtime/minimax_h3.py",
       "upstream_sha256": "f361caf7310df83aba9fe7c927b2114f37f28b7b80bddb0983bb751695f02c62",
       "changes": [
-        "package import paths; see git history for explicit runtime integration"
+        "local package imports; explicit NAX sparse attention and bounded SwiGLU; optional explicit native shard loader for conversion; no sys.modules or global loader patches"
       ]
     },
     {
@@ -187,6 +187,13 @@
       "source_sha256": "8c77215f3cefe39d67ace4d3480709720dd30be8e4adfafbc6514ac202bf15ec",
       "changes": [
         "extract only adopted VAE arithmetic and necessary primitives"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/conversion.py",
+      "research_path": "python/tqlm_h3_apple/fasth3_mlx.py",
+      "changes": [
+        "Extract native key transforms, official VSA adapter merge, and full decoder conversion; omit other adapters and research bootstrap."
       ]
     }
   ],

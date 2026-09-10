@@ -71,6 +71,14 @@ def verify_assets(method):
     return identities
 
 
+def verify_runtime(method):
+    entries = method.get("runtime_files", [])
+    for item in entries:
+        if digest(Path(item["path"])) != item["sha256"]:
+            raise ValueError(f"Installed runtime changed: {item['path']}")
+    return entries
+
+
 def preflight(method):
     command = method["command"]
     if not isinstance(command, list) or not command or not all(isinstance(x, str) for x in command):
@@ -87,6 +95,7 @@ def preflight(method):
         if not Path(file).is_file():
             raise ValueError(f"Missing required file: {file}")
     assets = verify_assets(method)
+    runtime_files = verify_runtime(method)
     if method["id"] == "vpipe" and digest(Path(method["pipeline_template"])) != method["pipeline_template_sha256"]:
         raise ValueError("Official vpipe template changed.")
     environment = None
@@ -94,6 +103,7 @@ def preflight(method):
         environment = subprocess.check_output([str(executable), "-m", "pip", "freeze", "--all"],
                                               text=True, timeout=60).splitlines()
     return {"source": source, "executable_sha256": digest(executable),
+            "runtime_files": runtime_files,
             "assets": assets, "python_packages": environment,
             "weights": method["weights"], "recipe": method["recipe"],
             "local_patches": method.get("local_patches", [])}
@@ -188,7 +198,7 @@ def finish_native(source, destination, request):
     """Only center-crop and trim. Preserve the original official output beside it."""
     native = {**request, "width": request["model_width"], "height": request["model_height"],
               "num_frames": request["model_num_frames"]}
-    validate(source, native)
+    validate(source, native, allow_aac_padding=True)
     left = (native["width"] - request["width"]) // 2
     top = (native["height"] - request["height"]) // 2
     command = [tool("ffmpeg"), "-v", "error", "-nostdin", "-n", "-i", str(source),
@@ -267,6 +277,7 @@ def run_job(method, case, directory, timeout, cooldown_timeout):
                 row["internal_metrics_note"] = "Unknown unless the official entry reports them; see raw log."
             # Changes during execution invalidate the result rather than passing as a stable version.
             verify_assets(method)
+            verify_runtime(method)
             state = git_state(method["source_repo"])
             if state["commit"] != method["commit"] or state["tracked_changes"]:
                 raise RuntimeError("Source changed during the run.")

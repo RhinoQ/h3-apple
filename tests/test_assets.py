@@ -73,12 +73,47 @@ def test_manifest_directory_escape_rejected(tmp_path, sources):
         load_assets(destination)
 
 
-def test_manifest_content_identity_rejected(tmp_path, sources):
+@pytest.mark.parametrize("change", ["file", "derivation"])
+def test_manifest_content_identity_rejected(tmp_path, sources, change):
     destination = tmp_path / "models"
     import_assets(*sources, destination)
     path = destination / "bundle.json"
     manifest = json.loads(path.read_text())
-    manifest["files"][0]["sha256"] = "0" * 64
+    if change == "file":
+        manifest["files"][0]["sha256"] = "0" * 64
+    else:
+        manifest["derivation"]["converter"] = "changed converter"
     path.write_text(json.dumps(manifest))
     with pytest.raises(ValueError, match="identity"):
         load_assets(destination)
+
+
+def test_existing_v1_bundle_remains_readable(tmp_path, sources):
+    from h3_apple.assets import bundle_identity
+    destination = tmp_path / "models"
+    import_assets(*sources, destination)
+    path = destination / "bundle.json"
+    manifest = json.loads(path.read_text())
+    manifest["format_version"] = 1
+    manifest.pop("derivation")
+    manifest["identity"] = bundle_identity(manifest)
+    path.write_text(json.dumps(manifest))
+    assert load_assets(destination, verify=True)["identity"] == manifest["identity"]
+
+
+def test_failed_import_does_not_publish_partial_bundle(tmp_path, sources, monkeypatch):
+    import h3_apple.assets as assets
+    original = assets.digest
+    count = 0
+    def fail_during_hash(path):
+        nonlocal count
+        count += 1
+        if count == 2:
+            raise OSError("simulated interrupted import")
+        return original(path)
+    monkeypatch.setattr(assets, "digest", fail_during_hash)
+    destination = tmp_path / "models"
+    with pytest.raises(OSError, match="interrupted"):
+        import_assets(*sources, destination)
+    assert not destination.exists()
+    assert list(tmp_path.glob(".models-prepare-*"))

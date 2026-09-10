@@ -19,6 +19,7 @@ class GenerationRequest:
     model_width: int
     model_height: int
     model_num_frames: int
+    preset_version: str = "ours-v1"
     fps: int = 24
     audio_sample_rate: int = 32000
     audio_channels: int = 2

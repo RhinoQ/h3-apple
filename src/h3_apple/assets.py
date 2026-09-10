@@ -14,6 +14,13 @@ def model_directory(value=None):
     return Path(value or os.environ.get("H3_MODEL_DIR", Path.home() / "Models/h3-apple")).expanduser().resolve()
 
 
+def bundle_identity(manifest):
+    content = [{k: e[k] for k in ("path", "sha256", "size")} for e in manifest["files"]]
+    if manifest["format_version"] == 2:
+        content = {"files": content, "derivation": manifest["derivation"]}
+    return hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
+
+
 def _files(checkpoint, components):
     checkpoint, components = Path(checkpoint).resolve(), Path(components).resolve()
     manifest = checkpoint / "mlx_h3_dit.json"
@@ -23,6 +30,9 @@ def _files(checkpoint, components):
         raise ValueError("Ours requires the 50-block affine INT8/group64 FastH3 VSA checkpoint.")
     paths = {"dit/mlx_h3_dit.json": manifest,
              "dit/mlx_h3_dit.safetensors": checkpoint / "mlx_h3_dit.safetensors"}
+    for name in ("LICENSE", "NOTICE"):
+        if (components / name).is_file():
+            paths[name] = (components / name).resolve()
     for name in ("text_encoder", "tokenizer", "vae", "audio_vae"):
         source = (components / name).resolve()
         if not source.is_dir():
@@ -43,22 +53,23 @@ def _files(checkpoint, components):
     return paths
 
 
-def import_assets(checkpoint, components, directory=None, *, progress=None):
+def import_assets(checkpoint, components, directory=None, *, progress=None, provenance=None,
+                  download_bytes=0):
     directory = model_directory(directory)
     if (directory / "bundle.json").exists():
         raise FileExistsError(f"A model bundle already exists at {directory}; use another directory.")
     paths = _files(checkpoint, components)
-    directory.mkdir(parents=True, exist_ok=True)
-    if any((directory / name).exists() for name in ("dit", "components")):
+    directory.parent.mkdir(parents=True, exist_ok=True)
+    if directory.exists() and any(directory.iterdir()):
         raise FileExistsError("Model destination contains an incomplete or existing bundle.")
     for source in paths.values():
         if directory == source or directory in source.parents:
             raise ValueError("Model destination must not contain the source assets.")
     copy_bytes = sum(p.stat().st_size for p in paths.values()
-                     if p.stat().st_dev != directory.stat().st_dev)
-    if shutil.disk_usage(directory).free < copy_bytes + 2 * 1024**3:
+                     if p.stat().st_dev != directory.parent.stat().st_dev)
+    if shutil.disk_usage(directory.parent).free < copy_bytes + 2 * 1024**3:
         raise OSError(f"Insufficient disk space for {copy_bytes} bytes of model copies.")
-    staging = Path(tempfile.mkdtemp(prefix=".prepare-", dir=directory))
+    staging = Path(tempfile.mkdtemp(prefix=f".{directory.name}-prepare-", dir=directory.parent))
     entries = []
     try:
         for relative, source in paths.items():
@@ -82,19 +93,28 @@ def import_assets(checkpoint, components, directory=None, *, progress=None):
             stat = destination.stat()
             entries.append(dict(path=relative, sha256=checksum, size=stat.st_size,
                                 mtime_ns=stat.st_mtime_ns, method=method))
-        identity = hashlib.sha256(json.dumps([{k: e[k] for k in ("path", "sha256", "size")}
-                                              for e in entries], sort_keys=True).encode()).hexdigest()
-        manifest = dict(format_version=1, preset="ours", identity=identity, files=entries,
+        derivation = {"input": "existing converted assets; converter provenance not supplied"}
+        if provenance is not None:
+            conversion = provenance["conversion"]
+            derivation = {"recipe": provenance["recipe"], "sources": provenance["sources"],
+                          "converter": conversion["converter"],
+                          "converter_source_sha256": conversion["package_source_sha256"],
+                          "conversion_settings": conversion.get("settings", {}),
+                          "libmlx_sha256": conversion["backend"]["libmlx_sha256"],
+                          "metallib_sha256": conversion["backend"]["metallib_sha256"],
+                          "dit": conversion["dit"]}
+        manifest = dict(format_version=2, preset="ours", derivation=derivation, files=entries,
                         checkpoint="dit", components="components",
-                        download_bytes=0, copied_bytes=copy_bytes)
-        for name in ("dit", "components"):
-            (staging / name).rename(directory / name)
-        write_json(directory / "bundle.json", manifest)
+                        download_bytes=download_bytes, copied_bytes=copy_bytes,
+                        provenance=provenance)
+        manifest["identity"] = bundle_identity(manifest)
+        write_json(staging / "bundle.json", manifest)
+        # A single directory rename publishes the complete bundle. A populated
+        # destination cannot be replaced by POSIX directory rename.
+        staging.rename(directory)
     except BaseException:
         # Preserve partial assets and their paths for diagnosis; never overwrite them on retry.
         raise
-    else:
-        staging.rmdir()
     return load_assets(directory)
 
 
@@ -104,14 +124,13 @@ def load_assets(directory=None, *, verify=False):
     if not path.is_file():
         raise FileNotFoundError(f"Models are not prepared at {directory}. Run h3 models prepare.")
     data = json.loads(path.read_text())
-    if data.get("format_version") != 1 or data.get("preset") != "ours" or not data.get("files"):
+    if data.get("format_version") not in (1, 2) or data.get("preset") != "ours" or not data.get("files"):
         raise ValueError("Unsupported or empty model bundle.")
     for name in ("checkpoint", "components"):
         target = directory / data[name]
         if not target.resolve().is_relative_to(directory) or not target.is_dir():
             raise ValueError(f"Invalid {name} directory in the model bundle.")
-    identity = hashlib.sha256(json.dumps([{k: e[k] for k in ("path", "sha256", "size")}
-                                          for e in data["files"]], sort_keys=True).encode()).hexdigest()
+    identity = bundle_identity(data)
     if identity != data.get("identity"):
         raise ValueError("Model bundle identity does not match its file manifest.")
     for entry in data["files"]:

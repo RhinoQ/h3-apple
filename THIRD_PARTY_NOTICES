@@ -1,0 +1,46 @@
+H3 Apple is a community project, not an official MiniMax, FastVideo or vpipe release.
+Copyright 2026 H3 Apple contributors. Independently authored code is Apache-2.0.
+Third-party code, models and model-derived material retain their own terms.
+
+FastVideo
+  https://github.com/hao-ai-lab/FastVideo
+  Snapshot: 7bb76b5ec99807a66aa3047b901f15019abe0f00
+  The selected MLX runtime files are under Apache-2.0.
+  Full license: licenses/FastVideo-APACHE-2.0.txt
+  Modified files carry notices. Origins and changes: docs/sources.json.
+
+MLX, mlx-flashattention-steel / MFA, Draw Things
+  The selected-route attention kernel includes adapted sparse attention and
+  Apple MLX Steel helpers. Source revisions, changes and full MIT / BSD terms
+  are retained in src/h3_apple/runtime/metal/p085_NOTICE.txt and the adjacent
+  p085_mfa_LICENSE.txt, p085_MLX_LICENSE.txt and p085_DRAWTHINGS_LICENSE.txt.
+
+h3.c
+  https://github.com/antirez/h3.c
+  Snapshot: 8974cc055ea9c02fcd14cc27dfda3e1027c05153
+  Copyright (c) 2026 Salvatore Sanfilippo. MIT.
+  Adaptations and full license: src/h3_apple/runtime/metal/p087_NOTICE.txt.
+
+MiniMax-H3 and FastH3 adapter models
+  Model weights are downloaded separately and are not covered by the code's
+  Apache license. The pinned base and VSA adapter both carry the MiniMax H3
+  Community License Agreement. Full text: licenses/MiniMax-H3.txt.
+  MiniMax H3 is licensed under the MiniMax H3 Community License Agreement,
+  Copyright © 2026 MiniMax. All Rights Reserved.
+  Source revisions and checksums: src/h3_apple/data/model-sources.json.
+  Native layout conversion, adapter fusion, INT8 quantization, omitted image
+  encoder and precomputed modulation tables are local model modifications.
+  The Qwen3-VL-32B text encoder's Apache-2.0 terms are identified by the model
+  license; retained text encoder/tokenizer files are unmodified.
+
+Calibration statistics
+  src/h3_apple/data/vae-calibration.npz contains frozen channel maxima from
+  the research project's adopted VAE calibration, not model weights or a
+  downloadable replacement model. Its origin and checksum are in
+  docs/sources.json. Use of MiniMax-derived material remains subject to the
+  model terms; the code license does not remove those conditions.
+
+Optional comparison projects
+  The comparison script invokes separately installed official FastVideo and
+  vpipe commands. Their software and model licenses apply independently;
+  their binaries and weights are not bundled in this repository.

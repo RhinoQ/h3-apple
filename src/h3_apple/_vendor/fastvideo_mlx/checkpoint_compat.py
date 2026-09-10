@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Modified by H3 Apple: local package imports and explicit runtime integration; see docs/sources.json.
 """Reject NVIDIA FastWan-QAD checkpoints on the Apple Silicon MLX path.
 
 FastMetal-QAD is the Apple Silicon release: DMD2 students trained on the affine

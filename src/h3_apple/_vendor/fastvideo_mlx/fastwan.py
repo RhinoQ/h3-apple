@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Modified by H3 Apple: local package imports and explicit runtime integration; see docs/sources.json.
 # mypy: disable-error-code=no-untyped-call
 """FastWan-oriented helpers for the experimental MLX runtime path."""
 

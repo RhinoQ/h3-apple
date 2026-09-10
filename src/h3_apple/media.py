@@ -18,7 +18,7 @@ def tool(name):
     return found
 
 
-def validate(path, expected):
+def validate(path, expected, *, allow_aac_padding=False):
     path = Path(path)
     if not path.is_file() or path.stat().st_size == 0:
         raise ValueError(f"No completed video at {path}")
@@ -41,7 +41,13 @@ def validate(path, expected):
     for stream in (video, audio):
         if abs(float(stream.get("start_time", 0))) > 1 / expected["audio_sample_rate"] + 1e-5:
             raise ValueError("Output audio/video does not start at zero.")
-        if abs(float(stream["duration"]) - duration) > 1 / expected["audio_sample_rate"] + 1e-5:
+        tolerance = 1 / expected["audio_sample_rate"] + 1e-5
+        delta = float(stream["duration"]) - duration
+        # Official encoders may leave one AAC packet of trailing samples in
+        # their native output. Final delivered media always uses strict timing.
+        padding = (allow_aac_padding and stream is audio and stream["codec_name"] == "aac"
+                   and 0 <= delta <= 1024 / expected["audio_sample_rate"] + tolerance)
+        if abs(delta) > tolerance and not padding:
             raise ValueError("Output audio/video duration differs from the requested delivery.")
     subprocess.run([tool("ffmpeg"), "-v", "error", "-xerror", "-i", str(path),
                     "-map", "0:v:0", "-map", "0:a:0", "-f", "null", "-"],

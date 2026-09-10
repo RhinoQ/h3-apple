@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
+# Modified by H3 Apple: local package imports and explicit runtime integration; see docs/sources.json.
 # mypy: disable-error-code=no-untyped-call
 """Streamed Qwen3-VL prompt conditioner for MiniMax-H3 on Apple Silicon MLX.
 

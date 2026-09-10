@@ -105,6 +105,7 @@ def doctor(model_dir=None):
     try:
         check_machine(info)
         os.environ["MLX_ENABLE_TF32"] = "0"
+        os.environ["MLX_METAL_GPU_ARCH"] = ""
         info["backend"] = backend_identity()
     except Exception as error:
         errors.append(str(error))
