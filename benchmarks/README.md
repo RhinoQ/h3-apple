@@ -2,6 +2,9 @@
 
 比较 **FastH3 / Ours、官方 FastH3 / VSA、vpipe / VDN**。两个完整公共提示词为 motion graphics / seed 2026 和 bakery / seed 87001；文本和 SHA256 由 `suites/motion-bakery.json` 固定。两者均为已见输入，不用于新的泛化结论。
 
+当前本机 FastH3 入口带有明确的[时长对齐校验补丁](patches/README.md)，标签为
+`Official FastH3 / VSA + frame-limit fix`。原始未修改版本的历史成绩保持其原身份。
+
 `compare.py` 直接调用三个现有 CLI。普通生成用户只需安装 Ours；评测脚本不安装、升级或下载其他项目。日常优化主要在研究仓库比较 Ours 候选与稳定版，发布比较或相关上游更新时才运行完整三方。
 
 已完成的首轮新原生比较见 [native-three-02 结果](results/native-three-02/README.md)：
@@ -52,9 +55,13 @@ conda create --yes --copy --prefix /path/to/fastvideo-env -c conda-forge python=
 
 FastVideo 使用其 `examples/inference/basic/mlx_fasth3.py`，启用 VSA，关闭 `fast` 和 `fast-spatial`，使用完整 FP32 VideoVAE。示例保留官方推荐的 `auto` attention 实现；该版本中它是 reference 路径。使用其他明确支持的实现时，必须在正式开跑前固定，并在结果中完整标明。不能按不同提示词分别选择最快配置。
 
-两个完整公共 prompt 已通过独立官方 CLI 验证：该版本将 362 / 24 算作 15.08 秒，
+两个完整公共 prompt 的原始独立官方 CLI 调用已验证：该版本将 362 / 24 算作 15.08 秒，
 在加载大模型前拒绝这项规格。记录失败及不支持原因；不把 Ours 的时长修复移入
 官方入口后仍称为未修改基线。此结果不代表其他时长或版本也不可用。
+
+现已提供独立的小补丁，按 H3 时间网格检查上下界，32 项回归和两个真实 CLI 入口
+检查通过。按 [补丁说明](patches/README.md) 应用、安装，再填写 `local.example.json`
+里的实际新 commit 与运行文件 SHA；新运行显式保留补丁身份。尚无补丁后的完整耗时。
 
 vpipe 固定使用官方 `docs/pipelines/minimax-h3-vdn.vpipeline`。脚本只替换文本、seed、1376×768 / 362 帧、输出路径和本地模型键；步骤、VDN 分支、Turbo adapter、shift、量化等保持模板配置。配置中的六步不等同于实际 NFE，不能从名称推测。VDN 是首版事前选择的官方方案，不代表所有 vpipe 配方的最优成绩。
 

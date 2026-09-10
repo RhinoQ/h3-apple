@@ -31,6 +31,9 @@ SHA256；本地路径以角色名替代。以下是该文件的摘要，原始�
 Ours 两次均实际执行 4 NFE、200 次直接稀疏 attention，零 fallback。
 两个官方 FastVideo 调用均在 362 帧时被其 15 秒检查拒绝，没有完成耗时。
 
+此处记录原始固定版本。后续[对齐校验修复](../benchmarks/patches/README.md)已通过
+32 项回归及两个真实 CLI 入口检查；修复后的完整生成与性能尚未重测，旧结果保留。
+
 耗时、源码/模型/环境身份及失败边界统一见 [本轮结果](../benchmarks/results/native-three-02/README.md)。
 新视频见 [示例](../examples/README.md)。这是各自固定配方的系统观察，每项一次；
 不宣称新的算法提速、稳定速度优势或总体质量胜出。

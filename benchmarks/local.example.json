@@ -43,9 +43,9 @@
     },
     {
       "id": "fastvideo",
-      "label": "Official FastH3 / VSA",
+      "label": "Official FastH3 / VSA + frame-limit fix",
       "source_repo": "/absolute/path/FastVideo",
-      "commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
+      "commit": "REPLACE_WITH_PATCHED_FASTVIDEO_COMMIT",
       "cwd": "/absolute/path/FastVideo",
       "command": [
         "/absolute/path/fastvideo-env/bin/python",
@@ -97,8 +97,14 @@
         }
       ],
       "weights": "REPLACE_WITH_PINNED_BASE_ADAPTER_AND_CONVERSION_IDENTITY",
-      "recipe": "Official VSA defaults: reference attention, four steps, full native-resolution VAE; 15-second alignment support must be verified",
-      "local_patches": [],
+      "recipe": "Official VSA reference attention, four steps, full native-resolution VAE; local aligned-duration validation fix only.",
+      "local_patches": [
+        {
+          "name": "h3-aligned-duration-limits",
+          "base_commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
+          "patch_sha256": "a478634cea35fa57094fa3a384432b0f3543d36cabeb7b41be7f96e60d521471"
+        }
+      ],
       "env": {
         "MLX_ENABLE_TF32": "0",
         "FASTVIDEO_MLX_DQ_GEMM": "1"

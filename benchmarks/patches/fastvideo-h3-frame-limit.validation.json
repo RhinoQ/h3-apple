@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "fixed and entry-validated",
+  "base_commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
+  "patched_commit": "17825c79c4d839d03f3907769f6b19cc982ca5d4",
+  "patch_sha256": "a478634cea35fa57094fa3a384432b0f3543d36cabeb7b41be7f96e60d521471",
+  "pipeline_sha256": "3c6d043c0c0b1f9366bdc2d6a122fb4a31800e70215fc99f178ee6ca107f10fd",
+  "installed_wheel_sha256": "8317673204d7e39cec05cd6650a398f7f8439ccc3e78844affd276868a77726c",
+  "before": {
+    "tests": 32,
+    "passed": 26,
+    "failed": 6,
+    "skipped": 0,
+    "original_sha256": "5faa1d71c3c9062ea85bfe6c979f4567725d0f04bd4804c16b499e15be8b2831"
+  },
+  "after": {
+    "tests": 32,
+    "passed": 32,
+    "failed": 0,
+    "skipped": 0,
+    "original_sha256": "50f6929f965d214d115a7323fd617097796a7902cc7a05877892a98320eca880"
+  },
+  "pre_commit": "passed",
+  "pre_commit_log_sha256": "742015d61a9397207f31f805eb063a0ba6515cdea689674332b4cd36f3989404",
+  "entry_probes": [
+    {
+      "case": "motion-graphics",
+      "status": "passed",
+      "geometry_line": "INFO 09-10 01:08:00.842 [minimax_h3_pipeline.py:797] Geometry: output=1376x768x362 model=1376x768x362 audio_frames=362 fast=None fast_spatial=None",
+      "worker_stopped": true,
+      "published_video": false
+    },
+    {
+      "case": "bakery",
+      "status": "passed",
+      "geometry_line": "INFO 09-10 01:08:06.445 [minimax_h3_pipeline.py:797] Geometry: output=1376x768x362 model=1376x768x362 audio_frames=362 fast=None fast_spatial=None",
+      "worker_stopped": true,
+      "published_video": false
+    }
+  ],
+  "entry_probe_source_sha256": "c5b64adceffa58fcd097a2e5addfbaaa7b6abd325996fd216ec9623dfb21eb21",
+  "local_evidence": ".local/validation/fastvideo-geometry-fix-01/",
+  "boundary": "Only aligned-duration validation changed. Real CLI probes were deliberately cancelled after geometry acceptance. No new complete FastH3 video, full timing, or quality result is claimed; native-three-02 original failures remain unchanged.",
+  "pip_check": "passed",
+  "pip_check_log_sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09"
+}
