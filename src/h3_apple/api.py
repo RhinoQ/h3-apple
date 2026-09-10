@@ -1,0 +1,93 @@
+"""Resolve user intent before launching a fresh, isolated model worker."""
+
+from dataclasses import asdict, dataclass
+from decimal import Decimal, InvalidOperation
+from pathlib import Path
+import secrets
+
+
+@dataclass(frozen=True)
+class GenerationRequest:
+    prompt: str
+    preset: str
+    resolution: str
+    duration: float
+    seed: int
+    width: int
+    height: int
+    num_frames: int
+    model_width: int
+    model_height: int
+    model_num_frames: int
+    fps: int = 24
+    audio_sample_rate: int = 32000
+    audio_channels: int = 2
+    num_steps: int = 4
+
+    def to_dict(self):
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class GenerationResult:
+    video_path: Path
+    metadata_path: Path
+    elapsed_seconds: float
+    seed: int
+
+
+def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution="768p",
+            duration=15, seed=None):
+    """Return the delivery and model geometry without importing MLX.
+
+    Durations are 5–15 seconds in whole delivery frames at 24 fps. The model
+    generates the next valid 17*n+5 frame count, followed by a fixed trim.
+    """
+    if (prompt is None) == (prompt_file is None):
+        raise ValueError("Provide exactly one of prompt or prompt_file.")
+    if prompt_file is not None:
+        prompt = Path(prompt_file).read_text(encoding="utf-8")
+    if not isinstance(prompt, str) or not prompt.strip() or "\x00" in prompt:
+        raise ValueError("prompt must be nonempty text without NUL characters.")
+    if preset != "ours":
+        raise ValueError("The supported preset is 'ours'.")
+    canvases = {"768p": (1366, 768, 1376), "576p": (1024, 576, 1024)}
+    if resolution not in canvases:
+        raise ValueError("resolution must be '768p' or '576p'.")
+    if isinstance(duration, bool):
+        raise ValueError("duration must be a number of seconds.")
+    try:
+        seconds = Decimal(str(duration))
+        frames = seconds * 24
+        if not seconds.is_finite() or not Decimal(5) <= seconds <= Decimal(15):
+            raise ValueError("duration must be between 5 and 15 seconds.")
+        if abs(frames - frames.to_integral_value()) > Decimal("0.000001"):
+            raise ValueError("duration must correspond to a whole frame at 24 fps.")
+    except InvalidOperation as error:
+        raise ValueError("duration must be a finite number.") from error
+    if seed is None:
+        seed = secrets.randbits(32)
+    if type(seed) is not int or not 0 <= seed < 2**32:
+        raise ValueError("seed must be an integer from 0 to 4294967295.")
+    count = int(frames.to_integral_value())
+    width, height, model_width = canvases[resolution]
+    return GenerationRequest(prompt, preset, resolution, count / 24, seed,
+                             width, height, count, model_width, height,
+                             ((count - 5 + 16) // 17) * 17 + 5)
+
+
+def generate(prompt=None, *, prompt_file=None, preset="ours", resolution="768p",
+             duration=15, seed=None, output=None, model_dir=None, on_progress=None,
+             diagnostics=False, timeout=7200):
+    """Generate a complete MP4 and metadata; Ctrl-C cancels the whole worker group.
+
+    on_progress receives small dictionaries in the caller process. diagnostics
+    additionally saves numerical arrays for migration/algorithm research.
+    """
+    request = resolve(prompt, prompt_file=prompt_file, preset=preset,
+                      resolution=resolution, duration=duration, seed=seed)
+    from .process import run_generation
+
+    return run_generation(request, output=output, model_dir=model_dir,
+                          on_progress=on_progress, diagnostics=diagnostics,
+                          timeout=timeout)

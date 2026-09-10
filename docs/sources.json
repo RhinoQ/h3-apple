@@ -1,0 +1,199 @@
+{
+  "research_base_commit": "a42bb74",
+  "upstream": {
+    "repository": "https://github.com/hao-ai-lab/FastVideo",
+    "commit": "7bb76b5ec99807a66aa3047b901f15019abe0f00"
+  },
+  "files": [
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/minimax_h3.py",
+      "upstream_path": "fastvideo/mlx_runtime/minimax_h3.py",
+      "upstream_sha256": "f361caf7310df83aba9fe7c927b2114f37f28b7b80bddb0983bb751695f02c62",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/minimax_h3_vsa.py",
+      "upstream_path": "fastvideo/mlx_runtime/minimax_h3_vsa.py",
+      "upstream_sha256": "9787f144afa5237566a9afc66e8573e91b4264b96d1944d128d696d0b4f75420",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/minimax_h3_vsa_simd.py",
+      "upstream_path": "fastvideo/mlx_runtime/minimax_h3_vsa_simd.py",
+      "upstream_sha256": "fbfb31c4ae6f4393b81f22d245c53e4f6878bcf061c2897bc1120a4cf7c2aae4",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/minimax_h3_video_vae.py",
+      "upstream_path": "fastvideo/mlx_runtime/minimax_h3_video_vae.py",
+      "upstream_sha256": "0dcb8f0e7ae8b10de4e60cd5be06246542747334f3a8a121ec9f321413d4bbf4",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/minimax_h3_audio_vae.py",
+      "upstream_path": "fastvideo/mlx_runtime/minimax_h3_audio_vae.py",
+      "upstream_sha256": "02a41fb63cd6b44953f4bd5245c06ee448cab57e3deb3e99a1a83e1b0e783775",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/minimax_h3_conditioner.py",
+      "upstream_path": "fastvideo/mlx_runtime/minimax_h3_conditioner.py",
+      "upstream_sha256": "652f2b5352cf1d1aa63de25e8c40c7e910c970774917e0baa3dc6b1630e524dc",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/minimax_h3_pipeline.py",
+      "upstream_path": "fastvideo/mlx_runtime/minimax_h3_pipeline.py",
+      "upstream_sha256": "6aa4aa879e2a9a45e9ec349bcba98d6b2a8b6a70d531568c4401603e0d39c6d5",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/fastwan.py",
+      "upstream_path": "fastvideo/mlx_runtime/fastwan.py",
+      "upstream_sha256": "f8200e8e82c4f5eca3b922557a2ba94f7524dc4ee2372392678d65e7c2815afa",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/checkpoint_compat.py",
+      "upstream_path": "fastvideo/mlx_runtime/checkpoint_compat.py",
+      "upstream_sha256": "56300cfce0adbcf48677577444f0c8700ea07af9480d9ee7de97f54d488973a2",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/windowed_attention.py",
+      "upstream_path": "fastvideo/mlx_runtime/windowed_attention.py",
+      "upstream_sha256": "4c19250bc9f6cb95e6a5508d8dc855e5436918ae991ada916085402cd6eaa0b9",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/_vendor/fastvideo_mlx/frame_upsample.py",
+      "upstream_path": "fastvideo/mlx_runtime/frame_upsample.py",
+      "upstream_sha256": "029c44e15c03aea52b3b685fb391d748b332768726f9465486b769f0ba0c9d06",
+      "changes": [
+        "package import paths; see git history for explicit runtime integration"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p085_nax_header.metal",
+      "research_path": "python/tqlm_h3_apple/metal/p085_nax_header.metal",
+      "source_sha256": "65c6d0d4e47bf0133047ca7ffa8149026bed6aa488b1203326840778c5580ed1",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p085_nax_body.metal",
+      "research_path": "python/tqlm_h3_apple/metal/p085_nax_body.metal",
+      "source_sha256": "23d3a3f599f12f1c6993bf05d2b43c00bc2d8831c6d61e5c2b02a6394fc1a703",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p085_NOTICE.txt",
+      "research_path": "python/tqlm_h3_apple/metal/p085_NOTICE.txt",
+      "source_sha256": "4ee659e95980a3d1df105afdaf228e30277dde43d6ba35c50522c655fee7d507",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p085_mfa_LICENSE.txt",
+      "research_path": "python/tqlm_h3_apple/metal/p085_mfa_LICENSE.txt",
+      "source_sha256": "e60a41d3aada1d8ec9156d4a2ea564a3bb57d850c1665a88b6db105387c22a28",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p085_MLX_LICENSE.txt",
+      "research_path": "python/tqlm_h3_apple/metal/p085_MLX_LICENSE.txt",
+      "source_sha256": "ccfab7ccb2ea306f71531c8ca77bb55507606cd90768b1e32b8b52ab5b48cf01",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p085_DRAWTHINGS_LICENSE.txt",
+      "research_path": "python/tqlm_h3_apple/metal/p085_DRAWTHINGS_LICENSE.txt",
+      "source_sha256": "7da5d6826937079dd07dfe1f4fe925c0765546a8e5b75d480afe214aed1cebd2",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p087_h3c.metal",
+      "research_path": "python/tqlm_h3_apple/metal/p087_h3c.metal",
+      "source_sha256": "6821dcdb23a4c5a5bef8d25c023cc1e264283b9740df2834844ff6196eaae160",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/metal/p087_NOTICE.txt",
+      "research_path": "python/tqlm_h3_apple/metal/p087_NOTICE.txt",
+      "source_sha256": "a08b410aeb3c054f3a206c510157f4df6d3b20f285163cd6f50b9bceec20fe4c",
+      "changes": []
+    },
+    {
+      "destination": "src/h3_apple/runtime/sparse.py",
+      "research_path": "python/tqlm_h3_apple/fasth3_vsa_nax.py",
+      "source_sha256": "34d482624dcfc5603db42a16ab603a6d467123f788076d6b98fef47eaa48432a",
+      "changes": [
+        "public runtime extraction; integration recorded in git"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/swiglu.py",
+      "research_path": "python/tqlm_h3_apple/fasth3_swiglu_bounds.py",
+      "source_sha256": "0df4d09be019f7896f2d0abb3aaeec089746efdc7778d6153b33b6d16c79b7dd",
+      "changes": [
+        "public runtime extraction; integration recorded in git"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/vae.py",
+      "research_path": "python/tqlm_h3_apple/fasth3_vae_w8a8.py",
+      "source_sha256": "4cb841f744f509e32a23214158fe9831fb346a3c2cc77d0a62b727fe8bf9716f",
+      "changes": [
+        "extract only adopted VAE arithmetic and necessary primitives"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/quantization.py",
+      "research_path": "python/tqlm_h3_apple/fasth3_ffn_w8a8.py",
+      "source_sha256": "bd0c7ed56cbb88fb79a027031f99e0096ee49b93151da2c422a60deaeaf598ab",
+      "changes": [
+        "extract only adopted VAE arithmetic and necessary primitives"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/quantization.py",
+      "research_path": "python/tqlm_h3_apple/fasth3_memory_fusion.py",
+      "source_sha256": "fb89c53cd7165faf6561296ad68ff05402076be6aec4f3fbcc5c04e4e9abd06e",
+      "changes": [
+        "extract only adopted VAE arithmetic and necessary primitives"
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/quantization.py",
+      "research_path": "python/tqlm_h3_apple/fasth3_vae_static.py",
+      "source_sha256": "8c77215f3cefe39d67ace4d3480709720dd30be8e4adfafbc6514ac202bf15ec",
+      "changes": [
+        "extract only adopted VAE arithmetic and necessary primitives"
+      ]
+    }
+  ],
+  "calibration": {
+    "path": "src/h3_apple/data/vae-calibration.npz",
+    "sha256": "747aa0d979c5608d4b9801c712a7f1e567d44395e9aaa85909d1de892cd8d68d",
+    "source": "P090 fixed calibration retained by adopted P091 VAE; generated channel maxima, not model weights",
+    "bytes": 1493982
+  }
+}

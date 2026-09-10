@@ -1,0 +1,140 @@
+"""Own output reservations and the complete lifetime of an isolated worker."""
+
+from datetime import datetime, timezone
+import json
+import math
+import os
+from pathlib import Path
+import queue
+import shutil
+import signal
+import subprocess
+import sys
+import tempfile
+import threading
+import time
+import uuid
+
+from .api import GenerationResult
+from .assets import load_assets
+from .io import write_json
+
+
+def _stop(process):
+    if process.poll() is None:
+        os.killpg(process.pid, signal.SIGTERM)
+        try:
+            process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            os.killpg(process.pid, signal.SIGKILL)
+            process.wait(timeout=10)
+
+
+def run_generation(request, *, output=None, model_dir=None, on_progress=None,
+                   diagnostics=False, timeout=7200):
+    if isinstance(timeout, bool) or not math.isfinite(timeout) or timeout <= 0:
+        raise ValueError("timeout must be a positive finite number of seconds.")
+    if type(diagnostics) is not bool:
+        raise ValueError("diagnostics must be a boolean.")
+    assets = load_assets(model_dir)
+    if output is None:
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+        directory = Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}"
+        directory.mkdir(parents=True, exist_ok=False)
+        video = directory / "output.mp4"
+        metadata = directory / "run.json"
+    else:
+        video = Path(output).expanduser().absolute()
+        if video.suffix.lower() != ".mp4":
+            raise ValueError("output must be an .mp4 path.")
+        video.parent.mkdir(parents=True, exist_ok=True)
+        metadata = video.with_suffix(".run.json")
+    if os.path.lexists(video):
+        raise FileExistsError(f"Output already exists: {video}")
+    started = time.monotonic()
+    run = dict(status="starting", request=request.to_dict(), seed=request.seed,
+               started_utc=datetime.now(timezone.utc).isoformat(),
+               model_identity=assets["identity"], video_path=str(video),
+               diagnostics_enabled=diagnostics)
+    with metadata.open("x") as stream:
+        json.dump(run, stream, ensure_ascii=False)
+        stream.write("\n")
+    workspace = Path(tempfile.mkdtemp(prefix=".h3-", dir=video.parent))
+    run["workspace"] = str(workspace)
+    process = None
+    worker_result = None
+    try:
+        environment = dict(os.environ, MLX_ENABLE_TF32="0", FASTVIDEO_MLX_DQ_GEMM="1",
+                           HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1",
+                           TOKENIZERS_PARALLELISM="false")
+        environment["PATH"] = str(Path(sys.executable).parent) + os.pathsep + environment.get("PATH", "")
+        with (workspace / "worker.log").open("w") as log:
+            process = subprocess.Popen([sys.executable, "-m", "h3_apple.worker"],
+                                       stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                       stderr=log, text=True, env=environment,
+                                       start_new_session=True)
+            spec = dict(request=request.to_dict(), assets=assets, workspace=str(workspace),
+                        diagnostics=diagnostics)
+            process.stdin.write(json.dumps(spec) + "\n")
+            process.stdin.close()
+            run.update(status="running", worker_pid=process.pid)
+            write_json(metadata, run)
+            events = queue.Queue()
+
+            def read_stdout():
+                for line in process.stdout:
+                    events.put(line)
+                events.put(None)
+
+            reader = threading.Thread(target=read_stdout, daemon=True)
+            reader.start()
+            while True:
+                if time.monotonic() - started > timeout:
+                    raise TimeoutError(f"Generation exceeded {timeout} seconds.")
+                try:
+                    line = events.get(timeout=0.2)
+                except queue.Empty:
+                    continue
+                if line is None:
+                    break
+                try:
+                    event = json.loads(line)
+                except json.JSONDecodeError:
+                    log.write(line)
+                    log.flush()
+                    continue
+                if isinstance(event, dict) and event.get("kind") == "result":
+                    worker_result = event["result"]
+                elif isinstance(event, dict) and event.get("kind") == "error":
+                    run["worker_error"] = event["error"]
+                elif isinstance(event, dict) and on_progress is not None:
+                    on_progress(event)
+            process.wait(timeout=max(0.1, timeout - (time.monotonic() - started)))
+            reader.join(timeout=1)
+        if process.returncode != 0 or worker_result is None:
+            reason = run.get("worker_error", f"worker exited {process.returncode}")
+            raise RuntimeError(f"{reason}. Log: {workspace / 'worker.log'}")
+        # Atomic, no-clobber publication of this worker's validated output.
+        os.link(workspace / "output.mp4", video)
+        elapsed = time.monotonic() - started
+        run.update(worker_result, status="complete", elapsed_seconds=elapsed)
+        if diagnostics:
+            run["diagnostics_path"] = str(workspace / "diagnostics")
+        else:
+            run.pop("workspace", None)
+        write_json(metadata, run)
+        if not diagnostics:
+            shutil.rmtree(workspace)
+        return GenerationResult(video.resolve(), metadata.resolve(), elapsed, request.seed)
+    except BaseException as error:
+        if process is not None:
+            _stop(process)
+        run.update(status="cancelled" if isinstance(error, KeyboardInterrupt) else "failed",
+                   error=str(error) or type(error).__name__, elapsed_seconds=time.monotonic() - started)
+        write_json(metadata, run)
+        raise
+    finally:
+        if process is not None:
+            _stop(process)
+            if process.stdout is not None:
+                process.stdout.close()
