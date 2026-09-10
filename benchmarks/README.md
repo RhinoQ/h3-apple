@@ -9,6 +9,8 @@
 
 已完成的首轮新原生比较见 [native-three-02 结果](results/native-three-02/README.md)：
 六次尝试、四条完整声画视频、两次官方入口规格拒绝；人工质量接受仍待完成。
+对齐修复后的[官方两条补测](results/fastvideo-frame-limit-01/README.md)也已结束：
+原片已生成，但两次均在交付时长校验处失败，且发现后段坏图，无成功交付成绩。
 
 ## 使用
 
@@ -61,7 +63,8 @@ FastVideo 使用其 `examples/inference/basic/mlx_fasth3.py`，启用 VSA，关�
 
 现已提供独立的小补丁，按 H3 时间网格检查上下界，32 项回归和两个真实 CLI 入口
 检查通过。按 [补丁说明](patches/README.md) 应用、安装，再填写 `local.example.json`
-里的实际新 commit 与运行文件 SHA；新运行显式保留补丁身份。尚无补丁后的完整耗时。
+里的实际新 commit 与运行文件 SHA；新运行显式保留补丁身份。补测结果见上方链接，
+入口通过不代表完整成片可用。
 
 vpipe 固定使用官方 `docs/pipelines/minimax-h3-vdn.vpipeline`。脚本只替换文本、seed、1376×768 / 362 帧、输出路径和本地模型键；步骤、VDN 分支、Turbo adapter、shift、量化等保持模板配置。配置中的六步不等同于实际 NFE，不能从名称推测。VDN 是首版事前选择的官方方案，不代表所有 vpipe 配方的最优成绩。
 

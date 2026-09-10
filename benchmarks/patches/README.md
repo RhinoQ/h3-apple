@@ -41,5 +41,7 @@ git -C /path/to/FastVideo commit -m "Fix H3 aligned duration limits"
 没有发布新 MP4。这证明入口接受目标几何，不是完整生成或性能验收。
 
 [native-three-02](../results/native-three-02/README.md) 的两次原始失败保持不变。
-补丁尚未产生新的完整 FastH3 成片或耗时；重测必须使用新目录及带补丁的标签。
+后续[两条完整补测](../results/fastvideo-frame-limit-01/README.md)已生成原片，但交付
+时长校验失败，且后段存在坏图；没有新增成功交付耗时。入口修复的有效性与完整生成
+结果分别记录，后续重测仍须使用新目录及带补丁的标签。
 Ours 的日常运行核心没有因这项修复而改变。

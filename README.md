@@ -40,19 +40,19 @@ print(result.elapsed_seconds)
 
 ## 效果与等待时间
 
-M5 Max / 128 GiB，一条原生 768p、15 秒完整声画视频，本轮各输入运行一次：
+M5 Max / 128 GiB，原生 768p、15 秒完整声画视频。以下为固定公共输入的单次观察：
 
 | 入口 | motion graphics | bakery |
 | --- | ---: | ---: |
 | FastH3 / Ours | 36 分 47 秒 | 33 分 18 秒 |
-| 官方 FastH3 / VSA | 入口拒绝规格 | 入口拒绝规格 |
+| 官方 FastH3 / VSA + 对齐修复 | 失败，后段坏图 | 失败，后段坏图 |
 | vpipe / VDN | 41 分 15 秒 | 39 分 30 秒 |
 
 计时包含新进程启动、模型加载、生成、封装与完整声画检查。
-官方 FastVideo 在 362 帧对齐检查处拒绝 15 秒目标，失败没有可比较的完成耗时。
-该入口检查现已[修复并验证](benchmarks/patches/README.md)；本表保留修复前的实测，
-未新增补丁后 FastH3 的完整生成耗时。
-[精确结果、版本与边界](benchmarks/results/native-three-02/README.md) ·
+Ours / vpipe 来自 [native-three-02](benchmarks/results/native-three-02/README.md)。
+官方入口检查已修复，两条[完整补测](benchmarks/results/fastvideo-frame-limit-01/README.md)
+均生成原片，但时长校验失败，且后段出现画面损坏；没有可比较的成功交付耗时。
+两轮的固定版本、配方和证据分别记录，不构成同一轮重复测速。
 [两条可播放示例](examples/README.md)
 
 [![Motion graphics 实际生成预览](examples/previews/motion-graphics-ours.jpg)](examples/previews/motion-graphics-ours.mp4)
