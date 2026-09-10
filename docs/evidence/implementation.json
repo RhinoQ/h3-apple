@@ -1,0 +1,2316 @@
+{
+  "schema_version": 1,
+  "hardware": {
+    "chip": "Apple M5 Max",
+    "memory_gib": 128,
+    "macos": "26.6.1"
+  },
+  "test_suite": {
+    "passed": 63,
+    "failed": 0,
+    "skipped": 0,
+    "local_evidence": ".local/validation/product-unit-06.xml",
+    "original_sha256": "25e0d678b8bca26e683711012e28c03bcfcd866159ee61432e77c965d6198402",
+    "tests": [
+      "tests.test_api::test_resolved_delivery_and_native_geometry[768p-15-expected0]",
+      "tests.test_api::test_resolved_delivery_and_native_geometry[576p-5-expected1]",
+      "tests.test_api::test_resolved_delivery_and_native_geometry[768p-10-expected2]",
+      "tests.test_api::test_prompt_file_is_preserved",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs0]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs1]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs2]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs3]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs4]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs5]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs6]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs7]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs8]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs9]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs10]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs11]",
+      "tests.test_api::test_invalid_request_rejected_before_runtime[kwargs12]",
+      "tests.test_api::test_empty_and_invalid_prompt[None]",
+      "tests.test_api::test_empty_and_invalid_prompt[]",
+      "tests.test_api::test_empty_and_invalid_prompt[  \\n]",
+      "tests.test_api::test_empty_and_invalid_prompt[bad\\x00text]",
+      "tests.test_api::test_installed_api_does_not_import_mlx",
+      "tests.test_api::test_cli_installed_outside_checkout",
+      "tests.test_assets::test_import_survives_removal_of_source_names",
+      "tests.test_assets::test_changed_asset_rejected",
+      "tests.test_assets::test_hash_verify_detects_unchanged_size_and_time",
+      "tests.test_assets::test_existing_bundle_not_overwritten",
+      "tests.test_assets::test_manifest_directory_escape_rejected",
+      "tests.test_assets::test_manifest_content_identity_rejected[file]",
+      "tests.test_assets::test_manifest_content_identity_rejected[derivation]",
+      "tests.test_assets::test_existing_v1_bundle_remains_readable",
+      "tests.test_assets::test_failed_import_does_not_publish_partial_bundle",
+      "tests.test_compare::test_receipt_identity_and_asset_mutation",
+      "tests.test_compare::test_vpipe_preserves_official_recipe",
+      "tests.test_compare::test_public_prompt_hash_is_checked",
+      "tests.test_compare::test_command_substitution_is_not_a_shell",
+      "tests.test_compare::test_native_crop_and_trim_keeps_delivery_specification",
+      "tests.test_compare::test_real_timeout_and_failure_evidence",
+      "tests.test_compare::test_report_does_not_rank_failed_time",
+      "tests.test_compare::test_child_media_tools_work_without_conda_activation",
+      "tests.test_conversion::test_native_qkv_is_interleaved_per_head",
+      "tests.test_conversion::test_native_swiglu_gate_half_moves_after_value_half",
+      "tests.test_conversion::test_lora_merge_and_consumption_have_known_numeric_result",
+      "tests.test_conversion::test_header_inspection_requires_no_gpu",
+      "tests.test_media::test_complete_audio_video_validation",
+      "tests.test_media::test_mismatched_frames_rejected",
+      "tests.test_media::test_truncated_file_rejected",
+      "tests.test_observer::test_disabled_diagnostics_never_build_arrays",
+      "tests.test_preparation::test_local_reuse_deduplicates_content_and_survives_source_removal",
+      "tests.test_preparation::test_mismatched_cached_source_fails_before_download",
+      "tests.test_preparation::test_local_source_change_after_plan_is_rejected",
+      "tests.test_preparation::test_large_download_requires_explicit_confirmation",
+      "tests.test_preparation::test_verified_resumable_download[0]",
+      "tests.test_preparation::test_verified_resumable_download[73]",
+      "tests.test_preparation::test_server_cannot_silently_increase_resume_budget",
+      "tests.test_preparation::test_download_rejects_wrong_hash_and_retains_failure",
+      "tests.test_preparation::test_download_rejects_oversized_response",
+      "tests.test_preparation::test_plan_counts_only_missing_range",
+      "tests.test_preparation::test_import_source_options_require_complete_pair",
+      "tests.test_process::test_device_lock_is_shared_across_processes",
+      "tests.test_process::test_no_clobber_before_worker_launch",
+      "tests.test_process::test_worker_failure_preserves_evidence",
+      "tests.test_process::test_timeout_reaps_the_worker"
+    ]
+  },
+  "checks": {
+    "independent_free_prompt_generation": {
+      "local_evidence": ".local/validation/smoke-01/boat.run.json",
+      "original_sha256": "f0cc8eb16211fdb97d8fed2f467d2f44bbbffe0206f4444e62edea83a069b222",
+      "result": {
+        "status": "complete",
+        "request": {
+          "prompt": "One continuous shot of a small red paper boat drifting slowly across a quiet pond. Gentle ripples reflect the morning light. Natural water sounds and distant birds. No cuts, no music, no text.",
+          "preset": "ours",
+          "resolution": "576p",
+          "duration": 5.0,
+          "seed": 123,
+          "width": 1024,
+          "height": 576,
+          "num_frames": 120,
+          "model_width": 1024,
+          "model_height": 576,
+          "model_num_frames": 124,
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4
+        },
+        "seed": 123,
+        "started_utc": "2026-09-10T00:37:24.715381+00:00",
+        "model_identity": "a117c2a9ce905a6d0f3569673a43233a42eb4a579d2264b5641196be738746a1",
+        "video_path": "$PRODUCT/.local/validation/smoke-01/boat.mp4",
+        "diagnostics_enabled": false,
+        "timings_seconds": {
+          "conditioning": 11.66159641603008,
+          "denoise": 172.88209470920265,
+          "video_decode": 44.83627412514761,
+          "audio_decode": 0.43860666709952056,
+          "mux": 0.8186859169509262
+        },
+        "peak_memory_gib": {
+          "conditioning": 2.0614328775554895,
+          "denoise": 28.353741938248277,
+          "video_decode": 14.048227690160275,
+          "audio_decode": 2.56012175232172,
+          "mux": 0.0
+        },
+        "actual_nfe": 4,
+        "video_tiles": 105,
+        "vsa": {
+          "enabled": true,
+          "configured_sparsity": 0.9,
+          "layer_sparsity": 0.9,
+          "achieved_sparsity": 0.9,
+          "tile_size": 64,
+          "prefix_mode": "exempt",
+          "impl": "simd",
+          "num_prefix_tiles": 8,
+          "num_video_tiles": 400,
+          "video_keep": 40.0,
+          "dense_fallback_reason": null,
+          "attention_calls": 200,
+          "sparse_calls": 200,
+          "impl_counts": {
+            "simd": 200
+          },
+          "fallback_reasons": [],
+          "checkpoint_vsa_capable": true
+        },
+        "sparse_implementation": "direct_nax",
+        "diagnostic_export_seconds": 0.0,
+        "audio_rms": 0.01773609709912643,
+        "video_std": 67.21898576447404,
+        "backend": {
+          "device": {
+            "device_name": "Apple M5 Max",
+            "max_recommended_working_set_size": 115448725504,
+            "memory_size": 137438953472,
+            "architecture": "applegpu_g17s",
+            "max_buffer_length": 86586540032,
+            "resource_limit": 499000
+          },
+          "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+          "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+          "versions": {
+            "mlx": "0.32.0",
+            "mlx-metal": "0.32.0",
+            "numpy": "2.4.6",
+            "transformers": "5.14.1"
+          }
+        },
+        "initial_host": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "nominal",
+            "low_power_mode": false
+          }
+        },
+        "final_host": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "fair",
+            "low_power_mode": false
+          }
+        },
+        "resource_samples": [
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          },
+          {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 723517,
+            "thermal": {
+              "state": "fair",
+              "low_power_mode": false
+            }
+          }
+        ],
+        "media": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "High",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.64001f",
+              "width": 1024,
+              "height": 576,
+              "coded_width": 1024,
+              "coded_height": 576,
+              "has_b_frames": 2,
+              "pix_fmt": "yuv420p",
+              "level": 31,
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "refs": 4,
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "24/1",
+              "avg_frame_rate": "24/1",
+              "time_base": "1/12288",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 61440,
+              "duration": "5.000000",
+              "bit_rate": "6583976",
+              "bits_per_raw_sample": "8",
+              "nb_frames": "120",
+              "nb_read_frames": "120",
+              "extradata_size": 46,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "Lavc62.28.102 libx264"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "32000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/32000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 160000,
+              "duration": "5.000000",
+              "bit_rate": "175503",
+              "nb_frames": "158",
+              "nb_read_frames": "157",
+              "extradata_size": 5,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "$PRODUCT/.local/validation/smoke-01/.h3-d9jv1jju/output.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "5.000000",
+            "size": "4230701",
+            "bit_rate": "6769121",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf62.12.102"
+            }
+          }
+        },
+        "video_sha256": "3d55ed6dd661b9fae129562f6c81f56914aecfc5ac90593873ce1c61bc8ff527",
+        "package_source_sha256": "ccc87b45c43c2990e743811622bd752748c797e222e24e9593ef173ee078cb25",
+        "elapsed_seconds": 232.02486500004306
+      },
+      "plan": {
+        "purpose": "First independent free-prompt complete-AV smoke, not a performance or quality adoption claim",
+        "baseline": "P091 adopted components with bounded native SwiGLU; numerical parity is a separate required check",
+        "input": {
+          "prompt": "One continuous shot of a small red paper boat drifting slowly across a quiet pond. Gentle ripples reflect the morning light. Natural water sounds and distant birds. No cuts, no music, no text.",
+          "seed": 123,
+          "resolution": "576p",
+          "duration": 5
+        },
+        "requirements": [
+          "fresh installed Conda package outside either source checkout",
+          "complete requested video and stereo audio",
+          "4 complete VSA forwards without fallback",
+          "all native VAE tiles and finite latents/pixels/audio",
+          "common full-media decode and delivery geometry validation"
+        ],
+        "stops": {
+          "wall_seconds": 1800,
+          "peak_mlx_gib": 80,
+          "swap_growth_gib": 2,
+          "minimum_free_disk_gib": 20
+        },
+        "installed_package_source_sha256": "ccc87b45c43c2990e743811622bd752748c797e222e24e9593ef173ee078cb25",
+        "initial_host": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "nominal",
+            "low_power_mode": false
+          }
+        },
+        "created_utc": "2026-09-10T00:37:24.641432+00:00",
+        "frozen_package": "Do not reinstall this environment while the worker runs."
+      },
+      "original_plan_sha256": "1f2cf0e1d257b78bb261837f36124da74795d9bad284c2592bc4917d6a992164"
+    },
+    "complete_576p_migration": {
+      "local_evidence": ".local/validation/migration-bakery-01/comparison.json",
+      "original_sha256": "26b2eabd5292484c04e390661c85d1a75c7186e663013148ec22fa5a8be84e83",
+      "result": {
+        "status": "exact",
+        "plan_sha256": "f0ba122fa23fee3b96222cd4cc14bdc5beb22099fd8794ceeeb08a27164f743b",
+        "candidate_run_sha256": "ecd9e6feef115a303838ebf4aeec9b0ed5651df1027b1643dbff85486d2c363d",
+        "arrays": {
+          "conditioning/text": {
+            "reference_shape": [
+              105,
+              5120
+            ],
+            "candidate_shape": [
+              105,
+              5120
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "4aeb519456ab583e0f43fe24323eeb825cfda077b7153ea794645c703453b309",
+            "candidate_data_sha256": "4aeb519456ab583e0f43fe24323eeb825cfda077b7153ea794645c703453b309",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "conditioning/tags": {
+            "reference_shape": [
+              105
+            ],
+            "candidate_shape": [
+              105
+            ],
+            "reference_dtype": "int64",
+            "candidate_dtype": "int64",
+            "reference_data_sha256": "fe0edfbf295d288b3fdc1438ce01755abdf4c20ed91a4edcf1a1e0158c3175e6",
+            "candidate_data_sha256": "fe0edfbf295d288b3fdc1438ce01755abdf4c20ed91a4edcf1a1e0158c3175e6",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "initial-inputs/video": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "1679a7dbc74439f6020f53b0a7f334622941915ce51e131bfeffeb7b9b658c22",
+            "candidate_data_sha256": "1679a7dbc74439f6020f53b0a7f334622941915ce51e131bfeffeb7b9b658c22",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "initial-inputs/audio": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "5f483bc75f0d2d5baf788878f095cd8f742c4739450ae1fea25b8e287e893975",
+            "candidate_data_sha256": "5f483bc75f0d2d5baf788878f095cd8f742c4739450ae1fea25b8e287e893975",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "initial-inputs/text": {
+            "reference_shape": [
+              105,
+              5120
+            ],
+            "candidate_shape": [
+              105,
+              5120
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "4aeb519456ab583e0f43fe24323eeb825cfda077b7153ea794645c703453b309",
+            "candidate_data_sha256": "4aeb519456ab583e0f43fe24323eeb825cfda077b7153ea794645c703453b309",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-0/video_state": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "1679a7dbc74439f6020f53b0a7f334622941915ce51e131bfeffeb7b9b658c22",
+            "candidate_data_sha256": "1679a7dbc74439f6020f53b0a7f334622941915ce51e131bfeffeb7b9b658c22",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-0/audio_state": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "5f483bc75f0d2d5baf788878f095cd8f742c4739450ae1fea25b8e287e893975",
+            "candidate_data_sha256": "5f483bc75f0d2d5baf788878f095cd8f742c4739450ae1fea25b8e287e893975",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-0/video_velocity": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "87aa8caf9a2270d9ccbeb82ad3bf05ee516e051bc513079630e770cde6fc5f50",
+            "candidate_data_sha256": "87aa8caf9a2270d9ccbeb82ad3bf05ee516e051bc513079630e770cde6fc5f50",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-0/audio_velocity": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "6fc6472ed94b3b0ed662e5fc230837a5e42e43745c907844a6911c4ea000a9b6",
+            "candidate_data_sha256": "6fc6472ed94b3b0ed662e5fc230837a5e42e43745c907844a6911c4ea000a9b6",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-1/video_state": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "c55b6165a4d6afca84e80b81ba64cfa5ee2153e449cc2e42e994309f23bb07cf",
+            "candidate_data_sha256": "c55b6165a4d6afca84e80b81ba64cfa5ee2153e449cc2e42e994309f23bb07cf",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-1/audio_state": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "f746eca015ce3a504eb68aaca997d45bcec159c5f3d37a5876d75259d2caeeef",
+            "candidate_data_sha256": "f746eca015ce3a504eb68aaca997d45bcec159c5f3d37a5876d75259d2caeeef",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-1/video_velocity": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "b77c28c46554dff5ced35b655e777cf94bfaba709257422f2e21f00d49b71414",
+            "candidate_data_sha256": "b77c28c46554dff5ced35b655e777cf94bfaba709257422f2e21f00d49b71414",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-1/audio_velocity": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "e3d9a169531b57a9aa6960faf0fecbedd0418930a199d2e686d372429abe1171",
+            "candidate_data_sha256": "e3d9a169531b57a9aa6960faf0fecbedd0418930a199d2e686d372429abe1171",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-2/video_state": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "f7e406dcb4d904f1ea0eb9dd0b66ee251ebaa47b9edd7c8b54233696072add8e",
+            "candidate_data_sha256": "f7e406dcb4d904f1ea0eb9dd0b66ee251ebaa47b9edd7c8b54233696072add8e",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-2/audio_state": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "5f4cbaad34e58557cacbe97fd77d6abfb10fa0f76add910367e054b6588c36ad",
+            "candidate_data_sha256": "5f4cbaad34e58557cacbe97fd77d6abfb10fa0f76add910367e054b6588c36ad",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-2/video_velocity": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "34acfddaaf1f72dd9b9d90925c377b9ae1bf63419c7a52f6bdb35c6a1bfef287",
+            "candidate_data_sha256": "34acfddaaf1f72dd9b9d90925c377b9ae1bf63419c7a52f6bdb35c6a1bfef287",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-2/audio_velocity": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "13c372051364c9ae7c1ce2f2e6f7d7d50214079076fb86ad6ed6ae84eb753460",
+            "candidate_data_sha256": "13c372051364c9ae7c1ce2f2e6f7d7d50214079076fb86ad6ed6ae84eb753460",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-3/video_state": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "4b0b65b01c3e805e1aada94bcde47220354cd4a8620f9c5f6b58836f421dd825",
+            "candidate_data_sha256": "4b0b65b01c3e805e1aada94bcde47220354cd4a8620f9c5f6b58836f421dd825",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-3/audio_state": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "09eb1d8de590a54f88b66e04b856a724bfa94a5820e6f67ddb9d0be804a9e8ce",
+            "candidate_data_sha256": "09eb1d8de590a54f88b66e04b856a724bfa94a5820e6f67ddb9d0be804a9e8ce",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-3/video_velocity": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "d686f2ba7c8eafd6d57d046e38e2a6e05812133592a5dff291039631ce7404dc",
+            "candidate_data_sha256": "d686f2ba7c8eafd6d57d046e38e2a6e05812133592a5dff291039631ce7404dc",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "step-3/audio_velocity": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "67ba677bf90b3a0c2a37d860e7f4161603158530263c02c631783b695bd230ad",
+            "candidate_data_sha256": "67ba677bf90b3a0c2a37d860e7f4161603158530263c02c631783b695bd230ad",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "latents/video": {
+            "reference_shape": [
+              61632,
+              96
+            ],
+            "candidate_shape": [
+              61632,
+              96
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "16d2bb5306d4490eef63ea991fae87fadf348a521b3bc217c92a3e0919a381c2",
+            "candidate_data_sha256": "16d2bb5306d4490eef63ea991fae87fadf348a521b3bc217c92a3e0919a381c2",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "latents/audio": {
+            "reference_shape": [
+              1206,
+              32
+            ],
+            "candidate_shape": [
+              1206,
+              32
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "5fffd8f181fcc90551acc4f1a49e5017add220ff824ddf936e6bda212b7eafe8",
+            "candidate_data_sha256": "5fffd8f181fcc90551acc4f1a49e5017add220ff824ddf936e6bda212b7eafe8",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "video-preclamp/pixels": {
+            "reference_shape": [
+              1,
+              3,
+              362,
+              576,
+              1024
+            ],
+            "candidate_shape": [
+              1,
+              3,
+              362,
+              576,
+              1024
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "06fc11319379ab52dad61625a287f9f3cb8790333593d70316d7ffa2e9492bd5",
+            "candidate_data_sha256": "06fc11319379ab52dad61625a287f9f3cb8790333593d70316d7ffa2e9492bd5",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "audio/waveform": {
+            "reference_shape": [
+              2,
+              482667
+            ],
+            "candidate_shape": [
+              2,
+              482667
+            ],
+            "reference_dtype": "float32",
+            "candidate_dtype": "float32",
+            "reference_data_sha256": "353b2bcc27b9cf30d25033e66fcf671699b5a23ae77abc045ab12dae3ff57515",
+            "candidate_data_sha256": "353b2bcc27b9cf30d25033e66fcf671699b5a23ae77abc045ab12dae3ff57515",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          }
+        },
+        "media": {
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+              "profile": "High",
+              "codec_type": "video",
+              "codec_tag_string": "avc1",
+              "codec_tag": "0x31637661",
+              "mime_codec_string": "avc1.64001f",
+              "width": 1024,
+              "height": 576,
+              "coded_width": 1024,
+              "coded_height": 576,
+              "has_b_frames": 2,
+              "pix_fmt": "yuv420p",
+              "level": 31,
+              "chroma_location": "left",
+              "field_order": "progressive",
+              "refs": 4,
+              "is_avc": "true",
+              "nal_length_size": "4",
+              "id": "0x1",
+              "r_frame_rate": "24/1",
+              "avg_frame_rate": "24/1",
+              "time_base": "1/12288",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 184320,
+              "duration": "15.000000",
+              "bit_rate": "4090624",
+              "bits_per_raw_sample": "8",
+              "nb_frames": "360",
+              "nb_read_frames": "360",
+              "extradata_size": 46,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "language": "und",
+                "handler_name": "VideoHandler",
+                "encoder": "Lavc62.28.102 libx264"
+              }
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_long_name": "AAC (Advanced Audio Coding)",
+              "profile": "LC",
+              "codec_type": "audio",
+              "codec_tag_string": "mp4a",
+              "codec_tag": "0x6134706d",
+              "mime_codec_string": "mp4a.40.2",
+              "sample_fmt": "fltp",
+              "sample_rate": "32000",
+              "channels": 2,
+              "channel_layout": "stereo",
+              "bits_per_sample": 0,
+              "initial_padding": 0,
+              "id": "0x2",
+              "r_frame_rate": "0/0",
+              "avg_frame_rate": "0/0",
+              "time_base": "1/32000",
+              "start_pts": 0,
+              "start_time": "0.000000",
+              "duration_ts": 480000,
+              "duration": "15.000000",
+              "bit_rate": "173180",
+              "nb_frames": "470",
+              "nb_read_frames": "469",
+              "extradata_size": 5,
+              "disposition": {
+                "default": 1,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0,
+                "multilayer": 0
+              },
+              "tags": {
+                "language": "und",
+                "handler_name": "SoundHandler"
+              }
+            }
+          ],
+          "format": {
+            "filename": "$PRODUCT/.local/validation/migration-bakery-01/bakery.mp4",
+            "nb_streams": 2,
+            "nb_programs": 0,
+            "nb_stream_groups": 0,
+            "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+            "format_long_name": "QuickTime / MOV",
+            "start_time": "0.000000",
+            "duration": "15.000000",
+            "size": "8008431",
+            "bit_rate": "4271163",
+            "probe_score": 100,
+            "tags": {
+              "major_brand": "isom",
+              "minor_version": "512",
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf62.12.102"
+            }
+          }
+        },
+        "boundary": "Complete raw tensor parity for this fixed known input; MP4 encoding identity, unseen quality and speed improvement are separate claims."
+      },
+      "plan": {
+        "question": "Does the independently installed product preserve adopted P091 complete-generation numerical results?",
+        "reference": "$RESEARCH/.local/experiments/p091-execution-20260906-01/processes/bakery-regression-F-01/output",
+        "reference_files": {
+          "contract.json": {
+            "sha256": "7b1c6a3dd82009564626de1303045b87d5209b485f53330f9487d0f9af64c67c",
+            "size": 2111,
+            "mtime_ns": 1788741129796691559
+          },
+          "p091-runtime.json": {
+            "sha256": "69a817a69b6dc6854c87d50b8512e7a20f58d0a66fe331d672bae1688cafb504",
+            "size": 10399,
+            "mtime_ns": 1788742047475692056
+          },
+          "conditioning.npz": {
+            "sha256": "7cf6ff3d2c74b95ffee73ec931982ddc3cad718737182908a461519933bd5f04",
+            "size": 2151742,
+            "mtime_ns": 1788742046141567442
+          },
+          "initial-inputs.npz": {
+            "sha256": "22651087e0f554f69dd0a481d7cf396353242235aeaced838c1f35ccea5b8d18",
+            "size": 25972202,
+            "mtime_ns": 1788742046151219149
+          },
+          "step-0.npz": {
+            "sha256": "0a9c16e72f7c6b59d3d4840a9c5dcc741ed81a26b09ce6e4e77243f639f70ace",
+            "size": 47643162,
+            "mtime_ns": 1788742046182475060
+          },
+          "step-1.npz": {
+            "sha256": "f2d372ecd11f88d7728d74251b5853e68b726d9bb68a851345d3cb43184d6ddf",
+            "size": 47643162,
+            "mtime_ns": 1788742046225173970
+          },
+          "step-2.npz": {
+            "sha256": "785b6dbfb1494c8b425f30557d7b20e9d66d95145dc9044f21a78b40a3c541d0",
+            "size": 47643162,
+            "mtime_ns": 1788742046266580463
+          },
+          "step-3.npz": {
+            "sha256": "803c432efb7572619850fb14e6101bc9d0a747a3b25c3edabebab079a96f10f1",
+            "size": 47643162,
+            "mtime_ns": 1788742046308116082
+          },
+          "latents.npz": {
+            "sha256": "7a08f3108cf7a48ffaac35c00bd470ed6a7752363b874314ba7f4b81d5747697",
+            "size": 23821562,
+            "mtime_ns": 1788742046338649702
+          },
+          "video-preclamp.npy": {
+            "sha256": "a28e79b10cc8feafcb96c5bd863271e5f397ca53f9a3158c11708b6f6fccebec",
+            "size": 2562195584,
+            "mtime_ns": 1788742046566400331
+          },
+          "audio.npy": {
+            "sha256": "1f4635720ac04e13e30ed0554704c653dff883e1586d1ff675588e487c0bc5cc",
+            "size": 3861464,
+            "mtime_ns": 1788742047473032140
+          }
+        },
+        "product_commit": "42d0317",
+        "installed_package_source_sha256": "ccc87b45c43c2990e743811622bd752748c797e222e24e9593ef173ee078cb25",
+        "sole_variable": "Runtime extraction and explicit orchestration; same adopted DiT and VideoVAE arithmetic, prompt, seed, assets, geometry and schedule.",
+        "data_split": "Known bakery regression, not held-out validation or tuning.",
+        "request": {
+          "prompt_file": "$PRODUCT/benchmarks/prompts/bakery.txt",
+          "seed": 87001,
+          "resolution": "576p",
+          "duration": 15
+        },
+        "required_evidence": [
+          "conditioner",
+          "initial noise",
+          "all four video/audio states and velocities",
+          "final video/audio latents",
+          "full pre-clamp video pixels",
+          "raw stereo waveform",
+          "complete delivery media"
+        ],
+        "pass_condition": "Exact tensor bytes and dtype/shape for every matched array; full finite AV and media delivery checks. Encoded MP4 bytes are not compared because trim/crop now precede a single mux.",
+        "stop": "Any numerical mismatch prevents parity adoption. Resource safeguards and 3600 second deadline apply. No performance claim from diagnostic export.",
+        "initial_host": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "nominal",
+            "low_power_mode": false
+          }
+        }
+      },
+      "original_plan_sha256": "f0ba122fa23fee3b96222cd4cc14bdc5beb22099fd8794ceeeb08a27164f743b"
+    },
+    "native_model_preparation": {
+      "local_evidence": ".local/validation/preparation-native-03/comparison.json",
+      "original_sha256": "41990b3d3e65d686d535b1f7adb5ceea873596c85d3f9deafa499686b5c7328d",
+      "result": {
+        "status": "exact_original_payload_parity",
+        "reference_identity": "a117c2a9ce905a6d0f3569673a43233a42eb4a579d2264b5641196be738746a1",
+        "candidate_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+        "matched_original_files": 33,
+        "changed": [],
+        "added": [
+          "LICENSE",
+          "NOTICE"
+        ],
+        "download_bytes": 0,
+        "copied_bytes": 0,
+        "derivation": {
+          "recipe": "ours-v1",
+          "sources": [
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/audio_vae/config.json",
+              "bytes": 1973,
+              "sha256": "d8f3bcc62e23c7e9806970fa63cca6139c06faa3797cf9c94034f60db8512771"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/audio_vae/metadata.json",
+              "bytes": 440,
+              "sha256": "755d0529d43b2b5c83590f6f44ca659bc68e6a21b01d5669c93e8b2965749bff"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/audio_vae/model.safetensors",
+              "bytes": 605429308,
+              "sha256": "37dddc2f3e6d5d5139d823d5ea283bbf304dadcb885b1ccda818aa13dade5ea2"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/chat_template.json",
+              "bytes": 5499,
+              "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/config.json",
+              "bytes": 1474,
+              "sha256": "d2dd0c60d01b9e195d9447c52da61c7302d28828524914c044d9c6e1b81d0427"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/merges.txt",
+              "bytes": 1671839,
+              "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00001-of-00014.safetensors",
+              "bytes": 4932328944,
+              "sha256": "6b9dfbc930e505402ae9d7e5091a9d7d656cda5f34614f01cfe70bfb0cca27cb"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00002-of-00014.safetensors",
+              "bytes": 4875990528,
+              "sha256": "d8bb44b4ff303fe76fe9e894022fb3dc71b15a2e716592790fe0e3c3e60478fa"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00003-of-00014.safetensors",
+              "bytes": 4875990552,
+              "sha256": "54f22e8b3168f8dc962fac0d313607ebf52a12b433d4cf3098a0d82d9f042940"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00004-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "ad09c74d3c13ee29b5d0d84548fd8a3424a651564eaccd519946c296e59c557f"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00005-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "fc993c8a0e2a5b0570f383e1a95dc3a1281d1b224b6f3ee908f4827941e1dfc2"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00006-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "82f05620d1f718a90c362b221d6a184ff1a0f53301d706882d3df49695fa1974"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00007-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "fb91da8cb01ff4de3eef0eab1c3e769a734b3a1aafc61734068638a0d6c86934"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00008-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "431ca56535c8781944ce3801f5eb61c45531e853ecc5846d936ebaf4761b764f"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00009-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "3825e3f4302f4d2f7d76aa7430d2ce0864fde6b9e540a5806bf0d8e38e4d9f47"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00010-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "aded5a4d1d5e22dbd8b6f79266b6eb88c840411b09527c53917a1419ace22e2f"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00011-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "3820ffe8d8d6477f6fe8d614ef3c87abb264ee39accebf43a1507b970d80946f"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00012-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "05ad2d08ce71963121c9b03f1d9ec5d7641052f4b23c6c12b80d71065eb8e98e"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00013-of-00014.safetensors",
+              "bytes": 4875990584,
+              "sha256": "b64f2289871261fdd1abbd3b78bcd66011b341de3dc8eeb2ed1a473ee7c8d95c"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model-00014-of-00014.safetensors",
+              "bytes": 3270697008,
+              "sha256": "e45b6c9998c77ee5a6577f9f47bc76416c1d4d387169e50c4c9d3134ea51b13b"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/model.safetensors.index.json",
+              "bytes": 97831,
+              "sha256": "06c952c569285870b811989b794b9766493e280fb77fbcb957fc4e5fcf25403a"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/preprocessor_config.json",
+              "bytes": 390,
+              "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/tokenizer.json",
+              "bytes": 7032403,
+              "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/tokenizer_config.json",
+              "bytes": 11003,
+              "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/video_preprocessor_config.json",
+              "bytes": 385,
+              "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/text_encoder/vocab.json",
+              "bytes": 2776833,
+              "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/tokenizer/merges.txt",
+              "bytes": 1671839,
+              "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/tokenizer/tokenizer.json",
+              "bytes": 7032403,
+              "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/tokenizer/tokenizer_config.json",
+              "bytes": 11003,
+              "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/tokenizer/vocab.json",
+              "bytes": 2776833,
+              "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/config.json",
+              "bytes": 604,
+              "sha256": "f619093a231fcfbcc3d035bec26c50ad864e7331a500d5c519f5045dc1e50458"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00001-of-00013.safetensors",
+              "bytes": 5227812968,
+              "sha256": "0b3386565e476bfdea287e9ea9f269d036e5c649ed14bb9b4afac1dc4661bd2a"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00002-of-00013.safetensors",
+              "bytes": 5164578856,
+              "sha256": "9c98fd4579c9bc96d1b1bbf65c1243f9256df60bccd229570cecc61897773003"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00003-of-00013.safetensors",
+              "bytes": 5164578872,
+              "sha256": "fa484c940d4170199fb69f5016739df2daf6ecd1150631b12a297e06e3964730"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00004-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "4a851df37cce2d14b39cb58df41def7b591b1f11b8520a32b421a5fa3e997c9f"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00005-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "3fe6ff94dc9d3107c6776a25277d2b72b5443f88cf0f4ed835fd5b65a94ea5d4"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00006-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "79b47e1b9ff03a2c6f06dd15a28972acf32c0867172ee34e5aa6e96b99494127"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00007-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "6ac4d6ce639786b722a8dd99843ed56dcab48a0d174a4b0f9b8cdcbe5160fb0f"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00008-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "03531812243fb0a333e01efa7e3d39750580bca8cbf2ba0529da419278eab736"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00009-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "7e82a80b0d0d267026eb841b81523069cc7b956c1ebd8a18c07e462ffb262487"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00010-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "ef0a1f6b65145232543dd2232d58d91a4d31f44b0da5084acf22cea123255481"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00011-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "bf885b8f2f078c5499b75fded21094a26bfe0e6e00bee276e499443ecd2f298d"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00012-of-00013.safetensors",
+              "bytes": 5164578896,
+              "sha256": "dc717572d014ebf8527e35af815d10eb2f5a6bc87253b8a7d2f456965192db69"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model-00013-of-00013.safetensors",
+              "bytes": 4242305176,
+              "sha256": "8bfd852d5817e9836de1d3ec8dbac1c5446b167568b717371f08282b22291aa2"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/transformer/model.safetensors.index.json",
+              "bytes": 38323,
+              "sha256": "fb457a26ffa6294660e249b0ddd03a337f2e5393f770b5c34c8b8f90a29a7efb"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/video_vae/config.json",
+              "bytes": 1807,
+              "sha256": "3edd2cdd1ebc823c868be55ef917e1b3b8a398fde4d3150dae44a3bf05d9f627"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/video_vae/source/config.json",
+              "bytes": 1164,
+              "sha256": "66c68f541e6578ce613ce7a0fc985eb59097038829e49f7535e6d08e6d95ab12"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "FL2VA/video_vae/source/model.safetensors",
+              "bytes": 10415548320,
+              "sha256": "5f0c2e161d895a9fee7645ca32d4a7e3a22b90cacfcbeba62ec999cdbbefe0d3"
+            },
+            {
+              "repo": "MiniMaxAI/MiniMax-H3",
+              "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+              "filename": "LICENSE",
+              "bytes": 17604,
+              "sha256": "59b99642b95ea21630e311198ddbfffbfe05aadba0c2f5d884cbdf4efcc90f44"
+            },
+            {
+              "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+              "revision": "bcf40ca6f457ed66f8badf13514943e390205fca",
+              "filename": "LICENSE",
+              "bytes": 17604,
+              "sha256": "59b99642b95ea21630e311198ddbfffbfe05aadba0c2f5d884cbdf4efcc90f44"
+            },
+            {
+              "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+              "revision": "bcf40ca6f457ed66f8badf13514943e390205fca",
+              "filename": "adapter_manifest.json",
+              "bytes": 3306,
+              "sha256": "e7544f806e7f450bba96b4e77788813fbcb3c39af66b56d1f24c57d70cce566f"
+            },
+            {
+              "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+              "revision": "bcf40ca6f457ed66f8badf13514943e390205fca",
+              "filename": "vsa-datafree/adapter_model.safetensors",
+              "bytes": 5339117712,
+              "sha256": "42dc502a2078f166c396a1fa75f29728d1844363652d345d5ef3e2b444ed6470"
+            }
+          ],
+          "converter": "native-fasth3-v2",
+          "converter_source_sha256": "fbf2f7fadf18c8f63a5932d198b991c395c9ea719d4253079d2222eaff78c86f",
+          "conversion_settings": {
+            "metal_gpu_arch_override": "applegpu_g16s",
+            "tf32": false,
+            "dtype": "bf16",
+            "quantization": "affine-int8-group64",
+            "video_shift": 12,
+            "audio_shift": 3,
+            "num_steps": 4,
+            "video_vae_dtype": "fp32"
+          },
+          "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+          "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+          "dit": {
+            "base_shards": 13,
+            "adapter_tensors": 856,
+            "timesteps": [
+              0.0,
+              0.027027010917663574,
+              0.07692307233810425,
+              0.10000002384185791,
+              0.19999998807907104,
+              0.25,
+              0.5,
+              1.0
+            ]
+          }
+        },
+        "conversion_elapsed_seconds": 12.719753833953291,
+        "peak_conversion_memory_gib": 30.84899416565895,
+        "bundle_sha256": "da199d3204706b19209af56a274739e422d5f1a419908cffa6ba8912363b910c",
+        "installed_package_source_sha256": "fbf2f7fadf18c8f63a5932d198b991c395c9ea719d4253079d2222eaff78c86f"
+      },
+      "plan": {
+        "question": "Does the final public models prepare command reconstruct and atomically publish the validated model, including fixed converter settings, identity and notices?",
+        "parent": "../preparation-native-02/comparison.json",
+        "candidate": "$MODELS/h3-apple-prepared-03",
+        "package_source_sha256": "fbf2f7fadf18c8f63a5932d198b991c395c9ea719d4253079d2222eaff78c86f",
+        "sole_change": "Integrated verified pre-NAX conversion setting and v2 model bundle provenance into the installed public preparation command.",
+        "data": "Pinned source cache already fully verified and complete; zero model downloads planned.",
+        "pass": "CLI succeeds from /tmp, all converted tensors match adopted reference, subsequent status/verify succeeds, provenance binds source/converter settings, generation keeps physical M5 dispatch.",
+        "stop": "Preserve previous runs; public preparation timeout1800s, swap2GiB, serious thermal or disk guard."
+      },
+      "original_plan_sha256": "e97568dc0a0f7391af8aea2893f37f9e36ebc40028bb190a282334b2cbf6e5df"
+    },
+    "native_50_block_forward": {
+      "local_evidence": ".local/validation/native-forward-01/result.json",
+      "original_sha256": "c002041bb446ac21006fa52bdaaf1b95afc160e9e97ef836a5bd0ce7551b1315",
+      "result": {
+        "status": "exact",
+        "plan_sha256": "31f2550c4eab988792633bf5bb0eb2fde14ecd5626c85118732261c8e432f527",
+        "backend": {
+          "device": {
+            "device_name": "Apple M5 Max",
+            "max_recommended_working_set_size": 115448725504,
+            "memory_size": 137438953472,
+            "architecture": "applegpu_g17s",
+            "max_buffer_length": 86586540032,
+            "resource_limit": 499000
+          },
+          "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+          "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+          "versions": {
+            "mlx": "0.32.0",
+            "mlx-metal": "0.32.0",
+            "numpy": "2.4.6",
+            "transformers": "5.14.1"
+          }
+        },
+        "arrays": {
+          "video_velocity": {
+            "shape": [
+              110424,
+              96
+            ],
+            "dtype": "float32",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          },
+          "audio_velocity": {
+            "shape": [
+              1206,
+              32
+            ],
+            "dtype": "float32",
+            "finite": true,
+            "exact": true,
+            "max_abs_error": 0.0,
+            "relative_l2": 0.0
+          }
+        },
+        "blocks": 50,
+        "sparse_calls": 50,
+        "peak_memory_gib": 53.728761011734605,
+        "final_host": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "fair",
+            "low_power_mode": false
+          }
+        },
+        "boundary": "One real 50-block native-resolution forward on frozen inputs; not an end-to-end generation or performance result.",
+        "elapsed_seconds": 473.41097308392636
+      },
+      "plan": {
+        "question": "Does the independent product preserve the adopted bounded-SwiGLU computation at native 1376x768/362 geometry?",
+        "baseline": "P093 preserved motion FastH3/P091 forward at step index2",
+        "sole_change": "Independent product implementation and freshly reconstructed identical payloads",
+        "conditioning": "$RESEARCH/.local/experiments/p093-vdn-vs-fasth3-20260907-01/processes/motion-fasth3-01/native/conditioning.npz",
+        "step_file": "$RESEARCH/.local/experiments/p093-vdn-vs-fasth3-20260907-01/processes/motion-fasth3-01/native/step-2.npz",
+        "step_index": 2,
+        "files": [
+          {
+            "path": "$RESEARCH/.local/experiments/p093-vdn-vs-fasth3-20260907-01/processes/motion-fasth3-01/native/conditioning.npz",
+            "sha256": "00824d41287ab989e98078e2bcfee9b5d690cc5412a0c86058da8e4839b9deb2"
+          },
+          {
+            "path": "$RESEARCH/.local/experiments/p093-vdn-vs-fasth3-20260907-01/processes/motion-fasth3-01/native/step-2.npz",
+            "sha256": "dff9beb1519c8993bff78b8288ffd3b209e1eff7f89dc602eb197234e8ab3062"
+          }
+        ],
+        "package_source_sha256": "fbf2f7fadf18c8f63a5932d198b991c395c9ea719d4253079d2222eaff78c86f",
+        "model_directory": "$MODELS/h3-apple-prepared-03",
+        "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+        "pass": "Both complete velocity tensors finite and byte-identical; all 50 blocks and direct sparse calls executed.",
+        "stop": "900 seconds, 80GiB MLX, swap growth2GiB, serious thermals; unique evidence; no tuning."
+      },
+      "original_plan_sha256": "31f2550c4eab988792633bf5bb0eb2fde14ecd5626c85118732261c8e432f527"
+    },
+    "real_https_download_and_resume": {
+      "local_evidence": ".local/validation/hf-download-smoke-01/result.json",
+      "original_sha256": "980ba9d5a606156e8eb15a2e81c549ba25fd0e76d73ce25639f4c78a6887fc4f",
+      "result": {
+        "source": {
+          "repo": "MiniMaxAI/MiniMax-H3",
+          "revision": "bfc8ed0353f5a9733be73e6b2c98ec0948195b86",
+          "filename": "LICENSE",
+          "bytes": 17604,
+          "sha256": "59b99642b95ea21630e311198ddbfffbfe05aadba0c2f5d884cbdf4efcc90f44"
+        },
+        "model_payload_downloaded": false,
+        "small_file": {
+          "status": "verified",
+          "sha256": "59b99642b95ea21630e311198ddbfffbfe05aadba0c2f5d884cbdf4efcc90f44",
+          "bytes": 17604
+        },
+        "small_resume": {
+          "status": "verified",
+          "bytes_requested": 17531
+        },
+        "large_source_range": {
+          "status": "verified",
+          "bytes": 1024,
+          "content_range": "bytes 73-1096/5339117712",
+          "sha256": "d18dfe035d5942c944fbcfe8f0125594f81b563f4375983ac5fae855cd3692db"
+        }
+      }
+    },
+    "api_cancellation": {
+      "local_evidence": ".local/validation/cancellation-01/result.json",
+      "original_sha256": "128f4fa35667f8d98d7c952959e94acff50138d82b1ebe812ef2935e306ce52e",
+      "result": {
+        "status": "passed",
+        "trigger": {
+          "phase": "denoise",
+          "step": 1,
+          "steps": 4,
+          "block": 10,
+          "blocks": 50
+        },
+        "package_source_sha256": "b4e92640c42c85e04628308ff7929647f47866f58f3dd029d321eaf125027dab",
+        "worker_stopped": true,
+        "device_lock_released": true,
+        "output_not_published": true,
+        "elapsed_seconds": 20.745888791047037,
+        "host_after": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "fair",
+            "low_power_mode": false
+          }
+        },
+        "record": "$PRODUCT/.local/validation/cancellation-01/cancelled.run.json"
+      },
+      "plan": {
+        "question": "Does cancellation during real GPU denoising stop the worker and release the device without publishing an incomplete video?",
+        "input": "Free paper-boat prompt, 576p/5s,seed123,freshly reconstructed verified model",
+        "trigger": "on_progress raises KeyboardInterrupt after at least ten completed DiT blocks",
+        "pass": [
+          "cancelled run record",
+          "no published MP4",
+          "worker PID gone",
+          "same device lock immediately reacquirable"
+        ],
+        "stop": "900-second API timeout and normal resource watchdog",
+        "script": "run.py"
+      },
+      "original_plan_sha256": "4feb736ab9df8034aae7ce495c56f08c4f03f9d00c5f412eb81f88edca05dceb"
+    },
+    "comparison_cancellation": {
+      "local_evidence": ".local/validation/comparison-cancellation-02/result.json",
+      "original_sha256": "3aa9ff51e455231d8ab557be4439ccd4377c136331789fc1d0ad4fc2ed83029a",
+      "result": {
+        "status": "passed",
+        "elapsed_seconds": 14.879118792014197,
+        "controller_returncode": 130,
+        "outer_status": "cancelled",
+        "api_status": "cancelled",
+        "worker_stopped": true,
+        "device_lock_released": true,
+        "output_not_published": true,
+        "host_after": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "nominal",
+            "low_power_mode": false
+          }
+        }
+      },
+      "plan": {
+        "question": "Does SIGINT to the real comparison controller stop its CLI and separate GPU worker?",
+        "baseline": "The preserved native-three-01 cancellation left the inner API status running.",
+        "change": "Benchmark stop now sends cooperative SIGINT to its child CLI before escalating.",
+        "input": "Neutral free prompt, seed123,576p5s; lifecycle test only, no quality or speed claim.",
+        "trigger": "At least ten completed blocks of the first denoising step.",
+        "pass": "Controller exits130; comparison and API records cancelled; worker gone; device lock free; no MP4.",
+        "stop": "900 seconds before the trigger; preserve evidence and stop owned processes on failure.",
+        "product_commit": "652cd44a7ea1ec81e6187d729e9ea4d5cb6d7f63",
+        "package_source_sha256": "b4e92640c42c85e04628308ff7929647f47866f58f3dd029d321eaf125027dab",
+        "host_before": {
+          "system": "Darwin",
+          "machine": "arm64",
+          "macos": "26.6.1",
+          "chip": "Apple M5 Max",
+          "memory_bytes": 137438953472,
+          "swap_bytes": 723517,
+          "thermal": {
+            "state": "nominal",
+            "low_power_mode": false
+          }
+        },
+        "command": [
+          "$PRODUCT/.local/envs/h3/bin/python",
+          "-I",
+          "$PRODUCT/benchmarks/compare.py",
+          "--config",
+          "$PRODUCT/.local/validation/comparison-cancellation-02/config.json",
+          "--suite",
+          "$PRODUCT/.local/validation/comparison-cancellation-02/suite.json",
+          "--methods",
+          "ours",
+          "--output",
+          "$PRODUCT/.local/validation/comparison-cancellation-02/comparison"
+        ]
+      },
+      "original_plan_sha256": "a803ddc03825e3372eab9973591818be9173bf4a957dcaf75bc9f441b458ece1"
+    },
+    "frozen_distribution_audit": {
+      "local_evidence": ".local/validation/release-audit-01/result.json",
+      "original_sha256": "f5ce60c1e0f4704173229899c42de3ce806765cb8f41ab7afb1022f184d5bc34",
+      "result": {
+        "status": "passed",
+        "product_commit": "cc15b89156fbebf96be46d2573ab955972017ad0",
+        "package_source_sha256": "b4e92640c42c85e04628308ff7929647f47866f58f3dd029d321eaf125027dab",
+        "wheel_sha256": "7e39ddc2609bb0a2def3c7c58f17348f00fc23b7988a309b4e346dad805d8f9a",
+        "wheel_bytes": 1484916,
+        "matching_repo_wheel_installed_files": 43,
+        "bundled_license_files": [
+          "h3_apple-0.1.0.dev0.dist-info/licenses/LICENSE",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/THIRD_PARTY_NOTICES",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/licenses/FastVideo-APACHE-2.0.txt",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/licenses/MiniMax-H3.txt",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/src/h3_apple/runtime/metal/p085_DRAWTHINGS_LICENSE.txt",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/src/h3_apple/runtime/metal/p085_MLX_LICENSE.txt",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/src/h3_apple/runtime/metal/p085_NOTICE.txt",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/src/h3_apple/runtime/metal/p085_mfa_LICENSE.txt",
+          "h3_apple-0.1.0.dev0.dist-info/licenses/src/h3_apple/runtime/metal/p087_NOTICE.txt"
+        ],
+        "model_source_manifest_present": true,
+        "calibration_asset_present": true,
+        "model_weights_and_videos_not_in_wheel": true,
+        "runtime_research_dependency_search": "No runtime Python or JSON matched runpy, sys.modules, sys.path, .local/experiments, /Users/ or tqlm_h3."
+      }
+    }
+  },
+  "scope": "Each check retains its actual source and plan identity; diagnostic timings are not performance benchmarks. Original local metadata is hash-bound; local paths, process identifiers and battery details are simplified for distribution.",
+  "not_verified": [
+    "A complete 139 GiB cold network download",
+    "Human acceptance of new native comparison videos",
+    "Other Mac hardware",
+    "New algorithm speedup or general quality superiority"
+  ]
+}

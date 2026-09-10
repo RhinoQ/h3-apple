@@ -5,7 +5,8 @@ MiniMax-H3、FastVideo 和已有的 Apple GPU 优化；与官方项目无隶属�
 
 默认原生 **768p / 15 秒 / 24fps**，可选 576p 和 5–15 秒。首个实测平台为
 **M5 Max / 128 GiB / macOS 26.6.1**；本版使用 M5 专属算子，其他 M 系列尚不支持。
-独立包已完成真实生成与数值迁移验证，当前为发布前开发版，原生 768p 三方比较仍在验收。
+独立安装、模型重建、真实生成与数值迁移验证均已完成。当前为 `0.1.0.dev0` 开发预览；
+两条新原生样片和三方结果已提供，完整声画质量仍待人工接受。
 
 ## 生成第一条视频
 
@@ -37,15 +38,31 @@ print(result.elapsed_seconds)
 [完整安装说明](docs/install.md) · [模型下载、复用与恢复](docs/models.md) ·
 [CLI / Python 参数](docs/api.md) · [可运行 Python 例子](examples/generate.py)
 
-## 当前验证与效果
+## 效果与等待时间
 
-在独立 Conda 环境、普通安装 wheel、研究仓库之外，已完成五秒 576p 自由提示词声画
-生成；另一次完整十五秒 576p 迁移回归的 25 组张量逐字节一致，包含四步去噪、
-完整解码前像素与原始立体声音频。原始权重也已由独立转换器重建为相同的有效模型。
-这些是可用性与迁移证据，不把工程重构记作新的提速成果。
+M5 Max / 128 GiB，一条原生 768p、15 秒完整声画视频，本轮各输入运行一次：
 
-完整证据与适用边界见 [验证记录](docs/validation.md)。公开 motion graphics / bakery
-原生 768p 视频、同规格耗时表和完整声画评审在首轮三方比较后补齐。
+| 入口 | motion graphics | bakery |
+| --- | ---: | ---: |
+| FastH3 / Ours | 36 分 47 秒 | 33 分 18 秒 |
+| 官方 FastH3 / VSA | 入口拒绝规格 | 入口拒绝规格 |
+| vpipe / VDN | 41 分 15 秒 | 39 分 30 秒 |
+
+计时包含新进程启动、模型加载、生成、封装与完整声画检查。
+官方 FastVideo 在 362 帧对齐检查处拒绝 15 秒目标，失败没有可比较的完成耗时。
+[精确结果、版本与边界](benchmarks/results/native-three-02/README.md) ·
+[两条可播放示例](examples/README.md)
+
+[![Motion graphics 实际生成预览](examples/previews/motion-graphics-ours.jpg)](examples/previews/motion-graphics-ours.mp4)
+
+[![Bakery 实际生成预览](examples/previews/bakery-ours.jpg)](examples/previews/bakery-ours.mp4)
+
+点击缩略图播放 360p 小预览，保留完整 15 秒声画；耗时对应原生 768p 成片。
+这是不同固定配方的系统观察，不宣称新的算法提速或总体质量胜出。
+
+63 项快速测试通过；独立安装后在研究仓库之外完成自由提示词生成，完整 576p
+迁移回归的 25 组张量逐字节一致，另有原生形状前向、模型重建和真实 GPU 取消验证。
+具体证据与适用边界见 [验证记录](docs/validation.md)。
 
 ## 与其他入口比较
 

@@ -1,0 +1,2231 @@
+{
+  "schema_version": 1,
+  "round": "native-three-02",
+  "source_results_sha256": "5f9c746248375dcc916a7c0192aa51787b27f0eaadf0e73da0ecea28a35ce266",
+  "source_config_sha256": "735fb75c84805a0f476e31f07490749d577e8ad8db2570460e9b60ee895ece32",
+  "suite_file": "benchmarks/suites/motion-bakery.json",
+  "suite": {
+    "schema_version": 1,
+    "resolution": "768p",
+    "duration": 15,
+    "cases": [
+      {
+        "id": "motion-graphics",
+        "seed": 2026,
+        "prompt_file": "../prompts/motion-graphics.txt",
+        "prompt_sha256": "e377f9b6e78b817e35f98140fa1c4211983646eec6364e8ebe68eb230eda6401"
+      },
+      {
+        "id": "bakery",
+        "seed": 87001,
+        "prompt_file": "../prompts/bakery.txt",
+        "prompt_sha256": "d0a6ba4347e3cb0b446effa353467cc30150c4c63c769a3e9f2cc651c468824f"
+      }
+    ],
+    "data_split": "Previously seen public prompts; not held-out validation",
+    "source_research_commit": "a42bb74",
+    "input_origins": {
+      "motion-graphics": "benchmarks/p082-apple-t2va-fl2va/character-reveal-15s-prompt.txt",
+      "bakery": "benchmarks/p087-w8a8-ffn/long-bakery-opening.json:prompt"
+    },
+    "order": "case-major, Ours / official FastH3 / vpipe; a single descriptive run, no stable speedup claim"
+  },
+  "timer": "fresh process launch through complete AV validation; no cache deletion",
+  "comparison": "systems with their declared recipes, not an attention-only ablation",
+  "repetitions": 1,
+  "runs": [
+    {
+      "case": "motion-graphics",
+      "method": "ours",
+      "label": "FastH3 / Ours",
+      "status": "complete",
+      "elapsed_seconds": 2206.758731500013,
+      "actual_nfe": 4,
+      "timings_seconds": {
+        "conditioning": 14.452120166970417,
+        "denoise": 1934.8087097080424,
+        "video_decode": 247.55716312490404,
+        "audio_decode": 1.3057422079145908,
+        "mux": 3.0897397918161005
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.360837211832404,
+        "denoise": 54.0783723089844,
+        "video_decode": 27.256800077855587,
+        "audio_decode": 2.726238813251257,
+        "mux": 0.0
+      },
+      "prompt_sha256": "e377f9b6e78b817e35f98140fa1c4211983646eec6364e8ebe68eb230eda6401",
+      "package_source_sha256": "b4e92640c42c85e04628308ff7929647f47866f58f3dd029d321eaf125027dab",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "vsa": {
+        "enabled": true,
+        "configured_sparsity": 0.9,
+        "layer_sparsity": 0.9,
+        "achieved_sparsity": 0.8995510662177328,
+        "tile_size": 64,
+        "prefix_mode": "exempt",
+        "impl": "simd",
+        "num_prefix_tiles": 44,
+        "num_video_tiles": 1782,
+        "video_keep": 179.0,
+        "dense_fallback_reason": null,
+        "attention_calls": 200,
+        "sparse_calls": 200,
+        "impl_counts": {
+          "simd": 200
+        },
+        "fallback_reasons": [],
+        "checkpoint_vsa_capable": true
+      },
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      },
+      "seed": 2026,
+      "source_commit": "cc15b89156fbebf96be46d2573ab955972017ad0",
+      "weights": "Fresh native MiniMax FL2VA + pinned official FastH3 VSA adapter; native-fasth3-v2 conversion. All 33 original payloads match P091/P093 adopted model. Bundle 6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "recipe": "ours-v1, native 1376x768/362 to 1366x768/360, 4 forwards, full VideoVAE",
+      "local_patches": [],
+      "original_run_sha256": "366813b7b089307671eae033bfd6b5e1c6e8566bcfa729a94c5defafad94c791",
+      "original_command_log_sha256": "f34f91d139473e9cd90067006dbc5572f53f3655d58df023b4c534819b14ded2",
+      "quality_review": "pending",
+      "started_utc": "2026-09-10T02:50:57.195259+00:00",
+      "environment_identity": {
+        "source": {
+          "commit": "cc15b89156fbebf96be46d2573ab955972017ad0",
+          "tracked_changes": "",
+          "status": ""
+        },
+        "executable_sha256": "d9b440dc96efc052473d0001e0c1a3776de977acd8ac3d238931f948a30dc137",
+        "runtime_files": [
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/__init__.py",
+            "sha256": "7c9a3254b0d5677188bed67ecc73883b7495cee2e7e76d5af00f2a98dea1d243"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/__main__.py",
+            "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/checkpoint_compat.py",
+            "sha256": "d581e9683397b7b27f75e99189802b0687982d236e4bb9f1ac354a707d99a590"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/fastwan.py",
+            "sha256": "cd2ec07716791a77d82113a81e3df88765d43a288c7496f06d5cd3822012240c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/frame_upsample.py",
+            "sha256": "00782caebd19b68f09471810469a53cea546dad5a6cdcec07b456ce460fb02c8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/logger.py",
+            "sha256": "94cabd6a951091f3ddc8f77c74ddb6abc898942a458d4e6025bd5d8abc775bd7"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3.py",
+            "sha256": "249b259de782fc61952627c9ef17a0232f7cfe620112b36f2d847d08aa555414"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_audio_vae.py",
+            "sha256": "ff36f95920c535fb1c160928432594e8ef8b217bd315b99d9e2b943cbe50c3cd"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_conditioner.py",
+            "sha256": "f692c1eb955eeb42263e76e148fbd8006552f8e6f97691547c799891c6f241e9"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_pipeline.py",
+            "sha256": "9b58ac27057d8e8c0adde320ebdd25f6b47780ac8ed5be7c9c2bbd2362fd63c7"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_video_vae.py",
+            "sha256": "d4de89b8246689818aafb162ccaf501e3ee2dadfacec0d1b71910e8aaa09a09d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_vsa.py",
+            "sha256": "540a49758d54784c2d52dd3ecd61a476ee4f6fb6dd813ade5be5ca964209730f"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_vsa_simd.py",
+            "sha256": "0112b50f33b8d07aa45542d2d37e4e73957adfd1f04ea74e08ddbcedb5aac31c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/windowed_attention.py",
+            "sha256": "e0f2b04d7e9d75c3f477e7826b3107daf18d9b823f7168e1821bdc1de2b7e6f7"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/api.py",
+            "sha256": "08408af2c5f88d26d1ffc46f67ad1fdd4e69e5ea7ec8d72b800946a27a85c82f"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/assets.py",
+            "sha256": "9295168260255f85fa9cc777e42cdc4230f469cbcf7dedf9687b513cca4d6892"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/cli.py",
+            "sha256": "0d28bc7a89eb8ab7223f39ead3806acf824e8d3bbefcd8e7d0c80c71560a08b8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/conversion.py",
+            "sha256": "a968b8fd7ebf8ceb069f371c499ceee0300c10af748733048155a60d733eb445"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/data/model-sources.json",
+            "sha256": "7d6afb52829d332a473ed255ef581f74d59579fa784e689148775ffec2f984ee"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/data/vae-calibration.npz",
+            "sha256": "747aa0d979c5608d4b9801c712a7f1e567d44395e9aaa85909d1de892cd8d68d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/host.py",
+            "sha256": "81b2addb03d1abebe3456029a96aa637d9c32d3de23a1f947c89268d3a79545d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/io.py",
+            "sha256": "ab106ba18d905888d5cd786211376cc5a006a12cf89c79a4f41bdbe64f771729"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/media.py",
+            "sha256": "b93c8f33926500914712bb91e94586d16b318beecd7ede580a9bb7c0beeae536"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/preparation.py",
+            "sha256": "6dec5df069ac348dc62fe359fbee39081846f8245a6c65ccd6c6f8d7f0e6a4dc"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/process.py",
+            "sha256": "bd1baae661c9ac5cb342b627b5fb6c5b22f72ce0da44f64606dc5e66636bc1e0"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/engine.py",
+            "sha256": "903653c6016cc5dca0b2e29c887950cbea1e011be0b7dc249df6c4a19843abc9"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_DRAWTHINGS_LICENSE.txt",
+            "sha256": "7da5d6826937079dd07dfe1f4fe925c0765546a8e5b75d480afe214aed1cebd2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_MLX_LICENSE.txt",
+            "sha256": "ccfab7ccb2ea306f71531c8ca77bb55507606cd90768b1e32b8b52ab5b48cf01"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_NOTICE.txt",
+            "sha256": "4ee659e95980a3d1df105afdaf228e30277dde43d6ba35c50522c655fee7d507"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_mfa_LICENSE.txt",
+            "sha256": "e60a41d3aada1d8ec9156d4a2ea564a3bb57d850c1665a88b6db105387c22a28"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_nax_body.metal",
+            "sha256": "23d3a3f599f12f1c6993bf05d2b43c00bc2d8831c6d61e5c2b02a6394fc1a703"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_nax_header.metal",
+            "sha256": "65c6d0d4e47bf0133047ca7ffa8149026bed6aa488b1203326840778c5580ed1"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p087_NOTICE.txt",
+            "sha256": "a08b410aeb3c054f3a206c510157f4df6d3b20f285163cd6f50b9bceec20fe4c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p087_h3c.metal",
+            "sha256": "6821dcdb23a4c5a5bef8d25c023cc1e264283b9740df2834844ff6196eaae160"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/observer.py",
+            "sha256": "2347731f95ae5a415f4865f8242f6c7c848e29bca01e78c256d616593b492405"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/quantization.py",
+            "sha256": "065649df1717887c668c10cb5acd300ab82112df2f6f2cf99e08cd3e4527f6fe"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/sparse.py",
+            "sha256": "dddd2120a8fd4bdd8e54871d7bbe439a2c862fb6e8d437f78963aed8e25ac601"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/swiglu.py",
+            "sha256": "0df4d09be019f7896f2d0abb3aaeec089746efdc7778d6153b33b6d16c79b7dd"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/vae.py",
+            "sha256": "73a4490d2781357e164188688f518c5cccef773c95e2471e2112311c02ecadbf"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/worker.py",
+            "sha256": "642c4754ea86dc3ed7280e80583a40a940d55cac8a8b8757cda4c6f2e7248bc2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/mlx/lib/libjaccl.dylib",
+            "sha256": "8ee82aae82996938435bcebe724d819296712b8b34fac021ce7aa66073730e1e"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/mlx/lib/libmlx.dylib",
+            "sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/mlx/lib/mlx.metallib",
+            "sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3"
+          }
+        ],
+        "assets": [
+          {
+            "path": "$MODELS/h3-apple-prepared-03/bundle.json",
+            "sha256": "da199d3204706b19209af56a274739e422d5f1a419908cffa6ba8912363b910c",
+            "files": 35,
+            "verification": "preparation SHA256; current size and mtime"
+          }
+        ],
+        "python_packages": [
+          "annotated-doc==0.0.5",
+          "anyio==4.14.2",
+          "certifi==2026.7.22",
+          "click==8.4.2",
+          "filelock==3.32.2",
+          "fsspec==2026.7.0",
+          "h11==0.16.0",
+          "h3-apple @ file://$PRODUCT/.local/release-candidate/wheels/h3_apple-0.1.0.dev0-py3-none-any.whl#sha256=7e39ddc2609bb0a2def3c7c58f17348f00fc23b7988a309b4e346dad805d8f9a",
+          "hf-xet==1.6.0",
+          "httpcore==1.0.9",
+          "httpx==0.28.1",
+          "huggingface_hub==1.26.0",
+          "idna==3.18",
+          "iniconfig==2.3.0",
+          "markdown-it-py==4.2.0",
+          "mdurl==0.1.2",
+          "mlx==0.32.0",
+          "mlx-metal @ https://files.pythonhosted.org/packages/dc/59/65d32520175379df33f107749193aa94ea9db069167a36a1a100ff689f62/mlx_metal-0.32.0-py3-none-macosx_26_0_arm64.whl#sha256=3af76a498d84804f66119800499f9d143d7dffb0878a0dd0d7c2846e58565fd7",
+          "numpy==2.4.6",
+          "packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work",
+          "pillow==12.3.0",
+          "pip @ file:///home/conda/feedstock_root/build_artifacts/pip_1785914405025/work",
+          "pluggy==1.6.0",
+          "Pygments==2.20.0",
+          "pytest==8.4.2",
+          "PyYAML==6.0.3",
+          "regex==2026.7.19",
+          "rich==15.0.0",
+          "safetensors==0.8.0",
+          "setuptools==83.0.0",
+          "shellingham==1.5.4",
+          "tokenizers==0.22.2",
+          "tqdm==4.70.0",
+          "transformers==5.14.1",
+          "typer==0.27.1",
+          "typing_extensions==4.16.0",
+          "wheel==0.47.0"
+        ],
+        "media_tools": {
+          "ffmpeg": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffmpeg",
+            "sha256": "181f4fc06f7787c69ae4aa7b754f355cb2c03fabfd56c8a62e646c4bea0e7de7"
+          },
+          "ffprobe": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffprobe",
+            "sha256": "4c8ec9b8d0ae69878bd35c7cb18dda5fde0c23084fdf4b71a439826f2d675a40"
+          }
+        },
+        "weights": "Fresh native MiniMax FL2VA + pinned official FastH3 VSA adapter; native-fasth3-v2 conversion. All 33 original payloads match P091/P093 adopted model. Bundle 6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+        "recipe": "ours-v1, native 1376x768/362 to 1366x768/360, 4 forwards, full VideoVAE",
+        "local_patches": []
+      },
+      "resource_start": {
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "host": {
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "macos": "26.6.1"
+      },
+      "video_asset": "motion-graphics-ours.mp4",
+      "video_sha256": "dfb616c17f4372b99c94fd0167eeaf8464c8eb293fa61f289cdd2132a966be4c",
+      "delivery": {
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "duration": 15.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "model_geometry": {
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 362
+      },
+      "resource_end": {
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "complete_av_validation": "passed",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "mime_codec_string": "avc1.640020",
+            "width": 1366,
+            "height": 768,
+            "coded_width": 1376,
+            "coded_height": 768,
+            "has_b_frames": 2,
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "24/1",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 184320,
+            "duration": "15.000000",
+            "bit_rate": "9232509",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "360",
+            "nb_read_frames": "360",
+            "extradata_size": 47,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "encoder": "Lavc62.28.102 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "mime_codec_string": "mp4a.40.2",
+            "sample_fmt": "fltp",
+            "sample_rate": "32000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 480000,
+            "duration": "15.000000",
+            "bit_rate": "195616",
+            "nb_frames": "470",
+            "nb_read_frames": "469",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler"
+            }
+          }
+        ],
+        "format": {
+          "filename": "$PRODUCT/.local/comparisons/native-three-02/motion-graphics-ours/output.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "15.000000",
+          "size": "17691091",
+          "bit_rate": "9435248",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf62.12.102"
+          }
+        }
+      }
+    },
+    {
+      "case": "motion-graphics",
+      "method": "fastvideo",
+      "label": "Official FastH3 / VSA",
+      "status": "failed",
+      "elapsed_seconds": null,
+      "actual_nfe": null,
+      "timings_seconds": null,
+      "peak_memory_gib": null,
+      "prompt_sha256": "e377f9b6e78b817e35f98140fa1c4211983646eec6364e8ebe68eb230eda6401",
+      "package_source_sha256": null,
+      "model_identity": null,
+      "vsa": null,
+      "backend": null,
+      "seed": 2026,
+      "source_commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
+      "weights": "Shared local native-FL2VA plus official rank64 VSA adapter conversion, identical effective payload to Ours; NOT a downloaded full-student snapshot. Official latest runtime unmodified; native 15s support tested before any extra model download.",
+      "recipe": "Official VSA defaults: reference attention, four steps, full native-resolution VAE; 15-second alignment support must be verified",
+      "local_patches": [],
+      "original_run_sha256": "2dea56ae80f9c8fdad4b2614f8d5292c8db08cb87569b651dba0293646e056e4",
+      "original_command_log_sha256": "2eb804c47e26c5f889cfc4e287fe08f6e5ff931e7dd1f58e334ca1271b153ec7",
+      "quality_review": "pending",
+      "started_utc": "2026-09-10T03:28:45.072381+00:00",
+      "environment_identity": {
+        "source": {
+          "commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
+          "tracked_changes": "",
+          "status": ""
+        },
+        "executable_sha256": "3570628efa3f2e066f0193815b44ef7d2b8910bdeda4461a3a494fe432f7a132",
+        "runtime_files": [
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/__init__.py",
+            "sha256": "73c68722c080f8d9fb2bc650041b12db7d252d0acbcd9993f3fc6a409aa367a8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/__init__.py",
+            "sha256": "bbbcaa96f4f608e4f52c39f09c8ba4694ddf7588e13b3ef0364befe953bb3ad2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/checkpoint.py",
+            "sha256": "da9054f564e59aece21763fcbbb8d37760b7e920df3917b50ef4bc355a0de519"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/checkpoint_compat.py",
+            "sha256": "56300cfce0adbcf48677577444f0c8700ea07af9480d9ee7de97f54d488973a2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/fast_spatial.py",
+            "sha256": "a4cb6afdbc67a451b7230fb16c9646ae4c6d83f2de35dc4b7ac5b74d6ffa477c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/fastwan.py",
+            "sha256": "f8200e8e82c4f5eca3b922557a2ba94f7524dc4ee2372392678d65e7c2815afa"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/frame_upsample.py",
+            "sha256": "029c44e15c03aea52b3b685fb391d748b332768726f9465486b769f0ba0c9d06"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/memory.py",
+            "sha256": "c111be2ca19c50a9202a33e1cce59d18a92e13c70fe5f12b25bcf76da2e30116"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3.py",
+            "sha256": "f361caf7310df83aba9fe7c927b2114f37f28b7b80bddb0983bb751695f02c62"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_audio_vae.py",
+            "sha256": "02a41fb63cd6b44953f4bd5245c06ee448cab57e3deb3e99a1a83e1b0e783775"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_conditioner.py",
+            "sha256": "652f2b5352cf1d1aa63de25e8c40c7e910c970774917e0baa3dc6b1630e524dc"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_pipeline.py",
+            "sha256": "6aa4aa879e2a9a45e9ec349bcba98d6b2a8b6a70d531568c4401603e0d39c6d5"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_taeh3.py",
+            "sha256": "81770cfa4d9aaef0d471733211847e6ba29135ea54f694b65e917299c5605a5d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_video_vae.py",
+            "sha256": "0dcb8f0e7ae8b10de4e60cd5be06246542747334f3a8a121ec9f321413d4bbf4"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_vsa.py",
+            "sha256": "9787f144afa5237566a9afc66e8573e91b4264b96d1944d128d696d0b4f75420"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_vsa_simd.py",
+            "sha256": "fbfb31c4ae6f4393b81f22d245c53e4f6878bcf061c2897bc1120a4cf7c2aae4"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/prompt_cache.py",
+            "sha256": "160b33499ce109d7091d331a3a73488c14cabaa27bfdd17da44f3d4221f57466"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/prompt_enhance.py",
+            "sha256": "190249ec9b09d2b7d290dc03477ac7c6f33fefc805dfefb88096029f6067fbff"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/quant_backends.py",
+            "sha256": "10a73b00be2a9cc061d216d74f0ca52e3f5909018a76ae8ee3cb30798d65a9b8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/refine.py",
+            "sha256": "bf1196d56ea53a72ae66920c1a8a1d38c369a87b65da205f10735a5d1d3affb2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/rife_interp.py",
+            "sha256": "7a9e8df416d94c0a188fd382aa151b87ba739d567ce295b7afb2475a19aebe7d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/sampling.py",
+            "sha256": "07fc1b6ea6e6dde7e1a632e91fbf121ddf949202657b1699e728860c8de87c09"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/taehv_decode.py",
+            "sha256": "5e3db13416ca3445608114a85d37aba9c1dcbbdc9067e27f2279e58a5c7e308a"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/wan22.py",
+            "sha256": "ad73860bf6fb961ce9eda9e9633418ba052d0d8013818743f0e6457cc22fce0d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/wan22_sample.py",
+            "sha256": "d37e122b8e9cdcd1c7192572a2dadde71752da241e3176b436bd7e77f7f8bb7d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/wan_vae.py",
+            "sha256": "10fbaefca70013d43b865ceb030154605e1b563be4cacf6352f429fae7c270e5"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/windowed_attention.py",
+            "sha256": "4c19250bc9f6cb95e6a5508d8dc855e5436918ae991ada916085402cd6eaa0b9"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/mlx/lib/libjaccl.dylib",
+            "sha256": "9cfd72679ff35c593a1d46fd30d995cc4a131eed15733617efb1118001e74084"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/mlx/lib/libmlx.dylib",
+            "sha256": "d24c7a9b9d55a76bfd3bbcd1d042251a185cbadcb6340c3244a6ffa3dcb7c7e8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/mlx/lib/mlx.metallib",
+            "sha256": "dc59d1cceb1a5c7e578232e6e41e28e2c73c9463ac6dbc3886c3ee17ffc270ed"
+          }
+        ],
+        "assets": [
+          {
+            "path": "$MODELS/h3-apple-prepared-03/bundle.json",
+            "sha256": "da199d3204706b19209af56a274739e422d5f1a419908cffa6ba8912363b910c",
+            "files": 35,
+            "verification": "preparation SHA256; current size and mtime"
+          }
+        ],
+        "python_packages": [
+          "absl-py @ https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl#sha256=0f17b89f2a4eaaedc4f28c622998aa690564b3012a396a4ffad0821007fe03ba",
+          "accelerate @ https://files.pythonhosted.org/packages/2c/92/48aec3736ca778ffe5fa68e19e3c18917cba4de43fa46fe6176cccafe267/accelerate-1.0.1-py3-none-any.whl#sha256=c6aa0c7b8a797cb150471e90e3ca36ac41f5d4b40512cdd6f058b8bf25589467",
+          "aiofiles @ https://files.pythonhosted.org/packages/a5/45/30bb92d442636f570cb5651bc661f52b610e2eec3f891a5dc3a4c3667db0/aiofiles-24.1.0-py3-none-any.whl#sha256=b4ec55f4195e3eb5d7abd1bf7e061763e864dd4954231fb8539a0ef8bb8260e5",
+          "aiohappyeyeballs @ https://files.pythonhosted.org/packages/71/43/1947f06babed6b3f1d7f38b0c767f52df66bfb2bc10b468c4a7de9eceff2/aiohappyeyeballs-2.7.1-py3-none-any.whl#sha256=9243213661e29250eb41368e5daa826fc017156c3b8a11440826b2e3ed376472",
+          "aiohttp @ https://files.pythonhosted.org/packages/30/07/4bbc222cc8dbe31d4c3e8a5baad2286e4d42026ac0c570027b89afce6344/aiohttp-3.14.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=617105e2c3018ee38d0c8ce5ee3c84f621a6d8b9f723202aacaff28449ca91ee",
+          "aiosignal @ https://files.pythonhosted.org/packages/fb/76/641ae371508676492379f16e2fa48f4e2c11741bd63c48be4b12a6b09cba/aiosignal-1.4.0-py3-none-any.whl#sha256=053243f8b92b990551949e63930a839ff0cf0b0ebbe0597b0f3fb19e1a0fe82e",
+          "aniso8601 @ https://files.pythonhosted.org/packages/59/75/e0e10dc7ed1408c28e03a6cb2d7a407f99320eb953f229d008a7a6d05546/aniso8601-10.0.1-py2.py3-none-any.whl#sha256=eb19717fd4e0db6de1aab06f12450ab92144246b257423fe020af5748c0cb89e",
+          "annotated-doc @ https://files.pythonhosted.org/packages/3e/30/e900b21425a860e195f32e37657aa1f7c7f2b1bfb26f03ca209b90933c06/annotated_doc-0.0.5-py3-none-any.whl#sha256=117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101",
+          "annotated-types @ https://files.pythonhosted.org/packages/99/91/8acff4f5e50511b911bbccb72b8628a49c68ce14148cd9f6431094859a90/annotated_types-0.8.0-py3-none-any.whl#sha256=f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+          "antlr4-python3-runtime @ https://files.pythonhosted.org/packages/3e/38/7859ff46355f76f8d19459005ca000b6e7012f2f1ca597746cbcd1fbfe5e/antlr4-python3-runtime-4.9.3.tar.gz#sha256=f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b",
+          "anyio @ https://files.pythonhosted.org/packages/12/b8/4bd346e22b28902df4d651910f5242c28d84e4a5c2435ca5c3f797ed7e2e/anyio-4.15.1-py3-none-any.whl#sha256=6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+          "attrs @ https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl#sha256=c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+          "av @ https://files.pythonhosted.org/packages/3f/c9/37a619297492256b77d5ed906e7d8166c10a26ed251dccf1ae03ab19bff6/av-18.1.0-cp311-abi3-macosx_14_0_arm64.whl#sha256=b30a4e8d934558e19602b68998a4d9ac9f250fa0dacef216f7e8e40153b13316",
+          "blessed @ https://files.pythonhosted.org/packages/aa/d9/d0a5f6cce623ae6fecda1a59d87a360ac2cd971ac6d4d06d3b3d832a2ccc/blessed-1.49.0-py3-none-any.whl#sha256=770279b4066218f38a06ee87976ccc658fbffd4ffb43a5ee1e9a5eef3d4f3ba0",
+          "blinker @ https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl#sha256=ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc",
+          "certifi @ https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl#sha256=62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+          "charset-normalizer @ https://files.pythonhosted.org/packages/30/27/78873dc8b6a56357517b74b6bb9568b80450e7bb4f6ef7e3fa9d22aa0bd7/charset_normalizer-3.5.1-cp312-cp312-macosx_10_13_universal2.whl#sha256=5b6d1386bf0096d26d3a863dc0a487a5b4eb9aa93cf5ba69683d29dde6b9d60f",
+          "click @ https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl#sha256=255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360",
+          "cloudpickle @ https://files.pythonhosted.org/packages/88/39/799be3f2f0f38cc727ee3b4f1445fe6d5e4133064ec2e4115069418a5bb6/cloudpickle-3.1.2-py3-none-any.whl#sha256=9acb47f6afd73f60dc1df93bb801b472f05ff42fa6c84167d25cb206be1fbf4a",
+          "datasets @ https://files.pythonhosted.org/packages/44/0b/98fc6eb83333508ca5f44c52b3e287ea8137a0ad582714e2cbc67a02154b/datasets-5.0.1-py3-none-any.whl#sha256=9fbf73688f8c18f7529b4fe592abd04015f81d1e58001e4bac73ffb2b39d7cc4",
+          "decorator @ https://files.pythonhosted.org/packages/05/7f/798705f5296a58ca505d600456748d1be48078eac8a7050d8a98bc9edb89/decorator-5.3.1-py3-none-any.whl#sha256=f47fe6fdbd2edd623ecfe36875d37aba411624e2670dd395dddae1358689bb3c",
+          "diffusers @ https://files.pythonhosted.org/packages/db/df/ffb593ebed2a068d2d6be44261283f39a6b809c0fcdfdcafbd448cbeec77/diffusers-0.40.0-py3-none-any.whl#sha256=5b5da7c3ddb62152fa4afc577f02e050af688c797375c34fb2d01006da3f3541",
+          "dill @ https://files.pythonhosted.org/packages/1e/77/dc8c558f7593132cf8fefec57c4f60c83b16941c574ac5f619abb3ae7933/dill-0.4.1-py3-none-any.whl#sha256=1e1ce33e978ae97fcfcff5638477032b801c46c7c65cf717f95fbc2248f79a9d",
+          "einops @ https://files.pythonhosted.org/packages/2a/09/f8d8f8f31e4483c10a906437b4ce31bdf3d6d417b73fe33f1a8b59e34228/einops-0.8.2-py3-none-any.whl#sha256=54058201ac7087911181bfec4af6091bb59380360f069276601256a76af08193",
+          "fastapi @ https://files.pythonhosted.org/packages/cb/03/10388a42375ee7e4ac9b94eb2c5c569c8b5795e377e701c9ac3ad63de890/fastapi-0.141.1-py3-none-any.whl#sha256=bfb91aa2d334c61cb35ba9a116fc123b3d3df31640b801cf57a7a78ec3f603b3",
+          "fastvideo @ file://$PRODUCT/.local/upstreams/FastVideo",
+          "ffmpy @ https://files.pythonhosted.org/packages/55/56/dd3669eccebb6d8ac81e624542ebd53fe6f08e1b8f2f8d50aeb7e3b83f99/ffmpy-1.0.0-py3-none-any.whl#sha256=5640e5f0fd03fb6236d0e119b16ccf6522db1c826fdf35dcb87087b60fd7504f",
+          "filelock @ https://files.pythonhosted.org/packages/cc/06/4f138f618dbea66803291274f228f01daf29f306fe8b96bc30dab765df75/filelock-3.32.6-py3-none-any.whl#sha256=3f16ecd0117feae0dfc147e8c62eb5daeccd8bd800378c3ddf416de9b4feb6b1",
+          "Flask @ https://files.pythonhosted.org/packages/7f/9c/34f6962f9b9e9c71f6e5ed806e0d0ff03c9d1b0b2340088a0cf4bce09b18/flask-3.1.3-py3-none-any.whl#sha256=f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c",
+          "Flask-RESTful @ https://files.pythonhosted.org/packages/d7/7b/f0b45f0df7d2978e5ae51804bb5939b7897b2ace24306009da0cc34d8d1f/Flask_RESTful-0.3.10-py2.py3-none-any.whl#sha256=1cf93c535172f112e080b0d4503a8d15f93a48c88bdd36dd87269bdaf405051b",
+          "frozenlist @ https://files.pythonhosted.org/packages/2b/94/5c8a2b50a496b11dd519f4a24cb5496cf125681dd99e94c604ccdea9419a/frozenlist-1.8.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=f833670942247a14eafbb675458b4e61c82e002a148f49e68257b79296e865c4",
+          "fsspec @ https://files.pythonhosted.org/packages/e5/22/4222d7ddf3da30f363edaa98e329c2bce6c65497c9cb2810931c8b2c0fbc/fsspec-2026.6.0-py3-none-any.whl#sha256=02e0b71817df9b2169dc30a16832045764def1191b43dcff5bb85bdee212d2a1",
+          "ftfy @ https://files.pythonhosted.org/packages/ab/6e/81d47999aebc1b155f81eca4477a616a70f238a2549848c38983f3c22a82/ftfy-6.3.1-py3-none-any.whl#sha256=7c70eb532015cd2f9adb53f101fb6c7945988d023a085d127d1573dc49dd0083",
+          "future @ https://files.pythonhosted.org/packages/da/71/ae30dadffc90b9006d77af76b393cb9dfbfc9629f339fc1574a1c52e6806/future-1.0.0-py3-none-any.whl#sha256=929292d34f5872e70396626ef385ec22355a1fae8ad29e1a734c3e43f9fbc216",
+          "googleapis-common-protos @ https://files.pythonhosted.org/packages/1a/7a/7d79170c6ce6f12e109df2b3879d6b934010cf4f99aea8de8b7e5408c174/googleapis_common_protos-1.75.3-py3-none-any.whl#sha256=a018d2bf098ca9fb6faa08d5bb780e2a2c2f73c566f069761331386c9596d3f2",
+          "gpustat @ https://files.pythonhosted.org/packages/79/c4/46d005aec3bf911cb030467d91e062a5386ff4a03e51874424cacc0f60c1/gpustat-1.1.1.tar.gz#sha256=c18d3ed5518fc16300c42d694debc70aebb3be55cae91f1db64d63b5fa8af9d8",
+          "gradio @ https://files.pythonhosted.org/packages/e2/4d/52a719a5e9a70022438d38238f2a9a3297b864c8ceaa61d77e3f1c1b472a/gradio-5.32.0-py3-none-any.whl#sha256=45fdb15784f4be19eca2beb1d45d107238ca614c177b20b0e3d4f2d6aee81bae",
+          "gradio_client @ https://files.pythonhosted.org/packages/9b/1b/b372308c263379ae3ebc440512432979458330113bdee26cef86c89bf48e/gradio_client-1.10.2-py3-none-any.whl#sha256=6de67b6224123d264c7887caa0586b2a9e2c369ec32ca38927cf8a841694edcd",
+          "groovy @ https://files.pythonhosted.org/packages/28/27/3d6dcadc8a3214d8522c1e7f6a19554e33659be44546d44a2f7572ac7d2a/groovy-0.1.2-py3-none-any.whl#sha256=7f7975bab18c729a257a8b1ae9dcd70b7cafb1720481beae47719af57c35fa64",
+          "grpcio @ https://files.pythonhosted.org/packages/1c/ae/65ce56a2527faa17d02cba4c2231c74047ad898be339486ba87f093bfb66/grpcio-1.83.1-cp312-cp312-macosx_11_0_universal2.whl#sha256=16138031a47b771860a16a975b53087f4fd5bbdbb2c03a188c5d90ad65d2bdae",
+          "h11 @ https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl#sha256=63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+          "h5py @ https://files.pythonhosted.org/packages/b0/42/c84efcc1d4caebafb1ecd8be4643f39c85c47a80fe254d92b8b43b1eadaf/h5py-3.16.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=42b012933a83e1a558c673176676a10ce2fd3759976a0fedee1e672d1e04fc9d",
+          "hf-xet @ https://files.pythonhosted.org/packages/4b/69/55b8dcf636142ae660fec1869fcac14c4da2e8412e14d6eee1523be77e9f/hf_xet-1.6.0-cp38-abi3-macosx_11_0_arm64.whl#sha256=f0906082d9932ae0c0057fa194041c22b4e2cdb46b2592ef3b91f020d62a081a",
+          "httpcore @ https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl#sha256=2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+          "httpx @ https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl#sha256=d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+          "huggingface_hub @ https://files.pythonhosted.org/packages/c3/0e/3e45bbe0dd48f4e56b1d46649d342de853cd1c7e815323472ab62687f153/huggingface_hub-1.30.0-py3-none-any.whl#sha256=96ae0a8e99a234374a6fe43e989ebd21c04640b91ab2927e7e5773ba1131ca59",
+          "idna @ https://files.pythonhosted.org/packages/57/b0/0e52c878c53f245edd3a11020f20979b3f490f245af532c7cae3027754b5/idna-3.19-py3-none-any.whl#sha256=815e7be7a7806d54abb586dc943addc79e8b2ee16915059658cbeff4b1b43bf4",
+          "ImageIO @ https://files.pythonhosted.org/packages/3e/2d/ca050652104bab2cf55e569db2a178b1b61cb041fef28307f2db383f6d9f/imageio-2.37.4-py3-none-any.whl#sha256=1ab2e22c8debf700f24c3ac43e8f95f3b3a8110c83b93411e97b4b0b2cd1c7e6",
+          "imageio-ffmpeg @ https://files.pythonhosted.org/packages/40/5c/f3d8a657d362cc93b81aab8feda487317da5b5d31c0e1fdfd5e986e55d17/imageio_ffmpeg-0.6.0-py3-none-macosx_11_0_arm64.whl#sha256=b1ae3173414b5fc5f538a726c4e48ea97edc0d2cdc11f103afee655c463fa742",
+          "importlib_metadata @ https://files.pythonhosted.org/packages/b3/55/ecca97ae19075f1fac62def77731e7f535e6c1fb8f92ff08160c5e6dade8/importlib_metadata-9.0.1-py3-none-any.whl#sha256=bba5600596a7e21f3eef53281cf28d6a5195634d2f2b78ff9501a3272c6eaab0",
+          "iniconfig @ https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl#sha256=f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12",
+          "itsdangerous @ https://files.pythonhosted.org/packages/04/96/92447566d16df59b2a776c0fb82dbc4d9e07cd95062562af01e408583fc4/itsdangerous-2.2.0-py3-none-any.whl#sha256=c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef",
+          "Jinja2 @ https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl#sha256=85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+          "jinxed @ https://files.pythonhosted.org/packages/f1/1d/0a6be99b69bb448448403a45a241aff0dca751832ae54f027ed940d2eb52/jinxed-2.1.0-py2.py3-none-any.whl#sha256=43b802d18b70e405d410fb66eb2837d1101e7e5ea922e666507bb43f34d11d09",
+          "jsonschema @ https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl#sha256=d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce",
+          "jsonschema-specifications @ https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl#sha256=98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
+          "loguru @ https://files.pythonhosted.org/packages/0c/29/0348de65b8cc732daa3e33e67806420b2ae89bdce2b04af740289c5c6c8c/loguru-0.7.3-py3-none-any.whl#sha256=31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c",
+          "Markdown @ https://files.pythonhosted.org/packages/64/69/4a5af2bc115a9a33fefe51709749de8262be3f9ba063d1753a837cdbc49c/markdown-3.10.3-py3-none-any.whl#sha256=fa6c92a00a4a3c98b22728c64a935ae1928250ae65058a6ded814d2cc29a4cea",
+          "markdown-it-py @ https://files.pythonhosted.org/packages/b3/81/4da04ced5a082363ecfa159c010d200ecbd959ae410c10c0264a38cac0f5/markdown_it_py-4.2.0-py3-none-any.whl#sha256=9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a",
+          "MarkupSafe @ https://files.pythonhosted.org/packages/9a/81/7e4e08678a1f98521201c3079f77db69fb552acd56067661f8c2f534a718/markupsafe-3.0.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=1872df69a4de6aead3491198eaf13810b565bdbeec3ae2dc8780f14458ec73ce",
+          "mdurl @ https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl#sha256=84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+          "mlx @ https://files.pythonhosted.org/packages/0b/eb/af6b1a8b45f24d22e4735c52e0696c66233bd477e1b9e9dbbef225bdf88b/mlx-0.32.2-cp312-cp312-macosx_26_0_arm64.whl#sha256=68560fd648c5bb900aa6f6765cd74c5a8abaf092d97d73584a57b7545966c227",
+          "mlx-metal @ https://files.pythonhosted.org/packages/dd/cd/4e50bf325100e7165e13d025f264362bf0009196269f9eaf87f2c6e738a2/mlx_metal-0.32.2-py3-none-macosx_26_0_arm64.whl#sha256=e6abeac9ac5265830c9c1541b6f96e9be37a85c2446763a46ad466c63a3837ab",
+          "moviepy @ https://files.pythonhosted.org/packages/9a/73/7d3b2010baa0b5eb1e4dfa9e4385e89b6716be76f2fa21a6c0fe34b68e5a/moviepy-2.2.1-py3-none-any.whl#sha256=6b56803fec2ac54b557404126ac1160e65448e03798fa282bd23e8fab3795060",
+          "mpmath @ https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl#sha256=a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+          "msgpack @ https://files.pythonhosted.org/packages/88/88/c2b6d8e81571da87aa232c0e34a3f3a0e618e6235892065ec82d1d81fc7a/msgpack-1.2.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=0a652ceeededf71d3fa40c303a02a149d42338d310162367b91c539d4bd6e0a3",
+          "multidict @ https://files.pythonhosted.org/packages/91/9d/954b139bfa969855f2d4cb5ae7b7d44dd7106f754305b6e21a9068213aa7/multidict-6.8.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=10456943903744ae1249728161c96bd9d2f7eb5ee17fcc2ffda2dc32e1bb36c7",
+          "multiprocess @ https://files.pythonhosted.org/packages/71/70/38998b950a97ea279e6bd657575d22d1a2047256caf707d9a10fbce4f065/multiprocess-0.70.19-py312-none-any.whl#sha256=3a56c0e85dd5025161bac5ce138dcac1e49174c7d8e74596537e729fd5c53c28",
+          "networkx @ https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl#sha256=d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762",
+          "numpy @ https://files.pythonhosted.org/packages/9c/59/a312e95696e5f601914dd8b6dd844692ba61670807417e24b68e337b5c70/numpy-2.5.3-cp312-cp312-macosx_14_0_arm64.whl#sha256=a72f874bc9e10e4b8f80426fb49716d5141f64442a0c8418065093ec8017fbb0",
+          "nvidia-ml-py @ https://files.pythonhosted.org/packages/23/45/caa600acfab94560807a20a64b5830d2cd3c3202b7f1328644d70b7d6bd8/nvidia_ml_py-13.610.43-py3-none-any.whl#sha256=f13c72698edef492f985cc225f14faafe68ae065a2e407f45bdf6f4b9b43fde8",
+          "omegaconf @ https://files.pythonhosted.org/packages/a4/0e/152509871bf30df6fc38569f52a2db9b55dd41aae957adae50a053ac7778/omegaconf-2.3.1-py3-none-any.whl#sha256=3d701d14e9a8828f1edd28bb70b725908b34277cdd72cf7d6a83f94dadc6b6a0",
+          "opencv-python @ https://files.pythonhosted.org/packages/9c/75/76f6ade78f6102c61034f828e2a22616708df2c9504bc8d6af9dd8f73dc5/opencv_python-5.0.0.93-cp37-abi3-macosx_13_0_arm64.whl#sha256=198a75138241810206a17c829dbcc40a7cb1841cda538ca86cbbfc6c7d95f898",
+          "opentelemetry-api @ https://files.pythonhosted.org/packages/ca/6f/a04e900f465ff3221ccc395522503e2d10e79fa21f2723c8e177aae1e0d1/opentelemetry_api-1.44.0-py3-none-any.whl#sha256=94b98c893a91b88657eaac1e3ba89618cdb85be6918196705354f34728b2cdef",
+          "opentelemetry-exporter-otlp-proto-common @ https://files.pythonhosted.org/packages/5e/71/65fd9d54c10b860f87c045ccee1264cab7011268895d3528818a29c1172a/opentelemetry_exporter_otlp_proto_common-1.44.0-py3-none-any.whl#sha256=9a9fe61bba73d802904bc989f1d6b4a7b1ee40f06c40e98d6f85af65aaebb694",
+          "opentelemetry-exporter-otlp-proto-http @ https://files.pythonhosted.org/packages/cd/d0/fdeb1a98d8d3a6205f5f297c51b4a9bfe65126ab60339669bbe3dd54c2e2/opentelemetry_exporter_otlp_proto_http-1.44.0-py3-none-any.whl#sha256=838592fce774c1c8bb7b9a0a7facbfa82e17be5a8a4e94cef10cb84ae026bae3",
+          "opentelemetry-proto @ https://files.pythonhosted.org/packages/d1/7c/8be563d68e93bbefa5c8affb82ddcff91b3ad858ce49957ba7b16fd3e0ab/opentelemetry_proto-1.44.0-py3-none-any.whl#sha256=898b155a0e1557afd867478fb6158e8122a46329ca0bb8dc53cc55e98f017f56",
+          "opentelemetry-sdk @ https://files.pythonhosted.org/packages/e7/23/ff077e61886ee020a17ce9c8b6fa11c601c8d8345b09ea24f605445df62a/opentelemetry_sdk-1.44.0-py3-none-any.whl#sha256=df081c4c6bcfdb1211e3e86140376792643128a25f8d72d1d27675936e7e96ad",
+          "opentelemetry-semantic-conventions @ https://files.pythonhosted.org/packages/a6/0e/49df70d9b81fb5cbae4bbf2a49d865b09bcbcbc4eb53f5851b1027738d78/opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl#sha256=1cacde7b0ad306f84c5ef08c3dbe1bbaf20165bba6f8bff43b670e555a086bcb",
+          "orjson @ https://files.pythonhosted.org/packages/29/98/758cf90fbeaaafb7f8141bfac75a432099959f3a2f5db93a412e876415d8/orjson-3.12.0-cp312-cp312-macosx_15_0_arm64.whl#sha256=11edb4660a6680abee9788a3a9072208a2c96538cc1322bd79542065229d8e54",
+          "packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work",
+          "pandas @ https://files.pythonhosted.org/packages/5c/bd/bf8064d9cfa214294356c2d6702b716d3cf3bb24be59287a6a21e24cae6b/pandas-2.3.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=3fd2f887589c7aa868e02632612ba39acb0b8948faf5cc58f0850e165bd46f35",
+          "peft @ https://files.pythonhosted.org/packages/28/79/13bcabb8048126422d5c4b880575d40886c726f354db88cfeed4325525bb/peft-0.20.0-py3-none-any.whl#sha256=0fbba16ffebfad3de96e06f2da6860fd860292324b85b6141909fa1e26ea9233",
+          "pillow @ https://files.pythonhosted.org/packages/2c/32/7e2ac19b5713657384cec55f89065fb306b06af008cfd87e572035b27119/pillow-11.3.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=921bd305b10e82b4d1f5e802b6850677f965d8394203d182f078873851dada69",
+          "pip @ file:///home/conda/feedstock_root/build_artifacts/pip_1785914405025/work",
+          "platformdirs @ https://files.pythonhosted.org/packages/f4/e1/5b7b8bbb55084d1425bcb9bc823ff519e1b2be05f6ebb0089e2eacc38413/platformdirs-4.11.8-py3-none-any.whl#sha256=52f2f181bbfde907966932cc8312d967d02976422d66d537ea16092b8e291081",
+          "pluggy @ https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl#sha256=e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746",
+          "proglog @ https://files.pythonhosted.org/packages/c1/1b/f7ea6cde25621cd9236541c66ff018f4268012a534ec31032bcb187dc5e7/proglog-0.1.12-py3-none-any.whl#sha256=ccaafce51e80a81c65dc907a460c07ccb8ec1f78dc660cfd8f9ec3a22f01b84c",
+          "propcache @ https://files.pythonhosted.org/packages/2c/7d/49777a3e20b55863d4794384a38acd460c04157b0a00f8602b0d508b8431/propcache-0.5.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=e5cbfac9f61484f7e9f3597775500cd3ebe8274e9b050c38f9525c77c97520bf",
+          "protobuf @ https://files.pythonhosted.org/packages/f7/6c/3a54a58f2948b0f485df9ecdd06590f15d0a7abf46a89d50c3de709ff4ff/protobuf-7.36.1-cp310-abi3-macosx_10_9_universal2.whl#sha256=3cf2ee25d006cee57294a1196ea43b37feb78e0dcd1e8af5c1aeddb777655aca",
+          "psutil @ https://files.pythonhosted.org/packages/80/c4/f5af4c1ca8c1eeb2e92ccca14ce8effdeec651d5ab6053c589b074eda6e1/psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl#sha256=1a7b04c10f32cc88ab39cbf606e117fd74721c831c98a27dc04578deb0c16979",
+          "pyarrow @ https://files.pythonhosted.org/packages/a6/e2/9ab15b88cbfac28e16419ce5439ec29234c5172cb8259301b4ba639bdec0/pyarrow-25.0.1-cp312-cp312-macosx_12_0_arm64.whl#sha256=df961f2e7ae9cf496459259d798652c70625f6c080650d6952f8c04053c58ee9",
+          "pydantic @ https://files.pythonhosted.org/packages/bd/1f/73c53fcbfb0b5a78f91176df41945ca466e71e9d9d836e5c522abda39ee7/pydantic-2.11.10-py3-none-any.whl#sha256=802a655709d49bd004c31e865ef37da30b540786a46bfce02333e0e24b5fe29a",
+          "pydantic_core @ https://files.pythonhosted.org/packages/a1/02/6224312aacb3c8ecbaa959897af57181fb6cf3a3d7917fd44d0f2917e6f2/pydantic_core-2.33.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=3c6db6e52c6d70aa0d00d45cdb9b40f0433b96380071ea80b09277dba021ddf7",
+          "pydub @ https://files.pythonhosted.org/packages/a6/53/d78dc063216e62fc55f6b2eebb447f6a4b0a59f55c8406376f76bf959b08/pydub-0.25.1-py2.py3-none-any.whl#sha256=65617e33033874b59d87db603aa1ed450633288aefead953b30bded59cb599a6",
+          "Pygments @ https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl#sha256=2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+          "pytest @ https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl#sha256=37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c",
+          "python-dateutil @ https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl#sha256=a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427",
+          "python-dotenv @ https://files.pythonhosted.org/packages/0d/17/c5c6b53ddc18f297992099b3d9ec16c855c0ccc83263a21fe4d1c625ec6c/python_dotenv-1.2.3-py3-none-any.whl#sha256=904552145e8bfed22162c09dab1c2b9b54fefa7b23ba780f4f26ca0316b0f0d9",
+          "python-multipart @ https://files.pythonhosted.org/packages/e1/04/e8135ebd1ad02c56ec633277529b2602ff99ff634be76cdba5744cf554fd/python_multipart-0.0.32-py3-none-any.whl#sha256=ff6d3f776f16878c894e52e107296ffc890e913c611b1a4ec6c44e2821fe2e23",
+          "pytz @ https://files.pythonhosted.org/packages/0f/7b/39c34ca613b0b198cb866466651b26b045e2009864c5183c979a3b83f383/pytz-2026.3.post1-py2.py3-none-any.whl#sha256=dd95840dd199baea12d9cc096a1d452caa6596a1c1e4b5f3dbd1541855d5e815",
+          "PyYAML @ https://files.pythonhosted.org/packages/89/a0/6cf41a19a1f2f3feab0e9c0b74134aa2ce6849093d5517a0c550fe37a648/pyyaml-6.0.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=fc09d0aa354569bc501d4e787133afc08552722d3ab34836a80547331bb5d4a0",
+          "ray @ https://files.pythonhosted.org/packages/62/04/99fbdee83ae77a8201e226e8548ff24aae15153f4d6d14a2ef0d302740cb/ray-2.58.0-cp312-cp312-macosx_12_0_arm64.whl#sha256=308863a6468dc969d1d52a99233569d7a2a9c2745f589b74ff277e9769486077",
+          "referencing @ https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl#sha256=381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231",
+          "regex @ https://files.pythonhosted.org/packages/60/4b/0f2d5f6bbb791cc10f22f0ed16c487e630dde8fa8fa0bd92a2bfe21a4b20/regex-2026.9.10-cp312-cp312-macosx_11_0_arm64.whl#sha256=866de9f98df0611d7b62b3a8729d3284a64c0cc6edd90bb95a533e443a4939cb",
+          "remote-pdb @ https://files.pythonhosted.org/packages/71/c5/d208c66344bb785d800adb61aef512290d3473052b9e7697890f0547aff2/remote_pdb-2.1.0-py2.py3-none-any.whl#sha256=94f73a92ac1248cf16189211011f97096bdada8a7baac8c79372663bbb57b5d0",
+          "requests @ https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl#sha256=2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+          "rich @ https://files.pythonhosted.org/packages/82/3b/64d4899d73f91ba49a8c18a8ff3f0ea8f1c1d75481760df8c68ef5235bf5/rich-15.0.0-py3-none-any.whl#sha256=33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+          "rpds-py @ https://files.pythonhosted.org/packages/a4/73/319dfa745dd668efe89309141ded489126461fcecd2b8f3a3cda185129b6/rpds_py-2026.6.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=538949e262e46caa31ac01bdb3c1e8f642622922cacbabbae6a8445d9dc33eaf",
+          "ruff @ https://files.pythonhosted.org/packages/43/d9/b75668ce41e4c8d073d18d6d08672ba6906ce45d5c06ea4fdb2e84ce3853/ruff-0.16.6-py3-none-macosx_11_0_arm64.whl#sha256=99b62ea33baf130f50368798d841f0d95527b6d817bf31817b65dd058f1d314c",
+          "safehttpx @ https://files.pythonhosted.org/packages/2e/a3/0f0b7d78e2f1eb9e8e1afbff1d2bff8d60144aee17aca51c065b516743dd/safehttpx-0.1.7-py3-none-any.whl#sha256=c4f4a162db6993464d7ca3d7cc4af0ffc6515a606dfd220b9f82c6945d869cde",
+          "safetensors @ https://files.pythonhosted.org/packages/f5/b1/fa7c600e7dceae12e9606c7578cbc9ff1e1ed55844883ee5c92205e86226/safetensors-0.8.0-cp310-abi3-macosx_11_0_arm64.whl#sha256=c80201d22cbf405b80647a60ada77bba06c8fba2da2743ba1e89cdcc39a81f25",
+          "scipy @ https://files.pythonhosted.org/packages/a5/f6/a5b82f8abbe14d134691b8b903696f701d25a081353a29dc655c364d9e62/scipy-1.18.1-cp312-cp312-macosx_14_0_arm64.whl#sha256=7bbf207c4453ce1ad2e00b17313852b33310b83090c2311bdaf97f93c0380d12",
+          "semantic-version @ https://files.pythonhosted.org/packages/6a/23/8146aad7d88f4fcb3a6218f41a60f6c2d4e3a72de72da1825dc7c8f7877c/semantic_version-2.10.0-py2.py3-none-any.whl#sha256=de78a3b8e0feda74cabc54aab2da702113e33ac9d9eb9d2389bcf1f58b7d9177",
+          "sentencepiece @ https://files.pythonhosted.org/packages/bd/44/caa9cab5f261a019e2808bc5046152775dc57352ba9cbae7525e9e7a1ed4/sentencepiece-0.2.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=38111ed1f79268f399c505028023d5eaaf0ab4e5eafceb709468b0d3323e7838",
+          "setuptools @ https://files.pythonhosted.org/packages/e1/e3/c164c88b2e5ce7b24d667b9bd83589cf4f3520d97cad01534cd3c4f55fdb/setuptools-81.0.0-py3-none-any.whl#sha256=fdd925d5c5d9f62e4b74b30d6dd7828ce236fd6ed998a08d81de62ce5a6310d6",
+          "shellingham @ https://files.pythonhosted.org/packages/e0/f9/0595336914c5619e5f28a1fb793285925a8cd4b432c9da0a987836c7f822/shellingham-1.5.4-py2.py3-none-any.whl#sha256=7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686",
+          "six @ https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl#sha256=4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+          "starlette @ https://files.pythonhosted.org/packages/81/0d/13d1d239a25cbfb19e740db83143e95c772a1fe10202dda4b76792b114dd/starlette-0.52.1-py3-none-any.whl#sha256=0029d43eb3d273bc4f83a08720b4912ea4b071087a3b48db01b7c839f7954d74",
+          "sympy @ https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl#sha256=e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+          "tensorboard @ https://files.pythonhosted.org/packages/37/4b/cd2eec9642781a8f5b2fb9994e3933a7b259ab18e9d49aeede9b5acf6311/tensorboard-2.21.0-py3-none-any.whl#sha256=7279316dcb6bd5bc391d623dea841531299cde1887310e8133bc34a996d32255",
+          "tensorboard-data-server @ https://files.pythonhosted.org/packages/7a/13/e503968fefabd4c6b2650af21e110aa8466fe21432cd7c43a84577a89438/tensorboard_data_server-0.7.2-py3-none-any.whl#sha256=7e0610d205889588983836ec05dc098e80f97b7e7bbff7e994ebb78f578d0ddb",
+          "test_tube @ https://files.pythonhosted.org/packages/91/f0/5c32f2fbd824f32354f7f4632c957163071597bb2c6a4105f507bc9af7c0/test_tube-0.7.5.tar.gz#sha256=1379c33eb8cde3e9b36610f87da0f16c2e06496b1cfebac473df4e7be2faa124",
+          "timm @ https://files.pythonhosted.org/packages/5e/b7/19267ec60740ef1899d265272bff3623f19fe7f7bf1022fb098766db2134/timm-1.0.29-py3-none-any.whl#sha256=4266486e355c9beb9432e689de580d09e2efe7fa92a9a79e76c03e7763eac724",
+          "tokenizers @ https://files.pythonhosted.org/packages/2e/47/174dca0502ef88b28f1c9e06b73ce33500eedfac7a7692108aec220464e7/tokenizers-0.22.2-cp39-abi3-macosx_11_0_arm64.whl#sha256=1e418a55456beedca4621dbab65a318981467a2b188e982a23e117f115ce5001",
+          "tomlkit @ https://files.pythonhosted.org/packages/bd/75/8539d011f6be8e29f339c42e633aae3cb73bffa95dd0f9adec09b9c58e85/tomlkit-0.13.3-py3-none-any.whl#sha256=c89c649d79ee40629a9fda55f8ace8c6a1b42deb912b2a8fd8d942ddadb606b0",
+          "torch @ https://files.pythonhosted.org/packages/ef/bb/285d643f254731294c9b595a007eac39db4600a98682d7bca688f42ca164/torch-2.12.0-cp312-cp312-macosx_14_0_arm64.whl#sha256=b41339df93d491435e790ff8bcbae1c0ce777175889bfd1281d119862793e6a2",
+          "torchaudio @ https://files.pythonhosted.org/packages/f1/b1/77658817acacd01a72b714440c62f419efc4d90170e704e8e7a2c0918988/torchaudio-2.11.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=a1cf1acc883bee9cb906a933572fed6a8a933f86ef34e9ea7d803f72317e8c1b",
+          "torchcodec @ https://files.pythonhosted.org/packages/d7/b9/d1780a0f5e3b4bcddec36e865ddec73b31047cf4fa8456e96c9f91852b12/torchcodec-0.16.0-cp312-cp312-macosx_14_0_arm64.whl#sha256=9a899bf100cc40a0401fafc14f47c79979311d1df3fbe418c5d1019cde69d607",
+          "torchdata @ https://files.pythonhosted.org/packages/95/d4/af694ef718aedbe95a72760ab9ff7a6a7a44ace2d7f70c27bfeb67c5c503/torchdata-0.11.0-py3-none-any.whl#sha256=52b940fbbe0e00fb21cabddf528449d1bec5bfb0d0823b7487b15f951658ee33",
+          "torchvision @ https://files.pythonhosted.org/packages/9e/c8/5cd91932f7f3671b0743dc4ae1a4c16b1d0b45bf4087976277d325bda718/torchvision-0.27.0-cp312-cp312-macosx_14_0_arm64.whl#sha256=1a6dd742a150645126df9e0b2e449874c1d635897c773b322c2e067e98382dfe",
+          "tqdm @ https://files.pythonhosted.org/packages/f9/1c/01bfd571a64e7f270e6bab5e33777debe0edc56759233ce84f27dec92d14/tqdm-4.70.0-py3-none-any.whl#sha256=7f585706bfddbdebf89daac705b2dfcc16890130727d3197ca62c732b4310953",
+          "transformers @ https://files.pythonhosted.org/packages/41/c4/a12e1d9b387fb0c40a57116db82b457e8c771cb419163cda29204d74a595/transformers-5.15.1-py3-none-any.whl#sha256=b7cdf238ff583e3a58dbc7fa34da1aaf091ce063141f65a30538160bd5afe93f",
+          "typer @ https://files.pythonhosted.org/packages/dc/bf/205d0004930ede8f542fb58f601526fccf4ae7626075ca1e6c4de5d3d652/typer-0.27.2-py3-none-any.whl#sha256=b3a5fc4342d5fc8fda8fc3010b1cf117e9249aab7fae800c2eff62fd3842d97d",
+          "typing-inspection @ https://files.pythonhosted.org/packages/67/81/4add07e5172b7ac40d8ed5ff580409a7801a4fe26d529bdd915401dabfbe/typing_inspection-0.4.4-py3-none-any.whl#sha256=65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+          "typing_extensions @ https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl#sha256=481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+          "tzdata @ https://files.pythonhosted.org/packages/e5/6d/b53b99a9f2766d095985947a5782f1702cabb129a34f7a802d7197af832f/tzdata-2026.3-py2.py3-none-any.whl#sha256=dc096730c87af6cab1b171c9d532be840741ff5d459015e7f6947bd7d7e54931",
+          "urllib3 @ https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl#sha256=9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897",
+          "uvicorn @ https://files.pythonhosted.org/packages/f1/79/4a20b54ab0491485ccd8c077db2d39187c7f12b3e15485d38a7be37c81b4/uvicorn-0.52.4-py3-none-any.whl#sha256=f86e41a149d7d05a9969337e3946a9c171c06a5d42680896daaba624aeac8da1",
+          "wandb @ https://files.pythonhosted.org/packages/71/5a/83201590d1e84a3b7d0a0cc7b53ee1318def18ba5431a32b26a44e6694f6/wandb-0.30.0-py3-none-macosx_13_0_arm64.whl#sha256=f4f908ace761db42d239d100230df0b77eb9684924d962a762bba176d829a236",
+          "watch @ https://files.pythonhosted.org/packages/4d/30/05e13da086995c5d9fde762ff3cb742884aa76fb6167eda9a73a876aee8b/watch-0.2.7.tar.gz#sha256=d51f3648091c031e08d0cf0f3177da884078f25538a9d8dc568693ab5ac2dee0",
+          "wcwidth @ https://files.pythonhosted.org/packages/c4/0e/57f6bb3024a597b2e8ec4aee710ffe62ddc95af2e2bb1ee7a7abdc22c68c/wcwidth-0.8.3-py3-none-any.whl#sha256=d5b73dba6158a595ec9370350e7f2637bcac8d6c5e4fde34f30fcffb6103a5e4",
+          "websockets @ https://files.pythonhosted.org/packages/3d/69/1a681dd6f02180916f116894181eab8b2e25b31e484c5d0eae637ec01f7c/websockets-15.0.1-cp312-cp312-macosx_11_0_arm64.whl#sha256=0701bc3cfcb9164d04a14b149fd74be7347a530ad3bbf15ab2c678a2cd3dd9a2",
+          "Werkzeug @ https://files.pythonhosted.org/packages/93/8c/2e650f2afeb7ee576912636c23ddb621c91ac6a98e66dc8d29c3c69446e1/werkzeug-3.1.8-py3-none-any.whl#sha256=63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50",
+          "wheel==0.48.0",
+          "xxhash @ https://files.pythonhosted.org/packages/75/c9/cf736f6db8c3273af18925061572db0d4357818a9ce425f4b5fb0021918e/xxhash-4.0.1-cp312-cp312-macosx_11_0_arm64.whl#sha256=515a822c73abbf6a0b7c70976d9662be342835c9d78b8dc7c023411f39c35dbc",
+          "yarl @ https://files.pythonhosted.org/packages/ea/b4/05b4131c407006cd1e410e9c6539f16a0945724677e5364447313c15ea3e/yarl-1.24.5-cp312-cp312-macosx_11_0_arm64.whl#sha256=9d399bdcfb4a0f659b9b3788bbc89babe63d9a6a65aacdf4d4e7065ff2e6316c",
+          "zipp @ https://files.pythonhosted.org/packages/3a/13/547360d81e6d88d58492968ffda9f9542854f11310ee556fef14260cc886/zipp-4.1.0-py3-none-any.whl#sha256=25ad4e16390cd314347dd8f1de67a2ac538ae658ed4ab9db16029c07c188e97f"
+        ],
+        "media_tools": {
+          "ffmpeg": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffmpeg",
+            "sha256": "181f4fc06f7787c69ae4aa7b754f355cb2c03fabfd56c8a62e646c4bea0e7de7"
+          },
+          "ffprobe": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffprobe",
+            "sha256": "4c8ec9b8d0ae69878bd35c7cb18dda5fde0c23084fdf4b71a439826f2d675a40"
+          }
+        },
+        "weights": "Shared local native-FL2VA plus official rank64 VSA adapter conversion, identical effective payload to Ours; NOT a downloaded full-student snapshot. Official latest runtime unmodified; native 15s support tested before any extra model download.",
+        "recipe": "Official VSA defaults: reference attention, four steps, full native-resolution VAE; 15-second alignment support must be verified",
+        "local_patches": []
+      },
+      "resource_start": {
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "host": {
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "macos": "26.6.1"
+      },
+      "support_note": "ValueError: H3 generates 5-15 s at 24 fps; 362 frames is 15.08 s."
+    },
+    {
+      "case": "motion-graphics",
+      "method": "vpipe",
+      "label": "vpipe / VDN",
+      "status": "complete",
+      "elapsed_seconds": 2474.67183495895,
+      "actual_nfe": null,
+      "timings_seconds": null,
+      "peak_memory_gib": null,
+      "prompt_sha256": "e377f9b6e78b817e35f98140fa1c4211983646eec6364e8ebe68eb230eda6401",
+      "package_source_sha256": null,
+      "model_identity": null,
+      "vsa": null,
+      "backend": null,
+      "seed": 2026,
+      "source_commit": "0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d",
+      "weights": "Official P093-prepared FL2VA Q8 group64 DiT/modulation and text encoder, native VAEs; VDN stage-dmd-step-250 at 751739ee and Turbo v4_step600_ema at 43a74557. Rehashed, no historical performance inherited.",
+      "recipe": "Official minimax-h3-vdn.vpipeline, six configured steps, shifts12/3, VDN linear branch and Turbo scale1, i8_gemm true.",
+      "local_patches": [],
+      "original_run_sha256": "029523726f2b212eee225436b75001a891446e6e341b1634d83a630eaaedc35c",
+      "original_command_log_sha256": "4333cf05b23ffd32573ddc04446f7841153656fddbd53097b572b05473163842",
+      "quality_review": "pending",
+      "started_utc": "2026-09-10T03:28:51.540318+00:00",
+      "environment_identity": {
+        "source": {
+          "commit": "0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d",
+          "tracked_changes": "",
+          "status": ""
+        },
+        "executable_sha256": "8acac62eae50af875f47bdc2d651d429661ffa3d92f7e9877b99fb3767a195e7",
+        "runtime_files": [
+          {
+            "path": "$PRODUCT/.local/upstreams/vpipe-build/libvpipe.0.1.dylib",
+            "sha256": "7854281d455d54409b80d8e95f3ceb3e84c4669a04c2aff82d2fe03f8878ec00"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libavcodec.62.28.102.dylib",
+            "sha256": "35b9dd72701356da5d14027fd376fff593ca1f6da564c1bcfe282b18b7677dbe"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libavformat.62.12.102.dylib",
+            "sha256": "5f73217d241e711f5a252af52ac1d55360c61c1d99755a621984896bc5892e40"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libavutil.60.26.102.dylib",
+            "sha256": "bb3b9a078ed5246b04d78523b2164e19f0f3e6d71f12850a8f76d4d3404422bc"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libswresample.6.3.102.dylib",
+            "sha256": "c84ebc245d2d94751b908db76c41df3b82d7a02398be58f4f1f7f85646ef497b"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libswscale.9.5.102.dylib",
+            "sha256": "13eb62f6a77a962107840155b9421265690beda8158b0d71d11a6a7d7d462d05"
+          },
+          {
+            "path": "$PRODUCT/.local/vpipe-work/session.json",
+            "sha256": "5ff4291aa8448740cfbc5f89a17f4f9ad1b2ea7ad12272fd82a2cfe34a1f0225"
+          }
+        ],
+        "assets": [
+          {
+            "path": "$MODELS/h3-vpipe/asset-receipt.json",
+            "sha256": "75b01b2f62c3ca032e4e1de5ed310b3eff5abc98926f77742b974fe8c02d697a",
+            "files": 50,
+            "verification": "preparation SHA256; current size and mtime"
+          }
+        ],
+        "python_packages": null,
+        "media_tools": {
+          "ffmpeg": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffmpeg",
+            "sha256": "181f4fc06f7787c69ae4aa7b754f355cb2c03fabfd56c8a62e646c4bea0e7de7"
+          },
+          "ffprobe": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffprobe",
+            "sha256": "4c8ec9b8d0ae69878bd35c7cb18dda5fde0c23084fdf4b71a439826f2d675a40"
+          }
+        },
+        "weights": "Official P093-prepared FL2VA Q8 group64 DiT/modulation and text encoder, native VAEs; VDN stage-dmd-step-250 at 751739ee and Turbo v4_step600_ema at 43a74557. Rehashed, no historical performance inherited.",
+        "recipe": "Official minimax-h3-vdn.vpipeline, six configured steps, shifts12/3, VDN linear branch and Turbo scale1, i8_gemm true.",
+        "local_patches": []
+      },
+      "resource_start": {
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "host": {
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "macos": "26.6.1"
+      },
+      "video_asset": "motion-graphics-vpipe.mp4",
+      "video_sha256": "19185d6dba741f677e4ed2dbdc523b5764b62747a229488dbdd1cf8981be33c5",
+      "delivery": {
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "duration": 15.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "model_geometry": {
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 362
+      },
+      "resource_end": {
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "complete_av_validation": "passed",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "mime_codec_string": "avc1.640020",
+            "width": 1366,
+            "height": 768,
+            "coded_width": 1376,
+            "coded_height": 768,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "683:384",
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "24/1",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 184320,
+            "duration": "15.000000",
+            "bit_rate": "6524961",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "360",
+            "nb_read_frames": "360",
+            "extradata_size": 48,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "encoder": "Lavc62.28.102 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "mime_codec_string": "mp4a.40.2",
+            "sample_fmt": "fltp",
+            "sample_rate": "32000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 480000,
+            "duration": "15.000000",
+            "bit_rate": "194554",
+            "nb_frames": "470",
+            "nb_read_frames": "469",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler"
+            }
+          }
+        ],
+        "format": {
+          "filename": "$PRODUCT/.local/comparisons/native-three-02/motion-graphics-vpipe/output.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "15.000000",
+          "size": "12612032",
+          "bit_rate": "6726417",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf62.12.102"
+          }
+        }
+      }
+    },
+    {
+      "case": "bakery",
+      "method": "ours",
+      "label": "FastH3 / Ours",
+      "status": "complete",
+      "elapsed_seconds": 1997.5141989591066,
+      "actual_nfe": 4,
+      "timings_seconds": {
+        "conditioning": 8.121161374961957,
+        "denoise": 1727.0132778750267,
+        "video_decode": 253.12255945894867,
+        "audio_decode": 1.3307953749317676,
+        "mux": 2.9299154579639435
+      },
+      "peak_memory_gib": {
+        "conditioning": 2.0627451334148645,
+        "denoise": 53.65627803094685,
+        "video_decode": 27.256800077855587,
+        "audio_decode": 2.7873353362083435,
+        "mux": 0.0
+      },
+      "prompt_sha256": "d0a6ba4347e3cb0b446effa353467cc30150c4c63c769a3e9f2cc651c468824f",
+      "package_source_sha256": "b4e92640c42c85e04628308ff7929647f47866f58f3dd029d321eaf125027dab",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "vsa": {
+        "enabled": true,
+        "configured_sparsity": 0.9,
+        "layer_sparsity": 0.9,
+        "achieved_sparsity": 0.8995510662177328,
+        "tile_size": 64,
+        "prefix_mode": "exempt",
+        "impl": "simd",
+        "num_prefix_tiles": 21,
+        "num_video_tiles": 1782,
+        "video_keep": 179.0,
+        "dense_fallback_reason": null,
+        "attention_calls": 200,
+        "sparse_calls": 200,
+        "impl_counts": {
+          "simd": 200
+        },
+        "fallback_reasons": [],
+        "checkpoint_vsa_capable": true
+      },
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      },
+      "seed": 87001,
+      "source_commit": "cc15b89156fbebf96be46d2573ab955972017ad0",
+      "weights": "Fresh native MiniMax FL2VA + pinned official FastH3 VSA adapter; native-fasth3-v2 conversion. All 33 original payloads match P091/P093 adopted model. Bundle 6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "recipe": "ours-v1, native 1376x768/362 to 1366x768/360, 4 forwards, full VideoVAE",
+      "local_patches": [],
+      "original_run_sha256": "cefca714e64a9b5e17a398d7b3787053eb38af608e9c19f5fe29f0d8a7f13738",
+      "original_command_log_sha256": "574c14acdfdc529484535f1db052b083bcb6b6c3c5fa81db88ace47fb614ebfa",
+      "quality_review": "pending",
+      "started_utc": "2026-09-10T04:11:06.814560+00:00",
+      "environment_identity": {
+        "source": {
+          "commit": "cc15b89156fbebf96be46d2573ab955972017ad0",
+          "tracked_changes": "",
+          "status": ""
+        },
+        "executable_sha256": "d9b440dc96efc052473d0001e0c1a3776de977acd8ac3d238931f948a30dc137",
+        "runtime_files": [
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/__init__.py",
+            "sha256": "7c9a3254b0d5677188bed67ecc73883b7495cee2e7e76d5af00f2a98dea1d243"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/__main__.py",
+            "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/checkpoint_compat.py",
+            "sha256": "d581e9683397b7b27f75e99189802b0687982d236e4bb9f1ac354a707d99a590"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/fastwan.py",
+            "sha256": "cd2ec07716791a77d82113a81e3df88765d43a288c7496f06d5cd3822012240c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/frame_upsample.py",
+            "sha256": "00782caebd19b68f09471810469a53cea546dad5a6cdcec07b456ce460fb02c8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/logger.py",
+            "sha256": "94cabd6a951091f3ddc8f77c74ddb6abc898942a458d4e6025bd5d8abc775bd7"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3.py",
+            "sha256": "249b259de782fc61952627c9ef17a0232f7cfe620112b36f2d847d08aa555414"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_audio_vae.py",
+            "sha256": "ff36f95920c535fb1c160928432594e8ef8b217bd315b99d9e2b943cbe50c3cd"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_conditioner.py",
+            "sha256": "f692c1eb955eeb42263e76e148fbd8006552f8e6f97691547c799891c6f241e9"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_pipeline.py",
+            "sha256": "9b58ac27057d8e8c0adde320ebdd25f6b47780ac8ed5be7c9c2bbd2362fd63c7"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_video_vae.py",
+            "sha256": "d4de89b8246689818aafb162ccaf501e3ee2dadfacec0d1b71910e8aaa09a09d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_vsa.py",
+            "sha256": "540a49758d54784c2d52dd3ecd61a476ee4f6fb6dd813ade5be5ca964209730f"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/minimax_h3_vsa_simd.py",
+            "sha256": "0112b50f33b8d07aa45542d2d37e4e73957adfd1f04ea74e08ddbcedb5aac31c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/_vendor/fastvideo_mlx/windowed_attention.py",
+            "sha256": "e0f2b04d7e9d75c3f477e7826b3107daf18d9b823f7168e1821bdc1de2b7e6f7"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/api.py",
+            "sha256": "08408af2c5f88d26d1ffc46f67ad1fdd4e69e5ea7ec8d72b800946a27a85c82f"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/assets.py",
+            "sha256": "9295168260255f85fa9cc777e42cdc4230f469cbcf7dedf9687b513cca4d6892"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/cli.py",
+            "sha256": "0d28bc7a89eb8ab7223f39ead3806acf824e8d3bbefcd8e7d0c80c71560a08b8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/conversion.py",
+            "sha256": "a968b8fd7ebf8ceb069f371c499ceee0300c10af748733048155a60d733eb445"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/data/model-sources.json",
+            "sha256": "7d6afb52829d332a473ed255ef581f74d59579fa784e689148775ffec2f984ee"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/data/vae-calibration.npz",
+            "sha256": "747aa0d979c5608d4b9801c712a7f1e567d44395e9aaa85909d1de892cd8d68d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/host.py",
+            "sha256": "81b2addb03d1abebe3456029a96aa637d9c32d3de23a1f947c89268d3a79545d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/io.py",
+            "sha256": "ab106ba18d905888d5cd786211376cc5a006a12cf89c79a4f41bdbe64f771729"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/media.py",
+            "sha256": "b93c8f33926500914712bb91e94586d16b318beecd7ede580a9bb7c0beeae536"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/preparation.py",
+            "sha256": "6dec5df069ac348dc62fe359fbee39081846f8245a6c65ccd6c6f8d7f0e6a4dc"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/process.py",
+            "sha256": "bd1baae661c9ac5cb342b627b5fb6c5b22f72ce0da44f64606dc5e66636bc1e0"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/engine.py",
+            "sha256": "903653c6016cc5dca0b2e29c887950cbea1e011be0b7dc249df6c4a19843abc9"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_DRAWTHINGS_LICENSE.txt",
+            "sha256": "7da5d6826937079dd07dfe1f4fe925c0765546a8e5b75d480afe214aed1cebd2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_MLX_LICENSE.txt",
+            "sha256": "ccfab7ccb2ea306f71531c8ca77bb55507606cd90768b1e32b8b52ab5b48cf01"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_NOTICE.txt",
+            "sha256": "4ee659e95980a3d1df105afdaf228e30277dde43d6ba35c50522c655fee7d507"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_mfa_LICENSE.txt",
+            "sha256": "e60a41d3aada1d8ec9156d4a2ea564a3bb57d850c1665a88b6db105387c22a28"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_nax_body.metal",
+            "sha256": "23d3a3f599f12f1c6993bf05d2b43c00bc2d8831c6d61e5c2b02a6394fc1a703"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p085_nax_header.metal",
+            "sha256": "65c6d0d4e47bf0133047ca7ffa8149026bed6aa488b1203326840778c5580ed1"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p087_NOTICE.txt",
+            "sha256": "a08b410aeb3c054f3a206c510157f4df6d3b20f285163cd6f50b9bceec20fe4c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/metal/p087_h3c.metal",
+            "sha256": "6821dcdb23a4c5a5bef8d25c023cc1e264283b9740df2834844ff6196eaae160"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/observer.py",
+            "sha256": "2347731f95ae5a415f4865f8242f6c7c848e29bca01e78c256d616593b492405"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/quantization.py",
+            "sha256": "065649df1717887c668c10cb5acd300ab82112df2f6f2cf99e08cd3e4527f6fe"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/sparse.py",
+            "sha256": "dddd2120a8fd4bdd8e54871d7bbe439a2c862fb6e8d437f78963aed8e25ac601"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/swiglu.py",
+            "sha256": "0df4d09be019f7896f2d0abb3aaeec089746efdc7778d6153b33b6d16c79b7dd"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/runtime/vae.py",
+            "sha256": "73a4490d2781357e164188688f518c5cccef773c95e2471e2112311c02ecadbf"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/h3_apple/worker.py",
+            "sha256": "642c4754ea86dc3ed7280e80583a40a940d55cac8a8b8757cda4c6f2e7248bc2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/mlx/lib/libjaccl.dylib",
+            "sha256": "8ee82aae82996938435bcebe724d819296712b8b34fac021ce7aa66073730e1e"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/mlx/lib/libmlx.dylib",
+            "sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/python3.11/site-packages/mlx/lib/mlx.metallib",
+            "sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3"
+          }
+        ],
+        "assets": [
+          {
+            "path": "$MODELS/h3-apple-prepared-03/bundle.json",
+            "sha256": "da199d3204706b19209af56a274739e422d5f1a419908cffa6ba8912363b910c",
+            "files": 35,
+            "verification": "preparation SHA256; current size and mtime"
+          }
+        ],
+        "python_packages": [
+          "annotated-doc==0.0.5",
+          "anyio==4.14.2",
+          "certifi==2026.7.22",
+          "click==8.4.2",
+          "filelock==3.32.2",
+          "fsspec==2026.7.0",
+          "h11==0.16.0",
+          "h3-apple @ file://$PRODUCT/.local/release-candidate/wheels/h3_apple-0.1.0.dev0-py3-none-any.whl#sha256=7e39ddc2609bb0a2def3c7c58f17348f00fc23b7988a309b4e346dad805d8f9a",
+          "hf-xet==1.6.0",
+          "httpcore==1.0.9",
+          "httpx==0.28.1",
+          "huggingface_hub==1.26.0",
+          "idna==3.18",
+          "iniconfig==2.3.0",
+          "markdown-it-py==4.2.0",
+          "mdurl==0.1.2",
+          "mlx==0.32.0",
+          "mlx-metal @ https://files.pythonhosted.org/packages/dc/59/65d32520175379df33f107749193aa94ea9db069167a36a1a100ff689f62/mlx_metal-0.32.0-py3-none-macosx_26_0_arm64.whl#sha256=3af76a498d84804f66119800499f9d143d7dffb0878a0dd0d7c2846e58565fd7",
+          "numpy==2.4.6",
+          "packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work",
+          "pillow==12.3.0",
+          "pip @ file:///home/conda/feedstock_root/build_artifacts/pip_1785914405025/work",
+          "pluggy==1.6.0",
+          "Pygments==2.20.0",
+          "pytest==8.4.2",
+          "PyYAML==6.0.3",
+          "regex==2026.7.19",
+          "rich==15.0.0",
+          "safetensors==0.8.0",
+          "setuptools==83.0.0",
+          "shellingham==1.5.4",
+          "tokenizers==0.22.2",
+          "tqdm==4.70.0",
+          "transformers==5.14.1",
+          "typer==0.27.1",
+          "typing_extensions==4.16.0",
+          "wheel==0.47.0"
+        ],
+        "media_tools": {
+          "ffmpeg": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffmpeg",
+            "sha256": "181f4fc06f7787c69ae4aa7b754f355cb2c03fabfd56c8a62e646c4bea0e7de7"
+          },
+          "ffprobe": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffprobe",
+            "sha256": "4c8ec9b8d0ae69878bd35c7cb18dda5fde0c23084fdf4b71a439826f2d675a40"
+          }
+        },
+        "weights": "Fresh native MiniMax FL2VA + pinned official FastH3 VSA adapter; native-fasth3-v2 conversion. All 33 original payloads match P091/P093 adopted model. Bundle 6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+        "recipe": "ours-v1, native 1376x768/362 to 1366x768/360, 4 forwards, full VideoVAE",
+        "local_patches": []
+      },
+      "resource_start": {
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "host": {
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "macos": "26.6.1"
+      },
+      "video_asset": "bakery-ours.mp4",
+      "video_sha256": "d738746b2221e40cd347189f2bb17d2b521af44a532bfe7aea9864eb0cb89841",
+      "delivery": {
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "duration": 15.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "model_geometry": {
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 362
+      },
+      "resource_end": {
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "complete_av_validation": "passed",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "mime_codec_string": "avc1.640020",
+            "width": 1366,
+            "height": 768,
+            "coded_width": 1376,
+            "coded_height": 768,
+            "has_b_frames": 2,
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "24/1",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 184320,
+            "duration": "15.000000",
+            "bit_rate": "6384761",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "360",
+            "nb_read_frames": "360",
+            "extradata_size": 47,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "encoder": "Lavc62.28.102 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "mime_codec_string": "mp4a.40.2",
+            "sample_fmt": "fltp",
+            "sample_rate": "32000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 480000,
+            "duration": "15.000000",
+            "bit_rate": "176912",
+            "nb_frames": "470",
+            "nb_read_frames": "469",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler"
+            }
+          }
+        ],
+        "format": {
+          "filename": "$PRODUCT/.local/comparisons/native-three-02/bakery-ours/output.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "15.000000",
+          "size": "12316951",
+          "bit_rate": "6569040",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf62.12.102"
+          }
+        }
+      }
+    },
+    {
+      "case": "bakery",
+      "method": "fastvideo",
+      "label": "Official FastH3 / VSA",
+      "status": "failed",
+      "elapsed_seconds": null,
+      "actual_nfe": null,
+      "timings_seconds": null,
+      "peak_memory_gib": null,
+      "prompt_sha256": "d0a6ba4347e3cb0b446effa353467cc30150c4c63c769a3e9f2cc651c468824f",
+      "package_source_sha256": null,
+      "model_identity": null,
+      "vsa": null,
+      "backend": null,
+      "seed": 87001,
+      "source_commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
+      "weights": "Shared local native-FL2VA plus official rank64 VSA adapter conversion, identical effective payload to Ours; NOT a downloaded full-student snapshot. Official latest runtime unmodified; native 15s support tested before any extra model download.",
+      "recipe": "Official VSA defaults: reference attention, four steps, full native-resolution VAE; 15-second alignment support must be verified",
+      "local_patches": [],
+      "original_run_sha256": "f8e0ea8109d5e45447e199e65cb9ad8e485ca9dc25020e62c6c44f114bab5cf5",
+      "original_command_log_sha256": "043cd5a7f427bff46003b3387afb075341a30b8ab3b141954b296aabd212e01c",
+      "quality_review": "pending",
+      "started_utc": "2026-09-10T04:45:25.311112+00:00",
+      "environment_identity": {
+        "source": {
+          "commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
+          "tracked_changes": "",
+          "status": ""
+        },
+        "executable_sha256": "3570628efa3f2e066f0193815b44ef7d2b8910bdeda4461a3a494fe432f7a132",
+        "runtime_files": [
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/__init__.py",
+            "sha256": "73c68722c080f8d9fb2bc650041b12db7d252d0acbcd9993f3fc6a409aa367a8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/__init__.py",
+            "sha256": "bbbcaa96f4f608e4f52c39f09c8ba4694ddf7588e13b3ef0364befe953bb3ad2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/checkpoint.py",
+            "sha256": "da9054f564e59aece21763fcbbb8d37760b7e920df3917b50ef4bc355a0de519"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/checkpoint_compat.py",
+            "sha256": "56300cfce0adbcf48677577444f0c8700ea07af9480d9ee7de97f54d488973a2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/fast_spatial.py",
+            "sha256": "a4cb6afdbc67a451b7230fb16c9646ae4c6d83f2de35dc4b7ac5b74d6ffa477c"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/fastwan.py",
+            "sha256": "f8200e8e82c4f5eca3b922557a2ba94f7524dc4ee2372392678d65e7c2815afa"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/frame_upsample.py",
+            "sha256": "029c44e15c03aea52b3b685fb391d748b332768726f9465486b769f0ba0c9d06"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/memory.py",
+            "sha256": "c111be2ca19c50a9202a33e1cce59d18a92e13c70fe5f12b25bcf76da2e30116"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3.py",
+            "sha256": "f361caf7310df83aba9fe7c927b2114f37f28b7b80bddb0983bb751695f02c62"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_audio_vae.py",
+            "sha256": "02a41fb63cd6b44953f4bd5245c06ee448cab57e3deb3e99a1a83e1b0e783775"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_conditioner.py",
+            "sha256": "652f2b5352cf1d1aa63de25e8c40c7e910c970774917e0baa3dc6b1630e524dc"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_pipeline.py",
+            "sha256": "6aa4aa879e2a9a45e9ec349bcba98d6b2a8b6a70d531568c4401603e0d39c6d5"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_taeh3.py",
+            "sha256": "81770cfa4d9aaef0d471733211847e6ba29135ea54f694b65e917299c5605a5d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_video_vae.py",
+            "sha256": "0dcb8f0e7ae8b10de4e60cd5be06246542747334f3a8a121ec9f321413d4bbf4"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_vsa.py",
+            "sha256": "9787f144afa5237566a9afc66e8573e91b4264b96d1944d128d696d0b4f75420"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/minimax_h3_vsa_simd.py",
+            "sha256": "fbfb31c4ae6f4393b81f22d245c53e4f6878bcf061c2897bc1120a4cf7c2aae4"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/prompt_cache.py",
+            "sha256": "160b33499ce109d7091d331a3a73488c14cabaa27bfdd17da44f3d4221f57466"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/prompt_enhance.py",
+            "sha256": "190249ec9b09d2b7d290dc03477ac7c6f33fefc805dfefb88096029f6067fbff"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/quant_backends.py",
+            "sha256": "10a73b00be2a9cc061d216d74f0ca52e3f5909018a76ae8ee3cb30798d65a9b8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/refine.py",
+            "sha256": "bf1196d56ea53a72ae66920c1a8a1d38c369a87b65da205f10735a5d1d3affb2"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/rife_interp.py",
+            "sha256": "7a9e8df416d94c0a188fd382aa151b87ba739d567ce295b7afb2475a19aebe7d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/sampling.py",
+            "sha256": "07fc1b6ea6e6dde7e1a632e91fbf121ddf949202657b1699e728860c8de87c09"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/taehv_decode.py",
+            "sha256": "5e3db13416ca3445608114a85d37aba9c1dcbbdc9067e27f2279e58a5c7e308a"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/wan22.py",
+            "sha256": "ad73860bf6fb961ce9eda9e9633418ba052d0d8013818743f0e6457cc22fce0d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/wan22_sample.py",
+            "sha256": "d37e122b8e9cdcd1c7192572a2dadde71752da241e3176b436bd7e77f7f8bb7d"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/wan_vae.py",
+            "sha256": "10fbaefca70013d43b865ceb030154605e1b563be4cacf6352f429fae7c270e5"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/fastvideo/mlx_runtime/windowed_attention.py",
+            "sha256": "4c19250bc9f6cb95e6a5508d8dc855e5436918ae991ada916085402cd6eaa0b9"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/mlx/lib/libjaccl.dylib",
+            "sha256": "9cfd72679ff35c593a1d46fd30d995cc4a131eed15733617efb1118001e74084"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/mlx/lib/libmlx.dylib",
+            "sha256": "d24c7a9b9d55a76bfd3bbcd1d042251a185cbadcb6340c3244a6ffa3dcb7c7e8"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/fastvideo/lib/python3.12/site-packages/mlx/lib/mlx.metallib",
+            "sha256": "dc59d1cceb1a5c7e578232e6e41e28e2c73c9463ac6dbc3886c3ee17ffc270ed"
+          }
+        ],
+        "assets": [
+          {
+            "path": "$MODELS/h3-apple-prepared-03/bundle.json",
+            "sha256": "da199d3204706b19209af56a274739e422d5f1a419908cffa6ba8912363b910c",
+            "files": 35,
+            "verification": "preparation SHA256; current size and mtime"
+          }
+        ],
+        "python_packages": [
+          "absl-py @ https://files.pythonhosted.org/packages/58/0a/a10b45aab35b175aded078a462dc8d0c698f5b13946e7cb0869097b78bb6/absl_py-2.5.0-py3-none-any.whl#sha256=0f17b89f2a4eaaedc4f28c622998aa690564b3012a396a4ffad0821007fe03ba",
+          "accelerate @ https://files.pythonhosted.org/packages/2c/92/48aec3736ca778ffe5fa68e19e3c18917cba4de43fa46fe6176cccafe267/accelerate-1.0.1-py3-none-any.whl#sha256=c6aa0c7b8a797cb150471e90e3ca36ac41f5d4b40512cdd6f058b8bf25589467",
+          "aiofiles @ https://files.pythonhosted.org/packages/a5/45/30bb92d442636f570cb5651bc661f52b610e2eec3f891a5dc3a4c3667db0/aiofiles-24.1.0-py3-none-any.whl#sha256=b4ec55f4195e3eb5d7abd1bf7e061763e864dd4954231fb8539a0ef8bb8260e5",
+          "aiohappyeyeballs @ https://files.pythonhosted.org/packages/71/43/1947f06babed6b3f1d7f38b0c767f52df66bfb2bc10b468c4a7de9eceff2/aiohappyeyeballs-2.7.1-py3-none-any.whl#sha256=9243213661e29250eb41368e5daa826fc017156c3b8a11440826b2e3ed376472",
+          "aiohttp @ https://files.pythonhosted.org/packages/30/07/4bbc222cc8dbe31d4c3e8a5baad2286e4d42026ac0c570027b89afce6344/aiohttp-3.14.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=617105e2c3018ee38d0c8ce5ee3c84f621a6d8b9f723202aacaff28449ca91ee",
+          "aiosignal @ https://files.pythonhosted.org/packages/fb/76/641ae371508676492379f16e2fa48f4e2c11741bd63c48be4b12a6b09cba/aiosignal-1.4.0-py3-none-any.whl#sha256=053243f8b92b990551949e63930a839ff0cf0b0ebbe0597b0f3fb19e1a0fe82e",
+          "aniso8601 @ https://files.pythonhosted.org/packages/59/75/e0e10dc7ed1408c28e03a6cb2d7a407f99320eb953f229d008a7a6d05546/aniso8601-10.0.1-py2.py3-none-any.whl#sha256=eb19717fd4e0db6de1aab06f12450ab92144246b257423fe020af5748c0cb89e",
+          "annotated-doc @ https://files.pythonhosted.org/packages/3e/30/e900b21425a860e195f32e37657aa1f7c7f2b1bfb26f03ca209b90933c06/annotated_doc-0.0.5-py3-none-any.whl#sha256=117bac03a25ede5df5440e855b32d556049ca169ead221505badf432fed4b101",
+          "annotated-types @ https://files.pythonhosted.org/packages/99/91/8acff4f5e50511b911bbccb72b8628a49c68ce14148cd9f6431094859a90/annotated_types-0.8.0-py3-none-any.whl#sha256=f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0",
+          "antlr4-python3-runtime @ https://files.pythonhosted.org/packages/3e/38/7859ff46355f76f8d19459005ca000b6e7012f2f1ca597746cbcd1fbfe5e/antlr4-python3-runtime-4.9.3.tar.gz#sha256=f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b",
+          "anyio @ https://files.pythonhosted.org/packages/12/b8/4bd346e22b28902df4d651910f5242c28d84e4a5c2435ca5c3f797ed7e2e/anyio-4.15.1-py3-none-any.whl#sha256=6152fdbbf9a77fdec97731721bebf7c4c44f7c29b424b0065826173efc7ed101",
+          "attrs @ https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl#sha256=c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+          "av @ https://files.pythonhosted.org/packages/3f/c9/37a619297492256b77d5ed906e7d8166c10a26ed251dccf1ae03ab19bff6/av-18.1.0-cp311-abi3-macosx_14_0_arm64.whl#sha256=b30a4e8d934558e19602b68998a4d9ac9f250fa0dacef216f7e8e40153b13316",
+          "blessed @ https://files.pythonhosted.org/packages/aa/d9/d0a5f6cce623ae6fecda1a59d87a360ac2cd971ac6d4d06d3b3d832a2ccc/blessed-1.49.0-py3-none-any.whl#sha256=770279b4066218f38a06ee87976ccc658fbffd4ffb43a5ee1e9a5eef3d4f3ba0",
+          "blinker @ https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl#sha256=ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc",
+          "certifi @ https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl#sha256=62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+          "charset-normalizer @ https://files.pythonhosted.org/packages/30/27/78873dc8b6a56357517b74b6bb9568b80450e7bb4f6ef7e3fa9d22aa0bd7/charset_normalizer-3.5.1-cp312-cp312-macosx_10_13_universal2.whl#sha256=5b6d1386bf0096d26d3a863dc0a487a5b4eb9aa93cf5ba69683d29dde6b9d60f",
+          "click @ https://files.pythonhosted.org/packages/58/50/6c0d534c5f134586a8e1ba4e330569e32f057e33372ae556463212fb4cd3/click-8.5.0-py3-none-any.whl#sha256=255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360",
+          "cloudpickle @ https://files.pythonhosted.org/packages/88/39/799be3f2f0f38cc727ee3b4f1445fe6d5e4133064ec2e4115069418a5bb6/cloudpickle-3.1.2-py3-none-any.whl#sha256=9acb47f6afd73f60dc1df93bb801b472f05ff42fa6c84167d25cb206be1fbf4a",
+          "datasets @ https://files.pythonhosted.org/packages/44/0b/98fc6eb83333508ca5f44c52b3e287ea8137a0ad582714e2cbc67a02154b/datasets-5.0.1-py3-none-any.whl#sha256=9fbf73688f8c18f7529b4fe592abd04015f81d1e58001e4bac73ffb2b39d7cc4",
+          "decorator @ https://files.pythonhosted.org/packages/05/7f/798705f5296a58ca505d600456748d1be48078eac8a7050d8a98bc9edb89/decorator-5.3.1-py3-none-any.whl#sha256=f47fe6fdbd2edd623ecfe36875d37aba411624e2670dd395dddae1358689bb3c",
+          "diffusers @ https://files.pythonhosted.org/packages/db/df/ffb593ebed2a068d2d6be44261283f39a6b809c0fcdfdcafbd448cbeec77/diffusers-0.40.0-py3-none-any.whl#sha256=5b5da7c3ddb62152fa4afc577f02e050af688c797375c34fb2d01006da3f3541",
+          "dill @ https://files.pythonhosted.org/packages/1e/77/dc8c558f7593132cf8fefec57c4f60c83b16941c574ac5f619abb3ae7933/dill-0.4.1-py3-none-any.whl#sha256=1e1ce33e978ae97fcfcff5638477032b801c46c7c65cf717f95fbc2248f79a9d",
+          "einops @ https://files.pythonhosted.org/packages/2a/09/f8d8f8f31e4483c10a906437b4ce31bdf3d6d417b73fe33f1a8b59e34228/einops-0.8.2-py3-none-any.whl#sha256=54058201ac7087911181bfec4af6091bb59380360f069276601256a76af08193",
+          "fastapi @ https://files.pythonhosted.org/packages/cb/03/10388a42375ee7e4ac9b94eb2c5c569c8b5795e377e701c9ac3ad63de890/fastapi-0.141.1-py3-none-any.whl#sha256=bfb91aa2d334c61cb35ba9a116fc123b3d3df31640b801cf57a7a78ec3f603b3",
+          "fastvideo @ file://$PRODUCT/.local/upstreams/FastVideo",
+          "ffmpy @ https://files.pythonhosted.org/packages/55/56/dd3669eccebb6d8ac81e624542ebd53fe6f08e1b8f2f8d50aeb7e3b83f99/ffmpy-1.0.0-py3-none-any.whl#sha256=5640e5f0fd03fb6236d0e119b16ccf6522db1c826fdf35dcb87087b60fd7504f",
+          "filelock @ https://files.pythonhosted.org/packages/cc/06/4f138f618dbea66803291274f228f01daf29f306fe8b96bc30dab765df75/filelock-3.32.6-py3-none-any.whl#sha256=3f16ecd0117feae0dfc147e8c62eb5daeccd8bd800378c3ddf416de9b4feb6b1",
+          "Flask @ https://files.pythonhosted.org/packages/7f/9c/34f6962f9b9e9c71f6e5ed806e0d0ff03c9d1b0b2340088a0cf4bce09b18/flask-3.1.3-py3-none-any.whl#sha256=f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c",
+          "Flask-RESTful @ https://files.pythonhosted.org/packages/d7/7b/f0b45f0df7d2978e5ae51804bb5939b7897b2ace24306009da0cc34d8d1f/Flask_RESTful-0.3.10-py2.py3-none-any.whl#sha256=1cf93c535172f112e080b0d4503a8d15f93a48c88bdd36dd87269bdaf405051b",
+          "frozenlist @ https://files.pythonhosted.org/packages/2b/94/5c8a2b50a496b11dd519f4a24cb5496cf125681dd99e94c604ccdea9419a/frozenlist-1.8.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=f833670942247a14eafbb675458b4e61c82e002a148f49e68257b79296e865c4",
+          "fsspec @ https://files.pythonhosted.org/packages/e5/22/4222d7ddf3da30f363edaa98e329c2bce6c65497c9cb2810931c8b2c0fbc/fsspec-2026.6.0-py3-none-any.whl#sha256=02e0b71817df9b2169dc30a16832045764def1191b43dcff5bb85bdee212d2a1",
+          "ftfy @ https://files.pythonhosted.org/packages/ab/6e/81d47999aebc1b155f81eca4477a616a70f238a2549848c38983f3c22a82/ftfy-6.3.1-py3-none-any.whl#sha256=7c70eb532015cd2f9adb53f101fb6c7945988d023a085d127d1573dc49dd0083",
+          "future @ https://files.pythonhosted.org/packages/da/71/ae30dadffc90b9006d77af76b393cb9dfbfc9629f339fc1574a1c52e6806/future-1.0.0-py3-none-any.whl#sha256=929292d34f5872e70396626ef385ec22355a1fae8ad29e1a734c3e43f9fbc216",
+          "googleapis-common-protos @ https://files.pythonhosted.org/packages/1a/7a/7d79170c6ce6f12e109df2b3879d6b934010cf4f99aea8de8b7e5408c174/googleapis_common_protos-1.75.3-py3-none-any.whl#sha256=a018d2bf098ca9fb6faa08d5bb780e2a2c2f73c566f069761331386c9596d3f2",
+          "gpustat @ https://files.pythonhosted.org/packages/79/c4/46d005aec3bf911cb030467d91e062a5386ff4a03e51874424cacc0f60c1/gpustat-1.1.1.tar.gz#sha256=c18d3ed5518fc16300c42d694debc70aebb3be55cae91f1db64d63b5fa8af9d8",
+          "gradio @ https://files.pythonhosted.org/packages/e2/4d/52a719a5e9a70022438d38238f2a9a3297b864c8ceaa61d77e3f1c1b472a/gradio-5.32.0-py3-none-any.whl#sha256=45fdb15784f4be19eca2beb1d45d107238ca614c177b20b0e3d4f2d6aee81bae",
+          "gradio_client @ https://files.pythonhosted.org/packages/9b/1b/b372308c263379ae3ebc440512432979458330113bdee26cef86c89bf48e/gradio_client-1.10.2-py3-none-any.whl#sha256=6de67b6224123d264c7887caa0586b2a9e2c369ec32ca38927cf8a841694edcd",
+          "groovy @ https://files.pythonhosted.org/packages/28/27/3d6dcadc8a3214d8522c1e7f6a19554e33659be44546d44a2f7572ac7d2a/groovy-0.1.2-py3-none-any.whl#sha256=7f7975bab18c729a257a8b1ae9dcd70b7cafb1720481beae47719af57c35fa64",
+          "grpcio @ https://files.pythonhosted.org/packages/1c/ae/65ce56a2527faa17d02cba4c2231c74047ad898be339486ba87f093bfb66/grpcio-1.83.1-cp312-cp312-macosx_11_0_universal2.whl#sha256=16138031a47b771860a16a975b53087f4fd5bbdbb2c03a188c5d90ad65d2bdae",
+          "h11 @ https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl#sha256=63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86",
+          "h5py @ https://files.pythonhosted.org/packages/b0/42/c84efcc1d4caebafb1ecd8be4643f39c85c47a80fe254d92b8b43b1eadaf/h5py-3.16.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=42b012933a83e1a558c673176676a10ce2fd3759976a0fedee1e672d1e04fc9d",
+          "hf-xet @ https://files.pythonhosted.org/packages/4b/69/55b8dcf636142ae660fec1869fcac14c4da2e8412e14d6eee1523be77e9f/hf_xet-1.6.0-cp38-abi3-macosx_11_0_arm64.whl#sha256=f0906082d9932ae0c0057fa194041c22b4e2cdb46b2592ef3b91f020d62a081a",
+          "httpcore @ https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl#sha256=2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+          "httpx @ https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl#sha256=d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad",
+          "huggingface_hub @ https://files.pythonhosted.org/packages/c3/0e/3e45bbe0dd48f4e56b1d46649d342de853cd1c7e815323472ab62687f153/huggingface_hub-1.30.0-py3-none-any.whl#sha256=96ae0a8e99a234374a6fe43e989ebd21c04640b91ab2927e7e5773ba1131ca59",
+          "idna @ https://files.pythonhosted.org/packages/57/b0/0e52c878c53f245edd3a11020f20979b3f490f245af532c7cae3027754b5/idna-3.19-py3-none-any.whl#sha256=815e7be7a7806d54abb586dc943addc79e8b2ee16915059658cbeff4b1b43bf4",
+          "ImageIO @ https://files.pythonhosted.org/packages/3e/2d/ca050652104bab2cf55e569db2a178b1b61cb041fef28307f2db383f6d9f/imageio-2.37.4-py3-none-any.whl#sha256=1ab2e22c8debf700f24c3ac43e8f95f3b3a8110c83b93411e97b4b0b2cd1c7e6",
+          "imageio-ffmpeg @ https://files.pythonhosted.org/packages/40/5c/f3d8a657d362cc93b81aab8feda487317da5b5d31c0e1fdfd5e986e55d17/imageio_ffmpeg-0.6.0-py3-none-macosx_11_0_arm64.whl#sha256=b1ae3173414b5fc5f538a726c4e48ea97edc0d2cdc11f103afee655c463fa742",
+          "importlib_metadata @ https://files.pythonhosted.org/packages/b3/55/ecca97ae19075f1fac62def77731e7f535e6c1fb8f92ff08160c5e6dade8/importlib_metadata-9.0.1-py3-none-any.whl#sha256=bba5600596a7e21f3eef53281cf28d6a5195634d2f2b78ff9501a3272c6eaab0",
+          "iniconfig @ https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl#sha256=f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12",
+          "itsdangerous @ https://files.pythonhosted.org/packages/04/96/92447566d16df59b2a776c0fb82dbc4d9e07cd95062562af01e408583fc4/itsdangerous-2.2.0-py3-none-any.whl#sha256=c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef",
+          "Jinja2 @ https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl#sha256=85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+          "jinxed @ https://files.pythonhosted.org/packages/f1/1d/0a6be99b69bb448448403a45a241aff0dca751832ae54f027ed940d2eb52/jinxed-2.1.0-py2.py3-none-any.whl#sha256=43b802d18b70e405d410fb66eb2837d1101e7e5ea922e666507bb43f34d11d09",
+          "jsonschema @ https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl#sha256=d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce",
+          "jsonschema-specifications @ https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl#sha256=98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
+          "loguru @ https://files.pythonhosted.org/packages/0c/29/0348de65b8cc732daa3e33e67806420b2ae89bdce2b04af740289c5c6c8c/loguru-0.7.3-py3-none-any.whl#sha256=31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c",
+          "Markdown @ https://files.pythonhosted.org/packages/64/69/4a5af2bc115a9a33fefe51709749de8262be3f9ba063d1753a837cdbc49c/markdown-3.10.3-py3-none-any.whl#sha256=fa6c92a00a4a3c98b22728c64a935ae1928250ae65058a6ded814d2cc29a4cea",
+          "markdown-it-py @ https://files.pythonhosted.org/packages/b3/81/4da04ced5a082363ecfa159c010d200ecbd959ae410c10c0264a38cac0f5/markdown_it_py-4.2.0-py3-none-any.whl#sha256=9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a",
+          "MarkupSafe @ https://files.pythonhosted.org/packages/9a/81/7e4e08678a1f98521201c3079f77db69fb552acd56067661f8c2f534a718/markupsafe-3.0.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=1872df69a4de6aead3491198eaf13810b565bdbeec3ae2dc8780f14458ec73ce",
+          "mdurl @ https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl#sha256=84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+          "mlx @ https://files.pythonhosted.org/packages/0b/eb/af6b1a8b45f24d22e4735c52e0696c66233bd477e1b9e9dbbef225bdf88b/mlx-0.32.2-cp312-cp312-macosx_26_0_arm64.whl#sha256=68560fd648c5bb900aa6f6765cd74c5a8abaf092d97d73584a57b7545966c227",
+          "mlx-metal @ https://files.pythonhosted.org/packages/dd/cd/4e50bf325100e7165e13d025f264362bf0009196269f9eaf87f2c6e738a2/mlx_metal-0.32.2-py3-none-macosx_26_0_arm64.whl#sha256=e6abeac9ac5265830c9c1541b6f96e9be37a85c2446763a46ad466c63a3837ab",
+          "moviepy @ https://files.pythonhosted.org/packages/9a/73/7d3b2010baa0b5eb1e4dfa9e4385e89b6716be76f2fa21a6c0fe34b68e5a/moviepy-2.2.1-py3-none-any.whl#sha256=6b56803fec2ac54b557404126ac1160e65448e03798fa282bd23e8fab3795060",
+          "mpmath @ https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl#sha256=a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+          "msgpack @ https://files.pythonhosted.org/packages/88/88/c2b6d8e81571da87aa232c0e34a3f3a0e618e6235892065ec82d1d81fc7a/msgpack-1.2.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=0a652ceeededf71d3fa40c303a02a149d42338d310162367b91c539d4bd6e0a3",
+          "multidict @ https://files.pythonhosted.org/packages/91/9d/954b139bfa969855f2d4cb5ae7b7d44dd7106f754305b6e21a9068213aa7/multidict-6.8.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=10456943903744ae1249728161c96bd9d2f7eb5ee17fcc2ffda2dc32e1bb36c7",
+          "multiprocess @ https://files.pythonhosted.org/packages/71/70/38998b950a97ea279e6bd657575d22d1a2047256caf707d9a10fbce4f065/multiprocess-0.70.19-py312-none-any.whl#sha256=3a56c0e85dd5025161bac5ce138dcac1e49174c7d8e74596537e729fd5c53c28",
+          "networkx @ https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl#sha256=d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762",
+          "numpy @ https://files.pythonhosted.org/packages/9c/59/a312e95696e5f601914dd8b6dd844692ba61670807417e24b68e337b5c70/numpy-2.5.3-cp312-cp312-macosx_14_0_arm64.whl#sha256=a72f874bc9e10e4b8f80426fb49716d5141f64442a0c8418065093ec8017fbb0",
+          "nvidia-ml-py @ https://files.pythonhosted.org/packages/23/45/caa600acfab94560807a20a64b5830d2cd3c3202b7f1328644d70b7d6bd8/nvidia_ml_py-13.610.43-py3-none-any.whl#sha256=f13c72698edef492f985cc225f14faafe68ae065a2e407f45bdf6f4b9b43fde8",
+          "omegaconf @ https://files.pythonhosted.org/packages/a4/0e/152509871bf30df6fc38569f52a2db9b55dd41aae957adae50a053ac7778/omegaconf-2.3.1-py3-none-any.whl#sha256=3d701d14e9a8828f1edd28bb70b725908b34277cdd72cf7d6a83f94dadc6b6a0",
+          "opencv-python @ https://files.pythonhosted.org/packages/9c/75/76f6ade78f6102c61034f828e2a22616708df2c9504bc8d6af9dd8f73dc5/opencv_python-5.0.0.93-cp37-abi3-macosx_13_0_arm64.whl#sha256=198a75138241810206a17c829dbcc40a7cb1841cda538ca86cbbfc6c7d95f898",
+          "opentelemetry-api @ https://files.pythonhosted.org/packages/ca/6f/a04e900f465ff3221ccc395522503e2d10e79fa21f2723c8e177aae1e0d1/opentelemetry_api-1.44.0-py3-none-any.whl#sha256=94b98c893a91b88657eaac1e3ba89618cdb85be6918196705354f34728b2cdef",
+          "opentelemetry-exporter-otlp-proto-common @ https://files.pythonhosted.org/packages/5e/71/65fd9d54c10b860f87c045ccee1264cab7011268895d3528818a29c1172a/opentelemetry_exporter_otlp_proto_common-1.44.0-py3-none-any.whl#sha256=9a9fe61bba73d802904bc989f1d6b4a7b1ee40f06c40e98d6f85af65aaebb694",
+          "opentelemetry-exporter-otlp-proto-http @ https://files.pythonhosted.org/packages/cd/d0/fdeb1a98d8d3a6205f5f297c51b4a9bfe65126ab60339669bbe3dd54c2e2/opentelemetry_exporter_otlp_proto_http-1.44.0-py3-none-any.whl#sha256=838592fce774c1c8bb7b9a0a7facbfa82e17be5a8a4e94cef10cb84ae026bae3",
+          "opentelemetry-proto @ https://files.pythonhosted.org/packages/d1/7c/8be563d68e93bbefa5c8affb82ddcff91b3ad858ce49957ba7b16fd3e0ab/opentelemetry_proto-1.44.0-py3-none-any.whl#sha256=898b155a0e1557afd867478fb6158e8122a46329ca0bb8dc53cc55e98f017f56",
+          "opentelemetry-sdk @ https://files.pythonhosted.org/packages/e7/23/ff077e61886ee020a17ce9c8b6fa11c601c8d8345b09ea24f605445df62a/opentelemetry_sdk-1.44.0-py3-none-any.whl#sha256=df081c4c6bcfdb1211e3e86140376792643128a25f8d72d1d27675936e7e96ad",
+          "opentelemetry-semantic-conventions @ https://files.pythonhosted.org/packages/a6/0e/49df70d9b81fb5cbae4bbf2a49d865b09bcbcbc4eb53f5851b1027738d78/opentelemetry_semantic_conventions-0.65b0-py3-none-any.whl#sha256=1cacde7b0ad306f84c5ef08c3dbe1bbaf20165bba6f8bff43b670e555a086bcb",
+          "orjson @ https://files.pythonhosted.org/packages/29/98/758cf90fbeaaafb7f8141bfac75a432099959f3a2f5db93a412e876415d8/orjson-3.12.0-cp312-cp312-macosx_15_0_arm64.whl#sha256=11edb4660a6680abee9788a3a9072208a2c96538cc1322bd79542065229d8e54",
+          "packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work",
+          "pandas @ https://files.pythonhosted.org/packages/5c/bd/bf8064d9cfa214294356c2d6702b716d3cf3bb24be59287a6a21e24cae6b/pandas-2.3.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=3fd2f887589c7aa868e02632612ba39acb0b8948faf5cc58f0850e165bd46f35",
+          "peft @ https://files.pythonhosted.org/packages/28/79/13bcabb8048126422d5c4b880575d40886c726f354db88cfeed4325525bb/peft-0.20.0-py3-none-any.whl#sha256=0fbba16ffebfad3de96e06f2da6860fd860292324b85b6141909fa1e26ea9233",
+          "pillow @ https://files.pythonhosted.org/packages/2c/32/7e2ac19b5713657384cec55f89065fb306b06af008cfd87e572035b27119/pillow-11.3.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=921bd305b10e82b4d1f5e802b6850677f965d8394203d182f078873851dada69",
+          "pip @ file:///home/conda/feedstock_root/build_artifacts/pip_1785914405025/work",
+          "platformdirs @ https://files.pythonhosted.org/packages/f4/e1/5b7b8bbb55084d1425bcb9bc823ff519e1b2be05f6ebb0089e2eacc38413/platformdirs-4.11.8-py3-none-any.whl#sha256=52f2f181bbfde907966932cc8312d967d02976422d66d537ea16092b8e291081",
+          "pluggy @ https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl#sha256=e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746",
+          "proglog @ https://files.pythonhosted.org/packages/c1/1b/f7ea6cde25621cd9236541c66ff018f4268012a534ec31032bcb187dc5e7/proglog-0.1.12-py3-none-any.whl#sha256=ccaafce51e80a81c65dc907a460c07ccb8ec1f78dc660cfd8f9ec3a22f01b84c",
+          "propcache @ https://files.pythonhosted.org/packages/2c/7d/49777a3e20b55863d4794384a38acd460c04157b0a00f8602b0d508b8431/propcache-0.5.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=e5cbfac9f61484f7e9f3597775500cd3ebe8274e9b050c38f9525c77c97520bf",
+          "protobuf @ https://files.pythonhosted.org/packages/f7/6c/3a54a58f2948b0f485df9ecdd06590f15d0a7abf46a89d50c3de709ff4ff/protobuf-7.36.1-cp310-abi3-macosx_10_9_universal2.whl#sha256=3cf2ee25d006cee57294a1196ea43b37feb78e0dcd1e8af5c1aeddb777655aca",
+          "psutil @ https://files.pythonhosted.org/packages/80/c4/f5af4c1ca8c1eeb2e92ccca14ce8effdeec651d5ab6053c589b074eda6e1/psutil-7.2.2-cp36-abi3-macosx_11_0_arm64.whl#sha256=1a7b04c10f32cc88ab39cbf606e117fd74721c831c98a27dc04578deb0c16979",
+          "pyarrow @ https://files.pythonhosted.org/packages/a6/e2/9ab15b88cbfac28e16419ce5439ec29234c5172cb8259301b4ba639bdec0/pyarrow-25.0.1-cp312-cp312-macosx_12_0_arm64.whl#sha256=df961f2e7ae9cf496459259d798652c70625f6c080650d6952f8c04053c58ee9",
+          "pydantic @ https://files.pythonhosted.org/packages/bd/1f/73c53fcbfb0b5a78f91176df41945ca466e71e9d9d836e5c522abda39ee7/pydantic-2.11.10-py3-none-any.whl#sha256=802a655709d49bd004c31e865ef37da30b540786a46bfce02333e0e24b5fe29a",
+          "pydantic_core @ https://files.pythonhosted.org/packages/a1/02/6224312aacb3c8ecbaa959897af57181fb6cf3a3d7917fd44d0f2917e6f2/pydantic_core-2.33.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=3c6db6e52c6d70aa0d00d45cdb9b40f0433b96380071ea80b09277dba021ddf7",
+          "pydub @ https://files.pythonhosted.org/packages/a6/53/d78dc063216e62fc55f6b2eebb447f6a4b0a59f55c8406376f76bf959b08/pydub-0.25.1-py2.py3-none-any.whl#sha256=65617e33033874b59d87db603aa1ed450633288aefead953b30bded59cb599a6",
+          "Pygments @ https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl#sha256=2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+          "pytest @ https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl#sha256=37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c",
+          "python-dateutil @ https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl#sha256=a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427",
+          "python-dotenv @ https://files.pythonhosted.org/packages/0d/17/c5c6b53ddc18f297992099b3d9ec16c855c0ccc83263a21fe4d1c625ec6c/python_dotenv-1.2.3-py3-none-any.whl#sha256=904552145e8bfed22162c09dab1c2b9b54fefa7b23ba780f4f26ca0316b0f0d9",
+          "python-multipart @ https://files.pythonhosted.org/packages/e1/04/e8135ebd1ad02c56ec633277529b2602ff99ff634be76cdba5744cf554fd/python_multipart-0.0.32-py3-none-any.whl#sha256=ff6d3f776f16878c894e52e107296ffc890e913c611b1a4ec6c44e2821fe2e23",
+          "pytz @ https://files.pythonhosted.org/packages/0f/7b/39c34ca613b0b198cb866466651b26b045e2009864c5183c979a3b83f383/pytz-2026.3.post1-py2.py3-none-any.whl#sha256=dd95840dd199baea12d9cc096a1d452caa6596a1c1e4b5f3dbd1541855d5e815",
+          "PyYAML @ https://files.pythonhosted.org/packages/89/a0/6cf41a19a1f2f3feab0e9c0b74134aa2ce6849093d5517a0c550fe37a648/pyyaml-6.0.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=fc09d0aa354569bc501d4e787133afc08552722d3ab34836a80547331bb5d4a0",
+          "ray @ https://files.pythonhosted.org/packages/62/04/99fbdee83ae77a8201e226e8548ff24aae15153f4d6d14a2ef0d302740cb/ray-2.58.0-cp312-cp312-macosx_12_0_arm64.whl#sha256=308863a6468dc969d1d52a99233569d7a2a9c2745f589b74ff277e9769486077",
+          "referencing @ https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl#sha256=381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231",
+          "regex @ https://files.pythonhosted.org/packages/60/4b/0f2d5f6bbb791cc10f22f0ed16c487e630dde8fa8fa0bd92a2bfe21a4b20/regex-2026.9.10-cp312-cp312-macosx_11_0_arm64.whl#sha256=866de9f98df0611d7b62b3a8729d3284a64c0cc6edd90bb95a533e443a4939cb",
+          "remote-pdb @ https://files.pythonhosted.org/packages/71/c5/d208c66344bb785d800adb61aef512290d3473052b9e7697890f0547aff2/remote_pdb-2.1.0-py2.py3-none-any.whl#sha256=94f73a92ac1248cf16189211011f97096bdada8a7baac8c79372663bbb57b5d0",
+          "requests @ https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl#sha256=2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+          "rich @ https://files.pythonhosted.org/packages/82/3b/64d4899d73f91ba49a8c18a8ff3f0ea8f1c1d75481760df8c68ef5235bf5/rich-15.0.0-py3-none-any.whl#sha256=33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+          "rpds-py @ https://files.pythonhosted.org/packages/a4/73/319dfa745dd668efe89309141ded489126461fcecd2b8f3a3cda185129b6/rpds_py-2026.6.3-cp312-cp312-macosx_11_0_arm64.whl#sha256=538949e262e46caa31ac01bdb3c1e8f642622922cacbabbae6a8445d9dc33eaf",
+          "ruff @ https://files.pythonhosted.org/packages/43/d9/b75668ce41e4c8d073d18d6d08672ba6906ce45d5c06ea4fdb2e84ce3853/ruff-0.16.6-py3-none-macosx_11_0_arm64.whl#sha256=99b62ea33baf130f50368798d841f0d95527b6d817bf31817b65dd058f1d314c",
+          "safehttpx @ https://files.pythonhosted.org/packages/2e/a3/0f0b7d78e2f1eb9e8e1afbff1d2bff8d60144aee17aca51c065b516743dd/safehttpx-0.1.7-py3-none-any.whl#sha256=c4f4a162db6993464d7ca3d7cc4af0ffc6515a606dfd220b9f82c6945d869cde",
+          "safetensors @ https://files.pythonhosted.org/packages/f5/b1/fa7c600e7dceae12e9606c7578cbc9ff1e1ed55844883ee5c92205e86226/safetensors-0.8.0-cp310-abi3-macosx_11_0_arm64.whl#sha256=c80201d22cbf405b80647a60ada77bba06c8fba2da2743ba1e89cdcc39a81f25",
+          "scipy @ https://files.pythonhosted.org/packages/a5/f6/a5b82f8abbe14d134691b8b903696f701d25a081353a29dc655c364d9e62/scipy-1.18.1-cp312-cp312-macosx_14_0_arm64.whl#sha256=7bbf207c4453ce1ad2e00b17313852b33310b83090c2311bdaf97f93c0380d12",
+          "semantic-version @ https://files.pythonhosted.org/packages/6a/23/8146aad7d88f4fcb3a6218f41a60f6c2d4e3a72de72da1825dc7c8f7877c/semantic_version-2.10.0-py2.py3-none-any.whl#sha256=de78a3b8e0feda74cabc54aab2da702113e33ac9d9eb9d2389bcf1f58b7d9177",
+          "sentencepiece @ https://files.pythonhosted.org/packages/bd/44/caa9cab5f261a019e2808bc5046152775dc57352ba9cbae7525e9e7a1ed4/sentencepiece-0.2.2-cp312-cp312-macosx_11_0_arm64.whl#sha256=38111ed1f79268f399c505028023d5eaaf0ab4e5eafceb709468b0d3323e7838",
+          "setuptools @ https://files.pythonhosted.org/packages/e1/e3/c164c88b2e5ce7b24d667b9bd83589cf4f3520d97cad01534cd3c4f55fdb/setuptools-81.0.0-py3-none-any.whl#sha256=fdd925d5c5d9f62e4b74b30d6dd7828ce236fd6ed998a08d81de62ce5a6310d6",
+          "shellingham @ https://files.pythonhosted.org/packages/e0/f9/0595336914c5619e5f28a1fb793285925a8cd4b432c9da0a987836c7f822/shellingham-1.5.4-py2.py3-none-any.whl#sha256=7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686",
+          "six @ https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl#sha256=4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
+          "starlette @ https://files.pythonhosted.org/packages/81/0d/13d1d239a25cbfb19e740db83143e95c772a1fe10202dda4b76792b114dd/starlette-0.52.1-py3-none-any.whl#sha256=0029d43eb3d273bc4f83a08720b4912ea4b071087a3b48db01b7c839f7954d74",
+          "sympy @ https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl#sha256=e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+          "tensorboard @ https://files.pythonhosted.org/packages/37/4b/cd2eec9642781a8f5b2fb9994e3933a7b259ab18e9d49aeede9b5acf6311/tensorboard-2.21.0-py3-none-any.whl#sha256=7279316dcb6bd5bc391d623dea841531299cde1887310e8133bc34a996d32255",
+          "tensorboard-data-server @ https://files.pythonhosted.org/packages/7a/13/e503968fefabd4c6b2650af21e110aa8466fe21432cd7c43a84577a89438/tensorboard_data_server-0.7.2-py3-none-any.whl#sha256=7e0610d205889588983836ec05dc098e80f97b7e7bbff7e994ebb78f578d0ddb",
+          "test_tube @ https://files.pythonhosted.org/packages/91/f0/5c32f2fbd824f32354f7f4632c957163071597bb2c6a4105f507bc9af7c0/test_tube-0.7.5.tar.gz#sha256=1379c33eb8cde3e9b36610f87da0f16c2e06496b1cfebac473df4e7be2faa124",
+          "timm @ https://files.pythonhosted.org/packages/5e/b7/19267ec60740ef1899d265272bff3623f19fe7f7bf1022fb098766db2134/timm-1.0.29-py3-none-any.whl#sha256=4266486e355c9beb9432e689de580d09e2efe7fa92a9a79e76c03e7763eac724",
+          "tokenizers @ https://files.pythonhosted.org/packages/2e/47/174dca0502ef88b28f1c9e06b73ce33500eedfac7a7692108aec220464e7/tokenizers-0.22.2-cp39-abi3-macosx_11_0_arm64.whl#sha256=1e418a55456beedca4621dbab65a318981467a2b188e982a23e117f115ce5001",
+          "tomlkit @ https://files.pythonhosted.org/packages/bd/75/8539d011f6be8e29f339c42e633aae3cb73bffa95dd0f9adec09b9c58e85/tomlkit-0.13.3-py3-none-any.whl#sha256=c89c649d79ee40629a9fda55f8ace8c6a1b42deb912b2a8fd8d942ddadb606b0",
+          "torch @ https://files.pythonhosted.org/packages/ef/bb/285d643f254731294c9b595a007eac39db4600a98682d7bca688f42ca164/torch-2.12.0-cp312-cp312-macosx_14_0_arm64.whl#sha256=b41339df93d491435e790ff8bcbae1c0ce777175889bfd1281d119862793e6a2",
+          "torchaudio @ https://files.pythonhosted.org/packages/f1/b1/77658817acacd01a72b714440c62f419efc4d90170e704e8e7a2c0918988/torchaudio-2.11.0-cp312-cp312-macosx_11_0_arm64.whl#sha256=a1cf1acc883bee9cb906a933572fed6a8a933f86ef34e9ea7d803f72317e8c1b",
+          "torchcodec @ https://files.pythonhosted.org/packages/d7/b9/d1780a0f5e3b4bcddec36e865ddec73b31047cf4fa8456e96c9f91852b12/torchcodec-0.16.0-cp312-cp312-macosx_14_0_arm64.whl#sha256=9a899bf100cc40a0401fafc14f47c79979311d1df3fbe418c5d1019cde69d607",
+          "torchdata @ https://files.pythonhosted.org/packages/95/d4/af694ef718aedbe95a72760ab9ff7a6a7a44ace2d7f70c27bfeb67c5c503/torchdata-0.11.0-py3-none-any.whl#sha256=52b940fbbe0e00fb21cabddf528449d1bec5bfb0d0823b7487b15f951658ee33",
+          "torchvision @ https://files.pythonhosted.org/packages/9e/c8/5cd91932f7f3671b0743dc4ae1a4c16b1d0b45bf4087976277d325bda718/torchvision-0.27.0-cp312-cp312-macosx_14_0_arm64.whl#sha256=1a6dd742a150645126df9e0b2e449874c1d635897c773b322c2e067e98382dfe",
+          "tqdm @ https://files.pythonhosted.org/packages/f9/1c/01bfd571a64e7f270e6bab5e33777debe0edc56759233ce84f27dec92d14/tqdm-4.70.0-py3-none-any.whl#sha256=7f585706bfddbdebf89daac705b2dfcc16890130727d3197ca62c732b4310953",
+          "transformers @ https://files.pythonhosted.org/packages/41/c4/a12e1d9b387fb0c40a57116db82b457e8c771cb419163cda29204d74a595/transformers-5.15.1-py3-none-any.whl#sha256=b7cdf238ff583e3a58dbc7fa34da1aaf091ce063141f65a30538160bd5afe93f",
+          "typer @ https://files.pythonhosted.org/packages/dc/bf/205d0004930ede8f542fb58f601526fccf4ae7626075ca1e6c4de5d3d652/typer-0.27.2-py3-none-any.whl#sha256=b3a5fc4342d5fc8fda8fc3010b1cf117e9249aab7fae800c2eff62fd3842d97d",
+          "typing-inspection @ https://files.pythonhosted.org/packages/67/81/4add07e5172b7ac40d8ed5ff580409a7801a4fe26d529bdd915401dabfbe/typing_inspection-0.4.4-py3-none-any.whl#sha256=65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147",
+          "typing_extensions @ https://files.pythonhosted.org/packages/49/d3/b8441a820a491ddfc024b0b0cf0393375b75ea13866d9c66727e54c2fc80/typing_extensions-4.16.0-py3-none-any.whl#sha256=481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+          "tzdata @ https://files.pythonhosted.org/packages/e5/6d/b53b99a9f2766d095985947a5782f1702cabb129a34f7a802d7197af832f/tzdata-2026.3-py2.py3-none-any.whl#sha256=dc096730c87af6cab1b171c9d532be840741ff5d459015e7f6947bd7d7e54931",
+          "urllib3 @ https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl#sha256=9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897",
+          "uvicorn @ https://files.pythonhosted.org/packages/f1/79/4a20b54ab0491485ccd8c077db2d39187c7f12b3e15485d38a7be37c81b4/uvicorn-0.52.4-py3-none-any.whl#sha256=f86e41a149d7d05a9969337e3946a9c171c06a5d42680896daaba624aeac8da1",
+          "wandb @ https://files.pythonhosted.org/packages/71/5a/83201590d1e84a3b7d0a0cc7b53ee1318def18ba5431a32b26a44e6694f6/wandb-0.30.0-py3-none-macosx_13_0_arm64.whl#sha256=f4f908ace761db42d239d100230df0b77eb9684924d962a762bba176d829a236",
+          "watch @ https://files.pythonhosted.org/packages/4d/30/05e13da086995c5d9fde762ff3cb742884aa76fb6167eda9a73a876aee8b/watch-0.2.7.tar.gz#sha256=d51f3648091c031e08d0cf0f3177da884078f25538a9d8dc568693ab5ac2dee0",
+          "wcwidth @ https://files.pythonhosted.org/packages/c4/0e/57f6bb3024a597b2e8ec4aee710ffe62ddc95af2e2bb1ee7a7abdc22c68c/wcwidth-0.8.3-py3-none-any.whl#sha256=d5b73dba6158a595ec9370350e7f2637bcac8d6c5e4fde34f30fcffb6103a5e4",
+          "websockets @ https://files.pythonhosted.org/packages/3d/69/1a681dd6f02180916f116894181eab8b2e25b31e484c5d0eae637ec01f7c/websockets-15.0.1-cp312-cp312-macosx_11_0_arm64.whl#sha256=0701bc3cfcb9164d04a14b149fd74be7347a530ad3bbf15ab2c678a2cd3dd9a2",
+          "Werkzeug @ https://files.pythonhosted.org/packages/93/8c/2e650f2afeb7ee576912636c23ddb621c91ac6a98e66dc8d29c3c69446e1/werkzeug-3.1.8-py3-none-any.whl#sha256=63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50",
+          "wheel==0.48.0",
+          "xxhash @ https://files.pythonhosted.org/packages/75/c9/cf736f6db8c3273af18925061572db0d4357818a9ce425f4b5fb0021918e/xxhash-4.0.1-cp312-cp312-macosx_11_0_arm64.whl#sha256=515a822c73abbf6a0b7c70976d9662be342835c9d78b8dc7c023411f39c35dbc",
+          "yarl @ https://files.pythonhosted.org/packages/ea/b4/05b4131c407006cd1e410e9c6539f16a0945724677e5364447313c15ea3e/yarl-1.24.5-cp312-cp312-macosx_11_0_arm64.whl#sha256=9d399bdcfb4a0f659b9b3788bbc89babe63d9a6a65aacdf4d4e7065ff2e6316c",
+          "zipp @ https://files.pythonhosted.org/packages/3a/13/547360d81e6d88d58492968ffda9f9542854f11310ee556fef14260cc886/zipp-4.1.0-py3-none-any.whl#sha256=25ad4e16390cd314347dd8f1de67a2ac538ae658ed4ab9db16029c07c188e97f"
+        ],
+        "media_tools": {
+          "ffmpeg": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffmpeg",
+            "sha256": "181f4fc06f7787c69ae4aa7b754f355cb2c03fabfd56c8a62e646c4bea0e7de7"
+          },
+          "ffprobe": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffprobe",
+            "sha256": "4c8ec9b8d0ae69878bd35c7cb18dda5fde0c23084fdf4b71a439826f2d675a40"
+          }
+        },
+        "weights": "Shared local native-FL2VA plus official rank64 VSA adapter conversion, identical effective payload to Ours; NOT a downloaded full-student snapshot. Official latest runtime unmodified; native 15s support tested before any extra model download.",
+        "recipe": "Official VSA defaults: reference attention, four steps, full native-resolution VAE; 15-second alignment support must be verified",
+        "local_patches": []
+      },
+      "resource_start": {
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "host": {
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "macos": "26.6.1"
+      },
+      "support_note": "ValueError: H3 generates 5-15 s at 24 fps; 362 frames is 15.08 s."
+    },
+    {
+      "case": "bakery",
+      "method": "vpipe",
+      "label": "vpipe / VDN",
+      "status": "complete",
+      "elapsed_seconds": 2370.3651210418902,
+      "actual_nfe": null,
+      "timings_seconds": null,
+      "peak_memory_gib": null,
+      "prompt_sha256": "d0a6ba4347e3cb0b446effa353467cc30150c4c63c769a3e9f2cc651c468824f",
+      "package_source_sha256": null,
+      "model_identity": null,
+      "vsa": null,
+      "backend": null,
+      "seed": 87001,
+      "source_commit": "0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d",
+      "weights": "Official P093-prepared FL2VA Q8 group64 DiT/modulation and text encoder, native VAEs; VDN stage-dmd-step-250 at 751739ee and Turbo v4_step600_ema at 43a74557. Rehashed, no historical performance inherited.",
+      "recipe": "Official minimax-h3-vdn.vpipeline, six configured steps, shifts12/3, VDN linear branch and Turbo scale1, i8_gemm true.",
+      "local_patches": [],
+      "original_run_sha256": "a72b0dd0148aa166ac13825c18db6dfcabc24acb601e270daa728fa2a43fd186",
+      "original_command_log_sha256": "35285cbf7e7e71d469e19c52a8d787269559d6de1ac74a5030f0b25bb0947ade",
+      "quality_review": "pending",
+      "started_utc": "2026-09-10T04:45:31.550262+00:00",
+      "environment_identity": {
+        "source": {
+          "commit": "0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d",
+          "tracked_changes": "",
+          "status": ""
+        },
+        "executable_sha256": "8acac62eae50af875f47bdc2d651d429661ffa3d92f7e9877b99fb3767a195e7",
+        "runtime_files": [
+          {
+            "path": "$PRODUCT/.local/upstreams/vpipe-build/libvpipe.0.1.dylib",
+            "sha256": "7854281d455d54409b80d8e95f3ceb3e84c4669a04c2aff82d2fe03f8878ec00"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libavcodec.62.28.102.dylib",
+            "sha256": "35b9dd72701356da5d14027fd376fff593ca1f6da564c1bcfe282b18b7677dbe"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libavformat.62.12.102.dylib",
+            "sha256": "5f73217d241e711f5a252af52ac1d55360c61c1d99755a621984896bc5892e40"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libavutil.60.26.102.dylib",
+            "sha256": "bb3b9a078ed5246b04d78523b2164e19f0f3e6d71f12850a8f76d4d3404422bc"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libswresample.6.3.102.dylib",
+            "sha256": "c84ebc245d2d94751b908db76c41df3b82d7a02398be58f4f1f7f85646ef497b"
+          },
+          {
+            "path": "$PRODUCT/.local/envs/h3/lib/libswscale.9.5.102.dylib",
+            "sha256": "13eb62f6a77a962107840155b9421265690beda8158b0d71d11a6a7d7d462d05"
+          },
+          {
+            "path": "$PRODUCT/.local/vpipe-work/session.json",
+            "sha256": "5ff4291aa8448740cfbc5f89a17f4f9ad1b2ea7ad12272fd82a2cfe34a1f0225"
+          }
+        ],
+        "assets": [
+          {
+            "path": "$MODELS/h3-vpipe/asset-receipt.json",
+            "sha256": "75b01b2f62c3ca032e4e1de5ed310b3eff5abc98926f77742b974fe8c02d697a",
+            "files": 50,
+            "verification": "preparation SHA256; current size and mtime"
+          }
+        ],
+        "python_packages": null,
+        "media_tools": {
+          "ffmpeg": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffmpeg",
+            "sha256": "181f4fc06f7787c69ae4aa7b754f355cb2c03fabfd56c8a62e646c4bea0e7de7"
+          },
+          "ffprobe": {
+            "path": "$PRODUCT/.local/envs/h3/bin/ffprobe",
+            "sha256": "4c8ec9b8d0ae69878bd35c7cb18dda5fde0c23084fdf4b71a439826f2d675a40"
+          }
+        },
+        "weights": "Official P093-prepared FL2VA Q8 group64 DiT/modulation and text encoder, native VAEs; VDN stage-dmd-step-250 at 751739ee and Turbo v4_step600_ema at 43a74557. Rehashed, no historical performance inherited.",
+        "recipe": "Official minimax-h3-vdn.vpipeline, six configured steps, shifts12/3, VDN linear branch and Turbo scale1, i8_gemm true.",
+        "local_patches": []
+      },
+      "resource_start": {
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "host": {
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "macos": "26.6.1"
+      },
+      "video_asset": "bakery-vpipe.mp4",
+      "video_sha256": "49b946a7f4a948cc4cad1b6261f1b454fcf7dc8d5c61074997d3153df02b316b",
+      "delivery": {
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "duration": 15.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "model_geometry": {
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 362
+      },
+      "resource_end": {
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        },
+        "swap_bytes": 723517
+      },
+      "complete_av_validation": "passed",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "mime_codec_string": "avc1.640020",
+            "width": 1366,
+            "height": 768,
+            "coded_width": 1376,
+            "coded_height": 768,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "683:384",
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "24/1",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 184320,
+            "duration": "15.000000",
+            "bit_rate": "3724380",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "360",
+            "nb_read_frames": "360",
+            "extradata_size": 48,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "encoder": "Lavc62.28.102 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "mime_codec_string": "mp4a.40.2",
+            "sample_fmt": "fltp",
+            "sample_rate": "32000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 480000,
+            "duration": "15.000000",
+            "bit_rate": "181079",
+            "nb_frames": "470",
+            "nb_read_frames": "469",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler"
+            }
+          }
+        ],
+        "format": {
+          "filename": "$PRODUCT/.local/comparisons/native-three-02/bakery-vpipe/output.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "15.000000",
+          "size": "7336464",
+          "bit_rate": "3912780",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf62.12.102"
+          }
+        }
+      }
+    }
+  ],
+  "boundary": "One descriptive observation per public input/system. Complete delivery checks are separate from human quality acceptance. Unsupported entrypoint timings are absent. This is not a new algorithm speedup or general quality claim."
+}

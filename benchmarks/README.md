@@ -4,6 +4,9 @@
 
 `compare.py` 直接调用三个现有 CLI。普通生成用户只需安装 Ours；评测脚本不安装、升级或下载其他项目。日常优化主要在研究仓库比较 Ours 候选与稳定版，发布比较或相关上游更新时才运行完整三方。
 
+已完成的首轮新原生比较见 [native-three-02 结果](results/native-three-02/README.md)：
+六次尝试、四条完整声画视频、两次官方入口规格拒绝；人工质量接受仍待完成。
+
 ## 使用
 
 1. [安装 Ours](../docs/install.md)，使用 `h3 models prepare` 下载/转换，或复用已有模型。
@@ -30,8 +33,8 @@
 | FastVideo MLX | `a943220c115228ade5d57b3bab9a6a87fd600a10` | [官方 Apple Silicon 安装、模型与 MLX 转换说明](https://github.com/hao-ai-lab/FastVideo/blob/a943220c115228ade5d57b3bab9a6a87fd600a10/docs/getting_started/installation/mps.md) |
 | vpipe | `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d` | [官方构建说明](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/README.md#build-from-source)、[H3 模型准备](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/docs/MINIMAX-H3.md) |
 
-两个版本均已完成本机独立安装或构建。vpipe 的短片试运行与交付适配检查已经通过；
-完整原生 768p 三方结果仍在验收，具体状态以结果文件为准。
+两个版本均已完成本机独立安装或构建。vpipe 的短片试运行、交付适配检查与两条
+完整原生 768p 生成已通过；各次实际状态、耗时和边界见上方结果。
 
 FastVideo 的一次性安装示例，路径按本机调整：
 
