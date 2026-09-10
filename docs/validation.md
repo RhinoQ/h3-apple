@@ -91,7 +91,7 @@ resuming it after 73 bytes, and a bounded 1024-byte Range from the large VSA
 adapter. The range matched the verified local payload. No complete large model
 was downloaded for this test. Evidence: `.local/validation/hf-download-smoke-01/result.json`.
 
-The final quick suite passed 62 tests (`.local/validation/product-unit-05.{log,xml}`).
+The current quick suite passed 63 tests (`.local/validation/product-unit-06.{log,xml}`).
 
 The first formal comparison attempt exposed a child-PATH setup error: official
 FastVideo could not find FFmpeg. That round was stopped and retained at
@@ -106,7 +106,11 @@ Comparison cancellation now signals the CLI with SIGINT first so its own API
 can stop the separate GPU process group; SIGTERM could bypass this cleanup.
 The interrupted first round's last API record remained `running`, although the
 worker was subsequently confirmed gone. That record is preserved as evidence of
-the lifecycle defect; a complete controller-to-worker cancellation check follows.
+the lifecycle defect. The complete controller-to-CLI-to-worker hardware check
+now passes: after ten denoising blocks, SIGINT to the comparison controller
+produces exit 130, both records become `cancelled`, the worker is gone, the
+device lock is free and no MP4 is published. Evidence:
+`.local/validation/comparison-cancellation-02/{plan,result}.json` and `run.py`.
 
 ## Remaining verification
 
