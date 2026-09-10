@@ -79,6 +79,19 @@ def verify_runtime(method):
     return entries
 
 
+def method_environment(method):
+    overrides = method.get("env", {})
+    if not isinstance(overrides, dict) or not all(isinstance(k, str) and isinstance(v, str)
+                                                  for k, v in overrides.items()):
+        raise ValueError("env must map variable names to string values.")
+    environment = {**os.environ, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1",
+                   **overrides}
+    # An absolute Python path does not activate Conda's command-line tools.
+    # Use the comparison environment's verified media tools for child CLIs too.
+    environment["PATH"] = str(Path(tool("ffmpeg")).parent) + os.pathsep + environment.get("PATH", "")
+    return environment
+
+
 def preflight(method):
     command = method["command"]
     if not isinstance(command, list) or not command or not all(isinstance(x, str) for x in command):
@@ -96,15 +109,22 @@ def preflight(method):
             raise ValueError(f"Missing required file: {file}")
     assets = verify_assets(method)
     runtime_files = verify_runtime(method)
+    media_tools = {}
+    environment = method_environment(method)
+    for name in ("ffmpeg", "ffprobe"):
+        path = shutil.which(name, path=environment["PATH"])
+        if path is None:
+            raise ValueError(f"{name} is missing from the child CLI environment.")
+        media_tools[name] = {"path": path, "sha256": digest(path)}
     if method["id"] == "vpipe" and digest(Path(method["pipeline_template"])) != method["pipeline_template_sha256"]:
         raise ValueError("Official vpipe template changed.")
-    environment = None
+    packages = None
     if executable.name.startswith("python"):
-        environment = subprocess.check_output([str(executable), "-m", "pip", "freeze", "--all"],
+        packages = subprocess.check_output([str(executable), "-m", "pip", "freeze", "--all"],
                                               text=True, timeout=60).splitlines()
     return {"source": source, "executable_sha256": digest(executable),
             "runtime_files": runtime_files,
-            "assets": assets, "python_packages": environment,
+            "assets": assets, "python_packages": packages, "media_tools": media_tools,
             "weights": method["weights"], "recipe": method["recipe"],
             "local_patches": method.get("local_patches", [])}
 
@@ -185,7 +205,9 @@ def stop(process):
     if process.poll() is not None:
         return
     try:
-        os.killpg(process.pid, signal.SIGTERM)
+        # Let the Python CLI unwind its API and stop its separate GPU process
+        # group. SIGTERM would bypass that cleanup and abandon the worker.
+        os.killpg(process.pid, signal.SIGINT)
         process.wait(timeout=15)
     except subprocess.TimeoutExpired:
         os.killpg(process.pid, signal.SIGKILL)
@@ -232,8 +254,7 @@ def run_job(method, case, directory, timeout, cooldown_timeout):
             row.update(initial_host=first, preparation_wait_seconds=waiting,
                        started_utc=datetime.now(timezone.utc).isoformat(), status="running")
             write_json(directory / "run.json", row)
-            environment = {**os.environ, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1",
-                           **method.get("env", {})}
+            environment = method_environment(method)
             with (directory / "command.log").open("wb") as log:
                 started = time.monotonic()
                 process = subprocess.Popen(command, cwd=method["cwd"], env=environment,

@@ -93,6 +93,21 @@ was downloaded for this test. Evidence: `.local/validation/hf-download-smoke-01/
 
 The final quick suite passed 62 tests (`.local/validation/product-unit-05.{log,xml}`).
 
+The first formal comparison attempt exposed a child-PATH setup error: official
+FastVideo could not find FFmpeg. That round was stopped and retained at
+`.local/comparisons/native-three-01`; no complete delivery timing is claimed.
+The comparison now supplies and fingerprints the shared Conda media tools.
+With this fixed, both official prompt invocations reached the actual geometry
+check and rejected 362 frames as 15.08 seconds. Evidence:
+`.local/validation/fastvideo-native-spec-01/`; this is a targeted support probe,
+not the final three-system round. The comparison's eight focused tests pass.
+
+Comparison cancellation now signals the CLI with SIGINT first so its own API
+can stop the separate GPU process group; SIGTERM could bypass this cleanup.
+The interrupted first round's last API record remained `running`, although the
+worker was subsequently confirmed gone. That record is preserved as evidence of
+the lifecycle defect; a complete controller-to-worker cancellation check follows.
+
 ## Remaining verification
 
 The fresh six-case native 768p public comparison, full audio/video review, and

@@ -2,6 +2,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -118,3 +119,12 @@ def test_report_does_not_rank_failed_time(tmp_path):
     compare.summarize(tmp_path, dict(runs=[row]))
     assert "| test | Ours | failed | — |" in (tmp_path / "README.md").read_text()
     assert json.loads((tmp_path / "results.json").read_text())["runs"][0] == row
+
+
+def test_child_media_tools_work_without_conda_activation(tmp_path, monkeypatch):
+    monkeypatch.setenv("PATH", "/usr/bin:/bin")
+    environment = compare.method_environment({})
+    result = subprocess.run([sys.executable, "-c", "import shutil; print(shutil.which('ffmpeg'))"],
+                            cwd=tmp_path, env=environment, text=True, capture_output=True, check=True)
+    assert result.stdout.strip() == tool("ffmpeg")
+    assert os.environ["PATH"] == "/usr/bin:/bin"
