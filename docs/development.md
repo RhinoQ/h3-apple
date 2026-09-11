@@ -4,6 +4,12 @@
 消融、盲评和原始结果；历史 P001–P100 保留原样，新研究调用固定版本的本产品。
 日常生成不读取研究目录。
 
+首次发布到 [RhinoQ/h3-apple](https://github.com/RhinoQ/h3-apple) 前，按维护者要求将
+十五条本地提交的作者与提交者统一为 RhinoQ；文件内容、提交消息和时间戳均未改变。
+[新旧 commit 对照](evidence/github-author-map.json) 保存逐条相同的 Git tree。
+已有实验继续记录当时实际运行的 commit ID，复核公开源码时通过该对照定位；
+此项署名变更不产生新的实验成绩。研究仓库的当前基线另行指向发布后的 commit。
+
 ## 开发与验证
 
 ```bash

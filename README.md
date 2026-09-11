@@ -13,9 +13,11 @@ MiniMax-H3、FastVideo 和已有的 Apple GPU 优化；与官方项目无隶属�
 
 ## 生成第一条视频
 
-安装 ARM64 Conda，在本仓库执行：
+安装 ARM64 Conda，获取仓库并安装：
 
 ```bash
+git clone https://github.com/RhinoQ/h3-apple.git
+cd h3-apple
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
 h3 models prepare --plan

@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-11T14:07:55.670450+00:00",
+  "reason": "User requested all unpublished h3-apple history and future submissions be attributed to RhinoQ before first GitHub publication.",
+  "author_and_committer": {
+    "name": "RhinoQ",
+    "email": "291231510+RhinoQ@users.noreply.github.com"
+  },
+  "original_head": "4cf1a5850d4cbfdc9c349122f3466897fa7f9575",
+  "published_equivalent_head": "97b4dc4bfb20e50da5f2bf4697a0e54d30301fbc",
+  "commit_count": 15,
+  "verification": "Every tree, complete message and timestamp preserved. Only author/committer identity and parent commit references changed. No signed commits or merge tags were present.",
+  "research_evidence": "Historical measurements retain the commit IDs actually used. This map resolves those IDs to public commits with byte-identical source trees; it does not relabel or rerun experiments.",
+  "commits": [
+    {
+      "original_commit": "42d0317bda27b7c7b5b2eff4e83e4243aebd5876",
+      "published_commit": "522be5cce5d1fec8a8c0a962801113340f3dc60e",
+      "tree": "bf1290b7c31f281e6268d763a16de189bdfec0f1",
+      "subject": "Add independent H3 runtime and three-method comparison tooling",
+      "author_date": "1789003171 -0500",
+      "committer_date": "1789003171 -0500"
+    },
+    {
+      "original_commit": "55596b8330e8c32d38d96d4a41b3852dacfe4db9",
+      "published_commit": "c518a075775a1d720eba0672f2449a9f2e4620cf",
+      "tree": "459f917c64a18f6ea1a153c6bdcd103c3f8689c9",
+      "subject": "Reproduce native model preparation and validate independent H3 runtime",
+      "author_date": "1789007597 -0500",
+      "committer_date": "1789007597 -0500"
+    },
+    {
+      "original_commit": "652cd44a7ea1ec81e6187d729e9ea4d5cb6d7f63",
+      "published_commit": "4cc12345e52d6ad612d861df3bb958d2cfe8c3d2",
+      "tree": "7d730d3aeb3053e65a0cb4a56982f721365822b9",
+      "subject": "Fix comparison media environment and cooperative cancellation",
+      "author_date": "1789008221 -0500",
+      "committer_date": "1789008221 -0500"
+    },
+    {
+      "original_commit": "cc15b89156fbebf96be46d2573ab955972017ad0",
+      "published_commit": "ce9033da5c4267b9bb399781ab0bd86c923c6c13",
+      "tree": "5aa215fa5c409c0a53ef6c0879255a88f9d536dc",
+      "subject": "Record verified benchmark cancellation lifecycle",
+      "author_date": "1789008617 -0500",
+      "committer_date": "1789008617 -0500"
+    },
+    {
+      "original_commit": "dc1fdaea155ff58e6e3aba9a842680877e1cb577",
+      "published_commit": "96dc3c7ca50593e452e0b091485517d538d8f4bb",
+      "tree": "e637d7aea0080ccc49350d59c581a40e298aadf3",
+      "subject": "Record native comparison and ship real video previews",
+      "author_date": "1789018347 -0500",
+      "committer_date": "1789018347 -0500"
+    },
+    {
+      "original_commit": "87f2d958599435266c641cd5bb4e8f5928d0f90a",
+      "published_commit": "b44161cf0b19a5d274646f364b2cfbf7e24c5df2",
+      "tree": "45bc135b000f2ab7052db5942c96b178e3c5a987",
+      "subject": "Provide and verify the official FastH3 frame-limit fix",
+      "author_date": "1789020972 -0500",
+      "committer_date": "1789020972 -0500"
+    },
+    {
+      "original_commit": "973cd909536385a25fe6fe056fcd78e7c2eb88d1",
+      "published_commit": "01f1f889d3508391d338b95bbc1b02971d0e9478",
+      "tree": "d0db2579e4d4e107dd148add17f72bb1e54352a1",
+      "subject": "Record complete official FastH3 attempts and delivery failures",
+      "author_date": "1789063281 -0500",
+      "committer_date": "1789063281 -0500"
+    },
+    {
+      "original_commit": "59074fad7df65f0c800df627df84f3d445b2cbfc",
+      "published_commit": "edae146166bc263f80a23f2b944ed91bc9bb3954",
+      "tree": "18cf6a25b20130f98ffd376e6735dd1afa25292e",
+      "subject": "Clarify P084 baseline and reproduce the official large-view defect",
+      "author_date": "1789084246 -0500",
+      "committer_date": "1789084246 -0500"
+    },
+    {
+      "original_commit": "1e7890a41a7c2039b46fbdfcc04dbb28a09b0010",
+      "published_commit": "6d5517a3b813e59aa076a48aa1407bf02a0cce84",
+      "tree": "33adfef844fc8e056bf7ba5593a461ea65c22818",
+      "subject": "Scope official comparisons to five seconds and fix native AAC coverage",
+      "author_date": "1789086051 -0500",
+      "committer_date": "1789086051 -0500"
+    },
+    {
+      "original_commit": "d49a63f83a40fade69b8863e08e0a6cb9e50c0a3",
+      "published_commit": "7a7dec0ee219448469518c5ba4d1efdd07d5eb68",
+      "tree": "6dfd33a44abd65ff8a5c0e1f04f9c889d725b209",
+      "subject": "Record five-second Ours and vpipe comparison results",
+      "author_date": "1789088294 -0500",
+      "committer_date": "1789088294 -0500"
+    },
+    {
+      "original_commit": "8f0e2bd806431196cb65d045038836544d400bd4",
+      "published_commit": "7e06f376760142941a61d66c0cbc581ebbcc944a",
+      "tree": "c2b3eb873f02cb7f5cb08a05a7e3801baad3788b",
+      "subject": "Close official comparison and keep Ours and vpipe benchmarks",
+      "author_date": "1789100734 -0500",
+      "committer_date": "1789100734 -0500"
+    },
+    {
+      "original_commit": "d6398c0269c13dc1aea4d10c5bcf8ee260a1e95b",
+      "published_commit": "9a286e19291f1a8d87c912bd6e2678f47bb62e5a",
+      "tree": "97a4c7cb026c59f255b3c17782d10ae441cd9829",
+      "subject": "Accept existing clips and freeze ten five-second comparison prompts",
+      "author_date": "1789104064 -0500",
+      "committer_date": "1789104064 -0500"
+    },
+    {
+      "original_commit": "b307950e9df954cdb287dcb43769a8e506c91c4a",
+      "published_commit": "b88f9a52abcd0be9e92a9d921cbbff964ca7f701",
+      "tree": "7b1a7cddfea09ce8aeab56b00236ea43934c4559",
+      "subject": "Complete ten-prompt five-second comparison and preserve quality findings",
+      "author_date": "1789112776 -0500",
+      "committer_date": "1789112776 -0500"
+    },
+    {
+      "original_commit": "6f68563e1a7c8b76fe5187b8906dabedf25f313e",
+      "published_commit": "60b6562390a6c7bb4c32bacc32a6261ddd1cb977",
+      "tree": "aaf6fcb288aeeeaab43e3b519915cc3d8550edab",
+      "subject": "Add two frozen cinematic 15-second comparison prompts",
+      "author_date": "1789122342 -0500",
+      "committer_date": "1789122342 -0500"
+    },
+    {
+      "original_commit": "4cf1a5850d4cbfdc9c349122f3466897fa7f9575",
+      "published_commit": "97b4dc4bfb20e50da5f2bf4697a0e54d30301fbc",
+      "tree": "66f596b47e8708acbdbc02eb4ea01c3255df6927",
+      "subject": "Record two additional 15-second comparison pairs",
+      "author_date": "1789129444 -0500",
+      "committer_date": "1789129444 -0500"
+    }
+  ]
+}

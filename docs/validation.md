@@ -2,7 +2,7 @@
 
 独立安装、自由提示词生成、模型准备、比较脚本与研究基线连接均已完成。
 当前是 `0.1.0.dev0` 开发预览；此前八条原生成片已获
-[用户人工声画接受](../benchmarks/reviews/existing-eight-20260911.json)，尚未对外发布。
+[用户人工声画接受](../benchmarks/reviews/existing-eight-20260911.json)，以开发预览形式发布。
 新增八个五秒场景的 Ours/vpipe 共十六条已全部通过完整媒体检查，质量评价待完成；
 [扩展比较](../benchmarks/results/short-diverse-10-01/README.md)维护实际结果与已发现的画面问题。
 另外两条十五秒场景的 Ours/vpipe 共四条也已通过完整媒体检查，见

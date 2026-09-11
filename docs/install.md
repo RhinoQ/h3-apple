@@ -7,9 +7,11 @@
 ## Conda 环境
 
 先安装 ARM64 的 [Miniforge](https://github.com/conda-forge/miniforge) 或已有的 Conda。
-在取得的仓库根目录执行：
+获取 [RhinoQ/h3-apple](https://github.com/RhinoQ/h3-apple)，在仓库根目录执行：
 
 ```bash
+git clone https://github.com/RhinoQ/h3-apple.git
+cd h3-apple
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
 h3 --version
