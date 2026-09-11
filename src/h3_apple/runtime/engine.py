@@ -30,7 +30,8 @@ def run(request, assets, output_path, emit, diagnostics_dir=None):
     timings = {}
     peaks = {}
     mx.set_memory_limit(80 * 1024**3)
-    mx.set_cache_limit(4 * 1024**3)
+    mx.set_cache_limit(0)
+    mx.set_wired_limit(min(48 * 1024**3, mx.device_info()["max_recommended_working_set_size"]))
     pipeline = Pipeline(model_root=assets["components"], mlx_dit_checkpoint=assets["checkpoint"],
                         vae_dtype="fp32", metal_wired_limit_gib=80,
                         prompt_cache_dir=None, observer=observer)
