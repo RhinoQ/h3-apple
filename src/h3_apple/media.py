@@ -43,10 +43,11 @@ def validate(path, expected, *, allow_aac_padding=False):
             raise ValueError("Output audio/video does not start at zero.")
         tolerance = 1 / expected["audio_sample_rate"] + 1e-5
         delta = float(stream["duration"]) - duration
-        # Official encoders may leave one AAC packet of trailing samples in
-        # their native output. Final delivered media always uses strict timing.
+        # Native AAC endpoints can round either way by one packet. Callers
+        # trimming native media must also check that audio covers the delivery.
+        # Final delivered media always uses strict timing.
         padding = (allow_aac_padding and stream is audio and stream["codec_name"] == "aac"
-                   and 0 <= delta <= 1024 / expected["audio_sample_rate"] + tolerance)
+                   and abs(delta) <= 1024 / expected["audio_sample_rate"] + tolerance)
         if abs(delta) > tolerance and not padding:
             raise ValueError("Output audio/video duration differs from the requested delivery.")
     subprocess.run([tool("ffmpeg"), "-v", "error", "-xerror", "-i", str(path),

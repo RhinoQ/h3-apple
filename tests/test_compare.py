@@ -65,24 +65,49 @@ def test_public_prompt_hash_is_checked(tmp_path):
         compare.load_cases(suite)
 
 
+@pytest.mark.parametrize("methods,override,wanted", [
+    (["ours", "vpipe"], [], ["ours", "vpipe"]),
+    (["ours", "fastvideo", "vpipe"], [], ["ours", "fastvideo", "vpipe"]),
+    (["ours", "fastvideo", "vpipe"], ["--methods", "fastvideo"], ["fastvideo"]),
+])
+def test_suite_selects_only_requested_methods(tmp_path, monkeypatch, methods, override, wanted):
+    prompt = tmp_path / "prompt.txt"
+    prompt.write_text("A short greeting.\n")
+    suite = tmp_path / "suite.json"
+    suite.write_text(json.dumps(dict(resolution="768p", duration=5, methods=methods, cases=[dict(
+        id="case", prompt_file="prompt.txt", prompt_sha256=compare.digest(prompt), seed=2026)])))
+    config = tmp_path / "config.json"
+    config.write_text(json.dumps(dict(methods=[dict(id=name) for name in methods])))
+    checked = []
+    monkeypatch.setattr(compare, "preflight", lambda method: checked.append(method["id"]) or {})
+    assert compare.main(["--config", str(config), "--suite", str(suite), "--preflight", *override]) == 0
+    assert checked == wanted
+    request = compare.load_cases(suite)[1][0]["request"]
+    assert (request["duration"], request["num_frames"], request["model_num_frames"]) == (5.0, 120, 124)
+
+
 def test_command_substitution_is_not_a_shell(tmp_path):
     prompt = tmp_path / "prompt.txt"
     prompt.write_text('Unchanged {braces} and $(touch danger) "quotes"\n')
     directory = tmp_path / "job"
     directory.mkdir()
-    request = dict(prompt=prompt.read_text(), seed=123, model_width=1376, model_height=768, model_num_frames=362)
-    command, _, _ = compare.expand_command(dict(id="ours", command=[sys.executable, "{prompt}", "{output}"]),
+    request = dict(prompt=prompt.read_text(), seed=123, resolution="768p", duration=5.0,
+                   model_width=1376, model_height=768, model_num_frames=124)
+    command, _, _ = compare.expand_command(dict(id="ours", command=[sys.executable, "{prompt}", "{output}",
+                                                                                "{resolution}", "{duration}"]),
                                            dict(request=request, prompt_file=str(prompt)), directory)
     assert command[1] == prompt.read_text()
+    assert command[-2:] == ["768p", "5.0"]
     assert not (tmp_path / "danger").exists()
     assert (directory / "prompt.txt").read_bytes() == prompt.read_bytes()
     assert not list((directory / "empty-prompt-cache").iterdir())
 
 
-def test_native_crop_and_trim_keeps_delivery_specification(tmp_path):
+@pytest.mark.parametrize("audio_duration", [1.984, 2.016])
+def test_native_crop_and_trim_keeps_delivery_specification(tmp_path, audio_duration):
     native, output = tmp_path / "native.mp4", tmp_path / "output.mp4"
     subprocess.run([tool("ffmpeg"), "-v", "error", "-f", "lavfi", "-i", "testsrc2=s=96x64:r=10:d=2",
-                    "-f", "lavfi", "-i", "sine=frequency=440:sample_rate=32000:duration=2.016", "-ac", "2",
+                    "-f", "lavfi", "-i", f"sine=frequency=440:sample_rate=32000:duration={audio_duration}", "-ac", "2",
                     "-c:v", "libx264", "-c:a", "aac", str(native)], check=True)
     request = dict(width=64, height=64, num_frames=10, fps=10, audio_sample_rate=32000,
                    audio_channels=2, duration=1.0, model_width=96, model_height=64, model_num_frames=20)
@@ -91,6 +116,23 @@ def test_native_crop_and_trim_keeps_delivery_specification(tmp_path):
     compare.finish_native(native, output, request)
     assert validate(output, request)["streams"][0]["nb_read_frames"] == "10"
     assert native.exists()
+
+
+@pytest.mark.parametrize("audio_duration,delivery_frames,error", [
+    (1.984, 20, "does not cover"),
+    (1.9, 10, "duration differs"),
+])
+def test_native_audio_shortfall_is_not_padded(tmp_path, audio_duration, delivery_frames, error):
+    native, output = tmp_path / "native.mp4", tmp_path / "output.mp4"
+    subprocess.run([tool("ffmpeg"), "-v", "error", "-f", "lavfi", "-i", "testsrc2=s=96x64:r=10:d=2",
+                    "-f", "lavfi", "-i", f"sine=frequency=440:sample_rate=32000:duration={audio_duration}",
+                    "-ac", "2", "-c:v", "libx264", "-c:a", "aac", str(native)], check=True)
+    request = dict(width=64, height=64, num_frames=delivery_frames, fps=10, audio_sample_rate=32000,
+                   audio_channels=2, duration=delivery_frames / 10, model_width=96, model_height=64,
+                   model_num_frames=20)
+    with pytest.raises(ValueError, match=error):
+        compare.finish_native(native, output, request)
+    assert not output.exists()
 
 
 def test_real_timeout_and_failure_evidence(tmp_path, monkeypatch):

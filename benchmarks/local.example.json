@@ -21,9 +21,9 @@
         "--output",
         "{output}",
         "--resolution",
-        "768p",
+        "{resolution}",
         "--duration",
-        "15",
+        "{duration}",
         "--model-dir",
         "/absolute/path/models/h3-apple"
       ],
@@ -34,7 +34,7 @@
         }
       ],
       "weights": "MiniMax H3 FL2VA + official FastH3 VSA adapter, affine INT8 group64; see model bundle",
-      "recipe": "ours-v1, native 1376x768/362 to 1366x768/360, 4 forwards, full VideoVAE",
+      "recipe": "ours-v1; suite geometry, 4 forwards, full VideoVAE",
       "env": {
         "MLX_ENABLE_TF32": "0",
         "FASTVIDEO_MLX_DQ_GEMM": "1"
@@ -43,18 +43,18 @@
     },
     {
       "id": "fastvideo",
-      "label": "Official FastH3 / VSA + frame-limit fix",
+      "label": "Official FastH3 / MLX INT6 Dense",
       "source_repo": "/absolute/path/FastVideo",
-      "commit": "REPLACE_WITH_PATCHED_FASTVIDEO_COMMIT",
+      "commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
       "cwd": "/absolute/path/FastVideo",
       "command": [
         "/absolute/path/fastvideo-env/bin/python",
         "-I",
         "examples/inference/basic/mlx_fasth3.py",
         "--model-root",
-        "/absolute/path/models/FastH3/components",
+        "/absolute/path/models/FastH3-Preview-v1-Dense-DataFree",
         "--mlx-checkpoint",
-        "/absolute/path/models/FastH3/dit",
+        "/absolute/path/models/FastH3-MLX/int6",
         "--prompt",
         "{prompt}",
         "--seed",
@@ -73,15 +73,6 @@
         "fp32",
         "--video-decode-backend",
         "h3-vae",
-        "--vsa",
-        "--vsa-sparsity",
-        "0.9",
-        "--vsa-tile-size",
-        "64",
-        "--vsa-prefix-mode",
-        "exempt",
-        "--vsa-impl",
-        "auto",
         "--no-fast",
         "--no-fast-spatial",
         "--prompt-cache-dir",
@@ -92,19 +83,13 @@
       ],
       "asset_receipts": [
         {
-          "path": "/absolute/path/models/FastH3/bundle.json",
+          "path": "/absolute/path/models/official-fasth3/asset-receipt.json",
           "sha256": "REPLACE_WITH_RECEIPT_SHA256"
         }
       ],
-      "weights": "REPLACE_WITH_PINNED_BASE_ADAPTER_AND_CONVERSION_IDENTITY",
-      "recipe": "Official VSA reference attention, four steps, full native-resolution VAE; local aligned-duration validation fix only.",
-      "local_patches": [
-        {
-          "name": "h3-aligned-duration-limits",
-          "base_commit": "a943220c115228ade5d57b3bab9a6a87fd600a10",
-          "patch_sha256": "a478634cea35fa57094fa3a384432b0f3543d36cabeb7b41be7f96e60d521471"
-        }
-      ],
+      "weights": "Official Preview v1 Dense DataFree at f624f08c6c279ab43534c003e556fc5b295b6558, official INT6/group64 conversion; pin the exact output checksum in the receipt.",
+      "recipe": "Official dense attention, four steps, full native-resolution FP32 H3 VAE; no local patches.",
+      "local_patches": [],
       "env": {
         "MLX_ENABLE_TF32": "0",
         "FASTVIDEO_MLX_DQ_GEMM": "1"

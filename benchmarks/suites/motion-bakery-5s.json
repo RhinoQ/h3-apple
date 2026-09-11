@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "resolution": "768p",
+  "duration": 5,
+  "methods": [
+    "ours",
+    "fastvideo",
+    "vpipe"
+  ],
+  "cases": [
+    {
+      "id": "motion-graphics",
+      "seed": 2026,
+      "prompt_file": "../prompts/motion-graphics-5s.txt",
+      "prompt_sha256": "84b6db196fa66f9bf2f2d4830af5314b276a79626f3cd1a87da5d063b2869cc0"
+    },
+    {
+      "id": "bakery",
+      "seed": 87001,
+      "prompt_file": "../prompts/bakery-5s.txt",
+      "prompt_sha256": "6369d84354ebb3b00c5de109367ecf2121a7636f660796d0891999704df58ad5"
+    }
+  ],
+  "data_split": "Predeclared short adaptations of previously seen public prompts; no tuning or held-out quality claim.",
+  "delivery": "1366x768,120 frames,24fps,5.000s,32kHz stereo; all methods generate 1376x768/124 frames before fixed crop and trim.",
+  "order": "case-major, Ours / official FastH3 / vpipe; one observation per case, no stable speedup claim",
+  "input_origins": {
+    "motion-graphics": "motion-graphics.txt adapted before generation to a five-second reveal",
+    "bakery": "bakery.txt adapted before generation to a five-second door opening and greeting"
+  }
+}

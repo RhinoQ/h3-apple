@@ -178,7 +178,8 @@ def expand_command(method, case, directory):
                "seed": str(request["seed"]), "output": str(output),
                "prompt_cache": str(directory / "empty-prompt-cache"),
                "pipeline": str(directory / "input.vpipeline"),
-               **{k: str(request[k]) for k in ("model_width", "model_height", "model_num_frames")}}
+               **{k: str(request[k]) for k in ("resolution", "duration", "model_width",
+                                               "model_height", "model_num_frames") if k in request}}
     changes = None
     if method["id"] == "vpipe":
         changes = vpipe_input(method, request, output, Path(context["pipeline"]))
@@ -220,7 +221,11 @@ def finish_native(source, destination, request):
     """Only center-crop and trim. Preserve the original official output beside it."""
     native = {**request, "width": request["model_width"], "height": request["model_height"],
               "num_frames": request["model_num_frames"]}
-    validate(source, native, allow_aac_padding=True)
+    media = validate(source, native, allow_aac_padding=True)
+    audio = next(stream for stream in media["streams"] if stream["codec_type"] == "audio")
+    tolerance = 1 / request["audio_sample_rate"] + 1e-5
+    if float(audio["duration"]) + tolerance < request["num_frames"] / request["fps"]:
+        raise ValueError("Native audio does not cover the requested delivery duration.")
     left = (native["width"] - request["width"]) // 2
     top = (native["height"] - request["height"]) // 2
     command = [tool("ffmpeg"), "-v", "error", "-nostdin", "-n", "-i", str(source),
@@ -347,7 +352,8 @@ def main(argv=None):
     parser.add_argument("--config", type=Path, default=HERE / "local.json")
     parser.add_argument("--suite", type=Path, default=HERE / "suites/motion-bakery.json")
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--methods", nargs="+", choices=METHODS, default=list(METHODS))
+    parser.add_argument("--methods", nargs="+", choices=METHODS,
+                        help="Override the suite's methods (15 s: Ours/vpipe; 5 s: all three).")
     parser.add_argument("--preflight", action="store_true", help="Check setup without running models.")
     args = parser.parse_args(argv)
     try:
@@ -356,12 +362,20 @@ def main(argv=None):
             if field in config and (type(config[field]) not in (int, float) or not 0 < config[field] < 86400):
                 raise ValueError(f"{field} must be positive and less than one day.")
         suite, cases = load_cases(args.suite)
+        selected_methods = args.methods if args.methods is not None else suite.get("methods", list(METHODS))
+        if (not isinstance(selected_methods, list) or not selected_methods
+                or any(name not in METHODS for name in selected_methods)
+                or len(set(selected_methods)) != len(selected_methods)):
+            raise ValueError("Suite methods must be a nonempty list of unique supported method IDs.")
         methods = {x["id"]: x for x in config["methods"]}
-        if set(methods) != set(METHODS) or len(config["methods"]) != 3:
-            raise ValueError("Configure exactly Ours, official FastH3 and vpipe.")
+        if not set(methods).issubset(METHODS) or len(methods) != len(config["methods"]):
+            raise ValueError("Configure unique supported method IDs.")
+        missing = set(selected_methods) - set(methods)
+        if missing:
+            raise ValueError(f"Selected methods are not configured: {sorted(missing)}")
         if args.preflight:
             checks = {}
-            for name in args.methods:
+            for name in selected_methods:
                 try:
                     checks[name] = {"ready": True, **preflight(methods[name])}
                 except (OSError, ValueError, KeyError, RuntimeError, subprocess.SubprocessError) as error:
@@ -373,12 +387,12 @@ def main(argv=None):
         directory.mkdir(parents=True, exist_ok=False)
         write_json(directory / "config.json", config)
         write_json(directory / "suite.json", suite)
-        results = {"schema_version": 1, "suite": suite, "runs": [],
+        results = {"schema_version": 1, "suite": suite, "methods": selected_methods, "runs": [],
                    "timer": "fresh process launch through complete AV validation; no cache deletion",
                    "comparison": "systems with their declared recipes, not an attention-only ablation"}
         summarize(directory, results)
         for case in cases:
-            for name in args.methods:
+            for name in selected_methods:
                 print(f"{case['id']} / {name}: starting; evidence {directory}", flush=True)
                 row = run_job(methods[name], case, directory / f"{case['id']}-{name}",
                               config.get("timeout_seconds", 10800),

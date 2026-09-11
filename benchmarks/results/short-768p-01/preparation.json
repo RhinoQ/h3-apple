@@ -1,0 +1,121 @@
+{
+  "checked_at": "2026-09-11T00:17:40.844039+00:00",
+  "int6_repository": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-Dense-DataFree-MLX-INT6",
+  "int6_revision": "81ee7a77a91717e99711a19174197a175135a6ad",
+  "listed_files": [
+    ".gitattributes",
+    "LICENSE",
+    "README.md",
+    "conversion_manifest.json",
+    "mlx_h3_dit.json"
+  ],
+  "weights_head": {
+    "error_type": "HTTPError",
+    "error": "HTTP Error 404: Not Found",
+    "url": "https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-Dense-DataFree-MLX-INT6/resolve/81ee7a77a91717e99711a19174197a175135a6ad/mlx_h3_dit.safetensors"
+  },
+  "source_repository": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-Dense-DataFree",
+  "source_revision": "f624f08c6c279ab43534c003e556fc5b295b6558",
+  "download_bytes_upper": 77301817105,
+  "reused_bytes": 66714912872,
+  "conversion_reference": {
+    "schema_version": "fastvideo-fasth3-mlx-conversion-v1",
+    "published_repo_id": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-Dense-DataFree-MLX-INT6",
+    "source": {
+      "repo_id": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-Dense-DataFree",
+      "revision": "f624f08c6c279ab43534c003e556fc5b295b6558",
+      "checkpoint_step": 1000,
+      "attention": "dense",
+      "checkpoint_content_aggregate_sha256": "3f56129acb9749f2ae4e52bab176c09406bf027d68c6f020cf5ff99e651b1609",
+      "transformer_shards_verified": 13
+    },
+    "converter": {
+      "fastvideo_commit": "cf6a00b9be4675602126d6aeab902ad9a74810ea",
+      "script": "scripts/checkpoint_conversion/convert_minimax_h3_mlx.py",
+      "command": "python scripts/checkpoint_conversion/convert_minimax_h3_mlx.py --model-root <snapshot>/transformer --out <output> --formats 'int8 int6 int4'",
+      "mlx_version": "0.32.2",
+      "python_version": "3.12.13",
+      "hardware": "Apple M4 Max",
+      "unified_memory_bytes": 38654705664,
+      "combined_wall_seconds": 164.62,
+      "process_max_rss_bytes": 11317051392,
+      "peak_memory_footprint_bytes": 27108979504
+    },
+    "format": {
+      "conversion_seconds": 44.0,
+      "peak_mlx_gib": 19.4,
+      "weights_file": "mlx_h3_dit.safetensors",
+      "weights_bytes": 16541791991,
+      "weights_sha256": "fc585db6855f1209c288a9b593e617ec6ae9eecc7fde521abb622e244c742681",
+      "manifest_file": "mlx_h3_dit.json",
+      "manifest_sha256": "f83ac61757d5edd46914d498c29ee3e0065776fb2ce60d5e2c71ac047678c16c",
+      "quantization": {
+        "mode": "affine",
+        "bits": 6,
+        "group_size": 64
+      },
+      "tensor_count": 1464,
+      "vsa_capable": false
+    },
+    "validation": {
+      "source_shard_size_and_sha256": "passed, 13 of 13",
+      "safetensors_header_open": "passed",
+      "manifest_quantization": "passed",
+      "adaln_cache_timesteps": 8,
+      "generation": "passed: 832x480, 124 frames, full H3 VAE",
+      "runtime_checkpoint_load": "passed for int8, int6, and int4",
+      "runtime_structure": "50 transformer blocks, 2 refiner blocks, 50 AdaLN block tables"
+    }
+  },
+  "download_authorization": "requested; not yet received",
+  "model_download_started": false,
+  "shape_precheck": {
+    "purpose": "geometry and exact-value operator precheck only; not generation",
+    "geometry": {
+      "height": 768,
+      "width": 1376,
+      "num_frames": 124,
+      "latent_frame_count": 37,
+      "latent_height": 48,
+      "latent_width": 86
+    },
+    "cases": [
+      {
+        "case": "motion-graphics",
+        "text_tokens": 154,
+        "packed_rows": 38752,
+        "prompt_sha256": "84b6db196fa66f9bf2f2d4830af5314b276a79626f3cd1a87da5d063b2869cc0"
+      },
+      {
+        "case": "bakery",
+        "text_tokens": 95,
+        "packed_rows": 38693,
+        "prompt_sha256": "6369d84354ebb3b00c5de109367ecf2121a7636f660796d0891999704df58ad5"
+      }
+    ],
+    "rows": 38752,
+    "columns": 28672,
+    "packed_elements": 1111097344,
+    "expected_product": 1024,
+    "all_values_match": true,
+    "peak_mlx_gib": 3.625797277316451,
+    "elapsed_seconds": 0.09479995793662965,
+    "versions": {
+      "mlx": "0.32.2",
+      "mlx-metal": "0.32.2"
+    },
+    "source_sha256": {
+      "minimax_h3.py": "f361caf7310df83aba9fe7c927b2114f37f28b7b80bddb0983bb751695f02c62",
+      "minimax_h3_pipeline.py": "6aa4aa879e2a9a45e9ec349bcba98d6b2a8b6a70d531568c4401603e0d39c6d5"
+    },
+    "script_sha256": "762608ef99e04d24dc13675e66a07ff7d9800d622a441deada7669cc11c9b65e"
+  },
+  "tests": {
+    "command": "h3 Conda Python -m pytest tests/test_compare.py tests/test_media.py tests/test_api.py tests/test_process.py -q",
+    "passed": 44
+  },
+  "installed_wheels": {
+    "ours_sha256": "d2ebc0ac3c3942ac5a54b5fa2e18b4395c2350c66077b98cdc50ccbe64e2c2ea",
+    "official_fastvideo_sha256": "89b889ecc6fa4eeed6b95e89383c6aa1642c8271ace9e7317e45026b052b9fef"
+  }
+}

@@ -2,6 +2,7 @@
   "schema_version": 1,
   "resolution": "768p",
   "duration": 15,
+  "methods": ["ours", "vpipe"],
   "cases": [
     {
       "id": "motion-graphics",
@@ -22,5 +23,5 @@
     "motion-graphics": "benchmarks/p082-apple-t2va-fl2va/character-reveal-15s-prompt.txt",
     "bakery": "benchmarks/p087-w8a8-ffn/long-bakery-opening.json:prompt"
   },
-  "order": "case-major, Ours / official FastH3 / vpipe; a single descriptive run, no stable speedup claim"
+  "order": "case-major, Ours / vpipe; a single descriptive run, no stable speedup claim"
 }

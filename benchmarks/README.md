@@ -1,9 +1,16 @@
-# 三方比较
+# 成片比较
 
-比较 **FastH3 / Ours、官方 FastH3 / VSA、vpipe / VDN**。两个完整公共提示词为 motion graphics / seed 2026 和 bakery / seed 87001；文本和 SHA256 由 `suites/motion-bakery.json` 固定。两者均为已见输入，不用于新的泛化结论。
+按用户实际交付时长选择范围：
 
-当前本机 FastH3 入口带有明确的[时长对齐校验补丁](patches/README.md)，标签为
-`Official FastH3 / VSA + frame-limit fix`。原始未修改版本的历史成绩保持其原身份。
+| 交付 | 套件 | 默认比较 |
+| --- | --- | --- |
+| 768p / 5 秒 | `suites/motion-bakery-5s.json` | Ours、官方 FastH3 MLX / INT6 Dense、vpipe / VDN |
+| 768p / 15 秒 | `suites/motion-bakery.json` | Ours、vpipe / VDN |
+
+短片提示词事前改写为五秒内的动作，不直接截取十五秒叙事。两套均固定 motion graphics /
+seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它们是公共输入及其
+改写，不用于泛化或独立盲测结论。短片准备与本机权重可用性见
+[short-768p-01](results/short-768p-01/README.md)。
 
 `compare.py` 直接调用三个现有 CLI。普通生成用户只需安装 Ours；评测脚本不安装、升级或下载其他项目。日常优化主要在研究仓库比较 Ours 候选与稳定版，发布比较或相关上游更新时才运行完整三方。
 
@@ -15,7 +22,7 @@
 ## 使用
 
 1. [安装 Ours](../docs/install.md)，使用 `h3 models prepare` 下载/转换，或复用已有模型。
-2. 按下方链接准备两个官方项目，记录具体 commit、模型来源和转换结果。
+2. 按下方链接准备本轮需要的外部项目，记录具体 commit、模型来源和转换结果。
 3. 复制 `local.example.json` 为不入 Git 的 `local.json`，填写绝对解释器/二进制、模型路径、固定 commit 和文件清单的 SHA256。
 
 从产品仓库执行：
@@ -23,9 +30,17 @@
 ```bash
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --preflight
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py
+
+# 五秒三路比较
+"$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json --preflight
+"$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json
 ```
 
-一轮按提示词顺序执行六个独立进程。每轮创建唯一目录，默认在 `.local/comparisons/`，输出 `results.json`、CSV、带视频链接的 Markdown 表，以及每次的命令、配置、日志、媒体和资源记录。失败保留原因，不能把失败退出的时间排入速度表。重复运行会创建新目录；也可以用 `--output /absolute/new/directory` 明确指定新目录。
+一轮按提示词顺序执行独立进程：十五秒四次，五秒六次。只需配置所选路线；十五秒
+不要求安装官方 FastH3。Ours 命令中的 `{resolution}`、`{duration}` 从套件读取，避免
+更换套件后仍运行旧时长。每轮创建唯一目录，默认在 `.local/comparisons/`，输出
+`results.json`、CSV、Markdown 表，以及命令、配置、日志、媒体和资源记录。
+失败耗时不进入速度表。重跑创建新目录，也可用 `--output /absolute/new/directory` 指定。
 
 `--methods ours fastvideo` 可用于排查指定入口；这类部分运行应按实际覆盖范围描述。`Ctrl-C` 终止本轮及当前进程组，并保存取消状态。
 
@@ -55,18 +70,26 @@ conda create --yes --copy --prefix /path/to/fastvideo-env -c conda-forge python=
 本地转换资产，但必须在 `weights` 中说明 base/adapter/转换器，不能把它写成未验证
 的完整 student 权重。先核对规格支持情况，再决定是否值得下载额外大权重。
 
-FastVideo 使用其 `examples/inference/basic/mlx_fasth3.py`，启用 VSA，关闭 `fast` 和 `fast-spatial`，使用完整 FP32 VideoVAE。示例保留官方推荐的 `auto` attention 实现；该版本中它是 reference 路径。使用其他明确支持的实现时，必须在正式开跑前固定，并在结果中完整标明。不能按不同提示词分别选择最快配置。
+新的五秒官方路线采用其[公开 INT6 Dense 配方](https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-Dense-DataFree-MLX-INT6)：
+Preview v1 Dense DataFree、四步、affine INT6 / group64、BF16 激活、完整 FP32 H3 VAE。
+使用未修改的 `examples/inference/basic/mlx_fasth3.py`，关闭 VSA、`fast` 和
+`fast-spatial`。官方公开成片是 832×480 / 124 帧；本轮改为 1376×768 / 124 帧，必须在
+本机重新验收。不要把现有 VSA adapter 权重重新标成官方 Dense 权重。
+
+模型卡中的下载命令包含原始 transformer；已经取得可用的官方 MLX 导出时，只需
+补齐共享组件。下载前核对真实文件清单和本地可复用内容，不能只依据模型卡估计流量。
 
 两个完整公共 prompt 的原始独立官方 CLI 调用已验证：该版本将 362 / 24 算作 15.08 秒，
 在加载大模型前拒绝这项规格。记录失败及不支持原因；不把 Ours 的时长修复移入
 官方入口后仍称为未修改基线。此结果不代表其他时长或版本也不可用。
 
-现已提供独立的小补丁，按 H3 时间网格检查上下界，32 项回归和两个真实 CLI 入口
-检查通过。按 [补丁说明](patches/README.md) 应用、安装，再填写 `local.example.json`
-里的实际新 commit 与运行文件 SHA；新运行显式保留补丁身份。补测结果见上方链接，
-入口通过不代表完整成片可用。
+历史十五秒测试使用过[时长补丁](patches/README.md)，结果保留原标签和原始失败。
+五秒的 124 帧在官方原始时长范围内，本轮不使用该补丁，也不继续比较官方十五秒。
 
-vpipe 固定使用官方 `docs/pipelines/minimax-h3-vdn.vpipeline`。脚本只替换文本、seed、1376×768 / 362 帧、输出路径和本地模型键；步骤、VDN 分支、Turbo adapter、shift、量化等保持模板配置。配置中的六步不等同于实际 NFE，不能从名称推测。VDN 是首版事前选择的官方方案，不代表所有 vpipe 配方的最优成绩。
+vpipe 固定使用官方 `docs/pipelines/minimax-h3-vdn.vpipeline`。脚本只替换文本、seed、
+套件对应的模型尺寸和帧数、输出路径及本地模型键；步骤、VDN 分支、Turbo adapter、
+shift、量化等保持模板配置。配置中的六步不等同于实际 NFE，不能从名称推测。
+VDN 是事前选择的官方方案，不代表所有 vpipe 配方的最优成绩。
 
 本机构建可使用官方 `VPIPE_METAL_RUNTIME_COMPILE=ON`，免除额外 Metal 工具链下载。依赖子模块固定在该 commit；独立 Conda 环境提供 CMake、Ninja 和 FFmpeg 头文件。CLI 的 CMake target 名是 `vpipe-cli`，产物是 `build/apps/vpipe/vpipe`。通过 `VPIPE_FFMPEG_DIR` 指向匹配头文件 ABI 的 Conda `lib` 目录。vpipe 从启动目录读取 `session.json` 和模型 registry，因此 `cwd` 必须是准备好的工作目录。
 
@@ -107,10 +130,14 @@ vpipe dylib 的 `{path, sha256}`。正式配置同时核对安装文件与 sourc
 
 ## 共同计时与结果边界
 
-默认交付 1366×768、360 帧、15 秒、24fps、32 kHz 立体声，实际模型生成 1376×768 / 362 帧。外部入口保留原始 MP4，再只做居中裁切与截尾；无放大、插帧或时域降采样。Ours 在自身生成 API 中完成裁切与截尾。外部二次封装的成本包含在用户等待中，并保存具体 FFmpeg 命令。这是完整系统比较，不是相同编码次数的算子消融。
+共同交付为 1366×768、24fps、32 kHz 立体声：五秒交付 120 帧，模型生成 1376×768 /
+124 帧；十五秒交付 360 帧，模型生成 1376×768 / 362 帧。外部入口保留原始 MP4，
+再只做居中裁切与截尾；无放大、插帧或时域降采样。Ours 在自身生成 API 中完成裁切
+与截尾。外部二次封装成本包含在用户等待中，并保存具体命令。五秒、十五秒各自成表。
 
-原始官方 MP4 允许至多一个 AAC packet 的额外尾部填充，供随后截尾；最终成片仍严格
-校验音视频时长和零起点。这处理编码封装的尾部边界，不放宽最终交付要求。
+原始 MP4 的 AAC 终点允许相对原生视频有至多一个 packet 的正负舍入，但音频必须
+覆盖完整目标交付时长。短于交付或相差超过一个 packet 时直接失败，不补静音。
+最终成片仍严格校验音视频时长和零起点。旧失败记录不因修复而追认为通过。
 
 计时从启动新进程前开始，到输出通过完整声画解码、尺寸、帧数、帧率、声道和时长检查后结束。包含首次加载、编译、空提示词缓存、生成和封装；正常系统和 Metal cache 保留。准备与等待 AC/nominal 起跑条件的时间单独记录。当前运行开始要求接电、关闭低电量模式、nominal；运行中遇到严重温度、超过 2 GiB swap 增长、剩余磁盘不足 20 GiB 或超时会终止并保留证据。
 
