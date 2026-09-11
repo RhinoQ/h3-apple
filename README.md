@@ -15,12 +15,7 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 ## Video comparisons
 
 **Left: H3 Apple (Ours). Right: vpipe / VDN.**
-All videos play at their original speed and full duration. Preview panels are
-640×360; timings refer to the original **1366×768, 24 fps** deliveries.
-**Preview audio is Ours**; each native download has its own 32 kHz stereo audio.
-
-One run per input/system on M5 Max / 128 GiB. The original eight videos have
-human acceptance; twenty additional videos await review. [Measurement and review scope](#measurement-and-review-scope).
+[Playback, measurement and review notes](#measurement-and-review-scope).
 
 ### Fifteen seconds · two additional cinematic scenes
 
@@ -141,6 +136,11 @@ https://github.com/user-attachments/assets/bf551d69-99e0-49e1-90d1-87385a19799a
 [Full prompt](benchmarks/prompts/bakery.txt) · Seed 87001 · [Ours — native 768p](https://github.com/RhinoQ/h3-apple/releases/download/benchmark-videos-2026-09-11/15s-bakery-ours.mp4) · [vpipe — native 768p](https://github.com/RhinoQ/h3-apple/releases/download/benchmark-videos-2026-09-11/15s-bakery-vpipe.mp4) · [Run report](benchmarks/results/native-three-02/README.md)
 
 ### Measurement and review scope
+
+**Left: H3 Apple (Ours). Right: vpipe / VDN.**
+All videos play at their original speed and full duration. Preview panels are
+640×360; timings refer to the original **1366×768, 24 fps** deliveries.
+**Preview audio is Ours**; each native download has its own 32 kHz stereo audio.
 
 Measured on **Apple M5 Max / 128 GiB / macOS 26.6.1**. Times include fresh-process
 loading, compilation, generation, full decoding, muxing, and final media checks.
