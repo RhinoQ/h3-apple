@@ -1,14 +1,14 @@
 # 768p / 5 秒比较
 
-**Ours / vpipe 四条成片已完成，官方五秒生成尚待权重下载授权。** 本轮于
+**Ours / vpipe 四条成片已完成；用户随后取消官方对照，本轮按两路比较结束。** 本轮于
 2026-09-11 UTC 在 Apple M5 Max / 128 GiB / macOS 26.6.1 上执行；十五秒只保留
-Ours / vpipe 比较。两个场景及种子由[短片套件](../../suites/motion-bakery-5s.json)
-固定，提示词在生成前缩写为五秒动作。
+Ours / vpipe 比较。提示词在生成前缩写为五秒动作。原始 JSON 保留当时的三路计划
+和实际四项顺序；当前[短片套件](../../suites/motion-bakery-5s.json)按用户决定只选择
+Ours / vpipe，输入与种子不变。[范围决定](decision.json)记录取消，未重写测量数据。
 
 | 入口 | motion graphics | bakery |
 | --- | ---: | ---: |
 | FastH3 / Ours | 5 分 54 秒 | 5 分 55 秒 |
-| 官方 FastH3 / MLX INT6 Dense | 尚未生成 | 尚未生成 |
 | vpipe / VDN | 8 分 49 秒 | 9 分 01 秒 |
 
 本次 Ours 的等待时间分别减少 **32.96% / 34.33%**，vpipe 耗时分别为 Ours 的
@@ -47,18 +47,20 @@ FL2VA Q8、VDN stage-dmd、Turbo v4 adapter、shift 12/3、i8_gemm。
 原始不可覆盖证据位于 `.local/comparisons/short-768p-01/`，导出中的 `$PRODUCT`、
 `$MODELS` 是本机路径角色。上一轮十五秒数据及失败现场保持原样。
 
-官方路线固定为未修改 FastVideo `a943220c115228ade5d57b3bab9a6a87fd600a10`，
+## 已取消的官方准备（历史）
+
+原计划官方路线固定为未修改 FastVideo `a943220c115228ade5d57b3bab9a6a87fd600a10`，
 Preview v1 Dense DataFree、四步、INT6 / group64、BF16 激活、完整 FP32 VAE，
 不开 VSA、插帧或降分辨率。官方公开验证是 832×480 / 124 帧；本轮 768p 需要重新
-验收。先运行独立的官方 presenter 短片，完成后才把官方纳入两个场景。
-本轮尚未执行官方 canary 或正式场景，没有官方成功耗时。
+验收。计划先运行独立的官方 presenter 短片，再纳入两个场景；取消前均未执行，
+没有官方成功耗时。
 
 准备阶段的 44 项相关回归通过，覆盖套件路线选择、原片 AAC 正负尾部舍入、交付
 音频覆盖、严格最终验收和进程边界。已安装新的普通 Ours wheel，并恢复官方未修改
 FastVideo 安装。短片最大 packed 行数 38,752，SwiGLU 中间张量有 1,111,097,344 个
 元素；在官方 MLX 0.32.2 下，精确值算子检查全部正确。它只是运行前检查，不是成片。
 
-## 权重准备
+### 权重核对记录
 
 2026-09-10 核对发现，[官方 INT6 模型卡](https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-Dense-DataFree-MLX-INT6)
 虽然记录了成功成片、导出大小和 SHA256，当前 `81ee7a77` 仓库只包含说明和元数据，
@@ -67,8 +69,8 @@ FastVideo 安装。短片最大 packed 行数 38,752，SwiGLU 中间张量有 1,
 
 可按官方转换流程，从 Dense DataFree 固定版本 `f624f08c` 准备 INT6。
 现有文本编码器的 14 个分片 SHA256 与官方一致，可复用约 66.7 GB；原始 DiT、
-官方 VAE 等尚需下载约 77.3 GB。依照研究项目的下载约定，已请求本次最多 80 GB
-下载授权，收到授权前不开始模型下载。现有 VSA 权重不冒充这份官方 Dense 模型。
+官方 VAE 等原预计仍需下载约 77.3 GB。此前请求的最多 80 GB 下载随官方对照取消，
+没有启动模型下载。[preparation.json](preparation.json)保留取消前的核对状态。
 
 完整准备证据和事前方案在 `.local/validation/official-short-768p-01/`；四条成片的
 完成后核验与导出脚本在 `.local/validation/short-768p-results-01/`。

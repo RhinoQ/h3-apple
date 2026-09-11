@@ -4,7 +4,6 @@
   "duration": 5,
   "methods": [
     "ours",
-    "fastvideo",
     "vpipe"
   ],
   "cases": [
@@ -23,7 +22,7 @@
   ],
   "data_split": "Predeclared short adaptations of previously seen public prompts; no tuning or held-out quality claim.",
   "delivery": "1366x768,120 frames,24fps,5.000s,32kHz stereo; all methods generate 1376x768/124 frames before fixed crop and trim.",
-  "order": "case-major, Ours / official FastH3 / vpipe; one observation per case, no stable speedup claim",
+  "order": "case-major, Ours / vpipe; one observation per case, no stable speedup claim",
   "input_origins": {
     "motion-graphics": "motion-graphics.txt adapted before generation to a five-second reveal",
     "bakery": "bakery.txt adapted before generation to a five-second door opening and greeting"

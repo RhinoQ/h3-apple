@@ -52,14 +52,13 @@ M5 Max / 128 GiB，原生 768p、15 秒完整声画视频。以下为固定公�
 | 入口 | motion graphics | bakery |
 | --- | ---: | ---: |
 | FastH3 / Ours | 5 分 54 秒 | 5 分 55 秒 |
-| 官方 FastH3 / MLX INT6 Dense | 等待权重准备 | 等待权重准备 |
 | vpipe / VDN | 8 分 49 秒 | 9 分 01 秒 |
 
 计时包含新进程启动、模型加载、生成、封装与完整声画检查。五秒两项中，Ours
 等待时间分别减少约 33% / 34%；每项只测一次，人工声画接受仍待完成。
 [十五秒结果](benchmarks/results/native-three-02/README.md)与
-[五秒结果及官方权重可用性](benchmarks/results/short-768p-01/README.md)分别记录
-输入、固定版本和配方。官方只继续比较五秒；历史十五秒
+[五秒结果](benchmarks/results/short-768p-01/README.md)分别记录输入、固定版本和配方。
+当前两个时长都只比较 Ours / vpipe；官方 FastH3 对照已取消，历史
 [失败补测](benchmarks/results/fastvideo-frame-limit-01/README.md)保留供复核。
 [两条可播放示例](examples/README.md)
 
@@ -79,11 +78,9 @@ M5 Max / 128 GiB，原生 768p、15 秒完整声画视频。以下为固定公�
 | 入口 | 本项目中的用途 | 安装与配方 |
 | --- | --- | --- |
 | FastH3 / Ours | 日常生成和候选优化的稳定基线 | 本仓库安装；四步 VSA、NAX 稀疏算子、完整 VAE |
-| 官方 FastH3 / MLX INT6 Dense | 五秒短片的上游参照 | 独立官方 FastVideo 环境；公开 Dense INT6 配方，未经修改的运行时 |
 | vpipe / VDN | 另一套 Mac 生成方案参照 | 独立原生程序；固定一套官方 VDN 配方 |
 
-准备所需外部项目后，一条命令运行两个场景。默认十五秒只比较 Ours 和 vpipe；
-五秒套件增加官方 FastH3：
+准备 vpipe 后，一条命令运行两个场景；十五秒和五秒都比较 Ours / vpipe：
 
 ```bash
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py
