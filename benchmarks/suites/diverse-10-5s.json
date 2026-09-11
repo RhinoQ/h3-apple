@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "resolution": "768p",
+  "duration": 5,
+  "methods": [
+    "ours",
+    "vpipe"
+  ],
+  "cases": [
+    {
+      "id": "motion-graphics",
+      "seed": 2026,
+      "prompt_file": "../prompts/motion-graphics-5s.txt",
+      "prompt_sha256": "84b6db196fa66f9bf2f2d4830af5314b276a79626f3cd1a87da5d063b2869cc0"
+    },
+    {
+      "id": "bakery",
+      "seed": 87001,
+      "prompt_file": "../prompts/bakery-5s.txt",
+      "prompt_sha256": "6369d84354ebb3b00c5de109367ecf2121a7636f660796d0891999704df58ad5"
+    },
+    {
+      "id": "sailor-dialogue",
+      "seed": 11003,
+      "prompt_file": "../prompts/short-diverse-10/sailor-dialogue.txt",
+      "prompt_sha256": "580982ebee13b8915dcce337800de8c3307cf7b719e83985e9de3a1c1c8effe7"
+    },
+    {
+      "id": "night-bus",
+      "seed": 11004,
+      "prompt_file": "../prompts/short-diverse-10/night-bus.txt",
+      "prompt_sha256": "eaf754348fef40a706d0a0c729ae362350e9f7df7d27308af4f30a1ba849353c"
+    },
+    {
+      "id": "candy-keyboard",
+      "seed": 11005,
+      "prompt_file": "../prompts/short-diverse-10/candy-keyboard.txt",
+      "prompt_sha256": "b63e03887ba9110aa5a20920246251065572fd7216080fab02fa601e08844149"
+    },
+    {
+      "id": "canyon-reveal",
+      "seed": 11006,
+      "prompt_file": "../prompts/short-diverse-10/canyon-reveal.txt",
+      "prompt_sha256": "91a9ff00f85904996f81c532492a7b0aecb648abea939de12830ba36d843ace8"
+    },
+    {
+      "id": "rose-raindrop",
+      "seed": 11007,
+      "prompt_file": "../prompts/short-diverse-10/rose-raindrop.txt",
+      "prompt_sha256": "888d05af09d58110bf9ba14448474437f3a4d98b1a3ccdfbcf82b8f62dba32c8"
+    },
+    {
+      "id": "clay-campfire-fox",
+      "seed": 11008,
+      "prompt_file": "../prompts/short-diverse-10/clay-campfire-fox.txt",
+      "prompt_sha256": "7466794a30de7b6a9f38ce7b39cb9c9ea89cf6a6d2bdc08b93d4f1823c77a9b6"
+    },
+    {
+      "id": "field-mouse",
+      "seed": 11009,
+      "prompt_file": "../prompts/short-diverse-10/field-mouse.txt",
+      "prompt_sha256": "e6b73c23187f4a8c48e5b35154b6ca695e0d34f799cca3eff5d2ee28dcaf9547"
+    },
+    {
+      "id": "umbrella-opening",
+      "seed": 11010,
+      "prompt_file": "../prompts/short-diverse-10/umbrella-opening.txt",
+      "prompt_sha256": "5d96b8cb4596e19e50c62475b9090b6fc827a466ffaa6146bfe712e25b0d1832"
+    }
+  ],
+  "data_split": "Two previous public cases plus eight web-sourced adaptations frozen before new generation; no prompt/seed tuning or held-out generalization claim.",
+  "delivery": "1366x768,120 frames,24fps,5.000s,32kHz stereo; all methods generate 1376x768/124 frames before fixed crop and trim.",
+  "order": "case-major, Ours / vpipe; one observation per case, no stable speedup claim",
+  "input_origins": "../prompts/short-diverse-10/sources.json",
+  "cohort": "10 cases total. Current expansion executes only eight new cases; the two accepted prior cases are reused with original hashes and batch labels."
+}

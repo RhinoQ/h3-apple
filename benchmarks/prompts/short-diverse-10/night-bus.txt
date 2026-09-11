@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] A five-second live-action close-up inside a city bus at night. A young adult woman with short dark curls and a burgundy scarf slowly raises her eyes toward the rain-streaked window. Passing amber streetlights slide across her face and its faint reflection. The camera stays beside her at eye level, with shallow focus and cool blue shadows. Her expression softens into a small smile.
+
+overall_soundscape: Rain ticks against glass over a low engine hum and gentle road vibration.
+
+non_diegetic_music: N/A

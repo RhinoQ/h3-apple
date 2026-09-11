@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] A five-second overhead macro product shot of a miniature keyboard with pastel candy keys on a lavender desk. Two fingertips press three neighboring keys in sequence; each key visibly sinks and springs back. Sugar crystals sparkle in soft studio light. Keep the camera steady and the fingertips and key surfaces sharply detailed.
+
+overall_soundscape: Each press produces a distinct crisp candy crunch followed by a light mechanical click; quiet room ambience.
+
+non_diegetic_music: N/A

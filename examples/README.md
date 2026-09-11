@@ -4,7 +4,8 @@
 使用完整公共提示词，原始生成与交付均为 768p、15 秒、24fps、立体声。
 仓库内的 MP4 是 **640×360 的小型重编码预览**，保留完整 15 秒声画；
 它们的分辨率不用于衡量原生成画质或生成耗时。对应原生文件 SHA 和预览 SHA 见
-[manifest](previews/manifest.json)。完整声画质量仍待人工接受。
+[manifest](previews/manifest.json)。原生声画已获
+[用户接受](../benchmarks/reviews/existing-eight-20260911.json)。
 
 ## Motion graphics / seed 2026
 

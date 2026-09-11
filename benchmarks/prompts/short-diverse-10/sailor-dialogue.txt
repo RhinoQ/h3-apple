@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] A five-second cinematic medium close-up aboard a fishing boat. A weathered sailor (S1) in a yellow raincoat looks toward the grey sea, then says in a low, steady voice: <d>[English] The tide is turning.</d> Wind lifts his beard as the camera gently moves closer. Overcast daylight reveals natural skin texture.
+
+overall_soundscape: Waves slap the hull. Rigging rattles and distant gulls call beneath his clear voice.
+
+non_diegetic_music: N/A

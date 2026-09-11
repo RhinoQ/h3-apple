@@ -5,6 +5,7 @@
 | 交付 | 套件 | 默认比较 |
 | --- | --- | --- |
 | 768p / 5 秒 | `suites/motion-bakery-5s.json` | Ours、vpipe / VDN |
+| 768p / 5 秒，十提示词 | `suites/diverse-10-5s.json` | Ours、vpipe / VDN |
 | 768p / 15 秒 | `suites/motion-bakery.json` | Ours、vpipe / VDN |
 
 短片提示词事前改写为五秒内的动作，不直接截取十五秒叙事。两套均固定 motion graphics /
@@ -16,9 +17,12 @@ seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它
 `compare.py` 直接调用 Ours / vpipe CLI。普通生成用户只需安装 Ours；评测脚本不安装、升级或下载其他项目。日常优化在研究仓库比较 Ours 候选与稳定版；更新外部对照时再运行 vpipe。
 
 已完成的首轮新原生比较见 [native-three-02 结果](results/native-three-02/README.md)：
-六次尝试、四条完整声画视频、两次官方入口规格拒绝；人工质量接受仍待完成。
+六次尝试、四条完整声画视频、两次官方入口规格拒绝。此前两轮八条成功视频均已获
+[用户人工声画接受](reviews/existing-eight-20260911.json)。
 对齐修复后的[官方两条补测](results/fastvideo-frame-limit-01/README.md)也已结束：
 原片已生成，但两次均在交付时长校验处失败，且发现后段坏图，无成功交付成绩。
+新增五秒场景的[十提示词比较](results/short-diverse-10-01/README.md)独立记录来源、
+事前方案与结果；已有质量接受不延伸到新视频。
 
 ## 使用
 
@@ -35,9 +39,12 @@ seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它
 # 五秒 Ours / vpipe 比较
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json --preflight
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json
+
+# 完整十条五秒提示词，共二十次生成
+"$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/diverse-10-5s.json
 ```
 
-一轮按提示词顺序执行独立进程：两个时长各四次，均不要求准备官方 FastH3。
+一轮按提示词顺序执行独立进程：两个原套件各四次，十提示词套件二十次，均不要求准备官方 FastH3。
 Ours 命令中的 `{resolution}`、`{duration}` 从套件读取，避免
 更换套件后仍运行旧时长。每轮创建唯一目录，默认在 `.local/comparisons/`，输出
 `results.json`、CSV、Markdown 表，以及命令、配置、日志、媒体和资源记录。

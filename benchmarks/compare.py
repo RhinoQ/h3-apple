@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run three existing CLIs, with a common cold-process delivery timer.
+"""Run selected existing CLIs, with a common cold-process delivery timer.
 
 No models are downloaded or installed here. See local.example.json and README.md.
 """
@@ -353,7 +353,7 @@ def main(argv=None):
     parser.add_argument("--suite", type=Path, default=HERE / "suites/motion-bakery.json")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--methods", nargs="+", choices=METHODS,
-                        help="Override the suite's methods (15 s: Ours/vpipe; 5 s: all three).")
+                        help="Override the suite's methods (current suites: Ours/vpipe).")
     parser.add_argument("--preflight", action="store_true", help="Check setup without running models.")
     args = parser.parse_args(argv)
     try:

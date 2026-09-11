@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] A five-second natural-history close shot follows a tiny brown field mouse moving briskly along a fallen log. The low camera tracks sideways at the mouse's pace. Its whiskers twitch as it pauses beside a mushroom and sniffs. Damp bark, scattered moss, and soft woodland daylight give the scene tactile detail; the woodland background remains gently blurred.
+
+overall_soundscape: Quick light paw taps and leaf rustling, with faint distant birds and a soft sniff.
+
+non_diegetic_music: N/A

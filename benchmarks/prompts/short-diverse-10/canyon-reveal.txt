@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] A five-second cinematic landscape shot begins behind a lone adult hiker in a red jacket standing safely on a broad sandstone overlook. The camera rises smoothly several meters, revealing layered canyon walls and pale mist below. Low sunrise light catches the rock edges while the hiker remains still and the jacket flutters. The horizon stays level throughout the single continuous reveal.
+
+overall_soundscape: Wind brushes the microphone softly; loose fabric flaps and one distant bird calls.
+
+non_diegetic_music: N/A

@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] A five-second photorealistic macro shot of a crimson rose petal against a softly blurred green garden. A round raindrop lands near its edge, making the petal flex. The drop gathers a smaller bead and rolls toward the tip, catching a bright reflection before falling. The fixed camera keeps the petal texture and water sharply focused under soft morning light.
+
+overall_soundscape: Fine rain patters on surrounding leaves with a delicate close water tick.
+
+non_diegetic_music: N/A

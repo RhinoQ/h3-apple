@@ -28,7 +28,9 @@ Ours / vpipe，输入与种子不变。[范围决定](decision.json)记录取消
 [motion graphics / Ours](diagnostics/motion-graphics-ours.jpg)、
 [motion graphics / vpipe](diagnostics/motion-graphics-vpipe.jpg)、
 [bakery / Ours](diagnostics/bakery-ours.jpg)、[bakery / vpipe](diagnostics/bakery-vpipe.jpg)。
-这是具名缩略图检查，未替代完整动作与音频评价；人工声画接受全部为 `pending`。
+这是生成后的具名缩略图检查。四条短片随后均获
+[用户人工声画接受](../../reviews/existing-eight-20260911.json)；原始 JSON 中的
+`pending` 保留为运行结束时快照，新验收只适用于记录中的精确视频哈希。
 
 ## 实际配方与边界
 
