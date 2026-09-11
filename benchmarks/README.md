@@ -27,8 +27,9 @@ seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它
 已有质量接受不延伸到新视频。
 
 两条新增十五秒提示词为[古书密钥、月地晶花](prompts/cinematic-two-15s/README.md)，
-固定文本、种子与[事前方案](results/cinematic-two-15s-01/plan.json)后运行四次生成。
-这一轮只扩展输入，沿用现有两套系统及完整声画校验。
+固定文本、种子与事前方案后的四次生成均成功，见
+[本轮结果](results/cinematic-two-15s-01/README.md)。这一轮只扩展输入，沿用现有两套
+系统及完整声画校验；新增视频仍待人工质量评价。
 
 ## 使用
 
@@ -69,7 +70,7 @@ Ours 命令中的 `{resolution}`、`{duration}` 从套件读取，避免
 | --- | --- | --- |
 | vpipe | `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d` | [官方构建说明](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/README.md#build-from-source)、[H3 模型准备](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/docs/MINIMAX-H3.md) |
 
-vpipe 已完成本机独立构建、交付适配及 5 秒十个场景、15 秒两个场景的原生 768p 生成；
+vpipe 已完成本机独立构建、交付适配及 5 秒十个场景、15 秒四个场景的原生 768p 生成；
 各次实际状态、耗时和边界见上方结果。
 
 官方 FastH3 仅保留历史对照代码、原始配置与[时长补丁记录](patches/README.md)，

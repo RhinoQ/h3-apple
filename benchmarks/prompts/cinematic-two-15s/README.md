@@ -9,7 +9,7 @@
 | 月地晶花 | [lunar-flower-walk](lunar-flower-walk.txt) | [DeepMind：Build a world 中月地晶体花示例](https://deepmind.google/models/veo/prompt-guide/) | 行走与脚印、主体一致性、开花过程、跟拍与光影、音效 |
 
 英文文本是本次面向十五秒的改写，具体改变和来源见 [sources.json](sources.json)。
-第一条改写遵循 Google Cloud 文档的 CC BY 4.0 归属要求。
+第一条改写遵循 Google Cloud 文档的 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 归属要求。
 第二条以公开场景为灵感重新编排动作、镜头和声音。
 声画字段、单镜头和对白标记遵循
 [MiniMax H3 官方写作指南](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/42ed227ee7df40d41602854ae760620d6eb651fe/docs/VIDEO_PROMPT_WRITING_GUIDE_base_en.md)。

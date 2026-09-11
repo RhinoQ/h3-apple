@@ -5,6 +5,8 @@
 [用户人工声画接受](../benchmarks/reviews/existing-eight-20260911.json)，尚未对外发布。
 新增八个五秒场景的 Ours/vpipe 共十六条已全部通过完整媒体检查，质量评价待完成；
 [扩展比较](../benchmarks/results/short-diverse-10-01/README.md)维护实际结果与已发现的画面问题。
+另外两条十五秒场景的 Ours/vpipe 共四条也已通过完整媒体检查，见
+[新增十五秒结果](../benchmarks/results/cinematic-two-15s-01/README.md)，人工质量评价待完成。
 实测平台为 **Apple M5 Max / 128 GiB / macOS 26.6.1**。
 
 ## 已通过的检查
@@ -68,6 +70,6 @@ Ours 两次均实际执行 4 NFE、200 次直接稀疏 attention，零 fallback�
 ## 尚未证明的内容
 
 没有为了验收再下载完整 139 GiB 模型；真实网络验证是上述有界检查，完整原始资产
-的转换已实跑。其他 Mac 芯片/内存、未见内容泛化、新算法速度收益和新增十六条视频的
+的转换已实跑。其他 Mac 芯片/内存、未见内容泛化、新算法速度收益和新增场景视频的
 人工质量接受均不在已通过结论内。此前八条的用户验收见文首链接，历史 Proposal
 的采用资格不自动转移到新实验。

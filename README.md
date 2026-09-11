@@ -8,7 +8,8 @@ MiniMax-H3、FastVideo 和已有的 Apple GPU 优化；与官方项目无隶属�
 独立安装、模型重建、真实生成与数值迁移验证均已完成。当前为 `0.1.0.dev0` 开发预览；
 已有 15 秒和 5 秒共八条成片通过用户人工声画评价，见
 [验收记录](benchmarks/reviews/existing-eight-20260911.json)。五秒比较已完成十条提示词，
-新增十六条通过媒体检查，人工质量评价待完成。
+新增十六条通过媒体检查；另完成两条新增十五秒场景、共四条视频。
+这些新增视频的人工质量评价待完成。
 
 ## 生成第一条视频
 
@@ -61,6 +62,8 @@ M5 Max / 128 GiB，原生 768p、15 秒完整声画视频。以下为固定公�
 仍待人工评价；Ours 营地多主体、vpipe 蘑菇形态问题已随[十提示词结果](benchmarks/results/short-diverse-10-01/README.md)记录。
 [十五秒结果](benchmarks/results/native-three-02/README.md)与
 [原两组五秒结果](benchmarks/results/short-768p-01/README.md)分别记录输入、固定版本和配方。
+另完成[古书密钥、月地晶花两组十五秒比较](benchmarks/results/cinematic-two-15s-01/README.md)，
+四条均成功交付；独立成表，沿用现有运行核心与模型。
 当前两个时长都只比较 Ours / vpipe；官方 FastH3 对照已取消，历史
 [失败补测](benchmarks/results/fastvideo-frame-limit-01/README.md)保留供复核。
 [两条可播放示例](examples/README.md)
@@ -90,6 +93,8 @@ M5 Max / 128 GiB，原生 768p、15 秒完整声画视频。以下为固定公�
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json
 # 完整十条五秒提示词
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/diverse-10-5s.json
+# 两条新增十五秒提示词
+"$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/cinematic-two-15s.json
 ```
 
 比较脚本是可选工具，普通生成不依赖外部项目。输入、配置与资源停止条件见
