@@ -4,6 +4,9 @@
 
 **28 videos · 14 side-by-side comparisons · native 768p · no cloud inference**
 
+**Tested hardware: M5 Max with 128 GiB unified memory.**
+[Hardware requirements and measured memory use](#hardware-and-memory).
+
 Across ten five-second prompts, H3 Apple averaged **5m 56s** from launch to a
 validated MP4, versus **9m 07s** for vpipe / VDN: **34.8% less waiting** on the
 tested M5 Max. Watch every pair below, with generation times on screen.
@@ -167,13 +170,54 @@ Official FastH3 is outside the current comparison; its
 [historical unsuccessful attempts](benchmarks/results/fastvideo-frame-limit-01/README.md)
 remain available for inspection.
 
+## Hardware and memory
+
+**For the demonstrated 768p workloads, use an M5 Mac with 128 GiB of unified
+memory—the capacity actually tested.** This development preview requires M5
+kernels and macOS 26.2 or later; all gallery runs used M5 Max / macOS 26.6.1.
+
+| Installed unified memory | Current support |
+| --- | --- |
+| **128 GiB** | Tested: all ten 768p / 5-second and four 768p / 15-second Ours videos completed |
+| **96 GiB** | Passes the startup memory check, but has not completed end-to-end validation; completion and the published timings are not established on this capacity |
+| **Below 96 GiB**, including 32/48/64 GiB | Rejected by the current generation entry, including requests for shorter or lower-resolution videos |
+
+The 96 GiB threshold is a software guard, **not a measured minimum RAM
+requirement**. Other Apple M-series chips are not supported by this build.
+
+The existing Ours videos recorded the following **per-stage MLX memory peaks**:
+
+| Delivered video | Completed Ours runs | Denoising peak | Video-decoding peak |
+| --- | ---: | ---: | ---: |
+| 768p / 5 seconds | 10 | 33.11–33.12 GiB | 16.66 GiB |
+| 768p / 15 seconds | 4 | 53.66–54.08 GiB | 27.26 GiB |
+
+These ranges come from `peak_memory_gib` in the
+[initial short results](benchmarks/results/short-768p-01/results.json),
+[eight additional short scenes](benchmarks/results/short-diverse-10-01/results.json),
+[initial long results](benchmarks/results/native-three-02/results.json), and
+[two additional long scenes](benchmarks/results/cinematic-two-15s-01/results.json).
+They cover different prompts, with one run per input.
+
+The [runtime](src/h3_apple/runtime/engine.py) resets the
+[MLX peak counter](https://ml-explore.github.io/mlx/build/html/python/_autosummary/mlx.core.get_peak_memory.html)
+for each phase. These figures do **not** measure total process/system memory or
+a single peak across the entire startup-to-MP4 run. macOS, other apps, and
+non-MLX allocations also need memory. The phases run sequentially, so their
+peaks should not be added together. A 33 or 54 GiB phase peak does not establish
+that a 64 GiB Mac can run this release. Comparable vpipe memory peaks were not
+recorded.
+
+Run one H3 job at a time and close other memory-heavy applications. The worker
+stops if monitored system swap grows by more than 2 GiB; disk swap is not a
+supported substitute for sufficient unified memory.
+
 ## Generate your first video
 
 This is a community project built on MiniMax-H3, FastVideo, and Apple GPU
-optimizations, with no official affiliation. The current **0.1.0.dev0 development
-preview requires M5**. The tested configuration is M5 Max / 128 GiB; the minimum
-check is 96 GiB and macOS 26.2, but 96 GiB has not completed end-to-end validation.
-Other Apple M-series chips are not yet supported.
+optimizations, with no official affiliation. The current package version is
+**0.1.0.dev0 (development preview)**. Check the [hardware and memory requirements](#hardware-and-memory)
+before installing.
 
 Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge) or use your
 existing Conda installation:

@@ -1,9 +1,10 @@
 # Installation and your first video
 
-The tested system is **Apple M5 Max / 128 GiB / macOS 26.6.1**. This build requires
-M5, at least 96 GiB of unified memory, and macOS 26.2 or later. A 96 GiB machine
-has not completed end-to-end validation. Keep at least 20 GiB of disk space free
-for generation, in addition to model storage. Run on AC power.
+Check the [hardware and memory requirements](../README.md#hardware-and-memory)
+before installing. The README distinguishes tested memory capacity, the startup
+threshold, and measured phase peaks for the published videos. Keep at least
+20 GiB of disk space free for generation, in addition to model storage. Run on
+AC power.
 
 ## Conda environment
 
