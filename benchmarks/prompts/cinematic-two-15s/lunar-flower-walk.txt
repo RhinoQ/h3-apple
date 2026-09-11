@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] Cinematic science-fiction, one continuous fifteen-second wide tracking shot across a pale lunar plain at violet dusk. A solitary traveler in a teal coat walks slowly between towering translucent crystal flowers. The camera travels beside the traveler, keeping the full figure visible against the immense stems. Boots leave a continuous trail in the fine silver dust. As the traveler approaches one closed blossom, its faceted petals gradually unfold, sending bands of colored light across the coat and ground. The traveler stops, looks upward, and raises one hand into the shifting light. The camera gently tilts up with the gaze, revealing the open flower against a sky filled with stars; the traveler remains visible at the bottom of the composition as the petals settle.
+
+overall_soundscape: Soft wind continues across the plain. Measured footsteps crunch in the dust, then stop. Delicate glass-like chimes accompany the opening petals.
+
+non_diegetic_music: Widely spaced low string notes and a quiet sustained synth tone, fading gently during the final seconds.

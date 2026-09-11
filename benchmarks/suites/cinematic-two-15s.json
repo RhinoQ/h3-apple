@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "resolution": "768p",
+  "duration": 15,
+  "methods": [
+    "ours",
+    "vpipe"
+  ],
+  "cases": [
+    {
+      "id": "archive-discovery",
+      "seed": 15011,
+      "prompt_file": "../prompts/cinematic-two-15s/archive-discovery.txt",
+      "prompt_sha256": "fe93b82fc07306533bd8f6f9c0f8480cb801da1336024ae99fcf2039fca98de5"
+    },
+    {
+      "id": "lunar-flower-walk",
+      "seed": 15012,
+      "prompt_file": "../prompts/cinematic-two-15s/lunar-flower-walk.txt",
+      "prompt_sha256": "dcbc5e2dabde76368e6708a10c8df07e902b86945fb801f82f6ec1ce8163d0b1"
+    }
+  ],
+  "data_split": "Public-source adaptations frozen before generation; new to this local comparison, no held-out or unseen-training-data claim.",
+  "delivery": "1366x768,360 frames,24fps,15.000s,32kHz stereo; native generation 1376x768/362 frames followed by fixed crop and trim.",
+  "order": "case-major, Ours then vpipe, n=1 per case/system; descriptive only",
+  "input_origins": "../prompts/cinematic-two-15s/sources.json"
+}

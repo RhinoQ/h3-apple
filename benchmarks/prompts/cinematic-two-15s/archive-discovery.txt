@@ -1,0 +1,5 @@
+integrated_multimodal_description: [Shot 1] Cinematic live-action, one continuous fifteen-second shot inside a quiet archive at night. A young archivist with short black hair and a dark green cardigan sits alone at an oak desk beneath a warm brass lamp. The medium shot keeps her face and both hands visible. She opens a worn leather book, lifts a loose endpaper, and discovers a small brass key in a recess. As the camera slowly pushes closer, she raises the key into the lamplight and studies it. A floorboard creaks behind her. She becomes still, turns toward the dark doorway, and the archivist with a low, breathy voice (S1) whispers: <d>[English] Someone is here.</d> She holds the key tightly and listens through the end of the shot.
+
+overall_soundscape: Quiet rain brushes the window throughout. Leather and paper rustle, the key makes a faint metallic click, and a single wooden creak precedes her reaction. Her breath settles into the room ambience.
+
+non_diegetic_music: N/A

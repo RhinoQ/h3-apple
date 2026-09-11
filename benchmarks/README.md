@@ -7,6 +7,7 @@
 | 768p / 5 秒 | `suites/motion-bakery-5s.json` | Ours、vpipe / VDN |
 | 768p / 5 秒，十提示词 | `suites/diverse-10-5s.json` | Ours、vpipe / VDN |
 | 768p / 15 秒 | `suites/motion-bakery.json` | Ours、vpipe / VDN |
+| 768p / 15 秒，两条新增电影场景 | `suites/cinematic-two-15s.json` | Ours、vpipe / VDN |
 
 短片提示词事前改写为五秒内的动作，不直接截取十五秒叙事。两套均固定 motion graphics /
 seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它们是公共输入及其
@@ -24,6 +25,10 @@ seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它
 新增五秒场景的[十提示词比较](results/short-diverse-10-01/README.md)已完成全部十六次
 新增生成，合并原两组共二十条成功交付，独立记录来源、事前方案、耗时与抽帧问题；
 已有质量接受不延伸到新视频。
+
+两条新增十五秒提示词为[古书密钥、月地晶花](prompts/cinematic-two-15s/README.md)，
+固定文本、种子与[事前方案](results/cinematic-two-15s-01/plan.json)后运行四次生成。
+这一轮只扩展输入，沿用现有两套系统及完整声画校验。
 
 ## 使用
 
@@ -43,6 +48,9 @@ seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它
 
 # 完整十条五秒提示词，共二十次生成
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/diverse-10-5s.json
+
+# 两条新增十五秒提示词，共四次生成
+"$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/cinematic-two-15s.json
 ```
 
 一轮按提示词顺序执行独立进程：两个原套件各四次，十提示词套件二十次，均不要求准备官方 FastH3。

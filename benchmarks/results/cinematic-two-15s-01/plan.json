@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-09-11T10:25:09.950699+00:00",
+  "question": "For two additional fifteen-second cinematic requests, measure complete-delivery time and success/failure with unchanged Ours and vpipe VDN systems.",
+  "user_scope": "Add two high-quality 15-second prompts to the existing Ours/vpipe comparison and upload their complete outputs to the existing authorized Google Drive workflow.",
+  "base_product_commit": "b307950e9df954cdb287dcb43769a8e506c91c4a",
+  "changed_variable": "Two new fixed prompt/seed pairs only; no model, runtime, precision, sampler or kernel changes.",
+  "suite": "benchmarks/suites/cinematic-two-15s.json",
+  "suite_sha256": "e895395affdda784dc10c401ec40f691060dcf3827f20d1317b0d1dd0cad05f5",
+  "source_manifest": "benchmarks/prompts/cinematic-two-15s/sources.json",
+  "source_manifest_sha256": "cd7c5d730c060e1de9a38d35d65e78b3ede4b17af2627f40361b05f7d8506cfc",
+  "baseline": "Existing installed Ours wheel/package 9151e26d4683b235a8eee422f508723a9846a9718c7ace4009a3984a1e4de9ac and prepared bundle 6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942; unchanged official vpipe 0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d VDN template/assets. Exact controller commit and config frozen after input-only commit.",
+  "data_split": "Public-source adaptations frozen before generation; new to this local comparison, no held-out or unseen-training-data claim.",
+  "delivery": {
+    "width": 1366,
+    "height": 768,
+    "frames": 360,
+    "fps": 24,
+    "seconds": 15,
+    "audio_sample_rate": 32000,
+    "audio_channels": 2,
+    "model_width": 1376,
+    "model_frames": 362
+  },
+  "methods": [
+    "ours",
+    "vpipe"
+  ],
+  "order": "case-major, Ours then vpipe, n=1 per case/system; descriptive only",
+  "repetitions": 1,
+  "planned_attempts": 4,
+  "timer": "Fresh process through strict complete AV validation, including load, generation, full decode and crop/trim. Preparation/cooldown excluded; ordinary OS/Metal caches retained and prompt caches empty.",
+  "metrics": [
+    "success/failure of every attempt",
+    "complete-delivery elapsed seconds",
+    "source/runtime/model identities",
+    "host resource samples",
+    "complete AV decode and exact delivery geometry",
+    "separate assistant visual inspection and user full-AV review"
+  ],
+  "aggregation": "Report the two new pairs separately from earlier 15-second pairs and from all 5-second results. Rank successful deliveries only. Do not infer stable speedup, an algorithm-only gain or quality superiority.",
+  "completion": "Attempt four fixed jobs within stop conditions, preserve all failures, validate and inspect completed media, export reproducible results and upload successful original deliveries with prompts and timings. New videos remain human-review pending until accepted.",
+  "stops": {
+    "per_job_seconds": 5400,
+    "cooldown_seconds": 1800,
+    "swap_growth_gib": 2,
+    "minimum_free_disk_gib": 20,
+    "thermal": [
+      "serious",
+      "critical"
+    ],
+    "power": "AC required; low-power off",
+    "source_runtime_model_changes": "invalidate affected run",
+    "retries": "No automatic retries or prompt/seed changes. Any future rerun uses a new evidence path and reason."
+  },
+  "evidence": ".local/comparisons/cinematic-two-15s-01",
+  "preparation": ".local/validation/cinematic-two-15s-01"
+}
