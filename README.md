@@ -6,7 +6,7 @@ MiniMax-H3、FastVideo 和已有的 Apple GPU 优化；与官方项目无隶属�
 默认原生 **768p / 15 秒 / 24fps**，可选 576p 和 5–15 秒。首个实测平台为
 **M5 Max / 128 GiB / macOS 26.6.1**；本版使用 M5 专属算子，其他 M 系列尚不支持。
 独立安装、模型重建、真实生成与数值迁移验证均已完成。当前为 `0.1.0.dev0` 开发预览；
-两条新原生样片和三方结果已提供，完整声画质量仍待人工接受。
+已提供 15 秒和 5 秒成片比较，完整声画质量仍待人工接受。
 
 ## 生成第一条视频
 
@@ -45,14 +45,22 @@ M5 Max / 128 GiB，原生 768p、15 秒完整声画视频。以下为固定公�
 | 入口 | motion graphics | bakery |
 | --- | ---: | ---: |
 | FastH3 / Ours | 36 分 47 秒 | 33 分 18 秒 |
-| 官方 FastH3 / VSA + 对齐修复 | 失败，后段坏图 | 失败，后段坏图 |
 | vpipe / VDN | 41 分 15 秒 | 39 分 30 秒 |
 
-计时包含新进程启动、模型加载、生成、封装与完整声画检查。
-Ours / vpipe 来自 [native-three-02](benchmarks/results/native-three-02/README.md)。
-官方入口检查已修复，两条[完整补测](benchmarks/results/fastvideo-frame-limit-01/README.md)
-均生成原片，但时长校验失败，且后段出现画面损坏；没有可比较的成功交付耗时。
-两轮的固定版本、配方和证据分别记录，不构成同一轮重复测速。
+同一台机器的 **768p / 5 秒**单次观察：
+
+| 入口 | motion graphics | bakery |
+| --- | ---: | ---: |
+| FastH3 / Ours | 5 分 54 秒 | 5 分 55 秒 |
+| 官方 FastH3 / MLX INT6 Dense | 等待权重准备 | 等待权重准备 |
+| vpipe / VDN | 8 分 49 秒 | 9 分 01 秒 |
+
+计时包含新进程启动、模型加载、生成、封装与完整声画检查。五秒两项中，Ours
+等待时间分别减少约 33% / 34%；每项只测一次，人工声画接受仍待完成。
+[十五秒结果](benchmarks/results/native-three-02/README.md)与
+[五秒结果及官方权重可用性](benchmarks/results/short-768p-01/README.md)分别记录
+输入、固定版本和配方。官方只继续比较五秒；历史十五秒
+[失败补测](benchmarks/results/fastvideo-frame-limit-01/README.md)保留供复核。
 [两条可播放示例](examples/README.md)
 
 [![Motion graphics 实际生成预览](examples/previews/motion-graphics-ours.jpg)](examples/previews/motion-graphics-ours.mp4)
@@ -71,18 +79,20 @@ Ours / vpipe 来自 [native-three-02](benchmarks/results/native-three-02/README.
 | 入口 | 本项目中的用途 | 安装与配方 |
 | --- | --- | --- |
 | FastH3 / Ours | 日常生成和候选优化的稳定基线 | 本仓库安装；四步 VSA、NAX 稀疏算子、完整 VAE |
-| 官方 FastH3 / VSA | 直接上游参照 | 独立官方 FastVideo 环境；保留官方计算实现 |
+| 官方 FastH3 / MLX INT6 Dense | 五秒短片的上游参照 | 独立官方 FastVideo 环境；公开 Dense INT6 配方，未经修改的运行时 |
 | vpipe / VDN | 另一套 Mac 生成方案参照 | 独立原生程序；固定一套官方 VDN 配方 |
 
-准备外部项目一次后，一条命令顺序运行三个入口 × 两个完整提示词：
+准备所需外部项目后，一条命令运行两个场景。默认十五秒只比较 Ours 和 vpipe；
+五秒套件增加官方 FastH3：
 
 ```bash
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py
+"$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json
 ```
 
 比较脚本是可选工具，普通生成不依赖外部项目。输入、配置与资源停止条件见
 [比较说明](benchmarks/README.md)。未测方法不因此更差；不同系统的完整耗时差额
-不能全部归因于某个算子。官方 FastVideo 原始限制与本地对齐补丁的身份分别记录。
+不能全部归因于某个算子。首次比较前可加 `--preflight` 检查所选路线的准备状态。
 
 ## 继续改进
 
