@@ -30,20 +30,20 @@
   ],
   "adaptations": {
     "archive-discovery": {
-      "title_zh": "古书密钥",
       "source_id": "google-veo-action",
       "changes": "Replace hidden data chip/scalpel with a brass key beneath loose endpaper; define one archivist, sustained medium framing, fifteen-second discovery/reaction and a short original whispered line.",
       "seed": 15011,
       "prompt_file": "archive-discovery.txt",
-      "prompt_sha256": "fe93b82fc07306533bd8f6f9c0f8480cb801da1336024ae99fcf2039fca98de5"
+      "prompt_sha256": "fe93b82fc07306533bd8f6f9c0f8480cb801da1336024ae99fcf2039fca98de5",
+      "title": "The hidden key"
     },
     "lunar-flower-walk": {
-      "title_zh": "月地晶花",
       "source_id": "deepmind-veo-world",
       "changes": "Retain the lunar crystalline-flower setting as inspiration; add a teal-coated solitary traveler, side tracking, one visible opening blossom, continuous footprints, a held ending and original sound design.",
       "seed": 15012,
       "prompt_file": "lunar-flower-walk.txt",
-      "prompt_sha256": "dcbc5e2dabde76368e6708a10c8df07e902b86945fb801f82f6ec1ce8163d0b1"
+      "prompt_sha256": "dcbc5e2dabde76368e6708a10c8df07e902b86945fb801f82f6ec1ce8163d0b1",
+      "title": "Crystal flowers"
     }
   },
   "selection": "Two contrasting single-shot narratives selected before generation; no output-based prompt or seed selection and no source-author endorsement."

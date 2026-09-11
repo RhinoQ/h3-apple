@@ -20,7 +20,7 @@ def test_resolved_delivery_and_native_geometry(resolution, duration, expected):
 
 
 def test_prompt_file_is_preserved(tmp_path):
-    prompt = '清晨的街道。She says, "Good morning."\nA bicycle passes.\n'
+    prompt = 'A café at dawn. She says, "Good morning."\nA bicycle passes.\n'
     path = tmp_path / "prompt.txt"
     path.write_text(prompt)
     assert resolve(prompt_file=path).prompt == prompt

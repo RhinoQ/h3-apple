@@ -1,89 +1,110 @@
-# 成片比较
+# Compare completed videos
 
-按用户实际交付时长选择范围：
+Choose a suite by the duration you want to deliver:
 
-| 交付 | 套件 | 默认比较 |
+| Delivery | Suite | Current comparison |
 | --- | --- | --- |
-| 768p / 5 秒 | `suites/motion-bakery-5s.json` | Ours、vpipe / VDN |
-| 768p / 5 秒，十提示词 | `suites/diverse-10-5s.json` | Ours、vpipe / VDN |
-| 768p / 15 秒 | `suites/motion-bakery.json` | Ours、vpipe / VDN |
-| 768p / 15 秒，两条新增电影场景 | `suites/cinematic-two-15s.json` | Ours、vpipe / VDN |
+| 768p / 5 seconds | `suites/motion-bakery-5s.json` | Ours, vpipe / VDN |
+| 768p / 5 seconds, ten prompts | `suites/diverse-10-5s.json` | Ours, vpipe / VDN |
+| 768p / 15 seconds | `suites/motion-bakery.json` | Ours, vpipe / VDN |
+| 768p / 15 seconds, two additional cinematic scenes | `suites/cinematic-two-15s.json` | Ours, vpipe / VDN |
 
-短片提示词事前改写为五秒内的动作，不直接截取十五秒叙事。两套均固定 motion graphics /
-seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它们是公共输入及其
-改写，不用于泛化或独立盲测结论。短片 Ours/vpipe 四条成片已完成，官方 FastH3
-对照及其下载已取消。结果与范围决定见
-[short-768p-01](results/short-768p-01/README.md)。
+[Watch all 14 completed pairs](../README.md#video-comparisons) ·
+[Download the 28 native videos](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11)
 
-`compare.py` 直接调用 Ours / vpipe CLI。普通生成用户只需安装 Ours；评测脚本不安装、升级或下载其他项目。日常优化在研究仓库比较 Ours 候选与稳定版；更新外部对照时再运行 vpipe。
+Short prompts were adapted in advance to five-second actions, rather than
+truncating fifteen-second narratives. The original suites use motion graphics
+with seed 2026 and bakery with seed 87001. Each suite records full text and
+SHA256. These public inputs and adaptations are not held-out or blind-test data.
 
-已完成的首轮新原生比较见 [native-three-02 结果](results/native-three-02/README.md)：
-六次尝试、四条完整声画视频、两次官方入口规格拒绝。此前两轮八条成功视频均已获
-[用户人工声画接受](reviews/existing-eight-20260911.json)。
-对齐修复后的[官方两条补测](results/fastvideo-frame-limit-01/README.md)也已结束：
-原片已生成，但两次均在交付时长校验处失败，且发现后段坏图，无成功交付成绩。
-新增五秒场景的[十提示词比较](results/short-diverse-10-01/README.md)已完成全部十六次
-新增生成，合并原两组共二十条成功交付，独立记录来源、事前方案、耗时与抽帧问题；
-已有质量接受不延伸到新视频。
+`compare.py` calls the Ours/vpipe CLIs directly. Generation users need only Ours.
+The benchmark does not install, upgrade, or download external projects. Routine
+research compares an Ours candidate with the stable version; run vpipe when
+updating the external reference.
 
-两条新增十五秒提示词为[古书密钥、月地晶花](prompts/cinematic-two-15s/README.md)，
-固定文本、种子与事前方案后的四次生成均成功，见
-[本轮结果](results/cinematic-two-15s-01/README.md)。这一轮只扩展输入，沿用现有两套
-系统及完整声画校验；新增视频仍待人工质量评价。
+## Completed evidence
 
-## 使用
+- [native-three-02](results/native-three-02/README.md): six attempts, four complete fifteen-second videos, and two official entry-specification rejections.
+- [short-768p-01](results/short-768p-01/README.md): four complete five-second videos; official FastH3 comparison and downloads canceled.
+- [short-diverse-10-01](results/short-diverse-10-01/README.md): sixteen new successful five-second videos; together with the retained two pairs, ten prompts and twenty videos.
+- [cinematic-two-15s-01](results/cinematic-two-15s-01/README.md): four successful videos from two additional fifteen-second prompts, with fixed inputs and recipes.
 
-1. [安装 Ours](../docs/install.md)，使用 `h3 models prepare` 下载/转换，或复用已有模型。
-2. 按下方链接准备本轮需要的外部项目，记录具体 commit、模型来源和转换结果。
-3. 复制 `local.example.json` 为不入 Git 的 `local.json`，填写绝对解释器/二进制、模型路径、固定 commit 和文件清单的 SHA256。
+The original eight videos received [human audiovisual acceptance](reviews/existing-eight-20260911.json).
+The twenty additional videos still await human quality review. Reports preserve
+prompt sources, plans, timings, and observed visual issues.
 
-从产品仓库执行：
+The [two official follow-up attempts](results/fastvideo-frame-limit-01/README.md)
+produced raw videos after the entry fix but failed delivery-duration validation
+and had damaged late frames. They have no successful delivery timing.
+
+## Run a comparison
+
+1. [Install Ours](../docs/install.md), then prepare or reuse models with `h3 models prepare`.
+2. Prepare the required external project below, recording its commit, model sources, and conversion.
+3. Copy `local.example.json` to ignored `local.json`. Supply absolute interpreter/binary/model paths, fixed commits, and manifest SHA256 values.
+
+From the product repository:
 
 ```bash
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --preflight
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py
 
-# 五秒 Ours / vpipe 比较
+# Two five-second prompts, four generations.
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json --preflight
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/motion-bakery-5s.json
 
-# 完整十条五秒提示词，共二十次生成
+# All ten five-second prompts, twenty generations.
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/diverse-10-5s.json
 
-# 两条新增十五秒提示词，共四次生成
+# Two additional fifteen-second prompts, four generations.
 "$PWD/.local/envs/h3/bin/python" benchmarks/compare.py --suite benchmarks/suites/cinematic-two-15s.json
 ```
 
-一轮按提示词顺序执行独立进程：两个原套件各四次，十提示词套件二十次，均不要求准备官方 FastH3。
-Ours 命令中的 `{resolution}`、`{duration}` 从套件读取，避免
-更换套件后仍运行旧时长。每轮创建唯一目录，默认在 `.local/comparisons/`，输出
-`results.json`、CSV、Markdown 表，以及命令、配置、日志、媒体和资源记录。
-失败耗时不进入速度表。重跑创建新目录，也可用 `--output /absolute/new/directory` 指定。
+Each entry runs in an independent process in suite order. Official FastH3 is
+not required. Ours' `{resolution}` and `{duration}` placeholders come from the
+suite, so switching suites does not retain an old duration. Every round creates
+a unique directory under `.local/comparisons/` by default. It contains
+`results.json`, CSV, a Markdown table, commands, configuration, logs, media,
+and resource observations. Failed times are excluded from successful speed
+tables. Use `--output /absolute/new/directory` for another unique destination.
 
-`--methods ours` 或 `--methods vpipe` 可用于排查单个入口；这类部分运行按实际覆盖范围描述。`Ctrl-C` 终止本轮及当前进程组，并保存取消状态。
+`--methods ours` or `--methods vpipe` isolates an entry for diagnosis; describe
+partial runs by their actual coverage. Ctrl-C cancels the round and current
+process group while preserving cancellation status.
 
-## 固定的外部来源
+## Pinned external source
 
-2026-09-09 核对的版本：
+Version checked on 2026-09-09:
 
-| 入口 | commit | 一次性准备 |
+| Entry | Commit | One-time preparation |
 | --- | --- | --- |
-| vpipe | `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d` | [官方构建说明](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/README.md#build-from-source)、[H3 模型准备](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/docs/MINIMAX-H3.md) |
+| vpipe | `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d` | [Official build guide](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/README.md#build-from-source), [H3 model preparation](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/docs/MINIMAX-H3.md) |
 
-vpipe 已完成本机独立构建、交付适配及 5 秒十个场景、15 秒四个场景的原生 768p 生成；
-各次实际状态、耗时和边界见上方结果。
+The local independent build and delivery adapter completed native 768p
+generation for ten five-second and four fifteen-second scenes. The reports
+above own actual results and limitations.
 
-官方 FastH3 仅保留历史对照代码、原始配置与[时长补丁记录](patches/README.md)，
-不在当前套件或示例配置中。复核历史实验时使用该轮冻结配置；不把旧失败改为通过。
+Official FastH3 code, original configurations, and the [duration patch](patches/README.md)
+remain as historical evidence. It is absent from current suites and the example
+configuration. Use the corresponding frozen configuration for reproduction;
+old failures remain failures.
 
-vpipe 固定使用官方 `docs/pipelines/minimax-h3-vdn.vpipeline`。脚本只替换文本、seed、
-套件对应的模型尺寸和帧数、输出路径及本地模型键；步骤、VDN 分支、Turbo adapter、
-shift、量化等保持模板配置。配置中的六步不等同于实际 NFE，不能从名称推测。
-VDN 是事前选择的官方方案，不代表所有 vpipe 配方的最优成绩。
+vpipe uses the official `docs/pipelines/minimax-h3-vdn.vpipeline` template.
+The controller substitutes only text, seed, suite model dimensions/frame count,
+output paths, and local model keys. Steps, VDN branch, Turbo adapter, shift,
+and quantization remain as configured. Six configured steps do not establish
+actual NFE. VDN was selected in advance and does not represent the fastest
+possible vpipe recipe.
 
-本机构建可使用官方 `VPIPE_METAL_RUNTIME_COMPILE=ON`，免除额外 Metal 工具链下载。依赖子模块固定在该 commit；独立 Conda 环境提供 CMake、Ninja 和 FFmpeg 头文件。CLI 的 CMake target 名是 `vpipe-cli`，产物是 `build/apps/vpipe/vpipe`。通过 `VPIPE_FFMPEG_DIR` 指向匹配头文件 ABI 的 Conda `lib` 目录。vpipe 从启动目录读取 `session.json` 和模型 registry，因此 `cwd` 必须是准备好的工作目录。
+A local build can use `VPIPE_METAL_RUNTIME_COMPILE=ON` to avoid downloading
+another Metal toolchain. Submodules are pinned at the source commit. A separate
+Conda environment supplies CMake, Ninja, and FFmpeg headers. The CMake target
+is `vpipe-cli` and the executable is `build/apps/vpipe/vpipe`.
+`VPIPE_FFMPEG_DIR` points to the Conda `lib` directory matching the header ABI.
+vpipe reads `session.json` and its registry from the launch directory, so
+`cwd` must be the prepared working directory.
 
-构建步骤（需要已安装的 Apple Command Line Tools）：
+With Apple Command Line Tools installed:
 
 ```bash
 git clone https://github.com/tgo-app-dev/vpipe.git /path/to/vpipe
@@ -94,47 +115,75 @@ conda create --yes --copy --prefix /path/to/vpipe-build-env -c conda-forge cmake
 /path/to/vpipe-build-env/bin/cmake --build /path/to/vpipe-build --target vpipe-cli
 ```
 
-在新的工作目录里沿用官方准备流程；已有模型可用原生注册 stage 登记，避免重复下载：
+Follow official preparation in a new working directory. Existing models can be
+registered through the native stage to avoid duplicate downloads:
 
 ```bash
 VPIPE_FFMPEG_DIR=/path/to/vpipe-build-env/lib /path/to/vpipe-build/apps/vpipe/vpipe --launch-stage model-register --stage-cfg model_dir=/path/to/complete-q8-model --stage-cfg key=local/MiniMax-H3-FL2VA-8bit
 ```
 
-同样登记 VDN 为 `OpenVDN/vdn-minimax-h3-stage-dmd`、Turbo adapter 为
-`larryvrh/MiniMax-H3-Turbo-Lora-v4-600-ema`，与固定官方模板对应。
-不要复制或硬链接旧工作目录的可写 LMDB；仅复用经过校验的模型文件。
+Also register VDN as `OpenVDN/vdn-minimax-h3-stage-dmd` and the Turbo adapter as
+`larryvrh/MiniMax-H3-Turbo-Lora-v4-600-ema`, matching the pinned template.
+Reuse verified model files only; do not copy or hard-link a writable LMDB
+from an old working directory.
 
-## 资产与可追溯性
+## Assets and traceability
 
-模型准备成本不计入生成时间，已有文件应优先复用。每个 `asset_receipts` 项引用一份准备时已做完整 SHA256 校验的 JSON 清单，脚本在计时外校验清单自身 SHA256，再核对每个模型文件的大小和修改时间。Ours 的 `bundle.json` 可直接使用；外部资产采用如下格式，文件路径相对清单所在目录，或相对 `asset_receipts` 中指定的 `root`：
+Model preparation is outside generation timing; reuse verified existing assets.
+Each `asset_receipts` item refers to a JSON manifest whose files received full
+SHA256 checks during preparation. Outside the timer, the controller verifies
+the manifest's SHA256 and each file's size and modification time. Ours can use
+`bundle.json` directly. External receipts use this format, with paths relative
+to the receipt or its configured `root`:
 
 ```json
-{"files": [{"path": "models/example.safetensors", "size": 123, "mtime_ns": 1234567890000000000, "sha256": "真实的完整文件SHA256"}]}
+{"files": [{"path": "models/example.safetensors", "size": 123, "mtime_ns": 1234567890000000000, "sha256": "actual-full-file-sha256"}]}
 ```
 
-必须记录原始 base、adapter、量化/转换器和环境。原生 MiniMax base 融合官方 adapter 的本地转换不等同于完整 student snapshot，表中应明确这个边界。最新官方运行时与 Ours 的上游基点不同，则整段耗时差是系统比较，不能全归因于 Ours 的优化。
+Record the original base, adapter, quantization/converter, and environment.
+A native MiniMax base locally merged with an official adapter is not equivalent
+by assertion to a full student snapshot. Different upstream baselines and
+recipes make the timing difference a system comparison, not an isolated Ours gain.
 
-`runtime_files` 可另外绑定实际安装的 Python 文件、MLX 动态库/metallib，以及
-vpipe dylib 的 `{path, sha256}`。正式配置同时核对安装文件与 source commit；
-只检查一个源码目录或一个很小的 CLI 可执行文件，不足以代表它实际加载的运行时。
+`runtime_files` additionally binds installed Python files, MLX libraries/metallibs,
+and vpipe dylibs through `{path, sha256}`. Formal configurations check installed
+files and source commits together. A source checkout or small CLI executable
+alone does not identify the runtime actually loaded.
 
-## 共同计时与结果边界
+## Common timing and limits
 
-共同交付为 1366×768、24fps、32 kHz 立体声：五秒交付 120 帧，模型生成 1376×768 /
-124 帧；十五秒交付 360 帧，模型生成 1376×768 / 362 帧。外部入口保留原始 MP4，
-再只做居中裁切与截尾；无放大、插帧或时域降采样。Ours 在自身生成 API 中完成裁切
-与截尾。外部二次封装成本包含在用户等待中，并保存具体命令。五秒、十五秒各自成表。
+Delivery is 1366×768, 24 fps, 32 kHz stereo. Five-second delivery has 120 frames
+from 1376×768 / 124 model frames; fifteen-second delivery has 360 frames from
+1376×768 / 362 model frames. External entries retain their raw MP4, then apply
+only center-cropping and tail trimming. No upscaling, interpolation, or temporal
+downsampling is used. Ours performs delivery within its API. External adaptation
+time is included in user waiting time, with exact commands recorded.
+Five- and fifteen-second results are reported separately.
 
-原始 MP4 的 AAC 终点允许相对原生视频有至多一个 packet 的正负舍入，但音频必须
-覆盖完整目标交付时长。短于交付或相差超过一个 packet 时直接失败，不补静音。
-最终成片仍严格校验音视频时长和零起点。旧失败记录不因修复而追认为通过。
+Raw AAC endpoints may differ from native video by at most one packet in either
+direction, but audio must cover the entire requested delivery. Short coverage
+or a larger mismatch fails without inserted silence. Final outputs still require
+strict AV durations and zero start times. Fixes never retroactively pass old failures.
 
-计时从启动新进程前开始，到输出通过完整声画解码、尺寸、帧数、帧率、声道和时长检查后结束。包含首次加载、编译、空提示词缓存、生成和封装；正常系统和 Metal cache 保留。准备与等待 AC/nominal 起跑条件的时间单独记录。当前运行开始要求接电、关闭低电量模式、nominal；运行中遇到严重温度、超过 2 GiB swap 增长、剩余磁盘不足 20 GiB 或超时会终止并保留证据。
+Timing starts before a fresh process and ends after full AV decoding and checks
+of dimensions, frames, frame rate, channels, and duration. It includes loading,
+compilation, empty-prompt cache work, generation, and muxing. Normal OS and Metal
+caches remain. Preparation and waiting for AC/nominal thermal conditions are
+recorded separately. Runs start on AC with Low Power Mode off and nominal
+thermal state. Serious/critical temperature, more than 2 GiB of swap growth,
+less than 20 GiB free disk, or timeout stops the run and preserves evidence.
 
-Ours 由工作进程持有设备锁；vpipe 由比较脚本持锁。所有并发 H3 调度都需要遵循同一锁约定。已存在的外部非合作 GPU 任务不能仅凭文件锁自动发现。
+The Ours worker holds the device lock; the controller holds it for vpipe.
+Cooperating H3 jobs must share the lock. A file lock alone cannot discover
+unrelated GPU jobs that ignore it.
 
-脚本会把当前评测 Conda 环境的 FFmpeg 路径提供给子命令，并记录实际二进制身份。
-仅指定绝对 Python 路径不会激活 Conda 的命令搜索路径，这一步不能省略。停止任务
-时先发 Ctrl-C 信号，使 Ours CLI 有机会关闭它的独立 GPU 工作进程，超时再强制停止。
+The controller passes the evaluation environment's FFmpeg PATH to child commands
+and records binary identity. An absolute Python path alone does not activate
+Conda's executable search path. Cancellation first sends Ctrl-C so Ours can
+close its independent GPU worker, then escalates if necessary.
 
-每条结果的人工质量审查初始为 `pending`。机器媒体通过不代表质量通过。观看完整声画后，质量结论应保存在研究记录并链接这些不可覆盖的结果；每项单次运行只用于描述观察，不自动证明稳定提速、质量胜出或跨内容泛化。
+Human quality review starts as `pending`. Media validity does not establish
+quality. After viewing complete audio and video, record review conclusions
+separately and link immutable result/video hashes. Single runs describe
+observations; they do not establish stable speedups, quality superiority,
+or generalization.

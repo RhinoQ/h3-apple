@@ -1,16 +1,19 @@
-# 从研究到稳定版本
+# From research to a stable release
 
-稳定生成核心只维护在这个仓库。研究仓库 `tqlm-h3-apple` 保存 Proposal、对照设计、
-消融、盲评和原始结果；历史 P001–P100 保留原样，新研究调用固定版本的本产品。
-日常生成不读取研究目录。
+The stable generation core lives in this repository. The research repository,
+`tqlm-h3-apple`, retains proposals, comparison designs, ablations, blind reviews,
+and raw results. Historical P001–P100 archives remain unchanged. New research
+calls a pinned product version; everyday generation does not read research files.
 
-首次发布到 [RhinoQ/h3-apple](https://github.com/RhinoQ/h3-apple) 前，按维护者要求将
-十五条本地提交的作者与提交者统一为 RhinoQ；文件内容、提交消息和时间戳均未改变。
-[新旧 commit 对照](evidence/github-author-map.json) 保存逐条相同的 Git tree。
-已有实验继续记录当时实际运行的 commit ID，复核公开源码时通过该对照定位；
-此项署名变更不产生新的实验成绩。研究仓库的当前基线另行指向发布后的 commit。
+Before the first publication to [RhinoQ/h3-apple](https://github.com/RhinoQ/h3-apple),
+the maintainer requested that the authors and committers of fifteen local
+commits become RhinoQ. File contents, messages, and timestamps were unchanged.
+The [commit map](evidence/github-author-map.json) records identical Git trees.
+Existing experiments retain the commit IDs actually run; use the map to locate
+their public source. This attribution change creates no new experimental result.
+The research baseline separately points to the published commit.
 
-## 开发与验证
+## Development and validation
 
 ```bash
 ./install.sh
@@ -18,43 +21,56 @@
 "$PWD/.local/envs/h3/bin/python" -m pytest -q
 ```
 
-快速测试用临时文件与小型媒体，不加载 H3，也不依赖本机历史实验结果。
-安装独立性测试要求先正常安装 wheel。改代码后重新运行 `./install.sh`；正式计时
-使用普通冻结安装。研究开发期间可以使用 editable 安装，但不能把它的耗时记录
-当作冻结版本的正式验收。
+Fast tests use temporary files and small media, without loading H3 or relying
+on local historical experiments. Installation-independence tests require a
+regular wheel installation first. After code changes, rerun `./install.sh`.
+Formal timing uses a frozen, regular installation. Editable installs are useful
+during development but do not qualify as frozen-release measurements.
 
-真实硬件验收使用公开 CLI/API，从仓库之外启动，固定解释器、模型内容、完整输入
-与 preset。先记录问题、唯一改动、通过与停止条件，再保存唯一目录中的原始结果。
-`diagnostics=True` 可通过现有 observer 导出必要张量；没有启用时不准备诊断数据。
+Hardware validation calls the public CLI/API from outside the repository with
+a fixed interpreter, model identity, full input, and preset. Declare the question,
+single change, acceptance criteria, and stopping conditions before running.
+Preserve raw results in a unique directory. `diagnostics=True` exports necessary
+tensors through the existing observer; ordinary runs do not prepare diagnostics.
 
-## 一项 Proposal 如何进入产品
+## Adopting a proposal
 
-1. Proposal 指定产品稳定 commit、wheel/源码 SHA、环境锁、模型身份和 preset。
-2. 在产品仓库创建 `codex/pNNN-description` 分支，修改实际稳定核心；消融脚本、
-   质量判断和未采用候选记录留在研究仓库。
-3. 给稳定版与候选分别准备固定 Conda 环境，安装各自普通 wheel。模型可按已验证
-   的内容身份复用；不复制另一套推理实现。
-4. 研究仓库的产品基线记录与启动器选择具体冻结安装，随后直接调用公共生成 CLI。
-   两个公共 prompt 已见过；只有校准数据可以挑参数，新泛化结论需独立留出。
-5. 达到 Proposal 事先规定的速度与质量门后，直接合并产品分支，补回归与移植后的
-   完整计时。更新配方、模型/标定数据和环境锁中真正变动的部分。
-6. 发布摘要链接固定结果与限制。研究仓库再更新产品基线 commit。保留上一稳定
-   wheel、环境锁与模型身份，用户可显式回退，不静默切换配方。
+1. Pin the stable product commit, wheel/source SHA, environment lock, model identity, and preset.
+2. Create `codex/pNNN-description` in the product repository and change the actual core. Keep ablations, quality decisions, and rejected candidates in research.
+3. Prepare separate fixed Conda environments with regular wheels for the stable version and candidate. Reuse models only by verified identity.
+4. Select the frozen installations through the research baseline and launcher, then call the public CLI. Public benchmark prompts are already seen; tune only on calibration data and use independent held-out data for new generalization claims.
+5. After the predeclared speed and quality gates pass, merge the product branch, add relevant regression coverage, and verify full timings after integration. Update only the recipe, model/calibration assets, or environment locks that actually changed.
+6. Publish a summary linked to fixed evidence and limitations. Update the research baseline commit. Preserve the previous wheel, locks, and model identity for explicit rollback.
 
-纯抽取先验证逐步输出与完整声画；未来允许近似加速，但必须使用事先声明的验收门。
-同一 seed 不保证跨引擎使用同一初始噪声。跨系统比较与同基点增量消融是不同
-结论，外部项目升级后重新固定来源；不要把已进入上游的旧收益再次算给自己。
+For an extraction or port, first verify step outputs and full audiovisual
+delivery. Approximate acceleration is allowed only with predeclared acceptance
+gates. Identical seeds need not create identical noise across engines. A system
+comparison and an incremental ablation support different conclusions. Pin new
+upstream versions and avoid claiming adopted upstream gains as new local gains.
 
-不需要 Git submodule、第三个共享核心仓库或双向目录同步。现有独立比较脚本只在
-建立/更新公开基线时跑 Ours / vpipe，日常 Proposal 优先匹配候选与稳定版。
+No Git submodule, third shared-core repository, or bidirectional directory
+synchronization is needed. Use Ours/vpipe when establishing or updating the
+public external comparison; everyday proposals compare the candidate with
+the stable product.
 
-## 上游与分发
+## Upstream code and distribution
 
-FastVideo 的必要 MLX 文件以固定快照打包，路径和本地改动见 [来源清单](sources.json)。
-更新时核对实际文件 diff、许可证与运行结果。当前不开展官方 FastH3 对照。
-自有代码的 Apache-2.0、上游 MIT/BSD/Apache，以及模型的独立条款分别保留在
-[THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES) 和 wheel 的 license 文件中。
+Required FastVideo MLX files are bundled as a fixed snapshot. Paths and local
+changes are recorded in [sources.json](sources.json). Review actual diffs,
+licenses, and runtime results when updating. Official FastH3 is outside the
+current comparison scope.
 
-本地提交可以回滚；创建远程仓库、推送、上传视频和发布版本前，以完整代码、结果与
-展示材料进行最终审阅。原始大视频适合 Release assets，仓库保留小预览和带哈希的
-输入/运行 manifest。不要把未发布的本地路径伪装成可用的 GitHub 下载链接。
+Our Apache-2.0 code, upstream MIT/BSD/Apache code, and separate model terms are
+attributed in [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES) and the wheel's license
+files.
+
+Review the complete code, evidence, and presentation before publication.
+Large originals belong in Release assets; small previews and input/run manifests
+with hashes belong in Git. Public download links must resolve to published files.
+The [gallery manifest](../examples/gallery/manifest.json) maps each displayed
+comparison to its source results and native videos.
+
+The English edition translates presentation text without changing measurements.
+[Translation provenance](evidence/english-edition.json) preserves the source
+commit and hashes for translated JSON records. Historical plan hashes continue
+to identify their original snapshots.

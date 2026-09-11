@@ -1,65 +1,80 @@
-# 原生三方比较：native-three-02
+# Native three-route comparison: native-three-02
 
-六次独立尝试已经结束，四条完整声画交付通过，两个官方 FastVideo 调用拒绝指定规格。
-本轮于 2026-09-10 UTC 运行，机器为 **Apple M5 Max / 128 GiB / macOS 26.6.1**。
-每项只运行一次，是固定公开输入上的系统观察。四条成功视频随后均获
-[用户人工声画接受](../../reviews/existing-eight-20260911.json)；原始 JSON 中的
-`pending` 保留为运行结束时快照，不改写历史测量。
+All six independent attempts finished: four complete audiovisual deliveries
+passed, and two official FastVideo calls rejected the requested specification.
+Runs took place on 2026-09-10 UTC on **Apple M5 Max / 128 GiB / macOS 26.6.1**.
+Each entry ran once on fixed public inputs. All four successful videos later
+received [human audiovisual acceptance](../../reviews/existing-eight-20260911.json).
+The original JSON retains `pending` as its end-of-run snapshot.
 
-| 入口 | motion graphics | bakery |
+| Entry | Motion graphics | Bakery |
 | --- | ---: | ---: |
-| FastH3 / Ours | 36 分 47 秒 | 33 分 18 秒 |
-| 官方 FastH3 / VSA | 入口拒绝规格 | 入口拒绝规格 |
-| vpipe / VDN | 41 分 15 秒 | 39 分 30 秒 |
+| FastH3 / Ours | 36m 47s | 33m 18s |
+| Official FastH3 / VSA | Entry rejected specification | Entry rejected specification |
+| vpipe / VDN | 41m 15s | 39m 30s |
 
-耗时从新进程启动前到完整最终声画校验通过，含加载、编译、生成、封装和外部入口的
-交付转换；准备与等待散热不在该数值中。普通系统与 Metal cache 保留，每个提示词
-均用新的进程/空提示词缓存。顺序固定为 motion graphics 后 bakery，每个输入内
-依次 Ours、官方 FastH3、vpipe。全部完成项没有 swap 增长或触发资源保护。
+Timing starts before a fresh process and ends after complete final AV validation,
+including loading, compilation, generation, muxing, and external delivery
+conversion. Preparation and cooling waits are excluded. Normal OS and Metal
+caches remain; each prompt gets a fresh process and empty prompt cache.
+The fixed order was motion graphics, then bakery; within each case: Ours,
+official FastH3, vpipe. Completed runs had no swap growth or resource stop.
 
-权威导出为 [results.json](results.json)，表和 [CSV](results.csv) 从它生成。它包含
-源码、实际环境文件和模型凭据身份、完整媒体检查、精确秒数及原始本地结果/配置/日志
-哈希。`$PRODUCT`、`$MODELS` 代表本机路径角色，不是可直接执行的命令。
-原始不可覆盖记录位于本机 `.local/comparisons/native-three-02/`。
+[results.json](results.json) is the authoritative export; the table and
+[CSV](results.csv) derive from it. It records source, actual environment files,
+model receipts, full media checks, exact seconds, and hashes of original local
+results/configuration/logs. `$PRODUCT` and `$MODELS` are local path roles.
+Immutable raw evidence is in `.local/comparisons/native-three-02/`.
 
-## 输入与实际配置
+## Inputs and actual recipes
 
-交付 **1366×768、360 帧、15.000 秒、24fps、32 kHz 立体声**；实际模型生成
-1376×768 / 362 帧，只居中裁切和截尾，无放大或插帧。完整文本与种子由
-[公共 suite](../../suites/motion-bakery.json) 固定：motion graphics / 2026、bakery / 87001。
-两条均是已见输入，相同 seed 不代表跨引擎相同噪声。
+Delivery is **1366×768, 360 frames, 15.000 seconds, 24 fps, 32 kHz stereo**.
+Models generate 1376×768 / 362 frames, followed only by center-cropping and tail
+trimming. The [public suite](../../suites/motion-bakery.json) fixes full prompts
+and seeds: motion graphics / 2026 and bakery / 87001. Both inputs were already
+seen; identical seeds do not imply identical noise across engines.
 
-| 入口 | 实际源码与配方 |
+| Entry | Actual source and recipe |
 | --- | --- |
-| Ours | `cc15b89156fbebf96be46d2573ab955972017ad0`，`ours-v1`；固定 native FL2VA + 官方 VSA adapter 的 INT8/group64 转换，完整 VAE；两次均实际 4 NFE、200 次直接稀疏调用、零 fallback |
-| 官方 FastVideo | `a943220c115228ade5d57b3bab9a6a87fd600a10`，未经修改的 MLX CLI，VSA auto/reference、四步、完整 FP32 VAE，关闭 fast/fast-spatial；本机转换资产的 base/adapter 在 JSON 中明确，并非完整 student snapshot 等价声明 |
-| 官方 vpipe | `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d`，未经修改的官方 VDN 模板；FL2VA Q8、VDN stage-dmd、Turbo v4 adapter，配置六步、shift 12/3、i8_gemm；入口未直接报告真实 NFE，保留未知 |
+| Ours | `cc15b89156fbebf96be46d2573ab955972017ad0`, `ours-v1`; fixed native FL2VA + official VSA adapter, local INT8/group64 conversion, full VAE; both runs measured 4 NFE, 200 direct sparse calls, zero fallbacks |
+| Official FastVideo | `a943220c115228ade5d57b3bab9a6a87fd600a10`, unmodified MLX CLI, VSA auto/reference, four steps, full FP32 VAE, fast/fast-spatial off; local base/adapter provenance is explicit in JSON, without claiming full-student equivalence |
+| Official vpipe | `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d`, unmodified official VDN template; FL2VA Q8, VDN stage-dmd, Turbo v4, six configured steps, shift 12/3, i8_gemm; actual NFE was not directly reported |
 
-Ours 普通安装包运行源码 SHA256 为
-`b4e92640c42c85e04628308ff7929647f47866f58f3dd029d321eaf125027dab`，
-新准备的模型 bundle 身份为
-`6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942`。
-后续文档、示例和分发提交不改写本轮测量版本；运行文件相同的分发包另附身份核对。
+Ours' regular installation had runtime source SHA256
+`b4e92640c42c85e04628308ff7929647f47866f58f3dd029d321eaf125027dab`.
+The newly prepared model bundle identity was
+`6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942`.
+Later documentation, examples, and distribution commits do not replace this
+measured version. Equivalent runtime distributions have separate identity checks.
+Use the [author map](../../../docs/evidence/github-author-map.json) to locate
+pre-publication source IDs in the public history.
 
-Ours 去噪阶段记录的 MLX peak memory 分别为 **54.08 / 53.66 GiB**；这不是进程或
-整机统一内存峰值。vpipe 没有相同口径的内部数据，不填推测值。
+Ours' denoising-stage MLX peaks were **54.08 / 53.66 GiB**. These are neither
+process nor whole-system unified-memory peaks. vpipe did not report a comparable
+internal metric, so none is inferred.
 
-## 官方入口限制与结论边界
+## Official entry limit and conclusions
 
-两次未经修改的官方 FastVideo 调用都在模型加载前返回：
+Both unmodified official calls failed before model loading:
 
 ```text
 ValueError: H3 generates 5-15 s at 24 fps; 362 frames is 15.08 s.
 ```
 
-该状态只说明这个固定版本入口拒绝所需对齐形状；不代表其他版本、时长或 FastH3
-模型均不能使用。不以失败退出耗时参与排序，不给官方代码加入 Ours 修复后继续
-称为未经修改的对照。更短规格可以另立新比较，本轮不偷换工作量。
+This establishes that the pinned entry rejected the required aligned shape,
+not that every version, duration, or FastH3 model is unusable. Failed exit
+times do not enter speed rankings. Adding local fixes requires a patched label;
+changing to a shorter workload requires a separate comparison.
 
-四条成功视频通过了完整声画解码与严格最终规格检查，但这不能替代人工质量接受。
-缩略图和 [两条 Ours 可播放预览](../../../examples/README.md) 只帮助查看；原生视频
-文件名和 SHA 在 JSON 中，四条完整视频另备分发附件。当前没有已发布下载地址。
+Complete AV decoding and strict specifications do not by themselves establish
+human quality. The subsequent acceptance record applies to these exact video
+hashes. [Watch the comparisons](../../../README.md#video-comparisons) or
+[download native videos](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11).
+Raw files and hashes remain unchanged.
 
-这些系统使用不同权重/adapter/精度/配方，且没有重复样本或独立留出数据。
-此表不证明某个算子的增量贡献、稳定速度优势、新算法提速或总体质量胜出。
-下一次提速 Proposal 应匹配比较 Ours 稳定版与候选，依其事前速度和质量门判断。
+These systems use different weights, adapters, precision, and recipes, with
+no repeated samples or independent held-out data. The table does not establish
+an operator's incremental contribution, repeatable speed superiority, a new
+algorithmic gain, or overall quality superiority. A new acceleration proposal
+should compare the stable Ours version with a candidate under predeclared
+speed and quality gates.

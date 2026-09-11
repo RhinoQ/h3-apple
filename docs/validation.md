@@ -1,75 +1,88 @@
-# 实现与验证
+# Implementation and validation
 
-独立安装、自由提示词生成、模型准备、比较脚本与研究基线连接均已完成。
-当前是 `0.1.0.dev0` 开发预览；此前八条原生成片已获
-[用户人工声画接受](../benchmarks/reviews/existing-eight-20260911.json)，以开发预览形式发布。
-新增八个五秒场景的 Ours/vpipe 共十六条已全部通过完整媒体检查，质量评价待完成；
-[扩展比较](../benchmarks/results/short-diverse-10-01/README.md)维护实际结果与已发现的画面问题。
-另外两条十五秒场景的 Ours/vpipe 共四条也已通过完整媒体检查，见
-[新增十五秒结果](../benchmarks/results/cinematic-two-15s-01/README.md)，人工质量评价待完成。
-实测平台为 **Apple M5 Max / 128 GiB / macOS 26.6.1**。
+Independent installation, arbitrary-prompt generation, model preparation, the
+comparison script, and research-baseline integration are complete. This is the
+`0.1.0.dev0` development preview, tested on **Apple M5 Max / 128 GiB / macOS 26.6.1**.
 
-## 已通过的检查
+The [original eight videos](../benchmarks/reviews/existing-eight-20260911.json)
+received human audiovisual acceptance. The sixteen videos from
+[eight additional five-second scenes](../benchmarks/results/short-diverse-10-01/README.md)
+and four from [two additional fifteen-second scenes](../benchmarks/results/cinematic-two-15s-01/README.md)
+passed complete media validation; human quality review is pending. Those reports
+retain observed visual issues. [Watch all 14 comparisons](../README.md#video-comparisons).
 
-[可分发的验证证据](evidence/implementation.json) 保存实际计划、结果、版本和原始文件
-SHA256；本地路径以角色名替代。以下是该文件的摘要，原始日志、张量和失败现场继续保留。
+## Completed checks
 
-| 检查 | 实际覆盖与结果 |
+[Implementation evidence](evidence/implementation.json) records the actual plans,
+results, versions, and raw-file SHA256 values. Local paths are represented by
+roles. Raw logs, tensors, and failure evidence remain preserved.
+
+| Check | Actual coverage and result |
 | --- | --- |
-| 独立安装 | 新私有 Conda 环境、普通 wheel；从 `/tmp` 导入和运行，不读取研究仓库；`pip check` 通过 |
-| 快速测试 | 63 项通过，覆盖参数、资产身份、续传与流量门、进程锁与取消、媒体交付及比较脚本；临时测试数据，不依赖历史实验 |
-| 自由提示词生成 | paper boat / seed 123，576p、5 秒、120 帧、24fps、32 kHz 立体声；完整 AV 解码通过 |
-| 完整数值迁移 | bakery / 576p / 15 秒，25 组数组逐字节一致：条件、初始输入、四步去噪、最终 latent、完整解码前像素和原始音频 |
-| 原生形状前向 | 1376×768 / 362 帧的一次完整 50 层 forward；完整视频和音频 velocity 有限且逐字节一致，50 次直接稀疏调用 |
-| 独立模型重建 | 公共 `models prepare` 从经过全量哈希的原始本机资产重建，33 个原模型文件全相同，另附许可证与修改声明；零模型下载 |
-| 实际 HTTPS | 固定小文件下载、从第 73 字节续传、5.34 GB adapter 的 1024 字节 Range；与本地内容一致 |
-| 真实 GPU 取消 | API 取消与比较控制器 → CLI → 工作进程两层取消均通过；退出状态正确、工作进程结束、锁释放、无已发布 MP4 |
-| 分发身份 | 正式评测所用 wheel、实际安装和仓库的 43 个运行文件相同；模型清单、标定数据及完整许可证随包分发，权重和视频不进入 wheel |
+| Independent installation | New private Conda environment and regular wheel; import/run from `/tmp` without reading the research repository; `pip check` passed |
+| Fast tests | 63 passed: requests, asset identity, resume/download limits, process locks/cancellation, delivery, and comparison; temporary test data |
+| Arbitrary-prompt generation | Paper boat, seed 123; 576p, 5 seconds, 120 frames, 24 fps, 32 kHz stereo; full AV decode passed |
+| Full numerical migration | Bakery, 576p, 15 seconds; 25 array groups byte-identical, including conditioning, initial inputs, four denoising steps, final latent, pixels before encoding, and raw audio |
+| Native-shape forward pass | One complete 50-layer forward at 1376×768 / 362 frames; complete video/audio velocities finite and byte-identical; 50 direct sparse calls |
+| Independent model reconstruction | Public `models prepare` rebuilt from fully hashed local source assets; all 33 original model files identical, with licenses and modification notice added; zero model downloads |
+| Real HTTPS | Pinned small-file download, resume from byte 73, and a 1024-byte Range request against the 5.34 GB adapter; matched local content |
+| Real GPU cancellation | API cancellation and controller → CLI → worker cancellation passed; correct exit status, worker ended, lock released, no published MP4 |
+| Distribution identity | The measured wheel, installation, and source share 43 identical runtime files; source manifests, calibration data, and licenses are packaged; weights and videos are excluded from the wheel |
 
-完整迁移是带诊断导出的正确性检查，原生 forward 是单次前向检查；它们的耗时均不
-作为完整生成成绩。模型重建的转换耗时也不等于下载或端到端生成时间。
+Diagnostic migration and the single forward pass are correctness checks, not
+complete generation speed results. Model conversion time is distinct from
+download and generation time.
 
-## 新鲜的原生三方结果
+## Native three-route comparison
 
-三入口 × 两个完整公共提示词，六次尝试全部结束。Ours 与 vpipe 的四条成片均为
-1366×768、360 帧、15 秒、24fps、32 kHz 立体声，完整解码和尺寸/时长检查通过。
-Ours 两次均实际执行 4 NFE、200 次直接稀疏 attention，零 fallback。
-两个官方 FastVideo 调用均在 362 帧时被其 15 秒检查拒绝，没有完成耗时。
+All six attempts across three entries and two full public prompts finished.
+Ours and vpipe produced four 1366×768, 360-frame, 15-second, 24 fps, 32 kHz stereo
+videos, passing complete decoding and dimension/duration checks. Both Ours
+runs executed 4 NFE, 200 direct sparse attention calls, and zero fallbacks.
+Both official FastVideo calls rejected the 362-frame request at the entry
+duration check and have no successful completion time.
 
-此处记录原始固定版本。后续[对齐校验修复](../benchmarks/patches/README.md)已通过
-32 项回归及两个真实 CLI 入口检查；[两条完整补测](../benchmarks/results/fastvideo-frame-limit-01/README.md)
-随后均生成原片，但交付时长校验失败，且后段坏图，未新增成功耗时。两轮原始记录保留。
+The subsequent [alignment fix](../benchmarks/patches/README.md) passed 32
+regressions and two real CLI entry checks. Both [full follow-up attempts](../benchmarks/results/fastvideo-frame-limit-01/README.md)
+generated raw videos but failed delivery-duration validation and showed damaged
+late frames. They add no successful timing. Both historical rounds remain intact.
 
-耗时、源码/模型/环境身份及失败边界统一见 [本轮结果](../benchmarks/results/native-three-02/README.md)。
-新视频见 [示例](../examples/README.md)。这是各自固定配方的系统观察，每项一次；
-不宣称新的算法提速、稳定速度优势或总体质量胜出。
+The [native-three-02 report](../benchmarks/results/native-three-02/README.md)
+owns timing, source/model/environment identities, and failure boundaries.
+These are single observations of each system's fixed recipe, not proof of a
+new algorithmic gain, repeatable speed advantage, or overall quality superiority.
 
-## 保留的失败与修复边界
+## Preserved failures and fix boundaries
 
-五秒 Ours/vpipe 四条成片已通过完整声画和规格检查；随后用户取消官方对照及其下载。
-本次 44 项相关回归通过，实际成片及其边界由[短片记录](../benchmarks/results/short-768p-01/README.md)
-维护。五秒与十五秒套件均为 Ours/vpipe；原片 AAC 舍入修复仍要求音频覆盖交付，
-最终验收不变。新结果不覆盖已有正式失败。
+The four initial five-second Ours/vpipe videos passed full AV and specification
+checks. The user then canceled official FastH3 comparison and downloads. The
+[short-video report](../benchmarks/results/short-768p-01/README.md) records those
+outputs and 44 related passing regressions. Both current durations compare
+Ours/vpipe. Raw AAC rounding tolerance still requires coverage of the requested
+delivery; final checks remain strict. New results do not overwrite old failures.
 
-- 最初 Conda 共享缓存有损坏，失败环境未被接受；元数据和安装日志保留。有效环境
-  使用私有缓存、校验过的原始归档与 `--copy`。
-- 首次模型转换有 302 个 AdaLN cache 张量舍入不同，其余 1312 个 DiT 张量一致。
-  独立控制实验在转换进程固定 `applegpu_g16s` 后，整个 DiT 与 VideoVAE 文件 SHA
-  与参考相同。生成明确使用物理 M5 架构；未另装第二套 MLX。
-- vpipe 短片原始 AAC 多出 17.33 ms 尾包。交付层只对原始媒体允许最多一个 AAC
-  packet，随后截尾；最终声画检查保持严格。旧输出重封装只证明适配，不产生新测速。
-- 首轮比较的外部进程缺 FFmpeg PATH，停止后完整保留。比较现在显式传递并绑定
-  共享媒体工具；改为先发 SIGINT，使 CLI 能正常清理独立 GPU 进程，再以硬件验证。
+- A damaged shared Conda cache caused the first environment attempt to fail. Metadata and logs remain; the accepted environment uses a private cache, verified archives, and `--copy`.
+- The first conversion differed in 302 AdaLN cache tensors; the other 1312 DiT tensors matched. A controlled conversion with `applegpu_g16s` reproduced the entire reference DiT and VideoVAE hashes. Generation explicitly uses the physical M5 architecture, without a second MLX install.
+- A raw vpipe short video had 17.33 ms of extra AAC tail. The delivery layer permits at most one raw AAC packet of rounding, then trims; final AV checks remain strict. Remuxing an old output proves adaptation, not a new speed result.
+- The first comparison lacked FFmpeg on external processes' PATH and was stopped with evidence preserved. The controller now passes and binds the media tools, sends SIGINT first so the CLI can clean up its GPU worker, and has passed hardware cancellation checks.
 
-原始位置分别为 `.local/validation/environment-bootstrap.json`、
-`preparation-native-01/`、`preparation-native-02/`、`vpipe-canary-01/`、
-`vpipe-canary-delivery-02/`、`comparison-cancellation-02/`，以及
-`.local/comparisons/native-three-01/`；这些是本机保留证据，不是公开下载链接。
-已完成正式结果位于 `.local/comparisons/native-three-02/`，不覆盖重跑。
+Local evidence includes `.local/validation/environment-bootstrap.json` and the
+`preparation-native-01/`, `preparation-native-02/`, `vpipe-canary-01/`,
+`vpipe-canary-delivery-02/`, and `comparison-cancellation-02/` directories under
+`.local/validation/`, plus `.local/comparisons/native-three-01/`.
+These are retained local evidence locations, not public download URLs.
+Completed formal results are in `.local/comparisons/native-three-02/`.
 
-## 尚未证明的内容
+## Limits
 
-没有为了验收再下载完整 139 GiB 模型；真实网络验证是上述有界检查，完整原始资产
-的转换已实跑。其他 Mac 芯片/内存、未见内容泛化、新算法速度收益和新增场景视频的
-人工质量接受均不在已通过结论内。此前八条的用户验收见文首链接，历史 Proposal
-的采用资格不自动转移到新实验。
+Validation did not redownload the full 139 GiB model. Real network checks were
+bounded as described above; conversion of all original assets was actually run.
+Other Mac chips/memory sizes, unseen-content generalization, new algorithmic
+speed gains, and human acceptance of the twenty additional videos remain
+unproven. Historical proposal acceptance does not automatically transfer to a
+new experiment.
+
+The [English-edition record](evidence/english-edition.json) documents display-only
+translations of JSON prose. Original measured values, video hashes, prompts,
+seeds, and frozen-plan identities are preserved. The README gallery contains
+derived display previews; native videos remain the quality and timing reference.

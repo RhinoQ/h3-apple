@@ -2,7 +2,6 @@
   "schema_version": 1,
   "recorded_at": "2026-09-11T05:17:40.240875+00:00",
   "reviewer": "requesting user",
-  "user_statement": "人工质量评价通过。",
   "mode": "named human acceptance; not a blind preference test",
   "scope": "The eight previously completed Ours/vpipe videos at 768p: two scenes at 5s and 15s.",
   "new_generations_included": false,
@@ -80,5 +79,6 @@
       "verdict": "accepted"
     }
   ],
-  "boundary": "Accepts these exact outputs; no numerical quality scores, cross-method preference, or acceptance of future outputs is inferred."
+  "boundary": "Accepts these exact outputs; no numerical quality scores, cross-method preference, or acceptance of future outputs is inferred.",
+  "user_statement_english_translation": "Human quality review passed."
 }

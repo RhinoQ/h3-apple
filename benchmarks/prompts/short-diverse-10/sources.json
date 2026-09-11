@@ -43,7 +43,6 @@
   ],
   "adaptations": {
     "sailor-dialogue": {
-      "title_zh": "老水手对白",
       "source_id": "deepmind-veo",
       "section": "Craft your characters: sailor example",
       "adaptation": "Shortened speech; changed wardrobe, dialogue and shot progression.",
@@ -51,10 +50,10 @@
       "prompt_file": "sailor-dialogue.txt",
       "prompt_sha256": "580982ebee13b8915dcce337800de8c3307cf7b719e83985e9de3a1c1c8effe7",
       "word_count": 70,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "The old sailor"
     },
     "night-bus": {
-      "title_zh": "雨夜公交人像",
       "source_id": "google-veo-blog",
       "section": "Shallow depth of field example",
       "adaptation": "Added a small expression change and a five-second audio scene.",
@@ -62,10 +61,10 @@
       "prompt_file": "night-bus.txt",
       "prompt_sha256": "eaf754348fef40a706d0a0c729ae362350e9f7df7d27308af4f30a1ba849353c",
       "word_count": 82,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "Rainy night bus"
     },
     "candy-keyboard": {
-      "title_zh": "糖果键盘",
       "source_id": "deepmind-veo",
       "section": "Fuse visuals with sound design: candy keyboard example",
       "adaptation": "Fixed three presses and a steady close camera.",
@@ -73,10 +72,10 @@
       "prompt_file": "candy-keyboard.txt",
       "prompt_sha256": "b63e03887ba9110aa5a20920246251065572fd7216080fab02fa601e08844149",
       "word_count": 75,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "Candy keyboard"
     },
     "canyon-reveal": {
-      "title_zh": "峡谷升镜",
       "source_id": "google-veo-blog",
       "section": "Crane shot example",
       "adaptation": "Limited camera travel to one short reveal.",
@@ -84,10 +83,10 @@
       "prompt_file": "canyon-reveal.txt",
       "prompt_sha256": "91a9ff00f85904996f81c532492a7b0aecb648abea939de12830ba36d843ace8",
       "word_count": 80,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "Canyon reveal"
     },
     "rose-raindrop": {
-      "title_zh": "玫瑰水滴",
       "source_id": "google-veo-docs",
       "section": "Extreme close-up camera angle example",
       "adaptation": "Added one rolling drop and a clear endpoint.",
@@ -95,10 +94,10 @@
       "prompt_file": "rose-raindrop.txt",
       "prompt_sha256": "888d05af09d58110bf9ba14448474437f3a4d98b1a3ccdfbcf82b8f62dba32c8",
       "word_count": 77,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "A raindrop on a rose"
     },
     "clay-campfire-fox": {
-      "title_zh": "黏土营地狐狸",
       "source_id": "google-veo-docs",
       "section": "Subject examples: campfire and curious fox; artistic style examples",
       "adaptation": "New clay-animation staging with one simple interaction.",
@@ -106,10 +105,10 @@
       "prompt_file": "clay-campfire-fox.txt",
       "prompt_sha256": "7466794a30de7b6a9f38ce7b39cb9c9ea89cf6a6d2bdc08b93d4f1823c77a9b6",
       "word_count": 81,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "Clay campfire and fox"
     },
     "field-mouse": {
-      "title_zh": "林间小鼠追踪",
       "source_id": "runway-gen4",
       "section": "Examples: tracking a scurrying mouse",
       "adaptation": "Expanded an image-conditioned motion cue into standalone text and sound.",
@@ -117,10 +116,10 @@
       "prompt_file": "field-mouse.txt",
       "prompt_sha256": "e6b73c23187f4a8c48e5b35154b6ca695e0d34f799cca3eff5d2ee28dcaf9547",
       "word_count": 77,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "Field mouse"
     },
     "umbrella-opening": {
-      "title_zh": "雨中撑伞",
       "source_id": "minimax-h3-guide",
       "section": "Case 3: FL2VA umbrella opening",
       "adaptation": "Converted reference-image example to standalone text and five seconds.",
@@ -128,7 +127,8 @@
       "prompt_file": "umbrella-opening.txt",
       "prompt_sha256": "5d96b8cb4596e19e50c62475b9090b6fc827a466ffaa6146bfe712e25b0d1832",
       "word_count": 89,
-      "mode": "new five-second text-only adaptation"
+      "mode": "new five-second text-only adaptation",
+      "title": "Opening an umbrella"
     }
   },
   "retained_cases": [

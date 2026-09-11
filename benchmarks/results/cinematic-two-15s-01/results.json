@@ -639,7 +639,7 @@
       "video_asset": "$PRODUCT/.local/comparisons/cinematic-two-15s-01/archive-discovery-ours/output.mp4",
       "assistant_visual_check": {
         "method": "Nonblind assistant inspection of 12 evenly sampled frames, including first and last. No continuous playback or audio listening.",
-        "summary": "抽帧中可辨认打开书本、拿起钥匙、观察钥匙和转头反应，人物、书桌与钥匙持续可辨认。镜头由中景推进到面部近景，末段有多次不同朝向的反应。未见抽样帧整体坏图；手指细节、动作连续性、对白与音效仍需完整声画复核。",
+        "summary": "Sampled frames show opening the book, picking up and examining the key, and turning the head in reaction; the character, desk, and key remain recognizable. The camera moves from a medium shot into a facial close-up, with several different late orientations. No whole-frame corruption was observed in the sampled frames. Finger details, action continuity, dialogue, and sound effects still require full audiovisual review.",
         "human_quality_review": "pending"
       }
     },
@@ -1036,7 +1036,7 @@
       "video_asset": "$PRODUCT/.local/comparisons/cinematic-two-15s-01/archive-discovery-vpipe/output.mp4",
       "assistant_visual_check": {
         "method": "Nonblind assistant inspection of 12 evenly sampled frames, including first and last. No continuous playback or audio listening.",
-        "summary": "抽帧中可辨认打开书本、拿起钥匙、举起观察和末段转头，人物与桌上物体持续可辨认。画面较暗，镜头缓慢接近人物。未见抽样帧整体坏图；暗部细节、手指与钥匙连续性、对白和音效仍需完整声画复核。",
+        "summary": "Sampled frames show opening the book, picking up and raising the key for inspection, and a late head turn; the character and desk objects remain recognizable. The scene is dark and the camera slowly approaches. No whole-frame corruption was observed in the sampled frames. Shadow detail, finger and key continuity, dialogue, and sound effects still require full audiovisual review.",
         "human_quality_review": "pending"
       }
     },
@@ -1634,7 +1634,7 @@
       "video_asset": "$PRODUCT/.local/comparisons/cinematic-two-15s-01/lunar-flower-walk-ours/output.mp4",
       "assistant_visual_check": {
         "method": "Nonblind assistant inspection of 12 evenly sampled frames, including first and last. No continuous playback or audio listening.",
-        "summary": "抽帧中可辨认人物穿行晶体花之间、停步、抬手，以及花瓣打开和地面/衣服上的彩色光带。前景晶体在部分画面遮挡人物，结尾随镜头上仰仅保留人物上半身于下缘。未见抽样帧整体坏图；脚印是否连续、步态和开花运动是否自然，以及音效仍需完整声画复核。",
+        "summary": "Sampled frames show the character walking between crystal flowers, stopping, raising a hand, opening petals, and colored light across the ground and clothing. Foreground crystals sometimes occlude the character; near the end, the upward camera movement leaves only the upper body at the lower edge. No whole-frame corruption was observed in the sampled frames. Footprint continuity, natural gait and blooming motion, and sound effects still require full audiovisual review.",
         "human_quality_review": "pending"
       }
     },
@@ -2031,7 +2031,7 @@
       "video_asset": "$PRODUCT/.local/comparisons/cinematic-two-15s-01/lunar-flower-walk-vpipe/output.mp4",
       "assistant_visual_check": {
         "method": "Nonblind assistant inspection of 12 evenly sampled frames, including first and last. No continuous playback or audio listening.",
-        "summary": "抽帧中可辨认人物侧向行走、停步、举手与晶体花展开，地面出现彩色光带；前景花茎在部分画面遮挡人物。结尾花朵占据主要画面，人物上半身位于下缘。未见抽样帧整体坏图；脚印是否连续、主体与花瓣运动一致性，以及音效仍需完整声画复核。",
+        "summary": "Sampled frames show sideways walking, stopping, raising a hand, and crystal flowers opening, with colored light on the ground. Foreground stems sometimes occlude the character. Flowers dominate the final view, with the upper body at the lower edge. No whole-frame corruption was observed in the sampled frames. Footprint continuity, subject and petal motion consistency, and sound effects still require full audiovisual review.",
         "human_quality_review": "pending"
       }
     }

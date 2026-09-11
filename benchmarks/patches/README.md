@@ -1,17 +1,21 @@
-# 官方 FastH3 的时长对齐修复
+# Official FastH3 duration-alignment fix
 
-FastVideo `a943220c115228ade5d57b3bab9a6a87fd600a10` 把对齐后的帧数除以 24，
-再与 15 秒比较。H3 的时间网格要求 `17n+5` 帧，360 帧会补齐到 362 帧，因此
-合法的 15 秒目标在第一次或后续重复校验时被误拒绝。
+FastVideo `a943220c115228ade5d57b3bab9a6a87fd600a10` divides the aligned frame
+count by 24 and compares it with fifteen seconds. H3 requires a `17n+5` temporal
+grid, so 360 frames align to 362. A valid fifteen-second target was therefore
+rejected at initial or repeated validation.
 
-[补丁](fastvideo-h3-frame-limit.patch) 对请求和时长上下界采用相同对齐规则，允许
-124–362 帧的合法模型网格，仍拒绝超出范围的请求。只修改入口几何校验；权重、
-attention、步数、精度、解码和交付裁切均未改变。这里的 362 帧是模型工作量，
-比较脚本仍严格交付 360 帧、15 秒声画。
+The [patch](fastvideo-h3-frame-limit.patch) applies the same alignment to the
+request and both duration bounds. It accepts valid model grids from 124 through
+362 frames and continues to reject requests outside that range. Only entry
+geometry validation changes; weights, attention, steps, precision, decoding,
+and delivery cropping are unchanged. The 362 frames describe model work.
+The comparison still strictly delivers 360 frames and fifteen seconds of audio.
 
-## 应用与安装
+## Apply and install
 
-在固定的上游版本建立本地分支，应用补丁并正常安装。路径按本机调整：
+Create a local branch at the pinned upstream version, apply the patch, and
+install normally. Adjust paths for your machine:
 
 ```bash
 git -C /path/to/FastVideo switch -c codex/h3-frame-limit a943220c115228ade5d57b3bab9a6a87fd600a10
@@ -23,25 +27,30 @@ git -C /path/to/FastVideo commit -m "Fix H3 aligned duration limits"
 /path/to/fastvideo-env/bin/python -I -m pytest -q /path/to/FastVideo/tests/test_mlx_h3_geometry.py
 ```
 
-在 `local.json` 填入实际新 commit，保留 `local_patches` 中的补丁 SHA，重新记录
-已安装 `minimax_h3_pipeline.py` 的 SHA256。比较标签使用
-**Official FastH3 / VSA + frame-limit fix**；它是带明确本地补丁的官方实现。
-`local.example.json` 已提供该配置。本机补丁提交为
-`17825c79c4d839d03f3907769f6b19cc982ca5d4`；其他机器本地提交的哈希可以不同。
+When reproducing this historical experiment, start with its frozen configuration,
+record the new local commit in `local.json`, retain the patch SHA in
+`local_patches`, and update the installed `minimax_h3_pipeline.py` SHA256.
+Use the label **Official FastH3 / VSA + frame-limit fix**. The local patch commit
+was `17825c79c4d839d03f3907769f6b19cc982ca5d4`; a new local commit may have a
+different hash. Current suites and `local.example.json` contain only Ours/vpipe.
 
-## 验证与边界
+## Validation and limits
 
-[验证记录](fastvideo-h3-frame-limit.validation.json) 绑定补丁、运行文件、wheel 和
-原始测试结果。原始普通安装复现 **6 项失败、26 项通过**；补丁普通安装后
-**32 项全部通过**，上游 pre-commit 检查通过。测试包括 360/362 帧、已对齐形状的
-重复校验、既有合法输入、越界拒绝和内部短时序模式。
+The [validation record](fastvideo-h3-frame-limit.validation.json) binds the patch,
+runtime files, wheel, and raw results. The original regular installation produced
+**6 failures and 26 passes**. The patched regular installation passed **all 32
+tests** and upstream pre-commit checks. Tests cover 360/362 frames, repeated
+validation of aligned shapes, existing legal inputs, out-of-range rejection,
+and internal short-sequence mode.
 
-两条完整公共提示词使用真实官方 CLI，均到达
-`output=1376x768x362 model=1376x768x362 audio_frames=362`，随后立即取消，进程结束，
-没有发布新 MP4。这证明入口接受目标几何，不是完整生成或性能验收。
+Both full public prompts reached
+`output=1376x768x362 model=1376x768x362 audio_frames=362` through the real official
+CLI. They were immediately canceled; processes ended and no MP4 was published.
+This validates entry acceptance, not complete generation or performance.
 
-[native-three-02](../results/native-three-02/README.md) 的两次原始失败保持不变。
-后续[两条完整补测](../results/fastvideo-frame-limit-01/README.md)已生成原片，但交付
-时长校验失败，且后段存在坏图；没有新增成功交付耗时。入口修复的有效性与完整生成
-结果分别记录，后续重测仍须使用新目录及带补丁的标签。
-Ours 的日常运行核心没有因这项修复而改变。
+The two original failures in [native-three-02](../results/native-three-02/README.md)
+remain unchanged. Both later [full follow-up attempts](../results/fastvideo-frame-limit-01/README.md)
+generated raw videos but failed delivery-duration validation and showed damaged
+late frames. They produced no successful delivery timing. Entry correctness and
+full generation results are recorded separately. Future attempts need new
+directories and the explicit patched label. Ours' everyday runtime was unchanged.
