@@ -7,7 +7,8 @@ MiniMax-H3、FastVideo 和已有的 Apple GPU 优化；与官方项目无隶属�
 **M5 Max / 128 GiB / macOS 26.6.1**；本版使用 M5 专属算子，其他 M 系列尚不支持。
 独立安装、模型重建、真实生成与数值迁移验证均已完成。当前为 `0.1.0.dev0` 开发预览；
 已有 15 秒和 5 秒共八条成片通过用户人工声画评价，见
-[验收记录](benchmarks/reviews/existing-eight-20260911.json)。五秒比较正扩展到十条提示词。
+[验收记录](benchmarks/reviews/existing-eight-20260911.json)。五秒比较已完成十条提示词，
+新增十六条通过媒体检查，人工质量评价待完成。
 
 ## 生成第一条视频
 
@@ -48,17 +49,18 @@ M5 Max / 128 GiB，原生 768p、15 秒完整声画视频。以下为固定公�
 | FastH3 / Ours | 36 分 47 秒 | 33 分 18 秒 |
 | vpipe / VDN | 41 分 15 秒 | 39 分 30 秒 |
 
-同一台机器的 **768p / 5 秒**单次观察：
+同一台机器的 **768p / 5 秒**比较，完整十条提示词、每项每个系统各一次：
 
-| 入口 | motion graphics | bakery |
-| --- | ---: | ---: |
-| FastH3 / Ours | 5 分 54 秒 | 5 分 55 秒 |
-| vpipe / VDN | 8 分 49 秒 | 9 分 01 秒 |
+| 覆盖 | Ours 平均等待 | vpipe 平均等待 | Ours 等待减少 |
+| --- | ---: | ---: | ---: |
+| 新增八组 | 5 分 57 秒 | 9 分 09 秒 | 35.1% |
+| 全部十组（含既有两组） | 5 分 56 秒 | 9 分 07 秒 | 34.8% |
 
-计时包含新进程启动、模型加载、生成、封装与完整声画检查。五秒两项中，Ours
-等待时间分别减少约 33% / 34%；每项只测一次，这四条短片已获用户声画接受。
+计时包含新进程启动、模型加载、生成、封装与完整声画检查。十组均为 Ours 等待更短；
+这不是重复测量的稳定倍率或质量胜出结论。原两组短片已获用户声画接受，新增十六条
+仍待人工评价；Ours 营地多主体、vpipe 蘑菇形态问题已随[十提示词结果](benchmarks/results/short-diverse-10-01/README.md)记录。
 [十五秒结果](benchmarks/results/native-three-02/README.md)与
-[五秒结果](benchmarks/results/short-768p-01/README.md)分别记录输入、固定版本和配方。
+[原两组五秒结果](benchmarks/results/short-768p-01/README.md)分别记录输入、固定版本和配方。
 当前两个时长都只比较 Ours / vpipe；官方 FastH3 对照已取消，历史
 [失败补测](benchmarks/results/fastvideo-frame-limit-01/README.md)保留供复核。
 [两条可播放示例](examples/README.md)

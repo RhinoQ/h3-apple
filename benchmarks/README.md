@@ -21,8 +21,9 @@ seed 2026 和 bakery / seed 87001，完整文本和 SHA256 由套件记录。它
 [用户人工声画接受](reviews/existing-eight-20260911.json)。
 对齐修复后的[官方两条补测](results/fastvideo-frame-limit-01/README.md)也已结束：
 原片已生成，但两次均在交付时长校验处失败，且发现后段坏图，无成功交付成绩。
-新增五秒场景的[十提示词比较](results/short-diverse-10-01/README.md)独立记录来源、
-事前方案与结果；已有质量接受不延伸到新视频。
+新增五秒场景的[十提示词比较](results/short-diverse-10-01/README.md)已完成全部十六次
+新增生成，合并原两组共二十条成功交付，独立记录来源、事前方案、耗时与抽帧问题；
+已有质量接受不延伸到新视频。
 
 ## 使用
 
@@ -60,7 +61,7 @@ Ours 命令中的 `{resolution}`、`{duration}` 从套件读取，避免
 | --- | --- | --- |
 | vpipe | `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d` | [官方构建说明](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/README.md#build-from-source)、[H3 模型准备](https://github.com/tgo-app-dev/vpipe/blob/0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d/docs/MINIMAX-H3.md) |
 
-vpipe 已完成本机独立构建、交付适配及 5 秒/15 秒各两个场景的原生 768p 生成；
+vpipe 已完成本机独立构建、交付适配及 5 秒十个场景、15 秒两个场景的原生 768p 生成；
 各次实际状态、耗时和边界见上方结果。
 
 官方 FastH3 仅保留历史对照代码、原始配置与[时长补丁记录](patches/README.md)，
