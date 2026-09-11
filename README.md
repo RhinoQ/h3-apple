@@ -298,11 +298,9 @@ The systems have different weights, adapters, precision, and sampling recipes.
 Their total wait difference is a product comparison, not an isolated operator
 ablation. Untested methods are not ranked.
 
-The product owns one stable runtime. The research repository runs proposals
-against a fixed product commit; accepted candidates merge directly into this
-repository. See [architecture](docs/architecture.md) and
-[research-to-product development](docs/development.md).
+For implementation details and contributing changes, see
+[architecture](docs/architecture.md) and [development](docs/development.md).
 
 Our code is Apache-2.0. Upstream code, model weights, and calibration material
 retain their own terms; see [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
-Weights, large logs, and raw research directories are excluded from Git.
+Weights and large logs are excluded from Git.

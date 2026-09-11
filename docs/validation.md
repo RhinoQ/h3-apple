@@ -1,7 +1,7 @@
 # Implementation and validation
 
-Independent installation, arbitrary-prompt generation, model preparation, the
-comparison script, and research-baseline integration are complete. This is the
+Independent installation, arbitrary-prompt generation, model preparation, and
+the comparison script are implemented and validated as detailed below. This is the
 `0.1.0.dev0` development preview, tested on **Apple M5 Max / 128 GiB / macOS 26.6.1**.
 
 The [original eight videos](../benchmarks/reviews/existing-eight-20260911.json)
@@ -16,10 +16,12 @@ retain observed visual issues. [Watch all 14 comparisons](../README.md#video-com
 [Implementation evidence](evidence/implementation.json) records the actual plans,
 results, versions, and raw-file SHA256 values. Local paths are represented by
 roles. Raw logs, tensors, and failure evidence remain preserved.
+The [source revision map](evidence/source-revisions.json) links recorded commit IDs
+to public commits with identical Git trees.
 
 | Check | Actual coverage and result |
 | --- | --- |
-| Independent installation | New private Conda environment and regular wheel; import/run from `/tmp` without reading the research repository; `pip check` passed |
+| Independent installation | New private Conda environment and regular wheel; import/run from `/tmp` without a source checkout dependency; `pip check` passed |
 | Fast tests | 63 passed: requests, asset identity, resume/download limits, process locks/cancellation, delivery, and comparison; temporary test data |
 | Arbitrary-prompt generation | Paper boat, seed 123; 576p, 5 seconds, 120 frames, 24 fps, 32 kHz stereo; full AV decode passed |
 | Full numerical migration | Bakery, 576p, 15 seconds; 25 array groups byte-identical, including conditioning, initial inputs, four denoising steps, final latent, pixels before encoding, and raw audio |
@@ -79,10 +81,5 @@ Validation did not redownload the full 139 GiB model. Real network checks were
 bounded as described above; conversion of all original assets was actually run.
 Other Mac chips/memory sizes, unseen-content generalization, new algorithmic
 speed gains, and human acceptance of the twenty additional videos remain
-unproven. Historical proposal acceptance does not automatically transfer to a
-new experiment.
-
-The [English-edition record](evidence/english-edition.json) documents display-only
-translations of JSON prose. Original measured values, video hashes, prompts,
-seeds, and frozen-plan identities are preserved. The README gallery contains
-derived display previews; native videos remain the quality and timing reference.
+unproven. The README gallery contains derived display previews; native videos
+remain the quality and timing reference.

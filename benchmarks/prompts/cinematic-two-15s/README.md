@@ -22,5 +22,4 @@ quality of these H3 outputs.
 The [two-prompt suite](../../suites/cinematic-two-15s.json) uses the existing
 Ours/vpipe VDN recipes for four generations. Human acceptance requires viewing
 the complete fifteen-second audiovisual outputs; acceptance of earlier videos
-does not extend to these. Display-title translation is documented in the
-[English edition](../../../docs/evidence/english-edition.json), with prompt bytes unchanged.
+does not extend to these.

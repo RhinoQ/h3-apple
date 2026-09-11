@@ -50,8 +50,8 @@ Ours used product `1e7890a41a7c2039b46fbdfcc04dbb28a09b0010`, a regular wheel,
 and `ours-v1`. Native FL2VA + official VSA adapter INT8/group64 conversion and
 the existing accelerated VAE were unchanged. Both runs measured 4 NFE,
 200 sparse calls, and zero fallbacks. Denoising-stage MLX peaks were
-33.12 / 33.11 GiB, not whole-system peaks. The [author map](../../../docs/evidence/github-author-map.json)
-locates pre-publication commits in public history.
+33.12 / 33.11 GiB, not whole-system peaks. The [source revisions](../../../docs/evidence/source-revisions.json)
+link recorded commits to public source with identical Git trees.
 
 vpipe used unmodified upstream `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d`,
 the VDN template, FL2VA Q8, VDN stage-dmd, Turbo v4, shift 12/3, and i8_gemm.

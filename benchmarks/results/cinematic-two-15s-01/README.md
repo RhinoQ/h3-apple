@@ -66,10 +66,8 @@ quality acceptance. The sampled frames showed no whole-frame corruption.
 [results.json](results.json) records exact performance, media checks, hashes,
 resources, and sampled-frame observations. [results.csv](results.csv) summarizes
 the four attempts. Original failures and successes are never overwritten.
-The four observation texts were translated for this edition; [provenance](../../../docs/evidence/english-edition.json)
-pins the original export. Numeric and media evidence is unchanged.
 
-- Measured source commit: `6f68563e1a7c8b76fe5187b8906dabedf25f313e`. Later commits add results/documentation; the [author map](../../../docs/evidence/github-author-map.json) locates this source in public history.
+- Recorded source commit: `6f68563e1a7c8b76fe5187b8906dabedf25f313e`; [public source with an identical Git tree](https://github.com/RhinoQ/h3-apple/tree/60b6562390a6c7bb4c32bacc32a6261ddd1cb977). See [source revisions](../../../docs/evidence/source-revisions.json).
 - The 43 identical installed/source runtime files have SHA256 `9151e26d4683b235a8eee422f508723a9846a9718c7ace4009a3984a1e4de9ac`.
 - Model identity: `6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942`.
 - vpipe commit: `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d`.

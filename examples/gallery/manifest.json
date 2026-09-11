@@ -1212,7 +1212,6 @@
   ],
   "release_url": "https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11",
   "quality_scope": "Human acceptance covers the original eight exact video hashes. Twenty additional videos passed media validation and await human audiovisual review.",
-  "translation_provenance": "docs/evidence/english-edition.json",
   "publication": {
     "release_id": 387366261,
     "published_at": "2026-09-11T22:33:34Z",

@@ -82,8 +82,7 @@ are separate from the wheel. Original files remain at
 `.local/comparisons/short-diverse-10-01/<case>-<method>/output.mp4`;
 the retained pairs are in `.local/comparisons/short-768p-01/`.
 `video_asset` and hashes identify every file. The local full-video index is
-`.local/reviews/short-diverse-10-01/README.md`. Public uploads were added later
-for the English gallery, without regenerating videos.
+`.local/reviews/short-diverse-10-01/README.md`.
 
 ## Fixed conditions and evidence
 
@@ -100,8 +99,8 @@ and model bundle were unchanged. Only inputs and documentation expanded,
 without a new algorithm or recipe tuning. The path remains native FL2VA +
 official VSA adapter, local INT8/group64 conversion, existing NAX/VSA, and
 accelerated VAE. Denoising-stage MLX peaks were 33.109–33.114 GiB, not system
-peaks. The [author map](../../../docs/evidence/github-author-map.json) links
-pre-publication source IDs to public history.
+peaks. The [source revisions](../../../docs/evidence/source-revisions.json) link
+recorded commits to public source with identical Git trees.
 
 vpipe used unmodified upstream `0982c8a7b44df38142f58d8cc7bc6afdf3c2e47d`,
 its official VDN template, FL2VA Q8, VDN stage-dmd, Turbo v4, shift 12/3, and

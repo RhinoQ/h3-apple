@@ -27,6 +27,4 @@ have not reviewed or endorsed these results.
 
 The [complete suite](../../suites/diverse-10-5s.json) runs all twenty generations.
 This extension ran only the sixteen new entries, retaining the two original
-pairs with explicit round labels. Display titles in `sources.json` were translated
-for the [English edition](../../../docs/evidence/english-edition.json); prompt
-bytes and pre-generation hashes are unchanged.
+pairs with explicit round labels.

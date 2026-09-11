@@ -46,8 +46,8 @@ The newly prepared model bundle identity was
 `6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942`.
 Later documentation, examples, and distribution commits do not replace this
 measured version. Equivalent runtime distributions have separate identity checks.
-Use the [author map](../../../docs/evidence/github-author-map.json) to locate
-pre-publication source IDs in the public history.
+The [source revisions](../../../docs/evidence/source-revisions.json) link recorded
+commits to public source with identical Git trees.
 
 Ours' denoising-stage MLX peaks were **54.08 / 53.66 GiB**. These are neither
 process nor whole-system unified-memory peaks. vpipe did not report a comparable
@@ -75,6 +75,4 @@ Raw files and hashes remain unchanged.
 These systems use different weights, adapters, precision, and recipes, with
 no repeated samples or independent held-out data. The table does not establish
 an operator's incremental contribution, repeatable speed superiority, a new
-algorithmic gain, or overall quality superiority. A new acceleration proposal
-should compare the stable Ours version with a candidate under predeclared
-speed and quality gates.
+algorithmic gain, or overall quality superiority.
