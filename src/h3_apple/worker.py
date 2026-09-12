@@ -42,7 +42,7 @@ def main():
         workspace = Path(spec["workspace"])
         with device_lock():
             initial = snapshot()
-            check_machine(initial)
+            check_machine(initial, spec["request"])
             if shutil.disk_usage(workspace).free < 20 * 1024**3:
                 raise OSError("Generation requires at least 20 GiB free disk space.")
 

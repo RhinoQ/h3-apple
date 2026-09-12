@@ -52,15 +52,19 @@ def snapshot():
                 power=command("/usr/bin/pmset", "-g", "batt"), thermal=thermal_status())
 
 
-def check_machine(info):
+def check_machine(info, request=None):
     if info["system"] != "Darwin" or info["machine"] != "arm64":
         raise RuntimeError("Ours requires an Apple Silicon Mac.")
     if "M5" not in info["chip"]:
         raise RuntimeError("This Ours version requires M5 GPU kernels; other chips are not validated.")
     if tuple(map(int, info["macos"].split(".")[:2])) < (26, 2):
         raise RuntimeError("The fixed MLX Metal build requires macOS 26.2 or later.")
-    if info["memory_bytes"] < 96 * 1024**3:
-        raise RuntimeError("This Ours preset requires at least 96 GiB unified memory; tested on 128 GiB.")
+    if info["memory_bytes"] < 64 * 1024**3:
+        raise RuntimeError("This Ours preset requires at least 64 GiB unified memory.")
+    if (request is not None and request["resolution"] == "768p"
+            and request["duration"] > 5 and info["memory_bytes"] < 96 * 1024**3):
+        raise RuntimeError("768p videos longer than 5 seconds require at least 96 GiB unified memory. "
+                           "On a 64 GiB Mac, use --duration 5 or --resolution 576p.")
 
 
 @contextmanager
