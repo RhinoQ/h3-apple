@@ -161,7 +161,9 @@ additional videos await human quality review, with
 These are observed system timings, not a repeat-measured speed guarantee or
 proof of overall quality superiority. The fifteen-second sets use different
 scenes with the same runtime; their difference is not a new code speedup.
-
+These gallery runs predate the GPU residency-policy change. Timings under the
+current memory policy are recorded separately in the
+[resource tests](benchmarks/results/memory-storage-01/README.md).
 
 The [gallery manifest](examples/gallery/manifest.json) records exact seconds,
 video hashes, source snapshots, and preview conversion. All completed Ours/vpipe
@@ -172,45 +174,69 @@ remain available for inspection.
 
 ## Hardware and memory
 
-**For the demonstrated 768p workloads, use an M5 Mac with 128 GiB of unified
-memory—the capacity actually tested.** This development preview requires M5
-kernels and macOS 26.2 or later; all gallery runs used M5 Max / macOS 26.6.1.
+**M5 Max / 128 GiB is the physically tested configuration.** This preview
+requires an M5 GPU and macOS 26.2 or later. **64 GiB support is experimental:**
+smaller workloads passed total-budget tests on our 128 GiB host, but physical
+64 GB M5 Pro and M5 Max machines still need validation. This does not mean
+every M5 Mac can run H3. Machines below 64 GiB are rejected before loading models.
 
-| Installed unified memory | Current support |
-| --- | --- |
-| **128 GiB** | Tested: all ten 768p / 5-second and four 768p / 15-second Ours videos completed |
-| **96 GiB** | Passes the startup memory check, but has not completed end-to-end validation; completion and the published timings are not established on this capacity |
-| **Below 96 GiB**, including 32/48/64 GiB | Rejected by the current generation entry, including requests for shorter or lower-resolution videos |
+| Workload | Entry memory minimum | Complete budget test | H3 process-tree peak |
+| --- | ---: | --- | ---: |
+| 768p / 5 seconds | 64 GiB | Two prompts passed at 64 GiB | 34.41–35.13 GiB |
+| 576p / 5–15 seconds | 64 GiB | One 15-second prompt passed at 64 GiB | 40.95 GiB |
+| Model preparation | 64 GiB | Full reconstruction passed at 64 GiB; all 35 model files matched | 31.18 GiB |
+| 768p / longer than 5 seconds, up to 15 seconds | 96 GiB | One 15-second prompt passed at 96 GiB | 56.27 GiB |
 
-The 96 GiB threshold is a software guard, **not a measured minimum RAM
-requirement**. Other Apple M-series chips are not supported by this build.
+A **768p / 15-second attempt failed at 64 GiB**, exceeding the test's swap-growth
+limit; it produced no completed video. On a 64 GiB Mac, start with `--duration 5`
+or use `--resolution 576p` for a 15-second video. The entry returns these smaller
+alternatives when a long 768p request exceeds its admitted memory range.
 
-The existing Ours videos recorded the following **per-stage MLX memory peaks**:
+The 64 GiB tests locked half of the 128 GiB Mac's physical pages, leaving
+64 GiB for macOS, other applications and H3 together. All completed tests had
+normal memory pressure and **zero swap growth**. The two short MP4s and the 96 GiB long MP4 exactly
+matched their gallery originals. Process-tree peaks are sampled macOS physical
+footprints, not a Mac's minimum RAM requirement; GPU-only MLX peaks also omit
+other allocations. **64 GiB is the lowest tested total budget, not an established
+absolute minimum or physical 64 GB certification.** The GPU and its device
+limits remain those of the actual host. See the
+[resource report and exact measurements](benchmarks/results/memory-storage-01/README.md).
 
-| Delivered video | Completed Ours runs | Denoising peak | Video-decoding peak |
-| --- | ---: | ---: | ---: |
-| 768p / 5 seconds | 10 | 33.11–33.12 GiB | 16.66 GiB |
-| 768p / 15 seconds | 4 | 53.66–54.08 GiB | 27.26 GiB |
+Apple's [base M5 MacBook Pro](https://support.apple.com/en-us/125405) tops out at
+32 GB. The [M5 Pro/Max configurations](https://support.apple.com/en-us/126318)
+meeting the 64 GB floor are M5 Pro with a 20-core GPU and M5 Max with a 40-core
+GPU. Other M-series generations are not supported by this build. Run one H3 job
+at a time, use AC power, and close other memory-heavy apps; disk swap is not a
+substitute for enough unified memory.
 
-These ranges come from `peak_memory_gib` in the
-[initial short results](benchmarks/results/short-768p-01/results.json),
-[eight additional short scenes](benchmarks/results/short-diverse-10-01/results.json),
-[initial long results](benchmarks/results/native-three-02/results.json), and
-[two additional long scenes](benchmarks/results/cinematic-two-15s-01/results.json).
-They cover different prompts, with one run per input.
+### Disk space
 
-The [runtime](src/h3_apple/runtime/engine.py) resets the
-[MLX peak counter](https://ml-explore.github.io/mlx/build/html/python/_autosummary/mlx.core.get_peak_memory.html)
-for each phase. These figures do **not** measure total process/system memory or
-a single peak across the entire startup-to-MP4 run. macOS, other apps, and
-non-MLX allocations also need memory. The phases run sequentially, so their
-peaks should not be added together. A 33 or 54 GiB phase peak does not establish
-that a 64 GiB Mac can run this release. Comparable vpipe memory peaks were not
-recorded.
+**Start with at least 200 GiB free (about 215 GB)** for the default installation,
+with the source cache and prepared models on the same APFS volume. This is a
+rounded recommendation based on measured preparation usage plus the environment
+and generation headroom; it is not an exact minimum disk capacity.
 
-Run one H3 job at a time and close other memory-heavy applications. The worker
-stops if monitored system swap grows by more than 2 GiB; disk swap is not a
-supported substitute for sufficient unified memory.
+| Storage item | Measured size or requirement |
+| --- | ---: |
+| Pinned source downloads, starting from an empty cache | 139.11 GiB of model files; reused locally in this test |
+| Source cache + model preparation peak, counting shared hard links once | 170.12 GiB |
+| Prepared generation bundle alone | 93.71 GiB |
+| Conda environment + private Conda package cache | About 1.7 GiB allocated |
+| Free space required when generating, in addition to retained files | **20 GiB**; checked by the worker |
+
+After successful preparation and verification, the original source cache is
+optional for everyday offline generation. Keeping the prepared bundle and
+environment, with 20 GiB left free, fits within a **120 GiB total disk budget
+(about 129 GB)** before accumulated videos. Keeping the source cache makes
+future rebuilding easier. Shared files must be counted once; the source cache
+and bundle sizes must not be added together.
+
+The preparation test rebuilt all converted files, verified their content and
+measured peak storage; it reused the complete source cache rather than
+redownloading 139 GiB. Different cache/model volumes require extra copies.
+Run `h3 models prepare --plan` for the actual additional space on each volume,
+and see [model storage and reuse](docs/models.md). Diagnostic tensor exports
+are outside these everyday-generation figures.
 
 ## Generate your first video
 
@@ -231,20 +257,21 @@ h3 models prepare --plan
 ```
 
 Read the [MiniMax-H3 model terms](licenses/MiniMax-H3.txt) and review the download
-plan before preparing weights. A completely empty cache needs about **139.11 GiB
-of downloads** and approximately **171 GiB** for retained sources and converted
-assets. See [storage and reuse](docs/models.md) before starting. Downloads above
+plan before preparing weights. Check the [disk-space budget](#disk-space)
+and [storage and reuse](docs/models.md) before starting. Downloads above
 20 GB require the explicit flag below:
 
 ```bash
 h3 models prepare --allow-large-download
 h3 doctor
-h3 generate --prompt "A quiet bakery opens at dawn. Soft birdsong and a gentle doorbell." --seed 87001 --output bakery.mp4
+h3 generate --prompt "A quiet bakery opens at dawn. Soft birdsong and a gentle doorbell." --seed 87001 --duration 5 --output bakery.mp4
 ```
 
 Reuse existing files with `--reuse-dir`. Once prepared, generation runs offline.
-The default output is **768p / 15 seconds / 24 fps with stereo audio**. For a
-smaller first run, add `--resolution 576p --duration 5`.
+Without duration/resolution flags, the API defaults to **768p / 15 seconds /
+24 fps with stereo audio**, which requires at least 96 GiB. The command above
+uses five seconds so it also fits the experimental 64 GiB entry. For a smaller
+first run, add `--resolution 576p`.
 
 Each run returns an MP4 and adjacent `.run.json` with the actual dimensions,
 seed, time, version, and model identity. Existing files are never overwritten.

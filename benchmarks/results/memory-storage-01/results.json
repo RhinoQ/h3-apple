@@ -1,0 +1,1389 @@
+{
+  "schema_version": 1,
+  "round": "memory-storage-01",
+  "method": "On a physical M5 Max / 128 GiB, touch and mlock physical RAM above the stated total budget. Verify the reservation remains wired throughout each complete command. No physical-memory or Metal-device identity spoofing.",
+  "boundary": "A constrained total budget is not validation on a physical 64 GiB Mac or another M5 variant. Process footprint, MLX allocation counters and installed RAM are different measurements. Single observations do not establish repeatable timing or a true minimum capacity.",
+  "stop_conditions": {
+    "critical_pressure": "immediate",
+    "warning_pressure": "continuous for two seconds",
+    "maximum_swap_growth_bytes": 268435456,
+    "short_timeout_seconds": 1200,
+    "long_timeout_seconds": 3600
+  },
+  "data_split": "Previously seen fixed public prompts and seeds; no held-out quality claim.",
+  "timing": "Public CLI elapsed time includes full AV validation. Monitor elapsed time additionally includes reservation setup/release and controller overhead. Standard OS caches are retained.",
+  "identities": [
+    {
+      "product_commit": "74bed82d52224428f1c09c349cf1bd32e1d9eea3",
+      "source_sha256": "9151e26d4683b235a8eee422f508723a9846a9718c7ace4009a3984a1e4de9ac",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "model_directory": "$MODELS",
+      "python": "$BASELINE_ENV/bin/python",
+      "wheel_sha256": "d2ebc0ac3c3942ac5a54b5fa2e18b4395c2350c66077b98cdc50ccbe64e2c2ea",
+      "smoke_validation": {
+        "process_tree": true,
+        "mlock_residency": true,
+        "release": true,
+        "evidence": "monitor-smoke-02"
+      },
+      "inputs": {
+        "motion-graphics-5s.txt": {
+          "path": "$PRODUCT/benchmarks/prompts/motion-graphics-5s.txt",
+          "sha256": "84b6db196fa66f9bf2f2d4830af5314b276a79626f3cd1a87da5d063b2869cc0"
+        },
+        "bakery-5s.txt": {
+          "path": "$PRODUCT/benchmarks/prompts/bakery-5s.txt",
+          "sha256": "6369d84354ebb3b00c5de109367ecf2121a7636f660796d0891999704df58ad5"
+        },
+        "motion-graphics.txt": {
+          "path": "$PRODUCT/benchmarks/prompts/motion-graphics.txt",
+          "sha256": "e377f9b6e78b817e35f98140fa1c4211983646eec6364e8ebe68eb230eda6401"
+        },
+        "bakery.txt": {
+          "path": "$PRODUCT/benchmarks/prompts/bakery.txt",
+          "sha256": "d0a6ba4347e3cb0b446effa353467cc30150c4c63c769a3e9f2cc651c468824f"
+        }
+      }
+    },
+    {
+      "commit": "04a45357b9fd0262deabd4399484a89993d307f6",
+      "python": "$CANDIDATE_ENV/bin/python",
+      "package_source_sha256": "384e85ea3b7c84ab08720a56d443a2bfa3e6116ee23bdd559cffb27107cda125",
+      "wheel_sha256": "106817b267521d5ae7510b90a467127d8ce09fe856999d3f343a91d847ad60b0",
+      "baseline_install_unchanged": true,
+      "change": "MLX cache disabled and wired residency capped at 48 GiB; generation arithmetic and model unchanged."
+    },
+    {
+      "commit": "6a29e79924cc21666c71a8b424031ab0a975f254",
+      "python": "$CANDIDATE_ENV/bin/python",
+      "package_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "wheel_sha256": "fc15094ffda95c1bbe1bd6c9ab8e6477be118b86a8b35825e5a5de7708a4ade9",
+      "change_from_baseline": "Only add real wired residency capped at 48 GiB. Original 4 GiB buffer cache and 80 GiB soft limit retained."
+    },
+    {
+      "commit": "62a9d484e86ba827d3fe81afa345c02932837f12",
+      "python": "$CANDIDATE_ENV/bin/python",
+      "package_source_sha256": "3377aa4d55e331a787460863ccc2bebb60dfdeb01439e6b507c6ed2797622b0a",
+      "wheel_sha256": "d09cf88345c0f3e3a748fc3c9e9e2880580dbd483105586b1275b0b8c67d95ec",
+      "change": "Same wired48/cache4 generation arithmetic; admit 64 GiB preparation and smaller requests, retain 96 GiB guard for 768p longer than 5 seconds."
+    }
+  ],
+  "runs": [
+    {
+      "id": "motion-768p-5s-64g-01",
+      "command_kind": "generation",
+      "status": "failed",
+      "error": "System memory warning persisted for two seconds",
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 68719476736,
+      "request": {
+        "prompt": "Create a five-second 16:9 motion-graphics character reveal with synchronized electronic music and crisp whoosh and impact sounds. An anime streetwear girl has mint-teal twin hair buns with long tails, orange headphones, amber eyes, a navy-and-orange windbreaker, denim shorts, and white sneakers. Keep her design consistent. On a cream background, a mint retro media-player window snaps into view, with orange equalizer bars pulsing to the beat. The girl slides into the center as the large navy word PLAY appears behind her. The camera pushes closer as she winks, and the window settles into a clean final title card. Use bold flat graphic shapes, sharp edges, and a mint, orange, navy, and cream palette. No dialogue.\n",
+        "preset": "ours",
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 2026,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "preset_version": "ours-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "command": [
+        "$BASELINE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "generate",
+        "--prompt-file",
+        "$PRODUCT/benchmarks/prompts/motion-graphics-5s.txt",
+        "--seed",
+        "2026",
+        "--resolution",
+        "768p",
+        "--duration",
+        "5",
+        "--model-dir",
+        "$MODELS",
+        "--output",
+        "$MEASUREMENTS/motion-768p-5s-64g-01/output.mp4",
+        "--timeout",
+        "1180"
+      ],
+      "monitor_elapsed_seconds": 91.09578908281401,
+      "public_cli_elapsed_seconds": 91.05887291580439,
+      "process_tree_sampled_peak_bytes": 35465546256,
+      "process_lifetime_peaks_bytes": {
+        "1630": 13746656,
+        "1653": 36279666472,
+        "2138": 311440
+      },
+      "minimum_locked_reservation_bytes": 68719476736,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 62915,
+      "pressure_levels": [
+        1,
+        2
+      ],
+      "minimum_system_free_bytes": 14860288,
+      "maximum_compressor_physical_bytes": 25383223296,
+      "peak_watched_unique_logical_bytes": 306563,
+      "initial_disk": {
+        "unique_logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0,
+        "free_bytes": {
+          "$MEASUREMENTS/motion-768p-5s-64g-01": 428559175680
+        }
+      },
+      "sample_count": 171,
+      "mlx_phase_peak_gib": null,
+      "phase_seconds": null,
+      "installed_source_sha256": null,
+      "frozen_runtime_source_sha256": "9151e26d4683b235a8eee422f508723a9846a9718c7ace4009a3984a1e4de9ac",
+      "frozen_source_commit": "74bed82d52224428f1c09c349cf1bd32e1d9eea3",
+      "frozen_wheel_sha256": "d2ebc0ac3c3942ac5a54b5fa2e18b4395c2350c66077b98cdc50ccbe64e2c2ea",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "video_sha256": null,
+      "av_validation": "no completed video",
+      "backend": null,
+      "initial_host": null,
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "927ae7decc882a94daaa5dc1cc5ef03c89f898a54f15c0b4ea8f7c7d5350a7f0",
+        "running.json": "0432c19278bb8abe77552d35fc6b1cfb47aa7889828b416f0287ca39115a1782",
+        "plan.json": "37e4ca6891a1db7777936b38227f30c335950f7ed1d620f7ad54923229a85bd5",
+        "result.json": "f1f923392795ef9349291beca17dedc5d97df6910e5f718c57a767dc037e9bb1",
+        "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "samples.jsonl": "30da745d6c6ef5ac82c4ca0c290afa10fd8f210869867141313c74a8c025d223",
+        "reservation.json": "208f461c1e3bb3b908689d6a8657fb3ebef198ee4881f163d58e255fa94e40f0",
+        "output.run.json": "aec474d1a4ebefd3b0155edb40d7c6b2d8b569541aff94ff5c4f4b2191e8ae7a"
+      }
+    },
+    {
+      "id": "motion-768p-5s-64g-resident-01",
+      "command_kind": "generation",
+      "status": "complete",
+      "error": null,
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 68719476736,
+      "request": {
+        "prompt": "Create a five-second 16:9 motion-graphics character reveal with synchronized electronic music and crisp whoosh and impact sounds. An anime streetwear girl has mint-teal twin hair buns with long tails, orange headphones, amber eyes, a navy-and-orange windbreaker, denim shorts, and white sneakers. Keep her design consistent. On a cream background, a mint retro media-player window snaps into view, with orange equalizer bars pulsing to the beat. The girl slides into the center as the large navy word PLAY appears behind her. The camera pushes closer as she winks, and the window settles into a clean final title card. Use bold flat graphic shapes, sharp edges, and a mint, orange, navy, and cream palette. No dialogue.\n",
+        "preset": "ours",
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 2026,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "preset_version": "ours-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "command": [
+        "$CANDIDATE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "generate",
+        "--prompt-file",
+        "$PRODUCT/benchmarks/prompts/motion-graphics-5s.txt",
+        "--seed",
+        "2026",
+        "--resolution",
+        "768p",
+        "--duration",
+        "5",
+        "--model-dir",
+        "$MODELS",
+        "--output",
+        "$MEASUREMENTS/motion-768p-5s-64g-resident-01/output.mp4",
+        "--timeout",
+        "1180"
+      ],
+      "monitor_elapsed_seconds": 590.5837937500328,
+      "public_cli_elapsed_seconds": 588.9574308749288,
+      "process_tree_sampled_peak_bytes": 33751698032,
+      "process_lifetime_peaks_bytes": {
+        "3297": 14139920,
+        "3303": 33817446520,
+        "3966": 2212176,
+        "4335": 2097488,
+        "5472": 1245400,
+        "6079": 311440,
+        "7398": 483624424,
+        "7542": 98376
+      },
+      "minimum_locked_reservation_bytes": 68719476736,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 0,
+      "pressure_levels": [
+        1
+      ],
+      "minimum_system_free_bytes": 56623104,
+      "maximum_compressor_physical_bytes": 3651256320,
+      "peak_watched_unique_logical_bytes": 5344728,
+      "initial_disk": {
+        "unique_logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0,
+        "free_bytes": {
+          "$MEASUREMENTS/motion-768p-5s-64g-resident-01": 427584712704
+        }
+      },
+      "sample_count": 1146,
+      "mlx_phase_peak_gib": {
+        "conditioning": 2.063706437125802,
+        "denoise": 30.712126882746816,
+        "video_decode": 15.565954595804214,
+        "audio_decode": 0.6999794095754623,
+        "mux": 0.0
+      },
+      "phase_seconds": {
+        "conditioning": 17.60923095815815,
+        "denoise": 429.75145870889537,
+        "video_decode": 115.4053537081927,
+        "audio_decode": 0.961915000109002,
+        "mux": 21.108341624960303
+      },
+      "installed_source_sha256": "384e85ea3b7c84ab08720a56d443a2bfa3e6116ee23bdd559cffb27107cda125",
+      "frozen_runtime_source_sha256": "384e85ea3b7c84ab08720a56d443a2bfa3e6116ee23bdd559cffb27107cda125",
+      "frozen_source_commit": "04a45357b9fd0262deabd4399484a89993d307f6",
+      "frozen_wheel_sha256": "106817b267521d5ae7510b90a467127d8ce09fe856999d3f343a91d847ad60b0",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "video_sha256": "35753ae30b3f5acd1172ee78d6cca1b44fda96f3a78146389476de63952c755d",
+      "av_validation": "complete public API validation passed",
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      },
+      "initial_host": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 786432,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=35258467)\t80%; AC attached; not charging present: true",
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        }
+      },
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "1fb924fbe2db17022673b6b529e8fd45d9575e239b36a939fad256ad3b3c251f",
+        "running.json": "f7dcb7e832645e25c6abf4d5d32234d764effa0d5828b0f223f4a9f3124267a1",
+        "plan.json": "ab745c0ba1feb0bd9feb2ddedfbb3ff69ecb1b9f0ec830e04f8f5a93193a4c1a",
+        "result.json": "192b66efba5070215217c9985d0a92fdf40cc5da1602951c112bcabd85092c75",
+        "stdout.log": "231beb7844f00ba2ded43455b987b35e08e65c67d3c714fa8e6697477459b657",
+        "samples.jsonl": "1be0eb7ca430a6cf0be6ed81eb77438060adb76855a28c73b95423e9472fcfa5",
+        "reservation.json": "72b9289086bd5680378f10445bb005d1419d35e9e7b1da3beef9324ff57305df",
+        "output.run.json": "2a366d2057208a578b64b8441bea0b961add346beef2e3b9aed2c8c19e05a9ca"
+      },
+      "byte_identical_prior_video": {
+        "case": "motion-graphics",
+        "method": "ours",
+        "sha256": "35753ae30b3f5acd1172ee78d6cca1b44fda96f3a78146389476de63952c755d"
+      }
+    },
+    {
+      "id": "motion-768p-5s-64g-wired-cache-01",
+      "command_kind": "generation",
+      "status": "complete",
+      "error": null,
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 68719476736,
+      "request": {
+        "prompt": "Create a five-second 16:9 motion-graphics character reveal with synchronized electronic music and crisp whoosh and impact sounds. An anime streetwear girl has mint-teal twin hair buns with long tails, orange headphones, amber eyes, a navy-and-orange windbreaker, denim shorts, and white sneakers. Keep her design consistent. On a cream background, a mint retro media-player window snaps into view, with orange equalizer bars pulsing to the beat. The girl slides into the center as the large navy word PLAY appears behind her. The camera pushes closer as she winks, and the window settles into a clean final title card. Use bold flat graphic shapes, sharp edges, and a mint, orange, navy, and cream palette. No dialogue.\n",
+        "preset": "ours",
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 2026,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "preset_version": "ours-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "command": [
+        "$CANDIDATE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "generate",
+        "--prompt-file",
+        "$PRODUCT/benchmarks/prompts/motion-graphics-5s.txt",
+        "--seed",
+        "2026",
+        "--resolution",
+        "768p",
+        "--duration",
+        "5",
+        "--model-dir",
+        "$MODELS",
+        "--output",
+        "$MEASUREMENTS/motion-768p-5s-64g-wired-cache-01/output.mp4",
+        "--timeout",
+        "1180"
+      ],
+      "monitor_elapsed_seconds": 458.78965737484396,
+      "public_cli_elapsed_seconds": 457.33688100008294,
+      "process_tree_sampled_peak_bytes": 37725637088,
+      "process_lifetime_peaks_bytes": {
+        "7880": 14139920,
+        "7886": 37788600272,
+        "9832": 1737064,
+        "10407": 753832,
+        "11141": 499320272,
+        "11148": 32719544
+      },
+      "minimum_locked_reservation_bytes": 68719476736,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 0,
+      "pressure_levels": [
+        1
+      ],
+      "minimum_system_free_bytes": 14974976,
+      "maximum_compressor_physical_bytes": 4052795392,
+      "peak_watched_unique_logical_bytes": 5105584,
+      "initial_disk": {
+        "unique_logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0,
+        "free_bytes": {
+          "$MEASUREMENTS/motion-768p-5s-64g-wired-cache-01": 427579138048
+        }
+      },
+      "sample_count": 888,
+      "mlx_phase_peak_gib": {
+        "conditioning": 2.063706437125802,
+        "denoise": 31.112263115122914,
+        "video_decode": 15.565954584628344,
+        "audio_decode": 2.538591720163822,
+        "mux": 0.0
+      },
+      "phase_seconds": {
+        "conditioning": 8.293401540955529,
+        "denoise": 362.616910707904,
+        "video_decode": 83.30607037502341,
+        "audio_decode": 0.43189129210077226,
+        "mux": 0.9837941250298172
+      },
+      "installed_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_runtime_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_source_commit": "6a29e79924cc21666c71a8b424031ab0a975f254",
+      "frozen_wheel_sha256": "fc15094ffda95c1bbe1bd6c9ab8e6477be118b86a8b35825e5a5de7708a4ade9",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "video_sha256": "35753ae30b3f5acd1172ee78d6cca1b44fda96f3a78146389476de63952c755d",
+      "av_validation": "complete public API validation passed",
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      },
+      "initial_host": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 786432,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=35258467)\t80%; AC attached; not charging present: true",
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        }
+      },
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "1fb924fbe2db17022673b6b529e8fd45d9575e239b36a939fad256ad3b3c251f",
+        "running.json": "7e89b1c2d6d76c756d4404ba8d1ea59711c050712ab82b6a482e6ae812fb2964",
+        "plan.json": "95fdb851485d7ecfb774b4591fd9f16be42eea62a64a9d06b822b05088b0f14d",
+        "result.json": "37e1dba2575733fc1c498cd1463d35ad410e5b8a0b13a41efddaea4c9fd759aa",
+        "stdout.log": "328cbc7408cf1915fee125bc2f35d2dac796be4bfdcedff2b893781cbf36d3aa",
+        "samples.jsonl": "962a2570720059f45335ec13321cc059cd10660c1b48a40831319c94b01ae982",
+        "reservation.json": "262bf519f547023d169854fc47d904b0fff3ad2cdac8dd255811e1c88c1d53dc",
+        "output.run.json": "bfc18aa9f5552dd1073fa59cc529700413e4371d5edf90889b2b3283476e082b"
+      },
+      "byte_identical_prior_video": {
+        "case": "motion-graphics",
+        "method": "ours",
+        "sha256": "35753ae30b3f5acd1172ee78d6cca1b44fda96f3a78146389476de63952c755d"
+      }
+    },
+    {
+      "id": "bakery-768p-5s-64g-wired-cache-01",
+      "command_kind": "generation",
+      "status": "complete",
+      "error": null,
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 68719476736,
+      "request": {
+        "prompt": "(S1) A five-second continuous eye-level shot outside a small bakery on a quiet morning. A woman in a green apron opens the glass door, smiles toward the camera, and says <d>[English] Fresh bread is ready.</d> Warm light falls across the bread in the window. A soft door chime, natural footsteps, and steady quiet street ambience accompany her voice. Realistic daylight, gentle camera movement, no cuts, no music, no subtitles.\n",
+        "preset": "ours",
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 87001,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "preset_version": "ours-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "command": [
+        "$CANDIDATE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "generate",
+        "--prompt-file",
+        "$PRODUCT/benchmarks/prompts/bakery-5s.txt",
+        "--seed",
+        "87001",
+        "--resolution",
+        "768p",
+        "--duration",
+        "5",
+        "--model-dir",
+        "$MODELS",
+        "--output",
+        "$MEASUREMENTS/bakery-768p-5s-64g-wired-cache-01/output.mp4",
+        "--timeout",
+        "1180"
+      ],
+      "monitor_elapsed_seconds": 456.71831279201433,
+      "public_cli_elapsed_seconds": 455.3885153338779,
+      "process_tree_sampled_peak_bytes": 36951444176,
+      "process_lifetime_peaks_bytes": {
+        "11446": 14582312,
+        "11452": 37333272744,
+        "11638": 1753352,
+        "12501": 1245400,
+        "12785": 1769736,
+        "14658": 468075960,
+        "14667": 29098656
+      },
+      "minimum_locked_reservation_bytes": 68719476736,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 0,
+      "pressure_levels": [
+        1
+      ],
+      "minimum_system_free_bytes": 58916864,
+      "maximum_compressor_physical_bytes": 3807723520,
+      "peak_watched_unique_logical_bytes": 6656372,
+      "initial_disk": {
+        "unique_logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0,
+        "free_bytes": {
+          "$MEASUREMENTS/bakery-768p-5s-64g-wired-cache-01": 427570589696
+        }
+      },
+      "sample_count": 884,
+      "mlx_phase_peak_gib": {
+        "conditioning": 2.062516251578927,
+        "denoise": 31.097834965214133,
+        "video_decode": 15.565954584628344,
+        "audio_decode": 2.497842151671648,
+        "mux": 0.0
+      },
+      "phase_seconds": {
+        "conditioning": 8.046364999841899,
+        "denoise": 359.2420936250128,
+        "video_decode": 84.41178037505597,
+        "audio_decode": 0.43096791696734726,
+        "mux": 1.1209807498380542
+      },
+      "installed_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_runtime_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_source_commit": "6a29e79924cc21666c71a8b424031ab0a975f254",
+      "frozen_wheel_sha256": "fc15094ffda95c1bbe1bd6c9ab8e6477be118b86a8b35825e5a5de7708a4ade9",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "video_sha256": "895e245bddb2958651ebd09d14508abc85769ab078d962a566fa7f622351d3df",
+      "av_validation": "complete public API validation passed",
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      },
+      "initial_host": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 786432,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=35258467)\t80%; AC attached; not charging present: true",
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        }
+      },
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "1fb924fbe2db17022673b6b529e8fd45d9575e239b36a939fad256ad3b3c251f",
+        "running.json": "007c694426c7eb6241a9b7985d970d5094ffae9a5e01f60db3bb8b2ec1efed90",
+        "plan.json": "dc5087e6a6275a4cea377579da4eb7719f7816a0275857f3a102f5a48ed67c1b",
+        "result.json": "b8822d70fc2e9603463d8a7ff2b18da7ba0ce414a35cbc2d49b86e388939b4e8",
+        "stdout.log": "3ff16bfae52bc52830b3b6caf748163617b6a1317b6f08b0750a9c451775e0ca",
+        "samples.jsonl": "ec1184ace68135a5482411db5322cf20ab25871561944d9ac2083db3631a9660",
+        "reservation.json": "b3c57aee3708d3a23c5891ca5ea0081eadb5776fd0dbd3bf486042f79f645f2f",
+        "output.run.json": "5634d022e94826ae40905084732169c68fbd7dfad04dfc9e249fb70e44b7a047"
+      },
+      "byte_identical_prior_video": {
+        "case": "bakery",
+        "method": "ours",
+        "sha256": "895e245bddb2958651ebd09d14508abc85769ab078d962a566fa7f622351d3df"
+      }
+    },
+    {
+      "id": "motion-768p-15s-64g-wired-cache-01",
+      "command_kind": "generation",
+      "status": "failed",
+      "error": "System swap increased by more than 256 MiB",
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 68719476736,
+      "request": {
+        "prompt": "Create an explosive, motion-graphics-driven character reveal trailer in 16:9, exactly 13 distinct cuts, 24fps, total 15.00s.\n\nCHARACTER (lock this design; never redesign):\nAnime streetwear girl from the reference still. Twin high buns of vivid mint-teal hair with long flowing tails and warm orange/gold streaks. Messy side-swept bangs. Large orange over-ear headphones with mint accents and a small logo plate. Sharp amber-orange eyes, one eye winking. Playful open-mouth grin. Oversized color-block windbreaker: navy body, vivid orange sleeves, white ribbed cuffs, silver zippers, circular teal tech buttons, a teal utility pocket on the sleeve. Orange cropped turtleneck under the open jacket. Light-wash ripped denim shorts, thick orange belt with a silver buckle. Navy thigh-high socks with orange ribbed cuffs and an orange X stitch on the left shin. Chunky white sneakers with orange details. Preserve exact face, proportions, hairstyle, outfit, materials, accessories and colors in every frame.\n\nThis film is 80% bold graphic design in motion and 20% character action. Graphic language is **retro OS chrome + music-player UI**, not ice/frost/barcode-lock. Use slamming window frames, title bars, close/minimize widgets, equalizer bars, waveforms, progress ticks, folder tiles, cursor arrows, CRT scanlines, pixel shatter, vinyl-ring stamps, music-note particles, media-player transport icons. Palette: mint teal, vivid orange, navy, cream-white, silver. Style: premium AAA motion-graphics title sequence \u00d7 streetwear campaign film \u00d7 Windows-era media player. Every graphic element moves fast and snaps hard on the beat.\n\nCUT 01 | 0.00\u20131.00s \u2014 Pure graphics: a mint title-bar slams onto a cream field, an orange CLOSE widget punches the corner, two navy window borders wipe in. Tiny equalizer ticks and a progress strip flicker. The letters **P** then **LAY** punch in one after another with heavy impact shake.\n\nCUT 02 | 1.00\u20132.00s \u2014 The **A** becomes a headphone cup: extreme close-up of her amber eye inside the orange earcup, glancing up; RGB split flash, then the cup shatters into flat mint/orange tiles.\n\nCUT 03 | 2.00\u20133.10s \u2014 Navy frame with enormous cream **PLAY**. She sprints in from frame left and power-slides across the baseline of the type, speed lines and orange streaks trailing, shards of the letters kicked up like sparks. Whip-pan out.\n\nCUT 04 | 3.10\u20134.00s \u2014 A giant retro media-player waveform explodes across the frame as a thick mint-and-orange audio spectrum bends into a tunnel. She bursts through the center of the waveform at full speed, briefly breaking into three stroboscopic motion trails behind her. Each trail leaves behind chunky navy equalizer blocks that rise and collapse to the beat. The camera rapidly pushes through the waveform tunnel with her, while huge vertical text **TRACK 01** scrolls continuously in the background. The waveform suddenly compresses into a single horizontal line and snaps shut behind her on the final beat.\n\nCUT 05 | 4.00\u20135.10s \u2014 She leaps through a giant rotating ring of typography reading **MAX VOLUME**. Camera tracks her mid-air spin in slow motion as the letters scatter, then snap-zoom on her wink.\n\nCUT 06 | 5.10\u20136.00s \u2014 Hard cut: cream editorial card, huge navy **DROP** with an orange slash. She vaults over the word itself, palm planted on the D, legs whipping across frame; the word compresses like a spring under her hand and rebounds.\n\nCUT 07 | 6.00\u20137.00s \u2014 Mint field with a navy diagonal window-bar. She back-flips along the bar in three stroboscopic ghost frames, each ghost tinted mint, orange, or navy. Giant outlined text **LOOP** rotates 180 degrees in sync with her rotation.\n\nCUT 08 | 7.00\u20138.00s \u2014 Kinetic type barrage: the words **LOUD / WILD / TEAL / HEAT** slam in one per beat with shutter flashes and camera shake, while she slides on her knees across the foreground, jacket flaring, music-note particles bursting from her sneakers.\n\nCUT 09 | 8.00\u20139.00s \u2014 Navy frame, giant cream wireframe window-grid tilting in 3D. She runs up the grid like a wall, kicks off, and hangs in the air as everything freezes. An orange circular stamp locks around her pose like a media-player target, with transport icons and EQ ticks.\n\nCUT 10 | 9.00\u201310.10s \u2014 Freeze releases into a burst: she dives toward camera through layered flat-color window panes that shatter one by one like glass shutters, each pane revealing a bigger letter of **P-L-A-Y**. Foreground wipe with her sneaker.\n\nCUT 11 | 10.10\u201311.10s \u2014 Rapid-fire poster montage: four full-screen graphic posters of her in different action poses (mid-flip, sliding, landing, headphones-up wink) snap past with hard cuts. Each has a different bold layout, oversized numbers **01\u201304**, equalizer strips and slashes.\n\nCUT 12 | 11.10\u201313.00s \u2014 Hero moment on a clean cream cyclorama: she lands a final backflip dead center in slow motion, straightens with one hand on her headphones, and a shockwave of concentric mint rings, wind streaks and shattered typography blasts outward from her landing. Brief iconic freeze on her wink, overexpose to white.\n\nCUT 13 | 13.00\u201315.00s \u2014 Final identity card: enormous navy **PLAY** dominates a pale cream field with translucent mint rings, technical arcs, scanlines, and a rough orange circular emblem containing a ghosted headphone / waveform motif. She stands relaxed overlapping the letters, wind rippling her jacket. One last orange pulse sweeps through the typography and a window-chrome flash punctuates the end.\n\nEditing: extremely aggressive rhythm \u2014 hard cuts on every beat, graphic matches, whip pans, snap zooms, stroboscopic freezes, foreground wipes, RGB splits, shutter flashes, impact shakes and speed ramps. Every cut must feel compositionally different. Typography is always fully readable before the character overlaps it. No weapons, no combat, no fire. All energy comes from motion design, wind, glass, UI chrome and her parkour-style athleticism.\n\nBGM: hard-hitting electronic / drum-heavy future bass with aggressive drops, risers, sub hits and glitch fills locked to every cut. Sneaker impacts, whooshes, glass shatters, window-slam hits and typography slams are rhythmic sound-design elements. Peak at CUT 12 and end with a cold electronic logo stinger.\n\nPremium AAA quality, anime-inspired cinematic rendering, stylish and explosive, strong graphic-design identity, consistent character design, exactly 13 cuts.\n",
+        "preset": "ours",
+        "resolution": "768p",
+        "duration": 15.0,
+        "seed": 2026,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 362,
+        "preset_version": "ours-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "command": [
+        "$CANDIDATE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "generate",
+        "--prompt-file",
+        "$PRODUCT/benchmarks/prompts/motion-graphics.txt",
+        "--seed",
+        "2026",
+        "--resolution",
+        "768p",
+        "--duration",
+        "15",
+        "--model-dir",
+        "$MODELS",
+        "--output",
+        "$MEASUREMENTS/motion-768p-15s-64g-wired-cache-01/output.mp4",
+        "--timeout",
+        "3580"
+      ],
+      "monitor_elapsed_seconds": 446.7495707499329,
+      "public_cli_elapsed_seconds": 446.6333148749545,
+      "process_tree_sampled_peak_bytes": 50279597552,
+      "process_lifetime_peaks_bytes": {
+        "14892": 14680592,
+        "14896": 53085537512,
+        "15075": 2277736,
+        "15571": 1835272,
+        "16169": 1851656,
+        "16310": 376976,
+        "17183": 2326936,
+        "17587": 98376
+      },
+      "minimum_locked_reservation_bytes": 68719476736,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 287571968,
+      "pressure_levels": [
+        1,
+        2
+      ],
+      "minimum_system_free_bytes": 21118976,
+      "maximum_compressor_physical_bytes": 6277070848,
+      "peak_watched_unique_logical_bytes": 1553133,
+      "initial_disk": {
+        "unique_logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0,
+        "free_bytes": {
+          "$MEASUREMENTS/motion-768p-15s-64g-wired-cache-01": 427558719488
+        }
+      },
+      "sample_count": 865,
+      "mlx_phase_peak_gib": null,
+      "phase_seconds": null,
+      "installed_source_sha256": null,
+      "frozen_runtime_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_source_commit": "6a29e79924cc21666c71a8b424031ab0a975f254",
+      "frozen_wheel_sha256": "fc15094ffda95c1bbe1bd6c9ab8e6477be118b86a8b35825e5a5de7708a4ade9",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "video_sha256": null,
+      "av_validation": "no completed video",
+      "backend": null,
+      "initial_host": null,
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "3cba3871e688281d5f6f4715dec9e8d77651fdc8eadeec7478c9480b8cd296bc",
+        "running.json": "e7f4a676b7185e9a40e52198afb8bc7fde8275d3eda49be8e85f17aa7a4e2d87",
+        "plan.json": "810cfb490182e46454d9b836cf683840c25806a657e735940b4d635c7a1376b9",
+        "result.json": "c910f73d2c7b33fd2bb745f03fc3f842b85c927c47d1be7874554b3fd12394d5",
+        "stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "samples.jsonl": "a5bc9d92e31266f23dc04ca713c4f8d10f501b2e8b46acf3aa246f1d120b7840",
+        "reservation.json": "326aa17a58279c26d090c96c35fb4c4619cbea2332118a529b7fb7aa43ca784b",
+        "output.run.json": "274ef85e3519520e425136bc9842ff34e35b0cc5b4baff972ce00bcfc7dfe133"
+      }
+    },
+    {
+      "id": "motion-576p-15s-64g-wired-cache-01",
+      "command_kind": "generation",
+      "status": "complete",
+      "error": null,
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 68719476736,
+      "request": {
+        "prompt": "Create an explosive, motion-graphics-driven character reveal trailer in 16:9, exactly 13 distinct cuts, 24fps, total 15.00s.\n\nCHARACTER (lock this design; never redesign):\nAnime streetwear girl from the reference still. Twin high buns of vivid mint-teal hair with long flowing tails and warm orange/gold streaks. Messy side-swept bangs. Large orange over-ear headphones with mint accents and a small logo plate. Sharp amber-orange eyes, one eye winking. Playful open-mouth grin. Oversized color-block windbreaker: navy body, vivid orange sleeves, white ribbed cuffs, silver zippers, circular teal tech buttons, a teal utility pocket on the sleeve. Orange cropped turtleneck under the open jacket. Light-wash ripped denim shorts, thick orange belt with a silver buckle. Navy thigh-high socks with orange ribbed cuffs and an orange X stitch on the left shin. Chunky white sneakers with orange details. Preserve exact face, proportions, hairstyle, outfit, materials, accessories and colors in every frame.\n\nThis film is 80% bold graphic design in motion and 20% character action. Graphic language is **retro OS chrome + music-player UI**, not ice/frost/barcode-lock. Use slamming window frames, title bars, close/minimize widgets, equalizer bars, waveforms, progress ticks, folder tiles, cursor arrows, CRT scanlines, pixel shatter, vinyl-ring stamps, music-note particles, media-player transport icons. Palette: mint teal, vivid orange, navy, cream-white, silver. Style: premium AAA motion-graphics title sequence \u00d7 streetwear campaign film \u00d7 Windows-era media player. Every graphic element moves fast and snaps hard on the beat.\n\nCUT 01 | 0.00\u20131.00s \u2014 Pure graphics: a mint title-bar slams onto a cream field, an orange CLOSE widget punches the corner, two navy window borders wipe in. Tiny equalizer ticks and a progress strip flicker. The letters **P** then **LAY** punch in one after another with heavy impact shake.\n\nCUT 02 | 1.00\u20132.00s \u2014 The **A** becomes a headphone cup: extreme close-up of her amber eye inside the orange earcup, glancing up; RGB split flash, then the cup shatters into flat mint/orange tiles.\n\nCUT 03 | 2.00\u20133.10s \u2014 Navy frame with enormous cream **PLAY**. She sprints in from frame left and power-slides across the baseline of the type, speed lines and orange streaks trailing, shards of the letters kicked up like sparks. Whip-pan out.\n\nCUT 04 | 3.10\u20134.00s \u2014 A giant retro media-player waveform explodes across the frame as a thick mint-and-orange audio spectrum bends into a tunnel. She bursts through the center of the waveform at full speed, briefly breaking into three stroboscopic motion trails behind her. Each trail leaves behind chunky navy equalizer blocks that rise and collapse to the beat. The camera rapidly pushes through the waveform tunnel with her, while huge vertical text **TRACK 01** scrolls continuously in the background. The waveform suddenly compresses into a single horizontal line and snaps shut behind her on the final beat.\n\nCUT 05 | 4.00\u20135.10s \u2014 She leaps through a giant rotating ring of typography reading **MAX VOLUME**. Camera tracks her mid-air spin in slow motion as the letters scatter, then snap-zoom on her wink.\n\nCUT 06 | 5.10\u20136.00s \u2014 Hard cut: cream editorial card, huge navy **DROP** with an orange slash. She vaults over the word itself, palm planted on the D, legs whipping across frame; the word compresses like a spring under her hand and rebounds.\n\nCUT 07 | 6.00\u20137.00s \u2014 Mint field with a navy diagonal window-bar. She back-flips along the bar in three stroboscopic ghost frames, each ghost tinted mint, orange, or navy. Giant outlined text **LOOP** rotates 180 degrees in sync with her rotation.\n\nCUT 08 | 7.00\u20138.00s \u2014 Kinetic type barrage: the words **LOUD / WILD / TEAL / HEAT** slam in one per beat with shutter flashes and camera shake, while she slides on her knees across the foreground, jacket flaring, music-note particles bursting from her sneakers.\n\nCUT 09 | 8.00\u20139.00s \u2014 Navy frame, giant cream wireframe window-grid tilting in 3D. She runs up the grid like a wall, kicks off, and hangs in the air as everything freezes. An orange circular stamp locks around her pose like a media-player target, with transport icons and EQ ticks.\n\nCUT 10 | 9.00\u201310.10s \u2014 Freeze releases into a burst: she dives toward camera through layered flat-color window panes that shatter one by one like glass shutters, each pane revealing a bigger letter of **P-L-A-Y**. Foreground wipe with her sneaker.\n\nCUT 11 | 10.10\u201311.10s \u2014 Rapid-fire poster montage: four full-screen graphic posters of her in different action poses (mid-flip, sliding, landing, headphones-up wink) snap past with hard cuts. Each has a different bold layout, oversized numbers **01\u201304**, equalizer strips and slashes.\n\nCUT 12 | 11.10\u201313.00s \u2014 Hero moment on a clean cream cyclorama: she lands a final backflip dead center in slow motion, straightens with one hand on her headphones, and a shockwave of concentric mint rings, wind streaks and shattered typography blasts outward from her landing. Brief iconic freeze on her wink, overexpose to white.\n\nCUT 13 | 13.00\u201315.00s \u2014 Final identity card: enormous navy **PLAY** dominates a pale cream field with translucent mint rings, technical arcs, scanlines, and a rough orange circular emblem containing a ghosted headphone / waveform motif. She stands relaxed overlapping the letters, wind rippling her jacket. One last orange pulse sweeps through the typography and a window-chrome flash punctuates the end.\n\nEditing: extremely aggressive rhythm \u2014 hard cuts on every beat, graphic matches, whip pans, snap zooms, stroboscopic freezes, foreground wipes, RGB splits, shutter flashes, impact shakes and speed ramps. Every cut must feel compositionally different. Typography is always fully readable before the character overlaps it. No weapons, no combat, no fire. All energy comes from motion design, wind, glass, UI chrome and her parkour-style athleticism.\n\nBGM: hard-hitting electronic / drum-heavy future bass with aggressive drops, risers, sub hits and glitch fills locked to every cut. Sneaker impacts, whooshes, glass shatters, window-slam hits and typography slams are rhythmic sound-design elements. Peak at CUT 12 and end with a cold electronic logo stinger.\n\nPremium AAA quality, anime-inspired cinematic rendering, stylish and explosive, strong graphic-design identity, consistent character design, exactly 13 cuts.\n",
+        "preset": "ours",
+        "resolution": "576p",
+        "duration": 15.0,
+        "seed": 2026,
+        "width": 1024,
+        "height": 576,
+        "num_frames": 360,
+        "model_width": 1024,
+        "model_height": 576,
+        "model_num_frames": 362,
+        "preset_version": "ours-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "command": [
+        "$CANDIDATE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "generate",
+        "--prompt-file",
+        "$PRODUCT/benchmarks/prompts/motion-graphics.txt",
+        "--seed",
+        "2026",
+        "--resolution",
+        "576p",
+        "--duration",
+        "15",
+        "--model-dir",
+        "$MODELS",
+        "--output",
+        "$MEASUREMENTS/motion-576p-15s-64g-wired-cache-01/output.mp4",
+        "--timeout",
+        "3580"
+      ],
+      "monitor_elapsed_seconds": 1023.1518678329885,
+      "public_cli_elapsed_seconds": 1021.6628408750985,
+      "process_tree_sampled_peak_bytes": 43968203376,
+      "process_lifetime_peaks_bytes": {
+        "18861": 14270968,
+        "18867": 44025890960,
+        "19662": 311440,
+        "22555": 1245400,
+        "24431": 1835248,
+        "26396": 49200,
+        "26981": 346244344,
+        "26991": 24380160,
+        "26998": 1245448
+      },
+      "minimum_locked_reservation_bytes": 68719476736,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 0,
+      "pressure_levels": [
+        1
+      ],
+      "minimum_system_free_bytes": 57868288,
+      "maximum_compressor_physical_bytes": 5384519680,
+      "peak_watched_unique_logical_bytes": 13879515,
+      "initial_disk": {
+        "unique_logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0,
+        "free_bytes": {
+          "$MEASUREMENTS/motion-576p-15s-64g-wired-cache-01": 427553337344
+        }
+      },
+      "sample_count": 1986,
+      "mlx_phase_peak_gib": {
+        "conditioning": 3.360837211832404,
+        "denoise": 36.16285082884133,
+        "video_decode": 18.17066041380167,
+        "audio_decode": 2.766420107334852,
+        "mux": 0.0
+      },
+      "phase_seconds": {
+        "conditioning": 15.304043333046138,
+        "denoise": 868.4525474170223,
+        "video_decode": 131.47707200003788,
+        "audio_decode": 1.5525499999057502,
+        "mux": 2.1044028750620782
+      },
+      "installed_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_runtime_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_source_commit": "6a29e79924cc21666c71a8b424031ab0a975f254",
+      "frozen_wheel_sha256": "fc15094ffda95c1bbe1bd6c9ab8e6477be118b86a8b35825e5a5de7708a4ade9",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "video_sha256": "671ec7982ce7bbe84be142d76a234f4f370451460593764218345e506089aba6",
+      "av_validation": "complete public API validation passed",
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      },
+      "initial_host": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 288358400,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=35258467)\t80%; AC attached; not charging present: true",
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        }
+      },
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "4de9c5c630570de29b27cd76b3e42ce167de82682bb613f46aa411c9e6169f6d",
+        "running.json": "b351525eef545f2f15d1555fdc0a0996cf14ef26ba73a8d4ec8d84bb74f68a65",
+        "plan.json": "ff0478723512119ae423bb114dc3e529c6e50e951f0fa74a2856dd8f79bdeff2",
+        "result.json": "d8d8af9d0080981a10824e98d377bde1c41be6cc1d89876bbad2236ca64cd5fb",
+        "stdout.log": "e2889253ed1763af2a708c135ce0b3c6c3bdfb3a992e58f1d32b63a69d0a2cb4",
+        "samples.jsonl": "d8bc29df2af49ed00919039f6cf865894a7391b68b437e8de74be4f54960fa5b",
+        "reservation.json": "e5199bcab34b4d4173f05acad447a00867f82eecd04a5671a6cc3204ecb5f99f",
+        "output.run.json": "ad0a1b016fffbb3f09c761a108ffcb3fd43d163600e5bbc722eeb7d64039c4b2"
+      },
+      "byte_identical_prior_video": null
+    },
+    {
+      "id": "preparation-64g-01",
+      "command_kind": "model_preparation",
+      "status": "complete",
+      "error": null,
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 68719476736,
+      "request": null,
+      "command": [
+        "$CANDIDATE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "models",
+        "prepare",
+        "--cache-dir",
+        "$SOURCE_CACHE",
+        "--model-dir",
+        "$MEASUREMENTS/preparation-64g-01/models"
+      ],
+      "monitor_elapsed_seconds": 106.19151587504894,
+      "public_cli_elapsed_seconds": null,
+      "process_tree_sampled_peak_bytes": 33475708568,
+      "process_lifetime_peaks_bytes": {
+        "27311": 54788840,
+        "27763": 36761270144
+      },
+      "minimum_locked_reservation_bytes": 68719476736,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 0,
+      "pressure_levels": [
+        1
+      ],
+      "minimum_system_free_bytes": 39665664,
+      "maximum_compressor_physical_bytes": 9821913088,
+      "peak_watched_unique_logical_bytes": 182660385107,
+      "initial_disk": {
+        "unique_logical_bytes": 149367157026,
+        "allocated_bytes": 149367263232,
+        "files": 48,
+        "free_bytes": {
+          "$MEASUREMENTS/preparation-64g-01": 427535564800,
+          "$SOURCE_CACHE": 427535564800
+        }
+      },
+      "sample_count": 205,
+      "mlx_phase_peak_gib": null,
+      "phase_seconds": null,
+      "installed_source_sha256": null,
+      "frozen_runtime_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+      "frozen_source_commit": "6a29e79924cc21666c71a8b424031ab0a975f254",
+      "frozen_wheel_sha256": "fc15094ffda95c1bbe1bd6c9ab8e6477be118b86a8b35825e5a5de7708a4ade9",
+      "model_identity": null,
+      "video_sha256": null,
+      "av_validation": null,
+      "backend": null,
+      "initial_host": null,
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "9d795cd768b235689668a1a2001125119747816628929ba0dc05d00c09ec89c9",
+        "running.json": "f794f32cccd7bed828aed5c2c02baab7f7a8cdda5e1a5c25c39250ca4cc35654",
+        "plan.json": "cdbceebc9f08591fa0e0af2cc5a69f180b38a36d09914b8511a182fa72186a02",
+        "result.json": "8e84946397477c648f346a5f343efd03de1c673ec7267c18a542099b2cb1401e",
+        "payload-verification.json": "d9f99784f71c301fe5395f19eef65cc59ae4ae30cdedc8bf89baffee1f52052b",
+        "stdout.log": "0afa606c295585522030b5d92997491ebc0ffd45fc5cedaefd949df93e02584a",
+        "samples.jsonl": "41a23ee4b8b6674537b3bffc9c930e6e7306f46a95e14bd9bff92e22a7a691a5",
+        "reservation.json": "d507a75dc22f3eb91627531d1939c88dff8b9ac9ab141939c8b14336705e63a5"
+      },
+      "prepared_model_verification": {
+        "status": "complete",
+        "all_payloads_equal": true,
+        "payload_file_count": 35,
+        "baseline_model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+        "prepared_model_identity": "81ed69b3fc2c9e6b4adc0ac2b14612d51766bf42c58bba19bdc07e5e513256e4",
+        "converter": {
+          "converter": "native-fasth3-v2",
+          "dit": {
+            "base_shards": 13,
+            "adapter_tensors": 856,
+            "timesteps": [
+              0.0,
+              0.027027010917663574,
+              0.07692307233810425,
+              0.10000002384185791,
+              0.19999998807907104,
+              0.25,
+              0.5,
+              1.0
+            ]
+          },
+          "backend": {
+            "device": {
+              "device_name": "Apple M5 Max",
+              "max_recommended_working_set_size": 115448725504,
+              "memory_size": 137438953472,
+              "architecture": "applegpu_g16s",
+              "max_buffer_length": 86586540032,
+              "resource_limit": 499000
+            },
+            "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+            "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+            "versions": {
+              "mlx": "0.32.0",
+              "mlx-metal": "0.32.0",
+              "numpy": "2.4.6",
+              "transformers": "5.14.1"
+            }
+          },
+          "package_source_sha256": "6fe3704cbec352788ef33d0e856d9ec9dcc869b7cd16943e1aa1d5c156cd050e",
+          "physical_host": {
+            "system": "Darwin",
+            "machine": "arm64",
+            "macos": "26.6.1",
+            "chip": "Apple M5 Max",
+            "memory_bytes": 137438953472,
+            "swap_bytes": 288358400,
+            "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=35258467)\t80%; AC attached; not charging present: true",
+            "thermal": {
+              "state": "nominal",
+              "low_power_mode": false
+            }
+          },
+          "elapsed_seconds": 17.152303917100653,
+          "settings": {
+            "metal_gpu_arch_override": "applegpu_g16s",
+            "tf32": false,
+            "dtype": "bf16",
+            "quantization": "affine-int8-group64",
+            "video_shift": 12,
+            "audio_shift": 3,
+            "num_steps": 4,
+            "video_vae_dtype": "fp32"
+          },
+          "peak_memory_gib": 30.84899416565895,
+          "full_student_bitwise_equivalence_claimed": false
+        },
+        "model_bundle_sha256": "619898ae2017e8cbe1bf1e7b16848774f3a8c7b80ff8d84ac5bad3a50ed8adef",
+        "download_bytes": 0,
+        "source_recipe": "ours-v1",
+        "files": [
+          {
+            "path": "LICENSE",
+            "size": 17604,
+            "sha256": "59b99642b95ea21630e311198ddbfffbfe05aadba0c2f5d884cbdf4efcc90f44"
+          },
+          {
+            "path": "NOTICE",
+            "size": 470,
+            "sha256": "386b26a96c32a451366d8b50ef7ee1de991da71b16a93a0e7e98333bd1fce8db"
+          },
+          {
+            "path": "components/audio_vae/config.json",
+            "size": 2185,
+            "sha256": "8d1edec287fedf460a76ff0a35046055dce3aea57ccb57b29ea509cb003375f7"
+          },
+          {
+            "path": "components/audio_vae/diffusion_pytorch_model.safetensors",
+            "size": 605429308,
+            "sha256": "37dddc2f3e6d5d5139d823d5ea283bbf304dadcb885b1ccda818aa13dade5ea2"
+          },
+          {
+            "path": "components/text_encoder/chat_template.json",
+            "size": 5499,
+            "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+          },
+          {
+            "path": "components/text_encoder/config.json",
+            "size": 1474,
+            "sha256": "d2dd0c60d01b9e195d9447c52da61c7302d28828524914c044d9c6e1b81d0427"
+          },
+          {
+            "path": "components/text_encoder/merges.txt",
+            "size": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+          },
+          {
+            "path": "components/text_encoder/model-00001-of-00014.safetensors",
+            "size": 4932328944,
+            "sha256": "6b9dfbc930e505402ae9d7e5091a9d7d656cda5f34614f01cfe70bfb0cca27cb"
+          },
+          {
+            "path": "components/text_encoder/model-00002-of-00014.safetensors",
+            "size": 4875990528,
+            "sha256": "d8bb44b4ff303fe76fe9e894022fb3dc71b15a2e716592790fe0e3c3e60478fa"
+          },
+          {
+            "path": "components/text_encoder/model-00003-of-00014.safetensors",
+            "size": 4875990552,
+            "sha256": "54f22e8b3168f8dc962fac0d313607ebf52a12b433d4cf3098a0d82d9f042940"
+          },
+          {
+            "path": "components/text_encoder/model-00004-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "ad09c74d3c13ee29b5d0d84548fd8a3424a651564eaccd519946c296e59c557f"
+          },
+          {
+            "path": "components/text_encoder/model-00005-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "fc993c8a0e2a5b0570f383e1a95dc3a1281d1b224b6f3ee908f4827941e1dfc2"
+          },
+          {
+            "path": "components/text_encoder/model-00006-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "82f05620d1f718a90c362b221d6a184ff1a0f53301d706882d3df49695fa1974"
+          },
+          {
+            "path": "components/text_encoder/model-00007-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "fb91da8cb01ff4de3eef0eab1c3e769a734b3a1aafc61734068638a0d6c86934"
+          },
+          {
+            "path": "components/text_encoder/model-00008-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "431ca56535c8781944ce3801f5eb61c45531e853ecc5846d936ebaf4761b764f"
+          },
+          {
+            "path": "components/text_encoder/model-00009-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "3825e3f4302f4d2f7d76aa7430d2ce0864fde6b9e540a5806bf0d8e38e4d9f47"
+          },
+          {
+            "path": "components/text_encoder/model-00010-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "aded5a4d1d5e22dbd8b6f79266b6eb88c840411b09527c53917a1419ace22e2f"
+          },
+          {
+            "path": "components/text_encoder/model-00011-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "3820ffe8d8d6477f6fe8d614ef3c87abb264ee39accebf43a1507b970d80946f"
+          },
+          {
+            "path": "components/text_encoder/model-00012-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "05ad2d08ce71963121c9b03f1d9ec5d7641052f4b23c6c12b80d71065eb8e98e"
+          },
+          {
+            "path": "components/text_encoder/model-00013-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "b64f2289871261fdd1abbd3b78bcd66011b341de3dc8eeb2ed1a473ee7c8d95c"
+          },
+          {
+            "path": "components/text_encoder/model-00014-of-00014.safetensors",
+            "size": 3270697008,
+            "sha256": "e45b6c9998c77ee5a6577f9f47bc76416c1d4d387169e50c4c9d3134ea51b13b"
+          },
+          {
+            "path": "components/text_encoder/model.safetensors.index.json",
+            "size": 97831,
+            "sha256": "06c952c569285870b811989b794b9766493e280fb77fbcb957fc4e5fcf25403a"
+          },
+          {
+            "path": "components/text_encoder/preprocessor_config.json",
+            "size": 390,
+            "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+          },
+          {
+            "path": "components/text_encoder/tokenizer.json",
+            "size": 7032403,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+          },
+          {
+            "path": "components/text_encoder/tokenizer_config.json",
+            "size": 11003,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+          },
+          {
+            "path": "components/text_encoder/video_preprocessor_config.json",
+            "size": 385,
+            "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+          },
+          {
+            "path": "components/text_encoder/vocab.json",
+            "size": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          {
+            "path": "components/tokenizer/merges.txt",
+            "size": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+          },
+          {
+            "path": "components/tokenizer/tokenizer.json",
+            "size": 7032403,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+          },
+          {
+            "path": "components/tokenizer/tokenizer_config.json",
+            "size": 11003,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+          },
+          {
+            "path": "components/tokenizer/vocab.json",
+            "size": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          {
+            "path": "components/vae/config.json",
+            "size": 1893,
+            "sha256": "c5241509da95f2d32bb93f0e81abcdcc5a46f2e5d131e61876558e5055900b28"
+          },
+          {
+            "path": "components/vae/diffusion_pytorch_model.safetensors",
+            "size": 9694193698,
+            "sha256": "f02599c06220afce024060b813553cc1b67200b7378181e254fa4a73ce07b58d"
+          },
+          {
+            "path": "dit/mlx_h3_dit.json",
+            "size": 39448,
+            "sha256": "f11ea65a7641fc8bd663c486289298d7354a9b3ad463a306160fa23b701c7557"
+          },
+          {
+            "path": "dit/mlx_h3_dit.safetensors",
+            "size": 23598563611,
+            "sha256": "578905dad7229273b6c22d095f588641460be672a3b667ed36673b38061f5b1d"
+          }
+        ]
+      }
+    },
+    {
+      "id": "motion-768p-15s-96g-admission-01",
+      "command_kind": "generation",
+      "status": "complete",
+      "error": null,
+      "physical_memory_bytes": 137438953472,
+      "tested_total_budget_bytes": 103079215104,
+      "request": {
+        "prompt": "Create an explosive, motion-graphics-driven character reveal trailer in 16:9, exactly 13 distinct cuts, 24fps, total 15.00s.\n\nCHARACTER (lock this design; never redesign):\nAnime streetwear girl from the reference still. Twin high buns of vivid mint-teal hair with long flowing tails and warm orange/gold streaks. Messy side-swept bangs. Large orange over-ear headphones with mint accents and a small logo plate. Sharp amber-orange eyes, one eye winking. Playful open-mouth grin. Oversized color-block windbreaker: navy body, vivid orange sleeves, white ribbed cuffs, silver zippers, circular teal tech buttons, a teal utility pocket on the sleeve. Orange cropped turtleneck under the open jacket. Light-wash ripped denim shorts, thick orange belt with a silver buckle. Navy thigh-high socks with orange ribbed cuffs and an orange X stitch on the left shin. Chunky white sneakers with orange details. Preserve exact face, proportions, hairstyle, outfit, materials, accessories and colors in every frame.\n\nThis film is 80% bold graphic design in motion and 20% character action. Graphic language is **retro OS chrome + music-player UI**, not ice/frost/barcode-lock. Use slamming window frames, title bars, close/minimize widgets, equalizer bars, waveforms, progress ticks, folder tiles, cursor arrows, CRT scanlines, pixel shatter, vinyl-ring stamps, music-note particles, media-player transport icons. Palette: mint teal, vivid orange, navy, cream-white, silver. Style: premium AAA motion-graphics title sequence \u00d7 streetwear campaign film \u00d7 Windows-era media player. Every graphic element moves fast and snaps hard on the beat.\n\nCUT 01 | 0.00\u20131.00s \u2014 Pure graphics: a mint title-bar slams onto a cream field, an orange CLOSE widget punches the corner, two navy window borders wipe in. Tiny equalizer ticks and a progress strip flicker. The letters **P** then **LAY** punch in one after another with heavy impact shake.\n\nCUT 02 | 1.00\u20132.00s \u2014 The **A** becomes a headphone cup: extreme close-up of her amber eye inside the orange earcup, glancing up; RGB split flash, then the cup shatters into flat mint/orange tiles.\n\nCUT 03 | 2.00\u20133.10s \u2014 Navy frame with enormous cream **PLAY**. She sprints in from frame left and power-slides across the baseline of the type, speed lines and orange streaks trailing, shards of the letters kicked up like sparks. Whip-pan out.\n\nCUT 04 | 3.10\u20134.00s \u2014 A giant retro media-player waveform explodes across the frame as a thick mint-and-orange audio spectrum bends into a tunnel. She bursts through the center of the waveform at full speed, briefly breaking into three stroboscopic motion trails behind her. Each trail leaves behind chunky navy equalizer blocks that rise and collapse to the beat. The camera rapidly pushes through the waveform tunnel with her, while huge vertical text **TRACK 01** scrolls continuously in the background. The waveform suddenly compresses into a single horizontal line and snaps shut behind her on the final beat.\n\nCUT 05 | 4.00\u20135.10s \u2014 She leaps through a giant rotating ring of typography reading **MAX VOLUME**. Camera tracks her mid-air spin in slow motion as the letters scatter, then snap-zoom on her wink.\n\nCUT 06 | 5.10\u20136.00s \u2014 Hard cut: cream editorial card, huge navy **DROP** with an orange slash. She vaults over the word itself, palm planted on the D, legs whipping across frame; the word compresses like a spring under her hand and rebounds.\n\nCUT 07 | 6.00\u20137.00s \u2014 Mint field with a navy diagonal window-bar. She back-flips along the bar in three stroboscopic ghost frames, each ghost tinted mint, orange, or navy. Giant outlined text **LOOP** rotates 180 degrees in sync with her rotation.\n\nCUT 08 | 7.00\u20138.00s \u2014 Kinetic type barrage: the words **LOUD / WILD / TEAL / HEAT** slam in one per beat with shutter flashes and camera shake, while she slides on her knees across the foreground, jacket flaring, music-note particles bursting from her sneakers.\n\nCUT 09 | 8.00\u20139.00s \u2014 Navy frame, giant cream wireframe window-grid tilting in 3D. She runs up the grid like a wall, kicks off, and hangs in the air as everything freezes. An orange circular stamp locks around her pose like a media-player target, with transport icons and EQ ticks.\n\nCUT 10 | 9.00\u201310.10s \u2014 Freeze releases into a burst: she dives toward camera through layered flat-color window panes that shatter one by one like glass shutters, each pane revealing a bigger letter of **P-L-A-Y**. Foreground wipe with her sneaker.\n\nCUT 11 | 10.10\u201311.10s \u2014 Rapid-fire poster montage: four full-screen graphic posters of her in different action poses (mid-flip, sliding, landing, headphones-up wink) snap past with hard cuts. Each has a different bold layout, oversized numbers **01\u201304**, equalizer strips and slashes.\n\nCUT 12 | 11.10\u201313.00s \u2014 Hero moment on a clean cream cyclorama: she lands a final backflip dead center in slow motion, straightens with one hand on her headphones, and a shockwave of concentric mint rings, wind streaks and shattered typography blasts outward from her landing. Brief iconic freeze on her wink, overexpose to white.\n\nCUT 13 | 13.00\u201315.00s \u2014 Final identity card: enormous navy **PLAY** dominates a pale cream field with translucent mint rings, technical arcs, scanlines, and a rough orange circular emblem containing a ghosted headphone / waveform motif. She stands relaxed overlapping the letters, wind rippling her jacket. One last orange pulse sweeps through the typography and a window-chrome flash punctuates the end.\n\nEditing: extremely aggressive rhythm \u2014 hard cuts on every beat, graphic matches, whip pans, snap zooms, stroboscopic freezes, foreground wipes, RGB splits, shutter flashes, impact shakes and speed ramps. Every cut must feel compositionally different. Typography is always fully readable before the character overlaps it. No weapons, no combat, no fire. All energy comes from motion design, wind, glass, UI chrome and her parkour-style athleticism.\n\nBGM: hard-hitting electronic / drum-heavy future bass with aggressive drops, risers, sub hits and glitch fills locked to every cut. Sneaker impacts, whooshes, glass shatters, window-slam hits and typography slams are rhythmic sound-design elements. Peak at CUT 12 and end with a cold electronic logo stinger.\n\nPremium AAA quality, anime-inspired cinematic rendering, stylish and explosive, strong graphic-design identity, consistent character design, exactly 13 cuts.\n",
+        "preset": "ours",
+        "resolution": "768p",
+        "duration": 15.0,
+        "seed": 2026,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 362,
+        "preset_version": "ours-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "command": [
+        "$CANDIDATE_ENV/bin/python",
+        "-I",
+        "-m",
+        "h3_apple",
+        "generate",
+        "--prompt-file",
+        "$PRODUCT/benchmarks/prompts/motion-graphics.txt",
+        "--seed",
+        "2026",
+        "--resolution",
+        "768p",
+        "--duration",
+        "15",
+        "--model-dir",
+        "$MODELS",
+        "--output",
+        "$MEASUREMENTS/motion-768p-15s-96g-admission-01/output.mp4",
+        "--timeout",
+        "3580"
+      ],
+      "monitor_elapsed_seconds": 2109.933921125019,
+      "public_cli_elapsed_seconds": 2108.9598425419535,
+      "process_tree_sampled_peak_bytes": 60418329320,
+      "process_lifetime_peaks_bytes": {
+        "28679": 14549640,
+        "28685": 61306521624,
+        "28721": 1720584,
+        "29307": 1851656,
+        "29455": 983232,
+        "30089": 1491160,
+        "31463": 32792,
+        "34491": 1851632,
+        "34807": 1966344,
+        "36179": 1949936,
+        "40519": 49200,
+        "41163": 2294168,
+        "42762": 1704200,
+        "43632": 601228848,
+        "43645": 33604352,
+        "43659": 103597208
+      },
+      "minimum_locked_reservation_bytes": 34359738368,
+      "reservation_released": true,
+      "maximum_swap_growth_bytes": 0,
+      "pressure_levels": [
+        1
+      ],
+      "minimum_system_free_bytes": 59129856,
+      "maximum_compressor_physical_bytes": 4408737792,
+      "peak_watched_unique_logical_bytes": 25047014,
+      "initial_disk": {
+        "unique_logical_bytes": 0,
+        "allocated_bytes": 0,
+        "files": 0,
+        "free_bytes": {
+          "$MEASUREMENTS/motion-768p-15s-96g-admission-01": 394168950784
+        }
+      },
+      "sample_count": 4103,
+      "mlx_phase_peak_gib": {
+        "conditioning": 3.360837211832404,
+        "denoise": 51.13901515491307,
+        "video_decode": 24.05029906705022,
+        "audio_decode": 2.7839053086936474,
+        "mux": 0.0
+      },
+      "phase_seconds": {
+        "conditioning": 14.688792292028666,
+        "denoise": 1841.638539750129,
+        "video_decode": 244.16612512501888,
+        "audio_decode": 1.3385809999890625,
+        "mux": 3.1349181251134723
+      },
+      "installed_source_sha256": "3377aa4d55e331a787460863ccc2bebb60dfdeb01439e6b507c6ed2797622b0a",
+      "frozen_runtime_source_sha256": "3377aa4d55e331a787460863ccc2bebb60dfdeb01439e6b507c6ed2797622b0a",
+      "frozen_source_commit": "62a9d484e86ba827d3fe81afa345c02932837f12",
+      "frozen_wheel_sha256": "d09cf88345c0f3e3a748fc3c9e9e2880580dbd483105586b1275b0b8c67d95ec",
+      "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+      "video_sha256": "dfb616c17f4372b99c94fd0167eeaf8464c8eb293fa61f289cdd2132a966be4c",
+      "av_validation": "complete public API validation passed",
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      },
+      "initial_host": {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 288358400,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=35258467)\t80%; AC attached; not charging present: true",
+        "thermal": {
+          "state": "nominal",
+          "low_power_mode": false
+        }
+      },
+      "monitor_source_sha256": "a966fb1a63683bd2254a3c71befebc00513c0c091fc0b44d5ab94e8603fc47f0",
+      "raw_files_sha256": {
+        "stderr.log": "8a4075cac47ea6d9d6100b750d69f096305ab0d63314ae844c0c2dea363577c5",
+        "running.json": "86058194a9f515976a07e4cd85e03b5649e8369b2b42a7f0ea5263bbf2b1f17e",
+        "plan.json": "cd4e4ce8bc0903e789f8b3aaa6816b2f3128ccfc3e3c5c7440149c9d91dada7d",
+        "result.json": "56f8874e651a8ffc4859918505b961400df62cc463aa5b4d1aee9ec706c4956b",
+        "stdout.log": "21b44d041bf669265a140f4a9ef8a30310e4899c99a22a963d73ef0c1a7da431",
+        "samples.jsonl": "8a74cb921e57fa7ce095a31163bf08f2e1e6ec24dd5fbf937fd1ee1e867c830e",
+        "reservation.json": "01ab893497a6e779624e3a6bfc4d7e1b0f155e55a58f9b1ad3334fed9c6fea1e",
+        "output.run.json": "a7f10b97340c500a8c998b9da8ddc97b6ef2612eeecd4f8fcf2ee9c1f90e08b5"
+      },
+      "byte_identical_prior_video": {
+        "case": "motion-graphics",
+        "method": "ours",
+        "sha256": "dfb616c17f4372b99c94fd0167eeaf8464c8eb293fa61f289cdd2132a966be4c"
+      }
+    }
+  ],
+  "storage_inventory": {
+    "source_cache": {
+      "unique_files": 47,
+      "logical_bytes": 149367157026,
+      "allocated_bytes": 149367263232
+    },
+    "prepared_bundle": {
+      "unique_files": 31,
+      "logical_bytes": 100624758746,
+      "allocated_bytes": 100624830464
+    },
+    "source_cache_and_bundle_deduplicated": {
+      "unique_files": 54,
+      "logical_bytes": 182659975935,
+      "allocated_bytes": 182660100096
+    },
+    "conda_environment": {
+      "unique_files": 21313,
+      "logical_bytes": 902604025,
+      "allocated_bytes": 953536512
+    },
+    "conda_package_cache": {
+      "unique_files": 18422,
+      "logical_bytes": 789239353,
+      "allocated_bytes": 836620288
+    },
+    "tracked_source": {
+      "unique_files": 171,
+      "logical_bytes": 13252678,
+      "allocated_bytes": 13627392
+    },
+    "boundary": "Current files measured using stat sizes and inode deduplication. APFS cloned extents may consume less physical disk than these file totals; fresh-user requirements must not assume those savings."
+  },
+  "rebuilt_storage_inventory": {
+    "prepared_bundle": {
+      "unique_logical_bytes": 100624801915,
+      "allocated_bytes": 100640190464,
+      "files": 32,
+      "free_bytes": {
+        "$MEASUREMENTS/preparation-64g-01/models": 394167648256
+      }
+    },
+    "source_cache_and_new_bundle": {
+      "unique_logical_bytes": 182660019104,
+      "allocated_bytes": 182675460096,
+      "files": 56,
+      "free_bytes": {
+        "$SOURCE_CACHE": 394167648256,
+        "$MEASUREMENTS/preparation-64g-01/models": 394167648256
+      }
+    },
+    "candidate_conda_environment": {
+      "unique_logical_bytes": 902631803,
+      "allocated_bytes": 953552896,
+      "files": 21313,
+      "free_bytes": {
+        "$CANDIDATE_ENV": 394167648256
+      }
+    },
+    "private_conda_package_cache": {
+      "unique_logical_bytes": 789239353,
+      "allocated_bytes": 836620288,
+      "files": 18422,
+      "free_bytes": {
+        "$PRODUCT/.local/conda-pkgs": 394167644160
+      }
+    },
+    "boundary": "Actual files, inode-deduplicated. Existing APFS clone sharing is not assumed for a fresh user. This is a file inventory, separate from sampled preparation peak."
+  }
+}

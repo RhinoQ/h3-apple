@@ -11,7 +11,7 @@ and four from [two additional fifteen-second scenes](../benchmarks/results/cinem
 passed complete media validation; human quality review is pending. Those reports
 retain observed visual issues. [Watch all 14 comparisons](../README.md#video-comparisons).
 
-## Completed checks
+## Initial implementation checks
 
 [Implementation evidence](evidence/implementation.json) records the actual plans,
 results, versions, and raw-file SHA256 values. Local paths are represented by
@@ -75,11 +75,27 @@ Local evidence includes `.local/validation/environment-bootstrap.json` and the
 These are retained local evidence locations, not public download URLs.
 Completed formal results are in `.local/comparisons/native-three-02/`.
 
+## Memory-budget validation
+
+The [resource report](../benchmarks/results/memory-storage-01/README.md) records
+subsequent complete generation and preparation under constrained total-memory
+budgets. It includes the original stopped attempt, memory-policy candidates,
+all completed/stopped workloads, content hashes, and measured storage.
+The current installation adds a bounded GPU residency setting and checks
+admitted requests by installed memory. The integrated ordinary wheel passed
+88 tests and `pip check`; see the report for its complete-generation result.
+
+The gallery timings and original migration checks above belong to their
+recorded source versions. New residency-policy timings are reported separately;
+old measurements are not relabeled as results of the changed runtime. The
+[README](../README.md#hardware-and-memory) owns the current user-facing limits.
+
 ## Limits
 
 Validation did not redownload the full 139 GiB model. Real network checks were
 bounded as described above; conversion of all original assets was actually run.
-Other Mac chips/memory sizes, unseen-content generalization, new algorithmic
-speed gains, and human acceptance of the twenty additional videos remain
-unproven. The README gallery contains derived display previews; native videos
-remain the quality and timing reference.
+Physical 64 GB machines, other M5 variants, other M-series generations,
+unseen-content generalization, new algorithmic speed gains, and human acceptance
+of the twenty additional videos remain unproven. Total-budget testing on the
+128 GiB host is described separately. The README gallery contains derived
+display previews; native videos remain the quality and timing reference.

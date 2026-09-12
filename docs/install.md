@@ -1,10 +1,10 @@
 # Installation and your first video
 
 Check the [hardware and memory requirements](../README.md#hardware-and-memory)
-before installing. The README distinguishes tested memory capacity, the startup
-threshold, and measured phase peaks for the published videos. Keep at least
-20 GiB of disk space free for generation, in addition to model storage. Run on
-AC power.
+before installing. The README distinguishes physical-machine validation,
+constrained total-memory budgets and the requests admitted at each capacity.
+Review the [disk-space budget](../README.md#disk-space) for setup and everyday
+generation. Run on AC power.
 
 ## Conda environment
 
@@ -43,11 +43,12 @@ and recovery. Once the model is ready:
 
 ```bash
 h3 doctor
-h3 generate --prompt "A paper boat drifts across a quiet pond. Soft water sounds and birdsong." --output boat.mp4
+h3 generate --prompt "A paper boat drifts across a quiet pond. Soft water sounds and birdsong." --duration 5 --output boat.mp4
 ```
 
-The default is a native 768p, 15-second, 24 fps video with stereo audio. For a
-smaller first check:
+The example requests five seconds and fits the experimental 64 GiB entry.
+Omitting duration/resolution flags requests 768p / 15 seconds and requires at
+least 96 GiB. For a smaller first check:
 
 ```bash
 h3 generate --prompt "A paper boat drifts across a quiet pond. Soft water sounds and birdsong." --resolution 576p --duration 5 --seed 123 --output boat-smoke.mp4

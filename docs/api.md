@@ -7,13 +7,13 @@ when it exits. No persistent service is required.
 ```python
 from h3_apple import generate, resolve
 
-request = resolve("A quiet bakery opens at dawn. Gentle bells and birdsong.", seed=87001)
+request = resolve("A quiet bakery opens at dawn. Gentle bells and birdsong.", duration=5, seed=87001)
 print(request.to_dict())  # Does not load MLX or model weights.
 
 result = generate(
     prompt="A quiet bakery opens at dawn. Gentle bells and birdsong.",
     resolution="768p",
-    duration=15,
+    duration=5,
     seed=87001,
     output="bakery.mp4",
     on_progress=lambda event: print(event),
@@ -41,6 +41,13 @@ print(result.elapsed_seconds)
 specification. The public exports are `generate`, `resolve`,
 `GenerationRequest`, and `GenerationResult`.
 
+On 64 GiB machines, generation admits 768p / 5 seconds and 576p / 5–15 seconds.
+Longer 768p requests require at least 96 GiB and return an error with smaller
+alternatives before model loading. `resolve()` describes geometry without
+checking the current host; `generate()` enforces the memory boundary. See the
+[hardware validation and limits](../README.md#hardware-and-memory) before
+using a new machine; budget validation does not establish physical 64 GB support.
+
 ## Output and model dimensions
 
 | Request | Delivered MP4 | Model generation |
@@ -57,8 +64,8 @@ rather than the everyday API. Supported requests and completed hardware
 validation are distinct; see [validation](validation.md).
 
 ```bash
-h3 resolve --prompt-file prompt.txt --resolution 768p --duration 15 --seed 42
-h3 generate --prompt-file prompt.txt --output runs/example.mp4
+h3 resolve --prompt-file prompt.txt --resolution 768p --duration 5 --seed 42
+h3 generate --prompt-file prompt.txt --duration 5 --output runs/example.mp4
 ```
 
 ## Cancellation and errors

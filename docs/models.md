@@ -21,13 +21,11 @@ bytes, and additional space required on the cache and destination volumes.
 It does not download models. The pinned source list uses the public MiniMax
 FL2VA partition and official FastH3 VSA adapter, without Ref2VA or unrelated models.
 
-With no cache, the download is approximately **139.11 GiB**. Retaining source
-files and converted output requires approximately **171 GiB**, plus roughly
-2 GiB of preparation headroom. Keep at least 20 GiB free for generation.
-The final bundle has a logical size of approximately 93.7 GiB; components can
-share underlying files with the source cache, so these figures must not be
-added together. Different filesystems require real copies. Use the local
-`--plan` for the actual storage increment.
+See the [measured disk-space budget](../README.md#disk-space) for first setup,
+the retained generation bundle, environment size and free space needed when
+generating. Components share files with the source cache on the same volume;
+different filesystems require real copies. Use the local `--plan` for the
+actual storage increment on each volume.
 
 Downloads exceeding 20 GB stop before transfer. After reviewing the plan,
 explicitly allow them with:
