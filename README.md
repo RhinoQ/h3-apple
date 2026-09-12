@@ -331,6 +331,18 @@ ablation. Untested methods are not ranked.
 For implementation details and contributing changes, see
 [architecture](docs/architecture.md) and [development](docs/development.md).
 
+## Acknowledgments
+
+Thanks to [MiniMax](https://huggingface.co/MiniMaxAI/MiniMax-H3) for H3,
+[FastVideo / FastH3](https://github.com/hao-ai-lab/FastVideo) for the MLX runtime
+and VSA adapter, and [MLX](https://github.com/ml-explore/mlx) for Apple silicon
+support. Our Metal kernels build on
+[mlx-flashattention-steel (MFA)](https://github.com/marcogva-hub/mlx-flashattention-steel),
+[Draw Things / CCV](https://github.com/liuliu/ccv), and
+[h3.c](https://github.com/antirez/h3.c). We also thank
+[vpipe](https://github.com/tgo-app-dev/vpipe) for the comparison baseline,
+and all upstream authors and contributors for sharing their work.
+
 Our code is Apache-2.0. Upstream code, model weights, and calibration material
 retain their own terms; see [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
 Weights and large logs are excluded from Git.
