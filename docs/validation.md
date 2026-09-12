@@ -1,8 +1,15 @@
 # Implementation and validation
 
 Independent installation, arbitrary-prompt generation, model preparation, and
-the comparison script are implemented and validated as detailed below. This is the
-`0.1.0.dev0` development preview, tested on **Apple M5 Max / 128 GiB / macOS 26.6.1**.
+the comparison script are implemented and validated as detailed below, on
+**Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
+source version and scope.
+
+The current **0.1.0.dev1** preview corrects the documented `GenerationRequest`
+import path and adds upstream acknowledgments. Relative to `v0.1.0.dev0`, the
+only Python changes are package and CLI version strings. Generation code,
+model assets, recipes, and environment locks are unchanged. This documentation
+release does not add a new generation benchmark or hardware validation claim.
 
 The [original eight videos](../benchmarks/reviews/existing-eight-20260911.json)
 received human audiovisual acceptance. The sixteen videos from

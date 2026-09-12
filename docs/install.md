@@ -10,17 +10,17 @@ generation. Run on AC power.
 
 Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge), or use an
 existing ARM64 Conda installation. Install the
-[v0.1.0.dev0 pre-release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.1.0.dev0):
+[v0.1.0.dev1 pre-release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.1.0.dev1):
 
 ```bash
-git clone --branch v0.1.0.dev0 --single-branch https://github.com/RhinoQ/h3-apple.git
+git clone --branch v0.1.0.dev1 --single-branch https://github.com/RhinoQ/h3-apple.git
 cd h3-apple
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
 h3 --version
 ```
 
-Alternatively, download `h3-apple-0.1.0.dev0-source.zip` from the release,
+Alternatively, download `h3-apple-0.1.0.dev1-source.zip` from the release,
 extract it, and run `./install.sh` from the extracted directory. The archive
 contains the installer, environment locks, documentation, and examples.
 `SHA256SUMS` verifies the attached archives, wheel, and release manifest:

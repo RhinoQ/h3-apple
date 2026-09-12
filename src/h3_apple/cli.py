@@ -27,7 +27,7 @@ def progress(event):
 
 def parser():
     top = argparse.ArgumentParser(prog="h3", description="Generate MiniMax-H3 video with stereo audio on Apple Silicon.")
-    top.add_argument("--version", action="version", version="h3-apple 0.1.0.dev0")
+    top.add_argument("--version", action="version", version="h3-apple 0.1.0.dev1")
     commands = top.add_subparsers(dest="command", required=True)
     for name in ("generate", "resolve"):
         command = commands.add_parser(name)
