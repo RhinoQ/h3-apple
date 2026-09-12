@@ -53,3 +53,19 @@ Large originals belong in Release assets; small previews and input/run manifests
 with hashes belong in Git. Public download links must resolve to published files.
 The [gallery manifest](../examples/gallery/manifest.json) maps each displayed
 comparison to its source results and native videos.
+
+## Software releases
+
+[Software releases](https://github.com/RhinoQ/h3-apple/releases) use annotated
+`v<package-version>` tags. The tag, `pyproject.toml`, and `h3 --version` must agree.
+Development versions are marked **Pre-release** on GitHub. Installation examples
+pin the published tag so a later change on `main` does not change that release.
+
+Build the wheel and complete source archive from the tagged commit. Verify a
+regular wheel installation outside the checkout, run the relevant tests, and
+check that all packaged runtime files match the validated baseline. Publish
+the source archive, wheel, `release-manifest.json`, and `SHA256SUMS` together;
+the manifest records the commit, runtime identity, environment locks, and
+artifact hashes. Verify the published downloads before announcing the release.
+Keep published tags and artifacts unchanged; corrections use a new version.
+Video-only releases have separate `benchmark-videos-*` tags.

@@ -15,6 +15,13 @@ dependencies = [
   "huggingface-hub==1.26.0", "safetensors==0.8.0", "Pillow==12.3.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/RhinoQ/h3-apple"
+Documentation = "https://github.com/RhinoQ/h3-apple/blob/main/README.md"
+Repository = "https://github.com/RhinoQ/h3-apple"
+Issues = "https://github.com/RhinoQ/h3-apple/issues"
+Releases = "https://github.com/RhinoQ/h3-apple/releases"
+
 [project.scripts]
 h3 = "h3_apple.cli:main"
 
