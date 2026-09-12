@@ -39,7 +39,8 @@ print(result.elapsed_seconds)
 `GenerationResult` exposes `video_path`, `metadata_path`, `elapsed_seconds`, and
 `seed`. `GenerationRequest` is a frozen dataclass; `to_dict()` shows the resolved
 specification. The public exports are `generate`, `resolve`,
-`GenerationRequest`, and `GenerationResult`.
+and `GenerationResult` from `h3_apple`. For request type annotations, import
+`GenerationRequest` from `h3_apple.api`.
 
 On 64 GiB machines, generation admits 768p / 5 seconds and 576p / 5–15 seconds.
 Longer 768p requests require at least 96 GiB and return an error with smaller
