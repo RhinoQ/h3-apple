@@ -2,10 +2,10 @@
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
   "available_cases": 4,
   "status_counts": {
-    "generated": 1,
+    "generated": 2,
     "paused": 8,
     "running": 1,
-    "queued": 34
+    "queued": 33
   },
   "cases": [
     {
@@ -232,7 +232,7 @@
       "title": "The silent gateway",
       "source_case": "Sci-Fi Mystery Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -249,7 +249,7 @@
       "prompt_sha256": "3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev2",
           "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -292,6 +292,59 @@
         "resolution": "768p",
         "reason": "The prompt requests a tiny protagonist in an ultra-wide shot. Use 768p conservatively, although this shot specifies a rear view."
       },
+      "seed": 42,
+      "started_utc": "2026-09-13T15:15:13.692782+00:00",
+      "elapsed_seconds": 2121.169284292031,
+      "actual_nfe": 4,
+      "video_sha256": "787c0dceba215e5d0462bfd2a13877f0adb1b4467b4d865cfb9d9fb56e9aa8fb",
+      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "timings_seconds": {
+        "conditioning": 16.74943987512961,
+        "denoise": 1914.4018847499974,
+        "video_decode": 183.4073172081262,
+        "audio_decode": 1.1895014999900013,
+        "mux": 1.9828049580100924
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.02712157741189,
+        "denoise": 46.38035753555596,
+        "video_decode": 24.01064147427678,
+        "audio_decode": 2.7442184649407864,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "e446b3f7e8bce699a300eaaafc40af17587bcf04537492aaef479f925b9aaa4b",
+          "size": 54488
+        },
+        {
+          "index": 2,
+          "sha256": "07ca8854374d29f025329cb8976e34c5c40c9b04d39fa6d079ec88f7f645e380",
+          "size": 43990
+        }
+      ],
+      "runtime_version": "0.1.0.dev2",
+      "attention": "vsa",
+      "experimental_input_support": false,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/03-768p-787c0dceba21-output.mp4",
+        "poster": "media/03-768p-787c0dceba21-poster.jpg"
+      },
       "previous_results": [
         {
           "record": "records/03-576p-54699f979fd3.json"
@@ -303,7 +356,7 @@
       "title": "Desert departure",
       "source_case": "Desert Fashion Campaign",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 4,
         "videos": 0,

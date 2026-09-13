@@ -35,7 +35,7 @@
     </aside>
     <article class="article">
       <div id="examples"><section id="overview" class="overview"><div class="section-label">THE REPRODUCTION LOG</div><h2>Every case, accounted for.</h2>
-<p class="collection-state"><strong>4 cases have a video</strong><span>1 completed at the current resolution</span><span>35 requests queued or running</span><span>8 paused for VSA evaluation</span><span>0 need further work</span></p>
+<p class="collection-state"><strong>4 cases have a video</strong><span>2 completed at the current resolution</span><span>34 requests queued or running</span><span>8 paused for VSA evaluation</span><span>0 need further work</span></p>
 <p>The collection keeps the source order. Small-face scenes use native 768p. Earlier 576p videos remain available with their own parameters and commands while the new requests run.</p></section>
 <section class="case-group" id="group-1"><div class="section-label">01 / STUDIES</div><h2>Film &amp; campaigns</h2></section>
 <section class="case" id="case-01"><h3><span class="case-number">01</span>Through the binoculars</h3>
@@ -207,8 +207,45 @@ generate(
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/02.json">Current case record ↗</a></div>
 </section>
 <section class="case" id="case-03"><h3><span class="case-number">03</span>The silent gateway</h3>
-<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> The prompt requests a tiny protagonist in an ultra-wide shot. Use 768p conservatively, although this shot specifies a rear view.</p>
-<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is generating.</p>
+<p class="runtime-note"><strong>Current request: 768p · Generated.</strong> The prompt requests a tiny protagonist in an ultra-wide shot. Use 768p conservatively, although this shot specifies a rear view.</p>
+<figure class="result"><video controls playsinline preload="none" poster="media/03-768p-787c0dceba21-poster.jpg" width="1366" height="768" aria-label="The silent gateway, 768p H3 Apple output"><source src="media/03-768p-787c0dceba21-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 768p · 1366 × 768 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>2 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>35 min 21 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-03">Copy prompt</button></div><pre class="prompt-text" id="prompt-03">Sci-fi mystery teaser
+
+Photoreal cinematic treatment, high-contrast lighting, and tight pacing. Use Image 1 for the overall mood and visual language; use Image 2 as the protagonist reference.
+
+Shot 1 — Ultra-wide establishing shot. A colossal circular cosmic gateway nearly fills the frame. The protagonist appears only as a tiny figure from behind, positioned low and slightly right of center. Wet ground reflects the light; the center of the gateway is pitch black. Slowly push the camera forward. A large title emerges from the edge of the darkness, resolving from soft blur into sharp focus: “THE STARS WERE LISTENING.” Set it in an extremely condensed, heavy, all-caps face, colored dark crimson and rust red, with light grain and mist-softened edges.
+
+Audio: a deep sub-bass pulse, distant metallic resonance, and one restrained hit as the title locks into focus. → Hard cut.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" alt="Image 1, case 03" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" alt="Image 2, case 03" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-03">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-03">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 3 --directory case-03
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-03 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-03/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-03/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;768p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-03/image-01.webp&#x27;, &#x27;case-03/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-03/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
+<details class="earlier-result"><summary>Earlier 576p result</summary>
 <figure class="result"><video controls playsinline preload="none" poster="media/03-poster.jpg" width="1024" height="576" aria-label="The silent gateway, 576p H3 Apple output"><source src="media/03-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>2 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>19 min 51 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-03-576p-54699f979fd3">Copy prompt</button></div><pre class="prompt-text" id="prompt-03-576p-54699f979fd3">Sci-fi mystery teaser
@@ -248,50 +285,12 @@ generate(
     timeout=7200,
 )</code></pre></details></div>
 <p><a href="records/03-576p-54699f979fd3.json">Earlier run record ↗</a></p>
-<details class="api-call"><summary>Planned 768p generation command</summary>
-<div class="reproduction"><h4>Reproduce this video</h4>
-<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
-<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-03">Copy prompt</button></div><pre class="prompt-text" id="prompt-03">Sci-fi mystery teaser
-
-Photoreal cinematic treatment, high-contrast lighting, and tight pacing. Use Image 1 for the overall mood and visual language; use Image 2 as the protagonist reference.
-
-Shot 1 — Ultra-wide establishing shot. A colossal circular cosmic gateway nearly fills the frame. The protagonist appears only as a tiny figure from behind, positioned low and slightly right of center. Wet ground reflects the light; the center of the gateway is pitch black. Slowly push the camera forward. A large title emerges from the edge of the darkness, resolving from soft blur into sharp focus: “THE STARS WERE LISTENING.” Set it in an extremely condensed, heavy, all-caps face, colored dark crimson and rust red, with light grain and mist-softened edges.
-
-Audio: a deep sub-bass pulse, distant metallic resonance, and one restrained hit as the title locks into focus. → Hard cut.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
-<h5>Reference inputs · in supplied order</h5>
-<div class="reference-grid">
-<figure class="reference">
-<a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" alt="Image 1, case 03" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
-<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp">Open original ↗</a></figcaption></figure>
-<figure class="reference">
-<a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" alt="Image 2, case 03" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
-<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp">Open original ↗</a></figcaption></figure>
-</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-03">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-03">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 3 --directory case-03
-./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-03 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-03/run-01.mp4</code></pre>
-<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
-from pathlib import Path
-from h3_apple import generate
-from h3_apple.progress import ProgressBar
-
-generate(
-    prompt=Path(&quot;case-03/prompt.txt&quot;).read_text(),
-    seed=42,
-    resolution=&#x27;768p&#x27;,
-    duration=15.0,
-    reference_images=[&#x27;case-03/image-01.webp&#x27;, &#x27;case-03/image-02.webp&#x27;],
-    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
-    output=&quot;case-03/run-01.mp4&quot;,
-    on_progress=ProgressBar(),
-    timeout=7200,
-)</code></pre></details></div>
 </details>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/03.json">Current case record ↗</a></div>
 </section>
 <section class="case" id="case-04"><h3><span class="case-number">04</span>Desert departure</h3>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Two people walk and interact beside a car in a wide fashion scene.</p>
-<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is queued.</p>
+<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> Two people walk and interact beside a car in a wide fashion scene.</p>
+<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is generating.</p>
 <figure class="result"><video controls playsinline preload="none" poster="media/04-poster.jpg" width="1024" height="576" aria-label="Desert departure, 576p H3 Apple output"><source src="media/04-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>18 min 05 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-04-576p-e97d6f64fab3">Copy prompt</button></div><pre class="prompt-text" id="prompt-04-576p-e97d6f64fab3">Create a premium 16:9 landscape fashion film. Use Image 1 for the overall mood, location, and film texture; Image 2 for the talent; Image 3 for the bag; and Image 4 for the closing brand mark. This is a fashion campaign for the clothing and bag. The tone is elevated, cool, and restrained, but the edit should still feel lively and fashion-forward—not like a conventional narrative film or an e-commerce ad.
