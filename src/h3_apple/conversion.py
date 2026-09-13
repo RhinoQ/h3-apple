@@ -172,6 +172,54 @@ def merge_parameter(base, edits: dict, tensors: dict, *, xp, consumed: set, lora
     consumed.update(edits.values())
     return value.astype(base.dtype)
 
+
+def ref2va_adapter_plan(header, target_shapes: dict) -> dict:
+    """Validate the dedicated LightX2V Ref2VA rank128/alpha8 PEFT adapter."""
+    if header.metadata.get("format") != "pt" or header.metadata.get("alpha") != "8":
+        raise ValueError("Expected the dedicated Ref2VA PEFT adapter with alpha 8.")
+    prefixes = ([f"token_refiner.refiner_blocks.{i}" for i in range(2)] +
+                [f"transformer_blocks.{i}" for i in range(50)])
+    projections = ("attn.to_q", "attn.to_k", "attn.to_v", "attn.to_out.0", "ff.net.0.proj", "ff.net.2")
+    expected = {f"{prefix}.{projection}.weight" for prefix in prefixes for projection in projections}
+    plans = {}
+    for key, record in header.tensors.items():
+        match = re.fullmatch(r"(.+)\.(lora_[AB])\.default\.weight", key)
+        if match is None:
+            raise ValueError(f"Unexpected Ref2VA adapter tensor: {key}")
+        module, kind = match.groups(); target = module + ".weight"
+        if target not in expected or target not in target_shapes:
+            raise ValueError(f"Unexpected or absent Ref2VA projection: {target}")
+        shape = target_shapes[target]
+        wanted = (128, shape[1]) if kind == "lora_A" else (shape[0], 128)
+        if tuple(record.shape) != wanted:
+            raise ValueError(f"Ref2VA rank or projection shape mismatch: {key}")
+        plans.setdefault(target, {})[kind + ".weight"] = key
+    if set(plans) != expected or any(set(v) != {"lora_A.weight", "lora_B.weight"} for v in plans.values()):
+        raise ValueError("Ref2VA requires all 312 complete low-rank pairs and no extra tensors.")
+    return plans
+
+
+def ref2va_gate_plan(gate_header) -> dict:
+    """Select only the 50 full gate matrices; never apply T2VA adapter deltas."""
+    pattern = re.compile(
+        r"^(?:transformer_blocks|(?:diffusion_model\.)?blocks)\.(\d+)\."
+        r"attn\.to_gate_compress\.(?:set_weight|weight)$")
+    result = {}
+    for key, record in gate_header.tensors.items():
+        match = pattern.fullmatch(key)
+        if not match:
+            if "to_gate_compress" in key:
+                raise ValueError(f"Unrecognized gate tensor: {key}")
+            continue
+        index = int(match[1])
+        target = f"transformer_blocks.{index}.attn.to_gate_compress.weight"
+        if target in result or tuple(record.shape) != (7168, 5376):
+            raise ValueError(f"Duplicate or incorrectly shaped gate: {key}")
+        result[target] = key
+    if set(result) != {f"transformer_blocks.{i}.attn.to_gate_compress.weight" for i in range(50)}:
+        raise ValueError("Ref2VA VSA requires exactly one gate for every block 0 through 49.")
+    return result
+
 def video_key_plan(key: str) -> list[tuple[str, str]]:
     """Native video decoder -> the published Diffusers names; no approximation."""
     if key == "decoder.mask_token" or not key.startswith(("decoder.", "post_quant_conv.")):
@@ -193,16 +241,20 @@ def header(path):
             for key in reader.keys()})
 
 
-def convert_dit(native, adapter, output, progress):
+def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=None):
     """Stream transformed shards through an explicit loader, without monkeypatching."""
     import mlx.core as mx
     from ._vendor.fastvideo_mlx import minimax_h3 as h3
     native, adapter, output = Path(native), Path(adapter), Path(output)
+    if task not in ("t2va", "ref2va"):
+        raise ValueError("DiT conversion task must be t2va or ref2va.")
+    if gate_source is not None and task != "ref2va":
+        raise ValueError("A separate gate source is only valid for Ref2VA.")
     if output.exists():
         raise FileExistsError(output)
     shards = sorted(native.glob("model-*.safetensors"))
     if len(shards) != 13:
-        raise ValueError("Expected the 13 pinned native FL2VA DiT shards.")
+        raise ValueError("Expected the 13 pinned native DiT shards.")
     shapes = {}
     for shard in shards:
         for key, record in header(shard).tensors.items():
@@ -212,9 +264,12 @@ def convert_dit(native, adapter, output, progress):
                 shapes[target] = ((record.shape[0] // 3, *record.shape[1:])
                                   if op in ("q", "k", "v") else record.shape)
     adapter_header = header(adapter)
-    plans = adapter_plan(adapter_header, shapes, vsa=True)
+    plans = ref2va_adapter_plan(adapter_header, shapes) if task == "ref2va" else adapter_plan(adapter_header, shapes, vsa=True)
     adapter_tensors = mx.load(str(adapter))
     consumed = set()
+    gates = ref2va_gate_plan(header(gate_source)) if gate_source is not None else {}
+    gate_tensors = mx.load(str(gate_source)) if gates else {}
+    gates_consumed = set()
 
     def load(shard, phase):
         arrays = mx.load(str(shard))
@@ -225,24 +280,39 @@ def convert_dit(native, adapter, output, progress):
             for target, op in native_key_plan(key):
                 base = transform_native(value, op, xp=mx)
                 converted[target] = (merge_parameter(base, plans[target], adapter_tensors,
-                    xp=mx, consumed=consumed) if target in plans else base)
+                    xp=mx, consumed=consumed, lora_scale=8/128 if task == "ref2va" else 1.0) if target in plans else base)
         if phase == "weights" and shard == shards[-1]:
             for target, edits in plans.items():
                 if "set_weight" in edits:
                     converted[target] = adapter_tensors[edits["set_weight"]]
                     consumed.add(edits["set_weight"])
+            for target, key in gates.items():
+                converted[target] = gate_tensors[key]
+                gates_consumed.add(key)
         progress({"phase": "dit_conversion", "file": f"{phase}/{shard.name}"})
         return converted
 
     timesteps = np.unique(np.concatenate([
         1 - h3.minimax_h3_sigmas(12, 4)[:-1],
-        1 - h3.minimax_h3_sigmas(3, 4)[:-1], [1.0]])).astype(np.float32)
+        1 - h3.minimax_h3_sigmas(3, 4)[:-1], [1.0, 0.999] if task == "ref2va" else [1.0]]).astype(np.float32))
     dit = h3.mlx_h3_dit_from_diffusers_safetensors(native, config=CONFIG, dtype="bf16",
-        quantization="int8", adaln_cache_timesteps=timesteps, include_vsa=True, _shard_loader=load)
+        quantization="int8", adaln_cache_timesteps=timesteps,
+        include_vsa=task == "t2va" or bool(gates), _shard_loader=load)
     if consumed != set(adapter_header.tensors):
         raise ValueError("The converted model did not consume every official adapter tensor.")
+    if gates_consumed != set(gates.values()):
+        raise ValueError("The converted model did not consume all selected gates.")
     h3.save_mlx_h3_checkpoint(dit, output)
-    return dict(base_shards=len(shards), adapter_tensors=len(consumed), timesteps=timesteps.tolist())
+    if task == "ref2va":
+        (output / "ref2va_recipe.json").write_text(json.dumps(dict(
+            schema="h3-apple-ref2va/v1", task=task, lora_rank=128, lora_alpha=8,
+            lora_tensors=len(consumed), gate_tensors=len(gates_consumed),
+            base_directory=str(native.resolve()), adapter_path=str(adapter.resolve()),
+            gate_source=None if gate_source is None else str(Path(gate_source).resolve()),
+            precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False,
+        ), indent=2) + "\n")
+    return dict(base_shards=len(shards), adapter_tensors=len(consumed),
+                gate_tensors=len(gates_consumed), timesteps=timesteps.tolist())
 
 
 def convert_components(native, output, progress):

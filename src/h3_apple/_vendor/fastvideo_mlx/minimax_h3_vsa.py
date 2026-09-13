@@ -72,8 +72,13 @@ class MiniMaxH3VSAConfig:
     dense_first_n_steps: int = 0
     dense_layers: tuple[int, ...] = ()
     impl: VSAImpl = "auto"
+    routing_mode: str = "fasth3"
 
     def __post_init__(self) -> None:
+        if self.routing_mode not in ("fasth3", "kablex"):
+            raise ValueError("VSA routing_mode must be fasth3 or kablex.")
+        if self.routing_mode == "kablex" and self.prefix_mode != "exempt":
+            raise ValueError("Kablex routing requires dense-exempt prefix segments.")
         if not 0.0 <= self.sparsity < 1.0:
             raise ValueError(f"VSA sparsity must be in [0, 1), got {self.sparsity}.")
         if self.tile_size not in VSA_H3_TILE_SHAPES:
@@ -171,6 +176,7 @@ class MiniMaxH3VSAStats:
     sparse_calls: int = 0
     impl_counts: dict[str, int] = field(default_factory=dict)
     fallback_reasons: list[str] = field(default_factory=list)
+    routing_mode: str = "fasth3"
 
     def record(self, call: MiniMaxH3VSAStats) -> None:
         """Aggregate equally sized video-query tile maps across blocks and steps."""
@@ -227,6 +233,18 @@ def parse_dense_layers(value: str | None) -> tuple[int, ...]:
 
 def prefix_segments_from_layout(layout: Any, patch_size: tuple[int, int, int]) -> tuple[int, ...]:
     """Segment sizes preceding the generated-video tail, matching the PyTorch stage."""
+    explicit = getattr(layout, "reference_prefix_segments", None)
+    if explicit is not None:
+        n_video = math.prod(dit_seq_shape_from_layout(layout, patch_size))
+        start = int(layout.sequence_length) - n_video
+        if (not explicit or any(type(n) is not int or n <= 0 for n in explicit)
+                or sum(explicit) != start
+                or (len(layout.text_indices) and explicit[0] != len(layout.text_indices))
+                or explicit[-1] != layout.num_audio_latents * 2
+                or not np.array_equal(layout.video_indices[layout.num_condition_video_rows:],
+                                      np.arange(start, layout.sequence_length))):
+            raise ValueError("Ref2VA VSA needs complete ordered prefix segments and a generated-video tail.")
+        return explicit
     n_text = int(layout.text_indices.shape[0])
     n_cond = int(layout.num_condition_video_rows)
     n_audio = int(layout.audio_indices.shape[0])
@@ -382,12 +400,27 @@ def build_block_mask(
     num_video_tiles: int,
     sparsity: float,
     exempt: bool,
+    routing_mode: str = "fasth3",
 ) -> np.ndarray:
     """scores: [..., n_tiles, n_tiles] -> bool mask, same shape.
 
     Mirrors ``_build_block_mask`` in the PyTorch H3 backend.
     """
     n_tiles = scores.shape[-1]
+    if routing_mode == "kablex":
+        if not exempt:
+            raise ValueError("Kablex routing requires prefix exemption.")
+        keep = max(0, min(num_video_tiles - 1, max(1, round((1 - sparsity) * num_video_tiles))))
+        mask = np.zeros_like(scores, dtype=bool)
+        if keep:
+            columns = scores[..., num_prefix_tiles:]
+            threshold = np.sort(columns, axis=-1)[..., -keep, None]
+            mask[..., num_prefix_tiles:] = columns >= threshold
+        indices = np.arange(n_tiles)
+        mask |= np.abs(indices[:, None] - indices[None, :]) <= 1
+        mask[..., :num_prefix_tiles, :] = True
+        mask[..., :, :num_prefix_tiles] = True
+        return mask
     k_vid = compute_topk(sparsity, num_video_tiles)
     if k_vid == num_video_tiles:
         return np.ones_like(scores, dtype=bool)
@@ -456,12 +489,29 @@ def _block_indices_from_scores(
     num_video_tiles: int,
     sparsity: float,
     exempt: bool,
+    routing_mode: str = "fasth3",
 ):
     """Return (block_idx [H, n_video_tiles, k_sel], block_num [H, n_video_tiles])."""
     import mlx.core as mx
 
     n_tiles = scores.shape[-1]
     heads = scores.shape[0]
+    if routing_mode == "kablex":
+        if not exempt:
+            raise ValueError("Kablex routing requires prefix exemption.")
+        keep = max(0, min(num_video_tiles - 1, max(1, round((1 - sparsity) * num_video_tiles))))
+        columns = scores[:, num_prefix_tiles:, num_prefix_tiles:]
+        mask_video = (columns >= mx.sort(columns, axis=-1)[:, :, -keep, None]
+                      if keep else mx.zeros(columns.shape, dtype=mx.bool_))
+        mask = mx.concatenate([mx.ones((heads, num_video_tiles, num_prefix_tiles), dtype=mx.bool_),
+                               mask_video], axis=-1)
+        query_ids = mx.arange(num_prefix_tiles, n_tiles)
+        key_ids = mx.arange(n_tiles)
+        mask = mask | (mx.abs(query_ids[:, None] - key_ids[None, :]) <= 1)[None]
+        counts = mx.sum(mask, axis=-1).astype(mx.int32)
+        capacity = int(mx.max(counts).item())
+        indices = mx.argsort(mx.where(mask, key_ids, n_tiles), axis=-1)[:, :, :capacity]
+        return indices.astype(mx.int32), counts
     k_vid = compute_topk(sparsity, num_video_tiles)
     video_scores = scores[:, num_prefix_tiles:, :]
     if k_vid == num_video_tiles:
@@ -562,6 +612,7 @@ def _reference_gather_sdpa(
     block_idx,
     geometry: MiniMaxH3VSAGeometry,
     scale: float,
+    block_counts=None,
 ):
     """Grouped gather + batched SDPA over video query tiles.
 
@@ -589,6 +640,8 @@ def _reference_gather_sdpa(
         k_sel = int(idx.shape[-1])
         gathered_k, gathered_v = _gather_selected_kv(k_tiles, v_tiles, idx, tile_elems)
         valid = _key_valid_mask(idx, geometry.variable_block_sizes, tile_elems)
+        if block_counts is not None:
+            valid = valid & (mx.arange(k_sel)[None, None, :] < block_counts[:, start:end, None])[:, :, :, None]
         valid = valid.reshape(heads, n_chunk, k_sel * tile_elems)
         q_bh = mx.contiguous(q_video[:, start:end].reshape(heads * n_chunk, tile_elems, dim)[None])
         k_bh = mx.contiguous(gathered_k.reshape(heads * n_chunk, k_sel * tile_elems, dim)[None])
@@ -644,13 +697,17 @@ def h3_vsa_attention(
     gate_compress=None,
     impl: VSAImpl = "auto",
     stats: MiniMaxH3VSAStats | None = None,
+    routing_mode: str = "fasth3",
 ):
     """Packed ``[S, H, D]`` VSA attention. Falls back to dense SDPA when sparsity is 0."""
     import mlx.core as mx
 
     _, heads, dim = query.shape
+    if routing_mode not in ("fasth3", "kablex"):
+        raise ValueError("Unknown VSA routing mode.")
     scale = dim**-0.5
     if stats is not None:
+        stats.routing_mode = routing_mode
         stats.configured_sparsity = sparsity
         stats.layer_sparsity = sparsity
         stats.tile_size = geometry.tile_elems
@@ -687,7 +744,11 @@ def h3_vsa_attention(
             geometry.num_video_tiles,
             sparsity,
             exempt,
+            routing_mode,
         )
+        if stats is not None and routing_mode == "kablex":
+            stats.video_keep = float(mx.mean(block_num.astype(mx.float32)).item()) - geometry.num_prefix_tiles
+            stats.achieved_sparsity = 1.0 - stats.video_keep / geometry.num_video_tiles
         if stats is not None and not exempt:
             stats.video_keep = float(mx.mean(mx.sum(block_idx >= geometry.num_prefix_tiles, axis=-1)).item())
             stats.achieved_sparsity = 1.0 - stats.video_keep / geometry.num_video_tiles
@@ -718,10 +779,12 @@ def h3_vsa_attention(
                 geometry.num_video_tiles,
                 sparsity,
                 exempt,
+                routing_mode,
             )
             video_tiled = _reference_token_sdpa(q_tiled, k_tiled, v_tiled, mask, geometry, scale)[n_prefix_pad:]
         else:
-            video_tiled = _reference_gather_sdpa(q_tiled, k_tiled, v_tiled, block_idx, geometry, scale)
+            video_tiled = _reference_gather_sdpa(q_tiled, k_tiled, v_tiled, block_idx, geometry, scale,
+                                                block_num if routing_mode == "kablex" else None)
         video_tiled = video_tiled.astype(query.dtype)
         prefix_tiled = mx.concatenate([
             prefix_out,
@@ -732,7 +795,11 @@ def h3_vsa_attention(
 
     if gate_compress is not None:
         gate_tiled = _tile_hidden(gate_compress, geometry)
-        out_tiled = out_tiled + _gate_compress_output(scores, v_tiled, gate_tiled, geometry).astype(out_tiled.dtype)
+        coarse = _gate_compress_output(scores, v_tiled, gate_tiled, geometry)
+        if routing_mode == "kablex":
+            out_tiled = (out_tiled.astype(mx.float32) + coarse).astype(out_tiled.dtype)
+        else:
+            out_tiled = out_tiled + coarse.astype(out_tiled.dtype)
 
     if stats is not None:
         stats.impl = chosen if sparsity > 0.0 else "dense"

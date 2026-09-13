@@ -269,15 +269,44 @@ class StreamedMiniMaxH3TextConditioner:
         return self.encode_tokens(token_ids)
 
     def encode_tokens(self, token_ids: list[int]) -> tuple[np.ndarray, np.ndarray]:
-        import mlx.core as mx
+        seq_len = len(token_ids)
+        positions = np.tile(np.arange(seq_len, dtype=np.int64), (3, 1))
+        tags = np.ones(seq_len, dtype=np.int64)
+        return self.encode_presentation(token_ids, tags, positions)
 
+    def encode_presentation(self, token_ids, tags, positions, *, visual_features=None,
+                            visual_mask=None, deepstack_features=(), layer_callback=None):
+        """Encode explicit H3 presentation tokens without truncation or a chat template.
+
+        DiT modality tags include vision boundary tokens. ``visual_mask`` only
+        selects image/video pad tokens, which receive embeddings and deepstack
+        additions. Integer MRoPE positions are independent of those DiT tags.
+        """
         cfg = self.config
         seq_len = len(token_ids)
-        positions = np.stack([
-            np.arange(seq_len, dtype=np.float64),
-            np.arange(seq_len, dtype=np.float64),
-            np.arange(seq_len, dtype=np.float64),
-        ])
+        tags = np.asarray(tags, dtype=np.int64)
+        positions = np.asarray(positions)
+        if seq_len == 0 or tags.shape != (seq_len,) or positions.shape != (3, seq_len):
+            raise ValueError("Presentation IDs, tags and positions must describe one nonempty sequence.")
+        if positions.dtype.kind not in "iu" or np.any(positions < 0):
+            raise ValueError("MRoPE positions must be nonnegative integers.")
+        if not np.isin(tags, [0, 1]).all():
+            raise ValueError("Qwen presentation tags must be visual (0) or text (1).")
+        visual_indices = None
+        if visual_features is not None:
+            mask = np.asarray(visual_mask)
+            if mask.dtype != np.bool_ or mask.shape != (seq_len,) or not mask.any():
+                raise ValueError("Visual embeddings require a nonempty boolean mask of the sequence.")
+            if np.any(tags[mask] != 0):
+                raise ValueError("Visual pad tokens must have visual DiT tags.")
+            visual_indices = mx.array(np.flatnonzero(mask).astype(np.int32))
+            shape = (int(mask.sum()), cfg.hidden_size)
+            if np.shape(visual_features) != shape or any(np.shape(x) != shape for x in deepstack_features):
+                raise ValueError("Visual and deepstack features must match the selected pad rows.")
+            if len(deepstack_features) != 3:
+                raise ValueError("Released H3 Qwen image conditioning requires all three deepstack features.")
+        elif visual_mask is not None or len(deepstack_features):
+            raise ValueError("Visual masks and deepstack require visual embeddings.")
         cos, sin = _mrope_cos_sin(positions, cfg)
 
         # Embedding rows gathered individually; the (151936, 5120) table is
@@ -287,6 +316,8 @@ class StreamedMiniMaxH3TextConditioner:
             key = "model.language_model.embed_tokens.weight"
             rows.append(self.index.get_row(key, token))
         hidden = mx.array(np.stack(rows).astype(np.float32))
+        if visual_indices is not None:
+            hidden[visual_indices] = mx.array(visual_features, dtype=mx.float32)
         del rows
         gc.collect()
 
@@ -294,12 +325,15 @@ class StreamedMiniMaxH3TextConditioner:
             raise ValueError(f"Conditioner needs > {TEXT_ENCODER_LAYER} layers, has {cfg.num_layers}.")
         for layer in range(TEXT_ENCODER_LAYER):
             hidden = self._decoder_layer(layer, hidden, cos, sin)
+            if layer < len(deepstack_features):
+                hidden[visual_indices] = hidden[visual_indices] + mx.array(deepstack_features[layer], dtype=mx.float32)
             # Per-layer sync: without this the whole 50-layer graph accumulates
             # and the machine runs out of memory (same failure mode as the DiT).
             mx.eval(hidden)
+            if layer_callback is not None:
+                layer_callback(layer, np.asarray(hidden).copy())
             gc.collect()
 
-        tags = np.full((seq_len, ), 1, dtype=np.int64)  # MINIMAX_H3_TEXT_TAG
         return np.asarray(hidden).astype(np.float32), tags
 
     # -- layers ----------------------------------------------------------

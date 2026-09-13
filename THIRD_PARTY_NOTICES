@@ -44,3 +44,14 @@ Optional comparison projects
   The comparison script invokes separately installed official FastVideo and
   vpipe commands. Their software and model licenses apply independently;
   their binaries and weights are not bundled in this repository.
+
+Experimental image-reference VSA
+  Reference packing and conditioning derive from MiniMax/FastVideo interfaces;
+  exact upstream source identities are recorded in docs/sources.json.
+  Kablex's ComfyUI-Ref2VA-VSA (Apache-2.0) provides the gate-transplant and
+  segment-pure prefix design: https://github.com/Kablex/ComfyUI-Ref2VA-VSA.
+  The optional Kablex routing mode follows Comfy Kitchen's Sol-Attn top-k,
+  forced-neighbor, tie and coarse-gate semantics, implemented independently
+  for the existing MLX runtime: https://github.com/Comfy-Org/comfy-kitchen.
+  LightX2V Ref2VA and FastH3 gate weights are supplied separately; the original
+  MiniMax model terms continue to apply. No trained weights are bundled here.

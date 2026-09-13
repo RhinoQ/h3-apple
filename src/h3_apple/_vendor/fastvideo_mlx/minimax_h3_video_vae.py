@@ -420,11 +420,31 @@ class MLXMiniMaxH3VideoVAE:
         logvar = mx.clip(logvar, -30.0, 20.0)
         return mean, logvar
 
-    def encode_keyframe(self, pixels):
-        """Single-frame conditioning encode without chunk padding."""
+    def encode_keyframe(self, pixels, *, tile_size: int | None = None, min_overlap: int = 64):
+        """Single-frame conditioning encode, optionally using native spatial tiling."""
+        if not self.has_encoder:
+            raise RuntimeError("This MLX H3 video VAE was loaded without encoder weights.")
         if pixels.shape[2] != 1:
             raise ValueError(f"encode_keyframe expects exactly one frame, got {pixels.shape}.")
-        moments = self._encode_clip(pixels)
+        if tile_size is None:
+            moments = self._encode_clip(pixels)
+        else:
+            ratio = self.spatial_compression_ratio
+            if (tile_size <= min_overlap or min_overlap <= 0 or
+                    tile_size % ratio or min_overlap % ratio or
+                    any(n % ratio for n in pixels.shape[-2:])):
+                raise ValueError("VAE tiles, overlaps and image dimensions must align to latent cells.")
+            ys, heights, yo = self._split_tiles(pixels.shape[-2], tile_size, min_overlap)
+            xs, widths, xo = self._split_tiles(pixels.shape[-1], tile_size, min_overlap)
+            rows = []
+            for y, height in zip(ys, heights, strict=True):
+                row = []
+                for x, width in zip(xs, widths, strict=True):
+                    moments = self._encode_clip(pixels[..., y:y + height, x:x + width])
+                    mx.eval(moments)
+                    row.append(moments)
+                rows.append(row)
+            moments = self._stitch_tiles(rows, [v // ratio for v in yo], [v // ratio for v in xo])
         mean, logvar = mx.split(moments, 2, axis=1)
         logvar = mx.clip(logvar, -30.0, 20.0)
         return mean, logvar

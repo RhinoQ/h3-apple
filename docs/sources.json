@@ -195,6 +195,79 @@
       "changes": [
         "Extract native key transforms, official VSA adapter merge, and full decoder conversion; omit other adapters and research bootstrap."
       ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/ref2va.py",
+      "sources": [
+        {
+          "repository": "https://github.com/hao-ai-lab/FastVideo",
+          "commit": "3d8ac9d14bd697a89ede8f170cbfbca012a9edcc",
+          "upstream_path": "fastvideo/pipelines/basic/minimax_h3/packing.py",
+          "upstream_sha256": "0d89ba718fafc9a842455edbaee57fda9c6855647c6d8c3d1426c86bb0d8e3b7"
+        },
+        {
+          "repository": "https://github.com/NVlabs/Sana",
+          "commit": "8e0db4fa562d727ea28b8d63015c196db7d97cae",
+          "upstream_path": "models/minimax_h3/Sol-H3-Spark/runtime/qwen_ops/media.py",
+          "upstream_sha256": "ad920c45a40175638c640d4edd5a4d70abb5573cdbdabc6946e0954c05b7e8ce"
+        }
+      ],
+      "changes": [
+        "NumPy host implementation of reference geometry and rotary clocks; reuse native H3 layout contract and grids.",
+        "Aspect-preserving per-image area budget; shared RGB preprocessing for Qwen and VAE.",
+        "Validate and extract only generated modality rows before decode or latent transfer.",
+        "No media encoder or public Ref2VA generation endpoint is introduced by this module."
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/ref2va_conditioning.py",
+      "sources": [
+        {
+          "repository": "https://github.com/hao-ai-lab/FastVideo",
+          "commit": "3d8ac9d14bd697a89ede8f170cbfbca012a9edcc",
+          "upstream_path": "fastvideo/pipelines/basic/minimax_h3/stages/minimax_h3_conditioning.py",
+          "upstream_sha256": "ae4ee5a0b1ad092933c56eb7869539120b52302c9e860eea811df86a0b8a5256"
+        },
+        {
+          "repository": "https://github.com/hao-ai-lab/FastVideo",
+          "commit": "3d8ac9d14bd697a89ede8f170cbfbca012a9edcc",
+          "upstream_path": "fastvideo/models/encoders/minimax_h3_qwen3_vl.py",
+          "upstream_sha256": "4c572e448d837bd27b4d42457e88f29e2c3c7608674a9246c41c8d9ca9357582"
+        },
+        {
+          "repository": "https://github.com/hao-ai-lab/FastVideo",
+          "commit": "3d8ac9d14bd697a89ede8f170cbfbca012a9edcc",
+          "upstream_path": "fastvideo/models/vaes/minimax_h3_video.py",
+          "upstream_sha256": "5dd2e568540401acbc7d03aeb7bcf795ee2b184674234828e5a4fd47253e3604"
+        }
+      ],
+      "changes": [
+        "Image-only native presentation, integer three-axis position IDs, and lazy official Transformers CPU vision tower with streamed native weights.",
+        "Encoder-only original H3 VAE loader; sampled keyframe latents use native tiling, CPU posterior seed 42, FP16 roundtrip and latent normalization.",
+        "Experimental primitives; image-plus-audio, video references and public Ref2VA generation are not qualified."
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/ref2va_pipeline.py",
+      "sources": [
+        {
+          "repository": "https://github.com/Kablex/ComfyUI-Ref2VA-VSA",
+          "commit": "92e3f8357c626f63cfe3813ec914f2cf3fbc500c",
+          "upstream_path": "nodes.py",
+          "upstream_sha256": "f9165bb942c744a23d707b51cc9cf8d4941fd818e014d009e0c5bca709e0635f"
+        },
+        {
+          "repository": "https://github.com/Comfy-Org/comfy-kitchen",
+          "commit": "62c5bb4a5f2f818d4be7e2a51f83aaf1286a1243",
+          "upstream_path": "comfy_kitchen/backends/eager/sol_attn.py",
+          "upstream_sha256": "58df0f6a498c92a2ce385b006399882a5898546bdc434f949a4880f9e50aab6e"
+        }
+      ],
+      "changes": [
+        "Independent MLX integration of Ref2VA LightX2V rank128/alpha8 updates plus only 50 FastH3 compression gates; 75% generated-video sparsity and ordered dense-exempt reference segments.",
+        "Uses native MiniMax components and Ours quantization/decode; does not reproduce ComfyUI ConvRot or CUDA RNG.",
+        "Separate kablex route: round non-sink top-k, retain ties, force adjacent tiles and use a single-rounding coarse add; default FastH3 routing unchanged."
+      ]
     }
   ],
   "calibration": {

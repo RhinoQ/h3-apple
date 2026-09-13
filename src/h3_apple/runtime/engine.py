@@ -25,7 +25,7 @@ class Pipeline(upstream.MiniMaxH3MLXPipeline):
         return OptimizedVideoVAE(base, calibration, self.observer)
 
 
-def run(request, assets, output_path, emit, diagnostics_dir=None):
+def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None):
     observer = Observer(emit, diagnostics_dir)
     timings = {}
     peaks = {}
@@ -45,22 +45,28 @@ def run(request, assets, output_path, emit, diagnostics_dir=None):
         peaks[name] = mx.get_peak_memory() / 1024**3
         return value
 
-    text, tags = phase("conditioning", lambda: pipeline.encode_prompt(request["prompt"]))
-    if not np.isfinite(text).all():
-        raise ValueError("Nonfinite conditioning.")
-    observer.capture("conditioning", lambda: {"text": text, "tags": tags})
     geometry = dict(height=request["model_height"], width=request["model_width"],
                     num_frames=request["model_num_frames"])
-    video, audio = phase("denoise", lambda: pipeline.denoise(
-        text, tags, **geometry, seed=request["seed"], num_steps=request["num_steps"],
-        vsa_config=MiniMaxH3VSAConfig(enabled=True, impl="simd")))
+    reference_metadata = None
+    if ref2va is None:
+        text, tags = phase("conditioning", lambda: pipeline.encode_prompt(request["prompt"]))
+        if not np.isfinite(text).all():
+            raise ValueError("Nonfinite conditioning.")
+        observer.capture("conditioning", lambda: {"text": text, "tags": tags})
+        video, audio = phase("denoise", lambda: pipeline.denoise(
+            text, tags, **geometry, seed=request["seed"], num_steps=request["num_steps"],
+            vsa_config=MiniMaxH3VSAConfig(enabled=True, impl="simd")))
+        stats = pipeline.last_vsa_stats
+        if (observer.nfe != 4 or observer.blocks != 200 or sparse_calls() != 200
+                or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200):
+            raise ValueError("Expected four complete VSA forwards without fallback.")
+    else:
+        from .ref2va_pipeline import condition_and_denoise
+        video, audio, reference_metadata, stats = condition_and_denoise(
+            request, ref2va, assets["checkpoint"], observer, phase)
     if not np.isfinite(video).all() or not np.isfinite(audio).all():
         raise ValueError("Nonfinite final latents.")
     observer.capture("latents", lambda: {"video": video, "audio": audio})
-    stats = pipeline.last_vsa_stats
-    if (observer.nfe != 4 or observer.blocks != 200 or sparse_calls() != 200
-            or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200):
-        raise ValueError("Expected four complete VSA forwards without fallback.")
     frames = phase("video_decode", lambda: pipeline.decode_video(video, **geometry))
     waveform = phase("audio_decode", lambda: pipeline.decode_audio(
         audio, num_frames=request["model_num_frames"]))
@@ -81,8 +87,13 @@ def run(request, assets, output_path, emit, diagnostics_dir=None):
     if audio_rms <= 1e-6 or video_std <= 0:
         raise ValueError("Generated audio is silent or video is constant.")
     phase("mux", lambda: pipeline.mux(frames, waveform, Path(output_path)))
-    return dict(timings_seconds=timings, peak_memory_gib=peaks, actual_nfe=observer.nfe,
+    result = dict(timings_seconds=timings, peak_memory_gib=peaks, actual_nfe=observer.nfe,
                 video_tiles=observer.tiles, vsa=stats, sparse_implementation="direct_nax",
                 diagnostic_export_seconds=observer.export_seconds,
                 diagnostics_enabled=diagnostics_dir is not None,
                 audio_rms=audio_rms, video_std=video_std)
+    if reference_metadata is not None:
+        result["ref2va"] = reference_metadata
+        if reference_metadata["attention"] == "dense":
+            result["sparse_implementation"] = None
+    return result

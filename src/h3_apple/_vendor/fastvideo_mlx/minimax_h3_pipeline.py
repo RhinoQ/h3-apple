@@ -301,7 +301,8 @@ class MiniMaxH3MLXPipeline:
         self,
         *,
         model_root: str | Path,
-        mlx_dit_checkpoint: str | Path,
+        mlx_dit_checkpoint: str | Path | None,
+        dit_config: dict | None = None,
         vae_dtype: str = "fp32",
         prompt_cache_dir: str | Path | None = None,
         conditioner_dir: str | Path | None = None,
@@ -327,7 +328,9 @@ class MiniMaxH3MLXPipeline:
                 logger.info("Could not raise the Metal wired limit: %s", error)
         self.model_root = Path(model_root)
         self.observer = observer
-        self.dit_checkpoint = Path(mlx_dit_checkpoint)
+        self.dit_checkpoint = Path(mlx_dit_checkpoint) if mlx_dit_checkpoint is not None else None
+        if self.dit_checkpoint is None and dit_config is None:
+            raise ValueError("A prepared checkpoint or explicit DiT geometry is required.")
         self.vae_dtype = vae_dtype
         if video_decode_backend not in ("h3-vae", "taeh3"):
             raise ValueError(f"Unknown H3 video decoder: {video_decode_backend}")
@@ -342,8 +345,9 @@ class MiniMaxH3MLXPipeline:
         self.conditioner_dir = Path(conditioner_dir) if conditioner_dir else self.model_root / "text_encoder"
         self.tokenizer_dir = Path(tokenizer_dir) if tokenizer_dir else self.model_root / "tokenizer"
         self._validate_inputs_before_loading()
-        manifest = json.loads((self.dit_checkpoint / H3_MANIFEST_FILENAME).read_text())
-        dit_config = manifest["config"]
+        if dit_config is None:
+            manifest = json.loads((self.dit_checkpoint / H3_MANIFEST_FILENAME).read_text())
+            dit_config = manifest["config"]
         patch_size = dit_config["patch_size"]
         if len(patch_size) != 3:
             raise ValueError(f"H3 DiT patch_size must have three dimensions, got {patch_size}.")
@@ -356,7 +360,7 @@ class MiniMaxH3MLXPipeline:
 
     def _validate_inputs_before_loading(self) -> bool:
         missing = []
-        if not self.dit_checkpoint.exists():
+        if self.dit_checkpoint is not None and not self.dit_checkpoint.exists():
             missing.append(str(self.dit_checkpoint))
         vae_dir = self.model_root / "vae"
         audio_dir = self.model_root / "audio_vae"
@@ -463,6 +467,8 @@ class MiniMaxH3MLXPipeline:
 
         owned_dit = dit is None
         if owned_dit:
+            if self.dit_checkpoint is None:
+                raise ValueError("T2VA denoise requires a prepared checkpoint or supplied DiT.")
             _validate_checkpoint_step_ladder(self.dit_checkpoint, num_steps)
             t0 = time.perf_counter()
             dit = load_mlx_h3_checkpoint(self.dit_checkpoint)

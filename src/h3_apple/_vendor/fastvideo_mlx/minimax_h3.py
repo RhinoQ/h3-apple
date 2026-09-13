@@ -550,6 +550,7 @@ def _attention(
     vsa_impl: str = "auto",
     vsa_stats: MiniMaxH3VSAStats | None = None,
     use_gate_compress: bool = False,
+    vsa_routing: str = "fasth3",
 ):
     """H3 attention: bias-free qkv, per-head qk RMSNorm, partial RoPE."""
     import mlx.core as mx
@@ -580,6 +581,7 @@ def _attention(
             gate_compress=gate,
             impl=vsa_impl,  # type: ignore[arg-type]
             stats=vsa_stats,
+            routing_mode=vsa_routing,
         )
     else:
         if vsa_stats is not None and use_rope:
@@ -638,6 +640,7 @@ def _transformer_block(
     vsa_impl: str = "auto",
     vsa_stats: MiniMaxH3VSAStats | None = None,
     use_gate_compress: bool = False,
+    vsa_routing: str = "fasth3",
 ):
     shift_msa, scale_msa, gate_msa, shift_mlp, scale_mlp, gate_mlp = tables
 
@@ -659,6 +662,7 @@ def _transformer_block(
         vsa_impl=vsa_impl,
         vsa_stats=vsa_stats,
         use_gate_compress=use_gate_compress,
+        vsa_routing=vsa_routing,
     )
     hidden_states = residual + gate_msa[adaln_indices] * attn_output
 
@@ -848,6 +852,7 @@ class MLXMiniMaxH3DiT:
             configured_sparsity=self.vsa_config.sparsity,
             tile_size=self.vsa_config.tile_size,
             prefix_mode=self.vsa_config.prefix_mode,
+            routing_mode=self.vsa_config.routing_mode,
         ) if self.vsa_config.enabled else None
 
     def prepare_vsa_geometry(self, layout: MiniMaxH3PackedLayout) -> MiniMaxH3VSAGeometry | None:
@@ -891,6 +896,7 @@ class MLXMiniMaxH3DiT:
             "vsa_impl": self.vsa_config.impl,
             "vsa_stats": stats,
             "use_gate_compress": geometry is not None and self._block_gate_active(block_index),
+            "vsa_routing": self.vsa_config.routing_mode,
         }
 
     # -- forward ------------------------------------------------------------
