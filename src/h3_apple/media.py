@@ -18,6 +18,24 @@ def tool(name):
     return found
 
 
+def probe_reference(path, kind):
+    """Bound local input inspection before launching the model worker."""
+    path = Path(path)
+    if not path.is_file():
+        raise FileNotFoundError(path)
+    result = subprocess.run([tool("ffprobe"), "-v", "error", "-show_streams", "-show_format",
+                             "-of", "json", str(path)], capture_output=True, text=True,
+                            check=True, timeout=30)
+    data = json.loads(result.stdout)
+    streams = [s for s in data.get("streams", []) if s["codec_type"] == ("video" if kind == "videos" else "audio")]
+    if len(streams) != 1:
+        raise ValueError(f"Expected one {kind} stream in {path.name}.")
+    duration = float(streams[0].get("duration", data["format"].get("duration", 0)))
+    if not 0 < duration <= 60:
+        raise ValueError("Reference media must have a finite duration up to 60 seconds.")
+    return data
+
+
 def validate(path, expected, *, allow_aac_padding=False):
     path = Path(path)
     if not path.is_file() or path.stat().st_size == 0:

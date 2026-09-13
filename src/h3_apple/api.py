@@ -26,6 +26,10 @@ class GenerationRequest:
     num_steps: int = 4
     reference_images: tuple[str, ...] = ()
     task: str = "t2va"
+    reference_videos: tuple[str, ...] = ()
+    reference_audio: tuple[str, ...] = ()
+    first_frame: str | None = None
+    last_frame: str | None = None
 
     def to_dict(self):
         return asdict(self)
@@ -40,7 +44,8 @@ class GenerationResult:
 
 
 def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
-            duration=15, seed=None, reference_images=None):
+            duration=15, seed=None, reference_images=None, reference_videos=None,
+            reference_audio=None, aspect_ratio="16:9", first_frame=None, last_frame=None):
     """Return the delivery and model geometry without importing MLX.
 
     Durations are 5–15 seconds in whole delivery frames at 24 fps. The model
@@ -67,11 +72,52 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
                 if getattr(image, "n_frames", 1) != 1:
                     raise ValueError("Reference inputs must be still images, not animations or videos.")
                 image.verify()
+    def media_paths(values, kind):
+        if values is None:
+            return ()
+        if not isinstance(values, (list, tuple)) or not 1 <= len(values) <= 3:
+            raise ValueError(f"reference_{kind} must contain 1–3 local media paths.")
+        from .media import probe_reference
+        paths = []
+        for value in values:
+            if not isinstance(value, (str, Path)) or not str(value).strip():
+                raise ValueError("Each reference needs a local file path.")
+            path = Path(value).expanduser().resolve()
+            probe_reference(path, kind)
+            paths.append(str(path))
+        return tuple(paths)
+    videos = media_paths(reference_videos, "videos")
+    audio = media_paths(reference_audio, "audio")
+    if audio and not (references or videos):
+        raise ValueError("Audio references require at least one image or video reference.")
+    if len(references) + len(videos) + len(audio) > 12:
+        raise ValueError("A request supports at most 12 reference files.")
+    has_references = bool(references or videos or audio)
+    keyframes = []
+    for value in (first_frame, last_frame):
+        if value is None:
+            keyframes.append(None)
+            continue
+        if not isinstance(value, (str, Path)) or not str(value).strip():
+            raise ValueError("A first or last frame needs a local still-image path.")
+        from PIL import Image
+        path = Path(value).expanduser().resolve()
+        with Image.open(path) as image:
+            if getattr(image, "n_frames", 1) != 1:
+                raise ValueError("Keyframes must be still images.")
+            image.verify()
+        keyframes.append(str(path))
+    has_keyframes = any(keyframes)
+    if has_keyframes and has_references:
+        raise ValueError("First/last frames and Ref2VA references use different model tasks.")
+    task = "fl2va" if has_keyframes else "ref2va" if has_references else "t2va"
     if resolution is None:
-        resolution = "576p" if references else "768p"
+        resolution = "576p" if has_references or has_keyframes else "768p"
     canvases = {"768p": (1366, 768, 1376), "576p": (1024, 576, 1024)}
     if resolution not in canvases:
         raise ValueError("resolution must be '768p' or '576p'.")
+    if aspect_ratio not in ("16:9", "9:16"):
+        raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     if isinstance(duration, bool):
         raise ValueError("duration must be a number of seconds.")
     try:
@@ -89,16 +135,22 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
         raise ValueError("seed must be an integer from 0 to 4294967295.")
     count = int(frames.to_integral_value())
     width, height, model_width = canvases[resolution]
+    model_height = height
+    if aspect_ratio == "9:16":
+        width, height, model_width, model_height = height, width, height, model_width
     return GenerationRequest(prompt, preset, resolution, count / 24, seed,
-                             width, height, count, model_width, height,
+                             width, height, count, model_width, model_height,
                              ((count - 5 + 16) // 17) * 17 + 5,
-                             preset_version="ours-ref2va-v1" if references else "ours-v1",
-                             reference_images=references, task="ref2va" if references else "t2va")
+                             preset_version="ours-fl2va-guide1" if has_keyframes else "ours-ref2va-v1" if has_references else "ours-v1",
+                             reference_images=references, task=task,
+                             reference_videos=videos, reference_audio=audio,
+                             first_frame=keyframes[0], last_frame=keyframes[1])
 
 
 def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
              duration=15, seed=None, output=None, model_dir=None, on_progress=None,
-             diagnostics=False, timeout=7200, reference_images=None):
+             diagnostics=False, timeout=7200, reference_images=None, reference_videos=None,
+             reference_audio=None, aspect_ratio="16:9", first_frame=None, last_frame=None):
     """Generate a complete MP4 and metadata; Ctrl-C cancels the whole worker group.
 
     on_progress receives small dictionaries in the caller process. diagnostics
@@ -106,7 +158,9 @@ def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
     """
     request = resolve(prompt, prompt_file=prompt_file, preset=preset,
                       resolution=resolution, duration=duration, seed=seed,
-                      reference_images=reference_images)
+                      reference_images=reference_images, reference_videos=reference_videos,
+                      reference_audio=reference_audio, aspect_ratio=aspect_ratio,
+                      first_frame=first_frame, last_frame=last_frame)
     from .process import run_generation
 
     return run_generation(request, output=output, model_dir=model_dir,

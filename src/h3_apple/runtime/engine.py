@@ -61,7 +61,13 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
                 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200):
             raise ValueError("Expected four complete VSA forwards without fallback.")
     else:
-        from .ref2va_pipeline import condition_and_denoise
+        if ref2va.get("task") == "fl2va":
+            from .fl2va_pipeline import condition_and_denoise
+        elif ref2va.get("video_paths") or ref2va.get("audio_paths"):
+            from .ref2va_multimodal import condition_and_denoise
+            ref2va = dict(ref2va, audio_vae=str(Path(assets["components"]) / "audio_vae"))
+        else:
+            from .ref2va_pipeline import condition_and_denoise
         video, audio, reference_metadata, stats = condition_and_denoise(
             request, ref2va, assets["checkpoint"], observer, phase)
     if not np.isfinite(video).all() or not np.isfinite(audio).all():
@@ -77,7 +83,8 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
         raise ValueError("Unexpected decoded video geometry.")
     observer.capture("audio", lambda: {"waveform": waveform})
     left = (request["model_width"] - request["width"]) // 2
-    frames = frames[:request["num_frames"], :, left:left + request["width"]]
+    top = (request["model_height"] - request["height"]) // 2
+    frames = frames[:request["num_frames"], top:top + request["height"], left:left + request["width"]]
     samples = request["num_frames"] * request["audio_sample_rate"] // request["fps"]
     if waveform.shape[-1] < samples:
         raise ValueError("Generated audio does not cover the delivery duration.")
@@ -93,7 +100,7 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
                 diagnostics_enabled=diagnostics_dir is not None,
                 audio_rms=audio_rms, video_std=video_std)
     if reference_metadata is not None:
-        result["ref2va"] = reference_metadata
+        result[reference_metadata["task"]] = reference_metadata
         if reference_metadata["attention"] == "dense":
             result["sparse_implementation"] = None
     return result

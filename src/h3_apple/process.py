@@ -39,7 +39,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     assets = load_assets(model_dir)
     if assets.get("task", "t2va") != request.task:
         raise ValueError(f"This request needs a {request.task.upper()} model bundle; select the matching --model-dir.")
-    if request.task == "ref2va":
+    if request.task in ("ref2va", "fl2va"):
         from importlib.util import find_spec
         if find_spec("torch") is None or find_spec("torchvision") is None:
             raise RuntimeError("Reference-image generation needs the ref2va extra. Run ./install.sh --ref2va.")
@@ -82,6 +82,18 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                                        start_new_session=True)
             spec = dict(request=request.to_dict(), assets=assets, workspace=str(workspace),
                         diagnostics=diagnostics)
+            if request.task == "fl2va":
+                paths, anchors = [], []
+                for anchor, source in (("first", request.first_frame), ("last", request.last_frame)):
+                    if source is None:
+                        continue
+                    target = workspace / f"keyframe-{anchor}{Path(source).suffix}"
+                    shutil.copyfile(source, target)
+                    paths.append(str(target)); anchors.append(anchor)
+                    run.setdefault("reference_inputs", []).append(dict(kind="keyframe", anchor=anchor,
+                        source=source, sha256=digest(target), size=target.stat().st_size))
+                spec["ref2va"] = dict(task="fl2va", native_root=assets["fl2va_native"],
+                    image_paths=paths, anchors=anchors, attention="dense")
             if request.reference_images:
                 # Snapshot the small user inputs so one run has immutable references.
                 references = []
@@ -94,6 +106,17 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                                                         sha256=digest(target), size=target.stat().st_size))
                 spec["ref2va"] = dict(native_root=assets["ref2va_native"], image_paths=references,
                                       pixel_budget=672 * 384, attention="vsa")
+            if request.reference_videos or request.reference_audio:
+                options = spec.setdefault("ref2va", dict(native_root=assets["ref2va_native"],
+                    image_paths=[], pixel_budget=672 * 384, attention="vsa"))
+                for kind, paths in (("video", request.reference_videos), ("audio", request.reference_audio)):
+                    options[f"{kind}_paths"] = []
+                    for index, source in enumerate(paths):
+                        target = workspace / f"reference-{kind}-{index + 1}{Path(source).suffix}"
+                        shutil.copyfile(source, target)
+                        options[f"{kind}_paths"].append(str(target))
+                        run.setdefault("reference_inputs", []).append(dict(kind=kind, index=index + 1,
+                            source=source, sha256=digest(target), size=target.stat().st_size))
             process.stdin.write(json.dumps(spec) + "\n")
             process.stdin.close()
             run.update(status="running", worker_pid=process.pid)

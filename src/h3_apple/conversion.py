@@ -246,10 +246,10 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
     import mlx.core as mx
     from ._vendor.fastvideo_mlx import minimax_h3 as h3
     native, adapter, output = Path(native), Path(adapter), Path(output)
-    if task not in ("t2va", "ref2va"):
-        raise ValueError("DiT conversion task must be t2va or ref2va.")
-    if gate_source is not None and task != "ref2va":
-        raise ValueError("A separate gate source is only valid for Ref2VA.")
+    if task not in ("t2va", "ref2va", "fl2va"):
+        raise ValueError("DiT conversion task must be t2va, ref2va or fl2va.")
+    if gate_source is not None and task == "t2va":
+        raise ValueError("A separate gate source is only valid for conditioned LightX2V tasks.")
     if output.exists():
         raise FileExistsError(output)
     shards = sorted(native.glob("model-*.safetensors"))
@@ -264,7 +264,11 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
                 shapes[target] = ((record.shape[0] // 3, *record.shape[1:])
                                   if op in ("q", "k", "v") else record.shape)
     adapter_header = header(adapter)
-    plans = ref2va_adapter_plan(adapter_header, shapes) if task == "ref2va" else adapter_plan(adapter_header, shapes, vsa=True)
+    if task == "fl2va":
+        # Official FL v0.1 omits alpha in its header. The upstream inference
+        # entry point explicitly supplies LoraConfig(lora_alpha=8), rank 128.
+        adapter_header.metadata.setdefault("alpha", "8")
+    plans = ref2va_adapter_plan(adapter_header, shapes) if task != "t2va" else adapter_plan(adapter_header, shapes, vsa=True)
     adapter_tensors = mx.load(str(adapter))
     consumed = set()
     gates = ref2va_gate_plan(header(gate_source)) if gate_source is not None else {}
@@ -280,7 +284,7 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
             for target, op in native_key_plan(key):
                 base = transform_native(value, op, xp=mx)
                 converted[target] = (merge_parameter(base, plans[target], adapter_tensors,
-                    xp=mx, consumed=consumed, lora_scale=8/128 if task == "ref2va" else 1.0) if target in plans else base)
+                    xp=mx, consumed=consumed, lora_scale=8/128 if task != "t2va" else 1.0) if target in plans else base)
         if phase == "weights" and shard == shards[-1]:
             for target, edits in plans.items():
                 if "set_weight" in edits:
@@ -294,7 +298,7 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
 
     timesteps = np.unique(np.concatenate([
         1 - h3.minimax_h3_sigmas(12, 4)[:-1],
-        1 - h3.minimax_h3_sigmas(3, 4)[:-1], [1.0, 0.999] if task == "ref2va" else [1.0]]).astype(np.float32))
+        1 - h3.minimax_h3_sigmas(3, 4)[:-1], [1.0, 0.999] if task != "t2va" else [1.0]]).astype(np.float32))
     dit = h3.mlx_h3_dit_from_diffusers_safetensors(native, config=CONFIG, dtype="bf16",
         quantization="int8", adaln_cache_timesteps=timesteps,
         include_vsa=task == "t2va" or bool(gates), _shard_loader=load)
@@ -303,9 +307,9 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
     if gates_consumed != set(gates.values()):
         raise ValueError("The converted model did not consume all selected gates.")
     h3.save_mlx_h3_checkpoint(dit, output)
-    if task == "ref2va":
-        (output / "ref2va_recipe.json").write_text(json.dumps(dict(
-            schema="h3-apple-ref2va/v1", task=task, lora_rank=128, lora_alpha=8,
+    if task != "t2va":
+        (output / f"{task}_recipe.json").write_text(json.dumps(dict(
+            schema=f"h3-apple-{task}/v1", task=task, lora_rank=128, lora_alpha=8,
             lora_tensors=len(consumed), gate_tensors=len(gates_consumed),
             base_directory=str(native.resolve()), adapter_path=str(adapter.resolve()),
             gate_source=None if gate_source is None else str(Path(gate_source).resolve()),
