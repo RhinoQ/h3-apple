@@ -3,7 +3,7 @@
   "title": "Desert departure",
   "source_case": "Desert Fashion Campaign",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 4,
     "videos": 0,
@@ -18,11 +18,9 @@
   },
   "prompt": "Create a premium 16:9 landscape fashion film. Use Image 1 for the overall mood, location, and film texture; Image 2 for the talent; Image 3 for the bag; and Image 4 for the closing brand mark. This is a fashion campaign for the clothing and bag. The tone is elevated, cool, and restrained, but the edit should still feel lively and fashion-forward—not like a conventional narrative film or an e-commerce ad.\n\nKeep the story simple: beside a vintage car on a desert highway, a woman walks to the rear of the car, opens the trunk, takes out a black bag, shares a quiet beat with the man standing nearby, then leaves carrying the bag. Integrate the clothing and bag naturally into the performance so they feel like part of the characters’ identity.",
   "prompt_sha256": "37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377",
-  "notes": [
-    "This fixed-seed generation is in progress."
-  ],
+  "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev2",
       "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -78,5 +76,64 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "seed": 42,
+  "started_utc": "2026-09-13T14:00:40.963853+00:00",
+  "elapsed_seconds": 1085.2107993750833,
+  "actual_nfe": 4,
+  "video_sha256": "e97d6f64fab3fe6f70cd5e2f98ae257e6e09b0f5c5d6f8871cd6a2ef631b6b56",
+  "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+  "timings_seconds": {
+    "conditioning": 21.17503683292307,
+    "denoise": 959.4917378749233,
+    "video_decode": 99.00627987505868,
+    "audio_decode": 1.191626040963456,
+    "mux": 1.451712999958545
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.0408701095730066,
+    "denoise": 36.328547856770456,
+    "video_decode": 18.14845885708928,
+    "audio_decode": 2.7442177645862103,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 15.0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "index": 1,
+      "sha256": "981f9b6eec1a3e436d3b9af1ad61daadd569146be1252151e22b9e4705313d9c",
+      "size": 43072
+    },
+    {
+      "index": 2,
+      "sha256": "0ec8d5ddf1bdc1a7ec54eb16ea14250ddeddf838b4fb161d15eb115046e1d44b",
+      "size": 38866
+    },
+    {
+      "index": 3,
+      "sha256": "1bc50aadf215b6b2d4e0bb345bfd0a2e8fdf26f2ec31a4d71b59b70ed7e31028",
+      "size": 53706
+    },
+    {
+      "index": 4,
+      "sha256": "2bf9e65f2dfd17e62e1cc31e377227955ce4282d6898a4ee661a43f472f5219b",
+      "size": 4758
+    }
+  ],
+  "runtime_version": "0.1.0.dev2",
+  "attention": "vsa",
+  "experimental_input_support": false,
+  "creative_quality_review": "Not independently rated for this collection"
 }
