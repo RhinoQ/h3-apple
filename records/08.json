@@ -3,7 +3,7 @@
   "title": "After-hours laundry",
   "source_case": "Neon Laundromat Encounter",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 0,
