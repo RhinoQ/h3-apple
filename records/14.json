@@ -3,7 +3,7 @@
   "title": "The forbidden wing",
   "source_case": "Vampire Romance Short Drama",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 2,
     "videos": 0,
@@ -20,7 +20,7 @@
   "prompt_sha256": "827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev3+guide2",
       "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -63,6 +63,59 @@
     "source_case": "Vampire Romance Short Drama",
     "resolution": "768p",
     "reason": "The castle story and full-body cast references allow wider two-person shots despite a preference for close-ups."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-13T20:29:21.226155+00:00",
+  "elapsed_seconds": 2099.8535163749475,
+  "actual_nfe": 4,
+  "video_sha256": "ca194c5ee7c01fc70b01000424508cc5768910ab13991faa308bf91e5facb333",
+  "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+  "timings_seconds": {
+    "conditioning": 16.071126542054117,
+    "denoise": 1896.0282184157986,
+    "video_decode": 180.71861258288845,
+    "audio_decode": 1.184283124981448,
+    "mux": 2.118971083080396
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.027091059833765,
+    "denoise": 46.3862209636718,
+    "video_decode": 24.010641492903233,
+    "audio_decode": 2.629196535795927,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 15.0,
+    "width": 768,
+    "height": 1366,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "index": 1,
+      "sha256": "7e9cb5918f6f320c8429fcf854d7bd48d69c6de602f8e66af81416b8f9e0292c",
+      "size": 34192
+    },
+    {
+      "index": 2,
+      "sha256": "fad2b361dcbb740132106d2b16d60bb3543a7acd7793f1be792dd54a576ec10f",
+      "size": 69456
+    }
+  ],
+  "runtime_version": "0.1.0.dev3+guide2",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/14-768p-ca194c5ee7c0-output.mp4",
+    "poster": "media/14-768p-ca194c5ee7c0-poster.jpg"
   },
   "previous_results": []
 }

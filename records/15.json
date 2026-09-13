@@ -3,7 +3,7 @@
   "title": "Future in focus",
   "source_case": "Futuristic Eyewear Campaign",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 3,
     "videos": 0,
