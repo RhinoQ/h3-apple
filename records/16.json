@@ -3,7 +3,7 @@
   "title": "Made for the working day",
   "source_case": "Ergonomic Chair Product Film",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 2,
     "videos": 0,
