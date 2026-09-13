@@ -3,7 +3,7 @@
   "title": "After-hours laundry",
   "source_case": "Neon Laundromat Encounter",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 0,
     "videos": 0,
@@ -20,7 +20,7 @@
   "prompt_sha256": "c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev2",
       "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -41,6 +41,48 @@
     "source_case": "Neon Laundromat Encounter",
     "resolution": "576p",
     "reason": "A first-person laundromat scene; no human face is requested."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-13T17:32:53.697816+00:00",
+  "elapsed_seconds": 716.6231690419372,
+  "actual_nfe": 4,
+  "video_sha256": "263f134cd14cf41b111354affc1d4ac0c809829bcc0466d5d59cb070ccc889bb",
+  "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+  "timings_seconds": {
+    "conditioning": 9.561104959109798,
+    "denoise": 604.2427089170087,
+    "video_decode": 97.67499816697091,
+    "audio_decode": 1.1757137500680983,
+    "mux": 1.6620002498384565
+  },
+  "peak_memory_gib": {
+    "conditioning": 2.063126603141427,
+    "denoise": 35.41848973184824,
+    "video_decode": 18.17066039517522,
+    "audio_decode": 2.766466047614813,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 15.0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-v1",
+    "task": "t2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+  "input_hashes": [],
+  "runtime_version": "0.1.0.dev2",
+  "attention": "vsa",
+  "experimental_input_support": false,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/08-576p-263f134cd14c-output.mp4",
+    "poster": "media/08-576p-263f134cd14c-poster.jpg"
   },
   "previous_results": []
 }
