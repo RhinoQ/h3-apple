@@ -3,7 +3,7 @@
   "title": "The silent gateway",
   "source_case": "Sci-Fi Mystery Teaser",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 2,
     "videos": 0,

@@ -2,9 +2,10 @@
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
   "available_cases": 4,
   "status_counts": {
-    "running": 1,
+    "generated": 1,
     "paused": 8,
-    "queued": 35
+    "running": 1,
+    "queued": 34
   },
   "cases": [
     {
@@ -12,7 +13,7 @@
       "title": "Through the binoculars",
       "source_case": "Vintage Binocular Brand Film",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 4,
         "videos": 0,
@@ -31,7 +32,7 @@
         "Reference order follows the source page: architecture, person, flag, close-up. The prompt’s Image 2 / Image 3 labels are inconsistent with that order."
       ],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev2",
           "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -93,6 +94,69 @@
         "source_case": "Vintage Binocular Brand Film",
         "resolution": "768p",
         "reason": "The binocular composition includes a walking, full-body person inside a restricted lens view."
+      },
+      "seed": 42,
+      "started_utc": "2026-09-13T14:36:22.326957+00:00",
+      "elapsed_seconds": 2326.809881666908,
+      "actual_nfe": 4,
+      "video_sha256": "8d7b0da092f8e4952df3343acd74014f0367e6653393ee8661d304d2b6424da4",
+      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "timings_seconds": {
+        "conditioning": 22.491573834093288,
+        "denoise": 2113.457050499972,
+        "video_decode": 183.65678850002587,
+        "audio_decode": 1.1872729579918087,
+        "mux": 2.2203624171670526
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.2918388675898314,
+        "denoise": 54.36203669663519,
+        "video_decode": 24.010641492903233,
+        "audio_decode": 2.747775658965111,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": true,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "365597a065ed4d7b7d0d7a19dcb816de44c1a32e59b38d832b5eeef4e66a429c",
+          "size": 58686
+        },
+        {
+          "index": 2,
+          "sha256": "aa5f0fbe9019f799629464682d0c24f919edab23a423a2e35dac8e9db5e1290c",
+          "size": 54660
+        },
+        {
+          "index": 3,
+          "sha256": "1d2bb515fabfb0d535b41ebc54aa053b4580db16f9227fa961b1d1ed56dfb5f6",
+          "size": 89524
+        },
+        {
+          "index": 4,
+          "sha256": "3fc4a00a864d9d120b37dcc5319cfde56e416eb958e2bab26eb66e64b91574e7",
+          "size": 54786
+        }
+      ],
+      "runtime_version": "0.1.0.dev2",
+      "attention": "vsa",
+      "experimental_input_support": false,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/01-768p-8d7b0da092f8-output.mp4",
+        "poster": "media/01-768p-8d7b0da092f8-poster.jpg"
       },
       "previous_results": [
         {
@@ -168,7 +232,7 @@
       "title": "The silent gateway",
       "source_case": "Sci-Fi Mystery Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 2,
         "videos": 0,

@@ -35,13 +35,56 @@
     </aside>
     <article class="article">
       <div id="examples"><section id="overview" class="overview"><div class="section-label">THE REPRODUCTION LOG</div><h2>Every case, accounted for.</h2>
-<p class="collection-state"><strong>4 cases have a video</strong><span>0 completed at the current resolution</span><span>36 requests queued or running</span><span>8 paused for VSA evaluation</span><span>0 need further work</span></p>
+<p class="collection-state"><strong>4 cases have a video</strong><span>1 completed at the current resolution</span><span>35 requests queued or running</span><span>8 paused for VSA evaluation</span><span>0 need further work</span></p>
 <p>The collection keeps the source order. Small-face scenes use native 768p. Earlier 576p videos remain available with their own parameters and commands while the new requests run.</p></section>
 <section class="case-group" id="group-1"><div class="section-label">01 / STUDIES</div><h2>Film &amp; campaigns</h2></section>
 <section class="case" id="case-01"><h3><span class="case-number">01</span>Through the binoculars</h3>
-<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> The binocular composition includes a walking, full-body person inside a restricted lens view.</p>
+<p class="runtime-note"><strong>Current request: 768p · Generated.</strong> The binocular composition includes a walking, full-body person inside a restricted lens view.</p>
 <div class="case-note"><p>Reference order follows the source page: architecture, person, flag, close-up. The prompt’s Image 2 / Image 3 labels are inconsistent with that order.</p></div>
-<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is generating.</p>
+<figure class="result"><video controls playsinline preload="none" poster="media/01-768p-8d7b0da092f8-poster.jpg" width="1366" height="768" aria-label="Through the binoculars, 768p H3 Apple output"><source src="media/01-768p-8d7b0da092f8-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 768p · 1366 × 768 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>38 min 47 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-01">Copy prompt</button></div><pre class="prompt-text" id="prompt-01">Use Images 1–4 as sequential keyframes, seen through a vintage binocular viewfinder searching for the MINIMAX installation. Open out of focus with subtle handheld shake, then push in quickly and rack focus onto Image 1. Between keyframes, use fast binocular-scan transitions with whip movement, motion blur, optical smearing, and brief exposure flicker. Cut at peak blur, then settle and snap back into focus. Keep the twin circular lens mask absolutely fixed throughout: identical position, scale, feathered black vignette, and edge softness, with no warping or drift. Only the image inside the mask may move.
+
+In Image 2, let the fabric move gently in the wind while the MINIMAX lettering follows the folds and remains legible. In Image 3, the subject should feel like a stylish passerby caught by chance, walking, turning, and swinging their arms naturally. In Image 4, the subject adjusts their glasses or lifts their chin slightly with a cool, effortless fashion-campaign attitude.
+
+Red typography should resolve with the focus: begin slightly blurred and at low opacity, then fade into clarity over 0.3–0.5 seconds. A subtle vertical slide or slight tracking expansion is allowed. Fade it out before the next transition or let motion blur carry it away. No spins, bounces, or large fly-ins/outs.
+
+Visual language: a voyeuristic, Wes Anderson-inspired 35 mm film look with fine grain, soft highlight halation, restrained color, and red typographic accents. Minimal, premium, lightly playful. Do not add people, vehicles, buildings, or logos. Preserve the core composition and the MINIMAX installation exactly.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" alt="Image 1, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" alt="Image 2, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" alt="Image 3, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" alt="Image 4, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-01">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-01">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 1 --directory case-01
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-01 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-01/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-01/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;768p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-01/image-01.webp&#x27;, &#x27;case-01/image-02.webp&#x27;, &#x27;case-01/image-03.webp&#x27;, &#x27;case-01/image-04.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-01/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
+<details class="earlier-result"><summary>Earlier 576p result</summary>
 <figure class="result"><video controls playsinline preload="none" poster="media/01-poster.jpg" width="1024" height="576" aria-label="Through the binoculars, 576p H3 Apple output"><source src="media/01-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>22 min 07 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-01-576p-302b26f682a4">Copy prompt</button></div><pre class="prompt-text" id="prompt-01-576p-302b26f682a4">Use Images 1–4 as sequential keyframes, seen through a vintage binocular viewfinder searching for the MINIMAX installation. Open out of focus with subtle handheld shake, then push in quickly and rack focus onto Image 1. Between keyframes, use fast binocular-scan transitions with whip movement, motion blur, optical smearing, and brief exposure flicker. Cut at peak blur, then settle and snap back into focus. Keep the twin circular lens mask absolutely fixed throughout: identical position, scale, feathered black vignette, and edge softness, with no warping or drift. Only the image inside the mask may move.
@@ -87,50 +130,6 @@ generate(
     timeout=7200,
 )</code></pre></details></div>
 <p><a href="records/01-576p-302b26f682a4.json">Earlier run record ↗</a></p>
-<details class="api-call"><summary>Planned 768p generation command</summary>
-<div class="reproduction"><h4>Reproduce this video</h4>
-<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
-<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-01">Copy prompt</button></div><pre class="prompt-text" id="prompt-01">Use Images 1–4 as sequential keyframes, seen through a vintage binocular viewfinder searching for the MINIMAX installation. Open out of focus with subtle handheld shake, then push in quickly and rack focus onto Image 1. Between keyframes, use fast binocular-scan transitions with whip movement, motion blur, optical smearing, and brief exposure flicker. Cut at peak blur, then settle and snap back into focus. Keep the twin circular lens mask absolutely fixed throughout: identical position, scale, feathered black vignette, and edge softness, with no warping or drift. Only the image inside the mask may move.
-
-In Image 2, let the fabric move gently in the wind while the MINIMAX lettering follows the folds and remains legible. In Image 3, the subject should feel like a stylish passerby caught by chance, walking, turning, and swinging their arms naturally. In Image 4, the subject adjusts their glasses or lifts their chin slightly with a cool, effortless fashion-campaign attitude.
-
-Red typography should resolve with the focus: begin slightly blurred and at low opacity, then fade into clarity over 0.3–0.5 seconds. A subtle vertical slide or slight tracking expansion is allowed. Fade it out before the next transition or let motion blur carry it away. No spins, bounces, or large fly-ins/outs.
-
-Visual language: a voyeuristic, Wes Anderson-inspired 35 mm film look with fine grain, soft highlight halation, restrained color, and red typographic accents. Minimal, premium, lightly playful. Do not add people, vehicles, buildings, or logos. Preserve the core composition and the MINIMAX installation exactly.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
-<h5>Reference inputs · in supplied order</h5>
-<div class="reference-grid">
-<figure class="reference">
-<a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" alt="Image 1, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
-<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp">Open original ↗</a></figcaption></figure>
-<figure class="reference">
-<a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" alt="Image 2, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
-<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp">Open original ↗</a></figcaption></figure>
-<figure class="reference">
-<a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" alt="Image 3, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
-<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp">Open original ↗</a></figcaption></figure>
-<figure class="reference">
-<a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" alt="Image 4, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
-<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp">Open original ↗</a></figcaption></figure>
-</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-01">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-01">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 1 --directory case-01
-./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-01 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-01/run-01.mp4</code></pre>
-<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
-from pathlib import Path
-from h3_apple import generate
-from h3_apple.progress import ProgressBar
-
-generate(
-    prompt=Path(&quot;case-01/prompt.txt&quot;).read_text(),
-    seed=42,
-    resolution=&#x27;768p&#x27;,
-    duration=15.0,
-    reference_images=[&#x27;case-01/image-01.webp&#x27;, &#x27;case-01/image-02.webp&#x27;, &#x27;case-01/image-03.webp&#x27;, &#x27;case-01/image-04.webp&#x27;],
-    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
-    output=&quot;case-01/run-01.mp4&quot;,
-    on_progress=ProgressBar(),
-    timeout=7200,
-)</code></pre></details></div>
 </details>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">Source prompt &amp; inputs ↗</a><a href="records/01.json">Current case record ↗</a></div>
 </section>
@@ -208,8 +207,8 @@ generate(
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/02.json">Current case record ↗</a></div>
 </section>
 <section class="case" id="case-03"><h3><span class="case-number">03</span>The silent gateway</h3>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The prompt requests a tiny protagonist in an ultra-wide shot. Use 768p conservatively, although this shot specifies a rear view.</p>
-<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is queued.</p>
+<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> The prompt requests a tiny protagonist in an ultra-wide shot. Use 768p conservatively, although this shot specifies a rear view.</p>
+<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is generating.</p>
 <figure class="result"><video controls playsinline preload="none" poster="media/03-poster.jpg" width="1024" height="576" aria-label="The silent gateway, 576p H3 Apple output"><source src="media/03-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>2 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>19 min 51 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-03-576p-54699f979fd3">Copy prompt</button></div><pre class="prompt-text" id="prompt-03-576p-54699f979fd3">Sci-fi mystery teaser
