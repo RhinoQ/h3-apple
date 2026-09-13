@@ -58,3 +58,31 @@ def test_cli_installed_outside_checkout(tmp_path):
                              "--duration", "5", "--seed", "123"], cwd=tmp_path,
                             text=True, capture_output=True, check=True)
     assert json.loads(result.stdout)["seed"] == 123
+
+
+def test_ordered_references_and_task_defaults(tmp_path):
+    from PIL import Image
+    paths = [tmp_path / "second.png", tmp_path / "first.png"]
+    for path in paths:
+        Image.new("RGB", (32, 48)).save(path)
+    request = resolve("Use picture 1 then picture 2.\n", reference_images=paths)
+    assert request.reference_images == tuple(map(str, paths))
+    assert (request.task, request.resolution, request.preset_version) == ("ref2va", "576p", "ours-ref2va-v1")
+    assert request.prompt == "Use picture 1 then picture 2.\n"
+    assert resolve("Text").resolution == "768p"
+    assert resolve("Text", reference_images=paths, resolution="768p").resolution == "768p"
+
+
+@pytest.mark.parametrize("references", [[], ["x"] * 10, "x.png", [None], [""]])
+def test_invalid_reference_lists_rejected(references):
+    with pytest.raises(ValueError, match="reference|Reference"):
+        resolve("Text", reference_images=references)
+
+
+def test_animation_is_not_a_still_reference(tmp_path):
+    from PIL import Image
+    path = tmp_path / "animated.gif"
+    Image.new("RGB", (32, 32), "red").save(path, save_all=True,
+        append_images=[Image.new("RGB", (32, 32), "blue")], duration=100)
+    with pytest.raises(ValueError, match="still images"):
+        resolve("Text", reference_images=[path])

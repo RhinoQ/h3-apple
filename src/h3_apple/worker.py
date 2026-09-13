@@ -69,9 +69,14 @@ def main():
             threading.Thread(target=watch, daemon=True).start()
             emit({"phase": "loading", "message": "Checking the runtime and preparing generation"})
             backend = backend_identity()
+            if spec.get("ref2va") is not None:
+                import torch
+                torch.set_num_threads(8)
+                torch.set_grad_enabled(False)
             from .runtime.engine import run
             result = run(spec["request"], spec["assets"], workspace / "output.mp4", emit,
-                         workspace / "diagnostics" if spec["diagnostics"] else None)
+                         workspace / "diagnostics" if spec["diagnostics"] else None,
+                         ref2va=spec.get("ref2va"))
             emit({"phase": "validating"})
             media = validate(workspace / "output.mp4", spec["request"])
             result.update(backend=backend, initial_host=initial, final_host=snapshot(),

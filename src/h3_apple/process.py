@@ -17,7 +17,7 @@ import uuid
 
 from .api import GenerationResult
 from .assets import load_assets
-from .io import write_json
+from .io import digest, write_json
 
 
 def _stop(process):
@@ -37,6 +37,12 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     if type(diagnostics) is not bool:
         raise ValueError("diagnostics must be a boolean.")
     assets = load_assets(model_dir)
+    if assets.get("task", "t2va") != request.task:
+        raise ValueError(f"This request needs a {request.task.upper()} model bundle; select the matching --model-dir.")
+    if request.task == "ref2va":
+        from importlib.util import find_spec
+        if find_spec("torch") is None or find_spec("torchvision") is None:
+            raise RuntimeError("Reference-image generation needs the ref2va extra. Run ./install.sh --ref2va.")
     if output is None:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         directory = Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}"
@@ -76,6 +82,18 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                                        start_new_session=True)
             spec = dict(request=request.to_dict(), assets=assets, workspace=str(workspace),
                         diagnostics=diagnostics)
+            if request.reference_images:
+                # Snapshot the small user inputs so one run has immutable references.
+                references = []
+                run["reference_inputs"] = []
+                for index, source in enumerate(request.reference_images):
+                    target = workspace / f"reference-{index + 1}{Path(source).suffix}"
+                    shutil.copyfile(source, target)
+                    references.append(str(target))
+                    run["reference_inputs"].append(dict(index=index + 1, source=source,
+                                                        sha256=digest(target), size=target.stat().st_size))
+                spec["ref2va"] = dict(native_root=assets["ref2va_native"], image_paths=references,
+                                      pixel_budget=672 * 384, attention="vsa")
             process.stdin.write(json.dumps(spec) + "\n")
             process.stdin.close()
             run.update(status="running", worker_pid=process.pid)

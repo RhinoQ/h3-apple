@@ -1,6 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 root="$(cd "$(dirname "$0")" && pwd)"
+ref2va=false
+if [[ "${1:-}" == --ref2va && $# -eq 1 ]]; then
+  ref2va=true
+elif [[ $# -ne 0 ]]; then
+  echo "Usage: ./install.sh [--ref2va]" >&2
+  exit 2
+fi
 if [[ "$(uname -s)" != Darwin || "$(uname -m)" != arm64 ]]; then
   echo "H3 Apple requires an Apple Silicon Mac." >&2
   exit 1
@@ -17,6 +24,9 @@ if [[ ! -f "$prefix/conda-meta/history" ]]; then
     --prefix "$prefix" --file "$root/environments/conda-osx-arm64.lock"
 fi
 "$prefix/bin/python" -m pip install --requirement "$root/environments/requirements.lock"
+if $ref2va; then
+  "$prefix/bin/python" -m pip install --requirement "$root/environments/ref2va.lock"
+fi
 "$prefix/bin/python" -m pip install --no-deps --no-build-isolation "$root"
 "$prefix/bin/python" -m pip check
 echo "Installed. Activate with: conda activate $prefix"

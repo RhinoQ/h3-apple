@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools==83.0.0", "wheel==0.47.0"]
+requires = ["setuptools==81.0.0", "wheel==0.47.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "h3-apple"
-version = "0.1.0.dev1"
+version = "0.1.0.dev2"
 description = "Community MiniMax-H3 video and audio generation on Apple Silicon"
 readme = "README.md"
 license = "Apache-2.0"

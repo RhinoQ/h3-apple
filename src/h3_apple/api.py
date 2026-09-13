@@ -24,6 +24,8 @@ class GenerationRequest:
     audio_sample_rate: int = 32000
     audio_channels: int = 2
     num_steps: int = 4
+    reference_images: tuple[str, ...] = ()
+    task: str = "t2va"
 
     def to_dict(self):
         return asdict(self)
@@ -37,8 +39,8 @@ class GenerationResult:
     seed: int
 
 
-def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution="768p",
-            duration=15, seed=None):
+def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
+            duration=15, seed=None, reference_images=None):
     """Return the delivery and model geometry without importing MLX.
 
     Durations are 5–15 seconds in whole delivery frames at 24 fps. The model
@@ -52,6 +54,21 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution="768p",
         raise ValueError("prompt must be nonempty text without NUL characters.")
     if preset != "ours":
         raise ValueError("The supported preset is 'ours'.")
+    references = ()
+    if reference_images is not None:
+        if not isinstance(reference_images, (list, tuple)) or not 1 <= len(reference_images) <= 9:
+            raise ValueError("reference_images must be an ordered list of 1–9 image paths.")
+        if any(not isinstance(p, (str, Path)) or not str(p).strip() for p in reference_images):
+            raise ValueError("Each reference image needs a nonempty file path.")
+        references = tuple(str(Path(p).expanduser().resolve()) for p in reference_images)
+        from PIL import Image
+        for path in references:
+            with Image.open(path) as image:
+                if getattr(image, "n_frames", 1) != 1:
+                    raise ValueError("Reference inputs must be still images, not animations or videos.")
+                image.verify()
+    if resolution is None:
+        resolution = "576p" if references else "768p"
     canvases = {"768p": (1366, 768, 1376), "576p": (1024, 576, 1024)}
     if resolution not in canvases:
         raise ValueError("resolution must be '768p' or '576p'.")
@@ -74,19 +91,22 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution="768p",
     width, height, model_width = canvases[resolution]
     return GenerationRequest(prompt, preset, resolution, count / 24, seed,
                              width, height, count, model_width, height,
-                             ((count - 5 + 16) // 17) * 17 + 5)
+                             ((count - 5 + 16) // 17) * 17 + 5,
+                             preset_version="ours-ref2va-v1" if references else "ours-v1",
+                             reference_images=references, task="ref2va" if references else "t2va")
 
 
-def generate(prompt=None, *, prompt_file=None, preset="ours", resolution="768p",
+def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
              duration=15, seed=None, output=None, model_dir=None, on_progress=None,
-             diagnostics=False, timeout=7200):
+             diagnostics=False, timeout=7200, reference_images=None):
     """Generate a complete MP4 and metadata; Ctrl-C cancels the whole worker group.
 
     on_progress receives small dictionaries in the caller process. diagnostics
     additionally saves numerical arrays for migration/algorithm research.
     """
     request = resolve(prompt, prompt_file=prompt_file, preset=preset,
-                      resolution=resolution, duration=duration, seed=seed)
+                      resolution=resolution, duration=duration, seed=seed,
+                      reference_images=reference_images)
     from .process import run_generation
 
     return run_generation(request, output=output, model_dir=model_dir,

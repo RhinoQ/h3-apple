@@ -37,8 +37,11 @@ The installer uses the readable [environment definition](../environments/environ
 and exact [osx-arm64 lock](../environments/conda-osx-arm64.lock). It creates a
 private Conda cache and environment, with Python 3.11.15, MLX 0.32.0, FFmpeg 8.1.2,
 and locked Python dependencies. It installs a regular wheel without changing
-system Python or user site-packages. PyTorch and external benchmark projects
-are not required.
+system Python or user site-packages. Text generation does not require PyTorch.
+The current development build adds [Ref2VA](ref2va.md) and terminal progress;
+these are not included in the pinned v0.1.0.dev1 release. From the development
+checkout, `./install.sh --ref2va` also installs the pinned PyTorch/torchvision
+vision dependencies. Rerunning `./install.sh` installs the current checkout.
 
 Scripts and schedulers should use the fixed interpreter:
 

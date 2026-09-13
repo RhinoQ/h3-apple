@@ -117,3 +117,67 @@ def test_failed_import_does_not_publish_partial_bundle(tmp_path, sources, monkey
         import_assets(*sources, destination)
     assert not destination.exists()
     assert list(tmp_path.glob(".models-prepare-*"))
+
+
+@pytest.fixture
+def reference_sources(tmp_path, sources):
+    checkpoint, components = sources
+    (checkpoint / "ref2va_recipe.json").write_text(json.dumps(dict(
+        schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128, lora_alpha=8,
+        lora_tensors=624, gate_tensors=50, precision="int8_group64_bf16",
+        fasth3_t2va_deltas_applied=False)))
+    native = tmp_path / "source/native"
+    for relative in ["processor/preprocessor_config.json", "tokenizer/tokenizer.json",
+                     "text_encoder/config.json", "text_encoder/model.safetensors",
+                     "video_vae/config.json", "video_vae/source/config.json",
+                     "video_vae/source/model.safetensors"]:
+        path = native / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"{}")
+    return checkpoint, components, native
+
+
+def test_reference_bundle_owns_encoders_and_recipe(tmp_path, reference_sources):
+    checkpoint, components, native = reference_sources
+    destination = tmp_path / "bundle"
+    imported = import_assets(checkpoint, components, destination, ref2va_native=native)
+    shutil.rmtree(tmp_path / "source")
+    loaded = load_assets(destination, verify=True)
+    assert loaded["task"] == "ref2va" and loaded["format_version"] == 3
+    assert loaded["identity"] == imported["identity"]
+    assert Path(loaded["ref2va_native"], "text_encoder/model.safetensors").is_file()
+    assert Path(loaded["checkpoint"], "ref2va_recipe.json").is_file()
+    assert all(item["method"] == "hardlink" for item in loaded["files"])
+
+
+def test_reference_checkpoint_cannot_be_imported_as_text(tmp_path, reference_sources):
+    checkpoint, components, native = reference_sources
+    with pytest.raises(ValueError, match="requires --ref2va-native"):
+        import_assets(checkpoint, components, tmp_path / "bundle")
+
+
+def test_reference_recipe_and_encoder_weights_are_required(tmp_path, reference_sources):
+    checkpoint, components, native = reference_sources
+    recipe_path = checkpoint / "ref2va_recipe.json"
+    recipe = json.loads(recipe_path.read_text())
+    recipe["gate_tensors"] = 0
+    recipe_path.write_text(json.dumps(recipe))
+    with pytest.raises(ValueError, match="four-step checkpoint"):
+        import_assets(checkpoint, components, tmp_path / "bundle", ref2va_native=native)
+    recipe["gate_tensors"] = 50
+    recipe_path.write_text(json.dumps(recipe))
+    (native / "text_encoder/model.safetensors").unlink()
+    with pytest.raises(ValueError, match="weights"):
+        import_assets(checkpoint, components, tmp_path / "bundle", ref2va_native=native)
+
+
+def test_reference_directory_is_bound_to_bundle_identity(tmp_path, reference_sources):
+    checkpoint, components, native = reference_sources
+    destination = tmp_path / "bundle"
+    import_assets(checkpoint, components, destination, ref2va_native=native)
+    path = destination / "bundle.json"
+    manifest = json.loads(path.read_text())
+    manifest["ref2va_native"] = "components"
+    path.write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="identity"):
+        load_assets(destination)

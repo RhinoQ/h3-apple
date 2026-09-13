@@ -1,5 +1,8 @@
 # Model preparation
 
+This page describes the text-generation bundle. For ordered reference images,
+use the dedicated [Ref2VA weights and import instructions](ref2va.md).
+
 Read the [MiniMax-H3 model terms](../licenses/MiniMax-H3.txt) before preparing
 weights. The code's Apache-2.0 license does not change the model's geographic,
 use, or distribution conditions. The pinned official agreement excludes the
@@ -93,6 +96,8 @@ The pinned file list is [model-sources.json](../src/h3_apple/data/model-sources.
 Bundle v2 binds content, source revisions, adapter, converter source, precision,
 quantization, schedule caches, and backend settings. Existing v1 content
 manifests remain readable.
+Ref2VA imports use bundle v3, additionally binding the task and component paths
+to the identity and including the native reference encoders and conversion recipe.
 
 This build merges the official rank-64 VSA adapter into native MiniMax
 parameters, computes AdaLN tables for the four-step schedule, and saves an

@@ -27,7 +27,8 @@ def progress(event):
 
 def parser():
     top = argparse.ArgumentParser(prog="h3", description="Generate MiniMax-H3 video with stereo audio on Apple Silicon.")
-    top.add_argument("--version", action="version", version="h3-apple 0.1.0.dev1")
+    from . import __version__
+    top.add_argument("--version", action="version", version=f"h3-apple {__version__}")
     commands = top.add_subparsers(dest="command", required=True)
     for name in ("generate", "resolve"):
         command = commands.add_parser(name)
@@ -35,20 +36,25 @@ def parser():
         prompts.add_argument("--prompt")
         prompts.add_argument("--prompt-file")
         command.add_argument("--preset", default="ours")
-        command.add_argument("--resolution", default="768p", choices=("768p", "576p"))
+        command.add_argument("--resolution", choices=("768p", "576p"),
+                             help="Default: 768p for text, 576p with reference images")
         command.add_argument("--duration", type=float, default=15)
         command.add_argument("--seed", type=int)
+        command.add_argument("--reference-image", action="append", dest="reference_images",
+                             help="Reference image; repeat in picture-number order (1–9 images)")
         if name == "generate":
             command.add_argument("--output")
             command.add_argument("--model-dir")
             command.add_argument("--diagnostics", action="store_true")
             command.add_argument("--timeout", type=float, default=7200)
+            command.add_argument("--no-progress", action="store_true", help="Hide the stderr progress bar")
     doctor = commands.add_parser("doctor", help="Check the machine, runtime, media tools and models")
     doctor.add_argument("--model-dir")
     models = commands.add_parser("models").add_subparsers(dest="model_command", required=True)
     prepare = models.add_parser("prepare", help="Prepare a verified local model bundle")
-    prepare.add_argument("--checkpoint", help="Existing converted FastH3 VSA checkpoint")
+    prepare.add_argument("--checkpoint", help="Existing converted T2VA or Ref2VA VSA checkpoint")
     prepare.add_argument("--components", help="Existing text encoder, tokenizer and VAEs")
+    prepare.add_argument("--ref2va-native", help="Native Ref2VA processor, tokenizer, text encoder and image VAE; use with a converted Ref2VA checkpoint")
     prepare.add_argument("--model-dir")
     prepare.add_argument("--cache-dir", help="Reusable source files; defaults beside the model bundle")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
@@ -69,7 +75,9 @@ def main(argv=None):
         if command == "resolve":
             result = resolve(**args).to_dict()
         elif command == "generate":
-            result = asdict(generate(**args, on_progress=progress))
+            from .progress import ProgressBar
+            with ProgressBar(enabled=not args.pop("no_progress")) as display:
+                result = asdict(generate(**args, on_progress=display))
         elif command == "doctor":
             from .host import doctor
             result = doctor(**args)
@@ -81,13 +89,17 @@ def main(argv=None):
             directory = args.pop("model_dir")
             if name == "prepare":
                 checkpoint, components = args.pop("checkpoint"), args.pop("components")
+                native = args.pop("ref2va_native")
                 if bool(checkpoint) != bool(components):
                     raise ValueError("Provide both --checkpoint and --components to import converted assets.")
+                if native and not checkpoint:
+                    raise ValueError("--ref2va-native requires --checkpoint and --components.")
                 show_plan = args.pop("plan")
                 if checkpoint:
                     if show_plan or args["cache_dir"] or args["reuse_dirs"] or args["allow_large_download"]:
                         raise ValueError("Source-download options cannot be combined with converted-asset import.")
-                    result = import_assets(checkpoint, components, directory, progress=progress)
+                    result = import_assets(checkpoint, components, directory, progress=progress,
+                                           ref2va_native=native)
                 else:
                     from .preparation import plan, prepare
                     if show_plan:

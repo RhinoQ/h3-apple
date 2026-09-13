@@ -16,6 +16,10 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 [Native video downloads](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11) ·
 [Reproduce the comparison](benchmarks/README.md)
 
+The current development build adds [ordered reference images](docs/ref2va.md)
+and a [terminal progress bar](docs/api.md#terminal-progress). These features
+are newer than the published v0.1.0.dev1 release; use this checkout's installer.
+
 ## Video comparisons
 
 **Left: H3 Apple (Ours). Right: vpipe / VDN.**
@@ -242,7 +246,7 @@ are outside these everyday-generation figures.
 ## Generate your first video
 
 This is a community project built on MiniMax-H3, FastVideo, and Apple GPU
-optimizations, with no official affiliation. The current package version is
+optimizations, with no official affiliation. The latest published package is
 **[0.1.0.dev1 (development preview)](https://github.com/RhinoQ/h3-apple/releases/tag/v0.1.0.dev1)**.
 The release includes a source archive, Python wheel, and SHA-256 checksums.
 Check the [hardware and memory requirements](#hardware-and-memory)
@@ -301,7 +305,7 @@ print(result.elapsed_seconds)
 
 | Capability | H3 Apple |
 | --- | --- |
-| Everyday interface | One CLI and Python API for arbitrary text prompts |
+| Everyday interface | One CLI and Python API for text or ordered reference images |
 | Video and audio | 768p or 576p, 5–15 seconds, 24 fps, stereo audio |
 | Generation recipe | Four-step VSA, M5 NAX sparse kernels, accelerated full H3 VAE |
 | Reproducibility | Locked Conda environment, verified model preparation, recorded seeds and asset identity |
@@ -310,9 +314,11 @@ print(result.elapsed_seconds)
 
 Independent installation, model reconstruction, real generation, numerical
 migration, and GPU cancellation have passed the checks recorded in
-[validation](docs/validation.md). The interface currently supports text-to-video
-with audio; it does not expose reference-image input, training, a web service,
-or videos longer than fifteen seconds.
+[validation](docs/validation.md). The current development interface supports
+text or 1–9 ordered still images with audio output. Reference generation needs
+a [dedicated model bundle](docs/ref2va.md); its tested cases are one and four
+images at 576p on M5 Max / 128 GiB. Training, video/audio reference input,
+a web service and videos longer than fifteen seconds are not exposed.
 
 ## Reproduce and improve
 

@@ -21,6 +21,7 @@ pyyaml==6.0.3
 regex==2026.7.19
 rich==15.0.0
 safetensors==0.8.0
+setuptools==81.0.0
 shellingham==1.5.4
 tokenizers==0.22.2
 tqdm==4.70.0

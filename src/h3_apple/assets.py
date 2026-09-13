@@ -18,18 +18,47 @@ def bundle_identity(manifest):
     content = [{k: e[k] for k in ("path", "sha256", "size")} for e in manifest["files"]]
     if manifest["format_version"] == 2:
         content = {"files": content, "derivation": manifest["derivation"]}
+    elif manifest["format_version"] == 3:
+        content = {"files": content, **{key: manifest[key] for key in
+                   ("derivation", "task", "checkpoint", "components", "ref2va_native")}}
     return hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
 
 
-def _files(checkpoint, components):
+def _files(checkpoint, components, ref2va_native=None):
     checkpoint, components = Path(checkpoint).resolve(), Path(components).resolve()
     manifest = checkpoint / "mlx_h3_dit.json"
     config = json.loads(manifest.read_text())
     if (not config.get("vsa", {}).get("capable") or config.get("num_blocks") != 50
             or config.get("quantization") != {"mode": "affine", "bits": 8, "group_size": 64}):
-        raise ValueError("Ours requires the 50-block affine INT8/group64 FastH3 VSA checkpoint.")
+        raise ValueError("Ours requires a 50-block affine INT8/group64 VSA checkpoint.")
     paths = {"dit/mlx_h3_dit.json": manifest,
              "dit/mlx_h3_dit.safetensors": checkpoint / "mlx_h3_dit.safetensors"}
+    recipe_path = checkpoint / "ref2va_recipe.json"
+    if recipe_path.exists() != (ref2va_native is not None):
+        raise ValueError("A Ref2VA checkpoint requires --ref2va-native; a text-only checkpoint must not use it.")
+    if ref2va_native is not None:
+        recipe = json.loads(recipe_path.read_text())
+        expected = dict(schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128,
+                        lora_alpha=8, lora_tensors=624, gate_tensors=50,
+                        precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False)
+        if any(recipe.get(key) != value for key, value in expected.items()):
+            raise ValueError("Expected the dedicated Ref2VA + LightX2V four-step checkpoint with 50 VSA gates.")
+        paths["dit/ref2va_recipe.json"] = recipe_path
+        native = Path(ref2va_native).expanduser().resolve()
+        for name in ("processor", "tokenizer", "text_encoder", "video_vae"):
+            source = (native / name).resolve()
+            if not source.is_dir():
+                raise FileNotFoundError(f"Missing native reference component: {source}")
+            for path in sorted(source.rglob("*")):
+                if path.is_file() and path.suffix in (".json", ".safetensors", ".txt", ".jinja"):
+                    paths[f"ref2va/{name}/{path.relative_to(source)}"] = path.resolve()
+        for relative in ("processor/preprocessor_config.json", "tokenizer/tokenizer.json",
+                         "text_encoder/config.json", "video_vae/config.json", "video_vae/source/config.json"):
+            if "ref2va/" + relative not in paths:
+                raise ValueError(f"Missing native reference configuration: {relative}")
+        for name in ("text_encoder", "video_vae/source"):
+            if not any(p.startswith(f"ref2va/{name}/") and p.endswith(".safetensors") for p in paths):
+                raise ValueError(f"Missing native reference {name} weights.")
     for name in ("LICENSE", "NOTICE"):
         if (components / name).is_file():
             paths[name] = (components / name).resolve()
@@ -54,11 +83,11 @@ def _files(checkpoint, components):
 
 
 def import_assets(checkpoint, components, directory=None, *, progress=None, provenance=None,
-                  download_bytes=0):
+                  download_bytes=0, ref2va_native=None):
     directory = model_directory(directory)
     if (directory / "bundle.json").exists():
         raise FileExistsError(f"A model bundle already exists at {directory}; use another directory.")
-    paths = _files(checkpoint, components)
+    paths = _files(checkpoint, components, ref2va_native)
     directory.parent.mkdir(parents=True, exist_ok=True)
     if directory.exists() and any(directory.iterdir()):
         raise FileExistsError("Model destination contains an incomplete or existing bundle.")
@@ -107,6 +136,8 @@ def import_assets(checkpoint, components, directory=None, *, progress=None, prov
                         checkpoint="dit", components="components",
                         download_bytes=download_bytes, copied_bytes=copy_bytes,
                         provenance=provenance)
+        if ref2va_native is not None:
+            manifest.update(format_version=3, task="ref2va", ref2va_native="ref2va")
         manifest["identity"] = bundle_identity(manifest)
         write_json(staging / "bundle.json", manifest)
         # A single directory rename publishes the complete bundle. A populated
@@ -124,9 +155,16 @@ def load_assets(directory=None, *, verify=False):
     if not path.is_file():
         raise FileNotFoundError(f"Models are not prepared at {directory}. Run h3 models prepare.")
     data = json.loads(path.read_text())
-    if data.get("format_version") not in (1, 2) or data.get("preset") != "ours" or not data.get("files"):
+    if data.get("format_version") not in (1, 2, 3) or data.get("preset") != "ours" or not data.get("files"):
         raise ValueError("Unsupported or empty model bundle.")
-    for name in ("checkpoint", "components"):
+    directories = ["checkpoint", "components"]
+    if data["format_version"] == 3:
+        if data.get("task") != "ref2va" or not isinstance(data.get("ref2va_native"), str):
+            raise ValueError("Invalid Ref2VA model bundle.")
+        directories.append("ref2va_native")
+    elif data.get("task", "t2va") != "t2va" or "ref2va_native" in data:
+        raise ValueError("Reference assets require the Ref2VA bundle format.")
+    for name in directories:
         target = directory / data[name]
         if not target.resolve().is_relative_to(directory) or not target.is_dir():
             raise ValueError(f"Invalid {name} directory in the model bundle.")
@@ -142,5 +180,5 @@ def load_assets(directory=None, *, verify=False):
             raise ValueError(f"Model asset changed: {target}; verify or prepare the bundle again.")
         if verify and digest(target) != entry["sha256"]:
             raise ValueError(f"Model SHA256 mismatch: {target}")
-    return dict(data, directory=str(directory), checkpoint=str(directory / data["checkpoint"]),
-                components=str(directory / data["components"]))
+    return dict(data, directory=str(directory),
+                **{name: str(directory / data[name]) for name in directories})
