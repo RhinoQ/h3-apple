@@ -2,10 +2,10 @@
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
   "available_cases": 4,
   "status_counts": {
-    "generated": 2,
+    "generated": 3,
     "paused": 8,
     "running": 1,
-    "queued": 33
+    "queued": 32
   },
   "cases": [
     {
@@ -356,7 +356,7 @@
       "title": "Desert departure",
       "source_case": "Desert Fashion Campaign",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 4,
         "videos": 0,
@@ -373,7 +373,7 @@
       "prompt_sha256": "37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev2",
           "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -436,6 +436,69 @@
         "resolution": "768p",
         "reason": "Two people walk and interact beside a car in a wide fashion scene."
       },
+      "seed": 42,
+      "started_utc": "2026-09-13T15:50:35.077398+00:00",
+      "elapsed_seconds": 2223.3152324999683,
+      "actual_nfe": 4,
+      "video_sha256": "ca21684c5f5ad972ee5045f80ab1e0f77770dd2e8c3db7e4f805a84f5c0a2981",
+      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "timings_seconds": {
+        "conditioning": 21.194937250111252,
+        "denoise": 2011.7807940419298,
+        "video_decode": 183.2603589168284,
+        "audio_decode": 1.1916556668002158,
+        "mux": 2.1748096661176533
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.0408701095730066,
+        "denoise": 45.70794094260782,
+        "video_decode": 24.01064147427678,
+        "audio_decode": 2.744267087429762,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "981f9b6eec1a3e436d3b9af1ad61daadd569146be1252151e22b9e4705313d9c",
+          "size": 43072
+        },
+        {
+          "index": 2,
+          "sha256": "0ec8d5ddf1bdc1a7ec54eb16ea14250ddeddf838b4fb161d15eb115046e1d44b",
+          "size": 38866
+        },
+        {
+          "index": 3,
+          "sha256": "1bc50aadf215b6b2d4e0bb345bfd0a2e8fdf26f2ec31a4d71b59b70ed7e31028",
+          "size": 53706
+        },
+        {
+          "index": 4,
+          "sha256": "2bf9e65f2dfd17e62e1cc31e377227955ce4282d6898a4ee661a43f472f5219b",
+          "size": 4758
+        }
+      ],
+      "runtime_version": "0.1.0.dev2",
+      "attention": "vsa",
+      "experimental_input_support": false,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/04-768p-ca21684c5f5a-output.mp4",
+        "poster": "media/04-768p-ca21684c5f5a-poster.jpg"
+      },
       "previous_results": [
         {
           "record": "records/04-576p-e97d6f64fab3.json"
@@ -447,7 +510,7 @@
       "title": "After the fire",
       "source_case": "Cyber-Grunge Fashion Film",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 2,
         "videos": 0,

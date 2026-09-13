@@ -3,7 +3,7 @@
   "title": "After the fire",
   "source_case": "Cyber-Grunge Fashion Film",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 2,
     "videos": 0,
