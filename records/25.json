@@ -3,7 +3,7 @@
   "title": "Before and after the show",
   "source_case": "Interactive Otome Game Transition",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition",
-  "status": "queued",
+  "status": "paused",
   "required_inputs": {
     "images": 2,
     "videos": 0,
@@ -64,5 +64,6 @@
     "resolution": "768p",
     "reason": "The character shares a landscape frame with the interface and surroundings; conservatively protect the face."
   },
+  "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
   "previous_results": []
 }

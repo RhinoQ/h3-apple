@@ -35,7 +35,7 @@
     </aside>
     <article class="article">
       <div id="examples"><section id="overview" class="overview"><div class="section-label">THE REPRODUCTION LOG</div><h2>Every case, accounted for.</h2>
-<p class="collection-state"><strong>4 cases have a video</strong><span>0 completed at the current resolution</span><span>44 requests queued or running</span><span>0 need further work</span></p>
+<p class="collection-state"><strong>4 cases have a video</strong><span>0 completed at the current resolution</span><span>36 requests queued or running</span><span>8 paused for VSA evaluation</span><span>0 need further work</span></p>
 <p>The collection keeps the source order. Small-face scenes use native 768p. Earlier 576p videos remain available with their own parameters and commands while the new requests run.</p></section>
 <section class="case-group" id="group-1"><div class="section-label">01 / STUDIES</div><h2>Film &amp; campaigns</h2></section>
 <section class="case" id="case-01"><h3><span class="case-number">01</span>Through the binoculars</h3>
@@ -135,8 +135,9 @@ generate(
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">Source prompt &amp; inputs ↗</a><a href="records/01.json">Current case record ↗</a></div>
 </section>
 <section class="case" id="case-02"><h3><span class="case-number">02</span>A jump into deep space</h3>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups.</p>
-<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is queued.</p>
+<p class="runtime-note"><strong>Current request: 768p · Paused for VSA evaluation.</strong> The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
+<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is paused for vsa evaluation.</p>
 <figure class="result"><video controls playsinline preload="none" poster="media/02-poster.jpg" width="1024" height="576" aria-label="A jump into deep space, 576p H3 Apple output"><source src="media/02-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>First frame</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>30 min 54 s</dd></div></dl><p class="runtime-note">FL2VA · DENSE attention · H3 Apple 0.1.0.dev3+guide2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-02-576p-6f60443c877f">Copy prompt</button></div><pre class="prompt-text" id="prompt-02-576p-6f60443c877f">Epic theatrical space-opera teaser
@@ -172,6 +173,7 @@ generate(
 <p><a href="records/02-576p-6f60443c877f.json">Earlier run record ↗</a></p>
 <details class="api-call"><summary>Planned 768p generation command</summary>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-02">Copy prompt</button></div><pre class="prompt-text" id="prompt-02">Epic theatrical space-opera teaser
 
@@ -602,10 +604,12 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite">Source prompt &amp; inputs ↗</a><a href="records/10.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-11"><summary><span class="pending-title"><span class="case-number">11</span>Artwork in motion</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face.</p>
+<details class="pending-case" id="case-11"><summary><span class="pending-title"><span class="case-number">11</span>Artwork in motion</span><span class="status">768p · Paused for VSA evaluation</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Paused for VSA evaluation.</strong> A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-11">Copy prompt</button></div><pre class="prompt-text" id="prompt-11">Animate the source artwork as a motion poster while preserving its white gallery border, inner frame, red/white/black palette, 3D collectible-figure look, and original layout. Add a light, playful type-on sound whenever text appears.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
 <h5>Reference inputs · in supplied order</h5>
@@ -926,10 +930,12 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page">Source prompt &amp; inputs ↗</a><a href="records/18.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-19"><summary><span class="pending-title"><span class="case-number">19</span>Lights on</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Automotive website UI; no face is requested.</p>
+<details class="pending-case" id="case-19"><summary><span class="pending-title"><span class="case-number">19</span>Lights on</span><span class="status">576p · Paused for VSA evaluation</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 576p · Paused for VSA evaluation.</strong> Automotive website UI; no face is requested.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-19">Copy prompt</button></div><pre class="prompt-text" id="prompt-19">Animate the website UI: the top headline slides down into place, the copy panel below slides up, and the car’s lights shift from dark to red.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
 <h5>Reference inputs · in supplied order</h5>
@@ -960,10 +966,12 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation">Source prompt &amp; inputs ↗</a><a href="records/19.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-20"><summary><span class="pending-title"><span class="case-number">20</span>A product comes into view</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Product layout and rotation; no face is requested.</p>
+<details class="pending-case" id="case-20"><summary><span class="pending-title"><span class="case-number">20</span>A product comes into view</span><span class="status">576p · Paused for VSA evaluation</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 576p · Paused for VSA evaluation.</strong> Product layout and rotation; no face is requested.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-20">Copy prompt</button></div><pre class="prompt-text" id="prompt-20">Reveal the layout from top to bottom. Upper and center typography slides down; lower typography slides up. Once the central product appears, let it rotate subtly.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
 <h5>Reference inputs · in supplied order</h5>
@@ -995,10 +1003,12 @@ generate(
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal">Source prompt &amp; inputs ↗</a><a href="records/20.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-21"><div class="section-label">21 / STUDIES</div><h2>Animation &amp; games</h2></section>
-<details class="pending-case" id="case-21"><summary><span class="pending-title"><span class="case-number">21</span>A leap over lava</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces.</p>
+<details class="pending-case" id="case-21"><summary><span class="pending-title"><span class="case-number">21</span>A leap over lava</span><span class="status">768p · Paused for VSA evaluation</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Paused for VSA evaluation.</strong> A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-21">Copy prompt</button></div><pre class="prompt-text" id="prompt-21">Claymation. A fox sprints to the edge of a cliff and launches without hesitation, making a dramatic heroic leap in slow motion over an immense lava canyon. Midair, the camera races beneath the fox’s belly in a bold dynamic move, revealing the terrifying depth of the chasm and the fully extended motion of its clay body.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
 <h5>Reference inputs · in supplied order</h5>
@@ -1103,10 +1113,12 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo">Source prompt &amp; inputs ↗</a><a href="records/23.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-24"><summary><span class="pending-title"><span class="case-number">24</span>At the perimeter</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> First-person gameplay with a weapon and distant targets; facial detail is not requested.</p>
+<details class="pending-case" id="case-24"><summary><span class="pending-title"><span class="case-number">24</span>At the perimeter</span><span class="status">576p · Paused for VSA evaluation</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 576p · Paused for VSA evaluation.</strong> First-person gameplay with a weapon and distant targets; facial detail is not requested.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-24">Copy prompt</button></div><pre class="prompt-text" id="prompt-24">Camera: first-person, eye level, handheld gameplay. Simulate a player operating a modern-warfare FPS, holding an assault rifle and advancing slowly around the perimeter of a military base. Move forward along a road beside cover, sweep the reticle across the passage ahead, pause to fire several rounds at a distant target, then continue pushing forward like authentic player-controlled footage.
 
@@ -1141,10 +1153,12 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay">Source prompt &amp; inputs ↗</a><a href="records/24.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-25"><summary><span class="pending-title"><span class="case-number">25</span>Before and after the show</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First + last frame.</p>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The character shares a landscape frame with the interface and surroundings; conservatively protect the face.</p>
+<details class="pending-case" id="case-25"><summary><span class="pending-title"><span class="case-number">25</span>Before and after the show</span><span class="status">768p · Paused for VSA evaluation</span></summary><div class="pending-body"><p><strong>Required input:</strong> First + last frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Paused for VSA evaluation.</strong> The character shares a landscape frame with the interface and surroundings; conservatively protect the face.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-25">Copy prompt</button></div><pre class="prompt-text" id="prompt-25">Interactive Otome Game
 
@@ -1850,10 +1864,12 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/42.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-43"><summary><span class="pending-title"><span class="case-number">43</span>A change of costume</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Two full-body magicians share a wide stage shot.</p>
+<details class="pending-case" id="case-43"><summary><span class="pending-title"><span class="case-number">43</span>A change of costume</span><span class="status">768p · Paused for VSA evaluation</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Paused for VSA evaluation.</strong> Two full-body magicians share a wide stage shot.</p>
+<p class="case-note">FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-43">Copy prompt</button></div><pre class="prompt-text" id="prompt-43">Two magicians stand onstage facing the audience and perform a “swap” illusion. They wave their wands simultaneously and smoke rises. When it clears, their suit colors have exchanged: the magician on the left now wears white, and the one on the right now wears black. Their glove colors do not change. They bow; the red curtain closes behind them and gradually shifts from deep red to dark blue.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
 <h5>Reference inputs · in supplied order</h5>

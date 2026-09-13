@@ -38,7 +38,9 @@ branch. The `.nojekyll` file preserves the authored static files.
   source hash, model identity and attention mode. These input extensions are
   experimental. Their pinned source is public on `codex/guide-inputs`; they
   are not included in the latest tagged runtime release.
-- First/last-frame cases use native FL2VA with LightX2V FL four-step v0.1 and
+- The eight first/last-frame cases are paused while VSA is evaluated. Existing
+  Dense FL2VA outputs remain available, but no additional Dense FL2VA cases run.
+  The documented baseline uses native FL2VA with LightX2V FL four-step v0.1 and
   dense attention. T2VA and Ref2VA retain their established four-step weights.
 - The source videos are 720p. A source clip of 15.083 seconds is delivered as
   15 seconds by the current product API. Every record retains both geometries.

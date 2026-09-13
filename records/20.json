@@ -3,7 +3,7 @@
   "title": "A product comes into view",
   "source_case": "Rotating Product Page Reveal",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal",
-  "status": "queued",
+  "status": "paused",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -54,5 +54,6 @@
     "resolution": "576p",
     "reason": "Product layout and rotation; no face is requested."
   },
+  "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
   "previous_results": []
 }

@@ -3,7 +3,7 @@
   "title": "A leap over lava",
   "source_case": "Claymation Lava Canyon Leap",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap",
-  "status": "queued",
+  "status": "paused",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -54,5 +54,6 @@
     "resolution": "768p",
     "reason": "A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces."
   },
+  "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
   "previous_results": []
 }

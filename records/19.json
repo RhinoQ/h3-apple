@@ -3,7 +3,7 @@
   "title": "Lights on",
   "source_case": "Automotive Website UI Animation",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation",
-  "status": "queued",
+  "status": "paused",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -54,5 +54,6 @@
     "resolution": "576p",
     "reason": "Automotive website UI; no face is requested."
   },
+  "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
   "previous_results": []
 }

@@ -3,7 +3,8 @@
   "available_cases": 4,
   "status_counts": {
     "running": 1,
-    "queued": 43
+    "paused": 8,
+    "queued": 35
   },
   "cases": [
     {
@@ -104,7 +105,7 @@
       "title": "A jump into deep space",
       "source_case": "Epic Space Opera Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -155,6 +156,7 @@
         "resolution": "768p",
         "reason": "The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": [
         {
           "record": "records/02-576p-6f60443c877f.json"
@@ -719,7 +721,7 @@
       "title": "Artwork in motion",
       "source_case": "Animated Gallery Poster",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -770,6 +772,7 @@
         "resolution": "768p",
         "reason": "A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": []
     },
     {
@@ -1252,7 +1255,7 @@
       "title": "Lights on",
       "source_case": "Automotive Website UI Animation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -1303,6 +1306,7 @@
         "resolution": "576p",
         "reason": "Automotive website UI; no face is requested."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": []
     },
     {
@@ -1310,7 +1314,7 @@
       "title": "A product comes into view",
       "source_case": "Rotating Product Page Reveal",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -1361,6 +1365,7 @@
         "resolution": "576p",
         "reason": "Product layout and rotation; no face is requested."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": []
     },
     {
@@ -1368,7 +1373,7 @@
       "title": "A leap over lava",
       "source_case": "Claymation Lava Canyon Leap",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -1419,6 +1424,7 @@
         "resolution": "768p",
         "reason": "A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": []
     },
     {
@@ -1560,7 +1566,7 @@
       "title": "At the perimeter",
       "source_case": "First-Person Tactical Gameplay",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -1611,6 +1617,7 @@
         "resolution": "576p",
         "reason": "First-person gameplay with a weapon and distant targets; facial detail is not requested."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": []
     },
     {
@@ -1618,7 +1625,7 @@
       "title": "Before and after the show",
       "source_case": "Interactive Otome Game Transition",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -1679,6 +1686,7 @@
         "resolution": "768p",
         "reason": "The character shares a landscape frame with the interface and surroundings; conservatively protect the face."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": []
     },
     {
@@ -2862,7 +2870,7 @@
       "title": "A change of costume",
       "source_case": "Precision Costume Swap",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap",
-      "status": "queued",
+      "status": "paused",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -2913,6 +2921,7 @@
         "resolution": "768p",
         "reason": "Two full-body magicians share a wide stage shot."
       },
+      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
       "previous_results": []
     },
     {

@@ -3,7 +3,7 @@
   "title": "A jump into deep space",
   "source_case": "Epic Space Opera Teaser",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-  "status": "queued",
+  "status": "paused",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -54,6 +54,7 @@
     "resolution": "768p",
     "reason": "The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups."
   },
+  "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
   "previous_results": [
     {
       "record": "records/02-576p-6f60443c877f.json"

@@ -104,6 +104,8 @@ def reproduction_panel(record):
     slug = Path(record["archived_record"]).stem if record.get("archived_record") else f"{number:02}"
     recipe = record["reproduction"]
     parts = ['<div class="reproduction"><h4>Reproduce this video</h4>']
+    if record.get("execution_hold"):
+        parts.append('<p class="case-note">Generation is paused for this case. The command below documents the existing Dense FL2VA runtime; a validated FL2VA VSA result is not yet available.</p>')
     if recipe["configuration_state"] != "executed":
         parts.append('<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>')
     parts.append(f'<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-{slug}">Copy prompt</button></div><pre class="prompt-text" id="prompt-{slug}">{esc(record["prompt"])}</pre><p class="small-note">Source: <a href="{esc(record["source"])}">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>')
@@ -203,6 +205,8 @@ def public_record(root, case, run, archive=False):
     record["reproduction"] = reproduction(case, run)
     if run.get("resolution_policy"):
         record["resolution_policy"] = run["resolution_policy"]
+    if run.get("execution_hold"):
+        record["execution_hold"] = run["execution_hold"]
     if run["status"] == "generated":
         directory = Path(run["directory"])
         metadata = json.loads((directory / "output.run.json").read_text())
@@ -239,6 +243,13 @@ def main():
     root = Path(__file__).resolve().parent
     inventory = json.loads(args.inventory.read_text())
     runs, completed = merge_states(args.state)
+    policy = json.loads((root / "execution-policy.json").read_text())
+    assert set(policy["paused_tasks"]) <= {"fl2va"}
+    for case in inventory["cases"]:
+        number = case["number"]
+        if ("fl2va" in policy["paused_tasks"] and case["product_status"] == "requires_frame_conditioning"
+                and runs[number]["status"] != "generated"):
+            runs[number] = dict(runs[number], status="paused", execution_hold=policy["reason"])
     assert len(inventory["cases"]) == len(TITLES) == 44
     (root / "media").mkdir(exist_ok=True)
     (root / "records").mkdir(exist_ok=True)
@@ -249,10 +260,10 @@ def main():
     nav += '<a href="#method">Generation method</a><a href="#sources">Source &amp; attribution</a>'
     public_cases = []
     content = ['<section id="overview" class="overview"><div class="section-label">THE REPRODUCTION LOG</div><h2>Every case, accounted for.</h2>',
-               f'<p class="collection-state"><strong>{available} cases have a video</strong><span>{count["generated"]} completed at the current resolution</span><span>{count["queued"] + count["running"] + count["cancelled"]} requests queued or running</span><span>{count["blocked"] + count["failed"]} need further work</span></p>',
+               f'<p class="collection-state"><strong>{available} cases have a video</strong><span>{count["generated"]} completed at the current resolution</span><span>{count["queued"] + count["running"] + count["cancelled"]} requests queued or running</span><span>{count["paused"]} paused for VSA evaluation</span><span>{count["blocked"] + count["failed"]} need further work</span></p>',
                '<p>The collection keeps the source order. Small-face scenes use native 768p. Earlier 576p videos remain available with their own parameters and commands while the new requests run.</p></section>']
     starts = dict(GROUPS)
-    statuses = {"generated": "Generated", "running": "Generating", "queued": "Queued", "cancelled": "Queued for restart", "blocked": "Input support required", "failed": "Generation failed"}
+    statuses = {"generated": "Generated", "running": "Generating", "queued": "Queued", "cancelled": "Queued for restart", "paused": "Paused for VSA evaluation", "blocked": "Input support required", "failed": "Generation failed"}
     for case in inventory["cases"]:
         number = case["number"]; run = runs[number]; slug = f'{number:02d}'
         record = public_record(root, case, run)
@@ -280,6 +291,8 @@ def main():
             content.append(f'<details class="pending-case" id="case-{slug}"><summary><span class="pending-title">{title}</span><span class="status">{resolution} · {status}</span></summary><div class="pending-body"><p><strong>Required input:</strong> {esc(input_text)}.</p>')
         if record.get("resolution_policy"):
             content.append(f'<p class="runtime-note"><strong>Current request: {resolution} · {status}.</strong> {esc(record["resolution_policy"]["reason"])}</p>')
+        if record.get("execution_hold"):
+            content.append(f'<p class="case-note">{esc(record["execution_hold"])}</p>')
         content.extend(f'<div class="case-note"><p>{esc(note)}</p></div>' for note in record["notes"])
         if record["status"] == "generated":
             content.append(result_panel(record, input_text))
