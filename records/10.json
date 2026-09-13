@@ -3,7 +3,7 @@
   "title": "Into a fairytale",
   "source_case": "Green-Screen to Fairytale Composite",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 2,
