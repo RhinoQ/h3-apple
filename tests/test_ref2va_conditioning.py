@@ -38,6 +38,21 @@ def test_full_prompt_is_retained_after_ordered_images():
     assert p.positions.shape == (3, len(p.token_ids))
 
 
+def test_four_images_have_correct_picture_numbers_and_separate_visual_spans():
+    class NumberedTokenizer(Tokenizer):
+        def __call__(self, text, add_special_tokens):
+            if text.startswith("<Picture "):
+                return {"input_ids": [10 + int(text.split()[1].split(">")[0])]}
+            return {"input_ids": [8]}
+    grids = [[1, 2, 2], [1, 2, 4], [1, 2, 6], [1, 4, 4]]
+    p = image_presentation(NumberedTokenizer(), "complete prompt", grids)
+    expected = [11, 90, 91, 92, 12, 90, 91, 91, 92,
+                13, 90, 91, 91, 91, 92, 14, 90, 91, 91, 91, 91, 92, 8]
+    np.testing.assert_array_equal(p.token_ids, expected)
+    np.testing.assert_array_equal(p.visual_mask, np.array(expected) == 91)
+    assert p.positions.shape == (3, len(expected))
+
+
 @pytest.mark.parametrize("grids", [[], [[2, 4, 6]], [[1, 3, 6]], [[1, 0, 6]], [[1.0, 4, 6]]])
 def test_unsupported_image_grid_rejected(grids):
     with pytest.raises(ValueError):

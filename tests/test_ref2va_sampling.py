@@ -55,6 +55,21 @@ def test_reference_and_audio_noise_are_independent_of_output_canvas():
     np.testing.assert_array_equal(small[1], large[1][:len(small[1])])
 
 
+def test_four_reference_segments_are_fixed_in_order_across_all_steps():
+    refs = [ReferenceGeometry("image", 1, h, w) for h, w in ((4, 6), (6, 4), (2, 2), (4, 4))]
+    geometry = build_ref2va_layout([1, 0, 1], refs, 2, 4, 6, 4)
+    counts = [6, 6, 1, 4]
+    condition = np.concatenate([np.full((n, 96), i + 1, np.float32) for i, n in enumerate(counts)])
+    model = ConstantVelocity()
+    v, a = sample_image(model, np.ones((3, 5120), np.float32), condition, geometry,
+                        np.zeros((12, 96), np.float32), np.zeros((8, 32), np.float32))
+    assert geometry.reference_prefix_segments == (3, 6, 6, 1, 4, 8)
+    assert len(model.seen) == 4 and v.shape == (12, 96) and a.shape == (8, 32)
+    for video, _ in model.seen:
+        np.testing.assert_array_equal(video[:17], condition)
+    np.testing.assert_allclose(v, 2., atol=1e-6)
+
+
 def test_prepared_timestep_superset_is_reused_without_missing_adaln_weights():
     from h3_apple.runtime.ref2va import build_ref2va_timesteps
     from h3_apple._vendor.fastvideo_mlx.minimax_h3 import MiniMaxH3SchedulerState

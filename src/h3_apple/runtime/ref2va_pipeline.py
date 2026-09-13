@@ -25,6 +25,21 @@ from .ref2va_sampling import image_noise, sample_image
 from .sparse import sparse_calls
 
 
+def prepare_images(options):
+    """Load one legacy image or an explicitly ordered list of 1–9 images."""
+    if ("image_path" in options) == ("image_paths" in options):
+        raise ValueError("Provide exactly one of image_path and image_paths.")
+    paths = [options["image_path"]] if "image_path" in options else options["image_paths"]
+    if (not isinstance(paths, (list, tuple)) or not 1 <= len(paths) <= 9
+            or any(not isinstance(path, (str, Path)) or not str(path) for path in paths)):
+        raise ValueError("Reference images must be an ordered list of 1–9 file paths.")
+    images = []
+    for path in paths:
+        with Image.open(path) as original:
+            images.append(prepare_reference_image(original, options["pixel_budget"]))
+    return images
+
+
 def condition_and_denoise(request, options, checkpoint, observer, phase):
     """Encode shared reference pixels, sample four times, return generated rows only.
 
@@ -42,15 +57,18 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
             or recipe.get("fasth3_t2va_deltas_applied") is not False):
         raise ValueError("Expected a dedicated Ref2VA + LightX2V checkpoint with gate-only transplant.")
     native = Path(options["native_root"])
-    with Image.open(options["image_path"]) as original:
-        prepared = prepare_reference_image(original, options["pixel_budget"])
+    prepared = prepare_images(options)
     metadata = dict(task="ref2va", precision="int8_group64_bf16", attention=attention,
-        image_width_height=list(prepared.size),
-        image_pixels_sha256=hashlib.sha256(np.asarray(prepared).tobytes()).hexdigest(),
+        reference_images=[dict(index=index + 1, width_height=list(image.size),
+            pixels_sha256=hashlib.sha256(np.asarray(image).tobytes()).hexdigest())
+            for index, image in enumerate(prepared)],
         noise_convention="NumPy SeedSequence(seed).spawn(3): reference, video, audio; PCG64 FP32")
+    if len(prepared) == 1:
+        metadata.update(image_width_height=list(prepared[0].size),
+            image_pixels_sha256=metadata["reference_images"][0]["pixels_sha256"])
 
     def condition():
-        inputs = qwen_image_inputs(native / "processor", [prepared])
+        inputs = qwen_image_inputs(native / "processor", prepared)
         features, deepstack = qwen_vision_features(native / "text_encoder",
             inputs["pixel_values"], inputs["image_grid_thw"])
         conditioner = StreamedMiniMaxH3TextConditioner(native / "text_encoder", native / "tokenizer")
@@ -66,12 +84,22 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
         del conditioner, features, deepstack, inputs
         gc.collect(); mx.clear_cache()
         vae = load_native_image_vae(native / "video_vae")
-        reference = patchify_video_latents(encode_image_latents(vae, prepared), (1, 2, 2))
+        encoded = [patchify_video_latents(encode_image_latents(vae, image), (1, 2, 2))
+                   for image in prepared]
+        for image, rows in zip(prepared, encoded, strict=True):
+            if rows.shape != ((image.height // 32) * (image.width // 32), 96):
+                raise ValueError("An encoded reference does not match its image geometry.")
+        reference = np.concatenate(encoded, axis=0)
+        counts = [len(rows) for rows in encoded]
         metadata.update(prompt_tokens=len(tags), reference_rows=len(reference),
+            reference_segment_rows=counts,
             text_sha256=hashlib.sha256(text.tobytes()).hexdigest(),
             reference_sha256=hashlib.sha256(reference.tobytes()).hexdigest())
-        observer.capture("reference-inputs", lambda: dict(
-            pixels=np.asarray(prepared), text=text, tags=tags, reference=reference))
+        pixels = ({"pixels": np.asarray(prepared[0])} if len(prepared) == 1 else
+                  {f"pixels_{index + 1}": np.asarray(image) for index, image in enumerate(prepared)})
+        observer.capture("reference-inputs", lambda: dict(pixels,
+            text=text, tags=tags, reference=reference,
+            reference_offsets=np.cumsum([0, *counts], dtype=np.int64)))
         return text, tags, reference
 
     text, tags, reference = phase("conditioning", condition)
@@ -79,7 +107,7 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     geometry = MiniMaxH3MLXPipeline.resolve_geometry(
         request["model_height"], request["model_width"], request["model_num_frames"])
     layout = build_ref2va_layout(tags,
-        [ReferenceGeometry("image", 1, prepared.height // 16, prepared.width // 16)],
+        [ReferenceGeometry("image", 1, image.height // 16, image.width // 16) for image in prepared],
         geometry["latent_frame_count"], geometry["latent_height"], geometry["latent_width"],
         audio_latent_num_frames(request["model_num_frames"]))
     condition_rows, initial_video, initial_audio = image_noise(reference, layout, request["seed"])

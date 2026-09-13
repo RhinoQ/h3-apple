@@ -1,13 +1,13 @@
 # Experimental native image-reference generation
 
-This candidate adds a low-level, single-image Ref2VA route. It combines the
+This candidate adds a low-level Ref2VA route for an ordered list of 1–9 images. It combines the
 dedicated MiniMax Ref2VA transformer, LightX2V Ref2V Turbo v0.1 (rank 128,
 alpha 8), and the 50 compression gates from FastH3 VSA Data-Free. It does not
 apply FastH3's T2VA low-rank or exact-delta updates.
 
 The standard public CLI/API remains the tested text-to-audio-video interface.
-Reference-image quality, video references, reference audio and multiple images
-are not qualified by the existence of this candidate.
+Reference-image quality, video references, reference audio and the full range of
+image counts are not qualified by the existence of this candidate.
 
 Install the candidate wheel with the `ref2va` extra for its CPU vision tower.
 Use `h3_apple.conversion.convert_dit(native_transformer, ref2va_lora, output,
@@ -15,7 +15,7 @@ progress, task="ref2va", gate_source=fasth3_adapter)` to prepare a new checkpoin
 Conversion refuses an existing output directory and writes `ref2va_recipe.json`.
 The gate source may be the full FastH3 adapter; only its gate tensors are applied.
 
-For a resolved five-second request, the experimental integration is:
+For a resolved request, the experimental integration is:
 
 ```python
 from h3_apple.runtime.engine import run
@@ -28,6 +28,12 @@ result = run(request, assets, output_path, on_progress, diagnostics_dir,
         "attention": "vsa",  # "dense" uses the same checkpoint without VSA
     })
 ```
+
+For multiple images, replace `image_path` with `image_paths=[image_1, image_2,
+image_3, image_4]`. Supply exactly one of the two fields. List order determines
+the picture numbers in the prompt and the ordered latent prefix. The pixel
+budget applies to each image. Every image retains its own dense-exempt segment;
+references are not combined into a collage.
 
 `assets["checkpoint"]` must point to the newly converted Ref2VA checkpoint;
 `assets["components"]` supplies the H3 audio/video decoders. The native reference
