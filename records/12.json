@@ -3,7 +3,7 @@
   "title": "Secrets in the snow",
   "source_case": "Snowy Bamboo Wuxia Mystery",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 2,
     "videos": 0,
@@ -20,7 +20,7 @@
   "prompt_sha256": "0dcf150c18b257acd4155e32ac37299e5b0dafd3ecdb53b38db1f6dba95e5f68",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev2",
       "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -62,6 +62,59 @@
     "source_case": "Snowy Bamboo Wuxia Mystery",
     "resolution": "576p",
     "reason": "Both character references are close shots and the prompt prioritizes facial close-ups."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-13T19:38:16.774368+00:00",
+  "elapsed_seconds": 961.4953440420795,
+  "actual_nfe": 4,
+  "video_sha256": "b3f376b8e0964f6b99d13178314dab524750364a097d85a1afe8ffd821ed8e00",
+  "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+  "timings_seconds": {
+    "conditioning": 16.785297124879435,
+    "denoise": 842.075905042002,
+    "video_decode": 97.09922233293764,
+    "audio_decode": 1.1900779579300433,
+    "mux": 1.458492040866986
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.0271368362009525,
+    "denoise": 36.30845680646598,
+    "video_decode": 18.14845885708928,
+    "audio_decode": 2.62919282540679,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 15.0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "index": 1,
+      "sha256": "57e4b32cb6d8682e9cf4c548cdc2d09e8f0ad8e6f264debde114a160e7cad297",
+      "size": 36842
+    },
+    {
+      "index": 2,
+      "sha256": "a8c2d373f85c5374795c10de101207d17942e164fe6b13657b8bf705e4fa7f5c",
+      "size": 32282
+    }
+  ],
+  "runtime_version": "0.1.0.dev2",
+  "attention": "vsa",
+  "experimental_input_support": false,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/12-576p-b3f376b8e096-output.mp4",
+    "poster": "media/12-576p-b3f376b8e096-poster.jpg"
   },
   "previous_results": []
 }
