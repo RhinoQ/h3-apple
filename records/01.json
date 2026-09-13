@@ -18,6 +18,64 @@
   },
   "prompt_sha256": "a218403d678cc4b6cb5ad00f914011b851eeb19f4224be9ec2e26dfeb78eae1c",
   "notes": [],
+  "reproduction": {
+    "configuration_state": "executed",
+    "runtime": {
+      "version": "0.1.0.dev2",
+      "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+      "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "directory": "h3-apple-dev2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp",
+        "sha256": "365597a065ed4d7b7d0d7a19dcb816de44c1a32e59b38d832b5eeef4e66a429c",
+        "bytes": 58686
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp",
+        "sha256": "aa5f0fbe9019f799629464682d0c24f919edab23a423a2e35dac8e9db5e1290c",
+        "bytes": 54660
+      },
+      {
+        "label": "Image 3",
+        "argument": "reference_images",
+        "index": 3,
+        "media_type": "image",
+        "filename": "image-03.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp",
+        "sha256": "1d2bb515fabfb0d535b41ebc54aa053b4580db16f9227fa961b1d1ed56dfb5f6",
+        "bytes": 89524
+      },
+      {
+        "label": "Image 4",
+        "argument": "reference_images",
+        "index": 4,
+        "media_type": "image",
+        "filename": "image-04.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp",
+        "sha256": "3fc4a00a864d9d120b37dcc5319cfde56e416eb958e2bab26eb66e64b91574e7",
+        "bytes": 54786
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  },
   "seed": 42,
   "started_utc": "2026-09-13T12:07:42.955294+00:00",
   "elapsed_seconds": 1326.6071971249767,

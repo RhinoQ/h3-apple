@@ -19,5 +19,44 @@
   "prompt_sha256": "bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev3+guide2",
+      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "directory": "h3-apple-guide2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0,
+      "aspect_ratio": "9:16"
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/odbQKz3gGNeCvoiXJ6_a__3-1-4-2_ref1.webp",
+        "sha256": "3baa2b02a09f87fa1794baf383ed42fc67171be237a49c8b627a80468dce284b",
+        "bytes": 131210
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44050/8EI5Tk2n5OQz4x9EjYIyL_3-1-4-2_ref2.webp",
+        "sha256": "fde16c9400e4bc9c61cf4c795242c230e30a88177af5a5209923a334ad4fc29d",
+        "bytes": 40764
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

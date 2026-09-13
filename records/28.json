@@ -19,5 +19,54 @@
   "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev3+guide2",
+      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "directory": "h3-apple-guide2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0,
+      "aspect_ratio": "16:9"
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/KtSdAy3-GJFQuuGNwGbsi_3-2-1-2_ref1.webp",
+        "sha256": "9d10be5dcbee3a6d820431c329aa0b11deda4d27c7afcaac2fe4083cc4aa8dbd",
+        "bytes": 52028
+      },
+      {
+        "label": "Video 1",
+        "argument": "reference_videos",
+        "index": 1,
+        "media_type": "video",
+        "filename": "video-01.mp4",
+        "url": "https://v3b.fal.media/files/b/0aa44040/VSekCvQp4GrU9XmMkMRkv_3-2-1-2_in1.mp4",
+        "sha256": "f4b2d11821388eea4e147a204e26920264950aedc86306b88835e0f6d2662e7b",
+        "bytes": 475665
+      },
+      {
+        "label": "Video 2",
+        "argument": "reference_videos",
+        "index": 2,
+        "media_type": "video",
+        "filename": "video-02.mp4",
+        "url": "https://v3b.fal.media/files/b/0aa44040/dGPHcANNokOBvSJGOn9Xh_3-2-1-2_in2.mp4",
+        "sha256": "e170c0d6569259cba5541e2cb21bd16de4c239b00f90a21a8e7a75c228d24daf",
+        "bytes": 1138218
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

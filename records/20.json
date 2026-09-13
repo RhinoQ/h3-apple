@@ -19,5 +19,34 @@
   "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev3+guide2",
+      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "directory": "h3-apple-guide2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 10.125,
+      "aspect_ratio": "16:9"
+    },
+    "references": [
+      {
+        "label": "First frame",
+        "argument": "first_frame",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/RippnCb7kSS4Z2HdmcNIe_3-1-5-4_ref1.webp",
+        "sha256": "5321c723afc1bab18fdb3efc82576f26c673bdc7f2da655f8a0dd764f6f19abd",
+        "bytes": 38572
+      }
+    ],
+    "task": "fl2va",
+    "model_manifest": "models/fl2va.json"
+  }
 }

@@ -19,5 +19,73 @@
   "prompt_sha256": "02452c913f8829974c3d542cc7b2ac1984c8c88787c0a7ee593fd6a84d8b4efa",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev2",
+      "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+      "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "directory": "h3-apple-dev2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/inkR-ds2tkM6eE2RarDjP_3-1-2-1_ref1.webp",
+        "sha256": "d9cd10a4b6dde8b5ef1d4444483bc3b3452f1b569539c6ed80165ebdf4554a7a",
+        "bytes": 56998
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/4fBkydkxYMHR5xoyRhy4L_3-1-2-1_ref2.webp",
+        "sha256": "76d05bac8a5b852406e87d61a43dba1e0c621ef9f3b9842741d477ee28067787",
+        "bytes": 60630
+      },
+      {
+        "label": "Image 3",
+        "argument": "reference_images",
+        "index": 3,
+        "media_type": "image",
+        "filename": "image-03.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/mW88KCKWIujkO8k9Y4doH_3-1-2-1_ref3.webp",
+        "sha256": "c1743fff2b77128ccdc9e11437242cb952c56e41f0768263d28051adca162d0e",
+        "bytes": 53226
+      },
+      {
+        "label": "Image 4",
+        "argument": "reference_images",
+        "index": 4,
+        "media_type": "image",
+        "filename": "image-04.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/yf9YnuxGEvq21Q1smOcCp_3-1-2-1_ref4.webp",
+        "sha256": "c47922e6179fde7621cb09539d7a62dba9c689781c6bd41fde18dd4ce14f5c58",
+        "bytes": 60284
+      },
+      {
+        "label": "Image 5",
+        "argument": "reference_images",
+        "index": 5,
+        "media_type": "image",
+        "filename": "image-05.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/Ea_-Q8dhPNoJDFpEDXm0L_3-1-2-1_ref5.webp",
+        "sha256": "2400b5efe0d30f11be1d30f64bfbaa851c78b0096cef8068c0f3815433b88443",
+        "bytes": 60160
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

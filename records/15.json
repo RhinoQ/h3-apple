@@ -19,5 +19,54 @@
   "prompt_sha256": "1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce",
   "notes": [
     "The source prompt mentions a reference video that is not supplied on the page."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev3+guide2",
+      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "directory": "h3-apple-guide2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0,
+      "aspect_ratio": "9:16"
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/A7EDo_J65S-WX62RdaQvS_3-1-4-1_ref1.webp",
+        "sha256": "97590ab6dea3d58cb7472d2799cc30072c0ab4582fa4e2e78b1f98ae6c21c5f1",
+        "bytes": 32044
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/0qwssBfAaHIucktJHpXeC_3-1-4-1_ref2.webp",
+        "sha256": "bf2830a62b6ef89f8b9ec1d62a655562cb056970901cabb1f280ea15b53d1f1e",
+        "bytes": 22672
+      },
+      {
+        "label": "Image 3",
+        "argument": "reference_images",
+        "index": 3,
+        "media_type": "image",
+        "filename": "image-03.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/bF3Ouc7OGu4h7NWOEG61G_3-1-4-1_ref3.webp",
+        "sha256": "8ca2f89360855dec29f25acfaaffb0a8c29557ac3d143e6b705fad01fee10843",
+        "bytes": 28584
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

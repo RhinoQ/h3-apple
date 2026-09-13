@@ -6,13 +6,22 @@ The gallery publishes original local outputs and generation metadata, with clear
 status for every case. It does not imply that every listed case has been generated.
 
 Open `index.html` through a static HTTP server. No JavaScript framework, remote
-font, analytics, API key, or cloud generation service is required.
+font, analytics, API key, or cloud generation service is required. The small
+`reproduction.js` helper copies commands and displays a reader-selected prompt
+file locally after verifying its hash; it sends no uploaded text anywhere.
 
 `build.py` consumes the private source inventory and local run status using the
 H3 Apple Conda environment. It exports an explicit allowlist of metadata and
 copies only completed H3 Apple output files. The private inventory and source
 media stay outside this repository. `layout.html` and `styles.css` are the page
 sources; `index.html`, `collection.json`, and `records/` are generated exports.
+
+Each case includes ordered reference previews from the original publisher,
+an exact-prompt source link, a hash-checked local prompt viewer, an input-fetching
+command, and the Python API call. Follow [REPRODUCE.md](REPRODUCE.md) for pinned
+runtime installation and model preparation. `reproduce.py` downloads public
+inputs directly from their source and checks the runtime and model manifest
+before running. It does not contain or republish the guide's prompt text.
 
 GitHub Pages can serve this repository directly from the root of its publishing
 branch. The `.nojekyll` file preserves the authored static files.
@@ -24,7 +33,8 @@ branch. The `.nojekyll` file preserves the authored static files.
 - Mixed video/audio, portrait and first/last-frame cases use the isolated
   `0.1.0.dev3+guide2` development build. Each record includes the actual runtime
   source hash, model identity and attention mode. These input extensions are
-  experimental and are not included in the latest public runtime release.
+  experimental. Their pinned source is public on `codex/guide-inputs`; they
+  are not included in the latest tagged runtime release.
 - First/last-frame cases use native FL2VA with LightX2V FL four-step v0.1 and
   dense attention. T2VA and Ref2VA retain their established four-step weights.
 - The source videos are 720p. A source clip of 15.083 seconds is delivered as
@@ -41,8 +51,9 @@ branch. The `.nojekyll` file preserves the authored static files.
 ## Attribution and content
 
 The implementation, writing, and visual identity of this page were authored
-independently. It does not include fal's site code, logo, article text, input
-assets, or hosted output videos. Source cases are linked for inspection.
+independently. It does not include fal's site code, logo, article text, or
+hosted output videos. Reference previews are served from the source URLs;
+the input assets themselves remain outside this repository.
 
 Generated studies may contain names or visual subject matter from their source
 inputs. They are presented as technical reproductions, not endorsements or

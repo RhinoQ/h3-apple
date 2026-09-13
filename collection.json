@@ -26,6 +26,64 @@
       },
       "prompt_sha256": "a218403d678cc4b6cb5ad00f914011b851eeb19f4224be9ec2e26dfeb78eae1c",
       "notes": [],
+      "reproduction": {
+        "configuration_state": "executed",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp",
+            "sha256": "365597a065ed4d7b7d0d7a19dcb816de44c1a32e59b38d832b5eeef4e66a429c",
+            "bytes": 58686
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp",
+            "sha256": "aa5f0fbe9019f799629464682d0c24f919edab23a423a2e35dac8e9db5e1290c",
+            "bytes": 54660
+          },
+          {
+            "label": "Image 3",
+            "argument": "reference_images",
+            "index": 3,
+            "media_type": "image",
+            "filename": "image-03.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp",
+            "sha256": "1d2bb515fabfb0d535b41ebc54aa053b4580db16f9227fa961b1d1ed56dfb5f6",
+            "bytes": 89524
+          },
+          {
+            "label": "Image 4",
+            "argument": "reference_images",
+            "index": 4,
+            "media_type": "image",
+            "filename": "image-04.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp",
+            "sha256": "3fc4a00a864d9d120b37dcc5319cfde56e416eb958e2bab26eb66e64b91574e7",
+            "bytes": 54786
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      },
       "seed": 42,
       "started_utc": "2026-09-13T12:07:42.955294+00:00",
       "elapsed_seconds": 1326.6071971249767,
@@ -107,7 +165,36 @@
       "prompt_sha256": "79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7",
       "notes": [
         "This fixed-seed generation is in progress."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp",
+            "sha256": "405480fab8267c46b768f58bf98e16a9f0bdfe07d1380ae18c3ffc3d8704bd02",
+            "bytes": 57782
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 3,
@@ -129,6 +216,44 @@
       },
       "prompt_sha256": "3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70",
       "notes": [],
+      "reproduction": {
+        "configuration_state": "executed",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp",
+            "sha256": "e446b3f7e8bce699a300eaaafc40af17587bcf04537492aaef479f925b9aaa4b",
+            "bytes": 54488
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp",
+            "sha256": "07ca8854374d29f025329cb8976e34c5c40c9b04d39fa6d079ec88f7f645e380",
+            "bytes": 43990
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      },
       "seed": 42,
       "started_utc": "2026-09-13T12:54:20.235646+00:00",
       "elapsed_seconds": 1191.0019356249832,
@@ -200,7 +325,65 @@
       "prompt_sha256": "37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp",
+            "sha256": "981f9b6eec1a3e436d3b9af1ad61daadd569146be1252151e22b9e4705313d9c",
+            "bytes": 43072
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp",
+            "sha256": "0ec8d5ddf1bdc1a7ec54eb16ea14250ddeddf838b4fb161d15eb115046e1d44b",
+            "bytes": 38866
+          },
+          {
+            "label": "Image 3",
+            "argument": "reference_images",
+            "index": 3,
+            "media_type": "image",
+            "filename": "image-03.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp",
+            "sha256": "1bc50aadf215b6b2d4e0bb345bfd0a2e8fdf26f2ec31a4d71b59b70ed7e31028",
+            "bytes": 53706
+          },
+          {
+            "label": "Image 4",
+            "argument": "reference_images",
+            "index": 4,
+            "media_type": "image",
+            "filename": "image-04.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp",
+            "sha256": "2bf9e65f2dfd17e62e1cc31e377227955ce4282d6898a4ee661a43f472f5219b",
+            "bytes": 4758
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 5,
@@ -223,7 +406,45 @@
       "prompt_sha256": "f4d8090a7d2595990097618e08a9547ee3c4f743ca96d22315f7b9e02bae46ae",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/9Eemto-aYNtyAGtfrHCdj_3-1-1-5_ref1.webp",
+            "sha256": "db21e7ace8274a7cfb97b102c637ae599d824e87e5a1fcc9d6eba74c8d0b622a",
+            "bytes": 62562
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/SpdaBOaq8baQmmcrIXoE1_3-1-1-5_ref2.webp",
+            "sha256": "30c435ab48cd9dc257344c8b10acaa617c5d9942287c63ff3cc4ab8c4005f6c0",
+            "bytes": 39620
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 6,
@@ -246,7 +467,75 @@
       "prompt_sha256": "02452c913f8829974c3d542cc7b2ac1984c8c88787c0a7ee593fd6a84d8b4efa",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/inkR-ds2tkM6eE2RarDjP_3-1-2-1_ref1.webp",
+            "sha256": "d9cd10a4b6dde8b5ef1d4444483bc3b3452f1b569539c6ed80165ebdf4554a7a",
+            "bytes": 56998
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/4fBkydkxYMHR5xoyRhy4L_3-1-2-1_ref2.webp",
+            "sha256": "76d05bac8a5b852406e87d61a43dba1e0c621ef9f3b9842741d477ee28067787",
+            "bytes": 60630
+          },
+          {
+            "label": "Image 3",
+            "argument": "reference_images",
+            "index": 3,
+            "media_type": "image",
+            "filename": "image-03.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/mW88KCKWIujkO8k9Y4doH_3-1-2-1_ref3.webp",
+            "sha256": "c1743fff2b77128ccdc9e11437242cb952c56e41f0768263d28051adca162d0e",
+            "bytes": 53226
+          },
+          {
+            "label": "Image 4",
+            "argument": "reference_images",
+            "index": 4,
+            "media_type": "image",
+            "filename": "image-04.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/yf9YnuxGEvq21Q1smOcCp_3-1-2-1_ref4.webp",
+            "sha256": "c47922e6179fde7621cb09539d7a62dba9c689781c6bd41fde18dd4ce14f5c58",
+            "bytes": 60284
+          },
+          {
+            "label": "Image 5",
+            "argument": "reference_images",
+            "index": 5,
+            "media_type": "image",
+            "filename": "image-05.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/Ea_-Q8dhPNoJDFpEDXm0L_3-1-2-1_ref5.webp",
+            "sha256": "2400b5efe0d30f11be1d30f64bfbaa851c78b0096cef8068c0f3815433b88443",
+            "bytes": 60160
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 7,
@@ -269,7 +558,24 @@
       "prompt_sha256": "2c8493ae5d8b525b1d05321b83e29abb20642ce78dbdecbc55cf8fd39457c484",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [],
+        "task": "t2va",
+        "model_manifest": "models/t2va.json"
+      }
     },
     {
       "case": 8,
@@ -292,7 +598,24 @@
       "prompt_sha256": "c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [],
+        "task": "t2va",
+        "model_manifest": "models/t2va.json"
+      }
     },
     {
       "case": 9,
@@ -315,7 +638,45 @@
       "prompt_sha256": "37fc53acafcf3682f9a24653f5a78ab9edaf98272ead96b0ec45d14850ccc6be",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/1pS57kNUbNacQDAVT3wau_3-1-2-4_ref1.webp",
+            "sha256": "d4512932f450eb9cf8ccb78bea2dc80114153dda65dfc69d2754e46558252ab8",
+            "bytes": 88618
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/K6RRNz9zu5ycrR1L29lMd_3-1-2-4_ref2.webp",
+            "sha256": "709eab01286f7bfd70e881582f163b0c9ed5528beed815aa7090cbe5d01d69ca",
+            "bytes": 153458
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 10,
@@ -338,7 +699,46 @@
       "prompt_sha256": "298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/qMNSTJ5ZNf7s08SjNZ7hw_3-1-2-5_in1.mp4",
+            "sha256": "dbbe5663966a67b141750659902bc9642aeef667639cdda3d9cba765ecd1e31a",
+            "bytes": 674790
+          },
+          {
+            "label": "Video 2",
+            "argument": "reference_videos",
+            "index": 2,
+            "media_type": "video",
+            "filename": "video-02.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/CGtf6kdKlSk6BytaBA8xl_3-1-2-5_in2.mp4",
+            "sha256": "11cc093ca5a45dd6ca4722e28bc46ca30bc4e103ce62a09601c4243bb6d22681",
+            "bytes": 839268
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 11,
@@ -361,7 +761,36 @@
       "prompt_sha256": "ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "9:16"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44050/2YmEFl1sdPM3TaBDW8rvP_3-1-2-6_ref1.webp",
+            "sha256": "3ac793ae121c729a4ddd7af49527fc83592710e383c0b70e9b1a6341778b0442",
+            "bytes": 48992
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 12,
@@ -384,7 +813,45 @@
       "prompt_sha256": "0dcf150c18b257acd4155e32ac37299e5b0dafd3ecdb53b38db1f6dba95e5f68",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/9_quxJiBVqhyz-9jYZQP__3-1-3-1_ref1.webp",
+            "sha256": "57e4b32cb6d8682e9cf4c548cdc2d09e8f0ad8e6f264debde114a160e7cad297",
+            "bytes": 36842
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/oCAoqLriHwCMRn47QVsf7_3-1-3-1_ref2.webp",
+            "sha256": "a8c2d373f85c5374795c10de101207d17942e164fe6b13657b8bf705e4fa7f5c",
+            "bytes": 32282
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 13,
@@ -407,7 +874,46 @@
       "prompt_sha256": "21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "9:16"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/7-za79fXKpM8Q5SggP_GO_3-1-3-2_ref1.webp",
+            "sha256": "131e363b5bf3f65d4a0eff54bb4b6d43ef5fa20c1929a6150fa972cd86e90422",
+            "bytes": 22318
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/B2SgwXPNdc2TMmlgWXO12_3-1-3-2_ref2.webp",
+            "sha256": "2e9405ed524e40b65fcd8e4fa22b503e5cf20a1f5b454709f9b6c029ac5955a0",
+            "bytes": 38308
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 14,
@@ -430,7 +936,46 @@
       "prompt_sha256": "827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "9:16"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44050/bDhXe5W8tX7AAmRj9beu4_3-1-3-3_ref1.webp",
+            "sha256": "7e9cb5918f6f320c8429fcf854d7bd48d69c6de602f8e66af81416b8f9e0292c",
+            "bytes": 34192
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/UsD0TPNP6WFni6wyAT_D6_3-1-3-3_ref2.webp",
+            "sha256": "fad2b361dcbb740132106d2b16d60bb3543a7acd7793f1be792dd54a576ec10f",
+            "bytes": 69456
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 15,
@@ -453,7 +998,56 @@
       "prompt_sha256": "1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce",
       "notes": [
         "The source prompt mentions a reference video that is not supplied on the page."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "9:16"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/A7EDo_J65S-WX62RdaQvS_3-1-4-1_ref1.webp",
+            "sha256": "97590ab6dea3d58cb7472d2799cc30072c0ab4582fa4e2e78b1f98ae6c21c5f1",
+            "bytes": 32044
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/0qwssBfAaHIucktJHpXeC_3-1-4-1_ref2.webp",
+            "sha256": "bf2830a62b6ef89f8b9ec1d62a655562cb056970901cabb1f280ea15b53d1f1e",
+            "bytes": 22672
+          },
+          {
+            "label": "Image 3",
+            "argument": "reference_images",
+            "index": 3,
+            "media_type": "image",
+            "filename": "image-03.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/bF3Ouc7OGu4h7NWOEG61G_3-1-4-1_ref3.webp",
+            "sha256": "8ca2f89360855dec29f25acfaaffb0a8c29557ac3d143e6b705fad01fee10843",
+            "bytes": 28584
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 16,
@@ -476,7 +1070,46 @@
       "prompt_sha256": "bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "9:16"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/odbQKz3gGNeCvoiXJ6_a__3-1-4-2_ref1.webp",
+            "sha256": "3baa2b02a09f87fa1794baf383ed42fc67171be237a49c8b627a80468dce284b",
+            "bytes": 131210
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44050/8EI5Tk2n5OQz4x9EjYIyL_3-1-4-2_ref2.webp",
+            "sha256": "fde16c9400e4bc9c61cf4c795242c230e30a88177af5a5209923a334ad4fc29d",
+            "bytes": 40764
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 17,
@@ -499,7 +1132,45 @@
       "prompt_sha256": "fb5af89c4976e8d8997cf308133db83667a92ddc622cca1aeab28d491206eb26",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/by_ntirI8-pvXjlgZpYJm_3-1-5-1_ref1.webp",
+            "sha256": "4258a14073f50749debf969363fd06e18c355e8797d1e7e02b9ad8706639b6c3",
+            "bytes": 35392
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/R0fu1SE7WXXXijPApQqrA_3-1-5-1_ref2.webp",
+            "sha256": "5d08468b7b3a64f5486874981534cef110403f737e3076037a823da9631a5135",
+            "bytes": 114036
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 18,
@@ -522,7 +1193,35 @@
       "prompt_sha256": "2578d9d08290a607366750d77701af5743251ab3fb3eeb96be58d050ced4b2b8",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/Nf-ehb4Tv_oykkFMlL_Xn_3-1-5-2_ref1.webp",
+            "sha256": "ab4ec5f8149cc4f938ce466d1072c366f3dee0c5e100f7b4d8c53788540e5761",
+            "bytes": 32804
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 19,
@@ -545,7 +1244,36 @@
       "prompt_sha256": "e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44050/6h9GMfzActy_L4IyAiMZA_3-1-5-3_ref1.webp",
+            "sha256": "2aed63a176ebf1ffbb7794d01da29dc822e42595a4f03899265b146b6a68db01",
+            "bytes": 38168
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 20,
@@ -568,7 +1296,36 @@
       "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/RippnCb7kSS4Z2HdmcNIe_3-1-5-4_ref1.webp",
+            "sha256": "5321c723afc1bab18fdb3efc82576f26c673bdc7f2da655f8a0dd764f6f19abd",
+            "bytes": 38572
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 21,
@@ -591,7 +1348,36 @@
       "prompt_sha256": "16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/aEXwD7DJ5_a0_T6zvbx-R_3-1-6-1_ref1.webp",
+            "sha256": "dce0c48a0ed1529ac169e7a75810661b38e4eab11d718173ef555fdf151441e3",
+            "bytes": 92564
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 22,
@@ -614,7 +1400,45 @@
       "prompt_sha256": "399c27bb4cf0b859e46cdcba2a2f94035aa79c6e26ee5df1602e58e5a996cbb2",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/UyHIoFOvKqn8aO5As8Zij_3-1-6-2_ref1.webp",
+            "sha256": "91b80e27e32502c4171b8298941acc3c4d272807f5534cd266c3ee5b0b085f01",
+            "bytes": 113040
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/f1fFTNFZL7JbU01sRDu4I_3-1-6-2_ref2.webp",
+            "sha256": "8c91f15aca88c2ec85aeae68caca6ecf2dd31e17b60efed1ea2252671b0bf54f",
+            "bytes": 55308
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 23,
@@ -637,7 +1461,45 @@
       "prompt_sha256": "1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/MJh-KujmR4yuYVYotXtNV_3-1-6-3_ref1.webp",
+            "sha256": "137b39d0ea243557aead39d861a572778c385a00555e1cb7410655fd94dffb40",
+            "bytes": 77396
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/IulxjHXBfAG8Dk_XIAxQd_3-1-6-3_ref2.webp",
+            "sha256": "cd0c7921af45e22e52d99d6fdf5de077af730e6b4800c47324ff50cb2a5eb9f0",
+            "bytes": 44022
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 24,
@@ -660,7 +1522,36 @@
       "prompt_sha256": "8269db178995115adc4d1102c27226315924ca4d8f5be7525858885b6f6bc15a",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/FNR0bvaxq9bXDHMA_2U1i_3-1-6-4_ref1.webp",
+            "sha256": "c47537d860c27689a1b70621b82e01ff3fb97cbd1c2606b538141aeb2f97ce8a",
+            "bytes": 84486
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 25,
@@ -683,7 +1574,46 @@
       "prompt_sha256": "cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/4bkWZpB19fqzRjD-qXbWG_3-1-6-5_ref1.webp",
+            "sha256": "0b5b69aed2fd287fa61da20f8460cdf0bf50a003e25afdf4f47c008e8baa7558",
+            "bytes": 51086
+          },
+          {
+            "label": "Last frame",
+            "argument": "last_frame",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/2XtxMPH_4z3_Ci3Jos18T_3-1-6-5_ref2.webp",
+            "sha256": "1e6c498a13695839131b353adefcd7c1d0169d21f8ce7e59e588fd763528a7e7",
+            "bytes": 50710
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 26,
@@ -706,7 +1636,45 @@
       "prompt_sha256": "6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/dXHaromC4vvnMDpHXWJB2_3-1-6-6_ref1.webp",
+            "sha256": "ab73f51502d67d8879e89f01c96f6d92a623711c565f38bc2539dad0f12bdeea",
+            "bytes": 32176
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/iqID3lFJ7QkGL4wBUCRbn_3-1-6-6_ref2.webp",
+            "sha256": "017b6f3426072ca50cdf2435fa07f02aa70fb241e61db2cd03a5282d7c8a16be",
+            "bytes": 68450
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 27,
@@ -729,7 +1697,96 @@
       "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 5.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44050/MyXMNUIzKsoWVCGGrOvRN_3-2-1-1_ref1.webp",
+            "sha256": "c450c2e53965e03f2764e98fad4a418f92a8602581a7e8921f9a3e7b921bd501",
+            "bytes": 110206
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/xUAGrwemSsdcxx_s5kz9i_3-2-1-1_ref2.webp",
+            "sha256": "bdf445420fbde9ec98a2c9224a021b77afc148a2ae22e681c8e28e61ad3b6a8e",
+            "bytes": 67350
+          },
+          {
+            "label": "Image 3",
+            "argument": "reference_images",
+            "index": 3,
+            "media_type": "image",
+            "filename": "image-03.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/YFGVkzhPRCFE5g-zyoKp-_3-2-1-1_ref3.webp",
+            "sha256": "2be7f1f8bc3a12083d785e47933fea3225274ec6fae2a5f94be56cd9cc602e06",
+            "bytes": 48142
+          },
+          {
+            "label": "Image 4",
+            "argument": "reference_images",
+            "index": 4,
+            "media_type": "image",
+            "filename": "image-04.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44050/qnEWKeTFEN_2RVFPdpl3z_3-2-1-1_ref4.webp",
+            "sha256": "fa95704c6ae584b3f22f8452e71aa28105ab9d5b9a7365803eb99e4a7892638c",
+            "bytes": 37536
+          },
+          {
+            "label": "Image 5",
+            "argument": "reference_images",
+            "index": 5,
+            "media_type": "image",
+            "filename": "image-05.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/n3MxAdI6T6ym0HjytKt64_3-2-1-1_ref5.webp",
+            "sha256": "4b222d7bdd7e14dcbef1e9d3a510263c8826bd6df22e1e2102b06889ec3e41aa",
+            "bytes": 79878
+          },
+          {
+            "label": "Image 6",
+            "argument": "reference_images",
+            "index": 6,
+            "media_type": "image",
+            "filename": "image-06.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/tqaWhAlodUZxjSG-syKvH_3-2-1-1_ref6.webp",
+            "sha256": "43eb072c27354276b3ab1db94b0cd3c58ed6d45db0f75277963ba7d98f96302c",
+            "bytes": 24098
+          },
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/y8LRcPncOXeXsDLbw_sqF_3-2-1-1_in1.mp4",
+            "sha256": "f8f4e6af91c000d3e04bf1fe1e1fd0184471224b53d5e145793cd7fc96fcf144",
+            "bytes": 676858
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 28,
@@ -752,7 +1809,56 @@
       "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/KtSdAy3-GJFQuuGNwGbsi_3-2-1-2_ref1.webp",
+            "sha256": "9d10be5dcbee3a6d820431c329aa0b11deda4d27c7afcaac2fe4083cc4aa8dbd",
+            "bytes": 52028
+          },
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/VSekCvQp4GrU9XmMkMRkv_3-2-1-2_in1.mp4",
+            "sha256": "f4b2d11821388eea4e147a204e26920264950aedc86306b88835e0f6d2662e7b",
+            "bytes": 475665
+          },
+          {
+            "label": "Video 2",
+            "argument": "reference_videos",
+            "index": 2,
+            "media_type": "video",
+            "filename": "video-02.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/dGPHcANNokOBvSJGOn9Xh_3-2-1-2_in2.mp4",
+            "sha256": "e170c0d6569259cba5541e2cb21bd16de4c239b00f90a21a8e7a75c228d24daf",
+            "bytes": 1138218
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 29,
@@ -775,7 +1881,45 @@
       "prompt_sha256": "9f8827d7bd8cc8ac6339809d33337d9ecfbb7f4ea08e5993503f9d2240765b5e",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev2",
+          "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+          "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+          "directory": "h3-apple-dev2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/yY_1Z2tV6KJ2Inkaw6JgG_3-2-1-3_ref1.webp",
+            "sha256": "2d2825392dd97e0c7e76dc7198f6191bc4d68964c8e2723f7b7aa468558fa77a",
+            "bytes": 64248
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/ED5VlEDLsGo3EG0AFZseb_3-2-1-3_ref2.webp",
+            "sha256": "97e6b0d6b2d8a25c6ced1114bd15ef20854ae27d96717e95a17dd96a0b078167",
+            "bytes": 112520
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 30,
@@ -798,7 +1942,46 @@
       "prompt_sha256": "3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/fQJN-UhWbbouGzRae23rO_3-2-2-1_ref1.webp",
+            "sha256": "599061a8886859b697054e2f4cb046646f42c9338a63fb7c5a3061aa026ebbcf",
+            "bytes": 39402
+          },
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/ssRXxGPYALg3edLNCZjQ5_3-2-2-1_in1.mp4",
+            "sha256": "b5ceb66fbd82c15473d4fc0e802c7f084042112ad50d2cc10f576aecd07fbc30",
+            "bytes": 2039664
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 31,
@@ -821,7 +2004,56 @@
       "prompt_sha256": "88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/-4dp5kbzdRqinGhtzgS9Q_3-2-2-2_ref1.webp",
+            "sha256": "d5162687c84c2b28fd1bd6d231809afbc66a8b6045b9d630a7dd1bf4cbde33df",
+            "bytes": 80892
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/Gas53M7Tuo0s1PYYOQRkE_3-2-2-2_ref2.webp",
+            "sha256": "9824bfaa8b9fae07779e21237f7ae223515b290ff349ff38cb2249e03a42a6ff",
+            "bytes": 87920
+          },
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/ByMddW2HA-LxjZ8f1X-f3_3-2-2-2_in1.mp4",
+            "sha256": "5ec5085d808cc3cb6d90e32ce9dae1666e9517ecb4e79fc6cb2e3a31ab811c64",
+            "bytes": 1498432
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 32,
@@ -844,7 +2076,36 @@
       "prompt_sha256": "c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 6.583333333333333,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44050/RToCullX5MDcHPWICzuB9_3-2-2-4_in1.mp4",
+            "sha256": "96e7b534c7e28c0efdb061bd6fe15933b68ed624154de590a89e176de14c64e8",
+            "bytes": 807336
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 33,
@@ -867,7 +2128,46 @@
       "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/7xUCBrPjNvvOvKNkzZ2_G_3-2-3-1_in2.mp4",
+            "sha256": "12321b17a19e79f37a0c7cb5a6ad6cb614ceb067363392b9546b1f743414eba5",
+            "bytes": 823570
+          },
+          {
+            "label": "Audio 1",
+            "argument": "reference_audio",
+            "index": 1,
+            "media_type": "audio",
+            "filename": "audio-01.mp3",
+            "url": "https://v3b.fal.media/files/b/0aa44040/diYzSJTuTEdZH5cUmVB6u_3-2-3-1_in1.mp3",
+            "sha256": "2a48d447b343b38a2c504d5281a0c97c688db0ba87931ed9282c598bd6752454",
+            "bytes": 204432
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 34,
@@ -890,7 +2190,36 @@
       "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 6.583333333333333,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/vKUrteICQZw-0ZrY2ZYvX_3-3-1-1_in1.mp4",
+            "sha256": "ff2b2eda731dce6a7a5d5f8091e821584b714edebdf4df7afae9ba9177b3859a",
+            "bytes": 1179137
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 35,
@@ -913,7 +2242,36 @@
       "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 6.583333333333333,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/l_yC8dPdRorPJHvPdxo-l_3-3-1-2_in1.mp4",
+            "sha256": "c7cd12a3f8639758a2ab7bb74d591fbe73feb4763a8351f68c658d5f056879cc",
+            "bytes": 627095
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 36,
@@ -936,7 +2294,56 @@
       "prompt_sha256": "a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 6.583333333333333,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44051/BJjxF3HAH7lU27-yk2HhX_3-3-1-3_ref1.webp",
+            "sha256": "871c7dc5089845d2c987fa3a9ba04b2ec854d38d3cbd5cfbe259c150f03b83cf",
+            "bytes": 226206
+          },
+          {
+            "label": "Image 2",
+            "argument": "reference_images",
+            "index": 2,
+            "media_type": "image",
+            "filename": "image-02.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/7Elkr_67uzfSCrvak68ti_3-3-1-3_ref2.webp",
+            "sha256": "1b492c45bf3b34d729e5c65040f04ba457db7aede09edbbbdb40fa676b2d04c3",
+            "bytes": 176458
+          },
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44050/ehbUE2jGFc4hkVdXXakvw_3-3-1-3_in1.mp4",
+            "sha256": "6e8a3483c2000963c74de55dff0b4bd7097a25a21243740385a3c5a147b30332",
+            "bytes": 2029435
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 37,
@@ -959,7 +2366,46 @@
       "prompt_sha256": "95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/wu2q0dqo737lqebZP42Mh_3-3-2-1_in1.mp4",
+            "sha256": "dbbe5663966a67b141750659902bc9642aeef667639cdda3d9cba765ecd1e31a",
+            "bytes": 674790
+          },
+          {
+            "label": "Video 2",
+            "argument": "reference_videos",
+            "index": 2,
+            "media_type": "video",
+            "filename": "video-02.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44050/qK43iibhVvmzg9kvsUlxV_3-3-2-1_in2.mp4",
+            "sha256": "11cc093ca5a45dd6ca4722e28bc46ca30bc4e103ce62a09601c4243bb6d22681",
+            "bytes": 839268
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 38,
@@ -982,7 +2428,36 @@
       "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 6.583333333333333,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/emXiHyqHBI1Go4GG7gKxc_3-3-2-2_in1.mp4",
+            "sha256": "b0b0cf00eaa19f2e27d8c3276fa6cd7c542b93c5cc9c2c5580352ace894bcb66",
+            "bytes": 994880
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 39,
@@ -1005,7 +2480,46 @@
       "prompt_sha256": "ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 6.583333333333333,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/2e6Tu9nHoWzSZzalT5WH4_3-3-2-3_ref1.webp",
+            "sha256": "9d1b7d28dccf784245000fcd9fb146b9d2fc6eef15debe629e5bc8b53c9d64f2",
+            "bytes": 142556
+          },
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44050/YWz6UnJNrZYj5ZNPyjXBo_3-3-2-3_in1.mp4",
+            "sha256": "4dc823537a9d3d315814b7d126e3e41610ba6e3663bb4f99503c2124791bffef",
+            "bytes": 994732
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 40,
@@ -1028,7 +2542,46 @@
       "prompt_sha256": "4cf1ddd988682b78b31a000fdaa2eab5253659211a995098a3319b7e4ab00686",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44050/8CO6x9AT6pdNGg9CroOYt_3-3-3-1_in2.mp4",
+            "sha256": "8139b773670fe5da121e984b9c371ead2b87ce1cff08d6150391e4c9e5e6dbef",
+            "bytes": 1004844
+          },
+          {
+            "label": "Audio 1",
+            "argument": "reference_audio",
+            "index": 1,
+            "media_type": "audio",
+            "filename": "audio-01.mp3",
+            "url": "https://v3b.fal.media/files/b/0aa44040/RgapPrm2v-i7pGLrCZtwv_3-3-3-1_in1.mp3",
+            "sha256": "b2882623188d073c225282c1e27d937ba6835fd960040536722c2711fde9957c",
+            "bytes": 99421
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 41,
@@ -1051,7 +2604,36 @@
       "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 10.125,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/MwHg4D9Ik0Yp0ZAxP1-O-_3-3-4-1_in1.mp4",
+            "sha256": "e130a3a86ae4271234923d6a22cf1128068e8ae834e40dd23112380e770882a8",
+            "bytes": 1930654
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 42,
@@ -1074,7 +2656,36 @@
       "prompt_sha256": "8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44040/hqcytT4Y13i26QE011efd_3-3-4-2_in1.mp4",
+            "sha256": "c8da8b74b02ce74532868394e319bbb426c70207bd4b6f6676fbb962da09c44f",
+            "bytes": 3359995
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     },
     {
       "case": 43,
@@ -1097,7 +2708,36 @@
       "prompt_sha256": "25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 6.583333333333333,
+          "aspect_ratio": "16:9"
+        },
+        "references": [
+          {
+            "label": "First frame",
+            "argument": "first_frame",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/jfwzo1TKVVkBwF4lcVdGH_3-3-4-3_ref1.webp",
+            "sha256": "be795fba877f4f88035b3d887494b10c7c6c122bde849b61441fd18ad95b44e1",
+            "bytes": 72166
+          }
+        ],
+        "task": "fl2va",
+        "model_manifest": "models/fl2va.json"
+      }
     },
     {
       "case": 44,
@@ -1120,7 +2760,46 @@
       "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
       "notes": [
         "This case is waiting for the local generation worker."
-      ]
+      ],
+      "reproduction": {
+        "configuration_state": "planned",
+        "runtime": {
+          "version": "0.1.0.dev3+guide2",
+          "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+          "directory": "h3-apple-guide2"
+        },
+        "parameters": {
+          "seed": 42,
+          "resolution": "576p",
+          "duration": 15.0,
+          "aspect_ratio": "9:16"
+        },
+        "references": [
+          {
+            "label": "Image 1",
+            "argument": "reference_images",
+            "index": 1,
+            "media_type": "image",
+            "filename": "image-01.webp",
+            "url": "https://v3b.fal.media/files/b/0aa44041/kGEokRD-_IEApK5F3pt3H_3-3-4-4_ref1.webp",
+            "sha256": "125fded57aa9cc73b8657219c04489fc97f5a64799c655606d43b471e80cd8f7",
+            "bytes": 30714
+          },
+          {
+            "label": "Video 1",
+            "argument": "reference_videos",
+            "index": 1,
+            "media_type": "video",
+            "filename": "video-01.mp4",
+            "url": "https://v3b.fal.media/files/b/0aa44041/tONqOAIX9BQBbcdMWgdjg_3-3-4-4_in1.mp4",
+            "sha256": "cea9d5145dd9f30f3b62bdeb9bbdc2aaf5edd640ee576e2a1cbb9192ae0f052f",
+            "bytes": 1170478
+          }
+        ],
+        "task": "ref2va",
+        "model_manifest": "models/ref2va.json"
+      }
     }
   ]
 }

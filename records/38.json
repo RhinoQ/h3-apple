@@ -19,5 +19,34 @@
   "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev3+guide2",
+      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "directory": "h3-apple-guide2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 6.583333333333333,
+      "aspect_ratio": "16:9"
+    },
+    "references": [
+      {
+        "label": "Video 1",
+        "argument": "reference_videos",
+        "index": 1,
+        "media_type": "video",
+        "filename": "video-01.mp4",
+        "url": "https://v3b.fal.media/files/b/0aa44040/emXiHyqHBI1Go4GG7gKxc_3-3-2-2_in1.mp4",
+        "sha256": "b0b0cf00eaa19f2e27d8c3276fa6cd7c542b93c5cc9c2c5580352ace894bcb66",
+        "bytes": 994880
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

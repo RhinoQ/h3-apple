@@ -1,18 +1,19 @@
 """Export an allowlisted, static gallery from private local generation records.
 
-Run with the project's Conda Python. No network, third-party source assets,
-article prose, full prompts, private paths, or environment logs are published.
+Run with the project's Conda Python. Reference URLs are linked and previewed at
+their source. Article text, full prompts, private paths and logs stay local.
 """
 from __future__ import annotations
 
 import argparse
 from collections import Counter
+import hashlib
 import html
 import json
 from pathlib import Path
 import shutil
 import subprocess
-from urllib.parse import quote
+from urllib.parse import quote, urlparse
 
 TITLES = [
     "Through the binoculars", "A jump into deep space", "The silent gateway", "Desert departure",
@@ -40,6 +41,12 @@ BLOCKERS = {
     "source_prompt_mentions_unpublished_reference_video": "The source prompt mentions a reference video that is not supplied on the page.",
 }
 SOURCE = "https://fal.ai/learn/devs/minimax-h3-prompting-guide"
+RUNTIMES = {
+    "0.1.0.dev2": {"version": "0.1.0.dev2", "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+                   "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace", "directory": "h3-apple-dev2"},
+    "0.1.0.dev3+guide2": {"version": "0.1.0.dev3+guide2", "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+                          "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916", "directory": "h3-apple-guide2"},
+}
 
 
 def esc(value):
@@ -55,6 +62,80 @@ def atomic(path, content):
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(content)
     temporary.replace(path)
+
+
+def reproduction(case, run):
+    portrait = case["source_geometry"]["height"] > case["source_geometry"]["width"]
+    frames = case["product_status"] == "requires_frame_conditioning"
+    stable = case["product_status"].startswith("supported_") and not portrait and case["number"] != 15
+    version = "0.1.0.dev2" if stable else "0.1.0.dev3+guide2"
+    parameters = dict(seed=42, resolution="576p", duration=min(360, max(120, round(case["source_geometry"]["duration"] * 24))) / 24)
+    if not stable:
+        parameters["aspect_ratio"] = "9:16" if portrait else "16:9"
+    references = []
+    for key, kind in (("reference_images", "Image"), ("reference_videos", "Video"), ("reference_audio", "Audio")):
+        for index, asset in enumerate(case[key], 1):
+            url = asset["src"]
+            parsed = urlparse(url)
+            assert parsed.scheme == "https" and parsed.hostname == "v3b.fal.media"
+            suffix = Path(parsed.path).suffix
+            assert suffix in {".webp", ".jpg", ".jpeg", ".png", ".mp4", ".mov", ".wav", ".mp3", ".m4a"}
+            argument = ("first_frame" if index == 1 else "last_frame") if frames else key
+            label = ("First frame" if index == 1 else "Last frame") if frames else f"{kind} {index}"
+            references.append(dict(label=label, argument=argument, index=index, media_type=kind.lower(),
+                filename=f"{kind.lower()}-{index:02}{suffix}", url=url, sha256=asset["local"]["sha256"], bytes=asset["local"]["bytes"]))
+    task = "fl2va" if frames else ("ref2va" if references else "t2va")
+    if run["status"] == "generated":
+        metadata = json.loads((Path(run["directory"]) / "output.run.json").read_text())
+        assert hashlib.sha256(metadata["request"]["prompt"].encode()).hexdigest() == case["prompt_sha256"]
+        assert metadata["package_source_sha256"] == RUNTIMES[version]["source_sha256"]
+        assert metadata["request"]["task"] == task
+        assert all(metadata["request"][key] == value for key, value in parameters.items() if key != "aspect_ratio")
+        assert sorted(x["sha256"] for x in references) == sorted(x["sha256"] for x in metadata.get("reference_inputs", []))
+    return dict(configuration_state="executed" if run["status"] == "generated" else "planned",
+                runtime=RUNTIMES[version], parameters=parameters, references=references, task=task,
+                model_manifest=f"models/{task}.json")
+
+
+def reproduction_panel(record):
+    number = record["case"]
+    slug = f"{number:02}"
+    recipe = record["reproduction"]
+    parts = ['<div class="reproduction"><h4>Reproduce this video</h4>']
+    if recipe["configuration_state"] != "executed":
+        parts.append('<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>')
+    parts.append('<h5>Reference inputs · in supplied order</h5>')
+    if not recipe["references"]:
+        parts.append('<p class="small-note">Text only; no reference media.</p>')
+    else:
+        parts.append('<div class="reference-grid">')
+        for item in recipe["references"]:
+            url, label = esc(item["url"]), esc(item["label"])
+            parts.append('<figure class="reference">')
+            if item["media_type"] == "image":
+                parts.append(f'<a href="{url}" target="_blank" rel="noopener noreferrer"><img src="{url}" alt="{label}, case {slug}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>')
+            elif item["media_type"] == "video":
+                parts.append(f'<video controls playsinline preload="none" src="{url}" aria-label="{label}, case {slug}"></video>')
+            else:
+                parts.append(f'<audio controls preload="none" src="{url}" aria-label="{label}, case {slug}"></audio>')
+            parts.append(f'<figcaption><strong>{label}</strong><a href="{url}">Open original ↗</a></figcaption></figure>')
+        parts.append('</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>')
+    parts.append(f'<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="{esc(record["source"])}">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-{slug}/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="{record["prompt_sha256"]}" aria-label="Load prompt for case {slug}"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>{record["prompt_sha256"]}</code></details></div>')
+    environment = recipe["runtime"]["directory"]
+    command = ("curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py\n"
+               f"./{environment}/.local/envs/h3/bin/python reproduce.py inputs --case {number} --directory case-{slug}\n"
+               f'./{environment}/.local/envs/h3/bin/python reproduce.py run --directory case-{slug} --model-dir "$HOME/Models/h3-apple-{recipe["task"]}" --output case-{slug}/run-01.mp4')
+    parts.append(f'<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-{slug}">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/{recipe["runtime"]["commit"]}">{esc(recipe["runtime"]["version"])}</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-{slug}">{esc(command)}</code></pre>')
+    parts.append('<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>')
+    kwargs = ["from pathlib import Path", "from h3_apple import generate", "from h3_apple.progress import ProgressBar", "", "generate(", f'    prompt=Path("case-{slug}/prompt.txt").read_text(),']
+    kwargs += [f"    {key}={value!r}," for key, value in recipe["parameters"].items()]
+    for argument in ("first_frame", "last_frame", "reference_images", "reference_videos", "reference_audio"):
+        values = [f'case-{slug}/{item["filename"]}' for item in recipe["references"] if item["argument"] == argument]
+        if values:
+            kwargs.append(f"    {argument}={(values[0] if argument.endswith('_frame') else values)!r},")
+    kwargs += [f'    model_dir=Path.home() / "Models/h3-apple-{recipe["task"]}",', f'    output="case-{slug}/run-01.mp4",', "    on_progress=ProgressBar(),", "    timeout=7200,", ")"]
+    parts.append(esc("\n".join(kwargs)) + '</code></pre></details></div>')
+    return "\n".join(parts)
 
 
 def main():
@@ -97,6 +178,7 @@ def main():
         record = {"case": number, "title": TITLES[number - 1], "source_case": case["source_title"], "source": source_link,
                   "status": run["status"], "required_inputs": inputs, "source_geometry": case["source_geometry"],
                   "prompt_sha256": case["prompt_sha256"], "notes": notes}
+        record["reproduction"] = reproduction(case, run)
         status = {"generated": "Generated", "running": "Generating", "queued": "Queued", "cancelled": "Queued for restart", "blocked": "Input support required", "failed": "Generation failed"}[run["status"]]
         title = f'<span class="case-number">{slug}</span>{esc(TITLES[number - 1])}'
         if run["status"] == "generated":
@@ -143,6 +225,7 @@ def main():
                     notes = ["The attempt did not produce a validated output. Its failure remains in the experiment record."]
             content += [f'<p>{esc(note)}</p>' for note in notes]
         record["notes"] = notes
+        content.append(reproduction_panel(record))
         content.append(f'<div class="case-links"><a href="{esc(source_link)}">Source prompt &amp; inputs ↗</a><a href="records/{slug}.json">Case record ↗</a></div>')
         content.append('</section>' if run["status"] == "generated" else '</div></details>')
         atomic(root / "records" / f"{slug}.json", json.dumps(record, ensure_ascii=False, indent=2) + "\n")

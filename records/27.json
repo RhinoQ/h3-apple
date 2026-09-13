@@ -19,5 +19,94 @@
   "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev3+guide2",
+      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "directory": "h3-apple-guide2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 5.0,
+      "aspect_ratio": "16:9"
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44050/MyXMNUIzKsoWVCGGrOvRN_3-2-1-1_ref1.webp",
+        "sha256": "c450c2e53965e03f2764e98fad4a418f92a8602581a7e8921f9a3e7b921bd501",
+        "bytes": 110206
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/xUAGrwemSsdcxx_s5kz9i_3-2-1-1_ref2.webp",
+        "sha256": "bdf445420fbde9ec98a2c9224a021b77afc148a2ae22e681c8e28e61ad3b6a8e",
+        "bytes": 67350
+      },
+      {
+        "label": "Image 3",
+        "argument": "reference_images",
+        "index": 3,
+        "media_type": "image",
+        "filename": "image-03.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/YFGVkzhPRCFE5g-zyoKp-_3-2-1-1_ref3.webp",
+        "sha256": "2be7f1f8bc3a12083d785e47933fea3225274ec6fae2a5f94be56cd9cc602e06",
+        "bytes": 48142
+      },
+      {
+        "label": "Image 4",
+        "argument": "reference_images",
+        "index": 4,
+        "media_type": "image",
+        "filename": "image-04.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44050/qnEWKeTFEN_2RVFPdpl3z_3-2-1-1_ref4.webp",
+        "sha256": "fa95704c6ae584b3f22f8452e71aa28105ab9d5b9a7365803eb99e4a7892638c",
+        "bytes": 37536
+      },
+      {
+        "label": "Image 5",
+        "argument": "reference_images",
+        "index": 5,
+        "media_type": "image",
+        "filename": "image-05.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/n3MxAdI6T6ym0HjytKt64_3-2-1-1_ref5.webp",
+        "sha256": "4b222d7bdd7e14dcbef1e9d3a510263c8826bd6df22e1e2102b06889ec3e41aa",
+        "bytes": 79878
+      },
+      {
+        "label": "Image 6",
+        "argument": "reference_images",
+        "index": 6,
+        "media_type": "image",
+        "filename": "image-06.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/tqaWhAlodUZxjSG-syKvH_3-2-1-1_ref6.webp",
+        "sha256": "43eb072c27354276b3ab1db94b0cd3c58ed6d45db0f75277963ba7d98f96302c",
+        "bytes": 24098
+      },
+      {
+        "label": "Video 1",
+        "argument": "reference_videos",
+        "index": 1,
+        "media_type": "video",
+        "filename": "video-01.mp4",
+        "url": "https://v3b.fal.media/files/b/0aa44040/y8LRcPncOXeXsDLbw_sqF_3-2-1-1_in1.mp4",
+        "sha256": "f8f4e6af91c000d3e04bf1fe1e1fd0184471224b53d5e145793cd7fc96fcf144",
+        "bytes": 676858
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

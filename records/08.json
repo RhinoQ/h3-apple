@@ -19,5 +19,22 @@
   "prompt_sha256": "c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev2",
+      "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+      "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "directory": "h3-apple-dev2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0
+    },
+    "references": [],
+    "task": "t2va",
+    "model_manifest": "models/t2va.json"
+  }
 }

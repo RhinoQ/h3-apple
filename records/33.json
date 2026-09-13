@@ -19,5 +19,44 @@
   "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev3+guide2",
+      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
+      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "directory": "h3-apple-guide2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 10.125,
+      "aspect_ratio": "16:9"
+    },
+    "references": [
+      {
+        "label": "Video 1",
+        "argument": "reference_videos",
+        "index": 1,
+        "media_type": "video",
+        "filename": "video-01.mp4",
+        "url": "https://v3b.fal.media/files/b/0aa44040/7xUCBrPjNvvOvKNkzZ2_G_3-2-3-1_in2.mp4",
+        "sha256": "12321b17a19e79f37a0c7cb5a6ad6cb614ceb067363392b9546b1f743414eba5",
+        "bytes": 823570
+      },
+      {
+        "label": "Audio 1",
+        "argument": "reference_audio",
+        "index": 1,
+        "media_type": "audio",
+        "filename": "audio-01.mp3",
+        "url": "https://v3b.fal.media/files/b/0aa44040/diYzSJTuTEdZH5cUmVB6u_3-2-3-1_in1.mp3",
+        "sha256": "2a48d447b343b38a2c504d5281a0c97c688db0ba87931ed9282c598bd6752454",
+        "bytes": 204432
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

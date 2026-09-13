@@ -19,5 +19,43 @@
   "prompt_sha256": "399c27bb4cf0b859e46cdcba2a2f94035aa79c6e26ee5df1602e58e5a996cbb2",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev2",
+      "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+      "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "directory": "h3-apple-dev2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/UyHIoFOvKqn8aO5As8Zij_3-1-6-2_ref1.webp",
+        "sha256": "91b80e27e32502c4171b8298941acc3c4d272807f5534cd266c3ee5b0b085f01",
+        "bytes": 113040
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/f1fFTNFZL7JbU01sRDu4I_3-1-6-2_ref2.webp",
+        "sha256": "8c91f15aca88c2ec85aeae68caca6ecf2dd31e17b60efed1ea2252671b0bf54f",
+        "bytes": 55308
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

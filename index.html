@@ -6,6 +6,7 @@
   <meta name="description" content="An independent collection of MiniMax H3 video studies generated locally with H3 Apple. Watch the results and inspect the generation records.">
   <title>44 Video Studies · H3 Apple</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="reproduction.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#examples">Skip to videos</a>
@@ -41,195 +42,1586 @@
 <dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>22 min 07 s</dd></div></dl>
 <p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="case-note"><p>Reused from a verified earlier run; the original generation time is retained. Reference order follows the source page: architecture, person, flag, close-up.</p></div>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" alt="Image 1, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" alt="Image 2, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" alt="Image 3, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" alt="Image 4, case 01" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-01/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="a218403d678cc4b6cb5ad00f914011b851eeb19f4224be9ec2e26dfeb78eae1c" aria-label="Load prompt for case 01"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>a218403d678cc4b6cb5ad00f914011b851eeb19f4224be9ec2e26dfeb78eae1c</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-01">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-01">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 1 --directory case-01
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-01 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-01/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-01/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-01/image-01.webp&#x27;, &#x27;case-01/image-02.webp&#x27;, &#x27;case-01/image-03.webp&#x27;, &#x27;case-01/image-04.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-01/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">Source prompt &amp; inputs ↗</a><a href="records/01.json">Case record ↗</a></div>
 </section>
 <details class="pending-case" id="case-02"><summary><span class="pending-title"><span class="case-number">02</span>A jump into deep space</span><span class="status">Generating</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
 <p>This fixed-seed generation is in progress.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" alt="First frame, case 02" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-02/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7" aria-label="Load prompt for case 02"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-02">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-02">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 2 --directory case-02
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-02 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-02/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-02/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-02/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-02/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/02.json">Case record ↗</a></div>
 </div></details>
 <section class="case" id="case-03"><h3><span class="case-number">03</span>The silent gateway</h3><figure class="result"><video controls playsinline preload="none" poster="media/03-poster.jpg" width="1024" height="576" aria-label="The silent gateway, H3 Apple output"><source src="media/03-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 24 fps · stereo</span></figcaption></figure>
 <dl class="run-facts"><div><dt>Input</dt><dd>2 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>19 min 51 s</dd></div></dl>
 <p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" alt="Image 1, case 03" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" alt="Image 2, case 03" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-03/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70" aria-label="Load prompt for case 03"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-03">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-03">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 3 --directory case-03
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-03 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-03/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-03/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-03/image-01.webp&#x27;, &#x27;case-03/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-03/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/03.json">Case record ↗</a></div>
 </section>
 <details class="pending-case" id="case-04"><summary><span class="pending-title"><span class="case-number">04</span>Desert departure</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 4 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp" alt="Image 1, case 04" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp" alt="Image 2, case 04" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp" alt="Image 3, case 04" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp" alt="Image 4, case 04" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-04/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377" aria-label="Load prompt for case 04"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-04">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-04">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 4 --directory case-04
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-04 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-04/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-04/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-04/image-01.webp&#x27;, &#x27;case-04/image-02.webp&#x27;, &#x27;case-04/image-03.webp&#x27;, &#x27;case-04/image-04.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-04/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign">Source prompt &amp; inputs ↗</a><a href="records/04.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-05"><summary><span class="pending-title"><span class="case-number">05</span>After the fire</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/9Eemto-aYNtyAGtfrHCdj_3-1-1-5_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/9Eemto-aYNtyAGtfrHCdj_3-1-1-5_ref1.webp" alt="Image 1, case 05" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/9Eemto-aYNtyAGtfrHCdj_3-1-1-5_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/SpdaBOaq8baQmmcrIXoE1_3-1-1-5_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/SpdaBOaq8baQmmcrIXoE1_3-1-1-5_ref2.webp" alt="Image 2, case 05" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/SpdaBOaq8baQmmcrIXoE1_3-1-1-5_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-05/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="f4d8090a7d2595990097618e08a9547ee3c4f743ca96d22315f7b9e02bae46ae" aria-label="Load prompt for case 05"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>f4d8090a7d2595990097618e08a9547ee3c4f743ca96d22315f7b9e02bae46ae</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-05">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-05">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 5 --directory case-05
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-05 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-05/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-05/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-05/image-01.webp&#x27;, &#x27;case-05/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-05/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film">Source prompt &amp; inputs ↗</a><a href="records/05.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-6"><div class="section-label">06 / STUDIES</div><h2>Motion &amp; visual play</h2></section>
 <details class="pending-case" id="case-06"><summary><span class="pending-title"><span class="case-number">06</span>Jazz after midnight</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 5 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/inkR-ds2tkM6eE2RarDjP_3-1-2-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/inkR-ds2tkM6eE2RarDjP_3-1-2-1_ref1.webp" alt="Image 1, case 06" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/inkR-ds2tkM6eE2RarDjP_3-1-2-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/4fBkydkxYMHR5xoyRhy4L_3-1-2-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/4fBkydkxYMHR5xoyRhy4L_3-1-2-1_ref2.webp" alt="Image 2, case 06" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/4fBkydkxYMHR5xoyRhy4L_3-1-2-1_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/mW88KCKWIujkO8k9Y4doH_3-1-2-1_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/mW88KCKWIujkO8k9Y4doH_3-1-2-1_ref3.webp" alt="Image 3, case 06" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/mW88KCKWIujkO8k9Y4doH_3-1-2-1_ref3.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/yf9YnuxGEvq21Q1smOcCp_3-1-2-1_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/yf9YnuxGEvq21Q1smOcCp_3-1-2-1_ref4.webp" alt="Image 4, case 06" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44041/yf9YnuxGEvq21Q1smOcCp_3-1-2-1_ref4.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/Ea_-Q8dhPNoJDFpEDXm0L_3-1-2-1_ref5.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/Ea_-Q8dhPNoJDFpEDXm0L_3-1-2-1_ref5.webp" alt="Image 5, case 06" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 5</strong><a href="https://v3b.fal.media/files/b/0aa44041/Ea_-Q8dhPNoJDFpEDXm0L_3-1-2-1_ref5.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Retro%20Anime%20Crime%20Title%20Sequence">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-06/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="02452c913f8829974c3d542cc7b2ac1984c8c88787c0a7ee593fd6a84d8b4efa" aria-label="Load prompt for case 06"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>02452c913f8829974c3d542cc7b2ac1984c8c88787c0a7ee593fd6a84d8b4efa</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-06">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-06">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 6 --directory case-06
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-06 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-06/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-06/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-06/image-01.webp&#x27;, &#x27;case-06/image-02.webp&#x27;, &#x27;case-06/image-03.webp&#x27;, &#x27;case-06/image-04.webp&#x27;, &#x27;case-06/image-05.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-06/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Retro%20Anime%20Crime%20Title%20Sequence">Source prompt &amp; inputs ↗</a><a href="records/06.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-07"><summary><span class="pending-title"><span class="case-number">07</span>A guest in the kitchen</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> Text only.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<p class="small-note">Text only; no reference media.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Kitchen%20Creature">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-07/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="2c8493ae5d8b525b1d05321b83e29abb20642ce78dbdecbc55cf8fd39457c484" aria-label="Load prompt for case 07"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>2c8493ae5d8b525b1d05321b83e29abb20642ce78dbdecbc55cf8fd39457c484</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-07">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-07">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 7 --directory case-07
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-07 --model-dir &quot;$HOME/Models/h3-apple-t2va&quot; --output case-07/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-07/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    model_dir=Path.home() / &quot;Models/h3-apple-t2va&quot;,
+    output=&quot;case-07/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Kitchen%20Creature">Source prompt &amp; inputs ↗</a><a href="records/07.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-08"><summary><span class="pending-title"><span class="case-number">08</span>After-hours laundry</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> Text only.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<p class="small-note">Text only; no reference media.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-08/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544" aria-label="Load prompt for case 08"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-08">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-08">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 8 --directory case-08
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-08 --model-dir &quot;$HOME/Models/h3-apple-t2va&quot; --output case-08/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-08/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    model_dir=Path.home() / &quot;Models/h3-apple-t2va&quot;,
+    output=&quot;case-08/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter">Source prompt &amp; inputs ↗</a><a href="records/08.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-09"><summary><span class="pending-title"><span class="case-number">09</span>Cut to the beat</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/1pS57kNUbNacQDAVT3wau_3-1-2-4_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/1pS57kNUbNacQDAVT3wau_3-1-2-4_ref1.webp" alt="Image 1, case 09" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/1pS57kNUbNacQDAVT3wau_3-1-2-4_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/K6RRNz9zu5ycrR1L29lMd_3-1-2-4_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/K6RRNz9zu5ycrR1L29lMd_3-1-2-4_ref2.webp" alt="Image 2, case 09" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/K6RRNz9zu5ycrR1L29lMd_3-1-2-4_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Rap%20Music%20Video">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-09/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="37fc53acafcf3682f9a24653f5a78ab9edaf98272ead96b0ec45d14850ccc6be" aria-label="Load prompt for case 09"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>37fc53acafcf3682f9a24653f5a78ab9edaf98272ead96b0ec45d14850ccc6be</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-09">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-09">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 9 --directory case-09
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-09 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-09/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-09/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-09/image-01.webp&#x27;, &#x27;case-09/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-09/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Rap%20Music%20Video">Source prompt &amp; inputs ↗</a><a href="records/09.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-10"><summary><span class="pending-title"><span class="case-number">10</span>Into a fairytale</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 videos.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/qMNSTJ5ZNf7s08SjNZ7hw_3-1-2-5_in1.mp4" aria-label="Video 1, case 10"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/qMNSTJ5ZNf7s08SjNZ7hw_3-1-2-5_in1.mp4">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/CGtf6kdKlSk6BytaBA8xl_3-1-2-5_in2.mp4" aria-label="Video 2, case 10"></video>
+<figcaption><strong>Video 2</strong><a href="https://v3b.fal.media/files/b/0aa44040/CGtf6kdKlSk6BytaBA8xl_3-1-2-5_in2.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-10/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c" aria-label="Load prompt for case 10"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-10">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-10">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 10 --directory case-10
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-10 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-10/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-10/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-10/video-01.mp4&#x27;, &#x27;case-10/video-02.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-10/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite">Source prompt &amp; inputs ↗</a><a href="records/10.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-11"><summary><span class="pending-title"><span class="case-number">11</span>Artwork in motion</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/2YmEFl1sdPM3TaBDW8rvP_3-1-2-6_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/2YmEFl1sdPM3TaBDW8rvP_3-1-2-6_ref1.webp" alt="First frame, case 11" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44050/2YmEFl1sdPM3TaBDW8rvP_3-1-2-6_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-11/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845" aria-label="Load prompt for case 11"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-11">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-11">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 11 --directory case-11
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-11 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-11/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-11/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;9:16&#x27;,
+    first_frame=&#x27;case-11/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-11/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster">Source prompt &amp; inputs ↗</a><a href="records/11.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-12"><div class="section-label">12 / STUDIES</div><h2>Stories &amp; performance</h2></section>
 <details class="pending-case" id="case-12"><summary><span class="pending-title"><span class="case-number">12</span>Secrets in the snow</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/9_quxJiBVqhyz-9jYZQP__3-1-3-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/9_quxJiBVqhyz-9jYZQP__3-1-3-1_ref1.webp" alt="Image 1, case 12" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/9_quxJiBVqhyz-9jYZQP__3-1-3-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/oCAoqLriHwCMRn47QVsf7_3-1-3-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/oCAoqLriHwCMRn47QVsf7_3-1-3-1_ref2.webp" alt="Image 2, case 12" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/oCAoqLriHwCMRn47QVsf7_3-1-3-1_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-12/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="0dcf150c18b257acd4155e32ac37299e5b0dafd3ecdb53b38db1f6dba95e5f68" aria-label="Load prompt for case 12"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>0dcf150c18b257acd4155e32ac37299e5b0dafd3ecdb53b38db1f6dba95e5f68</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-12">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-12">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 12 --directory case-12
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-12 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-12/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-12/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-12/image-01.webp&#x27;, &#x27;case-12/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-12/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery">Source prompt &amp; inputs ↗</a><a href="records/12.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-13"><summary><span class="pending-title"><span class="case-number">13</span>Across the dinner table</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/7-za79fXKpM8Q5SggP_GO_3-1-3-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/7-za79fXKpM8Q5SggP_GO_3-1-3-2_ref1.webp" alt="Image 1, case 13" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/7-za79fXKpM8Q5SggP_GO_3-1-3-2_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/B2SgwXPNdc2TMmlgWXO12_3-1-3-2_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/B2SgwXPNdc2TMmlgWXO12_3-1-3-2_ref2.webp" alt="Image 2, case 13" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/B2SgwXPNdc2TMmlgWXO12_3-1-3-2_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vertical%20Family%20Confrontation">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-13/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56" aria-label="Load prompt for case 13"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-13">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-13">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 13 --directory case-13
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-13 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-13/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-13/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;9:16&#x27;,
+    reference_images=[&#x27;case-13/image-01.webp&#x27;, &#x27;case-13/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-13/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vertical%20Family%20Confrontation">Source prompt &amp; inputs ↗</a><a href="records/13.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-14"><summary><span class="pending-title"><span class="case-number">14</span>The forbidden wing</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/bDhXe5W8tX7AAmRj9beu4_3-1-3-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/bDhXe5W8tX7AAmRj9beu4_3-1-3-3_ref1.webp" alt="Image 1, case 14" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/bDhXe5W8tX7AAmRj9beu4_3-1-3-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/UsD0TPNP6WFni6wyAT_D6_3-1-3-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/UsD0TPNP6WFni6wyAT_D6_3-1-3-3_ref2.webp" alt="Image 2, case 14" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/UsD0TPNP6WFni6wyAT_D6_3-1-3-3_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-14/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a" aria-label="Load prompt for case 14"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-14">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-14">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 14 --directory case-14
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-14 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-14/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-14/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;9:16&#x27;,
+    reference_images=[&#x27;case-14/image-01.webp&#x27;, &#x27;case-14/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-14/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama">Source prompt &amp; inputs ↗</a><a href="records/14.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-15"><div class="section-label">15 / STUDIES</div><h2>Product studies</h2></section>
 <details class="pending-case" id="case-15"><summary><span class="pending-title"><span class="case-number">15</span>Future in focus</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 3 images.</p>
 <p>The source prompt mentions a reference video that is not supplied on the page.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/A7EDo_J65S-WX62RdaQvS_3-1-4-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/A7EDo_J65S-WX62RdaQvS_3-1-4-1_ref1.webp" alt="Image 1, case 15" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/A7EDo_J65S-WX62RdaQvS_3-1-4-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/0qwssBfAaHIucktJHpXeC_3-1-4-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/0qwssBfAaHIucktJHpXeC_3-1-4-1_ref2.webp" alt="Image 2, case 15" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/0qwssBfAaHIucktJHpXeC_3-1-4-1_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/bF3Ouc7OGu4h7NWOEG61G_3-1-4-1_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/bF3Ouc7OGu4h7NWOEG61G_3-1-4-1_ref3.webp" alt="Image 3, case 15" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/bF3Ouc7OGu4h7NWOEG61G_3-1-4-1_ref3.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-15/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce" aria-label="Load prompt for case 15"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-15">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-15">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 15 --directory case-15
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-15 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-15/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-15/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;9:16&#x27;,
+    reference_images=[&#x27;case-15/image-01.webp&#x27;, &#x27;case-15/image-02.webp&#x27;, &#x27;case-15/image-03.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-15/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign">Source prompt &amp; inputs ↗</a><a href="records/15.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-16"><summary><span class="pending-title"><span class="case-number">16</span>Made for the working day</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/odbQKz3gGNeCvoiXJ6_a__3-1-4-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/odbQKz3gGNeCvoiXJ6_a__3-1-4-2_ref1.webp" alt="Image 1, case 16" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/odbQKz3gGNeCvoiXJ6_a__3-1-4-2_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/8EI5Tk2n5OQz4x9EjYIyL_3-1-4-2_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/8EI5Tk2n5OQz4x9EjYIyL_3-1-4-2_ref2.webp" alt="Image 2, case 16" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44050/8EI5Tk2n5OQz4x9EjYIyL_3-1-4-2_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-16/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c" aria-label="Load prompt for case 16"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-16">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-16">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 16 --directory case-16
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-16 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-16/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-16/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;9:16&#x27;,
+    reference_images=[&#x27;case-16/image-01.webp&#x27;, &#x27;case-16/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-16/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film">Source prompt &amp; inputs ↗</a><a href="records/16.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-17"><div class="section-label">17 / STUDIES</div><h2>Interfaces in motion</h2></section>
 <details class="pending-case" id="case-17"><summary><span class="pending-title"><span class="case-number">17</span>Equip. Confirm. Enter.</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/by_ntirI8-pvXjlgZpYJm_3-1-5-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/by_ntirI8-pvXjlgZpYJm_3-1-5-1_ref1.webp" alt="Image 1, case 17" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/by_ntirI8-pvXjlgZpYJm_3-1-5-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/R0fu1SE7WXXXijPApQqrA_3-1-5-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/R0fu1SE7WXXXijPApQqrA_3-1-5-1_ref2.webp" alt="Image 2, case 17" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/R0fu1SE7WXXXijPApQqrA_3-1-5-1_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Game%20Equipment%20UI">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-17/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="fb5af89c4976e8d8997cf308133db83667a92ddc622cca1aeab28d491206eb26" aria-label="Load prompt for case 17"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>fb5af89c4976e8d8997cf308133db83667a92ddc622cca1aeab28d491206eb26</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-17">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-17">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 17 --directory case-17
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-17 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-17/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-17/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-17/image-01.webp&#x27;, &#x27;case-17/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-17/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Game%20Equipment%20UI">Source prompt &amp; inputs ↗</a><a href="records/17.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-18"><summary><span class="pending-title"><span class="case-number">18</span>Built for speed</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/Nf-ehb4Tv_oykkFMlL_Xn_3-1-5-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/Nf-ehb4Tv_oykkFMlL_Xn_3-1-5-2_ref1.webp" alt="Image 1, case 18" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/Nf-ehb4Tv_oykkFMlL_Xn_3-1-5-2_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-18/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="2578d9d08290a607366750d77701af5743251ab3fb3eeb96be58d050ced4b2b8" aria-label="Load prompt for case 18"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>2578d9d08290a607366750d77701af5743251ab3fb3eeb96be58d050ced4b2b8</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-18">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-18">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 18 --directory case-18
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-18 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-18/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-18/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-18/image-01.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-18/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page">Source prompt &amp; inputs ↗</a><a href="records/18.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-19"><summary><span class="pending-title"><span class="case-number">19</span>Lights on</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/6h9GMfzActy_L4IyAiMZA_3-1-5-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/6h9GMfzActy_L4IyAiMZA_3-1-5-3_ref1.webp" alt="First frame, case 19" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44050/6h9GMfzActy_L4IyAiMZA_3-1-5-3_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-19/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1" aria-label="Load prompt for case 19"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-19">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-19">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 19 --directory case-19
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-19 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-19/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-19/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-19/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-19/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation">Source prompt &amp; inputs ↗</a><a href="records/19.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-20"><summary><span class="pending-title"><span class="case-number">20</span>A product comes into view</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/RippnCb7kSS4Z2HdmcNIe_3-1-5-4_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/RippnCb7kSS4Z2HdmcNIe_3-1-5-4_ref1.webp" alt="First frame, case 20" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/RippnCb7kSS4Z2HdmcNIe_3-1-5-4_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-20/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d" aria-label="Load prompt for case 20"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-20">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-20">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 20 --directory case-20
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-20 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-20/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-20/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-20/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-20/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal">Source prompt &amp; inputs ↗</a><a href="records/20.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-21"><div class="section-label">21 / STUDIES</div><h2>Animation &amp; games</h2></section>
 <details class="pending-case" id="case-21"><summary><span class="pending-title"><span class="case-number">21</span>A leap over lava</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/aEXwD7DJ5_a0_T6zvbx-R_3-1-6-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/aEXwD7DJ5_a0_T6zvbx-R_3-1-6-1_ref1.webp" alt="First frame, case 21" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/aEXwD7DJ5_a0_T6zvbx-R_3-1-6-1_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-21/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8" aria-label="Load prompt for case 21"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-21">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-21">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 21 --directory case-21
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-21 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-21/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-21/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-21/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-21/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap">Source prompt &amp; inputs ↗</a><a href="records/21.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-22"><summary><span class="pending-title"><span class="case-number">22</span>A hero in blue</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/UyHIoFOvKqn8aO5As8Zij_3-1-6-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/UyHIoFOvKqn8aO5As8Zij_3-1-6-2_ref1.webp" alt="Image 1, case 22" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/UyHIoFOvKqn8aO5As8Zij_3-1-6-2_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/f1fFTNFZL7JbU01sRDu4I_3-1-6-2_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/f1fFTNFZL7JbU01sRDu4I_3-1-6-2_ref2.webp" alt="Image 2, case 22" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/f1fFTNFZL7JbU01sRDu4I_3-1-6-2_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Fantasy%20Wuxia%20Character%20Film">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-22/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="399c27bb4cf0b859e46cdcba2a2f94035aa79c6e26ee5df1602e58e5a996cbb2" aria-label="Load prompt for case 22"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>399c27bb4cf0b859e46cdcba2a2f94035aa79c6e26ee5df1602e58e5a996cbb2</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-22">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-22">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 22 --directory case-22
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-22 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-22/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-22/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-22/image-01.webp&#x27;, &#x27;case-22/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-22/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Fantasy%20Wuxia%20Character%20Film">Source prompt &amp; inputs ↗</a><a href="records/22.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-23"><summary><span class="pending-title"><span class="case-number">23</span>Meet the leading man</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/MJh-KujmR4yuYVYotXtNV_3-1-6-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/MJh-KujmR4yuYVYotXtNV_3-1-6-3_ref1.webp" alt="Image 1, case 23" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/MJh-KujmR4yuYVYotXtNV_3-1-6-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/IulxjHXBfAG8Dk_XIAxQd_3-1-6-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/IulxjHXBfAG8Dk_XIAxQd_3-1-6-3_ref2.webp" alt="Image 2, case 23" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/IulxjHXBfAG8Dk_XIAxQd_3-1-6-3_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-23/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd" aria-label="Load prompt for case 23"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-23">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-23">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 23 --directory case-23
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-23 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-23/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-23/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-23/image-01.webp&#x27;, &#x27;case-23/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-23/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo">Source prompt &amp; inputs ↗</a><a href="records/23.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-24"><summary><span class="pending-title"><span class="case-number">24</span>At the perimeter</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/FNR0bvaxq9bXDHMA_2U1i_3-1-6-4_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/FNR0bvaxq9bXDHMA_2U1i_3-1-6-4_ref1.webp" alt="First frame, case 24" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/FNR0bvaxq9bXDHMA_2U1i_3-1-6-4_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-24/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="8269db178995115adc4d1102c27226315924ca4d8f5be7525858885b6f6bc15a" aria-label="Load prompt for case 24"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>8269db178995115adc4d1102c27226315924ca4d8f5be7525858885b6f6bc15a</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-24">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-24">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 24 --directory case-24
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-24 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-24/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-24/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-24/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-24/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay">Source prompt &amp; inputs ↗</a><a href="records/24.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-25"><summary><span class="pending-title"><span class="case-number">25</span>Before and after the show</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First + last frame.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/4bkWZpB19fqzRjD-qXbWG_3-1-6-5_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/4bkWZpB19fqzRjD-qXbWG_3-1-6-5_ref1.webp" alt="First frame, case 25" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/4bkWZpB19fqzRjD-qXbWG_3-1-6-5_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/2XtxMPH_4z3_Ci3Jos18T_3-1-6-5_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/2XtxMPH_4z3_Ci3Jos18T_3-1-6-5_ref2.webp" alt="Last frame, case 25" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Last frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/2XtxMPH_4z3_Ci3Jos18T_3-1-6-5_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-25/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad" aria-label="Load prompt for case 25"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-25">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-25">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 25 --directory case-25
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-25 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-25/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-25/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-25/image-01.webp&#x27;,
+    last_frame=&#x27;case-25/image-02.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-25/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition">Source prompt &amp; inputs ↗</a><a href="records/25.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-26"><summary><span class="pending-title"><span class="case-number">26</span>A quiet evening</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/dXHaromC4vvnMDpHXWJB2_3-1-6-6_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/dXHaromC4vvnMDpHXWJB2_3-1-6-6_ref1.webp" alt="Image 1, case 26" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/dXHaromC4vvnMDpHXWJB2_3-1-6-6_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/iqID3lFJ7QkGL4wBUCRbn_3-1-6-6_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/iqID3lFJ7QkGL4wBUCRbn_3-1-6-6_ref2.webp" alt="Image 2, case 26" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/iqID3lFJ7QkGL4wBUCRbn_3-1-6-6_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-26/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a" aria-label="Load prompt for case 26"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-26">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-26">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 26 --directory case-26
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-26 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-26/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-26/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-26/image-01.webp&#x27;, &#x27;case-26/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-26/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene">Source prompt &amp; inputs ↗</a><a href="records/26.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-27"><div class="section-label">27 / STUDIES</div><h2>Mixed references</h2></section>
 <details class="pending-case" id="case-27"><summary><span class="pending-title"><span class="case-number">27</span>Six assets, one sequence</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 6 images, 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/MyXMNUIzKsoWVCGGrOvRN_3-2-1-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/MyXMNUIzKsoWVCGGrOvRN_3-2-1-1_ref1.webp" alt="Image 1, case 27" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/MyXMNUIzKsoWVCGGrOvRN_3-2-1-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/xUAGrwemSsdcxx_s5kz9i_3-2-1-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/xUAGrwemSsdcxx_s5kz9i_3-2-1-1_ref2.webp" alt="Image 2, case 27" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/xUAGrwemSsdcxx_s5kz9i_3-2-1-1_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/YFGVkzhPRCFE5g-zyoKp-_3-2-1-1_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/YFGVkzhPRCFE5g-zyoKp-_3-2-1-1_ref3.webp" alt="Image 3, case 27" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/YFGVkzhPRCFE5g-zyoKp-_3-2-1-1_ref3.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/qnEWKeTFEN_2RVFPdpl3z_3-2-1-1_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/qnEWKeTFEN_2RVFPdpl3z_3-2-1-1_ref4.webp" alt="Image 4, case 27" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44050/qnEWKeTFEN_2RVFPdpl3z_3-2-1-1_ref4.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/n3MxAdI6T6ym0HjytKt64_3-2-1-1_ref5.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/n3MxAdI6T6ym0HjytKt64_3-2-1-1_ref5.webp" alt="Image 5, case 27" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 5</strong><a href="https://v3b.fal.media/files/b/0aa44041/n3MxAdI6T6ym0HjytKt64_3-2-1-1_ref5.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/tqaWhAlodUZxjSG-syKvH_3-2-1-1_ref6.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/tqaWhAlodUZxjSG-syKvH_3-2-1-1_ref6.webp" alt="Image 6, case 27" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 6</strong><a href="https://v3b.fal.media/files/b/0aa44041/tqaWhAlodUZxjSG-syKvH_3-2-1-1_ref6.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/y8LRcPncOXeXsDLbw_sqF_3-2-1-1_in1.mp4" aria-label="Video 1, case 27"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/y8LRcPncOXeXsDLbw_sqF_3-2-1-1_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-27/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684" aria-label="Load prompt for case 27"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-27">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-27">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 27 --directory case-27
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-27 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-27/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-27/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=5.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_images=[&#x27;case-27/image-01.webp&#x27;, &#x27;case-27/image-02.webp&#x27;, &#x27;case-27/image-03.webp&#x27;, &#x27;case-27/image-04.webp&#x27;, &#x27;case-27/image-05.webp&#x27;, &#x27;case-27/image-06.webp&#x27;],
+    reference_videos=[&#x27;case-27/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-27/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix">Source prompt &amp; inputs ↗</a><a href="records/27.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-28"><summary><span class="pending-title"><span class="case-number">28</span>A voxel interruption</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 2 videos.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/KtSdAy3-GJFQuuGNwGbsi_3-2-1-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/KtSdAy3-GJFQuuGNwGbsi_3-2-1-2_ref1.webp" alt="Image 1, case 28" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/KtSdAy3-GJFQuuGNwGbsi_3-2-1-2_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/VSekCvQp4GrU9XmMkMRkv_3-2-1-2_in1.mp4" aria-label="Video 1, case 28"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/VSekCvQp4GrU9XmMkMRkv_3-2-1-2_in1.mp4">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/dGPHcANNokOBvSJGOn9Xh_3-2-1-2_in2.mp4" aria-label="Video 2, case 28"></video>
+<figcaption><strong>Video 2</strong><a href="https://v3b.fal.media/files/b/0aa44040/dGPHcANNokOBvSJGOn9Xh_3-2-1-2_in2.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-28/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b" aria-label="Load prompt for case 28"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-28">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-28">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 28 --directory case-28
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-28 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-28/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-28/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_images=[&#x27;case-28/image-01.webp&#x27;],
+    reference_videos=[&#x27;case-28/video-01.mp4&#x27;, &#x27;case-28/video-02.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-28/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation">Source prompt &amp; inputs ↗</a><a href="records/28.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-29"><summary><span class="pending-title"><span class="case-number">29</span>From coffee to dunes</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/yY_1Z2tV6KJ2Inkaw6JgG_3-2-1-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/yY_1Z2tV6KJ2Inkaw6JgG_3-2-1-3_ref1.webp" alt="Image 1, case 29" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/yY_1Z2tV6KJ2Inkaw6JgG_3-2-1-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/ED5VlEDLsGo3EG0AFZseb_3-2-1-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/ED5VlEDLsGo3EG0AFZseb_3-2-1-3_ref2.webp" alt="Image 2, case 29" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/ED5VlEDLsGo3EG0AFZseb_3-2-1-3_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Macro%20Coffee-to-Fluid%20Transition">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-29/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="9f8827d7bd8cc8ac6339809d33337d9ecfbb7f4ea08e5993503f9d2240765b5e" aria-label="Load prompt for case 29"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>9f8827d7bd8cc8ac6339809d33337d9ecfbb7f4ea08e5993503f9d2240765b5e</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-29">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-29">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 29 --directory case-29
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-29 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-29/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-29/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-29/image-01.webp&#x27;, &#x27;case-29/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-29/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Macro%20Coffee-to-Fluid%20Transition">Source prompt &amp; inputs ↗</a><a href="records/29.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-30"><div class="section-label">30 / STUDIES</div><h2>Movement &amp; identity</h2></section>
 <details class="pending-case" id="case-30"><summary><span class="pending-title"><span class="case-number">30</span>Foam at the kitchen sink</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/fQJN-UhWbbouGzRae23rO_3-2-2-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/fQJN-UhWbbouGzRae23rO_3-2-2-1_ref1.webp" alt="Image 1, case 30" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/fQJN-UhWbbouGzRae23rO_3-2-2-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/ssRXxGPYALg3edLNCZjQ5_3-2-2-1_in1.mp4" aria-label="Video 1, case 30"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/ssRXxGPYALg3edLNCZjQ5_3-2-2-1_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-30/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd" aria-label="Load prompt for case 30"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-30">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-30">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 30 --directory case-30
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-30 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-30/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-30/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_images=[&#x27;case-30/image-01.webp&#x27;],
+    reference_videos=[&#x27;case-30/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-30/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference">Source prompt &amp; inputs ↗</a><a href="records/30.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-31"><summary><span class="pending-title"><span class="case-number">31</span>A new dancer</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images, 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/-4dp5kbzdRqinGhtzgS9Q_3-2-2-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/-4dp5kbzdRqinGhtzgS9Q_3-2-2-2_ref1.webp" alt="Image 1, case 31" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/-4dp5kbzdRqinGhtzgS9Q_3-2-2-2_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/Gas53M7Tuo0s1PYYOQRkE_3-2-2-2_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/Gas53M7Tuo0s1PYYOQRkE_3-2-2-2_ref2.webp" alt="Image 2, case 31" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/Gas53M7Tuo0s1PYYOQRkE_3-2-2-2_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/ByMddW2HA-LxjZ8f1X-f3_3-2-2-2_in1.mp4" aria-label="Video 1, case 31"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/ByMddW2HA-LxjZ8f1X-f3_3-2-2-2_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-31/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040" aria-label="Load prompt for case 31"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-31">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-31">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 31 --directory case-31
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-31 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-31/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-31/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_images=[&#x27;case-31/image-01.webp&#x27;, &#x27;case-31/image-02.webp&#x27;],
+    reference_videos=[&#x27;case-31/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-31/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/31.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-32"><summary><span class="pending-title"><span class="case-number">32</span>Three capybaras</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/RToCullX5MDcHPWICzuB9_3-2-2-4_in1.mp4" aria-label="Video 1, case 32"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/RToCullX5MDcHPWICzuB9_3-2-2-4_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-32/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45" aria-label="Load prompt for case 32"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-32">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-32">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 32 --directory case-32
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-32 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-32/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-32/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=6.583333333333333,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-32/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-32/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation">Source prompt &amp; inputs ↗</a><a href="records/32.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-33"><div class="section-label">33 / STUDIES</div><h2>Voice reference</h2></section>
 <details class="pending-case" id="case-33"><summary><span class="pending-title"><span class="case-number">33</span>A different voice</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video, 1 audio.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/7xUCBrPjNvvOvKNkzZ2_G_3-2-3-1_in2.mp4" aria-label="Video 1, case 33"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/7xUCBrPjNvvOvKNkzZ2_G_3-2-3-1_in2.mp4">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<audio controls preload="none" src="https://v3b.fal.media/files/b/0aa44040/diYzSJTuTEdZH5cUmVB6u_3-2-3-1_in1.mp3" aria-label="Audio 1, case 33"></audio>
+<figcaption><strong>Audio 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/diYzSJTuTEdZH5cUmVB6u_3-2-3-1_in1.mp3">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-33/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc" aria-label="Load prompt for case 33"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-33">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-33">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 33 --directory case-33
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-33 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-33/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-33/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-33/video-01.mp4&#x27;],
+    reference_audio=[&#x27;case-33/audio-01.mp3&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-33/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/33.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-34"><div class="section-label">34 / STUDIES</div><h2>Cast &amp; object edits</h2></section>
 <details class="pending-case" id="case-34"><summary><span class="pending-title"><span class="case-number">34</span>A different companion</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/vKUrteICQZw-0ZrY2ZYvX_3-3-1-1_in1.mp4" aria-label="Video 1, case 34"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/vKUrteICQZw-0ZrY2ZYvX_3-3-1-1_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-34/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9" aria-label="Load prompt for case 34"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-34">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-34">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 34 --directory case-34
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-34 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-34/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-34/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=6.583333333333333,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-34/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-34/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/34.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-35"><summary><span class="pending-title"><span class="case-number">35</span>One more teammate</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/l_yC8dPdRorPJHvPdxo-l_3-3-1-2_in1.mp4" aria-label="Video 1, case 35"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/l_yC8dPdRorPJHvPdxo-l_3-3-1-2_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-35/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba" aria-label="Load prompt for case 35"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-35">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-35">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 35 --directory case-35
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-35 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-35/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-35/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=6.583333333333333,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-35/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-35/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others">Source prompt &amp; inputs ↗</a><a href="records/35.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-36"><summary><span class="pending-title"><span class="case-number">36</span>A change of cast</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images, 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44051/BJjxF3HAH7lU27-yk2HhX_3-3-1-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44051/BJjxF3HAH7lU27-yk2HhX_3-3-1-3_ref1.webp" alt="Image 1, case 36" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44051/BJjxF3HAH7lU27-yk2HhX_3-3-1-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/7Elkr_67uzfSCrvak68ti_3-3-1-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/7Elkr_67uzfSCrvak68ti_3-3-1-3_ref2.webp" alt="Image 2, case 36" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/7Elkr_67uzfSCrvak68ti_3-3-1-3_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/ehbUE2jGFc4hkVdXXakvw_3-3-1-3_in1.mp4" aria-label="Video 1, case 36"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/ehbUE2jGFc4hkVdXXakvw_3-3-1-3_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-36/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9" aria-label="Load prompt for case 36"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-36">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-36">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 36 --directory case-36
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-36 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-36/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-36/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=6.583333333333333,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_images=[&#x27;case-36/image-01.webp&#x27;, &#x27;case-36/image-02.webp&#x27;],
+    reference_videos=[&#x27;case-36/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-36/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/36.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-37"><div class="section-label">37 / STUDIES</div><h2>Environment &amp; lighting</h2></section>
 <details class="pending-case" id="case-37"><summary><span class="pending-title"><span class="case-number">37</span>A new world behind the action</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 videos.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/wu2q0dqo737lqebZP42Mh_3-3-2-1_in1.mp4" aria-label="Video 1, case 37"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/wu2q0dqo737lqebZP42Mh_3-3-2-1_in1.mp4">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/qK43iibhVvmzg9kvsUlxV_3-3-2-1_in2.mp4" aria-label="Video 2, case 37"></video>
+<figcaption><strong>Video 2</strong><a href="https://v3b.fal.media/files/b/0aa44050/qK43iibhVvmzg9kvsUlxV_3-3-2-1_in2.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-37/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83" aria-label="Load prompt for case 37"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-37">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-37">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 37 --directory case-37
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-37 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-37/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-37/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-37/video-01.mp4&#x27;, &#x27;case-37/video-02.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-37/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/37.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-38"><summary><span class="pending-title"><span class="case-number">38</span>After sunset</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/emXiHyqHBI1Go4GG7gKxc_3-3-2-2_in1.mp4" aria-label="Video 1, case 38"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/emXiHyqHBI1Go4GG7gKxc_3-3-2-2_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-38/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982" aria-label="Load prompt for case 38"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-38">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-38">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 38 --directory case-38
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-38 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-38/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-38/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=6.583333333333333,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-38/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-38/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting">Source prompt &amp; inputs ↗</a><a href="records/38.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-39"><summary><span class="pending-title"><span class="case-number">39</span>Beyond the window</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/2e6Tu9nHoWzSZzalT5WH4_3-3-2-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/2e6Tu9nHoWzSZzalT5WH4_3-3-2-3_ref1.webp" alt="Image 1, case 39" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/2e6Tu9nHoWzSZzalT5WH4_3-3-2-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/YWz6UnJNrZYj5ZNPyjXBo_3-3-2-3_in1.mp4" aria-label="Video 1, case 39"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/YWz6UnJNrZYj5ZNPyjXBo_3-3-2-3_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-39/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22" aria-label="Load prompt for case 39"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-39">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-39">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 39 --directory case-39
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-39 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-39/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-39/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=6.583333333333333,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_images=[&#x27;case-39/image-01.webp&#x27;],
+    reference_videos=[&#x27;case-39/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-39/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/39.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-40"><div class="section-label">40 / STUDIES</div><h2>Dialogue</h2></section>
 <details class="pending-case" id="case-40"><summary><span class="pending-title"><span class="case-number">40</span>A different line</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video, 1 audio.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/8CO6x9AT6pdNGg9CroOYt_3-3-3-1_in2.mp4" aria-label="Video 1, case 40"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/8CO6x9AT6pdNGg9CroOYt_3-3-3-1_in2.mp4">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<audio controls preload="none" src="https://v3b.fal.media/files/b/0aa44040/RgapPrm2v-i7pGLrCZtwv_3-3-3-1_in1.mp3" aria-label="Audio 1, case 40"></audio>
+<figcaption><strong>Audio 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/RgapPrm2v-i7pGLrCZtwv_3-3-3-1_in1.mp3">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-40/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="4cf1ddd988682b78b31a000fdaa2eab5253659211a995098a3319b7e4ab00686" aria-label="Load prompt for case 40"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>4cf1ddd988682b78b31a000fdaa2eab5253659211a995098a3319b7e4ab00686</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-40">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-40">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 40 --directory case-40
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-40 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-40/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-40/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-40/video-01.mp4&#x27;],
+    reference_audio=[&#x27;case-40/audio-01.mp3&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-40/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/40.json">Case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-41"><div class="section-label">41 / STUDIES</div><h2>Directed edits</h2></section>
 <details class="pending-case" id="case-41"><summary><span class="pending-title"><span class="case-number">41</span>Several changes, one scene</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/MwHg4D9Ik0Yp0ZAxP1-O-_3-3-4-1_in1.mp4" aria-label="Video 1, case 41"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/MwHg4D9Ik0Yp0ZAxP1-O-_3-3-4-1_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-41/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074" aria-label="Load prompt for case 41"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-41">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-41">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 41 --directory case-41
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-41 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-41/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-41/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=10.125,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-41/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-41/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing">Source prompt &amp; inputs ↗</a><a href="records/41.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-42"><summary><span class="pending-title"><span class="case-number">42</span>New product. New sign. New line.</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/hqcytT4Y13i26QE011efd_3-3-4-2_in1.mp4" aria-label="Video 1, case 42"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/hqcytT4Y13i26QE011efd_3-3-4-2_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-42/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69" aria-label="Load prompt for case 42"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-42">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-42">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 42 --directory case-42
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-42 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-42/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-42/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    reference_videos=[&#x27;case-42/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-42/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/42.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-43"><summary><span class="pending-title"><span class="case-number">43</span>A change of costume</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/jfwzo1TKVVkBwF4lcVdGH_3-3-4-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/jfwzo1TKVVkBwF4lcVdGH_3-3-4-3_ref1.webp" alt="First frame, case 43" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/jfwzo1TKVVkBwF4lcVdGH_3-3-4-3_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-43/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988" aria-label="Load prompt for case 43"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-43">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-43">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 43 --directory case-43
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-43 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-43/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-43/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=6.583333333333333,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-43/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-43/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap">Source prompt &amp; inputs ↗</a><a href="records/43.json">Case record ↗</a></div>
 </div></details>
 <details class="pending-case" id="case-44"><summary><span class="pending-title"><span class="case-number">44</span>Drawn into the scene</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
 <p>This case is waiting for the local generation worker.</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/kGEokRD-_IEApK5F3pt3H_3-3-4-4_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/kGEokRD-_IEApK5F3pt3H_3-3-4-4_ref1.webp" alt="Image 1, case 44" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/kGEokRD-_IEApK5F3pt3H_3-3-4-4_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44041/tONqOAIX9BQBbcdMWgdjg_3-3-4-4_in1.mp4" aria-label="Video 1, case 44"></video>
+<figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/tONqOAIX9BQBbcdMWgdjg_3-3-4-4_in1.mp4">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-44/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776" aria-label="Load prompt for case 44"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776</code></details></div>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-44">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-44">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 44 --directory case-44
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-44 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-44/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-44/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;9:16&#x27;,
+    reference_images=[&#x27;case-44/image-01.webp&#x27;],
+    reference_videos=[&#x27;case-44/video-01.mp4&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-44/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX">Source prompt &amp; inputs ↗</a><a href="records/44.json">Case record ↗</a></div>
 </div></details></div>
       <section id="method" class="prose-section"><h2>Generation method</h2><p>Four denoising steps with native video and stereo audio generation. The collection uses a fixed seed and records the first attempt, including any failures. No cloud generation API is used.</p><p>The guide publishes prompt excerpts, so the original full requests and seeds are unknown. The source videos are 720p; these local runs use 576p. Source clips of 15.083 seconds become 15-second deliveries. Runtime also differs. These are reproductions of the public inputs, not identical copies of the hosted outputs.</p><p>Image reference, first and last frame, video reference, and audio reference are tracked separately. A missing input mode is never replaced silently.</p></section>
-      <section id="sources" class="prose-section"><h2>Source &amp; attribution</h2><p>The case index refers to <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide">fal’s MiniMax H3 prompting guide</a>. This independently authored page uses H3 Apple’s own generation results. The source article, website code, branding, input assets, and hosted output videos are not redistributed here.</p><p>H3 Apple is an independent project. This collection is not affiliated with or endorsed by fal, MiniMax, or Apple. Names shown in generated content belong to their respective owners.</p></section>
+      <section id="sources" class="prose-section"><h2>Source &amp; attribution</h2><p>The case index refers to <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide">fal’s MiniMax H3 prompting guide</a>. This independently authored page hosts H3 Apple’s own generation results. Reference previews link directly to the publisher’s files; they are not copied into this repository. The reproduction script retrieves the source prompt on your machine and verifies the exact text used for the local run. You can display that downloaded text in each case’s prompt panel without uploading it.</p><p>H3 Apple is an independent project. This collection is not affiliated with or endorsed by fal, MiniMax, or Apple. Names shown in generated content belong to their respective owners. The source article, website code, branding and hosted output videos are not redistributed here.</p></section>
     </article>
   </main>
   <footer class="footer wrap"><a class="brand" href="./"><span class="brand-mark">H3</span><span>APPLE</span></a><p>Local video generation. Open implementation.</p><a href="https://github.com/RhinoQ/h3-apple">Explore the project ↗</a></footer>

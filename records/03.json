@@ -18,6 +18,44 @@
   },
   "prompt_sha256": "3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70",
   "notes": [],
+  "reproduction": {
+    "configuration_state": "executed",
+    "runtime": {
+      "version": "0.1.0.dev2",
+      "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+      "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "directory": "h3-apple-dev2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp",
+        "sha256": "e446b3f7e8bce699a300eaaafc40af17587bcf04537492aaef479f925b9aaa4b",
+        "bytes": 54488
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp",
+        "sha256": "07ca8854374d29f025329cb8976e34c5c40c9b04d39fa6d079ec88f7f645e380",
+        "bytes": 43990
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  },
   "seed": 42,
   "started_utc": "2026-09-13T12:54:20.235646+00:00",
   "elapsed_seconds": 1191.0019356249832,

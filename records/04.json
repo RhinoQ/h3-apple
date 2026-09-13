@@ -19,5 +19,63 @@
   "prompt_sha256": "37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377",
   "notes": [
     "This case is waiting for the local generation worker."
-  ]
+  ],
+  "reproduction": {
+    "configuration_state": "planned",
+    "runtime": {
+      "version": "0.1.0.dev2",
+      "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
+      "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "directory": "h3-apple-dev2"
+    },
+    "parameters": {
+      "seed": 42,
+      "resolution": "576p",
+      "duration": 15.0
+    },
+    "references": [
+      {
+        "label": "Image 1",
+        "argument": "reference_images",
+        "index": 1,
+        "media_type": "image",
+        "filename": "image-01.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp",
+        "sha256": "981f9b6eec1a3e436d3b9af1ad61daadd569146be1252151e22b9e4705313d9c",
+        "bytes": 43072
+      },
+      {
+        "label": "Image 2",
+        "argument": "reference_images",
+        "index": 2,
+        "media_type": "image",
+        "filename": "image-02.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp",
+        "sha256": "0ec8d5ddf1bdc1a7ec54eb16ea14250ddeddf838b4fb161d15eb115046e1d44b",
+        "bytes": 38866
+      },
+      {
+        "label": "Image 3",
+        "argument": "reference_images",
+        "index": 3,
+        "media_type": "image",
+        "filename": "image-03.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp",
+        "sha256": "1bc50aadf215b6b2d4e0bb345bfd0a2e8fdf26f2ec31a4d71b59b70ed7e31028",
+        "bytes": 53706
+      },
+      {
+        "label": "Image 4",
+        "argument": "reference_images",
+        "index": 4,
+        "media_type": "image",
+        "filename": "image-04.webp",
+        "url": "https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp",
+        "sha256": "2bf9e65f2dfd17e62e1cc31e377227955ce4282d6898a4ee661a43f472f5219b",
+        "bytes": 4758
+      }
+    ],
+    "task": "ref2va",
+    "model_manifest": "models/ref2va.json"
+  }
 }

@@ -6,6 +6,7 @@
   <meta name="description" content="An independent collection of MiniMax H3 video studies generated locally with H3 Apple. Watch the results and inspect the generation records.">
   <title>44 Video Studies · H3 Apple</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="reproduction.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#examples">Skip to videos</a>
@@ -35,7 +36,7 @@
     <article class="article">
       <div id="examples">{{CASES}}</div>
       <section id="method" class="prose-section"><h2>Generation method</h2><p>Four denoising steps with native video and stereo audio generation. The collection uses a fixed seed and records the first attempt, including any failures. No cloud generation API is used.</p><p>The guide publishes prompt excerpts, so the original full requests and seeds are unknown. The source videos are 720p; these local runs use 576p. Source clips of 15.083 seconds become 15-second deliveries. Runtime also differs. These are reproductions of the public inputs, not identical copies of the hosted outputs.</p><p>Image reference, first and last frame, video reference, and audio reference are tracked separately. A missing input mode is never replaced silently.</p></section>
-      <section id="sources" class="prose-section"><h2>Source &amp; attribution</h2><p>The case index refers to <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide">fal’s MiniMax H3 prompting guide</a>. This independently authored page uses H3 Apple’s own generation results. The source article, website code, branding, input assets, and hosted output videos are not redistributed here.</p><p>H3 Apple is an independent project. This collection is not affiliated with or endorsed by fal, MiniMax, or Apple. Names shown in generated content belong to their respective owners.</p></section>
+      <section id="sources" class="prose-section"><h2>Source &amp; attribution</h2><p>The case index refers to <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide">fal’s MiniMax H3 prompting guide</a>. This independently authored page hosts H3 Apple’s own generation results. Reference previews link directly to the publisher’s files; they are not copied into this repository. The reproduction script retrieves the source prompt on your machine and verifies the exact text used for the local run. You can display that downloaded text in each case’s prompt panel without uploading it.</p><p>H3 Apple is an independent project. This collection is not affiliated with or endorsed by fal, MiniMax, or Apple. Names shown in generated content belong to their respective owners. The source article, website code, branding and hosted output videos are not redistributed here.</p></section>
     </article>
   </main>
   <footer class="footer wrap"><a class="brand" href="./"><span class="brand-mark">H3</span><span>APPLE</span></a><p>Local video generation. Open implementation.</p><a href="https://github.com/RhinoQ/h3-apple">Explore the project ↗</a></footer>
