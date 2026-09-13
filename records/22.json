@@ -3,7 +3,7 @@
   "title": "A hero in blue",
   "source_case": "Fantasy Wuxia Character Film",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Fantasy%20Wuxia%20Character%20Film",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 2,
     "videos": 0,
