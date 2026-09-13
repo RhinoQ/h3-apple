@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "243"
   },
+  "prompt": "Animate the source artwork as a motion poster while preserving its white gallery border, inner frame, red/white/black palette, 3D collectible-figure look, and original layout. Add a light, playful type-on sound whenever text appears.",
   "prompt_sha256": "ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845",
   "notes": [
     "This case is waiting for the local generation worker."

@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "A 9:16 vertical family-confrontation scene with grounded live-action performances, set in a Chinese family home or small restaurant. Use warm interior light, red decorations and calligraphy in the background, shallow depth of field, intense emotion, and tight pacing.\n\nPerformance: natural short-form drama, never theatrical. Qin Haoxuan argues back with anger, hurt, and urgency. The older woman questions him in a sharp, forceful, relentless tone. Build the confrontation steadily.\n\nShoot mainly in medium-close shots with frequent shot/reverse-shot cutting. Keep the setting lived-in and realistic. No sci-fi, period costume, or animation styling. Do not show subtitles, added text, platform watermarks, or stickers.",
   "prompt_sha256": "21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56",
   "notes": [
     "This case is waiting for the local generation worker."

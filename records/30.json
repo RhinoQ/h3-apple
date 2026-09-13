@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Match the character motion, expressions, and performance timing in Image 1 closely to Input Video 1.\n\nAt the sink on the right side of frame, the man hands a washed plate to the woman on the left. He turns, then suddenly flicks dish-soap foam at her with his right hand. Startled, she immediately retaliates. They laugh, dodge, and playfully throw foam back and forth.",
   "prompt_sha256": "3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd",
   "notes": [
     "This case is waiting for the local generation worker."

@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Product Feature Visualization\n\nPresent a black Herman Miller ergonomic chair in a premium office with a full 360-degree product reveal. Cut to macro views of the breathable mesh back with airflow visualization, an engineering animation of the lumbar support and ergonomic curve, and demonstrations of multidirectional armrest and seat-height adjustment. Show designers, developers, and creative professionals working comfortably over long sessions. Include a 3D skeletal-support visualization that communicates all-day comfort, plus refined interior styling. End with the line: “WHERE INSPIRATION MEETS COMFORT.” Keep the direction minimal, cool-toned, professional, futuristic, and slow-paced. Use Image 1 for feature details and Image 2 for the product.",
   "prompt_sha256": "bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c",
   "notes": [
     "This case is waiting for the local generation worker."

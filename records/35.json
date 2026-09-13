@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "158"
   },
+  "prompt": "Add one person on the left side of frame wearing the same team uniform and moving in sync with the others.",
   "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
   "notes": [
     "This case is waiting for the local generation worker."

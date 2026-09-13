@@ -7,8 +7,7 @@ status for every case. It does not imply that every listed case has been generat
 
 Open `index.html` through a static HTTP server. No JavaScript framework, remote
 font, analytics, API key, or cloud generation service is required. The small
-`reproduction.js` helper copies commands and displays a reader-selected prompt
-file locally after verifying its hash; it sends no uploaded text anywhere.
+`reproduction.js` helper copies commands. The page has no file chooser or upload.
 
 `build.py` consumes the private source inventory and local run status using the
 H3 Apple Conda environment. It exports an explicit allowlist of metadata and
@@ -16,12 +15,12 @@ copies only completed H3 Apple output files. The private inventory and source
 media stay outside this repository. `layout.html` and `styles.css` are the page
 sources; `index.html`, `collection.json`, and `records/` are generated exports.
 
-Each case includes ordered reference previews from the original publisher,
-an exact-prompt source link, a hash-checked local prompt viewer, an input-fetching
-command, and the Python API call. Follow [REPRODUCE.md](REPRODUCE.md) for pinned
-runtime installation and model preparation. `reproduce.py` downloads public
-inputs directly from their source and checks the runtime and model manifest
-before running. It does not contain or republish the guide's prompt text.
+Each case displays its exact prompt with a copy button and source attribution,
+ordered reference previews, an input-fetching command, and the Python API call.
+Follow [REPRODUCE.md](REPRODUCE.md) for pinned
+runtime installation and model preparation. `reproduce.py` reads the prompt
+from the published case record, downloads reference media from the source,
+and checks the runtime and model manifest before running.
 
 GitHub Pages can serve this repository directly from the root of its publishing
 branch. The `.nojekyll` file preserves the authored static files.
@@ -51,7 +50,9 @@ branch. The `.nojekyll` file preserves the authored static files.
 ## Attribution and content
 
 The implementation, writing, and visual identity of this page were authored
-independently. It does not include fal's site code, logo, article text, or
+independently. Prompts are reproduced from the linked guide as the recorded model
+inputs; this repository's code license does not relicense third-party prompts or
+reference media. The page does not include fal's site code, logo, surrounding article, or
 hosted output videos. Reference previews are served from the source URLs;
 the input assets themselves remain outside this repository.
 

@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Creative interpretation + animated graphic effects\n\nAdd orange-yellow hand-drawn marks like Image 1 around the two people in Video 1. As they move closer, the marks multiply and build from tiny sparks into bright radiance. When they kiss, introduce pink brushstrokes.",
   "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
   "notes": [
     "This case is waiting for the local generation worker."

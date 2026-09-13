@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Use Image 1 as the reference for texture and mood, and Image 2 for the subject’s appearance. Generate a 15-second, 16:9 fashion short. Preserve the subject’s identity: long platinum-blonde hair, narrow black vintage sunglasses, a glossy black patent-leather trench coat, a cool, self-assured expression, and orange firelight reflected across the coat.\n\nStyle: fast-cut fashion film on analog stock, set against a nighttime blaze with black smoke and orange-red flames. Layer in VHS glitches, CCTV signal interruptions, 1990s film grain, scanlines, chromatic aberration, light leaks, flash-to-white transitions, and subtle frame jitter.",
   "prompt_sha256": "f4d8090a7d2595990097618e08a9547ee3c4f743ca96d22315f7b9e02bae46ae",
   "notes": [
     "This case is waiting for the local generation worker."

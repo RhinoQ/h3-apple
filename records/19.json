@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "243"
   },
+  "prompt": "Animate the website UI: the top headline slides down into place, the copy panel below slides up, and the car’s lights shift from dark to red.",
   "prompt_sha256": "e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1",
   "notes": [
     "This case is waiting for the local generation worker."

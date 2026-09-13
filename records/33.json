@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "243"
   },
+  "prompt": "The character says: “Follow the wind, live free. Leave worries behind, enjoy the moment.” Match the voice in Audio 1.",
   "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
   "notes": [
     "This case is waiting for the local generation worker."

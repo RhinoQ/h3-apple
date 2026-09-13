@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "158"
   },
+  "prompt": "Relighting\n\nChange the lighting in the reference video from daytime to night.",
   "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
   "notes": [
     "This case is waiting for the local generation worker."

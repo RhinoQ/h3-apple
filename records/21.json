@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "243"
   },
+  "prompt": "Claymation. A fox sprints to the edge of a cliff and launches without hesitation, making a dramatic heroic leap in slow motion over an immense lava canyon. Midair, the camera races beneath the fox’s belly in a bold dynamic move, revealing the terrifying depth of the chasm and the fully extended motion of its clay body.",
   "prompt_sha256": "16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8",
   "notes": [
     "This case is waiting for the local generation worker."

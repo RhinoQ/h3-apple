@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "158"
   },
+  "prompt": "Two magicians stand onstage facing the audience and perform a “swap” illusion. They wave their wands simultaneously and smoke rises. When it clears, their suit colors have exchanged: the magician on the left now wears white, and the one on the right now wears black. Their glove colors do not change. They bow; the red curtain closes behind them and gradually shifts from deep red to dark blue.",
   "prompt_sha256": "25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988",
   "notes": [
     "This case is waiting for the local generation worker."

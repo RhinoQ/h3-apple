@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "243"
   },
+  "prompt": "In the reference video: replace the newspaper with a green hardcover book; replace the chair with a red sofa; remove the subject’s sunglasses and reveal a clear face; remove the burning-car effect and restore the vehicle to normal; replace the photograph taken from the coat with a small black notebook; and add a tree on the left side of frame.",
   "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
   "notes": [
     "This case is waiting for the local generation worker."

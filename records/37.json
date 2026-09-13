@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Remove the green-screen background from Video 1 and replace it with a fairy-tale environment similar to Video 2. Make every background element respond correctly to the subject’s movement, and relight the subject so they blend naturally into the new scene.",
   "prompt_sha256": "95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83",
   "notes": [
     "This case is waiting for the local generation worker."

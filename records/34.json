@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "158"
   },
+  "prompt": "Replace the cat in the video with a dog.",
   "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
   "notes": [
     "This case is waiting for the local generation worker."

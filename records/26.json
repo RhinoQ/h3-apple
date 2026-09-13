@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Character-Driven Scene\n\nUse Image 1 for the male lead. Photoreal, cinematic live action, framed in a frontal close shot that stays on the leads’ upper bodies. Keep the woman’s face mostly out of frame; she wears a backless, midriff-baring red dress, with only occasional details of her neck, shoulders, arms, waist, hem, and hands. The man wears an impeccably tailored black dress shirt.\n\nSet the scene in the intimate red-and-black interior from Image 2: dim, low-saturation, luxurious, and restrained, with a softly defocused background. A red velvet sofa, black-and-gold marble side table, and warm low light create a mature, charged date-night atmosphere.\n\nThe man lounges on the red velvet sofa, leaning back with effortless composure. Beside him sits a cut-crystal tumbler holding amber whiskey and slowly melting ice, with fine condensation on the glass. Sound design: ice lightly tapping crystal, a faint cigar burn, subtle room air, clothing movement, and controlled breathing.",
   "prompt_sha256": "6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a",
   "notes": [
     "This case is waiting for the local generation worker."

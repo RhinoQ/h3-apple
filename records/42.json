@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "In the reference video, replace the canned drink shown at the beginning with Coca-Cola. Change the illuminated “FamilyMart” convenience-store sign in the background to “HUHUI.” At the end, replace every snack in the plastic bag with cans of Coca-Cola, and change the final line from “I bought a few snacks” to “I bought a whole bunch of Coke.”",
   "prompt_sha256": "8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69",
   "notes": [
     "This case is waiting for the local generation worker."

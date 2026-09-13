@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "158"
   },
+  "prompt": "Precise Subject and Wardrobe Replacement\n\nReplace the child at the back of Video 1 with the golden retriever from Image 1. Replace the khaki jacket worn by the child on the far left with the denim jacket from Image 2.",
   "prompt_sha256": "a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9",
   "notes": [
     "This case is waiting for the local generation worker."

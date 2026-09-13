@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "158"
   },
+  "prompt": "Live-action environment replacement\n\nReplace the view outside the window in Video 1 with Image 1.",
   "prompt_sha256": "ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22",
   "notes": [
     "This case is waiting for the local generation worker."

@@ -108,20 +108,20 @@ full-download installation test.
 ## 3. Fetch the case inputs and generate
 
 Copy the command below the selected video. It fetches `reproduce.py`, the
-case's original prompt directly from fal, the ordered reference files and the
+case's exact prompt from its public record, the ordered reference files and the
 model content manifest. It checks every prompt/reference hash and writes
 `case-NN/prompt.txt`, reference files, `case.json`, and `model.json`.
 
-The script preserves the exact paragraph joining used by this collection. If
-the source text or media changes, it stops instead of substituting different
-inputs. You can supply a saved source page with `inputs --guide-html guide.html`,
+The script preserves the exact paragraph joining used by this collection and
+checks the prompt and media against their recorded hashes. The published prompt
+stays pinned even if the source article later changes. You can also supply a
+saved source page with `inputs --guide-html guide.html`,
 or the original prompt with `inputs --prompt-file prompt.txt`. Each must still
 match the recorded hash. Existing files with different content are never replaced.
 
-Open the downloaded `prompt.txt` to inspect it, or load it in that case's prompt
-panel on the website. Its full text is displayed below the video after a hash
-check, entirely in your browser. Nothing is uploaded or stored by the site.
-The source prompt collection is not republished in this repository.
+The full text used by each local request is displayed below its video with a
+copy button and source attribution. The run command reads the same text from
+the downloaded `prompt.txt` automatically. No file upload or selection is needed.
 
 Before spending GPU time, add `--check-only` to the `run` command. It checks the
 installed source identity, prepared model manifest, input bytes and resolved API

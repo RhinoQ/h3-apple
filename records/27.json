@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "97"
   },
+  "prompt": "Use Images 1–6 as assets. Match Reference Video 1 closely for shot rhythm, transition language, and music.",
   "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
   "notes": [
     "This case is waiting for the local generation worker."

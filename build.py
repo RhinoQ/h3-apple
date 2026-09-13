@@ -1,7 +1,8 @@
 """Export an allowlisted, static gallery from private local generation records.
 
 Run with the project's Conda Python. Reference URLs are linked and previewed at
-their source. Article text, full prompts, private paths and logs stay local.
+their source. The user authorized publication of the exact run prompts.
+Private paths, environment logs and the surrounding article stay local.
 """
 from __future__ import annotations
 
@@ -104,6 +105,7 @@ def reproduction_panel(record):
     parts = ['<div class="reproduction"><h4>Reproduce this video</h4>']
     if recipe["configuration_state"] != "executed":
         parts.append('<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>')
+    parts.append(f'<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-{slug}">Copy prompt</button></div><pre class="prompt-text" id="prompt-{slug}">{esc(record["prompt"])}</pre><p class="small-note">Source: <a href="{esc(record["source"])}">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>')
     parts.append('<h5>Reference inputs · in supplied order</h5>')
     if not recipe["references"]:
         parts.append('<p class="small-note">Text only; no reference media.</p>')
@@ -120,7 +122,6 @@ def reproduction_panel(record):
                 parts.append(f'<audio controls preload="none" src="{url}" aria-label="{label}, case {slug}"></audio>')
             parts.append(f'<figcaption><strong>{label}</strong><a href="{url}">Open original ↗</a></figcaption></figure>')
         parts.append('</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>')
-    parts.append(f'<div class="prompt-panel"><h5>Exact prompt</h5><p><a href="{esc(record["source"])}">Read the prompt on fal ↗</a>. The input command below saves the exact text as <code>case-{slug}/prompt.txt</code> and checks it against this run.</p><label class="prompt-file">Show that prompt below <input type="file" accept=".txt,text/plain" data-prompt-file data-sha256="{record["prompt_sha256"]}" aria-label="Load prompt for case {slug}"></label><p role="status" class="small-note" aria-live="polite">Loaded text stays on your device.</p><pre class="prompt-text" hidden></pre><details class="input-hash"><summary>Prompt SHA-256</summary><code>{record["prompt_sha256"]}</code></details></div>')
     environment = recipe["runtime"]["directory"]
     command = ("curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py\n"
                f"./{environment}/.local/envs/h3/bin/python reproduce.py inputs --case {number} --directory case-{slug}\n"
@@ -177,7 +178,8 @@ def main():
         notes = [BLOCKERS.get(x, x) for x in run.get("blockers", []) + run.get("deviations", [])]
         record = {"case": number, "title": TITLES[number - 1], "source_case": case["source_title"], "source": source_link,
                   "status": run["status"], "required_inputs": inputs, "source_geometry": case["source_geometry"],
-                  "prompt_sha256": case["prompt_sha256"], "notes": notes}
+                  "prompt": case["prompt"], "prompt_sha256": case["prompt_sha256"], "notes": notes}
+        assert hashlib.sha256(record["prompt"].encode()).hexdigest() == record["prompt_sha256"]
         record["reproduction"] = reproduction(case, run)
         status = {"generated": "Generated", "running": "Generating", "queued": "Queued", "cancelled": "Queued for restart", "blocked": "Input support required", "failed": "Generation failed"}[run["status"]]
         title = f'<span class="case-number">{slug}</span>{esc(TITLES[number - 1])}'

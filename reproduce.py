@@ -1,8 +1,7 @@
 """Download a study's public inputs, verify them, and run its pinned H3 build.
 
-The source prompt is fetched from fal on the reader's machine. This script does
-not contain the source article or its prompts. Input downloads never load model
-weights; model preparation is a separate, explicit step in REPRODUCE.md.
+The exact prompt is included in the public case record. Input downloads never
+load model weights; model preparation is a separate step in REPRODUCE.md.
 """
 from __future__ import annotations
 
@@ -98,11 +97,14 @@ def download_inputs(args):
         raise ValueError("Case and record disagree")
     if args.prompt_file:
         prompt = args.prompt_file.read_text()
-        if hashlib.sha256(prompt.encode()).hexdigest() != record["prompt_sha256"]:
-            raise ValueError("Prompt file does not match the recorded input")
+    elif args.guide_html:
+        prompt = prompt_from_html(args.guide_html.read_text(), record)
+    elif "prompt" in record:
+        prompt = record["prompt"]
     else:
-        page = args.guide_html.read_text() if args.guide_html else fetch(GUIDE, 4_000_000).decode()
-        prompt = prompt_from_html(page, record)
+        prompt = prompt_from_html(fetch(GUIDE, 4_000_000).decode(), record)
+    if hashlib.sha256(prompt.encode()).hexdigest() != record["prompt_sha256"]:
+        raise ValueError("Prompt does not match the recorded input")
     references = record["reproduction"]["references"]
     if sum(item["bytes"] for item in references) > 500_000_000:
         raise ValueError("Unexpectedly large reference download")
@@ -122,7 +124,7 @@ def download_inputs(args):
     model = record["reproduction"]["model_manifest"]
     write_once(args.directory / "model.json", fetch(urljoin(SITE, model), 500_000))
     print(f"Verified case {args.case:02}: prompt + {len(references)} references in {args.directory}")
-    print("Open prompt.txt to read it, or load it into this case's prompt panel on the gallery. No text is uploaded.")
+    print("The exact prompt is saved in prompt.txt. The run command reads it automatically.")
 
 
 def generation_kwargs(record, directory):

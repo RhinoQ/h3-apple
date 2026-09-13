@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Sci-fi mystery teaser\n\nPhotoreal cinematic treatment, high-contrast lighting, and tight pacing. Use Image 1 for the overall mood and visual language; use Image 2 as the protagonist reference.\n\nShot 1 — Ultra-wide establishing shot. A colossal circular cosmic gateway nearly fills the frame. The protagonist appears only as a tiny figure from behind, positioned low and slightly right of center. Wet ground reflects the light; the center of the gateway is pitch black. Slowly push the camera forward. A large title emerges from the edge of the darkness, resolving from soft blur into sharp focus: “THE STARS WERE LISTENING.” Set it in an extremely condensed, heavy, all-caps face, colored dark crimson and rust red, with light grain and mist-softened edges.\n\nAudio: a deep sub-bass pulse, distant metallic resonance, and one restrained hit as the title locks into focus. → Hard cut.",
   "prompt_sha256": "3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70",
   "notes": [],
   "reproduction": {

@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Create a character promo for a male lead in an otome game. Use Image 2 as a strict identity reference. Preserve the same face, hairstyle, body proportions, costume design, material detail, and polished otome-CG aesthetic throughout.",
   "prompt_sha256": "1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd",
   "notes": [
     "This case is waiting for the local generation worker."

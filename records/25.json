@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "362"
   },
+  "prompt": "Interactive Otome Game\n\nUse the first image as the exact opening frame and the second as the exact ending frame. Create a transition within a premium Chinese otome visual-novel interface, capturing an intimate backstage moment before and after a performance. Move naturally from “Choose to watch his performance” to “Han Xu reacts with intrigued interest after hearing the heroine.” Reveal UI copy, choices, and dialogue boxes with refined otome-game motion design. Keep transitions fluid and the romantic tension suggestive but restrained.",
   "prompt_sha256": "cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad",
   "notes": [
     "This case is waiting for the local generation worker."

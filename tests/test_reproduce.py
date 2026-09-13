@@ -1,5 +1,7 @@
 """Input and integrity tests; no network, model weights, or machine fixtures."""
 import hashlib
+import argparse
+import json
 from pathlib import Path
 
 import pytest
@@ -55,3 +57,19 @@ def test_rejects_paths_and_unexpected_remote_sources(tmp_path):
         reproduce.safe_file(tmp_path, "../outside.png")
     with pytest.raises(ValueError):
         reproduce.fetch("https://example.invalid/untrusted", 100)
+
+
+def test_published_prompt_needs_no_source_page_fetch(tmp_path, monkeypatch):
+    prompt = "Synthetic exact prompt.\n\nSecond paragraph."
+    record = {"case": 1, "prompt": prompt, "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+              "reproduction": {"references": [], "model_manifest": "models/t2va.json"}}
+    record_path = tmp_path / "record.json"
+    record_path.write_text(json.dumps(record))
+    def fetch(url, limit):
+        assert url == reproduce.SITE + "models/t2va.json"
+        return b'{"files": []}'
+    monkeypatch.setattr(reproduce, "fetch", fetch)
+    destination = tmp_path / "inputs"
+    reproduce.download_inputs(argparse.Namespace(case=1, record=record_path, directory=destination,
+                                                 prompt_file=None, guide_html=None))
+    assert (destination / "prompt.txt").read_text() == prompt

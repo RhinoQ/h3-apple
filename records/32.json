@@ -16,6 +16,7 @@
     "avg_frame_rate": "24/1",
     "nb_frames": "158"
   },
+  "prompt": "Motion reference for a DIY reaction clip\n\nMatch the action in Video 1 from a locked-off wide camera. Replace the three suited men with three highly photoreal capybaras. Preserve the original movement path exactly: all three drop quickly to the floor; the left capybara jumps to center; the center capybara rolls to the far left; the new center capybara rolls to the far right; the right capybara jumps to center; finally, the center capybara jumps onto the other two, forming a pyramid. Keep the camera fixed and integrate fur, lighting, and shadows realistically into the scene.",
   "prompt_sha256": "c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45",
   "notes": [
     "This case is waiting for the local generation worker."
