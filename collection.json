@@ -1,11 +1,11 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 9,
+  "available_cases": 10,
   "status_counts": {
-    "generated": 8,
+    "generated": 9,
     "paused": 8,
     "running": 1,
-    "queued": 27
+    "queued": 26
   },
   "cases": [
     {
@@ -1091,7 +1091,7 @@
       "title": "Into a fairytale",
       "source_case": "Green-Screen to Fairytale Composite",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 0,
         "videos": 2,
@@ -1108,7 +1108,7 @@
       "prompt_sha256": "298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev3+guide2",
           "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -1151,6 +1151,61 @@
         "source_case": "Green-Screen to Fairytale Composite",
         "resolution": "768p",
         "reason": "The green-screen reference shows a full-body performer in a wide composition."
+      },
+      "seed": 42,
+      "started_utc": "2026-09-13T18:20:06.687005+00:00",
+      "elapsed_seconds": 4689.552194542019,
+      "actual_nfe": 4,
+      "video_sha256": "d3540b84ff0d2e4a038e773958f752162411ded9d6c8d9d0bf0a0b884116fd50",
+      "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "timings_seconds": {
+        "conditioning": 252.53062141686678,
+        "denoise": 4247.061423083069,
+        "video_decode": 182.49483162513934,
+        "audio_decode": 1.178205374861136,
+        "mux": 2.047846666071564
+      },
+      "peak_memory_gib": {
+        "conditioning": 7.986556775867939,
+        "denoise": 61.2837531408295,
+        "video_decode": 24.05032866075635,
+        "audio_decode": 2.6688824109733105,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "dbbe5663966a67b141750659902bc9642aeef667639cdda3d9cba765ecd1e31a",
+          "size": 674790
+        },
+        {
+          "kind": "video",
+          "index": 2,
+          "sha256": "11cc093ca5a45dd6ca4722e28bc46ca30bc4e103ce62a09601c4243bb6d22681",
+          "size": 839268
+        }
+      ],
+      "runtime_version": "0.1.0.dev3+guide2",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/10-768p-d3540b84ff0d-output.mp4",
+        "poster": "media/10-768p-d3540b84ff0d-poster.jpg"
       },
       "previous_results": []
     },
@@ -1218,7 +1273,7 @@
       "title": "Secrets in the snow",
       "source_case": "Snowy Bamboo Wuxia Mystery",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 2,
         "videos": 0,

@@ -3,7 +3,7 @@
   "title": "Secrets in the snow",
   "source_case": "Snowy Bamboo Wuxia Mystery",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 2,
     "videos": 0,
