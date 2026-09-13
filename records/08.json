@@ -1,0 +1,23 @@
+{
+  "case": 8,
+  "title": "After-hours laundry",
+  "source_case": "Neon Laundromat Encounter",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter",
+  "status": "queued",
+  "required_inputs": {
+    "images": 0,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083008,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

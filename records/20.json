@@ -1,0 +1,23 @@
+{
+  "case": 20,
+  "title": "A product comes into view",
+  "source_case": "Rotating Product Page Reveal",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 1,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 10.125,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "243"
+  },
+  "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
+  "notes": [
+    "First and last frame conditioning is not available in this product build."
+  ]
+}

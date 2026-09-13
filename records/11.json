@@ -1,0 +1,24 @@
+{
+  "case": 11,
+  "title": "Artwork in motion",
+  "source_case": "Animated Gallery Poster",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 1,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 720,
+    "height": 1280,
+    "duration": 10.125,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "243"
+  },
+  "prompt_sha256": "ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845",
+  "notes": [
+    "First and last frame conditioning is not available in this product build.",
+    "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+  ]
+}

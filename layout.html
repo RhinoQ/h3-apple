@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An independent collection of MiniMax H3 video studies generated locally with H3 Apple. Watch the results and inspect the generation records.">
+  <title>44 Video Studies · H3 Apple</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#examples">Skip to videos</a>
+  <div class="announcement">MiniMax H3 on Apple silicon <span aria-hidden="true">/</span> Four-step video + audio</div>
+  <header class="masthead">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="./" aria-label="H3 Apple home"><span class="brand-mark">H3</span><span>APPLE</span></a>
+      <div class="nav-links"><a href="#examples">Examples</a><a href="#method">Method</a><a class="repo-link" href="https://github.com/RhinoQ/h3-apple">Source code <span aria-hidden="true">↗</span></a></div>
+    </nav>
+    <div class="title-block wrap">
+      <div class="breadcrumb"><a href="https://github.com/RhinoQ/h3-apple">H3 Apple</a><span aria-hidden="true">/</span><span>Video studies</span></div>
+      <h1>44 video studies.<br>One local runtime.</h1>
+      <p class="standfirst">A local reproduction of the cases in fal’s MiniMax H3 guide. Watch the local results and inspect what ran, what is queued, and what still needs work.</p>
+    </div>
+  </header>
+  <main class="reading-layout wrap">
+    <aside class="sidebar" aria-label="About this collection">
+      <div class="sidebar-inner">
+        <span class="category">GENERATIVE VIDEO</span>
+        <p class="eyebrow">GENERATED WITH</p><p class="byline">H3 Apple · M5 Max</p><p class="muted">Independent reproduction</p>
+        <hr><p class="eyebrow">IN THIS COLLECTION</p>
+        <nav class="contents" aria-label="Collection contents">{{CONTENTS}}</nav>
+        <div class="progress-note"><strong>{{GENERATED}} / 44</strong><span>results available</span></div>
+        <p class="sidebar-note">The remaining cases are being generated or need additional input support. Their status will be listed here.</p>
+      </div>
+    </aside>
+    <article class="article">
+      <div id="examples">{{CASES}}</div>
+      <section id="method" class="prose-section"><h2>Generation method</h2><p>Four denoising steps with native video and stereo audio generation. The collection uses a fixed seed and records the first attempt, including any failures. No cloud generation API is used.</p><p>The guide publishes prompt excerpts, so the original full requests and seeds are unknown. The source videos are 720p; these local runs use 576p. Source clips of 15.083 seconds become 15-second deliveries. Runtime also differs. These are reproductions of the public inputs, not identical copies of the hosted outputs.</p><p>Image reference, first and last frame, video reference, and audio reference are tracked separately. A missing input mode is never replaced silently.</p></section>
+      <section id="sources" class="prose-section"><h2>Source &amp; attribution</h2><p>The case index refers to <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide">fal’s MiniMax H3 prompting guide</a>. This independently authored page uses H3 Apple’s own generation results. The source article, website code, branding, input assets, and hosted output videos are not redistributed here.</p><p>H3 Apple is an independent project. This collection is not affiliated with or endorsed by fal, MiniMax, or Apple. Names shown in generated content belong to their respective owners.</p></section>
+    </article>
+  </main>
+  <footer class="footer wrap"><a class="brand" href="./"><span class="brand-mark">H3</span><span>APPLE</span></a><p>Local video generation. Open implementation.</p><a href="https://github.com/RhinoQ/h3-apple">Explore the project ↗</a></footer>
+</body>
+</html>

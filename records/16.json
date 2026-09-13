@@ -1,0 +1,23 @@
+{
+  "case": 16,
+  "title": "Made for the working day",
+  "source_case": "Ergonomic Chair Product Film",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 720,
+    "height": 1280,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c",
+  "notes": [
+    "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "case": 33,
+  "title": "A different voice",
+  "source_case": "Voice Clone Dialogue Transfer",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 0,
+    "videos": 1,
+    "audio": 1
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 10.125,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "243"
+  },
+  "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

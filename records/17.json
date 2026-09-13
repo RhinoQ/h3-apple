@@ -1,0 +1,23 @@
+{
+  "case": 17,
+  "title": "Equip. Confirm. Enter.",
+  "source_case": "Interactive Game Equipment UI",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Game%20Equipment%20UI",
+  "status": "queued",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083008,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "fb5af89c4976e8d8997cf308133db83667a92ddc622cca1aeab28d491206eb26",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

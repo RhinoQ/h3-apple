@@ -1,0 +1,23 @@
+{
+  "case": 29,
+  "title": "From coffee to dunes",
+  "source_case": "Macro Coffee-to-Fluid Transition",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Macro%20Coffee-to-Fluid%20Transition",
+  "status": "queued",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "9f8827d7bd8cc8ac6339809d33337d9ecfbb7f4ea08e5993503f9d2240765b5e",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

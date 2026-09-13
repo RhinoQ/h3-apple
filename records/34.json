@@ -1,0 +1,23 @@
+{
+  "case": 34,
+  "title": "A different companion",
+  "source_case": "Cat-to-Dog Replacement",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 0,
+    "videos": 1,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 6.583333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "158"
+  },
+  "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "case": 5,
+  "title": "After the fire",
+  "source_case": "Cyber-Grunge Fashion Film",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film",
+  "status": "queued",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "f4d8090a7d2595990097618e08a9547ee3c4f743ca96d22315f7b9e02bae46ae",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

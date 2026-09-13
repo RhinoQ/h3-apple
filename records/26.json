@@ -1,0 +1,23 @@
+{
+  "case": 26,
+  "title": "A quiet evening",
+  "source_case": "Character-Driven Romantic Scene",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene",
+  "status": "queued",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

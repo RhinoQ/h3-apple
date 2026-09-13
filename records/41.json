@@ -1,0 +1,23 @@
+{
+  "case": 41,
+  "title": "Several changes, one scene",
+  "source_case": "Multi-Element Scene Editing",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 0,
+    "videos": 1,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 10.125,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "243"
+  },
+  "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

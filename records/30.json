@@ -1,0 +1,23 @@
+{
+  "case": 30,
+  "title": "Foam at the kitchen sink",
+  "source_case": "Character Swap with Performance Reference",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 1,
+    "videos": 1,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

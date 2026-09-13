@@ -1,0 +1,23 @@
+{
+  "case": 43,
+  "title": "A change of costume",
+  "source_case": "Precision Costume Swap",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 1,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 6.583333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "158"
+  },
+  "prompt_sha256": "25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988",
+  "notes": [
+    "First and last frame conditioning is not available in this product build."
+  ]
+}

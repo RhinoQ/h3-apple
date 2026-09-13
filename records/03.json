@@ -1,0 +1,58 @@
+{
+  "case": 3,
+  "title": "The silent gateway",
+  "source_case": "Sci-Fi Mystery Teaser",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser",
+  "status": "generated",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70",
+  "notes": [],
+  "seed": 42,
+  "started_utc": "2026-09-13T12:54:20.235646+00:00",
+  "elapsed_seconds": 1191.0019356249832,
+  "actual_nfe": 4,
+  "video_sha256": "54699f979fd3ea17843de4ad35fd42bcccffe6aee0853e83ecbe95fbdae5a29c",
+  "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+  "timings_seconds": {
+    "conditioning": 16.693787625059485,
+    "denoise": 1052.162475625053,
+    "video_decode": 116.20374045800418,
+    "audio_decode": 1.2842262501362711,
+    "mux": 1.6566540838684887
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.027152094990015,
+    "denoise": 36.30162969045341,
+    "video_decode": 18.148458875715733,
+    "audio_decode": 2.744294535368681,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 15.0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "runtime_version": "0.1.0.dev2",
+  "attention": "vsa",
+  "experimental_input_support": false,
+  "creative_quality_review": "Not independently rated for this collection"
+}

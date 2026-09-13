@@ -1,0 +1,23 @@
+{
+  "case": 39,
+  "title": "Beyond the window",
+  "source_case": "Window View Replacement",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 1,
+    "videos": 1,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 6.583008,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "158"
+  },
+  "prompt_sha256": "ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

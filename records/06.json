@@ -1,0 +1,23 @@
+{
+  "case": 6,
+  "title": "Jazz after midnight",
+  "source_case": "Retro Anime Crime Title Sequence",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Retro%20Anime%20Crime%20Title%20Sequence",
+  "status": "queued",
+  "required_inputs": {
+    "images": 5,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083008,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "02452c913f8829974c3d542cc7b2ac1984c8c88787c0a7ee593fd6a84d8b4efa",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

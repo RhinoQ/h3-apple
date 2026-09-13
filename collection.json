@@ -1,0 +1,1096 @@
+{
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
+  "status_counts": {
+    "generated": 2,
+    "blocked": 29,
+    "cancelled": 1,
+    "queued": 12
+  },
+  "cases": [
+    {
+      "case": 1,
+      "title": "Through the binoculars",
+      "source_case": "Vintage Binocular Brand Film",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film",
+      "status": "generated",
+      "required_inputs": {
+        "images": 4,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "a218403d678cc4b6cb5ad00f914011b851eeb19f4224be9ec2e26dfeb78eae1c",
+      "notes": [],
+      "seed": 42,
+      "started_utc": "2026-09-13T12:07:42.955294+00:00",
+      "elapsed_seconds": 1326.6071971249767,
+      "actual_nfe": 4,
+      "video_sha256": "302b26f682a49027691a1dfa53508918468dc441fab63c3470dbd3b52a2c46ee",
+      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "timings_seconds": {
+        "conditioning": 26.733497083187103,
+        "denoise": 1168.5112719158642,
+        "video_decode": 124.8787933329586,
+        "audio_decode": 1.3662970829755068,
+        "mux": 1.821396959014237
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.2918388675898314,
+        "denoise": 36.37938547786325,
+        "video_decode": 18.14845885708928,
+        "audio_decode": 2.744187530130148,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "576p",
+        "duration": 15.0,
+        "width": 1024,
+        "height": 576,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": true,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "runtime_version": "0.1.0.dev2",
+      "attention": "vsa",
+      "experimental_input_support": false,
+      "creative_quality_review": "Not independently rated for this collection"
+    },
+    {
+      "case": 2,
+      "title": "A jump into deep space",
+      "source_case": "Epic Space Opera Teaser",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7",
+      "notes": [
+        "First and last frame conditioning is not available in this product build."
+      ]
+    },
+    {
+      "case": 3,
+      "title": "The silent gateway",
+      "source_case": "Sci-Fi Mystery Teaser",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser",
+      "status": "generated",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70",
+      "notes": [],
+      "seed": 42,
+      "started_utc": "2026-09-13T12:54:20.235646+00:00",
+      "elapsed_seconds": 1191.0019356249832,
+      "actual_nfe": 4,
+      "video_sha256": "54699f979fd3ea17843de4ad35fd42bcccffe6aee0853e83ecbe95fbdae5a29c",
+      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "timings_seconds": {
+        "conditioning": 16.693787625059485,
+        "denoise": 1052.162475625053,
+        "video_decode": 116.20374045800418,
+        "audio_decode": 1.2842262501362711,
+        "mux": 1.6566540838684887
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.027152094990015,
+        "denoise": 36.30162969045341,
+        "video_decode": 18.148458875715733,
+        "audio_decode": 2.744294535368681,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "576p",
+        "duration": 15.0,
+        "width": 1024,
+        "height": 576,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "runtime_version": "0.1.0.dev2",
+      "attention": "vsa",
+      "experimental_input_support": false,
+      "creative_quality_review": "Not independently rated for this collection"
+    },
+    {
+      "case": 4,
+      "title": "Desert departure",
+      "source_case": "Desert Fashion Campaign",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
+      "status": "cancelled",
+      "required_inputs": {
+        "images": 4,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 5,
+      "title": "After the fire",
+      "source_case": "Cyber-Grunge Fashion Film",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "f4d8090a7d2595990097618e08a9547ee3c4f743ca96d22315f7b9e02bae46ae",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 6,
+      "title": "Jazz after midnight",
+      "source_case": "Retro Anime Crime Title Sequence",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Retro%20Anime%20Crime%20Title%20Sequence",
+      "status": "queued",
+      "required_inputs": {
+        "images": 5,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083008,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "02452c913f8829974c3d542cc7b2ac1984c8c88787c0a7ee593fd6a84d8b4efa",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 7,
+      "title": "A guest in the kitchen",
+      "source_case": "Hand-Drawn Kitchen Creature",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Kitchen%20Creature",
+      "status": "queued",
+      "required_inputs": {
+        "images": 0,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "2c8493ae5d8b525b1d05321b83e29abb20642ce78dbdecbc55cf8fd39457c484",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 8,
+      "title": "After-hours laundry",
+      "source_case": "Neon Laundromat Encounter",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter",
+      "status": "queued",
+      "required_inputs": {
+        "images": 0,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083008,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 9,
+      "title": "Cut to the beat",
+      "source_case": "Cyber-Grunge Rap Music Video",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Rap%20Music%20Video",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "37fc53acafcf3682f9a24653f5a78ab9edaf98272ead96b0ec45d14850ccc6be",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 10,
+      "title": "Into a fairytale",
+      "source_case": "Green-Screen to Fairytale Composite",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 2,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 11,
+      "title": "Artwork in motion",
+      "source_case": "Animated Gallery Poster",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 720,
+        "height": 1280,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845",
+      "notes": [
+        "First and last frame conditioning is not available in this product build.",
+        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+      ]
+    },
+    {
+      "case": 12,
+      "title": "Secrets in the snow",
+      "source_case": "Snowy Bamboo Wuxia Mystery",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "0dcf150c18b257acd4155e32ac37299e5b0dafd3ecdb53b38db1f6dba95e5f68",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 13,
+      "title": "Across the dinner table",
+      "source_case": "Vertical Family Confrontation",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vertical%20Family%20Confrontation",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 720,
+        "height": 1280,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56",
+      "notes": [
+        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+      ]
+    },
+    {
+      "case": 14,
+      "title": "The forbidden wing",
+      "source_case": "Vampire Romance Short Drama",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 720,
+        "height": 1280,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a",
+      "notes": [
+        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+      ]
+    },
+    {
+      "case": 15,
+      "title": "Future in focus",
+      "source_case": "Futuristic Eyewear Campaign",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 3,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 720,
+        "height": 1280,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce",
+      "notes": [
+        "The source uses a portrait canvas; the frozen product API accepts landscape output only.",
+        "The source prompt mentions a reference video that is not supplied on the page."
+      ]
+    },
+    {
+      "case": 16,
+      "title": "Made for the working day",
+      "source_case": "Ergonomic Chair Product Film",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 720,
+        "height": 1280,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c",
+      "notes": [
+        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+      ]
+    },
+    {
+      "case": 17,
+      "title": "Equip. Confirm. Enter.",
+      "source_case": "Interactive Game Equipment UI",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Game%20Equipment%20UI",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083008,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "fb5af89c4976e8d8997cf308133db83667a92ddc622cca1aeab28d491206eb26",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 18,
+      "title": "Built for speed",
+      "source_case": "Nike-Style Product Landing Page",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page",
+      "status": "queued",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083008,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "2578d9d08290a607366750d77701af5743251ab3fb3eeb96be58d050ced4b2b8",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 19,
+      "title": "Lights on",
+      "source_case": "Automotive Website UI Animation",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1",
+      "notes": [
+        "First and last frame conditioning is not available in this product build."
+      ]
+    },
+    {
+      "case": 20,
+      "title": "A product comes into view",
+      "source_case": "Rotating Product Page Reveal",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
+      "notes": [
+        "First and last frame conditioning is not available in this product build."
+      ]
+    },
+    {
+      "case": 21,
+      "title": "A leap over lava",
+      "source_case": "Claymation Lava Canyon Leap",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8",
+      "notes": [
+        "First and last frame conditioning is not available in this product build."
+      ]
+    },
+    {
+      "case": 22,
+      "title": "A hero in blue",
+      "source_case": "Fantasy Wuxia Character Film",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Fantasy%20Wuxia%20Character%20Film",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "399c27bb4cf0b859e46cdcba2a2f94035aa79c6e26ee5df1602e58e5a996cbb2",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 23,
+      "title": "Meet the leading man",
+      "source_case": "Otome Male Lead Character Promo",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 24,
+      "title": "At the perimeter",
+      "source_case": "First-Person Tactical Gameplay",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "8269db178995115adc4d1102c27226315924ca4d8f5be7525858885b6f6bc15a",
+      "notes": [
+        "First and last frame conditioning is not available in this product build."
+      ]
+    },
+    {
+      "case": 25,
+      "title": "Before and after the show",
+      "source_case": "Interactive Otome Game Transition",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad",
+      "notes": [
+        "First and last frame conditioning is not available in this product build."
+      ]
+    },
+    {
+      "case": 26,
+      "title": "A quiet evening",
+      "source_case": "Character-Driven Romantic Scene",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 27,
+      "title": "Six assets, one sequence",
+      "source_case": "Multi-Asset Cinematic Remix",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 6,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 4.041667,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "97"
+      },
+      "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 28,
+      "title": "A voxel interruption",
+      "source_case": "Live-Action Voxel Transformation",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 2,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 29,
+      "title": "From coffee to dunes",
+      "source_case": "Macro Coffee-to-Fluid Transition",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Macro%20Coffee-to-Fluid%20Transition",
+      "status": "queued",
+      "required_inputs": {
+        "images": 2,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "9f8827d7bd8cc8ac6339809d33337d9ecfbb7f4ea08e5993503f9d2240765b5e",
+      "notes": [
+        "This case is waiting for the local generation worker."
+      ]
+    },
+    {
+      "case": 30,
+      "title": "Foam at the kitchen sink",
+      "source_case": "Character Swap with Performance Reference",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 31,
+      "title": "A new dancer",
+      "source_case": "Street Dance Motion Transfer",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 2,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 32,
+      "title": "Three capybaras",
+      "source_case": "Capybara Motion Recreation",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 6.583333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "158"
+      },
+      "prompt_sha256": "c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 33,
+      "title": "A different voice",
+      "source_case": "Voice Clone Dialogue Transfer",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 1
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 34,
+      "title": "A different companion",
+      "source_case": "Cat-to-Dog Replacement",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 6.583333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "158"
+      },
+      "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 35,
+      "title": "One more teammate",
+      "source_case": "Add a Character in Sync with the Others",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 6.583333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "158"
+      },
+      "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 36,
+      "title": "A change of cast",
+      "source_case": "Subject & Wardrobe Replacement",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 2,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 6.583333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "158"
+      },
+      "prompt_sha256": "a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 37,
+      "title": "A new world behind the action",
+      "source_case": "Green-Screen Environment Replacement",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 2,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 38,
+      "title": "After sunset",
+      "source_case": "Day-to-Night Relighting",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 6.583333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "158"
+      },
+      "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 39,
+      "title": "Beyond the window",
+      "source_case": "Window View Replacement",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 6.583008,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "158"
+      },
+      "prompt_sha256": "ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 40,
+      "title": "A different line",
+      "source_case": "Dialogue & Performance Replacement",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 1
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "4cf1ddd988682b78b31a000fdaa2eab5253659211a995098a3319b7e4ab00686",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 41,
+      "title": "Several changes, one scene",
+      "source_case": "Multi-Element Scene Editing",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 10.125,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "243"
+      },
+      "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 42,
+      "title": "New product. New sign. New line.",
+      "source_case": "Product, Sign & Dialogue Replacement",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 0,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69",
+      "notes": [
+        "This request needs video or audio reference input support."
+      ]
+    },
+    {
+      "case": 43,
+      "title": "A change of costume",
+      "source_case": "Precision Costume Swap",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 0,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 1280,
+        "height": 720,
+        "duration": 6.583333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "158"
+      },
+      "prompt_sha256": "25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988",
+      "notes": [
+        "First and last frame conditioning is not available in this product build."
+      ]
+    },
+    {
+      "case": 44,
+      "title": "Drawn into the scene",
+      "source_case": "Hand-Drawn Romance VFX",
+      "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX",
+      "status": "blocked",
+      "required_inputs": {
+        "images": 1,
+        "videos": 1,
+        "audio": 0
+      },
+      "source_geometry": {
+        "width": 720,
+        "height": 1280,
+        "duration": 15.083333,
+        "avg_frame_rate": "24/1",
+        "nb_frames": "362"
+      },
+      "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
+      "notes": [
+        "This request needs video or audio reference input support.",
+        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+      ]
+    }
+  ]
+}

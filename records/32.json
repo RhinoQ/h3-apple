@@ -1,0 +1,23 @@
+{
+  "case": 32,
+  "title": "Three capybaras",
+  "source_case": "Capybara Motion Recreation",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 0,
+    "videos": 1,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 6.583333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "158"
+  },
+  "prompt_sha256": "c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

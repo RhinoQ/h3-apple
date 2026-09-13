@@ -1,0 +1,23 @@
+{
+  "case": 38,
+  "title": "After sunset",
+  "source_case": "Day-to-Night Relighting",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 0,
+    "videos": 1,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 6.583333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "158"
+  },
+  "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

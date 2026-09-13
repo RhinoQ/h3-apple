@@ -1,0 +1,24 @@
+{
+  "case": 15,
+  "title": "Future in focus",
+  "source_case": "Futuristic Eyewear Campaign",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 3,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 720,
+    "height": 1280,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce",
+  "notes": [
+    "The source uses a portrait canvas; the frozen product API accepts landscape output only.",
+    "The source prompt mentions a reference video that is not supplied on the page."
+  ]
+}

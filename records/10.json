@@ -1,0 +1,23 @@
+{
+  "case": 10,
+  "title": "Into a fairytale",
+  "source_case": "Green-Screen to Fairytale Composite",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 0,
+    "videos": 2,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

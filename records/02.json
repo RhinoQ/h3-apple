@@ -1,0 +1,23 @@
+{
+  "case": 2,
+  "title": "A jump into deep space",
+  "source_case": "Epic Space Opera Teaser",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 1,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7",
+  "notes": [
+    "First and last frame conditioning is not available in this product build."
+  ]
+}

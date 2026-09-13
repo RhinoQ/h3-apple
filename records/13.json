@@ -1,0 +1,23 @@
+{
+  "case": 13,
+  "title": "Across the dinner table",
+  "source_case": "Vertical Family Confrontation",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vertical%20Family%20Confrontation",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 720,
+    "height": 1280,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56",
+  "notes": [
+    "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+  ]
+}

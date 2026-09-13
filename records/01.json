@@ -1,0 +1,58 @@
+{
+  "case": 1,
+  "title": "Through the binoculars",
+  "source_case": "Vintage Binocular Brand Film",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film",
+  "status": "generated",
+  "required_inputs": {
+    "images": 4,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "a218403d678cc4b6cb5ad00f914011b851eeb19f4224be9ec2e26dfeb78eae1c",
+  "notes": [],
+  "seed": 42,
+  "started_utc": "2026-09-13T12:07:42.955294+00:00",
+  "elapsed_seconds": 1326.6071971249767,
+  "actual_nfe": 4,
+  "video_sha256": "302b26f682a49027691a1dfa53508918468dc441fab63c3470dbd3b52a2c46ee",
+  "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+  "timings_seconds": {
+    "conditioning": 26.733497083187103,
+    "denoise": 1168.5112719158642,
+    "video_decode": 124.8787933329586,
+    "audio_decode": 1.3662970829755068,
+    "mux": 1.821396959014237
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.2918388675898314,
+    "denoise": 36.37938547786325,
+    "video_decode": 18.14845885708928,
+    "audio_decode": 2.744187530130148,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 15.0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": true,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "runtime_version": "0.1.0.dev2",
+  "attention": "vsa",
+  "experimental_input_support": false,
+  "creative_quality_review": "Not independently rated for this collection"
+}

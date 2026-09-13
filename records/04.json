@@ -1,0 +1,23 @@
+{
+  "case": 4,
+  "title": "Desert departure",
+  "source_case": "Desert Fashion Campaign",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
+  "status": "cancelled",
+  "required_inputs": {
+    "images": 4,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "case": 37,
+  "title": "A new world behind the action",
+  "source_case": "Green-Screen Environment Replacement",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 0,
+    "videos": 2,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83",
+  "notes": [
+    "This request needs video or audio reference input support."
+  ]
+}

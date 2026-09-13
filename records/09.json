@@ -1,0 +1,23 @@
+{
+  "case": 9,
+  "title": "Cut to the beat",
+  "source_case": "Cyber-Grunge Rap Music Video",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Rap%20Music%20Video",
+  "status": "queued",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "37fc53acafcf3682f9a24653f5a78ab9edaf98272ead96b0ec45d14850ccc6be",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

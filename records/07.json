@@ -1,0 +1,23 @@
+{
+  "case": 7,
+  "title": "A guest in the kitchen",
+  "source_case": "Hand-Drawn Kitchen Creature",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Kitchen%20Creature",
+  "status": "queued",
+  "required_inputs": {
+    "images": 0,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "2c8493ae5d8b525b1d05321b83e29abb20642ce78dbdecbc55cf8fd39457c484",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

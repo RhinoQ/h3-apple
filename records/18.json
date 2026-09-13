@@ -1,0 +1,23 @@
+{
+  "case": 18,
+  "title": "Built for speed",
+  "source_case": "Nike-Style Product Landing Page",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page",
+  "status": "queued",
+  "required_inputs": {
+    "images": 1,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083008,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "2578d9d08290a607366750d77701af5743251ab3fb3eeb96be58d050ced4b2b8",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

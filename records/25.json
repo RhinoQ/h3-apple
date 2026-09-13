@@ -1,0 +1,23 @@
+{
+  "case": 25,
+  "title": "Before and after the show",
+  "source_case": "Interactive Otome Game Transition",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad",
+  "notes": [
+    "First and last frame conditioning is not available in this product build."
+  ]
+}

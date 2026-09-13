@@ -1,0 +1,23 @@
+{
+  "case": 23,
+  "title": "Meet the leading man",
+  "source_case": "Otome Male Lead Character Promo",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo",
+  "status": "queued",
+  "required_inputs": {
+    "images": 2,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 15.083333,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "362"
+  },
+  "prompt_sha256": "1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd",
+  "notes": [
+    "This case is waiting for the local generation worker."
+  ]
+}

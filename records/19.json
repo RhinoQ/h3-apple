@@ -1,0 +1,23 @@
+{
+  "case": 19,
+  "title": "Lights on",
+  "source_case": "Automotive Website UI Animation",
+  "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation",
+  "status": "blocked",
+  "required_inputs": {
+    "images": 1,
+    "videos": 0,
+    "audio": 0
+  },
+  "source_geometry": {
+    "width": 1280,
+    "height": 720,
+    "duration": 10.125,
+    "avg_frame_rate": "24/1",
+    "nb_frames": "243"
+  },
+  "prompt_sha256": "e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1",
+  "notes": [
+    "First and last frame conditioning is not available in this product build."
+  ]
+}
