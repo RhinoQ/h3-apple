@@ -93,7 +93,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                     run.setdefault("reference_inputs", []).append(dict(kind="keyframe", anchor=anchor,
                         source=source, sha256=digest(target), size=target.stat().st_size))
                 spec["ref2va"] = dict(task="fl2va", native_root=assets["fl2va_native"],
-                    image_paths=paths, anchors=anchors, attention="dense")
+                    image_paths=paths, anchors=anchors, attention="vsa")
             if request.reference_images:
                 # Snapshot the small user inputs so one run has immutable references.
                 references = []

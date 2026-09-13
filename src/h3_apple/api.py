@@ -141,7 +141,7 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
     return GenerationRequest(prompt, preset, resolution, count / 24, seed,
                              width, height, count, model_width, model_height,
                              ((count - 5 + 16) // 17) * 17 + 5,
-                             preset_version="ours-fl2va-guide1" if has_keyframes else "ours-ref2va-v1" if has_references else "ours-v1",
+                             preset_version="ours-fl2va-vsa-experiment1" if has_keyframes else "ours-ref2va-v1" if has_references else "ours-v1",
                              reference_images=references, task=task,
                              reference_videos=videos, reference_audio=audio,
                              first_frame=keyframes[0], last_frame=keyframes[1])

@@ -2,8 +2,9 @@
 # Keyframe preparation follows the MiniMax and Hugging Face reference.
 """Experimental first/last-frame conditioning with dedicated LightX2V weights.
 
-Dense attention deliberately avoids depending on cross-task VSA gate quality.
-The immutable anchors participate in every forward and are excluded from decode.
+Experimental VSA shares Ref2VA's segment-pure, dense-exempt prefix and kernels.
+The immutable anchors retain their first/last time positions, participate in
+every forward and are excluded from decode. Gate transfer quality is unqualified.
 """
 from dataclasses import asdict
 import gc
@@ -47,13 +48,16 @@ def keyframe_layout(tags, geometry, model_frames, anchors):
 
 
 def condition_and_denoise(request, options, checkpoint, observer, phase):
-    if request["task"] != "fl2va" or request["num_steps"] != 4 or options["attention"] != "dense":
-        raise ValueError("The first/last-frame admission path uses four steps and dense attention.")
+    attention = options["attention"]
+    if request["task"] != "fl2va" or request["num_steps"] != 4 or attention not in ("dense", "vsa"):
+        raise ValueError("The first/last-frame experiment requires four steps and explicit dense or vsa attention.")
     recipe = json.loads((Path(checkpoint) / "fl2va_recipe.json").read_text())
     expected = dict(schema="h3-apple-fl2va/v1", task="fl2va", lora_tensors=624,
         lora_rank=128, lora_alpha=8, fasth3_t2va_deltas_applied=False)
     if any(recipe.get(key) != value for key, value in expected.items()):
         raise ValueError("Expected the dedicated FL2VA + LightX2V four-step checkpoint.")
+    if attention == "vsa" and recipe.get("gate_tensors") != 50:
+        raise ValueError("FL2VA VSA requires all 50 transplanted compression gates.")
     references = []
     if len(options["image_paths"]) != len(options["anchors"]):
         raise ValueError("Keyframe paths and anchors disagree.")
@@ -68,24 +72,37 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     geometry = MiniMaxH3MLXPipeline.resolve_geometry(request["model_height"], request["model_width"], request["model_num_frames"])
     layout = keyframe_layout(tags, geometry, request["model_num_frames"], options["anchors"])
     condition, initial_video, initial_audio = image_noise(rows, layout, request["seed"])
-    metadata = dict(task="fl2va", attention="dense", experimental=True, anchors=options["anchors"],
+    metadata = dict(task="fl2va", attention=attention, experimental=True, anchors=options["anchors"],
         reference_segments=segments, condition_rows=len(condition), condition_sha256=checksum(condition),
         text_sha256=checksum(text), prefix_segments=list(layout.reference_prefix_segments),
         canvas=[request["model_width"], request["model_height"]],
         image_policy="First supplied keyframe stretches to the model canvas; the follower is cover-cropped.",
         noise_convention="NumPy SeedSequence(seed).spawn(3): reference, video, audio; PCG64 FP32",
-        vsa_gates_used=False, video_shift=12, audio_shift=3)
+        vsa_gates_used=attention == "vsa", video_shift=12, audio_shift=3)
+    if attention == "vsa":
+        metadata["vsa_policy"] = dict(sparsity=.75, prefix_mode="exempt", routing_mode="kablex",
+            note="Experimental gate transfer; prefix mask protection does not establish Dense-equivalent quality.")
     del references, rows, audio_rows
     gc.collect(); mx.clear_cache()
 
     def denoise():
         dit = load_mlx_h3_checkpoint(checkpoint)
-        dit.configure_vsa(MiniMaxH3VSAConfig(enabled=False))
+        if attention == "vsa" and (not dit.vsa_capable or len(dit.blocks) != 50
+                or any("attn.to_gate_compress.weight" not in block for block in dit.blocks)):
+            raise ValueError("Expected the dedicated FL2VA checkpoint with 50 compression gates.")
+        dit.configure_vsa(MiniMaxH3VSAConfig(enabled=attention == "vsa", sparsity=.75,
+            prefix_mode="exempt", impl="simd", routing_mode="kablex"))
         before = sparse_calls()
         video, audio = sample_image(dit, text, condition, layout, initial_video, initial_audio, observer=observer)
-        if (observer.nfe, observer.blocks, sparse_calls() - before) != (4, 200, 0):
-            raise ValueError("Expected four complete dense FL2VA forwards.")
         stats = asdict(dit.last_vsa_stats) if dit.last_vsa_stats is not None else None
+        calls = sparse_calls() - before
+        if (observer.nfe, observer.blocks) != (4, 200):
+            raise ValueError("Expected four complete FL2VA forwards.")
+        if attention == "vsa":
+            if calls != 200 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200:
+                raise ValueError("Expected 200 FL2VA VSA block calls without Dense fallback.")
+        elif calls:
+            raise ValueError("Dense FL2VA unexpectedly called sparse attention.")
         return video, audio, stats
     video, audio, stats = phase("denoise", denoise)
     return video, audio, metadata, stats
