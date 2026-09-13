@@ -3,7 +3,7 @@
   "title": "A leap over lava",
   "source_case": "Claymation Lava Canyon Leap",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8",
   "notes": [
-    "First and last frame conditioning is not available in this product build."
+    "This case is waiting for the local generation worker."
   ]
 }

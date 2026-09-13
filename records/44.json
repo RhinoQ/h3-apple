@@ -3,7 +3,7 @@
   "title": "Drawn into the scene",
   "source_case": "Hand-Drawn Romance VFX",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 1,
     "videos": 1,
@@ -18,7 +18,6 @@
   },
   "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
   "notes": [
-    "This request needs video or audio reference input support.",
-    "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+    "This case is waiting for the local generation worker."
   ]
 }

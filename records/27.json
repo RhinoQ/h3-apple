@@ -3,7 +3,7 @@
   "title": "Six assets, one sequence",
   "source_case": "Multi-Asset Cinematic Remix",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 6,
     "videos": 1,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

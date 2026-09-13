@@ -2,9 +2,8 @@
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
   "status_counts": {
     "generated": 2,
-    "blocked": 29,
-    "cancelled": 1,
-    "queued": 12
+    "running": 1,
+    "queued": 41
   },
   "cases": [
     {
@@ -60,6 +59,28 @@
       },
       "reused_verified_run": true,
       "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "365597a065ed4d7b7d0d7a19dcb816de44c1a32e59b38d832b5eeef4e66a429c",
+          "size": 58686
+        },
+        {
+          "index": 2,
+          "sha256": "aa5f0fbe9019f799629464682d0c24f919edab23a423a2e35dac8e9db5e1290c",
+          "size": 54660
+        },
+        {
+          "index": 3,
+          "sha256": "1d2bb515fabfb0d535b41ebc54aa053b4580db16f9227fa961b1d1ed56dfb5f6",
+          "size": 89524
+        },
+        {
+          "index": 4,
+          "sha256": "3fc4a00a864d9d120b37dcc5319cfde56e416eb958e2bab26eb66e64b91574e7",
+          "size": 54786
+        }
+      ],
       "runtime_version": "0.1.0.dev2",
       "attention": "vsa",
       "experimental_input_support": false,
@@ -70,7 +91,7 @@
       "title": "A jump into deep space",
       "source_case": "Epic Space Opera Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-      "status": "blocked",
+      "status": "running",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -85,7 +106,7 @@
       },
       "prompt_sha256": "79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7",
       "notes": [
-        "First and last frame conditioning is not available in this product build."
+        "This fixed-seed generation is in progress."
       ]
     },
     {
@@ -141,6 +162,18 @@
       },
       "reused_verified_run": false,
       "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "e446b3f7e8bce699a300eaaafc40af17587bcf04537492aaef479f925b9aaa4b",
+          "size": 54488
+        },
+        {
+          "index": 2,
+          "sha256": "07ca8854374d29f025329cb8976e34c5c40c9b04d39fa6d079ec88f7f645e380",
+          "size": 43990
+        }
+      ],
       "runtime_version": "0.1.0.dev2",
       "attention": "vsa",
       "experimental_input_support": false,
@@ -151,7 +184,7 @@
       "title": "Desert departure",
       "source_case": "Desert Fashion Campaign",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
-      "status": "cancelled",
+      "status": "queued",
       "required_inputs": {
         "images": 4,
         "videos": 0,
@@ -289,7 +322,7 @@
       "title": "Into a fairytale",
       "source_case": "Green-Screen to Fairytale Composite",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 2,
@@ -304,7 +337,7 @@
       },
       "prompt_sha256": "298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -312,7 +345,7 @@
       "title": "Artwork in motion",
       "source_case": "Animated Gallery Poster",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -327,8 +360,7 @@
       },
       "prompt_sha256": "ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845",
       "notes": [
-        "First and last frame conditioning is not available in this product build.",
-        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -359,7 +391,7 @@
       "title": "Across the dinner table",
       "source_case": "Vertical Family Confrontation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vertical%20Family%20Confrontation",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -374,7 +406,7 @@
       },
       "prompt_sha256": "21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56",
       "notes": [
-        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -382,7 +414,7 @@
       "title": "The forbidden wing",
       "source_case": "Vampire Romance Short Drama",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -397,7 +429,7 @@
       },
       "prompt_sha256": "827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a",
       "notes": [
-        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -405,7 +437,7 @@
       "title": "Future in focus",
       "source_case": "Futuristic Eyewear Campaign",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 3,
         "videos": 0,
@@ -420,7 +452,6 @@
       },
       "prompt_sha256": "1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce",
       "notes": [
-        "The source uses a portrait canvas; the frozen product API accepts landscape output only.",
         "The source prompt mentions a reference video that is not supplied on the page."
       ]
     },
@@ -429,7 +460,7 @@
       "title": "Made for the working day",
       "source_case": "Ergonomic Chair Product Film",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -444,7 +475,7 @@
       },
       "prompt_sha256": "bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c",
       "notes": [
-        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -498,7 +529,7 @@
       "title": "Lights on",
       "source_case": "Automotive Website UI Animation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -513,7 +544,7 @@
       },
       "prompt_sha256": "e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1",
       "notes": [
-        "First and last frame conditioning is not available in this product build."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -521,7 +552,7 @@
       "title": "A product comes into view",
       "source_case": "Rotating Product Page Reveal",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -536,7 +567,7 @@
       },
       "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
       "notes": [
-        "First and last frame conditioning is not available in this product build."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -544,7 +575,7 @@
       "title": "A leap over lava",
       "source_case": "Claymation Lava Canyon Leap",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -559,7 +590,7 @@
       },
       "prompt_sha256": "16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8",
       "notes": [
-        "First and last frame conditioning is not available in this product build."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -613,7 +644,7 @@
       "title": "At the perimeter",
       "source_case": "First-Person Tactical Gameplay",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -628,7 +659,7 @@
       },
       "prompt_sha256": "8269db178995115adc4d1102c27226315924ca4d8f5be7525858885b6f6bc15a",
       "notes": [
-        "First and last frame conditioning is not available in this product build."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -636,7 +667,7 @@
       "title": "Before and after the show",
       "source_case": "Interactive Otome Game Transition",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -651,7 +682,7 @@
       },
       "prompt_sha256": "cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad",
       "notes": [
-        "First and last frame conditioning is not available in this product build."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -682,7 +713,7 @@
       "title": "Six assets, one sequence",
       "source_case": "Multi-Asset Cinematic Remix",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 6,
         "videos": 1,
@@ -697,7 +728,7 @@
       },
       "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -705,7 +736,7 @@
       "title": "A voxel interruption",
       "source_case": "Live-Action Voxel Transformation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 2,
@@ -720,7 +751,7 @@
       },
       "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -751,7 +782,7 @@
       "title": "Foam at the kitchen sink",
       "source_case": "Character Swap with Performance Reference",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 1,
@@ -766,7 +797,7 @@
       },
       "prompt_sha256": "3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -774,7 +805,7 @@
       "title": "A new dancer",
       "source_case": "Street Dance Motion Transfer",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 1,
@@ -789,7 +820,7 @@
       },
       "prompt_sha256": "88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -797,7 +828,7 @@
       "title": "Three capybaras",
       "source_case": "Capybara Motion Recreation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -812,7 +843,7 @@
       },
       "prompt_sha256": "c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -820,7 +851,7 @@
       "title": "A different voice",
       "source_case": "Voice Clone Dialogue Transfer",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -835,7 +866,7 @@
       },
       "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -843,7 +874,7 @@
       "title": "A different companion",
       "source_case": "Cat-to-Dog Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -858,7 +889,7 @@
       },
       "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -866,7 +897,7 @@
       "title": "One more teammate",
       "source_case": "Add a Character in Sync with the Others",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -881,7 +912,7 @@
       },
       "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -889,7 +920,7 @@
       "title": "A change of cast",
       "source_case": "Subject & Wardrobe Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 1,
@@ -904,7 +935,7 @@
       },
       "prompt_sha256": "a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -912,7 +943,7 @@
       "title": "A new world behind the action",
       "source_case": "Green-Screen Environment Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 2,
@@ -927,7 +958,7 @@
       },
       "prompt_sha256": "95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -935,7 +966,7 @@
       "title": "After sunset",
       "source_case": "Day-to-Night Relighting",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -950,7 +981,7 @@
       },
       "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -958,7 +989,7 @@
       "title": "Beyond the window",
       "source_case": "Window View Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 1,
@@ -973,7 +1004,7 @@
       },
       "prompt_sha256": "ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -981,7 +1012,7 @@
       "title": "A different line",
       "source_case": "Dialogue & Performance Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -996,7 +1027,7 @@
       },
       "prompt_sha256": "4cf1ddd988682b78b31a000fdaa2eab5253659211a995098a3319b7e4ab00686",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -1004,7 +1035,7 @@
       "title": "Several changes, one scene",
       "source_case": "Multi-Element Scene Editing",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -1019,7 +1050,7 @@
       },
       "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -1027,7 +1058,7 @@
       "title": "New product. New sign. New line.",
       "source_case": "Product, Sign & Dialogue Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -1042,7 +1073,7 @@
       },
       "prompt_sha256": "8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69",
       "notes": [
-        "This request needs video or audio reference input support."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -1050,7 +1081,7 @@
       "title": "A change of costume",
       "source_case": "Precision Costume Swap",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -1065,7 +1096,7 @@
       },
       "prompt_sha256": "25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988",
       "notes": [
-        "First and last frame conditioning is not available in this product build."
+        "This case is waiting for the local generation worker."
       ]
     },
     {
@@ -1073,7 +1104,7 @@
       "title": "Drawn into the scene",
       "source_case": "Hand-Drawn Romance VFX",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX",
-      "status": "blocked",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 1,
@@ -1088,8 +1119,7 @@
       },
       "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
       "notes": [
-        "This request needs video or audio reference input support.",
-        "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+        "This case is waiting for the local generation worker."
       ]
     }
   ]

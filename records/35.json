@@ -3,7 +3,7 @@
   "title": "One more teammate",
   "source_case": "Add a Character in Sync with the Others",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 0,
     "videos": 1,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

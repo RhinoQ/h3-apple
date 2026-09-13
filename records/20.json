@@ -3,7 +3,7 @@
   "title": "A product comes into view",
   "source_case": "Rotating Product Page Reveal",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
   "notes": [
-    "First and last frame conditioning is not available in this product build."
+    "This case is waiting for the local generation worker."
   ]
 }

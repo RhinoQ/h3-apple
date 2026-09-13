@@ -3,7 +3,7 @@
   "title": "A change of cast",
   "source_case": "Subject & Wardrobe Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 2,
     "videos": 1,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

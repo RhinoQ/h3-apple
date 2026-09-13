@@ -51,6 +51,18 @@
   },
   "reused_verified_run": false,
   "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "index": 1,
+      "sha256": "e446b3f7e8bce699a300eaaafc40af17587bcf04537492aaef479f925b9aaa4b",
+      "size": 54488
+    },
+    {
+      "index": 2,
+      "sha256": "07ca8854374d29f025329cb8976e34c5c40c9b04d39fa6d079ec88f7f645e380",
+      "size": 43990
+    }
+  ],
   "runtime_version": "0.1.0.dev2",
   "attention": "vsa",
   "experimental_input_support": false,

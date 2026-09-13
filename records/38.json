@@ -3,7 +3,7 @@
   "title": "After sunset",
   "source_case": "Day-to-Night Relighting",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 0,
     "videos": 1,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

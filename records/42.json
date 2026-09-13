@@ -3,7 +3,7 @@
   "title": "New product. New sign. New line.",
   "source_case": "Product, Sign & Dialogue Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 0,
     "videos": 1,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

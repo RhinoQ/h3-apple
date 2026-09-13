@@ -3,7 +3,7 @@
   "title": "A different companion",
   "source_case": "Cat-to-Dog Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 0,
     "videos": 1,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

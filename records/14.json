@@ -3,7 +3,7 @@
   "title": "The forbidden wing",
   "source_case": "Vampire Romance Short Drama",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 2,
     "videos": 0,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a",
   "notes": [
-    "The source uses a portrait canvas; the frozen product API accepts landscape output only."
+    "This case is waiting for the local generation worker."
   ]
 }

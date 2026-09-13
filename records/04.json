@@ -3,7 +3,7 @@
   "title": "Desert departure",
   "source_case": "Desert Fashion Campaign",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
-  "status": "cancelled",
+  "status": "queued",
   "required_inputs": {
     "images": 4,
     "videos": 0,

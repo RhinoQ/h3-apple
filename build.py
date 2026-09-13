@@ -89,7 +89,9 @@ def main():
         if number in starts:
             content.append(f'<section class="case-group" id="group-{number}"><div class="section-label">{slug} / STUDIES</div><h2>{esc(starts[number])}</h2></section>')
         inputs = {k.removeprefix("reference_"): len(case[k]) for k in ("reference_images", "reference_videos", "reference_audio")}
-        input_text = ", ".join(f'{n} {kind}' for kind, n in inputs.items() if n) or "Text only"
+        input_text = ", ".join(f'{n} {kind[:-1] if n == 1 and kind != "audio" else kind}' for kind, n in inputs.items() if n) or "Text only"
+        if case["product_status"] == "requires_frame_conditioning":
+            input_text = "First + last frame" if inputs["images"] == 2 else "First frame"
         source_link = SOURCE + "#:~:text=" + quote(case["source_title"], safe="")
         notes = [BLOCKERS.get(x, x) for x in run.get("blockers", []) + run.get("deviations", [])]
         record = {"case": number, "title": TITLES[number - 1], "source_case": case["source_title"], "source": source_link,
@@ -112,6 +114,8 @@ def main():
             record["request"] = {k: r[k] for k in ("resolution", "duration", "width", "height", "num_frames", "fps", "num_steps", "preset_version", "task")}
             record["reused_verified_run"] = bool(run.get("reused_from"))
             record["model_identity"] = metadata["model_identity"]
+            record["input_hashes"] = [{k: item[k] for k in ("kind", "index", "anchor", "sha256", "size") if k in item}
+                                      for item in metadata.get("reference_inputs", [])]
             record["runtime_version"] = run.get("runtime_version", "0.1.0.dev2")
             conditioned = metadata.get("fl2va", metadata.get("ref2va", {}))
             record["attention"] = conditioned.get("attention", "vsa")

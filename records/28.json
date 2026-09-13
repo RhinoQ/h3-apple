@@ -3,7 +3,7 @@
   "title": "A voxel interruption",
   "source_case": "Live-Action Voxel Transformation",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 1,
     "videos": 2,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

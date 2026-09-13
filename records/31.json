@@ -3,7 +3,7 @@
   "title": "A new dancer",
   "source_case": "Street Dance Motion Transfer",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 2,
     "videos": 1,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }

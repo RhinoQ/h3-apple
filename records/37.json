@@ -3,7 +3,7 @@
   "title": "A new world behind the action",
   "source_case": "Green-Screen Environment Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement",
-  "status": "blocked",
+  "status": "queued",
   "required_inputs": {
     "images": 0,
     "videos": 2,
@@ -18,6 +18,6 @@
   },
   "prompt_sha256": "95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83",
   "notes": [
-    "This request needs video or audio reference input support."
+    "This case is waiting for the local generation worker."
   ]
 }
