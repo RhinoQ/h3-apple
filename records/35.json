@@ -18,9 +18,7 @@
   },
   "prompt": "Add one person on the left side of frame wearing the same team uniform and moving in sync with the others.",
   "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 6.583333333333333,
       "aspect_ratio": "16:9"
     },
@@ -49,5 +47,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 35,
+    "source_case": "Add a Character in Sync with the Others",
+    "resolution": "768p",
+    "reason": "Several full-body teammates share a wide outdoor shot."
+  },
+  "previous_results": []
 }

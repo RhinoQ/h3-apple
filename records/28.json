@@ -18,9 +18,7 @@
   },
   "prompt": "Preserve the buildings, pedestrians, and overall environment in Video 1 as photoreal live action. Transform only the trees and cars into 3D pixel-art or voxel-block objects in the style of Minecraft, using Image 1 as the visual reference. Keep their motion physically correct, and preserve the real environment’s shadows and transmitted light. Use Video 2 as the overall target.",
   "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 15.0,
       "aspect_ratio": "16:9"
     },
@@ -69,5 +67,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 28,
+    "source_case": "Live-Action Voxel Transformation",
+    "resolution": "768p",
+    "reason": "The prompt preserves pedestrians in a wide street scene."
+  },
+  "previous_results": []
 }

@@ -19,7 +19,7 @@
   "prompt": "Use Images 1–6 as assets. Match Reference Video 1 closely for shot rhythm, transition language, and music.",
   "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
   "notes": [
-    "This case is waiting for the local generation worker."
+    "The source output is shorter than the runtime’s five-second minimum. The local request is five seconds long."
   ],
   "reproduction": {
     "configuration_state": "planned",
@@ -31,7 +31,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 5.0,
       "aspect_ratio": "16:9"
     },
@@ -109,5 +109,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 27,
+    "source_case": "Multi-Asset Cinematic Remix",
+    "resolution": "768p",
+    "reason": "The asset sequence includes full-body jumps, action shots and smaller faces within wide compositions."
+  },
+  "previous_results": []
 }

@@ -18,9 +18,7 @@
   },
   "prompt": "In Video 1, replace the woman’s line—“There’s no way we can be together. It’s not that I don’t love you; we simply can’t make it to the end.”—with the line from Audio 1: “Please don’t go. This time, let’s not let each other go.” Adjust the performance subtly to match the new dialogue.",
   "prompt_sha256": "4cf1ddd988682b78b31a000fdaa2eab5253659211a995098a3319b7e4ab00686",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -59,5 +57,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 40,
+    "source_case": "Dialogue & Performance Replacement",
+    "resolution": "576p",
+    "reason": "The dialogue reference is a frontal face close-up and the prompt requests only a subtle performance adjustment."
+  },
+  "previous_results": []
 }

@@ -18,9 +18,7 @@
   },
   "prompt": "Reveal the layout from top to bottom. Upper and center typography slides down; lower typography slides up. Once the central product appears, let it rotate subtly.",
   "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -49,5 +47,12 @@
     ],
     "task": "fl2va",
     "model_manifest": "models/fl2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 20,
+    "source_case": "Rotating Product Page Reveal",
+    "resolution": "576p",
+    "reason": "Product layout and rotation; no face is requested."
+  },
+  "previous_results": []
 }

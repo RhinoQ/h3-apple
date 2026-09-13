@@ -28,7 +28,11 @@ branch. The `.nojekyll` file preserves the authored static files.
 ## Reproduction limits
 
 - Published prompts are excerpts; the full original requests and seeds are unknown.
-- The first batch uses H3 Apple `0.1.0.dev2`, four steps, seed 42, and 576p output.
+- Sampling uses four steps and seed 42. Small or potentially small character faces
+  use native 768p (32 cases); the remaining 12 cases use 576p. Each case explains
+  its resolution choice based on the prompt and reference framing. Earlier 576p
+  outputs remain available with separate records and commands.
+- The original landscape image/text requests use H3 Apple `0.1.0.dev2`.
 - Mixed video/audio, portrait and first/last-frame cases use the isolated
   `0.1.0.dev3+guide2` development build. Each record includes the actual runtime
   source hash, model identity and attention mode. These input extensions are
@@ -38,7 +42,8 @@ branch. The `.nojekyll` file preserves the authored static files.
   dense attention. T2VA and Ref2VA retain their established four-step weights.
 - The source videos are 720p. A source clip of 15.083 seconds is delivered as
   15 seconds by the current product API. Every record retains both geometries.
-- The first verified binocular study is reused, with its original measurement.
+- Previously generated 576p videos retain their original measurements. A new
+  resolution is a new attempt; its time and quality cannot be inferred from the old run.
 - Case 15 uses its three published images; the reference video mentioned in its
   source prompt is not published. The case explicitly discloses this difference.
 - Case 27 is delivered as five seconds because its source output is below the

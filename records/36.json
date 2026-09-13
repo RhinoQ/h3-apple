@@ -18,9 +18,7 @@
   },
   "prompt": "Precise Subject and Wardrobe Replacement\n\nReplace the child at the back of Video 1 with the golden retriever from Image 1. Replace the khaki jacket worn by the child on the far left with the denim jacket from Image 2.",
   "prompt_sha256": "a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 6.583333333333333,
       "aspect_ratio": "16:9"
     },
@@ -69,5 +67,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 36,
+    "source_case": "Subject & Wardrobe Replacement",
+    "resolution": "768p",
+    "reason": "Multiple children at different depths remain visible during the character and wardrobe replacements."
+  },
+  "previous_results": []
 }

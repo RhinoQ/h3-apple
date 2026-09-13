@@ -18,9 +18,7 @@
   },
   "prompt": "Creative interpretation + animated graphic effects\n\nAdd orange-yellow hand-drawn marks like Image 1 around the two people in Video 1. As they move closer, the marks multiply and build from tiny sparks into bright radiance. When they kiss, introduce pink brushstrokes.",
   "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 15.0,
       "aspect_ratio": "9:16"
     },
@@ -59,5 +57,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 44,
+    "source_case": "Hand-Drawn Romance VFX",
+    "resolution": "768p",
+    "reason": "Two moving people share the romantic scene; conservatively protect both faces during the approach."
+  },
+  "previous_results": []
 }

@@ -18,9 +18,7 @@
   },
   "prompt": "Use Image 2 as the locked character reference. Preserve the half-up long black hair, openwork silver crown, indigo ribbon, layered pale hanfu, translucent blue outer robe, deep-blue sash, silver floral fastener, and long tassels. Use Image 1 for storyboard order and pacing.\n\nRender in high-quality 4K, 16:9 Chinese-inspired 3D with cinematic xianxia production value: intense, solemn, and shaped by destiny. Follow the storyboard beat by beat, with natural camera movement and seamless transitions—never a slideshow. Show the face only in close-up or extreme close-up. In wide shots, use back view, rear three-quarter view, or empty environment shots; never show a distant frontal face.",
   "prompt_sha256": "399c27bb4cf0b859e46cdcba2a2f94035aa79c6e26ee5df1602e58e5a996cbb2",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -58,5 +56,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 22,
+    "source_case": "Fantasy Wuxia Character Film",
+    "resolution": "576p",
+    "reason": "The prompt explicitly permits faces only in close-up or extreme close-up and excludes distant frontal faces."
+  },
+  "previous_results": []
 }

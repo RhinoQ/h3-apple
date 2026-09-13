@@ -129,7 +129,11 @@ request without generating a video. Remove the flag to generate with a progress
 bar. Choose a new `--output` path for every rerun; the runtime preserves old runs.
 
 All case records retain the original source geometry and local delivery geometry.
-The collection uses four steps, seed 42 and 576p. Case 1 preserves page image order
+The collection uses four steps and seed 42. Small-face scenes use native 768p;
+other cases use 576p. Each record declares the actual or planned resolution.
+768p videos longer than five seconds require at least 96 GiB unified memory.
+Earlier results have their own archived record and command; a preserved 576p
+video is never labelled as 768p. Case 1 preserves page image order
 (architecture, person, flag, close-up), despite the prompt's inconsistent labels.
 Case 15 uses the three supplied images and lacks the unpublished reference video.
 Case 27 uses the runtime's minimum five-second delivery. These are disclosed

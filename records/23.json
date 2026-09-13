@@ -18,9 +18,7 @@
   },
   "prompt": "Create a character promo for a male lead in an otome game. Use Image 2 as a strict identity reference. Preserve the same face, hairstyle, body proportions, costume design, material detail, and polished otome-CG aesthetic throughout.",
   "prompt_sha256": "1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 15.0
     },
     "references": [
@@ -58,5 +56,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 23,
+    "source_case": "Otome Male Lead Character Promo",
+    "resolution": "768p",
+    "reason": "The identity sheet includes full-body poses and the character promo does not prohibit wide shots."
+  },
+  "previous_results": []
 }

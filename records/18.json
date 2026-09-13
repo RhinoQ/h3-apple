@@ -18,9 +18,7 @@
   },
   "prompt": "Create a dynamic product-landing-page UI/UX demo inspired by Nike’s digital language, built around the product in Image 1. Use oversized, bold, italicized sans-serif typography and backgrounds that combine speed-driven light streaks with dark carbon fiber or breathable performance-mesh textures. Show a smooth, fast, powerful scroll through the page, plus high-impact hover interactions with scale-ups and color inversion.",
   "prompt_sha256": "2578d9d08290a607366750d77701af5743251ab3fb3eeb96be58d050ced4b2b8",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -48,5 +46,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 18,
+    "source_case": "Nike-Style Product Landing Page",
+    "resolution": "576p",
+    "reason": "Shoe product and web UI; no face is requested."
+  },
+  "previous_results": []
 }

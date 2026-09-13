@@ -18,9 +18,7 @@
   },
   "prompt": "Create a 15-second, 9:16 live-action vampire-romance teaser for an international short-drama audience. Use Image 1 for the leads’ appearance and Image 2 for the setting. Preserve both identities throughout and maintain premium live-action production value.\n\nStory: an innocent human woman strays into a forbidden wing of an old castle and awakens a sleeping vampire noble. He senses that she carries a trace of an ancient war, which sparks dangerous fascination and a possessive need for control. She fears him but refuses to submit completely and pushes back against his dominance.\n\nStyle: ReelShort / DramaBox vampire romance—darkly romantic, fate-bound, oppressive, and charged with dangerous attraction, with a strong hook and a high-impact turn. Keep it polished, restrained, and tightly paced like the opening 15 seconds of a breakout series. No gore, cheap horror, Halloween styling, or modern street aesthetic.\n\nCompose for TikTok / ReelShort / DramaBox. Favor medium-close shots, close-ups, and extreme close-ups that emphasize faces, eye contact, pressure, and relationship tension.",
   "prompt_sha256": "827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 15.0,
       "aspect_ratio": "9:16"
     },
@@ -59,5 +57,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 14,
+    "source_case": "Vampire Romance Short Drama",
+    "resolution": "768p",
+    "reason": "The castle story and full-body cast references allow wider two-person shots despite a preference for close-ups."
+  },
+  "previous_results": []
 }

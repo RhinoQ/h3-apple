@@ -35,14 +35,61 @@
     </aside>
     <article class="article">
       <div id="examples"><section id="overview" class="overview"><div class="section-label">THE REPRODUCTION LOG</div><h2>Every case, accounted for.</h2>
-<p class="collection-state"><strong>4 available</strong><span>40 in the generation queue</span><span>0 need further work</span></p>
-<p>Watch the local results below, or open a case to see its current input requirements. The collection keeps the source order.</p></section>
+<p class="collection-state"><strong>4 cases have a video</strong><span>0 completed at the current resolution</span><span>44 requests queued or running</span><span>0 need further work</span></p>
+<p>The collection keeps the source order. Small-face scenes use native 768p. Earlier 576p videos remain available with their own parameters and commands while the new requests run.</p></section>
 <section class="case-group" id="group-1"><div class="section-label">01 / STUDIES</div><h2>Film &amp; campaigns</h2></section>
-<section class="case" id="case-01"><h3><span class="case-number">01</span>Through the binoculars</h3><figure class="result"><video controls playsinline preload="none" poster="media/01-poster.jpg" width="1024" height="576" aria-label="Through the binoculars, H3 Apple output"><source src="media/01-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 24 fps · stereo</span></figcaption></figure>
-<dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>22 min 07 s</dd></div></dl>
-<p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
-<div class="case-note"><p>Reused from a verified earlier run; the original generation time is retained. Reference order follows the source page: architecture, person, flag, close-up.</p></div>
+<section class="case" id="case-01"><h3><span class="case-number">01</span>Through the binoculars</h3>
+<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> The binocular composition includes a walking, full-body person inside a restricted lens view.</p>
+<div class="case-note"><p>Reference order follows the source page: architecture, person, flag, close-up. The prompt’s Image 2 / Image 3 labels are inconsistent with that order.</p></div>
+<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is generating.</p>
+<figure class="result"><video controls playsinline preload="none" poster="media/01-poster.jpg" width="1024" height="576" aria-label="Through the binoculars, 576p H3 Apple output"><source src="media/01-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>22 min 07 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-01-576p-302b26f682a4">Copy prompt</button></div><pre class="prompt-text" id="prompt-01-576p-302b26f682a4">Use Images 1–4 as sequential keyframes, seen through a vintage binocular viewfinder searching for the MINIMAX installation. Open out of focus with subtle handheld shake, then push in quickly and rack focus onto Image 1. Between keyframes, use fast binocular-scan transitions with whip movement, motion blur, optical smearing, and brief exposure flicker. Cut at peak blur, then settle and snap back into focus. Keep the twin circular lens mask absolutely fixed throughout: identical position, scale, feathered black vignette, and edge softness, with no warping or drift. Only the image inside the mask may move.
+
+In Image 2, let the fabric move gently in the wind while the MINIMAX lettering follows the folds and remains legible. In Image 3, the subject should feel like a stylish passerby caught by chance, walking, turning, and swinging their arms naturally. In Image 4, the subject adjusts their glasses or lifts their chin slightly with a cool, effortless fashion-campaign attitude.
+
+Red typography should resolve with the focus: begin slightly blurred and at low opacity, then fade into clarity over 0.3–0.5 seconds. A subtle vertical slide or slight tracking expansion is allowed. Fade it out before the next transition or let motion blur carry it away. No spins, bounces, or large fly-ins/outs.
+
+Visual language: a voyeuristic, Wes Anderson-inspired 35 mm film look with fine grain, soft highlight halation, restrained color, and red typographic accents. Minimal, premium, lightly playful. Do not add people, vehicles, buildings, or logos. Preserve the core composition and the MINIMAX installation exactly.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp" alt="Image 1, case 01-576p-302b26f682a4" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/V3Q7hGYOXcAfDAXQlY7Jp_3-1-1-1_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp" alt="Image 2, case 01-576p-302b26f682a4" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44050/PQ8WMlRX8qXrhltqlfQjJ_3-1-1-1_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp" alt="Image 3, case 01-576p-302b26f682a4" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/mewPYqpZk_dPc1bghf0Br_3-1-1-1_ref3.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp" alt="Image 4, case 01-576p-302b26f682a4" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44041/N0RL2HgqSGxNDMteJUYQW_3-1-1-1_ref4.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-01-576p-302b26f682a4">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-01-576p-302b26f682a4">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+curl -fL https://rhinoq.github.io/h3-apple/records/01-576p-302b26f682a4.json -o case-01-576p-302b26f682a4.json
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 1 --record case-01-576p-302b26f682a4.json --directory case-01-576p-302b26f682a4
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-01-576p-302b26f682a4 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-01-576p-302b26f682a4/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-01-576p-302b26f682a4/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-01-576p-302b26f682a4/image-01.webp&#x27;, &#x27;case-01-576p-302b26f682a4/image-02.webp&#x27;, &#x27;case-01-576p-302b26f682a4/image-03.webp&#x27;, &#x27;case-01-576p-302b26f682a4/image-04.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-01-576p-302b26f682a4/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
+<p><a href="records/01-576p-302b26f682a4.json">Earlier run record ↗</a></p>
+<details class="api-call"><summary>Planned 768p generation command</summary>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-01">Copy prompt</button></div><pre class="prompt-text" id="prompt-01">Use Images 1–4 as sequential keyframes, seen through a vintage binocular viewfinder searching for the MINIMAX installation. Open out of focus with subtle handheld shake, then push in quickly and rack focus onto Image 1. Between keyframes, use fast binocular-scan transitions with whip movement, motion blur, optical smearing, and brief exposure flicker. Cut at peak blur, then settle and snap back into focus. Keep the twin circular lens mask absolutely fixed throughout: identical position, scale, feathered black vignette, and edge softness, with no warping or drift. Only the image inside the mask may move.
 
 In Image 2, let the fabric move gently in the wind while the MINIMAX lettering follows the folds and remains legible. In Image 3, the subject should feel like a stylish passerby caught by chance, walking, turning, and swinging their arms naturally. In Image 4, the subject adjusts their glasses or lifts their chin slightly with a cool, effortless fashion-campaign attitude.
@@ -76,7 +123,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-01/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     reference_images=[&#x27;case-01/image-01.webp&#x27;, &#x27;case-01/image-02.webp&#x27;, &#x27;case-01/image-03.webp&#x27;, &#x27;case-01/image-04.webp&#x27;],
     model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
@@ -84,12 +131,48 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">Source prompt &amp; inputs ↗</a><a href="records/01.json">Case record ↗</a></div>
+</details>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">Source prompt &amp; inputs ↗</a><a href="records/01.json">Current case record ↗</a></div>
 </section>
-<section class="case" id="case-02"><h3><span class="case-number">02</span>A jump into deep space</h3><figure class="result"><video controls playsinline preload="none" poster="media/02-poster.jpg" width="1024" height="576" aria-label="A jump into deep space, H3 Apple output"><source src="media/02-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 24 fps · stereo</span></figcaption></figure>
-<dl class="run-facts"><div><dt>Input</dt><dd>First frame</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>30 min 54 s</dd></div></dl>
-<p class="runtime-note">FL2VA · DENSE attention · H3 Apple 0.1.0.dev3+guide2</p>
+<section class="case" id="case-02"><h3><span class="case-number">02</span>A jump into deep space</h3>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups.</p>
+<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is queued.</p>
+<figure class="result"><video controls playsinline preload="none" poster="media/02-poster.jpg" width="1024" height="576" aria-label="A jump into deep space, 576p H3 Apple output"><source src="media/02-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>First frame</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>30 min 54 s</dd></div></dl><p class="runtime-note">FL2VA · DENSE attention · H3 Apple 0.1.0.dev3+guide2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-02-576p-6f60443c877f">Copy prompt</button></div><pre class="prompt-text" id="prompt-02-576p-6f60443c877f">Epic theatrical space-opera teaser
+
+Keep the pace fast and the scale enormous without letting the edit drag. Use sharp hard cuts, a shaking command deck, white-hot flashes, split-second black frames, and a violent jump-to-warp impact. Title cards should use wide-tracked cinematic typography—not pure white—with restrained material texture, subtle illumination, and a faint edge glow. Animate the titles by emerging from deep-space shadow, catching a sweep of starlight, opening their letter spacing, leaving a slight afterimage, and flashing briefly against black.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" alt="First frame, case 02-576p-6f60443c877f" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-02-576p-6f60443c877f">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-02-576p-6f60443c877f">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+curl -fL https://rhinoq.github.io/h3-apple/records/02-576p-6f60443c877f.json -o case-02-576p-6f60443c877f.json
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 2 --record case-02-576p-6f60443c877f.json --directory case-02-576p-6f60443c877f
+./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-02-576p-6f60443c877f --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-02-576p-6f60443c877f/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-02-576p-6f60443c877f/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-02-576p-6f60443c877f/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-02-576p-6f60443c877f/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
+<p><a href="records/02-576p-6f60443c877f.json">Earlier run record ↗</a></p>
+<details class="api-call"><summary>Planned 768p generation command</summary>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-02">Copy prompt</button></div><pre class="prompt-text" id="prompt-02">Epic theatrical space-opera teaser
 
 Keep the pace fast and the scale enormous without letting the edit drag. Use sharp hard cuts, a shaking command deck, white-hot flashes, split-second black frames, and a violent jump-to-warp impact. Title cards should use wide-tracked cinematic typography—not pure white—with restrained material texture, subtle illumination, and a faint edge glow. Animate the titles by emerging from deep-space shadow, catching a sweep of starlight, opening their letter spacing, leaving a slight afterimage, and flashing briefly against black.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -110,7 +193,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-02/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;16:9&#x27;,
     first_frame=&#x27;case-02/image-01.webp&#x27;,
@@ -119,12 +202,54 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/02.json">Case record ↗</a></div>
+</details>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/02.json">Current case record ↗</a></div>
 </section>
-<section class="case" id="case-03"><h3><span class="case-number">03</span>The silent gateway</h3><figure class="result"><video controls playsinline preload="none" poster="media/03-poster.jpg" width="1024" height="576" aria-label="The silent gateway, H3 Apple output"><source src="media/03-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 24 fps · stereo</span></figcaption></figure>
-<dl class="run-facts"><div><dt>Input</dt><dd>2 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>19 min 51 s</dd></div></dl>
-<p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
+<section class="case" id="case-03"><h3><span class="case-number">03</span>The silent gateway</h3>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The prompt requests a tiny protagonist in an ultra-wide shot. Use 768p conservatively, although this shot specifies a rear view.</p>
+<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is queued.</p>
+<figure class="result"><video controls playsinline preload="none" poster="media/03-poster.jpg" width="1024" height="576" aria-label="The silent gateway, 576p H3 Apple output"><source src="media/03-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>2 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>19 min 51 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-03-576p-54699f979fd3">Copy prompt</button></div><pre class="prompt-text" id="prompt-03-576p-54699f979fd3">Sci-fi mystery teaser
+
+Photoreal cinematic treatment, high-contrast lighting, and tight pacing. Use Image 1 for the overall mood and visual language; use Image 2 as the protagonist reference.
+
+Shot 1 — Ultra-wide establishing shot. A colossal circular cosmic gateway nearly fills the frame. The protagonist appears only as a tiny figure from behind, positioned low and slightly right of center. Wet ground reflects the light; the center of the gateway is pitch black. Slowly push the camera forward. A large title emerges from the edge of the darkness, resolving from soft blur into sharp focus: “THE STARS WERE LISTENING.” Set it in an extremely condensed, heavy, all-caps face, colored dark crimson and rust red, with light grain and mist-softened edges.
+
+Audio: a deep sub-bass pulse, distant metallic resonance, and one restrained hit as the title locks into focus. → Hard cut.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp" alt="Image 1, case 03-576p-54699f979fd3" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/lb41sZ2iyRjzi8c1QiuEy_3-1-1-3_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp" alt="Image 2, case 03-576p-54699f979fd3" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/NTHxm-isq7sqE_tojbQtJ_3-1-1-3_ref2.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-03-576p-54699f979fd3">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-03-576p-54699f979fd3">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+curl -fL https://rhinoq.github.io/h3-apple/records/03-576p-54699f979fd3.json -o case-03-576p-54699f979fd3.json
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 3 --record case-03-576p-54699f979fd3.json --directory case-03-576p-54699f979fd3
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-03-576p-54699f979fd3 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-03-576p-54699f979fd3/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-03-576p-54699f979fd3/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-03-576p-54699f979fd3/image-01.webp&#x27;, &#x27;case-03-576p-54699f979fd3/image-02.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-03-576p-54699f979fd3/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
+<p><a href="records/03-576p-54699f979fd3.json">Earlier run record ↗</a></p>
+<details class="api-call"><summary>Planned 768p generation command</summary>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-03">Copy prompt</button></div><pre class="prompt-text" id="prompt-03">Sci-fi mystery teaser
 
 Photoreal cinematic treatment, high-contrast lighting, and tight pacing. Use Image 1 for the overall mood and visual language; use Image 2 as the protagonist reference.
@@ -152,7 +277,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-03/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     reference_images=[&#x27;case-03/image-01.webp&#x27;, &#x27;case-03/image-02.webp&#x27;],
     model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
@@ -160,12 +285,56 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/03.json">Case record ↗</a></div>
+</details>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/03.json">Current case record ↗</a></div>
 </section>
-<section class="case" id="case-04"><h3><span class="case-number">04</span>Desert departure</h3><figure class="result"><video controls playsinline preload="none" poster="media/04-poster.jpg" width="1024" height="576" aria-label="Desert departure, H3 Apple output"><source src="media/04-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 24 fps · stereo</span></figcaption></figure>
-<dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>18 min 05 s</dd></div></dl>
-<p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
+<section class="case" id="case-04"><h3><span class="case-number">04</span>Desert departure</h3>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Two people walk and interact beside a car in a wide fashion scene.</p>
+<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is queued.</p>
+<figure class="result"><video controls playsinline preload="none" poster="media/04-poster.jpg" width="1024" height="576" aria-label="Desert departure, 576p H3 Apple output"><source src="media/04-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>4 images</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>18 min 05 s</dd></div></dl><p class="runtime-note">REF2VA · VSA attention · H3 Apple 0.1.0.dev2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
+<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-04-576p-e97d6f64fab3">Copy prompt</button></div><pre class="prompt-text" id="prompt-04-576p-e97d6f64fab3">Create a premium 16:9 landscape fashion film. Use Image 1 for the overall mood, location, and film texture; Image 2 for the talent; Image 3 for the bag; and Image 4 for the closing brand mark. This is a fashion campaign for the clothing and bag. The tone is elevated, cool, and restrained, but the edit should still feel lively and fashion-forward—not like a conventional narrative film or an e-commerce ad.
+
+Keep the story simple: beside a vintage car on a desert highway, a woman walks to the rear of the car, opens the trunk, takes out a black bag, shares a quiet beat with the man standing nearby, then leaves carrying the bag. Integrate the clothing and bag naturally into the performance so they feel like part of the characters’ identity.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp" alt="Image 1, case 04-576p-e97d6f64fab3" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/1UxNnVdjUikZvA2cfcM77_3-1-1-4_ref1.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp" alt="Image 2, case 04-576p-e97d6f64fab3" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 2</strong><a href="https://v3b.fal.media/files/b/0aa44041/pZC5MfA6RlAe4aOqyD9ht_3-1-1-4_ref2.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp" alt="Image 3, case 04-576p-e97d6f64fab3" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 3</strong><a href="https://v3b.fal.media/files/b/0aa44041/k4zkM9sNrFFVk0IwGHUQQ_3-1-1-4_ref3.webp">Open original ↗</a></figcaption></figure>
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp" alt="Image 4, case 04-576p-e97d6f64fab3" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>Image 4</strong><a href="https://v3b.fal.media/files/b/0aa44041/F0LWFW4E1LQYg_zRE4DqR_3-1-1-4_ref4.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-04-576p-e97d6f64fab3">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/f35a34ad06df0ba3f9403c317e853fdf3383ad0e">0.1.0.dev2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-04-576p-e97d6f64fab3">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+curl -fL https://rhinoq.github.io/h3-apple/records/04-576p-e97d6f64fab3.json -o case-04-576p-e97d6f64fab3.json
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py inputs --case 4 --record case-04-576p-e97d6f64fab3.json --directory case-04-576p-e97d6f64fab3
+./h3-apple-dev2/.local/envs/h3/bin/python reproduce.py run --directory case-04-576p-e97d6f64fab3 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-04-576p-e97d6f64fab3/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-04-576p-e97d6f64fab3/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;576p&#x27;,
+    duration=15.0,
+    reference_images=[&#x27;case-04-576p-e97d6f64fab3/image-01.webp&#x27;, &#x27;case-04-576p-e97d6f64fab3/image-02.webp&#x27;, &#x27;case-04-576p-e97d6f64fab3/image-03.webp&#x27;, &#x27;case-04-576p-e97d6f64fab3/image-04.webp&#x27;],
+    model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
+    output=&quot;case-04-576p-e97d6f64fab3/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
+<p><a href="records/04-576p-e97d6f64fab3.json">Earlier run record ↗</a></p>
+<details class="api-call"><summary>Planned 768p generation command</summary>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-04">Copy prompt</button></div><pre class="prompt-text" id="prompt-04">Create a premium 16:9 landscape fashion film. Use Image 1 for the overall mood, location, and film texture; Image 2 for the talent; Image 3 for the bag; and Image 4 for the closing brand mark. This is a fashion campaign for the clothing and bag. The tone is elevated, cool, and restrained, but the edit should still feel lively and fashion-forward—not like a conventional narrative film or an e-commerce ad.
 
 Keep the story simple: beside a vintage car on a desert highway, a woman walks to the rear of the car, opens the trunk, takes out a black bag, shares a quiet beat with the man standing nearby, then leaves carrying the bag. Integrate the clothing and bag naturally into the performance so they feel like part of the characters’ identity.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -195,7 +364,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-04/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     reference_images=[&#x27;case-04/image-01.webp&#x27;, &#x27;case-04/image-02.webp&#x27;, &#x27;case-04/image-03.webp&#x27;, &#x27;case-04/image-04.webp&#x27;],
     model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
@@ -203,10 +372,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign">Source prompt &amp; inputs ↗</a><a href="records/04.json">Case record ↗</a></div>
+</details>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign">Source prompt &amp; inputs ↗</a><a href="records/04.json">Current case record ↗</a></div>
 </section>
-<details class="pending-case" id="case-05"><summary><span class="pending-title"><span class="case-number">05</span>After the fire</span><span class="status">Generating</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This fixed-seed generation is in progress.</p>
+<details class="pending-case" id="case-05"><summary><span class="pending-title"><span class="case-number">05</span>After the fire</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Full-body character references and fast fashion cuts can produce small faces.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-05">Copy prompt</button></div><pre class="prompt-text" id="prompt-05">Use Image 1 as the reference for texture and mood, and Image 2 for the subject’s appearance. Generate a 15-second, 16:9 fashion short. Preserve the subject’s identity: long platinum-blonde hair, narrow black vintage sunglasses, a glossy black patent-leather trench coat, a cool, self-assured expression, and orange firelight reflected across the coat.
@@ -232,7 +403,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-05/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     reference_images=[&#x27;case-05/image-01.webp&#x27;, &#x27;case-05/image-02.webp&#x27;],
     model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
@@ -240,11 +411,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film">Source prompt &amp; inputs ↗</a><a href="records/05.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film">Source prompt &amp; inputs ↗</a><a href="records/05.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-6"><div class="section-label">06 / STUDIES</div><h2>Motion &amp; visual play</h2></section>
-<details class="pending-case" id="case-06"><summary><span class="pending-title"><span class="case-number">06</span>Jazz after midnight</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 5 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-06"><summary><span class="pending-title"><span class="case-number">06</span>Jazz after midnight</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 5 images.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Graphic silhouettes, type and prop close-ups; detailed small faces are not requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-06">Copy prompt</button></div><pre class="prompt-text" id="prompt-06">Create a 15-second, 16:9 opening-title sequence for a stylish crime mystery. Draw from retro Japanese animation titles, hard-edged silhouettes, comic-book collage, asymmetric split screens, bold geometric color fields, English credit typography, sparse katakana accents, and a noir-jazz sensibility. Aim for 60% suspense and 40% jazz: mysterious, cool, agile, and urban—never horror, heavy drama, or a cheerful jazz music video.
@@ -293,10 +465,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Retro%20Anime%20Crime%20Title%20Sequence">Source prompt &amp; inputs ↗</a><a href="records/06.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Retro%20Anime%20Crime%20Title%20Sequence">Source prompt &amp; inputs ↗</a><a href="records/06.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-07"><summary><span class="pending-title"><span class="case-number">07</span>A guest in the kitchen</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> Text only.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-07"><summary><span class="pending-title"><span class="case-number">07</span>A guest in the kitchen</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> Text only.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> A first-person kitchen scene and luminous creatures; no human face is requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-07">Copy prompt</button></div><pre class="prompt-text" id="prompt-07">15 seconds, 16:9 landscape. Blend live-action footage of a small kitchen at dusk with hand-drawn luminous animation. The last sunset light lingers at the window. The lived-in kitchen contains an old wooden table, a half-washed mug, a lightly fogged glass bottle, and a hanging dish towel.
@@ -324,10 +497,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Kitchen%20Creature">Source prompt &amp; inputs ↗</a><a href="records/07.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Kitchen%20Creature">Source prompt &amp; inputs ↗</a><a href="records/07.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-08"><summary><span class="pending-title"><span class="case-number">08</span>After-hours laundry</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> Text only.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-08"><summary><span class="pending-title"><span class="case-number">08</span>After-hours laundry</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> Text only.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> A first-person laundromat scene; no human face is requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-08">Copy prompt</button></div><pre class="prompt-text" id="prompt-08">15 seconds, 16:9 landscape. Combine a live-action late-night laundromat with hand-drawn luminous animation. The small self-service laundromat has gently flickering fluorescent lights, running washers, plastic baskets, a worn bench, and one sock on the floor. Keep the space quiet and faintly nostalgic.
@@ -353,10 +527,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter">Source prompt &amp; inputs ↗</a><a href="records/08.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Neon%20Laundromat%20Encounter">Source prompt &amp; inputs ↗</a><a href="records/08.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-09"><summary><span class="pending-title"><span class="case-number">09</span>Cut to the beat</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-09"><summary><span class="pending-title"><span class="case-number">09</span>Cut to the beat</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The performance reference shows three full-body people together.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-09">Copy prompt</button></div><pre class="prompt-text" id="prompt-09">Style: dark-pop / cyber-grunge / rap music video with photoreal high-fashion polish and the texture of a scanned film magazine—high contrast without looking cheap. Reference late-1990s to early-2000s indie magazines, photocopies, film scans, underground-music posters, and zine collage. Add coarse grain, subtle gate weave, halftone dots, rough print edges, and slight scan misregistration. Keep the edit fast and use hard cuts only—no fades or soft transitions. Match the typographic treatment and surface texture of the reference images.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Rap%20Music%20Video">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -380,7 +555,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-09/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     reference_images=[&#x27;case-09/image-01.webp&#x27;, &#x27;case-09/image-02.webp&#x27;],
     model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
@@ -388,10 +563,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Rap%20Music%20Video">Source prompt &amp; inputs ↗</a><a href="records/09.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Rap%20Music%20Video">Source prompt &amp; inputs ↗</a><a href="records/09.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-10"><summary><span class="pending-title"><span class="case-number">10</span>Into a fairytale</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 videos.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-10"><summary><span class="pending-title"><span class="case-number">10</span>Into a fairytale</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 videos.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The green-screen reference shows a full-body performer in a wide composition.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-10">Copy prompt</button></div><pre class="prompt-text" id="prompt-10">Remove the green screen background of Video 1 and turn it into a fairy tale-like background similar to Video 2. The background elements need to completely match the actions of the characters in Video 1. Modify the lighting of the characters in Video 1 so that it completely matches the background.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -415,7 +591,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-10/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-10/video-01.mp4&#x27;, &#x27;case-10/video-02.mp4&#x27;],
@@ -424,10 +600,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite">Source prompt &amp; inputs ↗</a><a href="records/10.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite">Source prompt &amp; inputs ↗</a><a href="records/10.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-11"><summary><span class="pending-title"><span class="case-number">11</span>Artwork in motion</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-11"><summary><span class="pending-title"><span class="case-number">11</span>Artwork in motion</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-11">Copy prompt</button></div><pre class="prompt-text" id="prompt-11">Animate the source artwork as a motion poster while preserving its white gallery border, inner frame, red/white/black palette, 3D collectible-figure look, and original layout. Add a light, playful type-on sound whenever text appears.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -448,7 +625,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-11/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=10.125,
     aspect_ratio=&#x27;9:16&#x27;,
     first_frame=&#x27;case-11/image-01.webp&#x27;,
@@ -457,11 +634,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster">Source prompt &amp; inputs ↗</a><a href="records/11.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster">Source prompt &amp; inputs ↗</a><a href="records/11.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-12"><div class="section-label">12 / STUDIES</div><h2>Stories &amp; performance</h2></section>
-<details class="pending-case" id="case-12"><summary><span class="pending-title"><span class="case-number">12</span>Secrets in the snow</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-12"><summary><span class="pending-title"><span class="case-number">12</span>Secrets in the snow</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Both character references are close shots and the prompt prioritizes facial close-ups.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-12">Copy prompt</button></div><pre class="prompt-text" id="prompt-12">A 16:9 cinematic wuxia mystery set in a bamboo forest at night. Use a low-saturation palette of cold blue, ink green, charcoal, and gray. Thin mist fills the forest and fine snow drifts through the air. The mood is austere, lethal, and controlled, with the tension of a martial-arts sect investigating a case and exchanging secret intelligence.
@@ -497,10 +675,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery">Source prompt &amp; inputs ↗</a><a href="records/12.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Snowy%20Bamboo%20Wuxia%20Mystery">Source prompt &amp; inputs ↗</a><a href="records/12.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-13"><summary><span class="pending-title"><span class="case-number">13</span>Across the dinner table</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-13"><summary><span class="pending-title"><span class="case-number">13</span>Across the dinner table</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The family scene includes several people, including smaller background faces in the references.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-13">Copy prompt</button></div><pre class="prompt-text" id="prompt-13">A 9:16 vertical family-confrontation scene with grounded live-action performances, set in a Chinese family home or small restaurant. Use warm interior light, red decorations and calligraphy in the background, shallow depth of field, intense emotion, and tight pacing.
@@ -528,7 +707,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-13/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;9:16&#x27;,
     reference_images=[&#x27;case-13/image-01.webp&#x27;, &#x27;case-13/image-02.webp&#x27;],
@@ -537,10 +716,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vertical%20Family%20Confrontation">Source prompt &amp; inputs ↗</a><a href="records/13.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vertical%20Family%20Confrontation">Source prompt &amp; inputs ↗</a><a href="records/13.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-14"><summary><span class="pending-title"><span class="case-number">14</span>The forbidden wing</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-14"><summary><span class="pending-title"><span class="case-number">14</span>The forbidden wing</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The castle story and full-body cast references allow wider two-person shots despite a preference for close-ups.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-14">Copy prompt</button></div><pre class="prompt-text" id="prompt-14">Create a 15-second, 9:16 live-action vampire-romance teaser for an international short-drama audience. Use Image 1 for the leads’ appearance and Image 2 for the setting. Preserve both identities throughout and maintain premium live-action production value.
@@ -570,7 +750,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-14/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;9:16&#x27;,
     reference_images=[&#x27;case-14/image-01.webp&#x27;, &#x27;case-14/image-02.webp&#x27;],
@@ -579,11 +759,13 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama">Source prompt &amp; inputs ↗</a><a href="records/14.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vampire%20Romance%20Short%20Drama">Source prompt &amp; inputs ↗</a><a href="records/14.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-15"><div class="section-label">15 / STUDIES</div><h2>Product studies</h2></section>
-<details class="pending-case" id="case-15"><summary><span class="pending-title"><span class="case-number">15</span>Future in focus</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 3 images.</p>
-<p>The source prompt mentions a reference video that is not supplied on the page.</p>
+<details class="pending-case" id="case-15"><summary><span class="pending-title"><span class="case-number">15</span>Future in focus</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 3 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The prompt explicitly requests two full-body models in a portrait fashion campaign.</p>
+<div class="case-note"><p>This local request uses the three published reference images. The source prompt also mentions a reference video that the page does not provide; that input is missing.</p></div>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-15">Copy prompt</button></div><pre class="prompt-text" id="prompt-15">Create a premium 9:16 fashion-eyewear commercial. Match the reference video’s shot rhythm, edit speed, white-cyclorama look, and severe fashion attitude. Use a seamless minimal white studio with clean, bold, avant-garde art direction worthy of a global luxury campaign.
@@ -612,7 +794,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-15/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;9:16&#x27;,
     reference_images=[&#x27;case-15/image-01.webp&#x27;, &#x27;case-15/image-02.webp&#x27;, &#x27;case-15/image-03.webp&#x27;],
@@ -621,10 +803,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign">Source prompt &amp; inputs ↗</a><a href="records/15.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Futuristic%20Eyewear%20Campaign">Source prompt &amp; inputs ↗</a><a href="records/15.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-16"><summary><span class="pending-title"><span class="case-number">16</span>Made for the working day</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-16"><summary><span class="pending-title"><span class="case-number">16</span>Made for the working day</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Office workers appear in product and interior demonstrations rather than face-only shots.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-16">Copy prompt</button></div><pre class="prompt-text" id="prompt-16">Product Feature Visualization
@@ -650,7 +833,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-16/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;9:16&#x27;,
     reference_images=[&#x27;case-16/image-01.webp&#x27;, &#x27;case-16/image-02.webp&#x27;],
@@ -659,11 +842,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film">Source prompt &amp; inputs ↗</a><a href="records/16.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Ergonomic%20Chair%20Product%20Film">Source prompt &amp; inputs ↗</a><a href="records/16.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-17"><div class="section-label">17 / STUDIES</div><h2>Interfaces in motion</h2></section>
-<details class="pending-case" id="case-17"><summary><span class="pending-title"><span class="case-number">17</span>Equip. Confirm. Enter.</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-17"><summary><span class="pending-title"><span class="case-number">17</span>Equip. Confirm. Enter.</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> An overhead full-body character, UI panels and later moving crowds share the frame.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-17">Copy prompt</button></div><pre class="prompt-text" id="prompt-17">Use Image 1 for the character and Image 2 for the UI style.
@@ -699,7 +883,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-17/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     reference_images=[&#x27;case-17/image-01.webp&#x27;, &#x27;case-17/image-02.webp&#x27;],
     model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
@@ -707,10 +891,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Game%20Equipment%20UI">Source prompt &amp; inputs ↗</a><a href="records/17.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Game%20Equipment%20UI">Source prompt &amp; inputs ↗</a><a href="records/17.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-18"><summary><span class="pending-title"><span class="case-number">18</span>Built for speed</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-18"><summary><span class="pending-title"><span class="case-number">18</span>Built for speed</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Shoe product and web UI; no face is requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-18">Copy prompt</button></div><pre class="prompt-text" id="prompt-18">Create a dynamic product-landing-page UI/UX demo inspired by Nike’s digital language, built around the product in Image 1. Use oversized, bold, italicized sans-serif typography and backgrounds that combine speed-driven light streaks with dark carbon fiber or breathable performance-mesh textures. Show a smooth, fast, powerful scroll through the page, plus high-impact hover interactions with scale-ups and color inversion.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -739,10 +924,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page">Source prompt &amp; inputs ↗</a><a href="records/18.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Nike-Style%20Product%20Landing%20Page">Source prompt &amp; inputs ↗</a><a href="records/18.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-19"><summary><span class="pending-title"><span class="case-number">19</span>Lights on</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-19"><summary><span class="pending-title"><span class="case-number">19</span>Lights on</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Automotive website UI; no face is requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-19">Copy prompt</button></div><pre class="prompt-text" id="prompt-19">Animate the website UI: the top headline slides down into place, the copy panel below slides up, and the car’s lights shift from dark to red.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -772,10 +958,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation">Source prompt &amp; inputs ↗</a><a href="records/19.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Automotive%20Website%20UI%20Animation">Source prompt &amp; inputs ↗</a><a href="records/19.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-20"><summary><span class="pending-title"><span class="case-number">20</span>A product comes into view</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-20"><summary><span class="pending-title"><span class="case-number">20</span>A product comes into view</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Product layout and rotation; no face is requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-20">Copy prompt</button></div><pre class="prompt-text" id="prompt-20">Reveal the layout from top to bottom. Upper and center typography slides down; lower typography slides up. Once the central product appears, let it rotate subtly.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -805,11 +992,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal">Source prompt &amp; inputs ↗</a><a href="records/20.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal">Source prompt &amp; inputs ↗</a><a href="records/20.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-21"><div class="section-label">21 / STUDIES</div><h2>Animation &amp; games</h2></section>
-<details class="pending-case" id="case-21"><summary><span class="pending-title"><span class="case-number">21</span>A leap over lava</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-21"><summary><span class="pending-title"><span class="case-number">21</span>A leap over lava</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-21">Copy prompt</button></div><pre class="prompt-text" id="prompt-21">Claymation. A fox sprints to the edge of a cliff and launches without hesitation, making a dramatic heroic leap in slow motion over an immense lava canyon. Midair, the camera races beneath the fox’s belly in a bold dynamic move, revealing the terrifying depth of the chasm and the fully extended motion of its clay body.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -830,7 +1018,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-21/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=10.125,
     aspect_ratio=&#x27;16:9&#x27;,
     first_frame=&#x27;case-21/image-01.webp&#x27;,
@@ -839,10 +1027,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap">Source prompt &amp; inputs ↗</a><a href="records/21.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap">Source prompt &amp; inputs ↗</a><a href="records/21.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-22"><summary><span class="pending-title"><span class="case-number">22</span>A hero in blue</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-22"><summary><span class="pending-title"><span class="case-number">22</span>A hero in blue</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> The prompt explicitly permits faces only in close-up or extreme close-up and excludes distant frontal faces.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-22">Copy prompt</button></div><pre class="prompt-text" id="prompt-22">Use Image 2 as the locked character reference. Preserve the half-up long black hair, openwork silver crown, indigo ribbon, layered pale hanfu, translucent blue outer robe, deep-blue sash, silver floral fastener, and long tassels. Use Image 1 for storyboard order and pacing.
@@ -876,10 +1065,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Fantasy%20Wuxia%20Character%20Film">Source prompt &amp; inputs ↗</a><a href="records/22.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Fantasy%20Wuxia%20Character%20Film">Source prompt &amp; inputs ↗</a><a href="records/22.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-23"><summary><span class="pending-title"><span class="case-number">23</span>Meet the leading man</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-23"><summary><span class="pending-title"><span class="case-number">23</span>Meet the leading man</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The identity sheet includes full-body poses and the character promo does not prohibit wide shots.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-23">Copy prompt</button></div><pre class="prompt-text" id="prompt-23">Create a character promo for a male lead in an otome game. Use Image 2 as a strict identity reference. Preserve the same face, hairstyle, body proportions, costume design, material detail, and polished otome-CG aesthetic throughout.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -903,7 +1093,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-23/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     reference_images=[&#x27;case-23/image-01.webp&#x27;, &#x27;case-23/image-02.webp&#x27;],
     model_dir=Path.home() / &quot;Models/h3-apple-ref2va&quot;,
@@ -911,10 +1101,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo">Source prompt &amp; inputs ↗</a><a href="records/23.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo">Source prompt &amp; inputs ↗</a><a href="records/23.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-24"><summary><span class="pending-title"><span class="case-number">24</span>At the perimeter</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-24"><summary><span class="pending-title"><span class="case-number">24</span>At the perimeter</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> First-person gameplay with a weapon and distant targets; facial detail is not requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-24">Copy prompt</button></div><pre class="prompt-text" id="prompt-24">Camera: first-person, eye level, handheld gameplay. Simulate a player operating a modern-warfare FPS, holding an assault rifle and advancing slowly around the perimeter of a military base. Move forward along a road beside cover, sweep the reticle across the passage ahead, pause to fire several rounds at a distant target, then continue pushing forward like authentic player-controlled footage.
@@ -948,10 +1139,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay">Source prompt &amp; inputs ↗</a><a href="records/24.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay">Source prompt &amp; inputs ↗</a><a href="records/24.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-25"><summary><span class="pending-title"><span class="case-number">25</span>Before and after the show</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First + last frame.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-25"><summary><span class="pending-title"><span class="case-number">25</span>Before and after the show</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First + last frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The character shares a landscape frame with the interface and surroundings; conservatively protect the face.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-25">Copy prompt</button></div><pre class="prompt-text" id="prompt-25">Interactive Otome Game
@@ -977,7 +1169,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-25/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;16:9&#x27;,
     first_frame=&#x27;case-25/image-01.webp&#x27;,
@@ -987,10 +1179,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition">Source prompt &amp; inputs ↗</a><a href="records/25.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition">Source prompt &amp; inputs ↗</a><a href="records/25.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-26"><summary><span class="pending-title"><span class="case-number">26</span>A quiet evening</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-26"><summary><span class="pending-title"><span class="case-number">26</span>A quiet evening</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> The prompt explicitly fixes a frontal close shot of the upper bodies, with the woman’s face mostly out of frame.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-26">Copy prompt</button></div><pre class="prompt-text" id="prompt-26">Character-Driven Scene
@@ -1028,11 +1221,13 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene">Source prompt &amp; inputs ↗</a><a href="records/26.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene">Source prompt &amp; inputs ↗</a><a href="records/26.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-27"><div class="section-label">27 / STUDIES</div><h2>Mixed references</h2></section>
-<details class="pending-case" id="case-27"><summary><span class="pending-title"><span class="case-number">27</span>Six assets, one sequence</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 6 images, 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-27"><summary><span class="pending-title"><span class="case-number">27</span>Six assets, one sequence</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 6 images, 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The asset sequence includes full-body jumps, action shots and smaller faces within wide compositions.</p>
+<div class="case-note"><p>The source output is shorter than the runtime’s five-second minimum. The local request is five seconds long.</p></div>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-27">Copy prompt</button></div><pre class="prompt-text" id="prompt-27">Use Images 1–6 as assets. Match Reference Video 1 closely for shot rhythm, transition language, and music.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1071,7 +1266,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-27/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=5.0,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_images=[&#x27;case-27/image-01.webp&#x27;, &#x27;case-27/image-02.webp&#x27;, &#x27;case-27/image-03.webp&#x27;, &#x27;case-27/image-04.webp&#x27;, &#x27;case-27/image-05.webp&#x27;, &#x27;case-27/image-06.webp&#x27;],
@@ -1081,10 +1276,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix">Source prompt &amp; inputs ↗</a><a href="records/27.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix">Source prompt &amp; inputs ↗</a><a href="records/27.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-28"><summary><span class="pending-title"><span class="case-number">28</span>A voxel interruption</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 2 videos.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-28"><summary><span class="pending-title"><span class="case-number">28</span>A voxel interruption</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 2 videos.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The prompt preserves pedestrians in a wide street scene.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-28">Copy prompt</button></div><pre class="prompt-text" id="prompt-28">Preserve the buildings, pedestrians, and overall environment in Video 1 as photoreal live action. Transform only the trees and cars into 3D pixel-art or voxel-block objects in the style of Minecraft, using Image 1 as the visual reference. Keep their motion physically correct, and preserve the real environment’s shadows and transmitted light. Use Video 2 as the overall target.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1111,7 +1307,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-28/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_images=[&#x27;case-28/image-01.webp&#x27;],
@@ -1121,10 +1317,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation">Source prompt &amp; inputs ↗</a><a href="records/28.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation">Source prompt &amp; inputs ↗</a><a href="records/28.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-29"><summary><span class="pending-title"><span class="case-number">29</span>From coffee to dunes</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-29"><summary><span class="pending-title"><span class="case-number">29</span>From coffee to dunes</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> Macro coffee textures transitioning into dunes; no face is requested.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-29">Copy prompt</button></div><pre class="prompt-text" id="prompt-29">@Image 1: Push in rapidly toward the milk foam, cocoa particles, and dark liquid texture on the coffee until particles, bubbles, and ripples fill the frame. Keep the macro photography realistic, with extremely shallow depth of field and fine powder drifting through backlight. Let the surface feel suspended between granular sand and fluid.
@@ -1160,11 +1357,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Macro%20Coffee-to-Fluid%20Transition">Source prompt &amp; inputs ↗</a><a href="records/29.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Macro%20Coffee-to-Fluid%20Transition">Source prompt &amp; inputs ↗</a><a href="records/29.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-30"><div class="section-label">30 / STUDIES</div><h2>Movement &amp; identity</h2></section>
-<details class="pending-case" id="case-30"><summary><span class="pending-title"><span class="case-number">30</span>Foam at the kitchen sink</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-30"><summary><span class="pending-title"><span class="case-number">30</span>Foam at the kitchen sink</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Two performers move and interact in a kitchen with their upper bodies and surroundings visible.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-30">Copy prompt</button></div><pre class="prompt-text" id="prompt-30">Match the character motion, expressions, and performance timing in Image 1 closely to Input Video 1.
@@ -1190,7 +1388,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-30/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_images=[&#x27;case-30/image-01.webp&#x27;],
@@ -1200,10 +1398,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference">Source prompt &amp; inputs ↗</a><a href="records/30.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference">Source prompt &amp; inputs ↗</a><a href="records/30.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-31"><summary><span class="pending-title"><span class="case-number">31</span>A new dancer</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images, 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-31"><summary><span class="pending-title"><span class="case-number">31</span>A new dancer</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images, 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Full-body street-dance framing makes the performer’s face small.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-31">Copy prompt</button></div><pre class="prompt-text" id="prompt-31">Use Video 1 as the motion reference for a street-dance performance. Use Images 1 and 2 as the character references.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1230,7 +1429,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-31/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=10.125,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_images=[&#x27;case-31/image-01.webp&#x27;, &#x27;case-31/image-02.webp&#x27;],
@@ -1240,10 +1439,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/31.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/31.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-32"><summary><span class="pending-title"><span class="case-number">32</span>Three capybaras</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-32"><summary><span class="pending-title"><span class="case-number">32</span>Three capybaras</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Three capybaras share a locked wide shot; conservatively include small animal faces.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-32">Copy prompt</button></div><pre class="prompt-text" id="prompt-32">Motion reference for a DIY reaction clip
@@ -1266,7 +1466,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-32/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=6.583333333333333,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-32/video-01.mp4&#x27;],
@@ -1275,11 +1475,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation">Source prompt &amp; inputs ↗</a><a href="records/32.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation">Source prompt &amp; inputs ↗</a><a href="records/32.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-33"><div class="section-label">33 / STUDIES</div><h2>Voice reference</h2></section>
-<details class="pending-case" id="case-33"><summary><span class="pending-title"><span class="case-number">33</span>A different voice</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video, 1 audio.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-33"><summary><span class="pending-title"><span class="case-number">33</span>A different voice</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video, 1 audio.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The video reference shows a performer in a wide pastoral setting while dialogue must remain readable.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-33">Copy prompt</button></div><pre class="prompt-text" id="prompt-33">The character says: “Follow the wind, live free. Leave worries behind, enjoy the moment.” Match the voice in Audio 1.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1303,7 +1504,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-33/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=10.125,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-33/video-01.mp4&#x27;],
@@ -1313,11 +1514,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/33.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/33.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-34"><div class="section-label">34 / STUDIES</div><h2>Cast &amp; object edits</h2></section>
-<details class="pending-case" id="case-34"><summary><span class="pending-title"><span class="case-number">34</span>A different companion</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-34"><summary><span class="pending-title"><span class="case-number">34</span>A different companion</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A human and an animal share the reference frame; conservatively retain detail during the replacement.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-34">Copy prompt</button></div><pre class="prompt-text" id="prompt-34">Replace the cat in the video with a dog.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1338,7 +1540,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-34/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=6.583333333333333,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-34/video-01.mp4&#x27;],
@@ -1347,10 +1549,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/34.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/34.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-35"><summary><span class="pending-title"><span class="case-number">35</span>One more teammate</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-35"><summary><span class="pending-title"><span class="case-number">35</span>One more teammate</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Several full-body teammates share a wide outdoor shot.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-35">Copy prompt</button></div><pre class="prompt-text" id="prompt-35">Add one person on the left side of frame wearing the same team uniform and moving in sync with the others.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1371,7 +1574,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-35/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=6.583333333333333,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-35/video-01.mp4&#x27;],
@@ -1380,10 +1583,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others">Source prompt &amp; inputs ↗</a><a href="records/35.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others">Source prompt &amp; inputs ↗</a><a href="records/35.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-36"><summary><span class="pending-title"><span class="case-number">36</span>A change of cast</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images, 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-36"><summary><span class="pending-title"><span class="case-number">36</span>A change of cast</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 images, 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Multiple children at different depths remain visible during the character and wardrobe replacements.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-36">Copy prompt</button></div><pre class="prompt-text" id="prompt-36">Precise Subject and Wardrobe Replacement
@@ -1412,7 +1616,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-36/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=6.583333333333333,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_images=[&#x27;case-36/image-01.webp&#x27;, &#x27;case-36/image-02.webp&#x27;],
@@ -1422,11 +1626,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/36.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/36.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-37"><div class="section-label">37 / STUDIES</div><h2>Environment &amp; lighting</h2></section>
-<details class="pending-case" id="case-37"><summary><span class="pending-title"><span class="case-number">37</span>A new world behind the action</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 videos.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-37"><summary><span class="pending-title"><span class="case-number">37</span>A new world behind the action</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 2 videos.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The green-screen reference shows a full-body performer in a wide composition.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-37">Copy prompt</button></div><pre class="prompt-text" id="prompt-37">Remove the green-screen background from Video 1 and replace it with a fairy-tale environment similar to Video 2. Make every background element respond correctly to the subject’s movement, and relight the subject so they blend naturally into the new scene.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1450,7 +1655,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-37/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-37/video-01.mp4&#x27;, &#x27;case-37/video-02.mp4&#x27;],
@@ -1459,10 +1664,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/37.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/37.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-38"><summary><span class="pending-title"><span class="case-number">38</span>After sunset</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-38"><summary><span class="pending-title"><span class="case-number">38</span>After sunset</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The cafe scene includes smaller background pedestrians as well as the foreground person.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-38">Copy prompt</button></div><pre class="prompt-text" id="prompt-38">Relighting
@@ -1485,7 +1691,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-38/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=6.583333333333333,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-38/video-01.mp4&#x27;],
@@ -1494,10 +1700,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting">Source prompt &amp; inputs ↗</a><a href="records/38.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting">Source prompt &amp; inputs ↗</a><a href="records/38.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-39"><summary><span class="pending-title"><span class="case-number">39</span>Beyond the window</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-39"><summary><span class="pending-title"><span class="case-number">39</span>Beyond the window</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The dim interior and window share the reference frame with a person; conservatively protect the face.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-39">Copy prompt</button></div><pre class="prompt-text" id="prompt-39">Live-action environment replacement
@@ -1523,7 +1730,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-39/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=6.583333333333333,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_images=[&#x27;case-39/image-01.webp&#x27;],
@@ -1533,11 +1740,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/39.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/39.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-40"><div class="section-label">40 / STUDIES</div><h2>Dialogue</h2></section>
-<details class="pending-case" id="case-40"><summary><span class="pending-title"><span class="case-number">40</span>A different line</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video, 1 audio.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-40"><summary><span class="pending-title"><span class="case-number">40</span>A different line</span><span class="status">576p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video, 1 audio.</p>
+<p class="runtime-note"><strong>Current request: 576p · Queued.</strong> The dialogue reference is a frontal face close-up and the prompt requests only a subtle performance adjustment.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-40">Copy prompt</button></div><pre class="prompt-text" id="prompt-40">In Video 1, replace the woman’s line—“There’s no way we can be together. It’s not that I don’t love you; we simply can’t make it to the end.”—with the line from Audio 1: “Please don’t go. This time, let’s not let each other go.” Adjust the performance subtly to match the new dialogue.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1571,11 +1779,12 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/40.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/40.json">Current case record ↗</a></div>
 </div></details>
 <section class="case-group" id="group-41"><div class="section-label">41 / STUDIES</div><h2>Directed edits</h2></section>
-<details class="pending-case" id="case-41"><summary><span class="pending-title"><span class="case-number">41</span>Several changes, one scene</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-41"><summary><span class="pending-title"><span class="case-number">41</span>Several changes, one scene</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A seated full-body subject in a wide scene must reveal a clear face after the sunglasses are removed.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-41">Copy prompt</button></div><pre class="prompt-text" id="prompt-41">In the reference video: replace the newspaper with a green hardcover book; replace the chair with a red sofa; remove the subject’s sunglasses and reveal a clear face; remove the burning-car effect and restore the vehicle to normal; replace the photograph taken from the coat with a small black notebook; and add a tree on the left side of frame.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1596,7 +1805,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-41/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=10.125,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-41/video-01.mp4&#x27;],
@@ -1605,10 +1814,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing">Source prompt &amp; inputs ↗</a><a href="records/41.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing">Source prompt &amp; inputs ↗</a><a href="records/41.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-42"><summary><span class="pending-title"><span class="case-number">42</span>New product. New sign. New line.</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-42"><summary><span class="pending-title"><span class="case-number">42</span>New product. New sign. New line.</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> The person shares the scene with a product, shop sign and bag; the framing is not limited to close-ups.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-42">Copy prompt</button></div><pre class="prompt-text" id="prompt-42">In the reference video, replace the canned drink shown at the beginning with Coca-Cola. Change the illuminated “FamilyMart” convenience-store sign in the background to “HUHUI.” At the end, replace every snack in the plastic bag with cans of Coca-Cola, and change the final line from “I bought a few snacks” to “I bought a whole bunch of Coke.”</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1629,7 +1839,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-42/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;16:9&#x27;,
     reference_videos=[&#x27;case-42/video-01.mp4&#x27;],
@@ -1638,10 +1848,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/42.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/42.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-43"><summary><span class="pending-title"><span class="case-number">43</span>A change of costume</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-43"><summary><span class="pending-title"><span class="case-number">43</span>A change of costume</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Two full-body magicians share a wide stage shot.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-43">Copy prompt</button></div><pre class="prompt-text" id="prompt-43">Two magicians stand onstage facing the audience and perform a “swap” illusion. They wave their wands simultaneously and smoke rises. When it clears, their suit colors have exchanged: the magician on the left now wears white, and the one on the right now wears black. Their glove colors do not change. They bow; the red curtain closes behind them and gradually shifts from deep red to dark blue.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1662,7 +1873,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-43/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=6.583333333333333,
     aspect_ratio=&#x27;16:9&#x27;,
     first_frame=&#x27;case-43/image-01.webp&#x27;,
@@ -1671,10 +1882,11 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap">Source prompt &amp; inputs ↗</a><a href="records/43.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap">Source prompt &amp; inputs ↗</a><a href="records/43.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-44"><summary><span class="pending-title"><span class="case-number">44</span>Drawn into the scene</span><span class="status">Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
-<p>This case is waiting for the local generation worker.</p>
+<details class="pending-case" id="case-44"><summary><span class="pending-title"><span class="case-number">44</span>Drawn into the scene</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 image, 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Two moving people share the romantic scene; conservatively protect both faces during the approach.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-44">Copy prompt</button></div><pre class="prompt-text" id="prompt-44">Creative interpretation + animated graphic effects
@@ -1700,7 +1912,7 @@ from h3_apple.progress import ProgressBar
 generate(
     prompt=Path(&quot;case-44/prompt.txt&quot;).read_text(),
     seed=42,
-    resolution=&#x27;576p&#x27;,
+    resolution=&#x27;768p&#x27;,
     duration=15.0,
     aspect_ratio=&#x27;9:16&#x27;,
     reference_images=[&#x27;case-44/image-01.webp&#x27;],
@@ -1710,9 +1922,9 @@ generate(
     on_progress=ProgressBar(),
     timeout=7200,
 )</code></pre></details></div>
-<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX">Source prompt &amp; inputs ↗</a><a href="records/44.json">Case record ↗</a></div>
+<div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX">Source prompt &amp; inputs ↗</a><a href="records/44.json">Current case record ↗</a></div>
 </div></details></div>
-      <section id="method" class="prose-section"><h2>Generation method</h2><p>Four denoising steps with native video and stereo audio generation. The collection uses a fixed seed and records the first attempt, including any failures. No cloud generation API is used.</p><p>The guide publishes prompt excerpts, so the original full requests and seeds are unknown. The source videos are 720p; these local runs use 576p. Source clips of 15.083 seconds become 15-second deliveries. Runtime also differs. These are reproductions of the public inputs, not identical copies of the hosted outputs.</p><p>Image reference, first and last frame, video reference, and audio reference are tracked separately. A missing input mode is never replaced silently.</p></section>
+      <section id="method" class="prose-section"><h2>Generation method</h2><p>Four denoising steps with native video and stereo audio generation. The collection uses a fixed seed and retains every attempt, including failures and resolution changes. No cloud generation API is used.</p><p>The guide publishes prompt excerpts, so the original full requests and seeds are unknown. The source videos are 720p. Local scenes with small or potentially small character faces use native 768p; the remaining cases use 576p. The resolution is selected from the prompt and reference framing before generation, and explained on each case. Earlier 576p outputs remain separately labelled with their original commands. Source clips of 15.083 seconds become 15-second deliveries. Runtime also differs. These are reproductions of the public inputs, not identical copies of the hosted outputs.</p><p>Image reference, first and last frame, video reference, and audio reference are tracked separately. A missing input mode is never replaced silently.</p></section>
       <section id="sources" class="prose-section"><h2>Source &amp; attribution</h2><p>The case index refers to <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide">fal’s MiniMax H3 prompting guide</a>. This independently authored page hosts H3 Apple’s own generation results. Reference previews link directly to the publisher’s files; they are not copied into this repository. Each case displays the exact prompt used for the local run, with attribution to the source guide. The generation command reads that same prompt automatically from the case record.</p><p>H3 Apple is an independent project. This collection is not affiliated with or endorsed by fal, MiniMax, or Apple. Names shown in generated content belong to their respective owners. The surrounding article, website code, branding and hosted output videos are not redistributed here.</p></section>
     </article>
   </main>

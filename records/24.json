@@ -18,9 +18,7 @@
   },
   "prompt": "Camera: first-person, eye level, handheld gameplay. Simulate a player operating a modern-warfare FPS, holding an assault rifle and advancing slowly around the perimeter of a military base. Move forward along a road beside cover, sweep the reticle across the passage ahead, pause to fire several rounds at a distant target, then continue pushing forward like authentic player-controlled footage.\n\nLighting: cool natural light across a modern military base, mixed with smoke and firelight. Keep the image photoreal and crisp, with AAA-quality weapons, materials, dust, and battlefield haze.\n\nCamera movement: subtle player-driven sway while moving; begin with a slow advance, make small checks left and right, add light recoil when firing, then continue forward steadily.",
   "prompt_sha256": "8269db178995115adc4d1102c27226315924ca4d8f5be7525858885b6f6bc15a",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -49,5 +47,12 @@
     ],
     "task": "fl2va",
     "model_manifest": "models/fl2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 24,
+    "source_case": "First-Person Tactical Gameplay",
+    "resolution": "576p",
+    "reason": "First-person gameplay with a weapon and distant targets; facial detail is not requested."
+  },
+  "previous_results": []
 }

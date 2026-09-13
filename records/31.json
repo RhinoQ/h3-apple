@@ -18,9 +18,7 @@
   },
   "prompt": "Use Video 1 as the motion reference for a street-dance performance. Use Images 1 and 2 as the character references.",
   "prompt_sha256": "88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 10.125,
       "aspect_ratio": "16:9"
     },
@@ -69,5 +67,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 31,
+    "source_case": "Street Dance Motion Transfer",
+    "resolution": "768p",
+    "reason": "Full-body street-dance framing makes the performer’s face small."
+  },
+  "previous_results": []
 }

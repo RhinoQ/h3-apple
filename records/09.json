@@ -18,9 +18,7 @@
   },
   "prompt": "Style: dark-pop / cyber-grunge / rap music video with photoreal high-fashion polish and the texture of a scanned film magazine—high contrast without looking cheap. Reference late-1990s to early-2000s indie magazines, photocopies, film scans, underground-music posters, and zine collage. Add coarse grain, subtle gate weave, halftone dots, rough print edges, and slight scan misregistration. Keep the edit fast and use hard cuts only—no fades or soft transitions. Match the typographic treatment and surface texture of the reference images.",
   "prompt_sha256": "37fc53acafcf3682f9a24653f5a78ab9edaf98272ead96b0ec45d14850ccc6be",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 15.0
     },
     "references": [
@@ -58,5 +56,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 9,
+    "source_case": "Cyber-Grunge Rap Music Video",
+    "resolution": "768p",
+    "reason": "The performance reference shows three full-body people together."
+  },
+  "previous_results": []
 }

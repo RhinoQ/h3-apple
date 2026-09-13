@@ -18,9 +18,7 @@
   },
   "prompt": "In the reference video: replace the newspaper with a green hardcover book; replace the chair with a red sofa; remove the subject’s sunglasses and reveal a clear face; remove the burning-car effect and restore the vehicle to normal; replace the photograph taken from the coat with a small black notebook; and add a tree on the left side of frame.",
   "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 10.125,
       "aspect_ratio": "16:9"
     },
@@ -49,5 +47,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 41,
+    "source_case": "Multi-Element Scene Editing",
+    "resolution": "768p",
+    "reason": "A seated full-body subject in a wide scene must reveal a clear face after the sunglasses are removed."
+  },
+  "previous_results": []
 }

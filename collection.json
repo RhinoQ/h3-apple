@@ -1,9 +1,9 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
+  "available_cases": 4,
   "status_counts": {
-    "generated": 4,
     "running": 1,
-    "queued": 39
+    "queued": 43
   },
   "cases": [
     {
@@ -11,7 +11,7 @@
       "title": "Through the binoculars",
       "source_case": "Vintage Binocular Brand Film",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film",
-      "status": "generated",
+      "status": "running",
       "required_inputs": {
         "images": 4,
         "videos": 0,
@@ -26,9 +26,11 @@
       },
       "prompt": "Use Images 1–4 as sequential keyframes, seen through a vintage binocular viewfinder searching for the MINIMAX installation. Open out of focus with subtle handheld shake, then push in quickly and rack focus onto Image 1. Between keyframes, use fast binocular-scan transitions with whip movement, motion blur, optical smearing, and brief exposure flicker. Cut at peak blur, then settle and snap back into focus. Keep the twin circular lens mask absolutely fixed throughout: identical position, scale, feathered black vignette, and edge softness, with no warping or drift. Only the image inside the mask may move.\n\nIn Image 2, let the fabric move gently in the wind while the MINIMAX lettering follows the folds and remains legible. In Image 3, the subject should feel like a stylish passerby caught by chance, walking, turning, and swinging their arms naturally. In Image 4, the subject adjusts their glasses or lifts their chin slightly with a cool, effortless fashion-campaign attitude.\n\nRed typography should resolve with the focus: begin slightly blurred and at low opacity, then fade into clarity over 0.3–0.5 seconds. A subtle vertical slide or slight tracking expansion is allowed. Fade it out before the next transition or let motion blur carry it away. No spins, bounces, or large fly-ins/outs.\n\nVisual language: a voyeuristic, Wes Anderson-inspired 35 mm film look with fine grain, soft highlight halation, restrained color, and red typographic accents. Minimal, premium, lightly playful. Do not add people, vehicles, buildings, or logos. Preserve the core composition and the MINIMAX installation exactly.",
       "prompt_sha256": "a218403d678cc4b6cb5ad00f914011b851eeb19f4224be9ec2e26dfeb78eae1c",
-      "notes": [],
+      "notes": [
+        "Reference order follows the source page: architecture, person, flag, close-up. The prompt’s Image 2 / Image 3 labels are inconsistent with that order."
+      ],
       "reproduction": {
-        "configuration_state": "executed",
+        "configuration_state": "planned",
         "runtime": {
           "version": "0.1.0.dev2",
           "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -37,7 +39,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0
         },
         "references": [
@@ -85,72 +87,24 @@
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
       },
-      "seed": 42,
-      "started_utc": "2026-09-13T12:07:42.955294+00:00",
-      "elapsed_seconds": 1326.6071971249767,
-      "actual_nfe": 4,
-      "video_sha256": "302b26f682a49027691a1dfa53508918468dc441fab63c3470dbd3b52a2c46ee",
-      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
-      "timings_seconds": {
-        "conditioning": 26.733497083187103,
-        "denoise": 1168.5112719158642,
-        "video_decode": 124.8787933329586,
-        "audio_decode": 1.3662970829755068,
-        "mux": 1.821396959014237
+      "resolution_policy": {
+        "number": 1,
+        "source_case": "Vintage Binocular Brand Film",
+        "resolution": "768p",
+        "reason": "The binocular composition includes a walking, full-body person inside a restricted lens view."
       },
-      "peak_memory_gib": {
-        "conditioning": 3.2918388675898314,
-        "denoise": 36.37938547786325,
-        "video_decode": 18.14845885708928,
-        "audio_decode": 2.744187530130148,
-        "mux": 0.0
-      },
-      "request": {
-        "resolution": "576p",
-        "duration": 15.0,
-        "width": 1024,
-        "height": 576,
-        "num_frames": 360,
-        "fps": 24,
-        "num_steps": 4,
-        "preset_version": "ours-ref2va-v1",
-        "task": "ref2va"
-      },
-      "reused_verified_run": true,
-      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
-      "input_hashes": [
+      "previous_results": [
         {
-          "index": 1,
-          "sha256": "365597a065ed4d7b7d0d7a19dcb816de44c1a32e59b38d832b5eeef4e66a429c",
-          "size": 58686
-        },
-        {
-          "index": 2,
-          "sha256": "aa5f0fbe9019f799629464682d0c24f919edab23a423a2e35dac8e9db5e1290c",
-          "size": 54660
-        },
-        {
-          "index": 3,
-          "sha256": "1d2bb515fabfb0d535b41ebc54aa053b4580db16f9227fa961b1d1ed56dfb5f6",
-          "size": 89524
-        },
-        {
-          "index": 4,
-          "sha256": "3fc4a00a864d9d120b37dcc5319cfde56e416eb958e2bab26eb66e64b91574e7",
-          "size": 54786
+          "record": "records/01-576p-302b26f682a4.json"
         }
-      ],
-      "runtime_version": "0.1.0.dev2",
-      "attention": "vsa",
-      "experimental_input_support": false,
-      "creative_quality_review": "Not independently rated for this collection"
+      ]
     },
     {
       "case": 2,
       "title": "A jump into deep space",
       "source_case": "Epic Space Opera Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-      "status": "generated",
+      "status": "queued",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -167,7 +121,7 @@
       "prompt_sha256": "79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7",
       "notes": [],
       "reproduction": {
-        "configuration_state": "executed",
+        "configuration_state": "planned",
         "runtime": {
           "version": "0.1.0.dev3+guide2",
           "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -176,7 +130,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "16:9"
         },
@@ -195,58 +149,24 @@
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
       },
-      "seed": 42,
-      "started_utc": "2026-09-13T13:29:47.018178+00:00",
-      "elapsed_seconds": 1853.6021932079457,
-      "actual_nfe": 4,
-      "video_sha256": "6f60443c877f06396aa1291cd19d4b939e2c2bbedf9407dcf1c92f7d42ab9d83",
-      "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
-      "timings_seconds": {
-        "conditioning": 18.022960833040997,
-        "denoise": 1730.1479919999838,
-        "video_decode": 100.65944937500171,
-        "audio_decode": 1.19648841698654,
-        "mux": 1.1557684999424964
+      "resolution_policy": {
+        "number": 2,
+        "source_case": "Epic Space Opera Teaser",
+        "resolution": "768p",
+        "reason": "The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups."
       },
-      "peak_memory_gib": {
-        "conditioning": 3.0311651565134525,
-        "denoise": 37.35566523484886,
-        "video_decode": 18.148474145680666,
-        "audio_decode": 2.7442820630967617,
-        "mux": 0.0
-      },
-      "request": {
-        "resolution": "576p",
-        "duration": 15.0,
-        "width": 1024,
-        "height": 576,
-        "num_frames": 360,
-        "fps": 24,
-        "num_steps": 4,
-        "preset_version": "ours-fl2va-guide1",
-        "task": "fl2va"
-      },
-      "reused_verified_run": false,
-      "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
-      "input_hashes": [
+      "previous_results": [
         {
-          "kind": "keyframe",
-          "anchor": "first",
-          "sha256": "405480fab8267c46b768f58bf98e16a9f0bdfe07d1380ae18c3ffc3d8704bd02",
-          "size": 57782
+          "record": "records/02-576p-6f60443c877f.json"
         }
-      ],
-      "runtime_version": "0.1.0.dev3+guide2",
-      "attention": "dense",
-      "experimental_input_support": true,
-      "creative_quality_review": "Not independently rated for this collection"
+      ]
     },
     {
       "case": 3,
       "title": "The silent gateway",
       "source_case": "Sci-Fi Mystery Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Sci-Fi%20Mystery%20Teaser",
-      "status": "generated",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -263,7 +183,7 @@
       "prompt_sha256": "3d022003be20c89049b2829003f7809e66855be4f2562177459d40e3efef4c70",
       "notes": [],
       "reproduction": {
-        "configuration_state": "executed",
+        "configuration_state": "planned",
         "runtime": {
           "version": "0.1.0.dev2",
           "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -272,7 +192,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0
         },
         "references": [
@@ -300,62 +220,24 @@
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
       },
-      "seed": 42,
-      "started_utc": "2026-09-13T12:54:20.235646+00:00",
-      "elapsed_seconds": 1191.0019356249832,
-      "actual_nfe": 4,
-      "video_sha256": "54699f979fd3ea17843de4ad35fd42bcccffe6aee0853e83ecbe95fbdae5a29c",
-      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
-      "timings_seconds": {
-        "conditioning": 16.693787625059485,
-        "denoise": 1052.162475625053,
-        "video_decode": 116.20374045800418,
-        "audio_decode": 1.2842262501362711,
-        "mux": 1.6566540838684887
+      "resolution_policy": {
+        "number": 3,
+        "source_case": "Sci-Fi Mystery Teaser",
+        "resolution": "768p",
+        "reason": "The prompt requests a tiny protagonist in an ultra-wide shot. Use 768p conservatively, although this shot specifies a rear view."
       },
-      "peak_memory_gib": {
-        "conditioning": 3.027152094990015,
-        "denoise": 36.30162969045341,
-        "video_decode": 18.148458875715733,
-        "audio_decode": 2.744294535368681,
-        "mux": 0.0
-      },
-      "request": {
-        "resolution": "576p",
-        "duration": 15.0,
-        "width": 1024,
-        "height": 576,
-        "num_frames": 360,
-        "fps": 24,
-        "num_steps": 4,
-        "preset_version": "ours-ref2va-v1",
-        "task": "ref2va"
-      },
-      "reused_verified_run": false,
-      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
-      "input_hashes": [
+      "previous_results": [
         {
-          "index": 1,
-          "sha256": "e446b3f7e8bce699a300eaaafc40af17587bcf04537492aaef479f925b9aaa4b",
-          "size": 54488
-        },
-        {
-          "index": 2,
-          "sha256": "07ca8854374d29f025329cb8976e34c5c40c9b04d39fa6d079ec88f7f645e380",
-          "size": 43990
+          "record": "records/03-576p-54699f979fd3.json"
         }
-      ],
-      "runtime_version": "0.1.0.dev2",
-      "attention": "vsa",
-      "experimental_input_support": false,
-      "creative_quality_review": "Not independently rated for this collection"
+      ]
     },
     {
       "case": 4,
       "title": "Desert departure",
       "source_case": "Desert Fashion Campaign",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Desert%20Fashion%20Campaign",
-      "status": "generated",
+      "status": "queued",
       "required_inputs": {
         "images": 4,
         "videos": 0,
@@ -372,7 +254,7 @@
       "prompt_sha256": "37fb54f86b1ceb9036dedb578fc1f8774ed952774b240e33fc09252302f93377",
       "notes": [],
       "reproduction": {
-        "configuration_state": "executed",
+        "configuration_state": "planned",
         "runtime": {
           "version": "0.1.0.dev2",
           "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -381,7 +263,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0
         },
         "references": [
@@ -429,72 +311,24 @@
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
       },
-      "seed": 42,
-      "started_utc": "2026-09-13T14:00:40.963853+00:00",
-      "elapsed_seconds": 1085.2107993750833,
-      "actual_nfe": 4,
-      "video_sha256": "e97d6f64fab3fe6f70cd5e2f98ae257e6e09b0f5c5d6f8871cd6a2ef631b6b56",
-      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
-      "timings_seconds": {
-        "conditioning": 21.17503683292307,
-        "denoise": 959.4917378749233,
-        "video_decode": 99.00627987505868,
-        "audio_decode": 1.191626040963456,
-        "mux": 1.451712999958545
+      "resolution_policy": {
+        "number": 4,
+        "source_case": "Desert Fashion Campaign",
+        "resolution": "768p",
+        "reason": "Two people walk and interact beside a car in a wide fashion scene."
       },
-      "peak_memory_gib": {
-        "conditioning": 3.0408701095730066,
-        "denoise": 36.328547856770456,
-        "video_decode": 18.14845885708928,
-        "audio_decode": 2.7442177645862103,
-        "mux": 0.0
-      },
-      "request": {
-        "resolution": "576p",
-        "duration": 15.0,
-        "width": 1024,
-        "height": 576,
-        "num_frames": 360,
-        "fps": 24,
-        "num_steps": 4,
-        "preset_version": "ours-ref2va-v1",
-        "task": "ref2va"
-      },
-      "reused_verified_run": false,
-      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
-      "input_hashes": [
+      "previous_results": [
         {
-          "index": 1,
-          "sha256": "981f9b6eec1a3e436d3b9af1ad61daadd569146be1252151e22b9e4705313d9c",
-          "size": 43072
-        },
-        {
-          "index": 2,
-          "sha256": "0ec8d5ddf1bdc1a7ec54eb16ea14250ddeddf838b4fb161d15eb115046e1d44b",
-          "size": 38866
-        },
-        {
-          "index": 3,
-          "sha256": "1bc50aadf215b6b2d4e0bb345bfd0a2e8fdf26f2ec31a4d71b59b70ed7e31028",
-          "size": 53706
-        },
-        {
-          "index": 4,
-          "sha256": "2bf9e65f2dfd17e62e1cc31e377227955ce4282d6898a4ee661a43f472f5219b",
-          "size": 4758
+          "record": "records/04-576p-e97d6f64fab3.json"
         }
-      ],
-      "runtime_version": "0.1.0.dev2",
-      "attention": "vsa",
-      "experimental_input_support": false,
-      "creative_quality_review": "Not independently rated for this collection"
+      ]
     },
     {
       "case": 5,
       "title": "After the fire",
       "source_case": "Cyber-Grunge Fashion Film",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cyber-Grunge%20Fashion%20Film",
-      "status": "running",
+      "status": "queued",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -509,9 +343,7 @@
       },
       "prompt": "Use Image 1 as the reference for texture and mood, and Image 2 for the subject’s appearance. Generate a 15-second, 16:9 fashion short. Preserve the subject’s identity: long platinum-blonde hair, narrow black vintage sunglasses, a glossy black patent-leather trench coat, a cool, self-assured expression, and orange firelight reflected across the coat.\n\nStyle: fast-cut fashion film on analog stock, set against a nighttime blaze with black smoke and orange-red flames. Layer in VHS glitches, CCTV signal interruptions, 1990s film grain, scanlines, chromatic aberration, light leaks, flash-to-white transitions, and subtle frame jitter.",
       "prompt_sha256": "f4d8090a7d2595990097618e08a9547ee3c4f743ca96d22315f7b9e02bae46ae",
-      "notes": [
-        "This fixed-seed generation is in progress."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -522,7 +354,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0
         },
         "references": [
@@ -549,7 +381,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 5,
+        "source_case": "Cyber-Grunge Fashion Film",
+        "resolution": "768p",
+        "reason": "Full-body character references and fast fashion cuts can produce small faces."
+      },
+      "previous_results": []
     },
     {
       "case": 6,
@@ -571,9 +410,7 @@
       },
       "prompt": "Create a 15-second, 16:9 opening-title sequence for a stylish crime mystery. Draw from retro Japanese animation titles, hard-edged silhouettes, comic-book collage, asymmetric split screens, bold geometric color fields, English credit typography, sparse katakana accents, and a noir-jazz sensibility. Aim for 60% suspense and 40% jazz: mysterious, cool, agile, and urban—never horror, heavy drama, or a cheerful jazz music video.\n\nBuild the sequence as motion-graphics collage: linework appears over black, split-screen boundaries snap into place, then color blocks and frames assemble piece by piece. Character silhouettes, prop close-ups, and English credits slide, pop, and reveal through masks on the beat. Keep it designed and graphic, not like conventional narrative animation.\n\nCredits must be clean and legible. Animate thin frames drawing on, names sliding in, letters appearing one at a time, or color blocks revealing type, then hold briefly. Do not introduce Chinese text, garbled characters, or misspellings. Each role and each name appears once only; do not assign multiple roles to the same name.\n\nVary the transitions: circular vinyl-record wipes, vertical car-door cuts, long character shadows wiping frame, red-line slices, oversized letter masks, split-screen reconfigurations, hard color-block cuts, and tiled frames snapping into place. Keep every transition crisp, rhythmic, suspenseful, and collage-driven. No soft dissolves or fluid morphs.\n\nBGM: an original 15-second title cue, 60% suspense and 40% jazz. Use a low drone, tense string pizzicato, cool synth pulses, low kick, sparse brushwork, fragments of walking bass, short baritone-sax phrases, and clipped brass accents. Build suspense with low frequencies and hi-hat in the first 2 seconds; bring in the low beat at 3 seconds, jazz-bass movement at 6 seconds, and a short sax/brass riff at 10 seconds. Freeze the final 2 seconds on a tense chord and drum hit. Keep it mysterious and criminally cool, never upbeat, and do not imitate an existing melody.",
       "prompt_sha256": "02452c913f8829974c3d542cc7b2ac1984c8c88787c0a7ee593fd6a84d8b4efa",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -641,7 +478,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 6,
+        "source_case": "Retro Anime Crime Title Sequence",
+        "resolution": "576p",
+        "reason": "Graphic silhouettes, type and prop close-ups; detailed small faces are not requested."
+      },
+      "previous_results": []
     },
     {
       "case": 7,
@@ -663,9 +507,7 @@
       },
       "prompt": "15 seconds, 16:9 landscape. Blend live-action footage of a small kitchen at dusk with hand-drawn luminous animation. The last sunset light lingers at the window. The lived-in kitchen contains an old wooden table, a half-washed mug, a lightly fogged glass bottle, and a hanging dish towel.\n\nShoot as if someone is filming one-handed on a phone: subtle hand tremor, hesitant close-focus pulls, backlit exposure breathing, and slightly coarse noise in the shadows. It should feel like an astonishing event captured in a rush at home, not a carefully dressed commercial.\n\nDo not show giant eyes, split mouths, fangs, threatening behavior, lunges, sudden black frames, or jump scares. Use only room tone, cloth friction, a soft mug clink, faucet drips, the camera operator’s footsteps and quiet breathing, plus gentle electronic tones and tiny vocalizations from the drawn creatures.",
       "prompt_sha256": "2c8493ae5d8b525b1d05321b83e29abb20642ce78dbdecbc55cf8fd39457c484",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -682,7 +524,14 @@
         "references": [],
         "task": "t2va",
         "model_manifest": "models/t2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 7,
+        "source_case": "Hand-Drawn Kitchen Creature",
+        "resolution": "576p",
+        "reason": "A first-person kitchen scene and luminous creatures; no human face is requested."
+      },
+      "previous_results": []
     },
     {
       "case": 8,
@@ -704,9 +553,7 @@
       },
       "prompt": "15 seconds, 16:9 landscape. Combine a live-action late-night laundromat with hand-drawn luminous animation. The small self-service laundromat has gently flickering fluorescent lights, running washers, plastic baskets, a worn bench, and one sock on the floor. Keep the space quiet and faintly nostalgic.\n\nUse a one-handed phone-camera feel with visible shake, exposure fluctuation under white fluorescent light, environmental reflections in glass, and delayed autofocus at close range. Avoid polished commercial composition; it should feel like an authentic late-night encounter, filmed while following a strange apparition.",
       "prompt_sha256": "c39944c7145273c6284493af42032b1c01ef4a120a45d37e5ab1eb310c376544",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -723,7 +570,14 @@
         "references": [],
         "task": "t2va",
         "model_manifest": "models/t2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 8,
+        "source_case": "Neon Laundromat Encounter",
+        "resolution": "576p",
+        "reason": "A first-person laundromat scene; no human face is requested."
+      },
+      "previous_results": []
     },
     {
       "case": 9,
@@ -745,9 +599,7 @@
       },
       "prompt": "Style: dark-pop / cyber-grunge / rap music video with photoreal high-fashion polish and the texture of a scanned film magazine—high contrast without looking cheap. Reference late-1990s to early-2000s indie magazines, photocopies, film scans, underground-music posters, and zine collage. Add coarse grain, subtle gate weave, halftone dots, rough print edges, and slight scan misregistration. Keep the edit fast and use hard cuts only—no fades or soft transitions. Match the typographic treatment and surface texture of the reference images.",
       "prompt_sha256": "37fc53acafcf3682f9a24653f5a78ab9edaf98272ead96b0ec45d14850ccc6be",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -758,7 +610,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0
         },
         "references": [
@@ -785,7 +637,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 9,
+        "source_case": "Cyber-Grunge Rap Music Video",
+        "resolution": "768p",
+        "reason": "The performance reference shows three full-body people together."
+      },
+      "previous_results": []
     },
     {
       "case": 10,
@@ -807,9 +666,7 @@
       },
       "prompt": "Remove the green screen background of Video 1 and turn it into a fairy tale-like background similar to Video 2. The background elements need to completely match the actions of the characters in Video 1. Modify the lighting of the characters in Video 1 so that it completely matches the background.",
       "prompt_sha256": "298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -820,7 +677,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "16:9"
         },
@@ -848,7 +705,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 10,
+        "source_case": "Green-Screen to Fairytale Composite",
+        "resolution": "768p",
+        "reason": "The green-screen reference shows a full-body performer in a wide composition."
+      },
+      "previous_results": []
     },
     {
       "case": 11,
@@ -870,9 +734,7 @@
       },
       "prompt": "Animate the source artwork as a motion poster while preserving its white gallery border, inner frame, red/white/black palette, 3D collectible-figure look, and original layout. Add a light, playful type-on sound whenever text appears.",
       "prompt_sha256": "ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -883,7 +745,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 10.125,
           "aspect_ratio": "9:16"
         },
@@ -901,7 +763,14 @@
         ],
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 11,
+        "source_case": "Animated Gallery Poster",
+        "resolution": "768p",
+        "reason": "A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face."
+      },
+      "previous_results": []
     },
     {
       "case": 12,
@@ -923,9 +792,7 @@
       },
       "prompt": "A 16:9 cinematic wuxia mystery set in a bamboo forest at night. Use a low-saturation palette of cold blue, ink green, charcoal, and gray. Thin mist fills the forest and fine snow drifts through the air. The mood is austere, lethal, and controlled, with the tension of a martial-arts sect investigating a case and exchanging secret intelligence.\n\nDeep in the forest, dense vertical bamboo fills the background while cold white mist-light glows in the distance. Soft, out-of-focus leaves partially obscure the foreground, creating the sense of watching from within the grove. A cool, soft front-side key lights the actors’ faces; backlight keeps the foreground dark and the distance luminous. Use shallow depth of field so leaves, snow, and bamboo dissolve into soft bokeh.\n\nPrioritize facial close-ups and measured shot/reverse-shot coverage. Keep the rhythm restrained but tense. Photoreal period-drama production value, cinematic lighting, and no modern elements. No subtitles, on-screen text, watermarks, modern clothing or architecture, animation styling, over-smoothed skin, bright daylight, or comic performance.",
       "prompt_sha256": "0dcf150c18b257acd4155e32ac37299e5b0dafd3ecdb53b38db1f6dba95e5f68",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -963,7 +830,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 12,
+        "source_case": "Snowy Bamboo Wuxia Mystery",
+        "resolution": "576p",
+        "reason": "Both character references are close shots and the prompt prioritizes facial close-ups."
+      },
+      "previous_results": []
     },
     {
       "case": 13,
@@ -985,9 +859,7 @@
       },
       "prompt": "A 9:16 vertical family-confrontation scene with grounded live-action performances, set in a Chinese family home or small restaurant. Use warm interior light, red decorations and calligraphy in the background, shallow depth of field, intense emotion, and tight pacing.\n\nPerformance: natural short-form drama, never theatrical. Qin Haoxuan argues back with anger, hurt, and urgency. The older woman questions him in a sharp, forceful, relentless tone. Build the confrontation steadily.\n\nShoot mainly in medium-close shots with frequent shot/reverse-shot cutting. Keep the setting lived-in and realistic. No sci-fi, period costume, or animation styling. Do not show subtitles, added text, platform watermarks, or stickers.",
       "prompt_sha256": "21c9bcb34ef6960cd56154295e924d32ee1ef70380a9d6d9017cda8408984d56",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -998,7 +870,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "9:16"
         },
@@ -1026,7 +898,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 13,
+        "source_case": "Vertical Family Confrontation",
+        "resolution": "768p",
+        "reason": "The family scene includes several people, including smaller background faces in the references."
+      },
+      "previous_results": []
     },
     {
       "case": 14,
@@ -1048,9 +927,7 @@
       },
       "prompt": "Create a 15-second, 9:16 live-action vampire-romance teaser for an international short-drama audience. Use Image 1 for the leads’ appearance and Image 2 for the setting. Preserve both identities throughout and maintain premium live-action production value.\n\nStory: an innocent human woman strays into a forbidden wing of an old castle and awakens a sleeping vampire noble. He senses that she carries a trace of an ancient war, which sparks dangerous fascination and a possessive need for control. She fears him but refuses to submit completely and pushes back against his dominance.\n\nStyle: ReelShort / DramaBox vampire romance—darkly romantic, fate-bound, oppressive, and charged with dangerous attraction, with a strong hook and a high-impact turn. Keep it polished, restrained, and tightly paced like the opening 15 seconds of a breakout series. No gore, cheap horror, Halloween styling, or modern street aesthetic.\n\nCompose for TikTok / ReelShort / DramaBox. Favor medium-close shots, close-ups, and extreme close-ups that emphasize faces, eye contact, pressure, and relationship tension.",
       "prompt_sha256": "827bd2ba944e3559c3e04161d591b452bcaeda079c67761f14608b4823aa774a",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1061,7 +938,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "9:16"
         },
@@ -1089,7 +966,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 14,
+        "source_case": "Vampire Romance Short Drama",
+        "resolution": "768p",
+        "reason": "The castle story and full-body cast references allow wider two-person shots despite a preference for close-ups."
+      },
+      "previous_results": []
     },
     {
       "case": 15,
@@ -1112,7 +996,7 @@
       "prompt": "Create a premium 9:16 fashion-eyewear commercial. Match the reference video’s shot rhythm, edit speed, white-cyclorama look, and severe fashion attitude. Use a seamless minimal white studio with clean, bold, avant-garde art direction worthy of a global luxury campaign.\n\nUse Image 1 for the key visual: two full-body female models, one Black and one white, preserving their elevated wardrobe, body language, studio lighting, runway presence, and cool attitude. Use Image 2 for facial details. Both models wear futuristic luxury eyewear based on Image 3: wraparound curved lenses, a sharp cat-eye/goggle hybrid silhouette, mirrored reflections, streamlined temples, and the finish of a premium fashion accessory.",
       "prompt_sha256": "1db86fdac7101bd4db43c288b632c94ce2996c732598b9b1b6dd3da95cc848ce",
       "notes": [
-        "The source prompt mentions a reference video that is not supplied on the page."
+        "This local request uses the three published reference images. The source prompt also mentions a reference video that the page does not provide; that input is missing."
       ],
       "reproduction": {
         "configuration_state": "planned",
@@ -1124,7 +1008,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "9:16"
         },
@@ -1162,7 +1046,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 15,
+        "source_case": "Futuristic Eyewear Campaign",
+        "resolution": "768p",
+        "reason": "The prompt explicitly requests two full-body models in a portrait fashion campaign."
+      },
+      "previous_results": []
     },
     {
       "case": 16,
@@ -1184,9 +1075,7 @@
       },
       "prompt": "Product Feature Visualization\n\nPresent a black Herman Miller ergonomic chair in a premium office with a full 360-degree product reveal. Cut to macro views of the breathable mesh back with airflow visualization, an engineering animation of the lumbar support and ergonomic curve, and demonstrations of multidirectional armrest and seat-height adjustment. Show designers, developers, and creative professionals working comfortably over long sessions. Include a 3D skeletal-support visualization that communicates all-day comfort, plus refined interior styling. End with the line: “WHERE INSPIRATION MEETS COMFORT.” Keep the direction minimal, cool-toned, professional, futuristic, and slow-paced. Use Image 1 for feature details and Image 2 for the product.",
       "prompt_sha256": "bb76e90afeba94aa3e9a083424909c0fac85fecbbd12090b7cb0f3e89542ab0c",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1197,7 +1086,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "9:16"
         },
@@ -1225,7 +1114,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 16,
+        "source_case": "Ergonomic Chair Product Film",
+        "resolution": "768p",
+        "reason": "Office workers appear in product and interior demonstrations rather than face-only shots."
+      },
+      "previous_results": []
     },
     {
       "case": 17,
@@ -1247,9 +1143,7 @@
       },
       "prompt": "Use Image 1 for the character and Image 2 for the UI style.\n\n[0–2 seconds] High-angle overhead shot. The character sits on a vivid, highly saturated purple floor, looks up at camera, and matches Image 1. A game menu appears on the right: START NEW GAME, CONTINUE (highlighted), SETTINGS, EXIT GAME. Player profile MINIMAX appears top left. The cursor selects CONTINUE.\n\n[2–4 seconds] Smoothly push in to her right arm. A RIGHT ARM EQUIPMENT panel slides in from the right. PHANTOM GRIP is selected, then the selection moves to CHRONOS CLAW. Her mechanical hand reconfigures: fingers separate, new claw-like joints lock into place, and cyan LEDs flare brighter.\n\n[4–7 seconds] Arc smoothly to her left. An ARMAMENT CUSTOMIZATION grid slides in, showing hand, forearm, elbow, and upper-arm components. The selector cycles rapidly. Her left arm disassembles section by section: the forearm plate releases, new armor slides in, the elbow joint swaps, and the hand reconfigures, with exposed wiring and pistons visible during the change.\n\n[7–8.5 seconds] Pull back to a medium shot. CONFIRM CONFIG flashes; click it. All UI panels collapse inward and vanish. She uncrosses her legs and settles into a relaxed seated pose with one knee raised, lifting the prosthetic hand for a subtle post-configuration movement.\n\n[8.5–10 seconds] A LOADING bar appears along the bottom and races from 0% to 100%. The saturated purple environment darkens as shadows creep inward and warm golden light begins to bleed through.\n\n[10–15 seconds] As she stands, the full world loads around her: a dense cyberpunk slum with flickering neon, rain-wet streets, moving crowds, passing motorcycles, tangled overhead cables, and stacked buildings stretching toward futuristic towers. Settle into a third-person camera behind her. HUD elements fade in: minimap top right, health and ammo bottom left, then a mission marker. She steps into the street.",
       "prompt_sha256": "fb5af89c4976e8d8997cf308133db83667a92ddc622cca1aeab28d491206eb26",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1260,7 +1154,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0
         },
         "references": [
@@ -1287,7 +1181,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 17,
+        "source_case": "Interactive Game Equipment UI",
+        "resolution": "768p",
+        "reason": "An overhead full-body character, UI panels and later moving crowds share the frame."
+      },
+      "previous_results": []
     },
     {
       "case": 18,
@@ -1309,9 +1210,7 @@
       },
       "prompt": "Create a dynamic product-landing-page UI/UX demo inspired by Nike’s digital language, built around the product in Image 1. Use oversized, bold, italicized sans-serif typography and backgrounds that combine speed-driven light streaks with dark carbon fiber or breathable performance-mesh textures. Show a smooth, fast, powerful scroll through the page, plus high-impact hover interactions with scale-ups and color inversion.",
       "prompt_sha256": "2578d9d08290a607366750d77701af5743251ab3fb3eeb96be58d050ced4b2b8",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1339,7 +1238,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 18,
+        "source_case": "Nike-Style Product Landing Page",
+        "resolution": "576p",
+        "reason": "Shoe product and web UI; no face is requested."
+      },
+      "previous_results": []
     },
     {
       "case": 19,
@@ -1361,9 +1267,7 @@
       },
       "prompt": "Animate the website UI: the top headline slides down into place, the copy panel below slides up, and the car’s lights shift from dark to red.",
       "prompt_sha256": "e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1392,7 +1296,14 @@
         ],
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 19,
+        "source_case": "Automotive Website UI Animation",
+        "resolution": "576p",
+        "reason": "Automotive website UI; no face is requested."
+      },
+      "previous_results": []
     },
     {
       "case": 20,
@@ -1414,9 +1325,7 @@
       },
       "prompt": "Reveal the layout from top to bottom. Upper and center typography slides down; lower typography slides up. Once the central product appears, let it rotate subtly.",
       "prompt_sha256": "ff6ed31116ebd28553e8ee1e1b2b20834437dae7b167fb46232b44727d6dec0d",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1445,7 +1354,14 @@
         ],
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 20,
+        "source_case": "Rotating Product Page Reveal",
+        "resolution": "576p",
+        "reason": "Product layout and rotation; no face is requested."
+      },
+      "previous_results": []
     },
     {
       "case": 21,
@@ -1467,9 +1383,7 @@
       },
       "prompt": "Claymation. A fox sprints to the edge of a cliff and launches without hesitation, making a dramatic heroic leap in slow motion over an immense lava canyon. Midair, the camera races beneath the fox’s belly in a bold dynamic move, revealing the terrifying depth of the chasm and the fully extended motion of its clay body.",
       "prompt_sha256": "16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1480,7 +1394,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 10.125,
           "aspect_ratio": "16:9"
         },
@@ -1498,7 +1412,14 @@
         ],
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 21,
+        "source_case": "Claymation Lava Canyon Leap",
+        "resolution": "768p",
+        "reason": "A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces."
+      },
+      "previous_results": []
     },
     {
       "case": 22,
@@ -1520,9 +1441,7 @@
       },
       "prompt": "Use Image 2 as the locked character reference. Preserve the half-up long black hair, openwork silver crown, indigo ribbon, layered pale hanfu, translucent blue outer robe, deep-blue sash, silver floral fastener, and long tassels. Use Image 1 for storyboard order and pacing.\n\nRender in high-quality 4K, 16:9 Chinese-inspired 3D with cinematic xianxia production value: intense, solemn, and shaped by destiny. Follow the storyboard beat by beat, with natural camera movement and seamless transitions—never a slideshow. Show the face only in close-up or extreme close-up. In wide shots, use back view, rear three-quarter view, or empty environment shots; never show a distant frontal face.",
       "prompt_sha256": "399c27bb4cf0b859e46cdcba2a2f94035aa79c6e26ee5df1602e58e5a996cbb2",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1560,7 +1479,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 22,
+        "source_case": "Fantasy Wuxia Character Film",
+        "resolution": "576p",
+        "reason": "The prompt explicitly permits faces only in close-up or extreme close-up and excludes distant frontal faces."
+      },
+      "previous_results": []
     },
     {
       "case": 23,
@@ -1582,9 +1508,7 @@
       },
       "prompt": "Create a character promo for a male lead in an otome game. Use Image 2 as a strict identity reference. Preserve the same face, hairstyle, body proportions, costume design, material detail, and polished otome-CG aesthetic throughout.",
       "prompt_sha256": "1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1595,7 +1519,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0
         },
         "references": [
@@ -1622,7 +1546,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 23,
+        "source_case": "Otome Male Lead Character Promo",
+        "resolution": "768p",
+        "reason": "The identity sheet includes full-body poses and the character promo does not prohibit wide shots."
+      },
+      "previous_results": []
     },
     {
       "case": 24,
@@ -1644,9 +1575,7 @@
       },
       "prompt": "Camera: first-person, eye level, handheld gameplay. Simulate a player operating a modern-warfare FPS, holding an assault rifle and advancing slowly around the perimeter of a military base. Move forward along a road beside cover, sweep the reticle across the passage ahead, pause to fire several rounds at a distant target, then continue pushing forward like authentic player-controlled footage.\n\nLighting: cool natural light across a modern military base, mixed with smoke and firelight. Keep the image photoreal and crisp, with AAA-quality weapons, materials, dust, and battlefield haze.\n\nCamera movement: subtle player-driven sway while moving; begin with a slow advance, make small checks left and right, add light recoil when firing, then continue forward steadily.",
       "prompt_sha256": "8269db178995115adc4d1102c27226315924ca4d8f5be7525858885b6f6bc15a",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1675,7 +1604,14 @@
         ],
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 24,
+        "source_case": "First-Person Tactical Gameplay",
+        "resolution": "576p",
+        "reason": "First-person gameplay with a weapon and distant targets; facial detail is not requested."
+      },
+      "previous_results": []
     },
     {
       "case": 25,
@@ -1697,9 +1633,7 @@
       },
       "prompt": "Interactive Otome Game\n\nUse the first image as the exact opening frame and the second as the exact ending frame. Create a transition within a premium Chinese otome visual-novel interface, capturing an intimate backstage moment before and after a performance. Move naturally from “Choose to watch his performance” to “Han Xu reacts with intrigued interest after hearing the heroine.” Reveal UI copy, choices, and dialogue boxes with refined otome-game motion design. Keep transitions fluid and the romantic tension suggestive but restrained.",
       "prompt_sha256": "cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1710,7 +1644,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "16:9"
         },
@@ -1738,7 +1672,14 @@
         ],
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 25,
+        "source_case": "Interactive Otome Game Transition",
+        "resolution": "768p",
+        "reason": "The character shares a landscape frame with the interface and surroundings; conservatively protect the face."
+      },
+      "previous_results": []
     },
     {
       "case": 26,
@@ -1760,9 +1701,7 @@
       },
       "prompt": "Character-Driven Scene\n\nUse Image 1 for the male lead. Photoreal, cinematic live action, framed in a frontal close shot that stays on the leads’ upper bodies. Keep the woman’s face mostly out of frame; she wears a backless, midriff-baring red dress, with only occasional details of her neck, shoulders, arms, waist, hem, and hands. The man wears an impeccably tailored black dress shirt.\n\nSet the scene in the intimate red-and-black interior from Image 2: dim, low-saturation, luxurious, and restrained, with a softly defocused background. A red velvet sofa, black-and-gold marble side table, and warm low light create a mature, charged date-night atmosphere.\n\nThe man lounges on the red velvet sofa, leaning back with effortless composure. Beside him sits a cut-crystal tumbler holding amber whiskey and slowly melting ice, with fine condensation on the glass. Sound design: ice lightly tapping crystal, a faint cigar burn, subtle room air, clothing movement, and controlled breathing.",
       "prompt_sha256": "6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1800,7 +1739,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 26,
+        "source_case": "Character-Driven Romantic Scene",
+        "resolution": "576p",
+        "reason": "The prompt explicitly fixes a frontal close shot of the upper bodies, with the woman’s face mostly out of frame."
+      },
+      "previous_results": []
     },
     {
       "case": 27,
@@ -1823,7 +1769,7 @@
       "prompt": "Use Images 1–6 as assets. Match Reference Video 1 closely for shot rhythm, transition language, and music.",
       "prompt_sha256": "410672b643b0c5c295fdc02812bdbea85b6a2ec2660569bc7061ceabd49bd684",
       "notes": [
-        "This case is waiting for the local generation worker."
+        "The source output is shorter than the runtime’s five-second minimum. The local request is five seconds long."
       ],
       "reproduction": {
         "configuration_state": "planned",
@@ -1835,7 +1781,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 5.0,
           "aspect_ratio": "16:9"
         },
@@ -1913,7 +1859,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 27,
+        "source_case": "Multi-Asset Cinematic Remix",
+        "resolution": "768p",
+        "reason": "The asset sequence includes full-body jumps, action shots and smaller faces within wide compositions."
+      },
+      "previous_results": []
     },
     {
       "case": 28,
@@ -1935,9 +1888,7 @@
       },
       "prompt": "Preserve the buildings, pedestrians, and overall environment in Video 1 as photoreal live action. Transform only the trees and cars into 3D pixel-art or voxel-block objects in the style of Minecraft, using Image 1 as the visual reference. Keep their motion physically correct, and preserve the real environment’s shadows and transmitted light. Use Video 2 as the overall target.",
       "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -1948,7 +1899,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "16:9"
         },
@@ -1986,7 +1937,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 28,
+        "source_case": "Live-Action Voxel Transformation",
+        "resolution": "768p",
+        "reason": "The prompt preserves pedestrians in a wide street scene."
+      },
+      "previous_results": []
     },
     {
       "case": 29,
@@ -2008,9 +1966,7 @@
       },
       "prompt": "@Image 1: Push in rapidly toward the milk foam, cocoa particles, and dark liquid texture on the coffee until particles, bubbles, and ripples fill the frame. Keep the macro photography realistic, with extremely shallow depth of field and fine powder drifting through backlight. Let the surface feel suspended between granular sand and fluid.\n\nAt the exact moment when the cocoa particles, foam contours, and coffee swirl closely resemble the dune ridges, wind-carved textures, and airborne sand in @Image 2, transition seamlessly into the desert landscape. Continue pushing forward until the full dunes from @Image 2 are revealed.\n\nNo tearing, black frames, hard cuts, obvious VFX, or compositing seams. Keep it photoreal, quiet, and restrained—as though one granular material naturally expands from the microscopic coffee surface into a vast desert. One continuous shot with no visible edit.",
       "prompt_sha256": "9f8827d7bd8cc8ac6339809d33337d9ecfbb7f4ea08e5993503f9d2240765b5e",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2048,7 +2004,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 29,
+        "source_case": "Macro Coffee-to-Fluid Transition",
+        "resolution": "576p",
+        "reason": "Macro coffee textures transitioning into dunes; no face is requested."
+      },
+      "previous_results": []
     },
     {
       "case": 30,
@@ -2070,9 +2033,7 @@
       },
       "prompt": "Match the character motion, expressions, and performance timing in Image 1 closely to Input Video 1.\n\nAt the sink on the right side of frame, the man hands a washed plate to the woman on the left. He turns, then suddenly flicks dish-soap foam at her with his right hand. Startled, she immediately retaliates. They laugh, dodge, and playfully throw foam back and forth.",
       "prompt_sha256": "3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2083,7 +2044,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "16:9"
         },
@@ -2111,7 +2072,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 30,
+        "source_case": "Character Swap with Performance Reference",
+        "resolution": "768p",
+        "reason": "Two performers move and interact in a kitchen with their upper bodies and surroundings visible."
+      },
+      "previous_results": []
     },
     {
       "case": 31,
@@ -2133,9 +2101,7 @@
       },
       "prompt": "Use Video 1 as the motion reference for a street-dance performance. Use Images 1 and 2 as the character references.",
       "prompt_sha256": "88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2146,7 +2112,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 10.125,
           "aspect_ratio": "16:9"
         },
@@ -2184,7 +2150,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 31,
+        "source_case": "Street Dance Motion Transfer",
+        "resolution": "768p",
+        "reason": "Full-body street-dance framing makes the performer’s face small."
+      },
+      "previous_results": []
     },
     {
       "case": 32,
@@ -2206,9 +2179,7 @@
       },
       "prompt": "Motion reference for a DIY reaction clip\n\nMatch the action in Video 1 from a locked-off wide camera. Replace the three suited men with three highly photoreal capybaras. Preserve the original movement path exactly: all three drop quickly to the floor; the left capybara jumps to center; the center capybara rolls to the far left; the new center capybara rolls to the far right; the right capybara jumps to center; finally, the center capybara jumps onto the other two, forming a pyramid. Keep the camera fixed and integrate fur, lighting, and shadows realistically into the scene.",
       "prompt_sha256": "c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2219,7 +2190,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 6.583333333333333,
           "aspect_ratio": "16:9"
         },
@@ -2237,7 +2208,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 32,
+        "source_case": "Capybara Motion Recreation",
+        "resolution": "768p",
+        "reason": "Three capybaras share a locked wide shot; conservatively include small animal faces."
+      },
+      "previous_results": []
     },
     {
       "case": 33,
@@ -2259,9 +2237,7 @@
       },
       "prompt": "The character says: “Follow the wind, live free. Leave worries behind, enjoy the moment.” Match the voice in Audio 1.",
       "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2272,7 +2248,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 10.125,
           "aspect_ratio": "16:9"
         },
@@ -2300,7 +2276,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 33,
+        "source_case": "Voice Clone Dialogue Transfer",
+        "resolution": "768p",
+        "reason": "The video reference shows a performer in a wide pastoral setting while dialogue must remain readable."
+      },
+      "previous_results": []
     },
     {
       "case": 34,
@@ -2322,9 +2305,7 @@
       },
       "prompt": "Replace the cat in the video with a dog.",
       "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2335,7 +2316,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 6.583333333333333,
           "aspect_ratio": "16:9"
         },
@@ -2353,7 +2334,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 34,
+        "source_case": "Cat-to-Dog Replacement",
+        "resolution": "768p",
+        "reason": "A human and an animal share the reference frame; conservatively retain detail during the replacement."
+      },
+      "previous_results": []
     },
     {
       "case": 35,
@@ -2375,9 +2363,7 @@
       },
       "prompt": "Add one person on the left side of frame wearing the same team uniform and moving in sync with the others.",
       "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2388,7 +2374,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 6.583333333333333,
           "aspect_ratio": "16:9"
         },
@@ -2406,7 +2392,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 35,
+        "source_case": "Add a Character in Sync with the Others",
+        "resolution": "768p",
+        "reason": "Several full-body teammates share a wide outdoor shot."
+      },
+      "previous_results": []
     },
     {
       "case": 36,
@@ -2428,9 +2421,7 @@
       },
       "prompt": "Precise Subject and Wardrobe Replacement\n\nReplace the child at the back of Video 1 with the golden retriever from Image 1. Replace the khaki jacket worn by the child on the far left with the denim jacket from Image 2.",
       "prompt_sha256": "a9c4dff40108113848e4444d9ffe36dfc04d5b628c02eb5dcec27e1025e6a1e9",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2441,7 +2432,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 6.583333333333333,
           "aspect_ratio": "16:9"
         },
@@ -2479,7 +2470,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 36,
+        "source_case": "Subject & Wardrobe Replacement",
+        "resolution": "768p",
+        "reason": "Multiple children at different depths remain visible during the character and wardrobe replacements."
+      },
+      "previous_results": []
     },
     {
       "case": 37,
@@ -2501,9 +2499,7 @@
       },
       "prompt": "Remove the green-screen background from Video 1 and replace it with a fairy-tale environment similar to Video 2. Make every background element respond correctly to the subject’s movement, and relight the subject so they blend naturally into the new scene.",
       "prompt_sha256": "95a67f3b18356633c17d67bf853a386e000d298053a29052cc440ec170a80d83",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2514,7 +2510,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "16:9"
         },
@@ -2542,7 +2538,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 37,
+        "source_case": "Green-Screen Environment Replacement",
+        "resolution": "768p",
+        "reason": "The green-screen reference shows a full-body performer in a wide composition."
+      },
+      "previous_results": []
     },
     {
       "case": 38,
@@ -2564,9 +2567,7 @@
       },
       "prompt": "Relighting\n\nChange the lighting in the reference video from daytime to night.",
       "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2577,7 +2578,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 6.583333333333333,
           "aspect_ratio": "16:9"
         },
@@ -2595,7 +2596,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 38,
+        "source_case": "Day-to-Night Relighting",
+        "resolution": "768p",
+        "reason": "The cafe scene includes smaller background pedestrians as well as the foreground person."
+      },
+      "previous_results": []
     },
     {
       "case": 39,
@@ -2617,9 +2625,7 @@
       },
       "prompt": "Live-action environment replacement\n\nReplace the view outside the window in Video 1 with Image 1.",
       "prompt_sha256": "ae56b357144f6b97d6bb3f0eec7dfa8edb5f7f607d760fe0c80b59e750b11b22",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2630,7 +2636,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 6.583333333333333,
           "aspect_ratio": "16:9"
         },
@@ -2658,7 +2664,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 39,
+        "source_case": "Window View Replacement",
+        "resolution": "768p",
+        "reason": "The dim interior and window share the reference frame with a person; conservatively protect the face."
+      },
+      "previous_results": []
     },
     {
       "case": 40,
@@ -2680,9 +2693,7 @@
       },
       "prompt": "In Video 1, replace the woman’s line—“There’s no way we can be together. It’s not that I don’t love you; we simply can’t make it to the end.”—with the line from Audio 1: “Please don’t go. This time, let’s not let each other go.” Adjust the performance subtly to match the new dialogue.",
       "prompt_sha256": "4cf1ddd988682b78b31a000fdaa2eab5253659211a995098a3319b7e4ab00686",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2721,7 +2732,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 40,
+        "source_case": "Dialogue & Performance Replacement",
+        "resolution": "576p",
+        "reason": "The dialogue reference is a frontal face close-up and the prompt requests only a subtle performance adjustment."
+      },
+      "previous_results": []
     },
     {
       "case": 41,
@@ -2743,9 +2761,7 @@
       },
       "prompt": "In the reference video: replace the newspaper with a green hardcover book; replace the chair with a red sofa; remove the subject’s sunglasses and reveal a clear face; remove the burning-car effect and restore the vehicle to normal; replace the photograph taken from the coat with a small black notebook; and add a tree on the left side of frame.",
       "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2756,7 +2772,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 10.125,
           "aspect_ratio": "16:9"
         },
@@ -2774,7 +2790,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 41,
+        "source_case": "Multi-Element Scene Editing",
+        "resolution": "768p",
+        "reason": "A seated full-body subject in a wide scene must reveal a clear face after the sunglasses are removed."
+      },
+      "previous_results": []
     },
     {
       "case": 42,
@@ -2796,9 +2819,7 @@
       },
       "prompt": "In the reference video, replace the canned drink shown at the beginning with Coca-Cola. Change the illuminated “FamilyMart” convenience-store sign in the background to “HUHUI.” At the end, replace every snack in the plastic bag with cans of Coca-Cola, and change the final line from “I bought a few snacks” to “I bought a whole bunch of Coke.”",
       "prompt_sha256": "8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2809,7 +2830,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "16:9"
         },
@@ -2827,7 +2848,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 42,
+        "source_case": "Product, Sign & Dialogue Replacement",
+        "resolution": "768p",
+        "reason": "The person shares the scene with a product, shop sign and bag; the framing is not limited to close-ups."
+      },
+      "previous_results": []
     },
     {
       "case": 43,
@@ -2849,9 +2877,7 @@
       },
       "prompt": "Two magicians stand onstage facing the audience and perform a “swap” illusion. They wave their wands simultaneously and smoke rises. When it clears, their suit colors have exchanged: the magician on the left now wears white, and the one on the right now wears black. Their glove colors do not change. They bow; the red curtain closes behind them and gradually shifts from deep red to dark blue.",
       "prompt_sha256": "25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2862,7 +2888,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 6.583333333333333,
           "aspect_ratio": "16:9"
         },
@@ -2880,7 +2906,14 @@
         ],
         "task": "fl2va",
         "model_manifest": "models/fl2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 43,
+        "source_case": "Precision Costume Swap",
+        "resolution": "768p",
+        "reason": "Two full-body magicians share a wide stage shot."
+      },
+      "previous_results": []
     },
     {
       "case": 44,
@@ -2902,9 +2935,7 @@
       },
       "prompt": "Creative interpretation + animated graphic effects\n\nAdd orange-yellow hand-drawn marks like Image 1 around the two people in Video 1. As they move closer, the marks multiply and build from tiny sparks into bright radiance. When they kiss, introduce pink brushstrokes.",
       "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
-      "notes": [
-        "This case is waiting for the local generation worker."
-      ],
+      "notes": [],
       "reproduction": {
         "configuration_state": "planned",
         "runtime": {
@@ -2915,7 +2946,7 @@
         },
         "parameters": {
           "seed": 42,
-          "resolution": "576p",
+          "resolution": "768p",
           "duration": 15.0,
           "aspect_ratio": "9:16"
         },
@@ -2943,7 +2974,14 @@
         ],
         "task": "ref2va",
         "model_manifest": "models/ref2va.json"
-      }
+      },
+      "resolution_policy": {
+        "number": 44,
+        "source_case": "Hand-Drawn Romance VFX",
+        "resolution": "768p",
+        "reason": "Two moving people share the romantic scene; conservatively protect both faces during the approach."
+      },
+      "previous_results": []
     }
   ]
 }

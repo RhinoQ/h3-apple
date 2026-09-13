@@ -3,7 +3,7 @@
   "title": "A jump into deep space",
   "source_case": "Epic Space Opera Teaser",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-  "status": "queued",
+  "status": "generated",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -20,7 +20,7 @@
   "prompt_sha256": "79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev3+guide2",
       "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -29,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "768p",
+      "resolution": "576p",
       "duration": 15.0,
       "aspect_ratio": "16:9"
     },
@@ -48,15 +48,54 @@
     "task": "fl2va",
     "model_manifest": "models/fl2va.json"
   },
-  "resolution_policy": {
-    "number": 2,
-    "source_case": "Epic Space Opera Teaser",
-    "resolution": "768p",
-    "reason": "The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups."
+  "seed": 42,
+  "started_utc": "2026-09-13T13:29:47.018178+00:00",
+  "elapsed_seconds": 1853.6021932079457,
+  "actual_nfe": 4,
+  "video_sha256": "6f60443c877f06396aa1291cd19d4b939e2c2bbedf9407dcf1c92f7d42ab9d83",
+  "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+  "timings_seconds": {
+    "conditioning": 18.022960833040997,
+    "denoise": 1730.1479919999838,
+    "video_decode": 100.65944937500171,
+    "audio_decode": 1.19648841698654,
+    "mux": 1.1557684999424964
   },
-  "previous_results": [
+  "peak_memory_gib": {
+    "conditioning": 3.0311651565134525,
+    "denoise": 37.35566523484886,
+    "video_decode": 18.148474145680666,
+    "audio_decode": 2.7442820630967617,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 15.0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-fl2va-guide1",
+    "task": "fl2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
+  "input_hashes": [
     {
-      "record": "records/02-576p-6f60443c877f.json"
+      "kind": "keyframe",
+      "anchor": "first",
+      "sha256": "405480fab8267c46b768f58bf98e16a9f0bdfe07d1380ae18c3ffc3d8704bd02",
+      "size": 57782
     }
-  ]
+  ],
+  "runtime_version": "0.1.0.dev3+guide2",
+  "attention": "dense",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/02-output.mp4",
+    "poster": "media/02-poster.jpg"
+  },
+  "archived_record": "records/02-576p-6f60443c877f.json"
 }

@@ -18,9 +18,7 @@
   },
   "prompt": "Replace the cat in the video with a dog.",
   "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 6.583333333333333,
       "aspect_ratio": "16:9"
     },
@@ -49,5 +47,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 34,
+    "source_case": "Cat-to-Dog Replacement",
+    "resolution": "768p",
+    "reason": "A human and an animal share the reference frame; conservatively retain detail during the replacement."
+  },
+  "previous_results": []
 }

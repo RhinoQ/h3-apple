@@ -18,9 +18,7 @@
   },
   "prompt": "Animate the website UI: the top headline slides down into place, the copy panel below slides up, and the car’s lights shift from dark to red.",
   "prompt_sha256": "e79f8d0d126e23b0d1765bc163e7ab9144f4a07732c271d8cc48cbc61ec99eb1",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -49,5 +47,12 @@
     ],
     "task": "fl2va",
     "model_manifest": "models/fl2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 19,
+    "source_case": "Automotive Website UI Animation",
+    "resolution": "576p",
+    "reason": "Automotive website UI; no face is requested."
+  },
+  "previous_results": []
 }

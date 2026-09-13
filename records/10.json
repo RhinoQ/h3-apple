@@ -18,9 +18,7 @@
   },
   "prompt": "Remove the green screen background of Video 1 and turn it into a fairy tale-like background similar to Video 2. The background elements need to completely match the actions of the characters in Video 1. Modify the lighting of the characters in Video 1 so that it completely matches the background.",
   "prompt_sha256": "298c8f46eea1c80fa3eb0c4d343a428c9968f3a4a3d916d7918f76a9e22ea98c",
-  "notes": [
-    "This case is waiting for the local generation worker."
-  ],
+  "notes": [],
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
@@ -31,7 +29,7 @@
     },
     "parameters": {
       "seed": 42,
-      "resolution": "576p",
+      "resolution": "768p",
       "duration": 15.0,
       "aspect_ratio": "16:9"
     },
@@ -59,5 +57,12 @@
     ],
     "task": "ref2va",
     "model_manifest": "models/ref2va.json"
-  }
+  },
+  "resolution_policy": {
+    "number": 10,
+    "source_case": "Green-Screen to Fairytale Composite",
+    "resolution": "768p",
+    "reason": "The green-screen reference shows a full-body performer in a wide composition."
+  },
+  "previous_results": []
 }
