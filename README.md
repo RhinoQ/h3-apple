@@ -192,6 +192,11 @@ every M5 Mac can run H3. Machines below 64 GiB are rejected before loading model
 | Model preparation | 64 GiB | Full reconstruction passed at 64 GiB; all 35 model files matched | 31.18 GiB |
 | 768p / longer than 5 seconds, up to 15 seconds | 96 GiB | One 15-second prompt passed at 96 GiB | 56.27 GiB |
 
+These budget measurements cover text generation. [Ref2VA](docs/ref2va.md)
+currently has case validation on M5 Max / 128 GiB at 576p; its encoders and
+reference segments add memory and storage requirements that are not covered
+by the text-only budgets below.
+
 A **768p / 15-second attempt failed at 64 GiB**, exceeding the test's swap-growth
 limit; it produced no completed video. On a 64 GiB Mac, start with `--duration 5`
 or use `--resolution 576p` for a 15-second video. The entry returns these smaller

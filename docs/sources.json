@@ -244,7 +244,7 @@
       "changes": [
         "Image-only native presentation, integer three-axis position IDs, and lazy official Transformers CPU vision tower with streamed native weights.",
         "Encoder-only original H3 VAE loader; sampled keyframe latents use native tiling, CPU posterior seed 42, FP16 roundtrip and latent normalization.",
-        "Experimental primitives; image-plus-audio, video references and public Ref2VA generation are not qualified."
+        "Image-only primitives used by the public Ref2VA route; tested cases and limits are recorded in docs/ref2va.md. Image-plus-audio and video references remain unqualified."
       ]
     },
     {

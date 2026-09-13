@@ -72,12 +72,17 @@ def test_model_task_mismatch_is_rejected_before_launch(tmp_path, monkeypatch):
 
 
 def test_reference_inputs_are_snapshotted_in_order(tmp_path, monkeypatch):
+    import importlib.util
     from PIL import Image
     from h3_apple.io import digest
     paths = [tmp_path / "second.png", tmp_path / "first.png"]
     for path, color in zip(paths, ["red", "blue"]):
         Image.new("RGB", (32, 32), color).save(path)
     request = resolve("Picture 1 then picture 2", reference_images=paths)
+    # This test captures a job specification; it never runs either image encoder.
+    find_spec = importlib.util.find_spec
+    monkeypatch.setattr(importlib.util, "find_spec", lambda name:
+                        object() if name in ("torch", "torchvision") else find_spec(name))
     worker = tmp_path / "worker.py"
     worker.write_text("import json,sys,pathlib\nspec=json.loads(sys.stdin.readline())\n"
                       "pathlib.Path(spec['workspace'],'received.json').write_text(json.dumps(spec))\n"
@@ -99,3 +104,15 @@ def test_reference_inputs_are_snapshotted_in_order(tmp_path, monkeypatch):
         assert Path(snapshot).parent == Path(record["workspace"])
         assert Path(snapshot).read_bytes() == source.read_bytes()
         assert record["reference_inputs"][index]["sha256"] == digest(source)
+
+
+def test_missing_reference_extra_is_rejected_before_launch(tmp_path, monkeypatch):
+    import importlib.util
+    from PIL import Image
+    path = tmp_path / "image.png"
+    Image.new("RGB", (32, 32)).save(path)
+    monkeypatch.setattr(runner, "load_assets", lambda _: dict(identity="fixture", task="ref2va"))
+    monkeypatch.setattr(importlib.util, "find_spec", lambda _: None)
+    with pytest.raises(RuntimeError, match="install.sh --ref2va"):
+        runner.run_generation(resolve("Text", reference_images=[path]), output=tmp_path / "output.mp4")
+    assert not (tmp_path / "output.run.json").exists()

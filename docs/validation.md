@@ -5,7 +5,16 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-The current **0.1.0.dev1** preview corrects the documented `GenerationRequest`
+The current development build, **0.1.0.dev2**, adds ordered Ref2VA image input
+and terminal progress. Its installed wheel passed **183 tests** and three
+complete public-CLI regressions: one reference image, four reference images,
+and text generation. All three MP4 files match their recorded baselines byte
+for byte; all 60 baseline diagnostic arrays across the two Ref2VA cases are
+identical. See the [integration report](../benchmarks/results/ref2va-integration-01/README.md)
+for exact inputs, weights, source identity, timings and qualification limits.
+This is a local integration result, not a new published software release.
+
+The published **0.1.0.dev1** preview corrects the documented `GenerationRequest`
 import path and adds upstream acknowledgments. Relative to `v0.1.0.dev0`, the
 only Python changes are package and CLI version strings. Generation code,
 model assets, recipes, and environment locks are unchanged. This documentation
