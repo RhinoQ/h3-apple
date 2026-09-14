@@ -3,7 +3,7 @@
   "title": "Artwork in motion",
   "source_case": "Animated Gallery Poster",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster",
-  "status": "paused",
+  "status": "queued",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -22,10 +22,10 @@
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
-      "version": "0.1.0.dev3+guide2",
-      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
-      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
-      "directory": "h3-apple-guide2"
+      "version": "0.1.0.dev6+flvsa2",
+      "commit": "173c69512badad919e023648483ae010bbe564a5",
+      "source_sha256": "3405748b65856b202ae550693ba34f155015197ac6eeab1f07f7aec736cff769",
+      "directory": "h3-apple-flvsa2"
     },
     "parameters": {
       "seed": 42,
@@ -54,6 +54,5 @@
     "resolution": "768p",
     "reason": "A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face."
   },
-  "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
   "previous_results": []
 }
