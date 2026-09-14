@@ -3,7 +3,7 @@
   "title": "After sunset",
   "source_case": "Day-to-Night Relighting",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 1,
