@@ -4,9 +4,9 @@
   "status_counts": {
     "generated": 25,
     "paused": 8,
-    "failed": 1,
+    "failed": 2,
     "running": 1,
-    "queued": 9
+    "queued": 8
   },
   "cases": [
     {
@@ -3682,7 +3682,7 @@
       "title": "A different companion",
       "source_case": "Cat-to-Dog Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement",
-      "status": "running",
+      "status": "failed",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -3740,7 +3740,7 @@
       "title": "One more teammate",
       "source_case": "Add a Character in Sync with the Others",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 0,
         "videos": 1,

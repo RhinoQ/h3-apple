@@ -3,7 +3,7 @@
   "title": "A different companion",
   "source_case": "Cat-to-Dog Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement",
-  "status": "running",
+  "status": "failed",
   "required_inputs": {
     "images": 0,
     "videos": 1,
