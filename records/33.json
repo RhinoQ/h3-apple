@@ -3,7 +3,7 @@
   "title": "A different voice",
   "source_case": "Voice Clone Dialogue Transfer",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 0,
     "videos": 1,
@@ -20,7 +20,7 @@
   "prompt_sha256": "2787689119a60fcd6da51a920cf493a9ff3c1f206d50658975f66a7fd28283cc",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev3+guide2",
       "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -63,6 +63,61 @@
     "source_case": "Voice Clone Dialogue Transfer",
     "resolution": "768p",
     "reason": "The video reference shows a performer in a wide pastoral setting while dialogue must remain readable."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T04:46:45.792441+00:00",
+  "elapsed_seconds": 2281.993122874992,
+  "actual_nfe": 4,
+  "video_sha256": "dbf0afcc5ea63d23db8640e6f944904041bfb6fef66b351ca3c9a2d43301b73e",
+  "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+  "timings_seconds": {
+    "conditioning": 119.20009862515144,
+    "denoise": 2019.0903445000295,
+    "video_decode": 138.13640116597526,
+    "audio_decode": 0.8380660000257194,
+    "mux": 1.6856538329739124
+  },
+  "peak_memory_gib": {
+    "conditioning": 5.60370572283864,
+    "denoise": 41.60210721101612,
+    "video_decode": 19.808136392384768,
+    "audio_decode": 2.4711407609283924,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 10.125,
+    "width": 1366,
+    "height": 768,
+    "num_frames": 243,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "kind": "video",
+      "index": 1,
+      "sha256": "12321b17a19e79f37a0c7cb5a6ad6cb614ceb067363392b9546b1f743414eba5",
+      "size": 823570
+    },
+    {
+      "kind": "audio",
+      "index": 1,
+      "sha256": "2a48d447b343b38a2c504d5281a0c97c688db0ba87931ed9282c598bd6752454",
+      "size": 204432
+    }
+  ],
+  "runtime_version": "0.1.0.dev3+guide2",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/33-768p-dbf0afcc5ea6-output.mp4",
+    "poster": "media/33-768p-dbf0afcc5ea6-poster.jpg"
   },
   "previous_results": []
 }
