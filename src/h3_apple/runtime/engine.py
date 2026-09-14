@@ -85,7 +85,9 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
     left = (request["model_width"] - request["width"]) // 2
     top = (request["model_height"] - request["height"]) // 2
     frames = frames[:request["num_frames"], top:top + request["height"], left:left + request["width"]]
-    samples = request["num_frames"] * request["audio_sample_rate"] // request["fps"]
+    # Cover the final video packet: a fractional sample rounded down lets
+    # FFmpeg's -shortest discard a full video frame (e.g. 158 frames at 24 fps).
+    samples = (request["num_frames"] * request["audio_sample_rate"] + request["fps"] - 1) // request["fps"]
     if waveform.shape[-1] < samples:
         raise ValueError("Generated audio does not cover the delivery duration.")
     waveform = waveform[:, :samples]
