@@ -3,7 +3,7 @@
   "title": "A different line",
   "source_case": "Dialogue & Performance Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Dialogue%20%26%20Performance%20Replacement",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 1,
