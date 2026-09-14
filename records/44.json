@@ -3,7 +3,7 @@
   "title": "Drawn into the scene",
   "source_case": "Hand-Drawn Romance VFX",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 1,
     "videos": 1,
@@ -20,7 +20,7 @@
   "prompt_sha256": "a78ce83cd69874177733ecac333d0d106fb10bad59972058c7249f3a7b3e1776",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev5+guide3",
       "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
@@ -63,6 +63,60 @@
     "source_case": "Hand-Drawn Romance VFX",
     "resolution": "768p",
     "reason": "Two moving people share the romantic scene; conservatively protect both faces during the approach."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T20:37:41.434636+00:00",
+  "elapsed_seconds": 3722.4314499581233,
+  "actual_nfe": 4,
+  "video_sha256": "e0a28ef736ff29d14552c495145cf5afafb0c9dc3cd2222bc0cd302874a220ba",
+  "package_source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+  "timings_seconds": {
+    "conditioning": 162.09570845868438,
+    "denoise": 3367.601530000102,
+    "video_decode": 185.51601975038648,
+    "audio_decode": 1.1920137908309698,
+    "mux": 2.0527007919736207
+  },
+  "peak_memory_gib": {
+    "conditioning": 5.607459384948015,
+    "denoise": 58.93194044288248,
+    "video_decode": 24.05032055452466,
+    "audio_decode": 2.787415012717247,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 15.0,
+    "width": 768,
+    "height": 1366,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "index": 1,
+      "sha256": "125fded57aa9cc73b8657219c04489fc97f5a64799c655606d43b471e80cd8f7",
+      "size": 30714
+    },
+    {
+      "kind": "video",
+      "index": 1,
+      "sha256": "cea9d5145dd9f30f3b62bdeb9bbdc2aaf5edd640ee576e2a1cbb9192ae0f052f",
+      "size": 1170478
+    }
+  ],
+  "runtime_version": "0.1.0.dev5+guide3",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/44-768p-e0a28ef736ff-output.mp4",
+    "poster": "media/44-768p-e0a28ef736ff-poster.jpg"
   },
   "previous_results": []
 }
