@@ -35,7 +35,7 @@
     </aside>
     <article class="article">
       <div id="examples"><section id="overview" class="overview"><div class="section-label">THE REPRODUCTION LOG</div><h2>Every case, accounted for.</h2>
-<p class="collection-state"><strong>29 cases have a video</strong><span>28 completed at the current resolution</span><span>16 requests queued or running</span><span>0 paused for VSA evaluation</span><span>0 need further work</span></p>
+<p class="collection-state"><strong>29 cases have a video</strong><span>29 completed at the current resolution</span><span>15 requests queued or running</span><span>0 paused for VSA evaluation</span><span>0 need further work</span></p>
 <p>The collection keeps the source order. Small-face scenes use native 768p. Earlier 576p videos remain available with their own parameters and commands while the new requests run.</p></section>
 <section class="case-group" id="group-1"><div class="section-label">01 / STUDIES</div><h2>Film &amp; campaigns</h2></section>
 <section class="case" id="case-01"><h3><span class="case-number">01</span>Through the binoculars</h3>
@@ -134,8 +134,39 @@ generate(
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Vintage%20Binocular%20Brand%20Film">Source prompt &amp; inputs ↗</a><a href="records/01.json">Current case record ↗</a></div>
 </section>
 <section class="case" id="case-02"><h3><span class="case-number">02</span>A jump into deep space</h3>
-<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups.</p>
-<h4>Earlier 576p result</h4><p class="small-note">The video and command below belong to the preserved earlier run. The new 768p request is generating.</p>
+<p class="runtime-note"><strong>Current request: 768p · Generated.</strong> The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups.</p>
+<figure class="result"><video controls playsinline preload="none" poster="media/02-768p-3959fcd0b4b3-poster.jpg" width="1366" height="768" aria-label="A jump into deep space, 768p H3 Apple output"><source src="media/02-768p-3959fcd0b4b3-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 768p · 1366 × 768 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>First frame</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>39 min 40 s</dd></div></dl><p class="runtime-note">FL2VA · VSA attention · H3 Apple 0.1.0.dev6+flvsa2</p>
+<div class="reproduction"><h4>Reproduce this video</h4>
+<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-02">Copy prompt</button></div><pre class="prompt-text" id="prompt-02">Epic theatrical space-opera teaser
+
+Keep the pace fast and the scale enormous without letting the edit drag. Use sharp hard cuts, a shaking command deck, white-hot flashes, split-second black frames, and a violent jump-to-warp impact. Title cards should use wide-tracked cinematic typography—not pure white—with restrained material texture, subtle illumination, and a faint edge glow. Animate the titles by emerging from deep-space shadow, catching a sweep of starlight, opening their letter spacing, leaving a slight afterimage, and flashing briefly against black.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
+<h5>Reference inputs · in supplied order</h5>
+<div class="reference-grid">
+<figure class="reference">
+<a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" alt="First frame, case 02" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
+<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp">Open original ↗</a></figcaption></figure>
+</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-02">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/173c69512badad919e023648483ae010bbe564a5">0.1.0.dev6+flvsa2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-02">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-flvsa2/.local/envs/h3/bin/python reproduce.py inputs --case 2 --directory case-02
+./h3-apple-flvsa2/.local/envs/h3/bin/python reproduce.py run --directory case-02 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-02/run-01.mp4</code></pre>
+<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
+from pathlib import Path
+from h3_apple import generate
+from h3_apple.progress import ProgressBar
+
+generate(
+    prompt=Path(&quot;case-02/prompt.txt&quot;).read_text(),
+    seed=42,
+    resolution=&#x27;768p&#x27;,
+    duration=15.0,
+    aspect_ratio=&#x27;16:9&#x27;,
+    first_frame=&#x27;case-02/image-01.webp&#x27;,
+    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
+    output=&quot;case-02/run-01.mp4&quot;,
+    on_progress=ProgressBar(),
+    timeout=7200,
+)</code></pre></details></div>
+<details class="earlier-result"><summary>Earlier 576p result</summary>
 <figure class="result"><video controls playsinline preload="none" poster="media/02-poster.jpg" width="1024" height="576" aria-label="A jump into deep space, 576p H3 Apple output"><source src="media/02-output.mp4" type="video/mp4"></video><figcaption><span>H3 Apple output</span><span>15 s · 576p · 1024 × 576 · 24 fps · stereo</span></figcaption></figure><dl class="run-facts"><div><dt>Input</dt><dd>First frame</dd></div><div><dt>Sampling</dt><dd>4 steps · seed 42</dd></div><div><dt>Generation time</dt><dd>30 min 54 s</dd></div></dl><p class="runtime-note">FL2VA · DENSE attention · H3 Apple 0.1.0.dev3+guide2</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-02-576p-6f60443c877f">Copy prompt</button></div><pre class="prompt-text" id="prompt-02-576p-6f60443c877f">Epic theatrical space-opera teaser
@@ -169,38 +200,6 @@ generate(
     timeout=7200,
 )</code></pre></details></div>
 <p><a href="records/02-576p-6f60443c877f.json">Earlier run record ↗</a></p>
-<details class="api-call"><summary>Planned 768p generation command</summary>
-<div class="reproduction"><h4>Reproduce this video</h4>
-<p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
-<div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-02">Copy prompt</button></div><pre class="prompt-text" id="prompt-02">Epic theatrical space-opera teaser
-
-Keep the pace fast and the scale enormous without letting the edit drag. Use sharp hard cuts, a shaking command deck, white-hot flashes, split-second black frames, and a violent jump-to-warp impact. Title cards should use wide-tracked cinematic typography—not pure white—with restrained material texture, subtle illumination, and a faint edge glow. Animate the titles by emerging from deep-space shadow, catching a sweep of starlight, opening their letter spacing, leaving a slight afterimage, and flashing briefly against black.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
-<h5>Reference inputs · in supplied order</h5>
-<div class="reference-grid">
-<figure class="reference">
-<a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" target="_blank" rel="noopener noreferrer"><img src="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp" alt="First frame, case 02" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="320" height="180"></a>
-<figcaption><strong>First frame</strong><a href="https://v3b.fal.media/files/b/0aa44041/67cRsNFSSXnWYh3A2WUEP_3-1-1-2_ref1.webp">Open original ↗</a></figcaption></figure>
-</div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-02">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/173c69512badad919e023648483ae010bbe564a5">0.1.0.dev6+flvsa2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-02">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-flvsa2/.local/envs/h3/bin/python reproduce.py inputs --case 2 --directory case-02
-./h3-apple-flvsa2/.local/envs/h3/bin/python reproduce.py run --directory case-02 --model-dir &quot;$HOME/Models/h3-apple-fl2va&quot; --output case-02/run-01.mp4</code></pre>
-<details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
-from pathlib import Path
-from h3_apple import generate
-from h3_apple.progress import ProgressBar
-
-generate(
-    prompt=Path(&quot;case-02/prompt.txt&quot;).read_text(),
-    seed=42,
-    resolution=&#x27;768p&#x27;,
-    duration=15.0,
-    aspect_ratio=&#x27;16:9&#x27;,
-    first_frame=&#x27;case-02/image-01.webp&#x27;,
-    model_dir=Path.home() / &quot;Models/h3-apple-fl2va&quot;,
-    output=&quot;case-02/run-01.mp4&quot;,
-    on_progress=ProgressBar(),
-    timeout=7200,
-)</code></pre></details></div>
 </details>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser">Source prompt &amp; inputs ↗</a><a href="records/02.json">Current case record ↗</a></div>
 </section>
@@ -593,8 +592,8 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20to%20Fairytale%20Composite">Source prompt &amp; inputs ↗</a><a href="records/10.json">Current case record ↗</a></div>
 </section>
-<details class="pending-case" id="case-11"><summary><span class="pending-title"><span class="case-number">11</span>Artwork in motion</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
-<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face.</p>
+<details class="pending-case" id="case-11"><summary><span class="pending-title"><span class="case-number">11</span>Artwork in motion</span><span class="status">768p · Generating</span></summary><div class="pending-body"><p><strong>Required input:</strong> First frame.</p>
+<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face.</p>
 <p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>

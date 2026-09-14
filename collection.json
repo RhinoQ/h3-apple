@@ -2,9 +2,9 @@
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
   "available_cases": 29,
   "status_counts": {
-    "generated": 28,
+    "generated": 29,
     "running": 1,
-    "queued": 15
+    "queued": 14
   },
   "cases": [
     {
@@ -168,7 +168,7 @@
       "title": "A jump into deep space",
       "source_case": "Epic Space Opera Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -185,7 +185,7 @@
       "prompt_sha256": "79bb623320d686c2ddf4e967ac7e0f415fbda5d77ce33668585c7ef11cb736c7",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev6+flvsa2",
           "commit": "173c69512badad919e023648483ae010bbe564a5",
@@ -218,6 +218,55 @@
         "source_case": "Epic Space Opera Teaser",
         "resolution": "768p",
         "reason": "The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups."
+      },
+      "seed": 42,
+      "started_utc": "2026-09-14T12:58:03.988933+00:00",
+      "elapsed_seconds": 2380.2103481250815,
+      "actual_nfe": 4,
+      "video_sha256": "3959fcd0b4b3a351a278bae3c26af0e7eff8cca4a9d572ea892f1cfaf686a343",
+      "package_source_sha256": "3405748b65856b202ae550693ba34f155015197ac6eeab1f07f7aec736cff769",
+      "timings_seconds": {
+        "conditioning": 22.486307416576892,
+        "denoise": 2160.316727125086,
+        "video_decode": 190.06396895786747,
+        "audio_decode": 1.2192641249857843,
+        "mux": 2.270909583196044
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.036978755146265,
+        "denoise": 54.30200756248087,
+        "video_decode": 24.01065105944872,
+        "audio_decode": 2.7478089332580566,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-fl2va-vsa-experiment1",
+        "task": "fl2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
+      "input_hashes": [
+        {
+          "kind": "keyframe",
+          "anchor": "first",
+          "sha256": "405480fab8267c46b768f58bf98e16a9f0bdfe07d1380ae18c3ffc3d8704bd02",
+          "size": 57782
+        }
+      ],
+      "runtime_version": "0.1.0.dev6+flvsa2",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/02-768p-3959fcd0b4b3-output.mp4",
+        "poster": "media/02-768p-3959fcd0b4b3-poster.jpg"
       },
       "previous_results": [
         {
@@ -1212,7 +1261,7 @@
       "title": "Artwork in motion",
       "source_case": "Animated Gallery Poster",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 1,
         "videos": 0,
