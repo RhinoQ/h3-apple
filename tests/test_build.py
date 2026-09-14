@@ -68,3 +68,21 @@ def test_recovery_recipe_uses_the_recorded_runtime_and_checks_its_source(tmp_pat
     run['runtime_version'] = '0.1.0.dev2'
     with pytest.raises(AssertionError):
         build.reproduction(case, run)
+
+
+def test_fl_vsa_recipe_keeps_first_and_last_frame_roles(tmp_path):
+    prompt='A portrait transition.'
+    case=dict(number=25,product_status='requires_frame_conditioning',prompt_sha256=hashlib.sha256(prompt.encode()).hexdigest(),
+        source_geometry=dict(width=1280,height=720,duration=15),reference_videos=[],reference_audio=[],
+        reference_images=[dict(src=f'https://v3b.fal.media/{name}.png',local=dict(sha256=name,bytes=12)) for name in ('first','last')])
+    run=dict(status='queued',runtime_version='0.1.0.dev6+flvsa2',resolution_policy=dict(resolution='768p'))
+    recipe=build.reproduction(case,run)
+    assert [x['argument'] for x in recipe['references']]==['first_frame','last_frame']
+    assert recipe['runtime']['directory']=='h3-apple-flvsa2'
+    metadata=dict(request=dict(prompt=prompt,task='fl2va',seed=42,resolution='768p',duration=15),
+        package_source_sha256=recipe['runtime']['source_sha256'],reference_inputs=[dict(anchor=x,sha256=x) for x in ('first','last')])
+    path=tmp_path/'output.run.json';path.write_text(json.dumps(metadata));run.update(status='generated',directory=str(tmp_path))
+    assert build.reproduction(case,run)['configuration_state']=='executed'
+    metadata['reference_inputs'].reverse();path.write_text(json.dumps(metadata))
+    with pytest.raises(AssertionError):
+        build.reproduction(case,run)

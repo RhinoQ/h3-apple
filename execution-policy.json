@@ -1,4 +1,4 @@
 {
-  "paused_tasks": ["fl2va"],
-  "reason": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated."
+  "paused_tasks": [],
+  "reason": "FL2VA evaluation uses the recorded experimental VSA runtime. No additional Dense FL2VA cases are being generated."
 }

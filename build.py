@@ -49,6 +49,8 @@ RUNTIMES = {
                           "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916", "directory": "h3-apple-guide2"},
     "0.1.0.dev5+guide3": {"version": "0.1.0.dev5+guide3", "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
                           "source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905", "directory": "h3-apple-guide3"},
+    "0.1.0.dev6+flvsa2": {"version": "0.1.0.dev6+flvsa2", "commit": "173c69512badad919e023648483ae010bbe564a5",
+                          "source_sha256": "3405748b65856b202ae550693ba34f155015197ac6eeab1f07f7aec736cff769", "directory": "h3-apple-flvsa2"},
 }
 
 
@@ -96,6 +98,9 @@ def reproduction(case, run):
         assert metadata["request"]["task"] == task
         assert all(metadata["request"][key] == value for key, value in parameters.items() if key != "aspect_ratio")
         assert sorted(x["sha256"] for x in references) == sorted(x["sha256"] for x in metadata.get("reference_inputs", []))
+        if frames:
+            assert [(x["argument"].removesuffix("_frame"), x["sha256"]) for x in references] == [
+                (x["anchor"], x["sha256"]) for x in metadata["reference_inputs"]]
     return dict(configuration_state="executed" if run["status"] == "generated" else "planned",
                 runtime=RUNTIMES[version], parameters=parameters, references=references, task=task,
                 model_manifest=f"models/{task}.json")

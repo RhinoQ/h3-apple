@@ -40,6 +40,19 @@ Guide3 fixes frame and audio truncation during MP4 muxing for durations such as
 Earlier completed videos keep their original runtime and commands; failed attempts
 are retained and incomplete cases run in a new batch.
 
+For FL2VA cases marked **0.1.0.dev6+flvsa2**:
+
+```bash
+git clone --branch codex/fl2va-vsa https://github.com/RhinoQ/h3-apple.git h3-apple-flvsa2
+git -C h3-apple-flvsa2 checkout --detach 173c69512badad919e023648483ae010bbe564a5
+./h3-apple-flvsa2/install.sh --ref2va
+```
+
+This experimental build uses VSA for first/last-frame generation and includes the
+precise media delivery fix. It requires four complete forwards and 200 sparse
+attention calls without Dense fallback. The exact build below each video identifies
+whether it used Dense or VSA; a completed run does not establish quality equivalence.
+
 Install each build only once and reuse it for all matching cases. The guide builds
 contain experimental video/audio references, portrait output and
 first/last-frame input support. The latest tagged release predates these
@@ -57,7 +70,7 @@ possible. Review model terms and the download plan before starting.
 | --- | --- | --- | --- | --- |
 | T2VA | [MiniMax H3 FL2VA, pinned revision](https://huggingface.co/MiniMaxAI/MiniMax-H3/tree/bfc8ed0353f5a9733be73e6b2c98ec0948195b86/FL2VA) through the standard text conversion recipe | [FastH3 VSA Data-Free adapter, pinned revision](https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA/tree/bcf40ca6f457ed66f8badf13514943e390205fca/vsa-datafree), including its T2VA deltas | VSA | `~/Models/h3-apple-t2va` |
 | Ref2VA | [MiniMax H3 Ref2VA transformer and reference encoders](https://huggingface.co/MiniMaxAI/MiniMax-H3/tree/bfc8ed0353f5a9733be73e6b2c98ec0948195b86/Ref2VA); output components from the text bundle | [LightX2V Ref2V four-step v0.1 BF16](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/ec01fa4c86263832faa0bd1d6d8f36a281eaabb2/minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors), rank 128 / alpha 8; only the 50 compression gates from the pinned FastH3 adapter | VSA | `~/Models/h3-apple-ref2va` |
-| FL2VA | Native FL2VA transformer from the pinned H3 revision; this collection uses the Ref2VA processor, tokenizer, Qwen and video VAE for reference encoding, plus the text bundle's output components | [LightX2V FL2V four-step v0.1](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/main/minimax_h3_fl2v_turbo_4step_v0.1.safetensors), SHA-256 `5ff4a12c8b4599fec716e1b15a45e504e0d1129111896bdcde5ac4a15e395b29`, rank 128 / alpha 8 | Dense, shifts 12 / 3; retained FastH3 gates are unused | `~/Models/h3-apple-fl2va` |
+| FL2VA | Native FL2VA transformer from the pinned H3 revision; this collection uses the Ref2VA processor, tokenizer, Qwen and video VAE for reference encoding, plus the text bundle's output components | [LightX2V FL2V four-step v0.1](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/main/minimax_h3_fl2v_turbo_4step_v0.1.safetensors), SHA-256 `5ff4a12c8b4599fec716e1b15a45e504e0d1129111896bdcde5ac4a15e395b29`, rank 128 / alpha 8; [50 FastH3 compression gates](https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA/tree/bcf40ca6f457ed66f8badf13514943e390205fca/vsa-datafree) | VSA in flvsa2; Dense in the earlier guide builds. Shifts 12 / 3. The same prepared bundle supports both; Dense leaves the gates unused. | `~/Models/h3-apple-fl2va` |
 
 All three use INT8/group64 with BF16 arithmetic. Their portable content
 manifests are [T2VA](models/t2va.json), [Ref2VA](models/ref2va.json), and
