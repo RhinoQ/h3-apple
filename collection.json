@@ -1,10 +1,10 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 41,
+  "available_cases": 42,
   "status_counts": {
-    "generated": 41,
+    "generated": 42,
     "running": 1,
-    "queued": 2
+    "queued": 1
   },
   "cases": [
     {
@@ -4897,7 +4897,7 @@
       "title": "Several changes, one scene",
       "source_case": "Multi-Element Scene Editing",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -4914,7 +4914,7 @@
       "prompt_sha256": "b666e064ee0711dd1ea61095346025820fc237be7e81ecb3966981ee25226074",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev5+guide3",
           "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
@@ -4948,6 +4948,55 @@
         "resolution": "768p",
         "reason": "A seated full-body subject in a wide scene must reveal a clear face after the sunglasses are removed."
       },
+      "seed": 42,
+      "started_utc": "2026-09-14T18:32:29.784046+00:00",
+      "elapsed_seconds": 2520.0038952920586,
+      "actual_nfe": 4,
+      "video_sha256": "35c136966e3e1c6ec7ee2626c544e2e4313c7050c646e7705a6e9355e9f93393",
+      "package_source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+      "timings_seconds": {
+        "conditioning": 172.31273837480694,
+        "denoise": 2217.37065291591,
+        "video_decode": 124.76949075004086,
+        "audio_decode": 0.8088733749464154,
+        "mux": 1.550100666936487
+      },
+      "peak_memory_gib": {
+        "conditioning": 5.60828335955739,
+        "denoise": 41.94239230360836,
+        "video_decode": 19.80814928561449,
+        "audio_decode": 2.4325685687363148,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 10.125,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 243,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "e130a3a86ae4271234923d6a22cf1128068e8ae834e40dd23112380e770882a8",
+          "size": 1930654
+        }
+      ],
+      "runtime_version": "0.1.0.dev5+guide3",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/41-768p-35c136966e3e-output.mp4",
+        "poster": "media/41-768p-35c136966e3e-poster.jpg"
+      },
       "previous_results": []
     },
     {
@@ -4955,7 +5004,7 @@
       "title": "New product. New sign. New line.",
       "source_case": "Product, Sign & Dialogue Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 0,
         "videos": 1,

@@ -3,7 +3,7 @@
   "title": "New product. New sign. New line.",
   "source_case": "Product, Sign & Dialogue Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 1,
