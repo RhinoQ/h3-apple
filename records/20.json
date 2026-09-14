@@ -3,7 +3,7 @@
   "title": "A product comes into view",
   "source_case": "Rotating Product Page Reveal",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Rotating%20Product%20Page%20Reveal",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 1,
     "videos": 0,
