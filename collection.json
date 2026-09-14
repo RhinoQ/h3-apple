@@ -1,11 +1,11 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 24,
+  "available_cases": 25,
   "status_counts": {
-    "generated": 23,
+    "generated": 24,
     "paused": 8,
     "running": 1,
-    "queued": 12
+    "queued": 11
   },
   "cases": [
     {
@@ -3363,7 +3363,7 @@
       "title": "A new dancer",
       "source_case": "Street Dance Motion Transfer",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 2,
         "videos": 1,
@@ -3380,7 +3380,7 @@
       "prompt_sha256": "88182bc0a185a57141dae69d4cad025a8a736a5aa2c47770cffe85673e0be040",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev3+guide2",
           "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -3434,6 +3434,65 @@
         "resolution": "768p",
         "reason": "Full-body street-dance framing makes the performer’s face small."
       },
+      "seed": 42,
+      "started_utc": "2026-09-14T03:37:55.836183+00:00",
+      "elapsed_seconds": 2779.006004375173,
+      "actual_nfe": 4,
+      "video_sha256": "9a4b6825d60c07b6262082569922dc6c90a936288147b8e8479e7f5469a97a0e",
+      "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "timings_seconds": {
+        "conditioning": 186.40044104098342,
+        "denoise": 2453.634625958046,
+        "video_decode": 133.51919754222035,
+        "audio_decode": 0.8142965419683605,
+        "mux": 1.5103625000920147
+      },
+      "peak_memory_gib": {
+        "conditioning": 5.716629826463759,
+        "denoise": 42.08477548416704,
+        "video_decode": 19.80814616754651,
+        "audio_decode": 2.4712901450693607,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 10.125,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 243,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "d5162687c84c2b28fd1bd6d231809afbc66a8b6045b9d630a7dd1bf4cbde33df",
+          "size": 80892
+        },
+        {
+          "index": 2,
+          "sha256": "9824bfaa8b9fae07779e21237f7ae223515b290ff349ff38cb2249e03a42a6ff",
+          "size": 87920
+        },
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "5ec5085d808cc3cb6d90e32ce9dae1666e9517ecb4e79fc6cb2e3a31ab811c64",
+          "size": 1498432
+        }
+      ],
+      "runtime_version": "0.1.0.dev3+guide2",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/31-768p-9a4b6825d60c-output.mp4",
+        "poster": "media/31-768p-9a4b6825d60c-poster.jpg"
+      },
       "previous_results": []
     },
     {
@@ -3441,7 +3500,7 @@
       "title": "Three capybaras",
       "source_case": "Capybara Motion Recreation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 0,
         "videos": 1,

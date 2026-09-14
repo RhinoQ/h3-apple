@@ -3,7 +3,7 @@
   "title": "Three capybaras",
   "source_case": "Capybara Motion Recreation",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 1,
