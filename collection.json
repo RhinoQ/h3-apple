@@ -1,10 +1,9 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 26,
+  "available_cases": 27,
   "status_counts": {
-    "generated": 25,
+    "generated": 26,
     "paused": 8,
-    "running": 1,
     "queued": 10
   },
   "cases": [
@@ -220,7 +219,7 @@
         "resolution": "768p",
         "reason": "The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": [
         {
           "record": "records/02-576p-6f60443c877f.json"
@@ -1265,7 +1264,7 @@
         "resolution": "768p",
         "reason": "A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": []
     },
     {
@@ -2170,7 +2169,7 @@
         "resolution": "576p",
         "reason": "Automotive website UI; no face is requested."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": []
     },
     {
@@ -2229,7 +2228,7 @@
         "resolution": "576p",
         "reason": "Product layout and rotation; no face is requested."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": []
     },
     {
@@ -2288,7 +2287,7 @@
         "resolution": "768p",
         "reason": "A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": []
     },
     {
@@ -2587,7 +2586,7 @@
         "resolution": "576p",
         "reason": "First-person gameplay with a weapon and distant targets; facial detail is not requested."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": []
     },
     {
@@ -2656,7 +2655,7 @@
         "resolution": "768p",
         "reason": "The character shares a landscape frame with the interface and surroundings; conservatively protect the face."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": []
     },
     {
@@ -3500,7 +3499,7 @@
       "title": "Three capybaras",
       "source_case": "Capybara Motion Recreation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -3517,7 +3516,7 @@
       "prompt_sha256": "c38eadaa1ed1b7fd8246a2613286d5af36b46079151d38d821f12a34ff927c45",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev5+guide3",
           "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
@@ -3550,6 +3549,55 @@
         "source_case": "Capybara Motion Recreation",
         "resolution": "768p",
         "reason": "Three capybaras share a locked wide shot; conservatively include small animal faces."
+      },
+      "seed": 42,
+      "started_utc": "2026-09-14T11:31:50.789548+00:00",
+      "elapsed_seconds": 1378.9581784997135,
+      "actual_nfe": 4,
+      "video_sha256": "3b18944bc2f85deb632426eeca080bd24fd84cb4a6bf9870f23292c1ad9c284e",
+      "package_source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+      "timings_seconds": {
+        "conditioning": 127.7895199591294,
+        "denoise": 1151.6198095832951,
+        "video_decode": 88.75210791593418,
+        "audio_decode": 0.5816081250086427,
+        "mux": 1.4749186248518527
+      },
+      "peak_memory_gib": {
+        "conditioning": 5.60370572283864,
+        "denoise": 34.82391132321209,
+        "video_decode": 16.778046060353518,
+        "audio_decode": 2.3195183761417866,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 6.583333333333333,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 158,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "96e7b534c7e28c0efdb061bd6fe15933b68ed624154de590a89e176de14c64e8",
+          "size": 807336
+        }
+      ],
+      "runtime_version": "0.1.0.dev5+guide3",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/32-768p-3b18944bc2f8-output.mp4",
+        "poster": "media/32-768p-3b18944bc2f8-poster.jpg"
       },
       "previous_results": []
     },
@@ -4304,7 +4352,7 @@
         "resolution": "768p",
         "reason": "Two full-body magicians share a wide stage shot."
       },
-      "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+      "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
       "previous_results": []
     },
     {

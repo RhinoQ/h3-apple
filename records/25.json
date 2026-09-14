@@ -64,6 +64,6 @@
     "resolution": "768p",
     "reason": "The character shares a landscape frame with the interface and surroundings; conservatively protect the face."
   },
-  "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+  "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
   "previous_results": []
 }

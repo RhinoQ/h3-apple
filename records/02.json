@@ -54,7 +54,7 @@
     "resolution": "768p",
     "reason": "The opening frame places a small human figure on a large command deck; later framing is not restricted to close-ups."
   },
-  "execution_hold": "FL2VA generation is paused while VSA is evaluated. No additional Dense FL2VA cases are being generated.",
+  "execution_hold": "Paused at the user's request while FL2VA VSA is evaluated; no additional Dense FL2VA generation.",
   "previous_results": [
     {
       "record": "records/02-576p-6f60443c877f.json"
