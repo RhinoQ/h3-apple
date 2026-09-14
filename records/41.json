@@ -3,7 +3,7 @@
   "title": "Several changes, one scene",
   "source_case": "Multi-Element Scene Editing",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Element%20Scene%20Editing",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 1,
