@@ -3,7 +3,7 @@
   "title": "At the perimeter",
   "source_case": "First-Person Tactical Gameplay",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=First-Person%20Tactical%20Gameplay",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 1,
     "videos": 0,
