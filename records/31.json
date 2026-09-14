@@ -3,7 +3,7 @@
   "title": "A new dancer",
   "source_case": "Street Dance Motion Transfer",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 2,
     "videos": 1,

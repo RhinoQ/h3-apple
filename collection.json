@@ -1,11 +1,11 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 23,
+  "available_cases": 24,
   "status_counts": {
-    "generated": 22,
+    "generated": 23,
     "paused": 8,
     "running": 1,
-    "queued": 13
+    "queued": 12
   },
   "cases": [
     {
@@ -3241,7 +3241,7 @@
       "title": "Foam at the kitchen sink",
       "source_case": "Character Swap with Performance Reference",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character%20Swap%20with%20Performance%20Reference",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 1,
         "videos": 1,
@@ -3258,7 +3258,7 @@
       "prompt_sha256": "3f5ffda0270c346272caff5c65c8524e688d4d76756dc9811ee69623efb39bcd",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev3+guide2",
           "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -3302,6 +3302,60 @@
         "resolution": "768p",
         "reason": "Two performers move and interact in a kitchen with their upper bodies and surroundings visible."
       },
+      "seed": 42,
+      "started_utc": "2026-09-14T02:06:41.017137+00:00",
+      "elapsed_seconds": 5474.064719582908,
+      "actual_nfe": 4,
+      "video_sha256": "827a9af1e13b9885ce05f5607e7999963a0378e5cb8aec1c8e2e8b32450f8d4f",
+      "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "timings_seconds": {
+        "conditioning": 264.25288920802996,
+        "denoise": 5002.040105917025,
+        "video_decode": 199.97765862499364,
+        "audio_decode": 1.2021182500757277,
+        "mux": 2.27188054099679
+      },
+      "peak_memory_gib": {
+        "conditioning": 8.043975599110126,
+        "denoise": 58.93633647914976,
+        "video_decode": 24.050359178334475,
+        "audio_decode": 2.668890293687582,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "599061a8886859b697054e2f4cb046646f42c9338a63fb7c5a3061aa026ebbcf",
+          "size": 39402
+        },
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "b5ceb66fbd82c15473d4fc0e802c7f084042112ad50d2cc10f576aecd07fbc30",
+          "size": 2039664
+        }
+      ],
+      "runtime_version": "0.1.0.dev3+guide2",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/30-768p-827a9af1e13b-output.mp4",
+        "poster": "media/30-768p-827a9af1e13b-poster.jpg"
+      },
       "previous_results": []
     },
     {
@@ -3309,7 +3363,7 @@
       "title": "A new dancer",
       "source_case": "Street Dance Motion Transfer",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 2,
         "videos": 1,
