@@ -3,7 +3,7 @@
   "title": "A jump into deep space",
   "source_case": "Epic Space Opera Teaser",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 1,
     "videos": 0,

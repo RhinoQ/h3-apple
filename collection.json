@@ -3,7 +3,8 @@
   "available_cases": 29,
   "status_counts": {
     "generated": 28,
-    "queued": 16
+    "running": 1,
+    "queued": 15
   },
   "cases": [
     {
@@ -167,7 +168,7 @@
       "title": "A jump into deep space",
       "source_case": "Epic Space Opera Teaser",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Epic%20Space%20Opera%20Teaser",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -4430,7 +4431,7 @@
         "preset_version": "ours-fl2va-vsa-experiment1",
         "task": "fl2va"
       },
-      "reused_verified_run": false,
+      "reused_verified_run": true,
       "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
       "input_hashes": [
         {
