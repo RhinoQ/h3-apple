@@ -3,7 +3,7 @@
   "title": "Six assets, one sequence",
   "source_case": "Multi-Asset Cinematic Remix",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 6,
     "videos": 1,

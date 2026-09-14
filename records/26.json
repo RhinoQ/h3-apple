@@ -3,7 +3,7 @@
   "title": "A quiet evening",
   "source_case": "Character-Driven Romantic Scene",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 2,
     "videos": 0,
@@ -20,7 +20,7 @@
   "prompt_sha256": "6a72884052bb8c608bd53c99cadc52238dd810787ff6587a11ba2e65ad04d70a",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev2",
       "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -62,6 +62,59 @@
     "source_case": "Character-Driven Romantic Scene",
     "resolution": "576p",
     "reason": "The prompt explicitly fixes a frontal close shot of the upper bodies, with the woman’s face mostly out of frame."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T00:01:25.841885+00:00",
+  "elapsed_seconds": 1037.4886152078398,
+  "actual_nfe": 4,
+  "video_sha256": "b7f37dbddc8e6f7ddf49817adf3a86c99ecd54944f5532482a16ebbdda9c51ef",
+  "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+  "timings_seconds": {
+    "conditioning": 16.215828333981335,
+    "denoise": 912.2759201249573,
+    "video_decode": 103.64206070802175,
+    "audio_decode": 1.1990537920501083,
+    "mux": 1.4246775000356138
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.0271063186228275,
+    "denoise": 36.30597916059196,
+    "video_decode": 18.148458875715733,
+    "audio_decode": 2.7442251704633236,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 15.0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "index": 1,
+      "sha256": "ab73f51502d67d8879e89f01c96f6d92a623711c565f38bc2539dad0f12bdeea",
+      "size": 32176
+    },
+    {
+      "index": 2,
+      "sha256": "017b6f3426072ca50cdf2435fa07f02aa70fb241e61db2cd03a5282d7c8a16be",
+      "size": 68450
+    }
+  ],
+  "runtime_version": "0.1.0.dev2",
+  "attention": "vsa",
+  "experimental_input_support": false,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/26-576p-b7f37dbddc8e-output.mp4",
+    "poster": "media/26-576p-b7f37dbddc8e-poster.jpg"
   },
   "previous_results": []
 }
