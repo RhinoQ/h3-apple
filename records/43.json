@@ -3,7 +3,7 @@
   "title": "A change of costume",
   "source_case": "Precision Costume Swap",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 1,
     "videos": 0,

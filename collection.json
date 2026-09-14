@@ -3,7 +3,8 @@
   "available_cases": 28,
   "status_counts": {
     "generated": 27,
-    "queued": 17
+    "queued": 16,
+    "running": 1
   },
   "cases": [
     {
@@ -2679,7 +2680,7 @@
         "preset_version": "ours-fl2va-vsa-experiment1",
         "task": "fl2va"
       },
-      "reused_verified_run": false,
+      "reused_verified_run": true,
       "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
       "input_hashes": [
         {
@@ -4348,7 +4349,7 @@
       "title": "A change of costume",
       "source_case": "Precision Costume Swap",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 1,
         "videos": 0,

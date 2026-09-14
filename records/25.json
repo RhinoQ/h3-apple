@@ -95,7 +95,7 @@
     "preset_version": "ours-fl2va-vsa-experiment1",
     "task": "fl2va"
   },
-  "reused_verified_run": false,
+  "reused_verified_run": true,
   "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
   "input_hashes": [
     {
