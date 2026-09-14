@@ -3,7 +3,7 @@
   "title": "A leap over lava",
   "source_case": "Claymation Lava Canyon Leap",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -20,7 +20,7 @@
   "prompt_sha256": "16199dbbd1ecd93fef72e627217ac0a94d356b8ed31e6363e8a7c46ab1e1d8a8",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev6+flvsa2",
       "commit": "173c69512badad919e023648483ae010bbe564a5",
@@ -53,6 +53,55 @@
     "source_case": "Claymation Lava Canyon Leap",
     "resolution": "768p",
     "reason": "A small full-body clay fox moves across a large canyon; conservatively include stylized animal faces."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T13:59:30.327858+00:00",
+  "elapsed_seconds": 1296.1973152919672,
+  "actual_nfe": 4,
+  "video_sha256": "c88cfc666df6b68ed8c9fc61392a791c2d4b27122fcf58c8e3a7958e5cbb95f3",
+  "package_source_sha256": "3405748b65856b202ae550693ba34f155015197ac6eeab1f07f7aec736cff769",
+  "timings_seconds": {
+    "conditioning": 23.57138462504372,
+    "denoise": 1141.3744262079708,
+    "video_decode": 125.72869608411565,
+    "audio_decode": 0.8666990417987108,
+    "mux": 1.641728250309825
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.0369329787790775,
+    "denoise": 38.28916107304394,
+    "video_decode": 19.78143923357129,
+    "audio_decode": 2.3285833559930325,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 10.125,
+    "width": 1366,
+    "height": 768,
+    "num_frames": 243,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-fl2va-vsa-experiment1",
+    "task": "fl2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
+  "input_hashes": [
+    {
+      "kind": "keyframe",
+      "anchor": "first",
+      "sha256": "dce0c48a0ed1529ac169e7a75810661b38e4eab11d718173ef555fdf151441e3",
+      "size": 92564
+    }
+  ],
+  "runtime_version": "0.1.0.dev6+flvsa2",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/21-768p-c88cfc666df6-output.mp4",
+    "poster": "media/21-768p-c88cfc666df6-poster.jpg"
   },
   "previous_results": []
 }
