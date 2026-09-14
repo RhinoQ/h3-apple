@@ -1,10 +1,9 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 27,
+  "available_cases": 28,
   "status_counts": {
-    "generated": 26,
-    "queued": 17,
-    "running": 1
+    "generated": 27,
+    "queued": 17
   },
   "cases": [
     {
@@ -2588,7 +2587,7 @@
       "title": "Before and after the show",
       "source_case": "Interactive Otome Game Transition",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Interactive%20Otome%20Game%20Transition",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -2605,7 +2604,7 @@
       "prompt_sha256": "cfeacd2776c922c632d70de8ff95ea76f973a9b31d547dc3be49b8ab54f02aad",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev6+flvsa2",
           "commit": "173c69512badad919e023648483ae010bbe564a5",
@@ -2648,6 +2647,61 @@
         "source_case": "Interactive Otome Game Transition",
         "resolution": "768p",
         "reason": "The character shares a landscape frame with the interface and surroundings; conservatively protect the face."
+      },
+      "seed": 42,
+      "started_utc": "2026-09-14T11:54:54.377190+00:00",
+      "elapsed_seconds": 2749.748523874674,
+      "actual_nfe": 4,
+      "video_sha256": "ee32950162725b4a91f1c040d7ba86ed73ac539d350f9ed156822b2e12dbf781",
+      "package_source_sha256": "3405748b65856b202ae550693ba34f155015197ac6eeab1f07f7aec736cff769",
+      "timings_seconds": {
+        "conditioning": 39.41202920814976,
+        "denoise": 2498.207387624774,
+        "video_decode": 204.8116588331759,
+        "audio_decode": 1.2286277078092098,
+        "mux": 2.228806875180453
+      },
+      "peak_memory_gib": {
+        "conditioning": 4.192111598327756,
+        "denoise": 54.90107025858015,
+        "video_decode": 24.010652396827936,
+        "audio_decode": 2.7442184798419476,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-fl2va-vsa-experiment1",
+        "task": "fl2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
+      "input_hashes": [
+        {
+          "kind": "keyframe",
+          "anchor": "first",
+          "sha256": "0b5b69aed2fd287fa61da20f8460cdf0bf50a003e25afdf4f47c008e8baa7558",
+          "size": 51086
+        },
+        {
+          "kind": "keyframe",
+          "anchor": "last",
+          "sha256": "1e6c498a13695839131b353adefcd7c1d0169d21f8ce7e59e588fd763528a7e7",
+          "size": 50710
+        }
+      ],
+      "runtime_version": "0.1.0.dev6+flvsa2",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/25-768p-ee3295016272-output.mp4",
+        "poster": "media/25-768p-ee3295016272-poster.jpg"
       },
       "previous_results": []
     },
