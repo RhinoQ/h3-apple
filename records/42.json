@@ -3,7 +3,7 @@
   "title": "New product. New sign. New line.",
   "source_case": "Product, Sign & Dialogue Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Product%2C%20Sign%20%26%20Dialogue%20Replacement",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 0,
     "videos": 1,
@@ -20,7 +20,7 @@
   "prompt_sha256": "8182ada1b598de6227f683c27dffc4818a8189e10b49a630769a0eedc12b4a69",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev5+guide3",
       "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
@@ -53,6 +53,55 @@
     "source_case": "Product, Sign & Dialogue Replacement",
     "resolution": "768p",
     "reason": "The person shares the scene with a product, shop sign and bag; the framing is not limited to close-ups."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T19:14:30.901924+00:00",
+  "elapsed_seconds": 4989.355762582738,
+  "actual_nfe": 4,
+  "video_sha256": "9b92fb7356236bef7023ba51d10b1e469d8355f1a35c0986ecde5f4662eb31ec",
+  "package_source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+  "timings_seconds": {
+    "conditioning": 255.3525944580324,
+    "denoise": 4539.6896313750185,
+    "video_decode": 186.47613700013608,
+    "audio_decode": 1.182360790669918,
+    "mux": 2.3156691673211753
+  },
+  "peak_memory_gib": {
+    "conditioning": 8.026519544422626,
+    "denoise": 61.30395071115345,
+    "video_decode": 24.050359196960926,
+    "audio_decode": 2.6688708029687405,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 15.0,
+    "width": 1366,
+    "height": 768,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "kind": "video",
+      "index": 1,
+      "sha256": "c8da8b74b02ce74532868394e319bbb426c70207bd4b6f6676fbb962da09c44f",
+      "size": 3359995
+    }
+  ],
+  "runtime_version": "0.1.0.dev5+guide3",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/42-768p-9b92fb735623-output.mp4",
+    "poster": "media/42-768p-9b92fb735623-poster.jpg"
   },
   "previous_results": []
 }

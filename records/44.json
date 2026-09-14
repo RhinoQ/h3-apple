@@ -3,7 +3,7 @@
   "title": "Drawn into the scene",
   "source_case": "Hand-Drawn Romance VFX",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Hand-Drawn%20Romance%20VFX",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 1,
     "videos": 1,
