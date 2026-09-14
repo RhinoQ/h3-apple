@@ -3,7 +3,7 @@
   "title": "One more teammate",
   "source_case": "Add a Character in Sync with the Others",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others",
-  "status": "running",
+  "status": "failed",
   "required_inputs": {
     "images": 0,
     "videos": 1,
