@@ -1,10 +1,9 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 28,
+  "available_cases": 29,
   "status_counts": {
-    "generated": 27,
-    "queued": 16,
-    "running": 1
+    "generated": 28,
+    "queued": 16
   },
   "cases": [
     {
@@ -4349,7 +4348,7 @@
       "title": "A change of costume",
       "source_case": "Precision Costume Swap",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Precision%20Costume%20Swap",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 1,
         "videos": 0,
@@ -4366,7 +4365,7 @@
       "prompt_sha256": "25da4a9e739dcc6cc8aca3f75f1b703023400bdc100d41469a240c2f0c3e6988",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev6+flvsa2",
           "commit": "173c69512badad919e023648483ae010bbe564a5",
@@ -4399,6 +4398,55 @@
         "source_case": "Precision Costume Swap",
         "resolution": "768p",
         "reason": "Two full-body magicians share a wide stage shot."
+      },
+      "seed": 42,
+      "started_utc": "2026-09-14T12:42:41.848505+00:00",
+      "elapsed_seconds": 795.4448016667739,
+      "actual_nfe": 4,
+      "video_sha256": "53dd9d0df10810e2063e311ce1b5dbc23da2590c6c5d7773c57fd71bf27093f5",
+      "package_source_sha256": "3405748b65856b202ae550693ba34f155015197ac6eeab1f07f7aec736cff769",
+      "timings_seconds": {
+        "conditioning": 22.335168125107884,
+        "denoise": 680.1765265418217,
+        "video_decode": 88.8718664161861,
+        "audio_decode": 0.5679976670071483,
+        "mux": 1.024563082959503
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.03694823756814,
+        "denoise": 34.99907712824643,
+        "video_decode": 16.760651040822268,
+        "audio_decode": 2.306324042379856,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 6.583333333333333,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 158,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-fl2va-vsa-experiment1",
+        "task": "fl2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
+      "input_hashes": [
+        {
+          "kind": "keyframe",
+          "anchor": "first",
+          "sha256": "be795fba877f4f88035b3d887494b10c7c6c122bde849b61441fd18ad95b44e1",
+          "size": 72166
+        }
+      ],
+      "runtime_version": "0.1.0.dev6+flvsa2",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/43-768p-53dd9d0df108-output.mp4",
+        "poster": "media/43-768p-53dd9d0df108-poster.jpg"
       },
       "previous_results": []
     },
