@@ -731,7 +731,10 @@ class MiniMaxH3MLXPipeline:
                     "aac",
                     "-b:a",
                     "192k",
-                    "-shortest",
+                    # Both input arrays already have their delivery lengths.
+                    # -shortest can truncate the final video/AAC packet.
+                    "-movie_timescale",
+                    str(math.lcm(fps, sample_rate)),
                     "-movflags",
                     "+faststart",
                     str(tmp_video),
