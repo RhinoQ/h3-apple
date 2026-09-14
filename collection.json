@@ -4,8 +4,9 @@
   "status_counts": {
     "generated": 24,
     "paused": 8,
+    "failed": 1,
     "running": 1,
-    "queued": 11
+    "queued": 10
   },
   "cases": [
     {
@@ -3500,7 +3501,7 @@
       "title": "Three capybaras",
       "source_case": "Capybara Motion Recreation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Capybara%20Motion%20Recreation",
-      "status": "running",
+      "status": "failed",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -3558,7 +3559,7 @@
       "title": "A different voice",
       "source_case": "Voice Clone Dialogue Transfer",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 0,
         "videos": 1,

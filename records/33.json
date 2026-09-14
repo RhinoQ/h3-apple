@@ -3,7 +3,7 @@
   "title": "A different voice",
   "source_case": "Voice Clone Dialogue Transfer",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 1,
