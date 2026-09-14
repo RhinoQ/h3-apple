@@ -1,11 +1,11 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 20,
+  "available_cases": 21,
   "status_counts": {
-    "generated": 19,
+    "generated": 20,
     "paused": 8,
     "running": 1,
-    "queued": 16
+    "queued": 15
   },
   "cases": [
     {
@@ -2784,7 +2784,7 @@
       "title": "Six assets, one sequence",
       "source_case": "Multi-Asset Cinematic Remix",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Multi-Asset%20Cinematic%20Remix",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 6,
         "videos": 1,
@@ -2803,7 +2803,7 @@
         "The source output is shorter than the runtime’s five-second minimum. The local request is five seconds long."
       ],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev3+guide2",
           "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -2897,6 +2897,85 @@
         "resolution": "768p",
         "reason": "The asset sequence includes full-body jumps, action shots and smaller faces within wide compositions."
       },
+      "seed": 42,
+      "started_utc": "2026-09-14T00:18:44.411925+00:00",
+      "elapsed_seconds": 1011.6678783339448,
+      "actual_nfe": 4,
+      "video_sha256": "ee51108311e9e707cf1a15a527fdc01a951f08b48d16a79e102ac4d14466e189",
+      "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+      "timings_seconds": {
+        "conditioning": 102.03266295813955,
+        "denoise": 839.0242057919968,
+        "video_decode": 66.4651777909603,
+        "audio_decode": 0.5112681668251753,
+        "mux": 0.9812832910101861
+      },
+      "peak_memory_gib": {
+        "conditioning": 5.601050693541765,
+        "denoise": 33.34187971241772,
+        "video_decode": 15.565978277474642,
+        "audio_decode": 2.521349422633648,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 5.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "c450c2e53965e03f2764e98fad4a418f92a8602581a7e8921f9a3e7b921bd501",
+          "size": 110206
+        },
+        {
+          "index": 2,
+          "sha256": "bdf445420fbde9ec98a2c9224a021b77afc148a2ae22e681c8e28e61ad3b6a8e",
+          "size": 67350
+        },
+        {
+          "index": 3,
+          "sha256": "2be7f1f8bc3a12083d785e47933fea3225274ec6fae2a5f94be56cd9cc602e06",
+          "size": 48142
+        },
+        {
+          "index": 4,
+          "sha256": "fa95704c6ae584b3f22f8452e71aa28105ab9d5b9a7365803eb99e4a7892638c",
+          "size": 37536
+        },
+        {
+          "index": 5,
+          "sha256": "4b222d7bdd7e14dcbef1e9d3a510263c8826bd6df22e1e2102b06889ec3e41aa",
+          "size": 79878
+        },
+        {
+          "index": 6,
+          "sha256": "43eb072c27354276b3ab1db94b0cd3c58ed6d45db0f75277963ba7d98f96302c",
+          "size": 24098
+        },
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "f8f4e6af91c000d3e04bf1fe1e1fd0184471224b53d5e145793cd7fc96fcf144",
+          "size": 676858
+        }
+      ],
+      "runtime_version": "0.1.0.dev3+guide2",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/27-768p-ee51108311e9-output.mp4",
+        "poster": "media/27-768p-ee51108311e9-poster.jpg"
+      },
       "previous_results": []
     },
     {
@@ -2904,7 +2983,7 @@
       "title": "A voxel interruption",
       "source_case": "Live-Action Voxel Transformation",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 1,
         "videos": 2,
