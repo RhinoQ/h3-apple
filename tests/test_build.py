@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import build
+import pytest
 
 
 def write_state(path, run):
@@ -48,3 +49,22 @@ def test_archived_command_fetches_pinned_record_and_has_unique_copy_ids():
     assert 'id="prompt-01-576p-0123456789ab"' in panel
     assert 'Visible exact prompt' in panel
     assert "resolution=&#x27;576p&#x27;" in panel
+
+
+def test_recovery_recipe_uses_the_recorded_runtime_and_checks_its_source(tmp_path):
+    prompt = 'A moving geometric pattern.'
+    case = dict(number=7, product_status='supported_text', prompt_sha256=hashlib.sha256(prompt.encode()).hexdigest(),
+        source_geometry=dict(width=1280, height=720, duration=15),
+        reference_images=[], reference_videos=[], reference_audio=[])
+    run = dict(status='queued', runtime_version='0.1.0.dev5+guide3')
+    recipe = build.reproduction(case, run)
+    assert recipe['runtime'] == build.RUNTIMES['0.1.0.dev5+guide3']
+    assert recipe['configuration_state'] == 'planned'
+    metadata = dict(request=dict(prompt=prompt, task='t2va', seed=42, resolution='576p', duration=15),
+        package_source_sha256=recipe['runtime']['source_sha256'])
+    (tmp_path / 'output.run.json').write_text(json.dumps(metadata))
+    run.update(status='generated', directory=str(tmp_path))
+    assert build.reproduction(case, run)['configuration_state'] == 'executed'
+    run['runtime_version'] = '0.1.0.dev2'
+    with pytest.raises(AssertionError):
+        build.reproduction(case, run)

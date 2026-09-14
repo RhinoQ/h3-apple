@@ -35,7 +35,7 @@
     </aside>
     <article class="article">
       <div id="examples"><section id="overview" class="overview"><div class="section-label">THE REPRODUCTION LOG</div><h2>Every case, accounted for.</h2>
-<p class="collection-state"><strong>26 cases have a video</strong><span>25 completed at the current resolution</span><span>8 requests queued or running</span><span>8 paused for VSA evaluation</span><span>3 need further work</span></p>
+<p class="collection-state"><strong>26 cases have a video</strong><span>25 completed at the current resolution</span><span>11 requests queued or running</span><span>8 paused for VSA evaluation</span><span>0 need further work</span></p>
 <p>The collection keeps the source order. Small-face scenes use native 768p. Earlier 576p videos remain available with their own parameters and commands while the new requests run.</p></section>
 <section class="case-group" id="group-1"><div class="section-label">01 / STUDIES</div><h2>Film &amp; campaigns</h2></section>
 <section class="case" id="case-01"><h3><span class="case-number">01</span>Through the binoculars</h3>
@@ -1431,9 +1431,9 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Street%20Dance%20Motion%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/31.json">Current case record ↗</a></div>
 </section>
-<details class="pending-case" id="case-32"><summary><span class="pending-title"><span class="case-number">32</span>Three capybaras</span><span class="status">768p · Generation failed</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p class="runtime-note"><strong>Current request: 768p · Generation failed.</strong> Three capybaras share a locked wide shot; conservatively include small animal faces.</p>
-<p>The attempt did not produce a validated output; the failure is retained.</p>
+<details class="pending-case" id="case-32"><summary><span class="pending-title"><span class="case-number">32</span>Three capybaras</span><span class="status">768p · Generating</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Generating.</strong> Three capybaras share a locked wide shot; conservatively include small animal faces.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-32">Copy prompt</button></div><pre class="prompt-text" id="prompt-32">Motion reference for a DIY reaction clip
@@ -1445,9 +1445,9 @@ Match the action in Video 1 from a locked-off wide camera. Replace the three sui
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/RToCullX5MDcHPWICzuB9_3-2-2-4_in1.mp4" aria-label="Video 1, case 32"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/RToCullX5MDcHPWICzuB9_3-2-2-4_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-32">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-32">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 32 --directory case-32
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-32 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-32/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-32">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-32">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 32 --directory case-32
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-32 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-32/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1506,9 +1506,9 @@ generate(
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Voice%20Clone%20Dialogue%20Transfer">Source prompt &amp; inputs ↗</a><a href="records/33.json">Current case record ↗</a></div>
 </section>
 <section class="case-group" id="group-34"><div class="section-label">34 / STUDIES</div><h2>Cast &amp; object edits</h2></section>
-<details class="pending-case" id="case-34"><summary><span class="pending-title"><span class="case-number">34</span>A different companion</span><span class="status">768p · Generation failed</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p class="runtime-note"><strong>Current request: 768p · Generation failed.</strong> A human and an animal share the reference frame; conservatively retain detail during the replacement.</p>
-<p>The attempt did not produce a validated output; the failure is retained.</p>
+<details class="pending-case" id="case-34"><summary><span class="pending-title"><span class="case-number">34</span>A different companion</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> A human and an animal share the reference frame; conservatively retain detail during the replacement.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-34">Copy prompt</button></div><pre class="prompt-text" id="prompt-34">Replace the cat in the video with a dog.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1518,9 +1518,9 @@ generate(
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/vKUrteICQZw-0ZrY2ZYvX_3-3-1-1_in1.mp4" aria-label="Video 1, case 34"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/vKUrteICQZw-0ZrY2ZYvX_3-3-1-1_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-34">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-34">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 34 --directory case-34
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-34 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-34/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-34">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-34">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 34 --directory case-34
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-34 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-34/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1540,9 +1540,9 @@ generate(
 )</code></pre></details></div>
 <div class="case-links"><a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement">Source prompt &amp; inputs ↗</a><a href="records/34.json">Current case record ↗</a></div>
 </div></details>
-<details class="pending-case" id="case-35"><summary><span class="pending-title"><span class="case-number">35</span>One more teammate</span><span class="status">768p · Generation failed</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
-<p class="runtime-note"><strong>Current request: 768p · Generation failed.</strong> Several full-body teammates share a wide outdoor shot.</p>
-<p>The attempt did not produce a validated output; the failure is retained.</p>
+<details class="pending-case" id="case-35"><summary><span class="pending-title"><span class="case-number">35</span>One more teammate</span><span class="status">768p · Queued</span></summary><div class="pending-body"><p><strong>Required input:</strong> 1 video.</p>
+<p class="runtime-note"><strong>Current request: 768p · Queued.</strong> Several full-body teammates share a wide outdoor shot.</p>
+<p>This case is waiting for, or running on, the local generation worker.</p>
 <div class="reproduction"><h4>Reproduce this video</h4>
 <p class="small-note">Planned inputs and command. This case has not yet produced a validated result.</p>
 <div class="prompt-panel"><div class="command-header"><h5>Prompt</h5><button type="button" data-copy="prompt-35">Copy prompt</button></div><pre class="prompt-text" id="prompt-35">Add one person on the left side of frame wearing the same team uniform and moving in sync with the others.</pre><p class="small-note">Source: <a href="https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others">fal’s H3 prompting guide ↗</a>. Exact text used for this local request.</p></div>
@@ -1552,9 +1552,9 @@ generate(
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/l_yC8dPdRorPJHvPdxo-l_3-3-1-2_in1.mp4" aria-label="Video 1, case 35"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/l_yC8dPdRorPJHvPdxo-l_3-3-1-2_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-35">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-35">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 35 --directory case-35
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-35 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-35/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-35">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-35">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 35 --directory case-35
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-35 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-35/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1594,9 +1594,9 @@ Replace the child at the back of Video 1 with the golden retriever from Image 1.
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/ehbUE2jGFc4hkVdXXakvw_3-3-1-3_in1.mp4" aria-label="Video 1, case 36"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/ehbUE2jGFc4hkVdXXakvw_3-3-1-3_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-36">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-36">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 36 --directory case-36
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-36 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-36/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-36">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-36">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 36 --directory case-36
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-36 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-36/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1633,9 +1633,9 @@ generate(
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/qK43iibhVvmzg9kvsUlxV_3-3-2-1_in2.mp4" aria-label="Video 2, case 37"></video>
 <figcaption><strong>Video 2</strong><a href="https://v3b.fal.media/files/b/0aa44050/qK43iibhVvmzg9kvsUlxV_3-3-2-1_in2.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-37">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-37">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 37 --directory case-37
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-37 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-37/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-37">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-37">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 37 --directory case-37
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-37 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-37/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1669,9 +1669,9 @@ Change the lighting in the reference video from daytime to night.</pre><p class=
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/emXiHyqHBI1Go4GG7gKxc_3-3-2-2_in1.mp4" aria-label="Video 1, case 38"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/emXiHyqHBI1Go4GG7gKxc_3-3-2-2_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-38">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-38">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 38 --directory case-38
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-38 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-38/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-38">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-38">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 38 --directory case-38
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-38 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-38/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1708,9 +1708,9 @@ Replace the view outside the window in Video 1 with Image 1.</pre><p class="smal
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44050/YWz6UnJNrZYj5ZNPyjXBo_3-3-2-3_in1.mp4" aria-label="Video 1, case 39"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44050/YWz6UnJNrZYj5ZNPyjXBo_3-3-2-3_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-39">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-39">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 39 --directory case-39
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-39 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-39/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-39">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-39">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 39 --directory case-39
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-39 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-39/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1747,9 +1747,9 @@ generate(
 <audio controls preload="none" src="https://v3b.fal.media/files/b/0aa44040/RgapPrm2v-i7pGLrCZtwv_3-3-3-1_in1.mp3" aria-label="Audio 1, case 40"></audio>
 <figcaption><strong>Audio 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/RgapPrm2v-i7pGLrCZtwv_3-3-3-1_in1.mp3">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-40">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-40">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 40 --directory case-40
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-40 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-40/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-40">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-40">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 40 --directory case-40
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-40 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-40/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1783,9 +1783,9 @@ generate(
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/MwHg4D9Ik0Yp0ZAxP1-O-_3-3-4-1_in1.mp4" aria-label="Video 1, case 41"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/MwHg4D9Ik0Yp0ZAxP1-O-_3-3-4-1_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-41">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-41">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 41 --directory case-41
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-41 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-41/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-41">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-41">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 41 --directory case-41
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-41 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-41/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1817,9 +1817,9 @@ generate(
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44040/hqcytT4Y13i26QE011efd_3-3-4-2_in1.mp4" aria-label="Video 1, case 42"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44040/hqcytT4Y13i26QE011efd_3-3-4-2_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-42">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-42">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 42 --directory case-42
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-42 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-42/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-42">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-42">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 42 --directory case-42
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-42 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-42/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate
@@ -1892,9 +1892,9 @@ Add orange-yellow hand-drawn marks like Image 1 around the two people in Video 1
 <video controls playsinline preload="none" src="https://v3b.fal.media/files/b/0aa44041/tONqOAIX9BQBbcdMWgdjg_3-3-4-4_in1.mp4" aria-label="Video 1, case 44"></video>
 <figcaption><strong>Video 1</strong><a href="https://v3b.fal.media/files/b/0aa44041/tONqOAIX9BQBbcdMWgdjg_3-3-4-4_in1.mp4">Open original ↗</a></figcaption></figure>
 </div><p class="small-note">References are served by the original publisher. Downloads verify their recorded SHA-256 hashes.</p>
-<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-44">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/40572ed48fa1904178453214b3afe7032e48b860">0.1.0.dev3+guide2</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-44">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py inputs --case 44 --directory case-44
-./h3-apple-guide2/.local/envs/h3/bin/python reproduce.py run --directory case-44 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-44/run-01.mp4</code></pre>
+<div class="command-header"><h5>Generation command</h5><button type="button" data-copy="command-44">Copy command</button></div><p class="small-note">First complete the <a href="https://github.com/RhinoQ/h3-apple/blob/gh-pages/REPRODUCE.md">runtime and model setup</a>. Required build: <a href="https://github.com/RhinoQ/h3-apple/tree/ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588">0.1.0.dev5+guide3</a>. Models are prepared separately; this command downloads only prompt and reference inputs.</p><pre class="command"><code id="command-44">curl -fL https://rhinoq.github.io/h3-apple/reproduce.py -o reproduce.py
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py inputs --case 44 --directory case-44
+./h3-apple-guide3/.local/envs/h3/bin/python reproduce.py run --directory case-44 --model-dir &quot;$HOME/Models/h3-apple-ref2va&quot; --output case-44/run-01.mp4</code></pre>
 <details class="api-call"><summary>Python API call and exact parameters</summary><pre><code>
 from pathlib import Path
 from h3_apple import generate

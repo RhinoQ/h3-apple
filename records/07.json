@@ -73,7 +73,7 @@
     "preset_version": "ours-v1",
     "task": "t2va"
   },
-  "reused_verified_run": false,
+  "reused_verified_run": true,
   "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
   "input_hashes": [],
   "runtime_version": "0.1.0.dev2",

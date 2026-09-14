@@ -22,10 +22,10 @@
   "reproduction": {
     "configuration_state": "planned",
     "runtime": {
-      "version": "0.1.0.dev3+guide2",
-      "commit": "40572ed48fa1904178453214b3afe7032e48b860",
-      "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
-      "directory": "h3-apple-guide2"
+      "version": "0.1.0.dev5+guide3",
+      "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
+      "source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+      "directory": "h3-apple-guide3"
     },
     "parameters": {
       "seed": 42,

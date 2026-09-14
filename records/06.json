@@ -124,7 +124,7 @@
     "preset_version": "ours-ref2va-v1",
     "task": "ref2va"
   },
-  "reused_verified_run": false,
+  "reused_verified_run": true,
   "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
   "input_hashes": [
     {

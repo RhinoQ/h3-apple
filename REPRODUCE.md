@@ -27,8 +27,21 @@ git -C h3-apple-guide2 checkout --detach 40572ed48fa1904178453214b3afe7032e48b86
 ./h3-apple-guide2/install.sh --ref2va
 ```
 
-Install each build only once and reuse it for all matching cases. The guide2
-build contains experimental video/audio references, portrait output and
+For cases marked **0.1.0.dev5+guide3**:
+
+```bash
+git clone --branch codex/guide-inputs https://github.com/RhinoQ/h3-apple.git h3-apple-guide3
+git -C h3-apple-guide3 checkout --detach ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588
+./h3-apple-guide3/install.sh --ref2va
+```
+
+Guide3 fixes frame and audio truncation during MP4 muxing for durations such as
+158 frames at 24 fps. The model weights, conditioning and sampling are unchanged.
+Earlier completed videos keep their original runtime and commands; failed attempts
+are retained and incomplete cases run in a new batch.
+
+Install each build only once and reuse it for all matching cases. The guide builds
+contain experimental video/audio references, portrait output and
 first/last-frame input support. The latest tagged release predates these
 interfaces. The per-case Python API call is the supported entry point for them;
 the older CLI does not expose all of their arguments.

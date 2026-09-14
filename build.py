@@ -47,6 +47,8 @@ RUNTIMES = {
                    "source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace", "directory": "h3-apple-dev2"},
     "0.1.0.dev3+guide2": {"version": "0.1.0.dev3+guide2", "commit": "40572ed48fa1904178453214b3afe7032e48b860",
                           "source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916", "directory": "h3-apple-guide2"},
+    "0.1.0.dev5+guide3": {"version": "0.1.0.dev5+guide3", "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
+                          "source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905", "directory": "h3-apple-guide3"},
 }
 
 
@@ -69,7 +71,7 @@ def reproduction(case, run):
     portrait = case["source_geometry"]["height"] > case["source_geometry"]["width"]
     frames = case["product_status"] == "requires_frame_conditioning"
     stable = case["product_status"].startswith("supported_") and not portrait and case["number"] != 15
-    version = "0.1.0.dev2" if stable else "0.1.0.dev3+guide2"
+    version = run.get("runtime_version", "0.1.0.dev2" if stable else "0.1.0.dev3+guide2")
     parameters = dict(seed=42, resolution=run.get("resolution_policy", {}).get("resolution", "576p"),
                       duration=min(360, max(120, round(case["source_geometry"]["duration"] * 24))) / 24)
     if not stable:
