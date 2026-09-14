@@ -3,7 +3,7 @@
   "title": "A new world behind the action",
   "source_case": "Green-Screen Environment Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Green-Screen%20Environment%20Replacement",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 0,
     "videos": 2,
