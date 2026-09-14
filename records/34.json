@@ -3,7 +3,7 @@
   "title": "A different companion",
   "source_case": "Cat-to-Dog Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Cat-to-Dog%20Replacement",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 0,
     "videos": 1,
@@ -20,7 +20,7 @@
   "prompt_sha256": "cf7fc26fc245f57f8cc61a072aa449ab3b5e3a8a0f541dc69b1bccb8cdb4a8b9",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev5+guide3",
       "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
@@ -53,6 +53,55 @@
     "source_case": "Cat-to-Dog Replacement",
     "resolution": "768p",
     "reason": "A human and an animal share the reference frame; conservatively retain detail during the replacement."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T14:57:36.681296+00:00",
+  "elapsed_seconds": 1276.8502015420236,
+  "actual_nfe": 4,
+  "video_sha256": "aa488a574384900e8ba53104614c28c21951b2184360f34dec0ec215a4ae9c28",
+  "package_source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+  "timings_seconds": {
+    "conditioning": 114.05933037493378,
+    "denoise": 1077.0604705829173,
+    "video_decode": 81.1732719996944,
+    "audio_decode": 0.5608169157058001,
+    "mux": 1.1105119995772839
+  },
+  "peak_memory_gib": {
+    "conditioning": 5.60370572283864,
+    "denoise": 34.85828187223524,
+    "video_decode": 16.778046060353518,
+    "audio_decode": 2.3194573409855366,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 6.583333333333333,
+    "width": 1366,
+    "height": 768,
+    "num_frames": 158,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "kind": "video",
+      "index": 1,
+      "sha256": "ff2b2eda731dce6a7a5d5f8091e821584b714edebdf4df7afae9ba9177b3859a",
+      "size": 1179137
+    }
+  ],
+  "runtime_version": "0.1.0.dev5+guide3",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/34-768p-aa488a574384-output.mp4",
+    "poster": "media/34-768p-aa488a574384-poster.jpg"
   },
   "previous_results": []
 }
