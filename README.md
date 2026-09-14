@@ -33,15 +33,18 @@ branch. The `.nojekyll` file preserves the authored static files.
   its resolution choice based on the prompt and reference framing. Earlier 576p
   outputs remain available with separate records and commands.
 - The original landscape image/text requests use H3 Apple `0.1.0.dev2`.
-- Mixed video/audio, portrait and first/last-frame cases use the isolated
-  `0.1.0.dev3+guide2` development build. Each record includes the actual runtime
-  source hash, model identity and attention mode. These input extensions are
-  experimental. Their pinned source is public on `codex/guide-inputs`; they
-  are not included in the latest tagged runtime release.
-- The eight first/last-frame cases are paused while VSA is evaluated. Existing
-  Dense FL2VA outputs remain available, but no additional Dense FL2VA cases run.
-  The documented baseline uses native FL2VA with LightX2V FL four-step v0.1 and
-  dense attention. T2VA and Ref2VA retain their established four-step weights.
+- Mixed video/audio and portrait cases use pinned guide development builds;
+  first/last-frame VSA cases use `0.1.0.dev6+flvsa2`. Each record identifies its
+  actual source commit, model identity and attention mode. The source is public
+  on `codex/guide-inputs` and `codex/fl2va-vsa`. These extensions are experimental
+  and are not included in the latest tagged runtime release.
+- The eight first/last-frame cases are evaluated with VSA. Existing Dense FL2VA
+  outputs retain their original records and commands; no additional Dense FL2VA
+  cases run. The VSA build uses native FL2VA, LightX2V FL four-step v0.1, and only
+  the 50 FastH3 compression gates. It does not apply FastH3 T2VA deltas. T2VA and
+  Ref2VA retain their established four-step weights. Per-case status indicates
+  whether a VSA output is available; generation completion alone is not a
+  quality-equivalence result.
 - The source videos are 720p. A source clip of 15.083 seconds is delivered as
   15 seconds by the current product API. Every record retains both geometries.
 - Previously generated 576p videos retain their original measurements. A new

@@ -94,11 +94,13 @@ For FL2VA, use the same conversion API with `task="fl2va"`, the **FL2VA** native
 transformer, and the **FL2V** adapter. Obtain the linked official files and point
 the paths below at them. Do not use the Ref2V adapter or FastH3 T2VA deltas.
 The required native components are available in the pinned MiniMax snapshot.
-This preparation command performs no downloads:
+This preparation command uses the FL VSA checkout installed above and performs
+no downloads. The earlier guide2 build produces the same portable FL bundle; an
+existing matching bundle can be reused for VSA without reconversion:
 
 ```bash
 MLX_ENABLE_TF32=0 MLX_METAL_GPU_ARCH=applegpu_g16s \
-./h3-apple-guide2/.local/envs/h3/bin/python - <<'PY'
+./h3-apple-flvsa2/.local/envs/h3/bin/python - <<'PY'
 from pathlib import Path
 from h3_apple.conversion import convert_dit
 from h3_apple.assets import import_assets
