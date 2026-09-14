@@ -1,10 +1,10 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 35,
+  "available_cases": 36,
   "status_counts": {
-    "generated": 35,
+    "generated": 36,
     "running": 1,
-    "queued": 8
+    "queued": 7
   },
   "cases": [
     {
@@ -4178,7 +4178,7 @@
       "title": "One more teammate",
       "source_case": "Add a Character in Sync with the Others",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Add%20a%20Character%20in%20Sync%20with%20the%20Others",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -4195,7 +4195,7 @@
       "prompt_sha256": "c675dbaf9b1ccd5996a495d65e6ddeb0b204bc7b933e2e9dea5538fb3700faba",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev5+guide3",
           "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
@@ -4229,6 +4229,55 @@
         "resolution": "768p",
         "reason": "Several full-body teammates share a wide outdoor shot."
       },
+      "seed": 42,
+      "started_utc": "2026-09-14T15:18:54.647134+00:00",
+      "elapsed_seconds": 1274.5726100001484,
+      "actual_nfe": 4,
+      "video_sha256": "41b98526a10cf89e8aa1809efd36710347cdc20c9652495a901cf7a76863e9ec",
+      "package_source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+      "timings_seconds": {
+        "conditioning": 114.28939562477171,
+        "denoise": 1075.4222061671317,
+        "video_decode": 80.85428991727531,
+        "audio_decode": 0.5627827923744917,
+        "mux": 1.0019223750568926
+      },
+      "peak_memory_gib": {
+        "conditioning": 5.60370572283864,
+        "denoise": 34.86095224972814,
+        "video_decode": 16.778046060353518,
+        "audio_decode": 2.319442082196474,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 6.583333333333333,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 158,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "c7cd12a3f8639758a2ab7bb74d591fbe73feb4763a8351f68c658d5f056879cc",
+          "size": 627095
+        }
+      ],
+      "runtime_version": "0.1.0.dev5+guide3",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/35-768p-41b98526a10c-output.mp4",
+        "poster": "media/35-768p-41b98526a10c-poster.jpg"
+      },
       "previous_results": []
     },
     {
@@ -4236,7 +4285,7 @@
       "title": "A change of cast",
       "source_case": "Subject & Wardrobe Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 2,
         "videos": 1,

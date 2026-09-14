@@ -3,7 +3,7 @@
   "title": "A change of cast",
   "source_case": "Subject & Wardrobe Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Subject%20%26%20Wardrobe%20Replacement",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 2,
     "videos": 1,
