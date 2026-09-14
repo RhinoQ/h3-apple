@@ -3,7 +3,7 @@
   "title": "A leap over lava",
   "source_case": "Claymation Lava Canyon Leap",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Claymation%20Lava%20Canyon%20Leap",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 1,
     "videos": 0,

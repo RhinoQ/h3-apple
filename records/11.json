@@ -3,7 +3,7 @@
   "title": "Artwork in motion",
   "source_case": "Animated Gallery Poster",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Animated%20Gallery%20Poster",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 1,
     "videos": 0,
@@ -20,7 +20,7 @@
   "prompt_sha256": "ccea7b4c6d995d67a52faa4ee5d651d6614f9458b2910b4ce633e3a858b5a845",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev6+flvsa2",
       "commit": "173c69512badad919e023648483ae010bbe564a5",
@@ -53,6 +53,55 @@
     "source_case": "Animated Gallery Poster",
     "resolution": "768p",
     "reason": "A full-body collectible character occupies part of a bordered poster; conservatively protect the small stylized face."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T13:37:45.137842+00:00",
+  "elapsed_seconds": 1304.1981065827422,
+  "actual_nfe": 4,
+  "video_sha256": "2f8138548603cf194f75d5023b700bd6f37b5a9ce542ee42e5e0e0e2460282a6",
+  "package_source_sha256": "3405748b65856b202ae550693ba34f155015197ac6eeab1f07f7aec736cff769",
+  "timings_seconds": {
+    "conditioning": 21.9296482084319,
+    "denoise": 1150.8140072501265,
+    "video_decode": 126.11526570795104,
+    "audio_decode": 0.813621333334595,
+    "mux": 1.4872326669283211
+  },
+  "peak_memory_gib": {
+    "conditioning": 3.0369329787790775,
+    "denoise": 39.04295319225639,
+    "video_decode": 19.78143923357129,
+    "audio_decode": 2.386456523090601,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 10.125,
+    "width": 768,
+    "height": 1366,
+    "num_frames": 243,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-fl2va-vsa-experiment1",
+    "task": "fl2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "13194c2da71a9055f4845a7402268c320f760a5f3348c11989788cae96340bf9",
+  "input_hashes": [
+    {
+      "kind": "keyframe",
+      "anchor": "first",
+      "sha256": "3ac793ae121c729a4ddd7af49527fc83592710e383c0b70e9b1a6341778b0442",
+      "size": 48992
+    }
+  ],
+  "runtime_version": "0.1.0.dev6+flvsa2",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/11-768p-2f8138548603-output.mp4",
+    "poster": "media/11-768p-2f8138548603-poster.jpg"
   },
   "previous_results": []
 }
