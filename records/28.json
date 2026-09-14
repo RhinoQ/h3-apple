@@ -3,7 +3,7 @@
   "title": "A voxel interruption",
   "source_case": "Live-Action Voxel Transformation",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Live-Action%20Voxel%20Transformation",
-  "status": "running",
+  "status": "generated",
   "required_inputs": {
     "images": 1,
     "videos": 2,
@@ -20,7 +20,7 @@
   "prompt_sha256": "82aa9f506f49c3a383364f8da69cda45b0d9ef56ecd7bebb136854b68984331b",
   "notes": [],
   "reproduction": {
-    "configuration_state": "planned",
+    "configuration_state": "executed",
     "runtime": {
       "version": "0.1.0.dev3+guide2",
       "commit": "40572ed48fa1904178453214b3afe7032e48b860",
@@ -73,6 +73,66 @@
     "source_case": "Live-Action Voxel Transformation",
     "resolution": "768p",
     "reason": "The prompt preserves pedestrians in a wide street scene."
+  },
+  "seed": 42,
+  "started_utc": "2026-09-14T00:35:36.957718+00:00",
+  "elapsed_seconds": 4409.221556792036,
+  "actual_nfe": 4,
+  "video_sha256": "ea9069f042982c22a420803c977fe81c3a1e07914e74b7c7307fbfc5be3cf36b",
+  "package_source_sha256": "faf953a71eeadd70b480049e6efd224d37504fb1cf1fde15936d67220a6ed916",
+  "timings_seconds": {
+    "conditioning": 198.75277266581543,
+    "denoise": 4003.495034958003,
+    "video_decode": 199.140377542004,
+    "audio_decode": 1.2059395001269877,
+    "mux": 2.383843709016219
+  },
+  "peak_memory_gib": {
+    "conditioning": 6.400167068466544,
+    "denoise": 59.9241588851437,
+    "video_decode": 24.050363946706057,
+    "audio_decode": 2.6689022444188595,
+    "mux": 0.0
+  },
+  "request": {
+    "resolution": "768p",
+    "duration": 15.0,
+    "width": 1366,
+    "height": 768,
+    "num_frames": 360,
+    "fps": 24,
+    "num_steps": 4,
+    "preset_version": "ours-ref2va-v1",
+    "task": "ref2va"
+  },
+  "reused_verified_run": false,
+  "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+  "input_hashes": [
+    {
+      "index": 1,
+      "sha256": "9d10be5dcbee3a6d820431c329aa0b11deda4d27c7afcaac2fe4083cc4aa8dbd",
+      "size": 52028
+    },
+    {
+      "kind": "video",
+      "index": 1,
+      "sha256": "f4b2d11821388eea4e147a204e26920264950aedc86306b88835e0f6d2662e7b",
+      "size": 475665
+    },
+    {
+      "kind": "video",
+      "index": 2,
+      "sha256": "e170c0d6569259cba5541e2cb21bd16de4c239b00f90a21a8e7a75c228d24daf",
+      "size": 1138218
+    }
+  ],
+  "runtime_version": "0.1.0.dev3+guide2",
+  "attention": "vsa",
+  "experimental_input_support": true,
+  "creative_quality_review": "Not independently rated for this collection",
+  "media": {
+    "video": "media/28-768p-ea9069f04298-output.mp4",
+    "poster": "media/28-768p-ea9069f04298-poster.jpg"
   },
   "previous_results": []
 }
