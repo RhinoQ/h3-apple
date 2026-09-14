@@ -3,7 +3,7 @@
   "title": "Beyond the window",
   "source_case": "Window View Replacement",
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement",
-  "status": "queued",
+  "status": "running",
   "required_inputs": {
     "images": 1,
     "videos": 1,

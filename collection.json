@@ -1,10 +1,10 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 38,
+  "available_cases": 39,
   "status_counts": {
-    "generated": 38,
+    "generated": 39,
     "running": 1,
-    "queued": 5
+    "queued": 4
   },
   "cases": [
     {
@@ -4545,7 +4545,7 @@
       "title": "After sunset",
       "source_case": "Day-to-Night Relighting",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Day-to-Night%20Relighting",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 0,
         "videos": 1,
@@ -4562,7 +4562,7 @@
       "prompt_sha256": "de0d233e1d97d3cd3095ffbaa98cfbf41bd82d430eb29e10e79263fd31101982",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev5+guide3",
           "commit": "ecc3a1c3e8ae53e105f0a44b4e37cecd937cd588",
@@ -4596,6 +4596,55 @@
         "resolution": "768p",
         "reason": "The cafe scene includes smaller background pedestrians as well as the foreground person."
       },
+      "seed": 42,
+      "started_utc": "2026-09-14T17:24:00.536233+00:00",
+      "elapsed_seconds": 1270.7194404578768,
+      "actual_nfe": 4,
+      "video_sha256": "4c5b31250005d7751bc8a20b70b4f3d68c7bdf6593a8eed7c98b6814c1f480aa",
+      "package_source_sha256": "6e8b0c421c736845cc423e710c3165f86f1c0b6c78a8ecd2ed38d262ba2b3905",
+      "timings_seconds": {
+        "conditioning": 114.45924845803529,
+        "denoise": 1071.3533838330768,
+        "video_decode": 80.87945812521502,
+        "audio_decode": 0.565584750380367,
+        "mux": 0.9849722497165203
+      },
+      "peak_memory_gib": {
+        "conditioning": 5.60370572283864,
+        "denoise": 34.85941630508751,
+        "video_decode": 16.778046060353518,
+        "audio_decode": 2.3194621093571186,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 6.583333333333333,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 158,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "kind": "video",
+          "index": 1,
+          "sha256": "b0b0cf00eaa19f2e27d8c3276fa6cd7c542b93c5cc9c2c5580352ace894bcb66",
+          "size": 994880
+        }
+      ],
+      "runtime_version": "0.1.0.dev5+guide3",
+      "attention": "vsa",
+      "experimental_input_support": true,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/38-768p-4c5b31250005-output.mp4",
+        "poster": "media/38-768p-4c5b31250005-poster.jpg"
+      },
       "previous_results": []
     },
     {
@@ -4603,7 +4652,7 @@
       "title": "Beyond the window",
       "source_case": "Window View Replacement",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Window%20View%20Replacement",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 1,
         "videos": 1,
