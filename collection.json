@@ -1,11 +1,11 @@
 {
   "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide",
-  "available_cases": 18,
+  "available_cases": 19,
   "status_counts": {
-    "generated": 17,
+    "generated": 18,
     "paused": 8,
     "running": 1,
-    "queued": 18
+    "queued": 17
   },
   "cases": [
     {
@@ -2416,7 +2416,7 @@
       "title": "Meet the leading man",
       "source_case": "Otome Male Lead Character Promo",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Otome%20Male%20Lead%20Character%20Promo",
-      "status": "running",
+      "status": "generated",
       "required_inputs": {
         "images": 2,
         "videos": 0,
@@ -2433,7 +2433,7 @@
       "prompt_sha256": "1a6092562a1cc74cb0c47d18e59592ca2e6dc81c7bbdcfa6c7d181dd5a4bf4dd",
       "notes": [],
       "reproduction": {
-        "configuration_state": "planned",
+        "configuration_state": "executed",
         "runtime": {
           "version": "0.1.0.dev2",
           "commit": "f35a34ad06df0ba3f9403c317e853fdf3383ad0e",
@@ -2475,6 +2475,59 @@
         "source_case": "Otome Male Lead Character Promo",
         "resolution": "768p",
         "reason": "The identity sheet includes full-body poses and the character promo does not prohibit wide shots."
+      },
+      "seed": 42,
+      "started_utc": "2026-09-13T23:24:18.934551+00:00",
+      "elapsed_seconds": 2226.1506095831282,
+      "actual_nfe": 4,
+      "video_sha256": "ebd6ef72e0a3537a6f5f76a104cc2caf4b2b83dbcca4a7e5530d24082bf45e47",
+      "package_source_sha256": "b1b7b47891daf4fb5b5c76091004536865a26df2ae0b3525281adf5b04198ace",
+      "timings_seconds": {
+        "conditioning": 15.238849499961361,
+        "denoise": 2010.4455869579688,
+        "video_decode": 193.2035980001092,
+        "audio_decode": 1.2205802919343114,
+        "mux": 2.24899600003846
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.02712157741189,
+        "denoise": 46.334549935534596,
+        "video_decode": 24.01064147427678,
+        "audio_decode": 2.6292078606784344,
+        "mux": 0.0
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "fps": 24,
+        "num_steps": 4,
+        "preset_version": "ours-ref2va-v1",
+        "task": "ref2va"
+      },
+      "reused_verified_run": false,
+      "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+      "input_hashes": [
+        {
+          "index": 1,
+          "sha256": "137b39d0ea243557aead39d861a572778c385a00555e1cb7410655fd94dffb40",
+          "size": 77396
+        },
+        {
+          "index": 2,
+          "sha256": "cd0c7921af45e22e52d99d6fdf5de077af730e6b4800c47324ff50cb2a5eb9f0",
+          "size": 44022
+        }
+      ],
+      "runtime_version": "0.1.0.dev2",
+      "attention": "vsa",
+      "experimental_input_support": false,
+      "creative_quality_review": "Not independently rated for this collection",
+      "media": {
+        "video": "media/23-768p-ebd6ef72e0a3-output.mp4",
+        "poster": "media/23-768p-ebd6ef72e0a3-poster.jpg"
       },
       "previous_results": []
     },
@@ -2611,7 +2664,7 @@
       "title": "A quiet evening",
       "source_case": "Character-Driven Romantic Scene",
       "source": "https://fal.ai/learn/devs/minimax-h3-prompting-guide#:~:text=Character-Driven%20Romantic%20Scene",
-      "status": "queued",
+      "status": "running",
       "required_inputs": {
         "images": 2,
         "videos": 0,
