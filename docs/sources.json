@@ -58,7 +58,8 @@
       "upstream_path": "fastvideo/mlx_runtime/minimax_h3_pipeline.py",
       "upstream_sha256": "6aa4aa879e2a9a45e9ec349bcba98d6b2a8b6a70d531568c4401603e0d39c6d5",
       "changes": [
-        "package import paths; see git history for explicit runtime integration"
+        "package import paths; see git history for explicit runtime integration",
+        "Deliver every validated frame without FFmpeg -shortest truncation; set an exact common movie timescale for frame/sample endpoints."
       ]
     },
     {
@@ -244,7 +245,7 @@
       "changes": [
         "Image-only native presentation, integer three-axis position IDs, and lazy official Transformers CPU vision tower with streamed native weights.",
         "Encoder-only original H3 VAE loader; sampled keyframe latents use native tiling, CPU posterior seed 42, FP16 roundtrip and latent normalization.",
-        "Image-only primitives used by the public Ref2VA route; tested cases and limits are recorded in docs/ref2va.md. Image-plus-audio and video references remain unqualified."
+        "Shared image encoding for public Ref2VA images and FL2VA first/last anchors; tested cases and limits are recorded in their task guides. Image-plus-audio and video references remain unqualified."
       ]
     },
     {
@@ -267,6 +268,28 @@
         "Independent MLX integration of Ref2VA LightX2V rank128/alpha8 updates plus only 50 FastH3 compression gates; 75% generated-video sparsity and ordered dense-exempt reference segments.",
         "Uses native MiniMax components and Ours quantization/decode; does not reproduce ComfyUI ConvRot or CUDA RNG.",
         "Separate kablex route: round non-sink top-k, retain ties, force adjacent tiles and use a single-rounding coarse add; default FastH3 routing unchanged."
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/fl2va_pipeline.py",
+      "sources": [
+        {
+          "repository": "https://github.com/hao-ai-lab/FastVideo",
+          "commit": "3d8ac9d14bd697a89ede8f170cbfbca012a9edcc",
+          "upstream_path": "fastvideo/pipelines/basic/minimax_h3/packing.py",
+          "upstream_sha256": "0d89ba718fafc9a842455edbaee57fda9c6855647c6d8c3d1426c86bb0d8e3b7"
+        },
+        {
+          "repository": "https://github.com/hao-ai-lab/FastVideo",
+          "commit": "3d8ac9d14bd697a89ede8f170cbfbca012a9edcc",
+          "upstream_path": "fastvideo/pipelines/basic/minimax_h3/stages/minimax_h3_conditioning.py",
+          "upstream_sha256": "ae4ee5a0b1ad092933c56eb7869539120b52302c9e860eea811df86a0b8a5256"
+        }
+      ],
+      "changes": [
+        "Native first/last target-time packing and full-canvas keyframe preparation; share image encoding and generated-row sampling with Ref2VA.",
+        "Apply pinned LightX2V FL2VA v1.2 6/3 sampling and use only the 50 FastH3 VSA gates. Protect each condition segment independently with Ref2VA-style routing.",
+        "This is a local gate transfer, not an official jointly distilled VSA checkpoint. See docs/fl2va.md for weight links and measured scope."
       ]
     }
   ],

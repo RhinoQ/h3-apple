@@ -56,6 +56,9 @@ record actual statistics, input hashes, sampling recipe, code/model identity,
 phase timings and complete media validation. This is a gate transfer to FL2VA,
 not an officially jointly distilled LightX2V/VSA checkpoint.
 
-Integration and generation validation for this v1.2 candidate are in progress.
+A [five-second 768p first/last-frame integration case](../benchmarks/results/fl2va-v12-01/README.md)
+completed with 4 NFE and 200 sparse calls on M5 Max / 128 GiB. All 120 frames
+received a limited nonblind visual review; the result, full prompt, source
+frames, hashes, command and remaining quality limits are recorded there.
 Previous FL2VA v0.1 outputs do not qualify the new weights. No broad quality,
 Dense-equivalence, speedup or smaller-memory-hardware claim is made.
