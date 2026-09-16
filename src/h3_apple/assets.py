@@ -21,10 +21,13 @@ def bundle_identity(manifest):
     elif manifest["format_version"] == 3:
         content = {"files": content, **{key: manifest[key] for key in
                    ("derivation", "task", "checkpoint", "components", "ref2va_native")}}
+    elif manifest["format_version"] == 4:
+        content = {"files": content, **{key: manifest[key] for key in
+                   ("derivation", "task", "checkpoint", "components", "fl2va_native")}}
     return hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
 
 
-def _files(checkpoint, components, ref2va_native=None):
+def _files(checkpoint, components, ref2va_native=None, fl2va_native=None):
     checkpoint, components = Path(checkpoint).resolve(), Path(components).resolve()
     manifest = checkpoint / "mlx_h3_dit.json"
     config = json.loads(manifest.read_text())
@@ -33,31 +36,40 @@ def _files(checkpoint, components, ref2va_native=None):
         raise ValueError("Ours requires a 50-block affine INT8/group64 VSA checkpoint.")
     paths = {"dit/mlx_h3_dit.json": manifest,
              "dit/mlx_h3_dit.safetensors": checkpoint / "mlx_h3_dit.safetensors"}
-    recipe_path = checkpoint / "ref2va_recipe.json"
-    if recipe_path.exists() != (ref2va_native is not None):
+    if ref2va_native is not None and fl2va_native is not None:
+        raise ValueError("A checkpoint must have exactly one conditioned task.")
+    task = "fl2va" if fl2va_native is not None else "ref2va"
+    native_source = fl2va_native if fl2va_native is not None else ref2va_native
+    recipe_path = checkpoint / f"{task}_recipe.json"
+    if (checkpoint / "fl2va_recipe.json").exists() and fl2va_native is None:
+        raise ValueError("An FL2VA checkpoint requires fl2va_native.")
+    if recipe_path.exists() != (native_source is not None):
         raise ValueError("A Ref2VA checkpoint requires --ref2va-native; a text-only checkpoint must not use it.")
-    if ref2va_native is not None:
+    if native_source is not None:
         recipe = json.loads(recipe_path.read_text())
-        expected = dict(schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128,
+        expected = dict(schema=f"h3-apple-{task}/v1", task=task, lora_rank=128,
                         lora_alpha=8, lora_tensors=624, gate_tensors=50,
                         precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False)
         if any(recipe.get(key) != value for key, value in expected.items()):
             raise ValueError("Expected the dedicated Ref2VA + LightX2V four-step checkpoint with 50 VSA gates.")
-        paths["dit/ref2va_recipe.json"] = recipe_path
-        native = Path(ref2va_native).expanduser().resolve()
+        if task == "fl2va":
+            from .fl2va_recipe import fl2va_sampling
+            fl2va_sampling(recipe)
+        paths[f"dit/{task}_recipe.json"] = recipe_path
+        native = Path(native_source).expanduser().resolve()
         for name in ("processor", "tokenizer", "text_encoder", "video_vae"):
             source = (native / name).resolve()
             if not source.is_dir():
                 raise FileNotFoundError(f"Missing native reference component: {source}")
             for path in sorted(source.rglob("*")):
                 if path.is_file() and path.suffix in (".json", ".safetensors", ".txt", ".jinja"):
-                    paths[f"ref2va/{name}/{path.relative_to(source)}"] = path.resolve()
+                    paths[f"{task}/{name}/{path.relative_to(source)}"] = path.resolve()
         for relative in ("processor/preprocessor_config.json", "tokenizer/tokenizer.json",
                          "text_encoder/config.json", "video_vae/config.json", "video_vae/source/config.json"):
-            if "ref2va/" + relative not in paths:
+            if task + "/" + relative not in paths:
                 raise ValueError(f"Missing native reference configuration: {relative}")
         for name in ("text_encoder", "video_vae/source"):
-            if not any(p.startswith(f"ref2va/{name}/") and p.endswith(".safetensors") for p in paths):
+            if not any(p.startswith(f"{task}/{name}/") and p.endswith(".safetensors") for p in paths):
                 raise ValueError(f"Missing native reference {name} weights.")
     for name in ("LICENSE", "NOTICE"):
         if (components / name).is_file():
@@ -83,11 +95,11 @@ def _files(checkpoint, components, ref2va_native=None):
 
 
 def import_assets(checkpoint, components, directory=None, *, progress=None, provenance=None,
-                  download_bytes=0, ref2va_native=None):
+                  download_bytes=0, ref2va_native=None, fl2va_native=None):
     directory = model_directory(directory)
     if (directory / "bundle.json").exists():
         raise FileExistsError(f"A model bundle already exists at {directory}; use another directory.")
-    paths = _files(checkpoint, components, ref2va_native)
+    paths = _files(checkpoint, components, ref2va_native, fl2va_native)
     directory.parent.mkdir(parents=True, exist_ok=True)
     if directory.exists() and any(directory.iterdir()):
         raise FileExistsError("Model destination contains an incomplete or existing bundle.")
@@ -138,6 +150,8 @@ def import_assets(checkpoint, components, directory=None, *, progress=None, prov
                         provenance=provenance)
         if ref2va_native is not None:
             manifest.update(format_version=3, task="ref2va", ref2va_native="ref2va")
+        if fl2va_native is not None:
+            manifest.update(format_version=4, task="fl2va", fl2va_native="fl2va")
         manifest["identity"] = bundle_identity(manifest)
         write_json(staging / "bundle.json", manifest)
         # A single directory rename publishes the complete bundle. A populated
@@ -155,10 +169,14 @@ def load_assets(directory=None, *, verify=False):
     if not path.is_file():
         raise FileNotFoundError(f"Models are not prepared at {directory}. Run h3 models prepare.")
     data = json.loads(path.read_text())
-    if data.get("format_version") not in (1, 2, 3) or data.get("preset") != "ours" or not data.get("files"):
+    if data.get("format_version") not in (1, 2, 3, 4) or data.get("preset") != "ours" or not data.get("files"):
         raise ValueError("Unsupported or empty model bundle.")
     directories = ["checkpoint", "components"]
-    if data["format_version"] == 3:
+    if data["format_version"] == 4:
+        if data.get("task") != "fl2va" or not isinstance(data.get("fl2va_native"), str):
+            raise ValueError("Invalid FL2VA model bundle.")
+        directories.append("fl2va_native")
+    elif data["format_version"] == 3:
         if data.get("task") != "ref2va" or not isinstance(data.get("ref2va_native"), str):
             raise ValueError("Invalid Ref2VA model bundle.")
         directories.append("ref2va_native")

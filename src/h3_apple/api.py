@@ -26,6 +26,9 @@ class GenerationRequest:
     num_steps: int = 4
     reference_images: tuple[str, ...] = ()
     task: str = "t2va"
+    first_frame: str | None = None
+    last_frame: str | None = None
+    reference_resize: str = "legacy"
 
     def to_dict(self):
         return asdict(self)
@@ -40,7 +43,8 @@ class GenerationResult:
 
 
 def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
-            duration=15, seed=None, reference_images=None):
+            duration=15, seed=None, reference_images=None, task=None,
+            first_frame=None, last_frame=None, reference_resize="legacy"):
     """Return the delivery and model geometry without importing MLX.
 
     Durations are 5–15 seconds in whole delivery frames at 24 fps. The model
@@ -67,6 +71,32 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
                 if getattr(image, "n_frames", 1) != 1:
                     raise ValueError("Reference inputs must be still images, not animations or videos.")
                 image.verify()
+    keyframes = []
+    for value in (first_frame, last_frame):
+        if value is None:
+            keyframes.append(None)
+            continue
+        if not isinstance(value, (str, Path)) or not str(value).strip():
+            raise ValueError("A first or last frame needs a local still-image path.")
+        from PIL import Image
+        path = Path(value).expanduser().resolve()
+        with Image.open(path) as image:
+            if getattr(image, "n_frames", 1) != 1:
+                raise ValueError("Keyframes must be still images.")
+            image.verify()
+        keyframes.append(str(path))
+    has_keyframes = any(keyframes)
+    if has_keyframes and references:
+        raise ValueError("First/last frames and Ref2VA references use different model tasks.")
+    inferred = "fl2va" if has_keyframes else "ref2va" if references else "t2va"
+    if task is not None and task not in ("t2va", "fl2va", "ref2va"):
+        raise ValueError("task must be t2va, fl2va or ref2va.")
+    if task is not None and task != inferred:
+        raise ValueError(f"task={task} does not match the supplied inputs ({inferred}).")
+    if reference_resize not in ("legacy", "match"):
+        raise ValueError("reference_resize must be legacy or match.")
+    if reference_resize != "legacy" and inferred != "ref2va":
+        raise ValueError("reference_resize applies only to Ref2VA images.")
     if resolution is None:
         resolution = "576p" if references else "768p"
     canvases = {"768p": (1366, 768, 1376), "576p": (1024, 576, 1024)}
@@ -92,13 +122,18 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
     return GenerationRequest(prompt, preset, resolution, count / 24, seed,
                              width, height, count, model_width, height,
                              ((count - 5 + 16) // 17) * 17 + 5,
-                             preset_version="ours-ref2va-v1" if references else "ours-v1",
-                             reference_images=references, task="ref2va" if references else "t2va")
+                             preset_version="ours-fl2va-vsa-v1.2" if has_keyframes else
+                                 "ours-ref2va-match-v1" if references and reference_resize == "match" else
+                                 "ours-ref2va-v1" if references else "ours-v1",
+                             reference_images=references, task=inferred,
+                             first_frame=keyframes[0], last_frame=keyframes[1],
+                             reference_resize=reference_resize)
 
 
 def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
              duration=15, seed=None, output=None, model_dir=None, on_progress=None,
-             diagnostics=False, timeout=7200, reference_images=None):
+             diagnostics=False, timeout=7200, reference_images=None,
+             task=None, first_frame=None, last_frame=None, reference_resize="legacy"):
     """Generate a complete MP4 and metadata; Ctrl-C cancels the whole worker group.
 
     on_progress receives small dictionaries in the caller process. diagnostics
@@ -106,7 +141,9 @@ def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
     """
     request = resolve(prompt, prompt_file=prompt_file, preset=preset,
                       resolution=resolution, duration=duration, seed=seed,
-                      reference_images=reference_images)
+                      reference_images=reference_images, task=task,
+                      first_frame=first_frame, last_frame=last_frame,
+                      reference_resize=reference_resize)
     from .process import run_generation
 
     return run_generation(request, output=output, model_dir=model_dir,

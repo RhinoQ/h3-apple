@@ -61,7 +61,10 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
                 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200):
             raise ValueError("Expected four complete VSA forwards without fallback.")
     else:
-        from .ref2va_pipeline import condition_and_denoise
+        if request["task"] == "fl2va":
+            from .fl2va_pipeline import condition_and_denoise
+        else:
+            from .ref2va_pipeline import condition_and_denoise
         video, audio, reference_metadata, stats = condition_and_denoise(
             request, ref2va, assets["checkpoint"], observer, phase)
     if not np.isfinite(video).all() or not np.isfinite(audio).all():
@@ -78,7 +81,7 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
     observer.capture("audio", lambda: {"waveform": waveform})
     left = (request["model_width"] - request["width"]) // 2
     frames = frames[:request["num_frames"], :, left:left + request["width"]]
-    samples = request["num_frames"] * request["audio_sample_rate"] // request["fps"]
+    samples = (request["num_frames"] * request["audio_sample_rate"] + request["fps"] - 1) // request["fps"]
     if waveform.shape[-1] < samples:
         raise ValueError("Generated audio does not cover the delivery duration.")
     waveform = waveform[:, :samples]
@@ -93,7 +96,7 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
                 diagnostics_enabled=diagnostics_dir is not None,
                 audio_rms=audio_rms, video_std=video_std)
     if reference_metadata is not None:
-        result["ref2va"] = reference_metadata
+        result[request["task"]] = reference_metadata
         if reference_metadata["attention"] == "dense":
             result["sparse_implementation"] = None
     return result

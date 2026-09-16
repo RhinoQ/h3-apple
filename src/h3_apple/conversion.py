@@ -246,10 +246,10 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
     import mlx.core as mx
     from ._vendor.fastvideo_mlx import minimax_h3 as h3
     native, adapter, output = Path(native), Path(adapter), Path(output)
-    if task not in ("t2va", "ref2va"):
-        raise ValueError("DiT conversion task must be t2va or ref2va.")
-    if gate_source is not None and task != "ref2va":
-        raise ValueError("A separate gate source is only valid for Ref2VA.")
+    if task not in ("t2va", "ref2va", "fl2va"):
+        raise ValueError("DiT conversion task must be t2va, ref2va or fl2va.")
+    if gate_source is not None and task == "t2va":
+        raise ValueError("A separate gate source is only valid for conditioned LightX2V tasks.")
     if output.exists():
         raise FileExistsError(output)
     shards = sorted(native.glob("model-*.safetensors"))
@@ -264,7 +264,14 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
                 shapes[target] = ((record.shape[0] // 3, *record.shape[1:])
                                   if op in ("q", "k", "v") else record.shape)
     adapter_header = header(adapter)
-    plans = ref2va_adapter_plan(adapter_header, shapes) if task == "ref2va" else adapter_plan(adapter_header, shapes, vsa=True)
+    if task == "fl2va":
+        from .fl2va_recipe import FL12_SOURCE
+        from .io import digest
+        if digest(adapter) != FL12_SOURCE["sha256"]:
+            raise ValueError("Expected the pinned official LightX2V FL2VA v1.2 BF16 LoRA.")
+        if gate_source is None:
+            raise ValueError("FL2VA VSA preparation requires a separate gate source.")
+    plans = ref2va_adapter_plan(adapter_header, shapes) if task != "t2va" else adapter_plan(adapter_header, shapes, vsa=True)
     adapter_tensors = mx.load(str(adapter))
     consumed = set()
     gates = ref2va_gate_plan(header(gate_source)) if gate_source is not None else {}
@@ -280,7 +287,7 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
             for target, op in native_key_plan(key):
                 base = transform_native(value, op, xp=mx)
                 converted[target] = (merge_parameter(base, plans[target], adapter_tensors,
-                    xp=mx, consumed=consumed, lora_scale=8/128 if task == "ref2va" else 1.0) if target in plans else base)
+                    xp=mx, consumed=consumed, lora_scale=8/128 if task != "t2va" else 1.0) if target in plans else base)
         if phase == "weights" and shard == shards[-1]:
             for target, edits in plans.items():
                 if "set_weight" in edits:
@@ -293,8 +300,8 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
         return converted
 
     timesteps = np.unique(np.concatenate([
-        1 - h3.minimax_h3_sigmas(12, 4)[:-1],
-        1 - h3.minimax_h3_sigmas(3, 4)[:-1], [1.0, 0.999] if task == "ref2va" else [1.0]]).astype(np.float32))
+        1 - h3.minimax_h3_sigmas(6 if task == "fl2va" else 12, 4)[:-1],
+        1 - h3.minimax_h3_sigmas(3, 4)[:-1], [1.0, 0.999] if task != "t2va" else [1.0]]).astype(np.float32))
     dit = h3.mlx_h3_dit_from_diffusers_safetensors(native, config=CONFIG, dtype="bf16",
         quantization="int8", adaln_cache_timesteps=timesteps,
         include_vsa=task == "t2va" or bool(gates), _shard_loader=load)
@@ -303,13 +310,15 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
     if gates_consumed != set(gates.values()):
         raise ValueError("The converted model did not consume all selected gates.")
     h3.save_mlx_h3_checkpoint(dit, output)
-    if task == "ref2va":
-        (output / "ref2va_recipe.json").write_text(json.dumps(dict(
-            schema="h3-apple-ref2va/v1", task=task, lora_rank=128, lora_alpha=8,
+    if task != "t2va":
+        from .fl2va_recipe import FL12_SAMPLING
+        (output / f"{task}_recipe.json").write_text(json.dumps(dict(
+            schema=f"h3-apple-{task}/v1", task=task, lora_rank=128, lora_alpha=8,
             lora_tensors=len(consumed), gate_tensors=len(gates_consumed),
             base_directory=str(native.resolve()), adapter_path=str(adapter.resolve()),
             gate_source=None if gate_source is None else str(Path(gate_source).resolve()),
             precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False,
+            **({"sampling": FL12_SAMPLING} if task == "fl2va" else {}),
         ), indent=2) + "\n")
     return dict(base_shards=len(shards), adapter_tensors=len(consumed),
                 gate_tensors=len(gates_consumed), timesteps=timesteps.tolist())
@@ -381,6 +390,9 @@ def main():
     parser.add_argument("--native", type=Path, required=True)
     parser.add_argument("--adapter", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--task", choices=("t2va", "fl2va"), default="t2va")
+    parser.add_argument("--gate-source", type=Path, help="FastH3 source for the 50 FL2VA VSA gates only")
+    parser.add_argument("--components", type=Path, help="Reuse an existing converted decoder/component directory")
     args = parser.parse_args()
     with device_lock():
         initial = snapshot()
@@ -397,15 +409,21 @@ def main():
         args.output.mkdir(exist_ok=False)
         def progress(event):
             print(json.dumps(event), flush=True)
-        dit = convert_dit(args.native / "transformer", args.adapter, args.output / "dit", progress)
+        dit = convert_dit(args.native / "transformer", args.adapter, args.output / "dit", progress,
+                          task=args.task, gate_source=args.gate_source)
         mx.clear_cache()
-        convert_components(args.native, args.output / "components", progress)
-        write_json(args.output / "conversion.json", dict(converter="native-fasth3-v2", dit=dit,
+        if args.components is None:
+            convert_components(args.native, args.output / "components", progress)
+        else:
+            if not args.components.is_dir():
+                raise FileNotFoundError(args.components)
+            (args.output / "components").symlink_to(args.components.resolve(), target_is_directory=True)
+        write_json(args.output / "conversion.json", dict(converter="native-fasth3-v2" if args.task == "t2va" else "native-lightx2v-fl12-v1", dit=dit,
                    backend=backend, package_source_sha256=source_identity(),
                    physical_host=initial, elapsed_seconds=time.monotonic() - started,
                    settings={"metal_gpu_arch_override": "applegpu_g16s", "tf32": False,
                              "dtype": "bf16", "quantization": "affine-int8-group64",
-                             "video_shift": 12, "audio_shift": 3, "num_steps": 4,
+                             "task": args.task, "video_shift": 6 if args.task == "fl2va" else 12, "audio_shift": 3, "num_steps": 4,
                              "video_vae_dtype": "fp32"},
                    peak_memory_gib=mx.get_peak_memory() / 1024**3,
                    full_student_bitwise_equivalence_claimed=False))

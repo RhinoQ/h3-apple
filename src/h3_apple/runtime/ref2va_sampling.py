@@ -23,7 +23,8 @@ def image_noise(reference_rows, layout, seed):
     return condition, video, audio
 
 
-def sample_image(dit, text_rows, condition_rows, layout, initial_video, initial_audio, *, observer=None):
+def sample_image(dit, text_rows, condition_rows, layout, initial_video, initial_audio, *, observer=None,
+                 video_shift=12):
     """Return only generated rows. The reference prefix never enters the solver."""
     if layout.num_condition_audio_rows or not layout.num_condition_video_rows:
         raise ValueError("This sampler supports image references only.")
@@ -39,7 +40,7 @@ def sample_image(dit, text_rows, condition_rows, layout, initial_video, initial_
             or not getattr(dit.vsa_config, "exempt", False)
             or not getattr(layout, "reference_prefix_segments", ())):
         raise ValueError("Ref2VA VSA requires trained gates and explicit dense-exempt reference segments.")
-    video_solver = MiniMaxH3SchedulerState.create(12, 4)
+    video_solver = MiniMaxH3SchedulerState.create(video_shift, 4)
     audio_solver = MiniMaxH3SchedulerState.create(3, 4)
     schedule = [build_ref2va_timesteps(layout, float(v), float(a))
                 for v, a in zip(video_solver.timesteps, audio_solver.timesteps, strict=True)]

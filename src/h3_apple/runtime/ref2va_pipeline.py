@@ -19,7 +19,7 @@ from .._vendor.fastvideo_mlx.minimax_h3_vsa import MiniMaxH3VSAConfig
 from .ref2va import prepare_reference_image, ReferenceGeometry, build_ref2va_layout
 from .ref2va_conditioning import (
     qwen_image_inputs, qwen_vision_features, image_presentation, load_native_image_vae,
-    encode_image_latents,
+    encode_image_latents, encode_images,
 )
 from .ref2va_sampling import image_noise, sample_image
 from .sparse import sparse_calls
@@ -59,6 +59,7 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     native = Path(options["native_root"])
     prepared = prepare_images(options)
     metadata = dict(task="ref2va", precision="int8_group64_bf16", attention=attention,
+        reference_resize=options.get("reference_resize", "legacy"), pixel_budget=options["pixel_budget"],
         reference_images=[dict(index=index + 1, width_height=list(image.size),
             pixels_sha256=hashlib.sha256(np.asarray(image).tobytes()).hexdigest())
             for index, image in enumerate(prepared)],
@@ -67,42 +68,9 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
         metadata.update(image_width_height=list(prepared[0].size),
             image_pixels_sha256=metadata["reference_images"][0]["pixels_sha256"])
 
-    def condition():
-        inputs = qwen_image_inputs(native / "processor", prepared)
-        features, deepstack = qwen_vision_features(native / "text_encoder",
-            inputs["pixel_values"], inputs["image_grid_thw"])
-        conditioner = StreamedMiniMaxH3TextConditioner(native / "text_encoder", native / "tokenizer")
-        try:
-            presentation = image_presentation(conditioner.tokenizer, request["prompt"],
-                                               inputs["image_grid_thw"].numpy())
-            text, tags = conditioner.encode_presentation(
-                presentation.token_ids, presentation.tags, presentation.positions,
-                visual_features=features, visual_mask=presentation.visual_mask,
-                deepstack_features=deepstack)
-        finally:
-            conditioner.close()
-        del conditioner, features, deepstack, inputs
-        gc.collect(); mx.clear_cache()
-        vae = load_native_image_vae(native / "video_vae")
-        encoded = [patchify_video_latents(encode_image_latents(vae, image), (1, 2, 2))
-                   for image in prepared]
-        for image, rows in zip(prepared, encoded, strict=True):
-            if rows.shape != ((image.height // 32) * (image.width // 32), 96):
-                raise ValueError("An encoded reference does not match its image geometry.")
-        reference = np.concatenate(encoded, axis=0)
-        counts = [len(rows) for rows in encoded]
-        metadata.update(prompt_tokens=len(tags), reference_rows=len(reference),
-            reference_segment_rows=counts,
-            text_sha256=hashlib.sha256(text.tobytes()).hexdigest(),
-            reference_sha256=hashlib.sha256(reference.tobytes()).hexdigest())
-        pixels = ({"pixels": np.asarray(prepared[0])} if len(prepared) == 1 else
-                  {f"pixels_{index + 1}": np.asarray(image) for index, image in enumerate(prepared)})
-        observer.capture("reference-inputs", lambda: dict(pixels,
-            text=text, tags=tags, reference=reference,
-            reference_offsets=np.cumsum([0, *counts], dtype=np.int64)))
-        return text, tags, reference
-
-    text, tags, reference = phase("conditioning", condition)
+    text, tags, reference, condition_metadata = phase("conditioning", lambda: encode_images(
+        native, prepared, request["prompt"], observer))
+    metadata.update(condition_metadata)
     gc.collect(); mx.clear_cache()
     geometry = MiniMaxH3MLXPipeline.resolve_geometry(
         request["model_height"], request["model_width"], request["model_num_frames"])

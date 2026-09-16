@@ -36,8 +36,14 @@ def parser():
         prompts.add_argument("--prompt")
         prompts.add_argument("--prompt-file")
         command.add_argument("--preset", default="ours")
+        command.add_argument("--task", choices=("t2va", "fl2va", "ref2va"),
+                             help="Infer from inputs when omitted; reject mismatched task and inputs")
+        command.add_argument("--first-frame", help="FL2VA first-frame image")
+        command.add_argument("--last-frame", help="FL2VA last-frame image; may be used alone")
+        command.add_argument("--reference-resize", choices=("legacy", "match"), default="legacy",
+                             help="Ref2VA images: legacy 0.258 MP, or match the output canvas area")
         command.add_argument("--resolution", choices=("768p", "576p"),
-                             help="Default: 768p for text, 576p with reference images")
+                             help="Default: 768p for text or keyframes, 576p with Ref2VA images")
         command.add_argument("--duration", type=float, default=15)
         command.add_argument("--seed", type=int)
         command.add_argument("--reference-image", action="append", dest="reference_images",
@@ -52,9 +58,10 @@ def parser():
     doctor.add_argument("--model-dir")
     models = commands.add_parser("models").add_subparsers(dest="model_command", required=True)
     prepare = models.add_parser("prepare", help="Prepare a verified local model bundle")
-    prepare.add_argument("--checkpoint", help="Existing converted T2VA or Ref2VA VSA checkpoint")
+    prepare.add_argument("--checkpoint", help="Existing converted T2VA, FL2VA or Ref2VA VSA checkpoint")
     prepare.add_argument("--components", help="Existing text encoder, tokenizer and VAEs")
     prepare.add_argument("--ref2va-native", help="Native Ref2VA processor, tokenizer, text encoder and image VAE; use with a converted Ref2VA checkpoint")
+    prepare.add_argument("--fl2va-native", help="Native FL2VA processor, tokenizer, text encoder and image VAE; use with a converted FL2VA v1.2 checkpoint")
     prepare.add_argument("--model-dir")
     prepare.add_argument("--cache-dir", help="Reusable source files; defaults beside the model bundle")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
@@ -90,16 +97,19 @@ def main(argv=None):
             if name == "prepare":
                 checkpoint, components = args.pop("checkpoint"), args.pop("components")
                 native = args.pop("ref2va_native")
+                fl_native = args.pop("fl2va_native")
+                if native and fl_native:
+                    raise ValueError("Choose only one native conditioned model task.")
                 if bool(checkpoint) != bool(components):
                     raise ValueError("Provide both --checkpoint and --components to import converted assets.")
-                if native and not checkpoint:
-                    raise ValueError("--ref2va-native requires --checkpoint and --components.")
+                if (native or fl_native) and not checkpoint:
+                    raise ValueError("--ref2va-native / --fl2va-native requires --checkpoint and --components.")
                 show_plan = args.pop("plan")
                 if checkpoint:
                     if show_plan or args["cache_dir"] or args["reuse_dirs"] or args["allow_large_download"]:
                         raise ValueError("Source-download options cannot be combined with converted-asset import.")
                     result = import_assets(checkpoint, components, directory, progress=progress,
-                                           ref2va_native=native)
+                                           ref2va_native=native, fl2va_native=fl_native)
                 else:
                     from .preparation import plan, prepare
                     if show_plan:

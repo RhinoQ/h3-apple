@@ -171,3 +171,44 @@ def encode_image_latents(vae, image, *, return_intermediates=False):
                 "logvar": np.asarray(logvar), "noise": noise, "sampled": np.asarray(sampled),
                 "latents": np.asarray(latents)}
     return np.asarray(latents)
+
+
+def encode_images(native, prepared, prompt, observer):
+    import hashlib
+    import mlx.core as mx
+    from .._vendor.fastvideo_mlx.minimax_h3 import patchify_video_latents
+    from .._vendor.fastvideo_mlx.minimax_h3_conditioner import StreamedMiniMaxH3TextConditioner
+    metadata = {}
+    inputs = qwen_image_inputs(native / "processor", prepared)
+    features, deepstack = qwen_vision_features(native / "text_encoder",
+        inputs["pixel_values"], inputs["image_grid_thw"])
+    conditioner = StreamedMiniMaxH3TextConditioner(native / "text_encoder", native / "tokenizer")
+    try:
+        presentation = image_presentation(conditioner.tokenizer, prompt,
+                                           inputs["image_grid_thw"].numpy())
+        text, tags = conditioner.encode_presentation(
+            presentation.token_ids, presentation.tags, presentation.positions,
+            visual_features=features, visual_mask=presentation.visual_mask,
+            deepstack_features=deepstack)
+    finally:
+        conditioner.close()
+    del conditioner, features, deepstack, inputs
+    gc.collect(); mx.clear_cache()
+    vae = load_native_image_vae(native / "video_vae")
+    encoded = [patchify_video_latents(encode_image_latents(vae, image), (1, 2, 2))
+               for image in prepared]
+    for image, rows in zip(prepared, encoded, strict=True):
+        if rows.shape != ((image.height // 32) * (image.width // 32), 96):
+            raise ValueError("An encoded reference does not match its image geometry.")
+    reference = np.concatenate(encoded, axis=0)
+    counts = [len(rows) for rows in encoded]
+    metadata.update(prompt_tokens=len(tags), reference_rows=len(reference),
+        reference_segment_rows=counts,
+        text_sha256=hashlib.sha256(text.tobytes()).hexdigest(),
+        reference_sha256=hashlib.sha256(reference.tobytes()).hexdigest())
+    pixels = ({"pixels": np.asarray(prepared[0])} if len(prepared) == 1 else
+              {f"pixels_{index + 1}": np.asarray(image) for index, image in enumerate(prepared)})
+    observer.capture("reference-inputs", lambda: dict(pixels,
+        text=text, tags=tags, reference=reference,
+        reference_offsets=np.cumsum([0, *counts], dtype=np.int64)))
+    return text, tags, reference, metadata

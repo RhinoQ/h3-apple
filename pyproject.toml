@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "h3-apple"
-version = "0.1.0.dev2"
+version = "0.1.0.dev9"
 description = "Community MiniMax-H3 video and audio generation on Apple Silicon"
 readme = "README.md"
 license = "Apache-2.0"

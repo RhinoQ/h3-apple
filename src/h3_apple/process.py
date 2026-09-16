@@ -39,10 +39,13 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     assets = load_assets(model_dir)
     if assets.get("task", "t2va") != request.task:
         raise ValueError(f"This request needs a {request.task.upper()} model bundle; select the matching --model-dir.")
-    if request.task == "ref2va":
+    if request.task in ("ref2va", "fl2va"):
         from importlib.util import find_spec
         if find_spec("torch") is None or find_spec("torchvision") is None:
-            raise RuntimeError("Reference-image generation needs the ref2va extra. Run ./install.sh --ref2va.")
+            raise RuntimeError("Image conditioning needs the ref2va extra. Run ./install.sh --ref2va.")
+    if request.task == "fl2va":
+        from .fl2va_recipe import fl2va_sampling
+        fl2va_sampling(json.loads((Path(assets["checkpoint"]) / "fl2va_recipe.json").read_text()), request.num_steps)
     if output is None:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         directory = Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}"
@@ -92,8 +95,23 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                     references.append(str(target))
                     run["reference_inputs"].append(dict(index=index + 1, source=source,
                                                         sha256=digest(target), size=target.stat().st_size))
+                budget = request.model_width * request.model_height if request.reference_resize == "match" else 672 * 384
                 spec["ref2va"] = dict(native_root=assets["ref2va_native"], image_paths=references,
-                                      pixel_budget=672 * 384, attention="vsa")
+                                      pixel_budget=budget, attention="vsa", reference_resize=request.reference_resize)
+            if request.task == "fl2va":
+                images, anchors = [], []
+                run["reference_inputs"] = []
+                for name in ("first", "last"):
+                    source = getattr(request, name + "_frame")
+                    if source is None:
+                        continue
+                    target = workspace / f"{name}-frame{Path(source).suffix}"
+                    shutil.copyfile(source, target)
+                    images.append(str(target)); anchors.append(name)
+                    run["reference_inputs"].append(dict(kind="keyframe", anchor=name, source=source,
+                        sha256=digest(target), size=target.stat().st_size))
+                spec["ref2va"] = dict(task="fl2va", native_root=assets["fl2va_native"],
+                                      image_paths=images, anchors=anchors, attention="vsa")
             process.stdin.write(json.dumps(spec) + "\n")
             process.stdin.close()
             run.update(status="running", worker_pid=process.pid)

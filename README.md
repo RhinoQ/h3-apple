@@ -16,9 +16,12 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 [Native video downloads](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11) ·
 [Reproduce the comparison](benchmarks/README.md)
 
-The current development build adds [ordered reference images](docs/ref2va.md)
-and a [terminal progress bar](docs/api.md#terminal-progress). These features
-are newer than the published v0.1.0.dev1 release; use this checkout's installer.
+The current development build offers three tasks: **T2VA** from text,
+**[FL2VA](docs/fl2va.md)** from first/last frames with LightX2V v1.2,
+and **[Ref2VA](docs/ref2va.md)** from ordered reference images. Each uses its own
+model recipe and the same [terminal progress bar](docs/api.md#terminal-progress).
+These features are newer than the published v0.1.0.dev1 release; use this
+checkout's installer. See the task guides for validation and quality limits.
 
 ## Video comparisons
 
@@ -320,7 +323,8 @@ print(result.elapsed_seconds)
 Independent installation, model reconstruction, real generation, numerical
 migration, and GPU cancellation have passed the checks recorded in
 [validation](docs/validation.md). The current development interface supports
-text or 1–9 ordered still images with audio output. Reference generation needs
+text, first/last keyframes, or 1–9 ordered still images with audio output. FL2VA
+needs its [v1.2 bundle](docs/fl2va.md). Reference generation needs
 a [dedicated model bundle](docs/ref2va.md); its tested cases are one and four
 images at 576p on M5 Max / 128 GiB. Training, video/audio reference input,
 a web service and videos longer than fifteen seconds are not exposed.

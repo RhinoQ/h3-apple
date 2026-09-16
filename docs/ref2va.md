@@ -1,6 +1,6 @@
 # Reference-image video with audio
 
-The current development build (0.1.0.dev2) exposes Ref2VA through `h3 generate`
+The current development build exposes Ref2VA through `h3 generate`
 and the Python API. Supply 1–9 still images in picture-number order. Reference
 generation defaults to 576p, four steps and 15 seconds; start with five seconds.
 The complete prompt is retained, including any picture numbers it contains.
@@ -73,6 +73,25 @@ Both image encoders receive the same aspect-preserving RGB pixels, with a
 258,048-pixel budget per image and dimensions aligned to 32. Each image keeps
 its own latent prefix and dense-exempt attention segment. References are not
 combined into a collage. Only generated latent rows enter the output decoders.
+
+### Image size policy
+
+`--reference-resize legacy` remains the default so existing results retain their
+input policy. `--reference-resize match` instead uses the generated model
+canvas's area as each reference's budget. Both keep aspect ratio, round to the
+nearest 32 pixels, and avoid upscaling except for that grid rounding. A
+1920×1080 reference becomes 672×384 with the legacy budget and 1376×768 for a
+768p `match` request. A 320×192 reference stays 320×192 in either mode.
+
+Reducing a reference too far can discard small faces, fine text and object
+details before either encoder sees them. More pixels also add encoding work,
+reference tokens and attention cost; they cannot restore missing source detail
+or guarantee successful edits. The optional `match` policy follows the
+[LightX2V training/inference recommendation](https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/README.md#note-on-reference-image-resizing).
+Its end-to-end quality is not inferred from video-reference experiments or the
+legacy image reviews above. The actual policy, budget and prepared image hashes
+are recorded in every run. FL2VA keyframes already use the full model canvas
+and do not use this Ref2VA image budget.
 
 The VSA route uses 64-token tiles and 75% nominal sparsity. Following Kablex /
 Comfy Kitchen routing, it rounds the non-sink top-k budget, keeps ties and

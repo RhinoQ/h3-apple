@@ -27,8 +27,11 @@ print(result.elapsed_seconds)
 | --- | --- | --- |
 | `prompt` / `prompt_file` | `--prompt` / `--prompt-file` | Supply exactly one; accepts arbitrary UTF-8 prompt text |
 | `preset="ours"` | `--preset ours` | The supported recipe; records its version, code, and model identity |
-| `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p for text, 576p with reference images |
+| `task=None` | `--task t2va/fl2va/ref2va` | Inferred from inputs when omitted; an explicit task must match the inputs and model bundle |
+| `first_frame` / `last_frame` | `--first-frame` / `--last-frame` | FL2VA still-image anchors; either one or both; cannot mix with Ref2VA references |
+| `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p for text/keyframes, 576p with Ref2VA images |
 | `reference_images=None` | Repeat `--reference-image /path` | Ordered list of 1–9 still images; requires a dedicated Ref2VA bundle |
+| `reference_resize="legacy"` | `--reference-resize match` | Ref2VA only: opt into the target canvas's pixel area; legacy keeps the previous 258,048-pixel budget |
 | `duration=15` | `--duration 15` | 5–15 seconds, corresponding to an integer number of frames at 24 fps |
 | `seed=None` | `--seed 87001` | Generated and recorded when omitted; range 0–4294967295 |
 | `output=None` | `--output bakery.mp4` | Creates a unique output directory by default; an explicit path gets an adjacent `bakery.run.json`; refuses overwrites |
@@ -55,7 +58,7 @@ generation and smaller memory capacities do not yet have equivalent validation.
 
 ## Reference images
 
-Available in the current development build (0.1.0.dev2). Follow
+Available in the current development build. Follow
 [Ref2VA setup](ref2va.md) to install its optional dependencies and prepare a
 dedicated model bundle. Image order determines picture numbers in the prompt.
 
@@ -75,6 +78,33 @@ result = generate(
 The complete prompt is preserved. Each image receives its own reference segment
 and aspect-preserving resize. Animated images and video/audio references are not
 accepted by this interface. The run record includes ordered input file hashes.
+
+For detailed references at 768p, `--reference-resize match` retains more pixels
+from large images. It preserves aspect ratio and does not enlarge small images
+beyond the required 32-pixel grid rounding. It increases encoder and attention
+cost and has a separate quality-validation scope; see [image sizing](ref2va.md#image-size-policy).
+
+## First and last frames
+
+Use the [FL2VA v1.2 bundle](fl2va.md) and the same optional vision dependencies
+as Ref2VA. First-only and last-only requests use the FL2VA task too.
+
+```bash
+h3 generate --task fl2va --prompt-file prompt.txt --first-frame first.png --last-frame last.png --model-dir ~/Models/h3-apple-fl2va-v12 --resolution 768p --duration 5 --seed 42 --output keyframes.mp4
+```
+
+```python
+result = generate(
+    "A smooth continuous shot from Picture 1 to Picture 2, with natural ambience.",
+    task="fl2va", first_frame="first.png", last_frame="last.png",
+    model_dir="~/Models/h3-apple-fl2va-v12", resolution="768p",
+    duration=5, seed=42, output="keyframes.mp4",
+)
+```
+
+The recorded recipe binds the official four-step v1.2 adapter to shifts 6/3.
+An older FL bundle is rejected with preparation guidance; it is never silently
+relabelled or combined with the new LoRA. All three tasks report progress.
 
 ## Terminal progress
 
