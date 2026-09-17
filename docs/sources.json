@@ -245,7 +245,7 @@
       "changes": [
         "Image-only native presentation, integer three-axis position IDs, and lazy official Transformers CPU vision tower with streamed native weights.",
         "Encoder-only original H3 VAE loader; sampled keyframe latents use native tiling, CPU posterior seed 42, FP16 roundtrip and latent normalization.",
-        "Shared image encoding for public Ref2VA images and FL2VA first/last anchors; tested cases and limits are recorded in their task guides. Image-plus-audio and video references remain unqualified."
+        "Shared image encoding for public Ref2VA images and FL2VA first/last anchors; tested cases and limits are recorded in their task guides. The separate ref2va_multimodal module owns video preparation and its limited validation scope."
       ]
     },
     {
@@ -319,7 +319,7 @@
       "changes": [
         "Video and image presentation uses the existing native Qwen and VAE primitives with the same packed layout and frozen condition rows. Four-step shifts 12/3 and task-specific Ref4 weights retained.",
         "Shared prepared RGB frames; video-native canvas independent of image pixel budget; Qwen 2 fps sampling, native temporal VAE chunking, FFmpeg soundtrack resampling.",
-        "Explicit Dense/VSA comparison with immutable conditioning snapshots. Video VSA quality requires independent validation; existing image tests do not confer it."
+        "Explicit Dense/VSA comparison with immutable conditioning snapshots. The public video recipe uses Dense after a same-input VSA trial failed removal and motion-preservation checks."
       ]
     }
   ],

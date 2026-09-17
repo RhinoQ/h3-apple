@@ -32,7 +32,7 @@ print(result.elapsed_seconds)
 | `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p, or 576p for image-only Ref2VA |
 | `reference_images=None` | Repeat `--reference-image /path` | Ordered list of 1–9 still images; requires a dedicated Ref2VA bundle |
 | `reference_videos=None` | Repeat `--reference-video /path` | Ordered list of 1–3 local 2–15s videos, optionally with images; uses the same Ref2VA bundle |
-| `reference_resize="legacy"` | `--reference-resize match` | Ref2VA only: opt into the target canvas's pixel area; legacy keeps the previous 258,048-pixel budget |
+| `reference_resize="legacy"` | `--reference-resize match` | Ref2VA images only: opt into the target canvas's pixel area; legacy keeps the previous 258,048-pixel budget |
 | `duration=15` | `--duration 15` | 5–15 seconds, corresponding to an integer number of frames at 24 fps |
 | `seed=None` | `--seed 87001` | Generated and recorded when omitted; range 0–4294967295 |
 | `output=None` | `--output bakery.mp4` | Creates a unique output directory by default; an explicit path gets an adjacent `bakery.run.json`; refuses overwrites |
@@ -53,9 +53,11 @@ alternatives before model loading. `resolve()` describes geometry without
 checking the current host; `generate()` enforces the memory boundary. See the
 [hardware validation and limits](../README.md#hardware-and-memory) before
 using a new machine; budget validation does not establish physical 64 GB support.
-Those memory-budget tests cover text generation. Ref2VA has been tested with
-one and four images at 576p on M5 Max / 128 GiB; other image counts, 768p reference
-generation and smaller memory capacities do not yet have equivalent validation.
+Those memory-budget tests cover text generation. Ref2VA image cases cover
+one and four images at 576p on M5 Max / 128 GiB; other image counts, 768p
+image-reference generation and smaller memory capacities do not yet have
+equivalent validation. [Video-reference validation](ref2va-video.md) has its
+own limited scope and does not extend those memory-budget results.
 
 ## Reference images
 

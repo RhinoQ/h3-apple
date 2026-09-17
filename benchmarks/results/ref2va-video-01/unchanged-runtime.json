@@ -1,0 +1,19 @@
+{
+  "base_commit": "02f69e259b555a5b1354d3a2ea2cb70ccdeaf2d4",
+  "candidate_commit": "3d2ed49ae8cd339e03c1cd742d98610c2c2f2c0f",
+  "modified_runtime_paths": [
+    "src/h3_apple/runtime/engine.py",
+    "src/h3_apple/runtime/ref2va_multimodal.py",
+    "src/h3_apple/runtime/reference_cache.py"
+  ],
+  "unchanged_critical_files": {
+    "src/h3_apple/runtime/fl2va_pipeline.py": "8a787f27258a4e81e551a2c904bb038da93f39c9",
+    "src/h3_apple/runtime/ref2va_pipeline.py": "b35d30f54554a56b25c585c62257ac2064417c99",
+    "src/h3_apple/runtime/ref2va_conditioning.py": "15fcb3d82f5a5fde5510d265e2d50e6ee9f363ad",
+    "src/h3_apple/runtime/ref2va_sampling.py": "bb6c029c2ac6a4423d02b5c5c9487f1532b8c852",
+    "src/h3_apple/runtime/sparse.py": "fb1d73057dd2d80998df3a302c9f8dfc69220796",
+    "src/h3_apple/runtime/vae.py": "bebe5c45dcc9c3781514ea8f53fadf868ea7a33d",
+    "src/h3_apple/worker.py": "79d1d1bee0aba567a40fcf3ae5b2ad183dc469fb"
+  },
+  "scope": "Source identity and dispatch regression only. No new end-to-end T2VA/image/FL generation in this integration."
+}

@@ -10,7 +10,8 @@ Video input support does not guarantee faithful editing or preservation.
 A single animal-replacement case using Dense attention received user acceptance
 for visuals and sound. A separate Dense removal test deleted the target backpack
 but changed the source scenery, camera view and motion. The larger reference
-canvas does not guarantee preservation. The completed image-reference validation
+canvas does not guarantee preservation. Its [prompt, source, settings and failure record](../benchmarks/results/ref2va-video-01/dense-preservation-failure.json)
+remain available. The completed image-reference validation
 does not establish video quality or support on smaller-memory Macs. Successful
 decoding and completion of four steps are execution checks only.
 
@@ -42,6 +43,10 @@ The first video with sound is Audio 1, the second with sound is Audio 2, and so
 on. FFmpeg resampling is not asserted numerically identical to Torchaudio.
 Standalone audio input is not exposed. Reference audio conditions generation;
 it is not simply copied into the final MP4.
+Soundtrack decoding and the real audio encoder passed a component check.
+The completed generation case uses one short, silent reference video; it does
+not qualify soundtrack-conditioned output quality, voice preservation,
+multiple-video quality, or image/video mixing quality.
 
 ## Reproducibility and cost
 
@@ -51,9 +56,11 @@ reference geometry, condition hashes, attention statistics and phase timings.
 The four-step path preserves reference latent rows and decodes only generated
 rows. The public API selects Dense for any request containing video. A same-input
 VSA trial retained an extra dog and changed the source motion; it was not adopted.
-VSA also took 28m 27s on that run, versus approximately 26m 19s for the historical
-Dense example. These are descriptive single-run timings, not a controlled speed
-ratio or a general performance guarantee. See the [integration record](../benchmarks/results/ref2va-video-01/README.md).
+The public Dense regression reproduced the accepted MP4 byte for byte. Its
+timing, the rejected VSA run, and the historical Dense timing are retained in
+the [integration record](../benchmarks/results/ref2va-video-01/README.md).
+These are single observations, not a repeatable speed ratio or a general
+performance guarantee.
 
 Larger references add both encoder work and attention tokens. A longer or
 multi-video reference can substantially increase time and memory even when

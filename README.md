@@ -196,9 +196,9 @@ every M5 Mac can run H3. Machines below 64 GiB are rejected before loading model
 | 768p / longer than 5 seconds, up to 15 seconds | 96 GiB | One 15-second prompt passed at 96 GiB | 56.27 GiB |
 
 These budget measurements cover text generation. [Ref2VA](docs/ref2va.md)
-currently has case validation on M5 Max / 128 GiB at 576p; its encoders and
-reference segments add memory and storage requirements that are not covered
-by the text-only budgets below.
+has limited image and [video-reference](docs/ref2va-video.md) case validation
+on M5 Max / 128 GiB. Its encoders and reference segments add memory and storage
+requirements that are not covered by these text-only budgets.
 
 A **768p / 15-second attempt failed at 64 GiB**, exceeding the test's swap-growth
 limit; it produced no completed video. On a 64 GiB Mac, start with `--duration 5`
@@ -313,9 +313,9 @@ print(result.elapsed_seconds)
 
 | Capability | H3 Apple |
 | --- | --- |
-| Everyday interface | One CLI and Python API for text or ordered reference images |
+| Everyday interface | One CLI and Python API for text, first/last frames, or ordered reference images and videos |
 | Video and audio | 768p or 576p, 5–15 seconds, 24 fps, stereo audio |
-| Generation recipe | Four-step VSA, M5 NAX sparse kernels, accelerated full H3 VAE |
+| Generation recipe | Four steps; VSA with M5 NAX kernels for text, keyframes and image references; Dense for video references; accelerated full H3 VAE |
 | Reproducibility | Locked Conda environment, verified model preparation, recorded seeds and asset identity |
 | Process control | Separate worker, progress, cancellation, timeout, shared device lock |
 | Optional comparison | Fixed Ours/vpipe VDN suites with complete delivery timing |
@@ -325,9 +325,11 @@ migration, and GPU cancellation have passed the checks recorded in
 [validation](docs/validation.md). The current development interface supports
 text, first/last keyframes, or 1–9 ordered images and/or 1–3 videos with audio output. FL2VA
 needs its [v1.2 bundle](docs/fl2va.md). Reference generation needs
-a [dedicated model bundle](docs/ref2va.md); its tested cases are one and four
-images at 576p on M5 Max / 128 GiB. Training, video/audio reference input,
-a web service and videos longer than fifteen seconds are not exposed.
+a [dedicated model bundle](docs/ref2va.md). Its limited validation covers
+one and four images at 576p and a five-second video-reference regression at
+768p on M5 Max / 128 GiB. [Video editing can still change the source scene or motion](docs/ref2va-video.md).
+Training, standalone audio reference files, a web service and output videos
+longer than fifteen seconds are not exposed.
 
 ## Reproduce and improve
 

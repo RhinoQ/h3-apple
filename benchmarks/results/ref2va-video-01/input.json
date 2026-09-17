@@ -1,0 +1,35 @@
+{
+  "source": {
+    "url": "https://huggingface.co/datasets/emirkisa/DAVIS-2017-480p-mp4/resolve/06c7e6d99d6a7ddc7edbeaa6be838316feb70989/dogs-jump_raw_24fps.mp4",
+    "sha256": "1aa4950f597570f9f4b584f693052f8dc795a63e38acc2190019cdc34895b6d4",
+    "attribution": "DAVIS 2017, dogs-jump sequence; MP4 mirror by emirkisa. Source terms apply independently of this software."
+  },
+  "derived": {
+    "filename": "reference.mp4",
+    "sha256": "06bd6690d57cb3bfc75091fc10217ec44e4e699b198d117c8676ab3e582cfc06",
+    "frames": 56,
+    "fps": 24,
+    "width": 854,
+    "height": 480,
+    "audio": false
+  },
+  "preparation": [
+    "ffmpeg",
+    "-v",
+    "error",
+    "-i",
+    "dogs-jump_raw_24fps.mp4",
+    "-map",
+    "0:v:0",
+    "-an",
+    "-frames:v",
+    "56",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "16",
+    "-pix_fmt",
+    "yuv420p",
+    "reference.mp4"
+  ]
+}

@@ -10,7 +10,7 @@ The complete prompt is retained, including any picture numbers it contains.
 One-image / five-second and four-image / fifteen-second cases at 576p have
 completed on M5 Max / 128 GiB and received user quality acceptance. This is a
 limited case review, not a broad or blind quality evaluation. Other image
-counts, 768p reference generation, and smaller memory capacities remain
+counts, 768p image-reference generation, and smaller memory capacities remain
 unqualified. Video-reference quality has a separate, limited validation scope;
 see [video-reference limitations](ref2va-video.md). Standalone audio files are
 not exposed by the public API.
@@ -96,10 +96,13 @@ legacy image reviews above. The actual policy, budget and prepared image hashes
 are recorded in every run. FL2VA keyframes already use the full model canvas
 and do not use this Ref2VA image budget.
 
-The VSA route uses 64-token tiles and 75% nominal sparsity. Following Kablex /
+Image-only Ref2VA uses VSA with 64-token tiles and 75% nominal sparsity. Following Kablex /
 Comfy Kitchen routing, it rounds the non-sink top-k budget, keeps ties and
 neighboring tiles, and exempts prefix queries/keys. Actual sparsity and fallback
 counts are recorded separately. Text generation retains its FastH3 route.
+Requests containing video use true Dense attention after a video VSA trial
+failed removal and motion-preservation checks. The same bundle is reused, but
+its compression gates are disabled for that path; see [video references](ref2va-video.md).
 
 The implementation uses Ours INT8/group64 and BF16, native H3 decoding and NumPy
 seed streams. It does not reproduce ComfyUI ConvRot/NVFP4, CUDA arithmetic or

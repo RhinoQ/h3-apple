@@ -9,6 +9,13 @@ The current development build is **0.1.0.dev11**, adding
 [video references](ref2va-video.md) alongside T2VA and
 [FL2VA LightX2V v1.2](fl2va.md). Source video, generated video and soundtrack
 preservation are separate quality questions; see the linked validation scope.
+Its independently installed wheel passed **261 tests**, dependency checks and
+all three model-readiness checks. A complete five-second 768p public
+video-reference run reproduced the previously accepted Dense MP4 byte for
+byte. The [video-reference integration report](../benchmarks/results/ref2va-video-01/README.md)
+retains the rejected VSA trial, observed timings, soundtrack component-check
+limits and a separate Dense preservation failure. This is a local integration,
+not a published software release or broad video-editing quality qualification.
 
 The earlier **0.1.0.dev2** build added ordered Ref2VA image input
 and terminal progress. Its installed wheel passed **183 tests** and three
