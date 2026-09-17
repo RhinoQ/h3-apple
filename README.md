@@ -13,6 +13,7 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 
 [Pre-release v0.1.0.dev1](https://github.com/RhinoQ/h3-apple/releases/tag/v0.1.0.dev1) ·
 [Install](#generate-your-first-video) · [Python / CLI API](docs/api.md) ·
+[User guide: modes, references, quality and waiting time](docs/user-guide.md) ·
 [Native video downloads](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11) ·
 [Reproduce the comparison](benchmarks/README.md)
 
