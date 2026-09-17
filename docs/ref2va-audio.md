@@ -69,3 +69,12 @@ Audio conditions the model's generated sound; it is not remuxed directly into
 the output. File decoding, nonzero reference latents and successful generation
 are separate from voice similarity, intelligibility and lip synchronization.
 Do not interpret a completed MP4 as proof of those quality properties.
+
+## Completed check
+
+One six-second 768p image-plus-audio generation completed with exact reference
+conditioning and frozen reference rows across four steps. All 286 installed
+tests passed. See the [complete reproducible result](../benchmarks/results/ref2va-audio-01/README.md)
+for the full prompt, input links, command, measured time and observed camera
+drift. Voice similarity and synchronization remain separately unqualified
+until the corresponding listening review is recorded.

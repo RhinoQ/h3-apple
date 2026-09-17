@@ -1,0 +1,26 @@
+{
+  "schema": "h3-apple-ref2va-audio-input/v1",
+  "origin": "Existing fal prompting-guide case 40 assets; first-frame image plus independent audio is a new calibration composition, not a reproduction of that case.",
+  "source_video": {
+    "url": "https://v3b.fal.media/files/b/0aa44050/8CO6x9AT6pdNGg9CroOYt_3-3-3-1_in2.mp4",
+    "source_sha256": "8139b773670fe5da121e984b9c371ead2b87ce1cff08d6150391e4c9e5e6dbef",
+    "preparation": "Conda FFmpeg, first decoded video frame, PNG at original 1280x720; no crop or generative edit."
+  },
+  "picture": {
+    "name": "picture.png",
+    "sha256": "afc2a2f3eb9a855f1b153e52ca8f04909b6c3f32683fc2c07a01093da4ceb4e7",
+    "width": 1280,
+    "height": 720,
+    "preparation": "ffmpeg -v error -i source.mp4 -map 0:v:0 -frames:v 1 picture.png"
+  },
+  "audio": {
+    "name": "voice.mp3",
+    "url": "https://v3b.fal.media/files/b/0aa44040/RgapPrm2v-i7pGLrCZtwv_3-3-3-1_in1.mp3",
+    "sha256": "b2882623188d073c225282c1e27d937ba6835fd960040536722c2711fde9957c",
+    "container_duration_seconds": 6.003156,
+    "sample_rate": 32000,
+    "channels": 1
+  },
+  "prompt_sha256": "24e7d2bf9bfbdd0df0914af2a3c170252d6f16705af0b9f4c77c97775ff01df8",
+  "note": "The English dialogue is newly specified in the prompt. The source recording is used for vocal reference, and its spoken language/transcript is not asserted here."
+}

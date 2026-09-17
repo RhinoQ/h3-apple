@@ -5,17 +5,24 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-The current development build is **0.1.0.dev11**, adding
-[video references](ref2va-video.md) alongside T2VA and
-[FL2VA LightX2V v1.2](fl2va.md). Source video, generated video and soundtrack
-preservation are separate quality questions; see the linked validation scope.
-Its independently installed wheel passed **261 tests**, dependency checks and
-all three model-readiness checks. A complete five-second 768p public
-video-reference run reproduced the previously accepted Dense MP4 byte for
-byte. The [video-reference integration report](../benchmarks/results/ref2va-video-01/README.md)
-retains the rejected VSA trial, observed timings, soundtrack component-check
-limits and a separate Dense preservation failure. This is a local integration,
-not a published software release or broad video-editing quality qualification.
+The current development build is **0.1.0.dev12**, adding independent
+[audio references](ref2va-audio.md) and an option to ignore video soundtracks.
+Its independently installed wheel passed **286 tests**, dependency checking
+and all three model-readiness checks. A complete six-second 768p image-plus-audio
+run passed four-step Dense execution and exact conditioning checks against
+the previous private encoder. The [audio-reference report](../benchmarks/results/ref2va-audio-01/README.md)
+includes full inputs, prompt, command, timings, nonblind camera-drift observation
+and separate listening limits. Numeric execution is not a voice-matching or
+lip-synchronization qualification. This is a local integration, not a published
+software release.
+
+The previous **0.1.0.dev11** build added [video references](ref2va-video.md)
+alongside T2VA and [FL2VA LightX2V v1.2](fl2va.md). Its 261-test installed wheel
+reproduced the previously accepted five-second 768p Dense MP4 byte for byte.
+The [video-reference report](../benchmarks/results/ref2va-video-01/README.md)
+retains the rejected VSA trial, timings and separate Dense preservation failure.
+Those results retain their original scope; the audio integration does not
+requalify video editing or the unchanged T2VA/FL2VA/image-only recipes.
 
 The earlier **0.1.0.dev2** build added ordered Ref2VA image input
 and terminal progress. Its installed wheel passed **183 tests** and three

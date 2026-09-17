@@ -313,7 +313,7 @@ print(result.elapsed_seconds)
 
 | Capability | H3 Apple |
 | --- | --- |
-| Everyday interface | One CLI and Python API for text, first/last frames, or ordered reference images and videos |
+| Everyday interface | One CLI and Python API for text, first/last frames, or ordered reference images/videos with optional audio |
 | Video and audio | 768p or 576p, 5–15 seconds, 24 fps, stereo audio |
 | Generation recipe | Four steps; VSA with M5 NAX kernels for text, keyframes and image-only references; Dense for video/audio references; accelerated full H3 VAE |
 | Reproducibility | Locked Conda environment, verified model preparation, recorded seeds and asset identity |
@@ -328,7 +328,7 @@ needs its [v1.2 bundle](docs/fl2va.md). Reference generation needs
 a [dedicated model bundle](docs/ref2va.md). Its limited validation covers
 one and four images at 576p and a five-second video-reference regression at
 768p on M5 Max / 128 GiB. [Video editing can still change the source scene or motion](docs/ref2va-video.md).
-Independent audio can accompany Ref2VA images or videos. Training, a web service and output videos
+Independent audio can accompany Ref2VA images or videos; a [six-second 768p execution check](benchmarks/results/ref2va-audio-01/README.md) includes full reproduction details and separate voice/synchronization limits. Training, a web service and output videos
 longer than fifteen seconds are not exposed.
 
 ## Reproduce and improve

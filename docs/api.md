@@ -113,9 +113,17 @@ independent of the still-image resize option. Soundtracks are included as audio
 references in video order; silent videos do not consume an Audio number.
 See [video preparation, cost and preservation limits](ref2va-video.md).
 
-Independent audio files can accompany these videos or reference images. They
-use Dense and default to 768p. Explicit Audio numbers precede video soundtracks;
-see [audio input, numbering, examples and validation limits](ref2va-audio.md).
+## Reference audio
+
+Independent audio files can accompany Ref2VA videos or reference images. They
+use Dense and default to 768p. Explicit Audio numbers precede video soundtracks.
+
+```bash
+h3 generate --task ref2va --reference-image character.png --reference-audio voice.wav --prompt-file prompt.txt --model-dir ~/Models/h3-apple-ref2va --resolution 768p --reference-resize match --duration 6 --seed 42 --output dialogue.mp4
+```
+
+Use `--no-reference-video-audio` to ignore video soundtracks while keeping
+explicit audio. See [numbering, Python examples and validation limits](ref2va-audio.md).
 
 ## First and last frames
 

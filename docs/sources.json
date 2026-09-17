@@ -303,7 +303,8 @@
         }
       ],
       "changes": [
-        "Video canvas policy: short edge 768, pre-rounding area 768*1344, nearest-32 dimensions, including upscaling. Image policy remains separate. CPU-only local video validation."
+        "Video canvas policy: short edge 768, pre-rounding area 768*1344, nearest-32 dimensions, including upscaling. Image policy remains separate. CPU-only local video validation.",
+        "Local standalone audio validation: one mono/stereo track, 2\u201315 seconds; attached cover art permitted and moving video rejected."
       ]
     },
     {
@@ -319,7 +320,8 @@
       "changes": [
         "Video and image presentation uses the existing native Qwen and VAE primitives with the same packed layout and frozen condition rows. Four-step shifts 12/3 and task-specific Ref4 weights retained.",
         "Shared prepared RGB frames; video-native canvas independent of image pixel budget; Qwen 2 fps sampling, native temporal VAE chunking, FFmpeg soundtrack resampling.",
-        "Explicit Dense/VSA comparison with immutable conditioning snapshots. The public video recipe uses Dense after a same-input VSA trial failed removal and motion-preservation checks."
+        "Explicit Dense/VSA comparison with immutable conditioning snapshots. The public video recipe uses Dense after a same-input VSA trial failed removal and motion-preservation checks.",
+        "Expose existing independent audio encoding through the public API; explicit audio precedes enabled video soundtracks. Add optional soundtrack removal and record Audio indices, sample counts and source kind. Independent audio uses Dense pending separate VSA evaluation."
       ]
     }
   ],
