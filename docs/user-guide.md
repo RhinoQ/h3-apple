@@ -4,7 +4,7 @@ Choose the input that best describes the job, start with five seconds, and use
 768p when small faces or fine details matter. H3 Apple generates video and
 stereo audio together; a separate audio reference is optional.
 
-This guide describes **0.1.0.dev12**, the current development build on
+This guide describes **0.2.0**, the current local build on
 2026-09-17. Check your installation with `h3 --version`. The published
 v0.1.0.dev1 release predates the reference features below. Follow the
 [development installation instructions](install.md) and prepare the matching
@@ -38,7 +38,7 @@ loading. FL2VA v1.2 does not update Ref2VA to v1.2.
 | Is H3 Apple faster than official FastH3? | There is no completed matched comparison establishing that claim. The headline speed measurements compare H3 Apple with **vpipe / VDN**, on specified prompts and hardware. [Timing scope](../README.md#measurement-and-review-scope). |
 | Should I always use the newest LoRA? | Use the bundle prepared for your task and product version. FL2VA v1.2 binds its adapter to its sampling settings. Do not stack it on already fused weights or substitute it into Ref2VA. A newer adapter alone does not prove better faces, layout or audio in this runtime. |
 | Can I ignore the reference video's soundtrack? | Add `--no-reference-video-audio`. Separately supplied `--reference-audio` files remain enabled. Write the intended dialogue and sound explicitly in the prompt. [Audio guide](ref2va-audio.md). |
-| Is portrait output available? | This **dev12** build delivers landscape 16:9. A 9:16 candidate has not completed full-generation validation and is not available in this build. Portrait source material alone does not select portrait output. |
+| Is portrait output available? | This **0.2.0** build delivers landscape 16:9. A 9:16 candidate has not completed full-generation validation and is not available in this build. Portrait source material alone does not select portrait output. |
 | What duration and format should I request? | Start with `--duration 5`; the default is **15 seconds**. Supported output is 5–15 seconds at 24 fps, 576p or 768p, with 32 kHz stereo sound. More frames and pixels increase waiting and memory needs. |
 | Is the progress bar the whole job? | All three tasks show progress. Denoising 100% is followed by decoding, muxing and validation. Wait for **Complete**. Progress is on stderr; final JSON is on stdout. `--no-progress` hides the display. |
 | Is a queue managed by the generator? | Each generation has a parent process and a separate worker that holds model memory. A batch queue is a separate scheduler calling the API/CLI sequentially. The product enforces one active generation per device; run serially on one Mac. |
@@ -84,6 +84,6 @@ Observed complete runs on M5 Max / 128 GiB give useful starting points:
 [video-reference 768p / 5s with a 2.33s source: 31m 52s](../benchmarks/results/ref2va-video-01/README.md),
 and [image + audio 768p / 6s: 23m 13s](../benchmarks/results/ref2va-audio-01/README.md).
 These use different inputs and recorded product versions; several include
-diagnostics. They are observations, not a speed ranking, a dev12 benchmark
+diagnostics. They are observations, not a speed ranking, a 0.2.0 benchmark
 suite or an ETA for another prompt. The linked records retain reproduction
 details, failures and the separate visual/listening review boundaries.

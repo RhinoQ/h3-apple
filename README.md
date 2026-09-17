@@ -17,7 +17,7 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 [Native video downloads](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11) ·
 [Reproduce the comparison](benchmarks/README.md)
 
-The current development build offers three tasks: **T2VA** from text,
+The current **0.2.0** checkout offers three tasks: **T2VA** from text,
 **[FL2VA](docs/fl2va.md)** from first/last frames with LightX2V v1.2,
 and **[Ref2VA](docs/ref2va.md)** from ordered images and/or [reference videos](docs/ref2va-video.md), with optional [audio references](docs/ref2va-audio.md). Each uses its own
 model recipe and the same [terminal progress bar](docs/api.md#terminal-progress).

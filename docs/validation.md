@@ -5,7 +5,14 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-The current development build is **0.1.0.dev12**, adding independent
+The current **0.2.0** version carries forward the integrated **0.1.0.dev12**
+runtime. Relative to that build, the package metadata, version string and
+user documentation change; inference code, model recipes and environment
+locks remain unchanged. This version update adds no generation benchmark,
+quality qualification or portrait support. Historical results below retain
+their measured versions and limitations.
+
+The **0.1.0.dev12** build added independent
 [audio references](ref2va-audio.md) and an option to ignore video soundtracks.
 Its independently installed wheel passed **286 tests**, dependency checking
 and all three model-readiness checks. A complete six-second 768p image-plus-audio

@@ -56,6 +56,21 @@ comparison to its source results and native videos.
 
 ## Software releases
 
+Update both `version` in `pyproject.toml` and `__version__` in
+`src/h3_apple/__init__.py`. Use `0.2.0` in these files; the CLI reads
+`__version__`, while Git tags use the `v` prefix (`v0.2.0`). Update current-version
+documentation and retain the original version in historical benchmark records.
+Rebuild and install a regular wheel so package metadata, Python imports and
+`h3 --version` agree; editing the checkout alone does not update an installed
+environment. Keep model recipe and bundle-format versions unchanged unless
+those formats or recipes actually change.
+
+Use patch versions for compatible fixes (for example, `0.2.1`) and minor
+versions for feature milestones (for example, `0.3.0`). A version change
+does not establish new quality or performance results. A local commit or tag
+does not publish a GitHub release; keep published installation links pinned to
+available assets until the new release is uploaded and verified.
+
 [Software releases](https://github.com/RhinoQ/h3-apple/releases) use annotated
 `v<package-version>` tags. The tag, `pyproject.toml`, and `h3 --version` must agree.
 Development versions are marked **Pre-release** on GitHub. Installation examples
