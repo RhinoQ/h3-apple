@@ -13,16 +13,18 @@ from h3_apple.runtime.ref2va_pipeline import prepare_images
 
 
 @pytest.mark.parametrize("task,argument", [("t2va", None), ("fl2va", "first_frame"), ("fl2va", "last_frame"), ("ref2va", "reference_images")])
-def test_explicit_and_inferred_tasks_agree_and_reject_mixed_inputs(tmp_path, task, argument):
+@pytest.mark.parametrize("aspect_ratio", ["16:9", "9:16"])
+def test_explicit_and_inferred_tasks_agree_and_reject_mixed_inputs(tmp_path, task, argument, aspect_ratio):
     p = tmp_path / "input.png"
     Image.new("RGB", (64, 64), "red").save(p)
     inputs = {} if argument is None else {argument: [p] if argument == "reference_images" else p}
-    expected = resolve("move gently", task=task, seed=7, **inputs)
-    assert resolve("move gently", seed=7, **inputs) == expected
+    expected = resolve("move gently", task=task, seed=7, aspect_ratio=aspect_ratio, **inputs)
+    assert resolve("move gently", seed=7, aspect_ratio=aspect_ratio, **inputs) == expected
+    assert (expected.width > expected.height) == (aspect_ratio == "16:9")
     for wrong in {"t2va", "fl2va", "ref2va"} - {task}:
         with pytest.raises(ValueError, match="does not match"):
             resolve("move gently", task=wrong, **inputs)
-    command = [sys.executable, "-m", "h3_apple", "resolve", "--prompt", "move gently", "--task", task, "--seed", "7"]
+    command = [sys.executable, "-m", "h3_apple", "resolve", "--prompt", "move gently", "--task", task, "--seed", "7", "--aspect-ratio", aspect_ratio]
     if argument:
         command += [{"reference_images": "--reference-image"}.get(argument, "--" + argument.replace("_", "-")), str(p)]
     result = subprocess.run(command, cwd=tmp_path, text=True, capture_output=True, check=True)

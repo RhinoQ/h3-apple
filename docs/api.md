@@ -30,6 +30,7 @@ print(result.elapsed_seconds)
 | `task=None` | `--task t2va/fl2va/ref2va` | Inferred from inputs when omitted; an explicit task must match the inputs and model bundle |
 | `first_frame` / `last_frame` | `--first-frame` / `--last-frame` | FL2VA still-image anchors; either one or both; cannot mix with Ref2VA references |
 | `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p, or 576p for image-only Ref2VA |
+| `aspect_ratio="16:9"` | `--aspect-ratio 9:16` | Landscape `16:9` (default) or portrait `9:16`; applies to all three tasks |
 | `reference_images=None` | Repeat `--reference-image /path` | Ordered list of 1–9 still images; requires a dedicated Ref2VA bundle |
 | `reference_videos=None` | Repeat `--reference-video /path` | Ordered list of 1–3 local 2–15s videos, optionally with images; uses the same Ref2VA bundle |
 | `reference_audio=None` | Repeat `--reference-audio /path` | Ordered list of 1–3 local 2–15s mono/stereo audio files; requires a Ref2VA image or video |
@@ -60,6 +61,33 @@ one and four images at 576p on M5 Max / 128 GiB; other image counts, 768p
 image-reference generation and smaller memory capacities do not yet have
 equivalent validation. [Video-reference validation](ref2va-video.md) has its
 own limited scope and does not extend those memory-budget results.
+
+## Portrait output
+
+Choose `--aspect-ratio 9:16` or `aspect_ratio="9:16"` to generate on a portrait
+canvas. This applies to T2VA, FL2VA and every Ref2VA reference combination.
+The default remains landscape, including when the reference input is portrait.
+Input images and videos retain their existing task-specific preparation.
+
+```bash
+h3 generate --task fl2va --prompt-file prompt.txt --first-frame poster.png --model-dir ~/Models/h3-apple-fl2va-v12 --aspect-ratio 9:16 --resolution 768p --duration 5 --seed 42 --output portrait.mp4
+```
+
+```python
+request = resolve(
+    "A portrait shot of a woman beside a lake, with quiet water sounds.",
+    aspect_ratio="9:16", resolution="768p", duration=5, seed=42,
+)
+assert (request.width, request.height) == (768, 1366)
+```
+
+At 768p, the model generates 768×1376 pixels and delivery removes five rows
+from each end of the height. At 576p, both canvases are 576×1024.
+This generates portrait frames directly; it does not rotate or stretch a
+landscape video after generation. The run record retains the actual delivery
+and model dimensions. Model weights, steps, attention and audio settings follow
+the selected task as before. See [validation](validation.md) for the scope of
+completed tests and full-generation checks.
 
 ## Reference images
 
@@ -177,6 +205,10 @@ with ProgressBar() as progress:
 | 768p / 5 seconds | 1366×768, 120 frames | 1376×768, 124 frames |
 | 576p / 15 seconds | 1024×576, 360 frames | 1024×576, 362 frames |
 | 576p / 5 seconds | 1024×576, 120 frames | 1024×576, 124 frames |
+| 768p / 15 seconds / 9:16 | 768×1366, 360 frames | 768×1376, 362 frames |
+| 768p / 5 seconds / 9:16 | 768×1366, 120 frames | 768×1376, 124 frames |
+| 576p / 15 seconds / 9:16 | 576×1024, 360 frames | 576×1024, 362 frames |
+| 576p / 5 seconds / 9:16 | 576×1024, 120 frames | 576×1024, 124 frames |
 
 All outputs use 24 fps and 32 kHz stereo. The fixed delivery rule center-crops
 and trims to the requested frame count and audio duration, without upscaling

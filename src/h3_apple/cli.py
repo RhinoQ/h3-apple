@@ -44,6 +44,8 @@ def parser():
                              help="Ref2VA images: legacy 0.258 MP, or match the output canvas area")
         command.add_argument("--resolution", choices=("768p", "576p"),
                              help="Default: 768p; 576p for Ref2VA with only still images")
+        command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9",
+                             help="Output orientation for all tasks: landscape (default) or portrait")
         command.add_argument("--duration", type=float, default=15)
         command.add_argument("--seed", type=int)
         command.add_argument("--reference-image", action="append", dest="reference_images",

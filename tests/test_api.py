@@ -19,6 +19,43 @@ def test_resolved_delivery_and_native_geometry(resolution, duration, expected):
     assert (r.fps, r.audio_channels, r.num_steps) == (24, 2, 4)
 
 
+@pytest.mark.parametrize("resolution", ["576p", "768p"])
+@pytest.mark.parametrize("duration", [5, 10.125, 15])
+def test_portrait_transposes_both_canvases_and_preserves_recipe(resolution, duration):
+    landscape = resolve("A portrait.", resolution=resolution, duration=duration, seed=7).to_dict()
+    explicit = resolve("A portrait.", resolution=resolution, duration=duration, seed=7, aspect_ratio="16:9")
+    assert explicit.to_dict() == landscape
+    portrait = resolve("A portrait.", resolution=resolution, duration=duration, seed=7, aspect_ratio="9:16")
+    expected = dict(landscape, width=landscape["height"], height=landscape["width"],
+                    model_width=landscape["model_height"], model_height=landscape["model_width"])
+    assert portrait.to_dict() == expected
+
+
+@pytest.mark.parametrize("value", ["1:1", "16:10", "portrait", "", None, True, 9/16, []])
+def test_invalid_aspect_ratio_fails_before_opening_references(value):
+    with pytest.raises(ValueError, match="aspect_ratio"):
+        resolve("Portrait.", aspect_ratio=value, reference_images=["missing.png"])
+
+
+def test_generate_forwards_portrait_geometry_to_worker(monkeypatch, tmp_path):
+    from h3_apple import generate
+    from h3_apple import process
+    seen = []
+    def capture(request, **kwargs):
+        seen.append((request, kwargs))
+        return "sentinel"
+    monkeypatch.setattr(process, "run_generation", capture)
+    assert generate("Portrait.", aspect_ratio="9:16", duration=5, seed=2, output=tmp_path/"portrait.mp4") == "sentinel"
+    assert (seen[0][0].width, seen[0][0].height, seen[0][0].model_width, seen[0][0].model_height) == (768,1366,768,1376)
+
+
+def test_portrait_resolution_does_not_load_mlx(tmp_path):
+    subprocess.run([sys.executable, "-c",
+        "import h3_apple,sys; r=h3_apple.resolve('portrait',aspect_ratio='9:16'); "
+        "assert (r.width,r.height)==(768,1366); assert 'mlx.core' not in sys.modules"],
+        cwd=tmp_path, check=True)
+
+
 def test_prompt_file_is_preserved(tmp_path):
     prompt = 'A café at dawn. She says, "Good morning."\nA bicycle passes.\n'
     path = tmp_path / "prompt.txt"

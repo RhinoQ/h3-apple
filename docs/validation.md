@@ -5,12 +5,26 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-The current **0.2.0** version carries forward the integrated **0.1.0.dev12**
-runtime. Relative to that build, the package metadata, version string and
-user documentation change; inference code, model recipes and environment
-locks remain unchanged. This version update adds no generation benchmark,
-quality qualification or portrait support. Historical results below retain
-their measured versions and limitations.
+The current **0.2.0** version is based on the **0.1.0.dev13** portrait
+implementation. It adds `--aspect-ratio 9:16` to all three tasks and centers
+delivery crops along both axes. The default landscape request and its
+numerical recipe are unchanged. Relative to dev13, only the package version
+and user documentation change; inference code, model recipes and environment
+locks remain unchanged.
+
+The independently installed dev13 wheel passed **314 tests**, including
+three-task CLI/API orientation, invalid-input handling and real FFmpeg delivery
+tests with vertical/horizontal padding. Small MLX unit fixtures ran on CPU;
+these tests did not load H3 model weights. All three model-readiness checks
+passed, and 13 existing requests resolved identically to dev12 when the new
+orientation option was omitted. Only four of the 52 runtime files changed
+from dev12; 74 dependency versions and 39 relevant native binaries matched.
+
+Full H3 portrait generation and visual quality have not been validated.
+The portrait interface and delivery checks do not establish complete model
+execution, portrait quality or new performance results. This version includes
+the portrait implementation with that experimental status. Historical results
+below retain their measured versions and limitations.
 
 The **0.1.0.dev12** build added independent
 [audio references](ref2va-audio.md) and an option to ignore video soundtracks.
