@@ -4,10 +4,8 @@ Choose the input that best describes the job, start with five seconds, and use
 768p when small faces or fine details matter. H3 Apple generates video and
 stereo audio together; a separate audio reference is optional.
 
-This guide describes **0.2.0**, the current local build on
-2026-09-17. Check your installation with `h3 --version`. The published
-v0.1.0.dev1 release predates the reference features below. Follow the
-[development installation instructions](install.md) and prepare the matching
+This guide describes **0.2.0**. Check your installation with `h3 --version`.
+Follow the [release installation instructions](install.md) and prepare the matching
 model bundle before using these commands.
 
 | I want to… | Choose / provide | Recipe selected by the product | What to expect |

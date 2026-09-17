@@ -34,8 +34,8 @@ run passed four-step Dense execution and exact conditioning checks against
 the previous private encoder. The [audio-reference report](../benchmarks/results/ref2va-audio-01/README.md)
 includes full inputs, prompt, command, timings, nonblind camera-drift observation
 and separate listening limits. Numeric execution is not a voice-matching or
-lip-synchronization qualification. This is a local integration, not a published
-software release.
+lip-synchronization qualification. These measurements were recorded for the
+local dev12 integration and are not new 0.2.0 generation measurements.
 
 The previous **0.1.0.dev11** build added [video references](ref2va-video.md)
 alongside T2VA and [FL2VA LightX2V v1.2](fl2va.md). Its 261-test installed wheel
@@ -52,7 +52,7 @@ and text generation. All three MP4 files match their recorded baselines byte
 for byte; all 60 baseline diagnostic arrays across the two Ref2VA cases are
 identical. See the [integration report](../benchmarks/results/ref2va-integration-01/README.md)
 for exact inputs, weights, source identity, timings and qualification limits.
-This is a local integration result, not a new published software release.
+These are the original local dev2 integration results, not new 0.2.0 measurements.
 
 The published **0.1.0.dev1** preview corrects the documented `GenerationRequest`
 import path and adds upstream acknowledgments. Relative to `v0.1.0.dev0`, the

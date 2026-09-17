@@ -11,20 +11,20 @@ Across ten five-second prompts, H3 Apple averaged **5m 56s** from launch to a
 validated MP4, versus **9m 07s** for vpipe / VDN: **34.8% less waiting** on the
 tested M5 Max. Watch every pair below, with generation times on screen.
 
-[Pre-release v0.1.0.dev1](https://github.com/RhinoQ/h3-apple/releases/tag/v0.1.0.dev1) ·
+[Release v0.2.0](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0) ·
 [Install](#generate-your-first-video) · [Python / CLI API](docs/api.md) ·
 [User guide: modes, references, quality and waiting time](docs/user-guide.md) ·
 [Native video downloads](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11) ·
 [Reproduce the comparison](benchmarks/README.md)
 
-The current **0.2.0** checkout offers three tasks: **T2VA** from text,
+**0.2.0** offers three tasks: **T2VA** from text,
 **[FL2VA](docs/fl2va.md)** from first/last frames with LightX2V v1.2,
 and **[Ref2VA](docs/ref2va.md)** from ordered images and/or [reference videos](docs/ref2va-video.md), with optional [audio references](docs/ref2va-audio.md). Each uses its own
 model recipe and the same [terminal progress bar](docs/api.md#terminal-progress).
 All three tasks accept experimental [portrait output](docs/api.md#portrait-output) with
 `--aspect-ratio 9:16`; landscape `16:9` remains the default.
-These features are newer than the published v0.1.0.dev1 release; use this
-checkout's installer. See the task guides for validation and quality limits.
+Install the pinned v0.2.0 release below. See the task guides for validation
+and quality limits, including the incomplete full-generation portrait validation.
 
 ## Video comparisons
 
@@ -258,7 +258,7 @@ are outside these everyday-generation figures.
 
 This is a community project built on MiniMax-H3, FastVideo, and Apple GPU
 optimizations, with no official affiliation. The latest published package is
-**[0.1.0.dev1 (development preview)](https://github.com/RhinoQ/h3-apple/releases/tag/v0.1.0.dev1)**.
+**[0.2.0](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0)**.
 The release includes a source archive, Python wheel, and SHA-256 checksums.
 Check the [hardware and memory requirements](#hardware-and-memory)
 before installing.
@@ -267,7 +267,7 @@ Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge) or use your
 existing Conda installation:
 
 ```bash
-git clone --branch v0.1.0.dev1 --single-branch https://github.com/RhinoQ/h3-apple.git
+git clone --branch v0.2.0 --single-branch https://github.com/RhinoQ/h3-apple.git
 cd h3-apple
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
@@ -325,7 +325,7 @@ print(result.elapsed_seconds)
 
 Independent installation, model reconstruction, real generation, numerical
 migration, and GPU cancellation have passed the checks recorded in
-[validation](docs/validation.md). The current development interface supports
+[validation](docs/validation.md). The public interface supports
 text, first/last keyframes, or 1–9 ordered images and/or 1–3 videos with audio output. FL2VA
 needs its [v1.2 bundle](docs/fl2va.md). Reference generation needs
 a [dedicated model bundle](docs/ref2va.md). Its limited validation covers

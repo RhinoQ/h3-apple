@@ -1,6 +1,6 @@
 # Reference-conditioned video with audio
 
-The current development build exposes Ref2VA through `h3 generate`
+H3 Apple 0.2.0 exposes Ref2VA through `h3 generate`
 and the Python API. Supply 1–9 still images in picture-number order and/or
 [1–3 reference videos](ref2va-video.md), optionally with [independent audio](ref2va-audio.md).
 Image-only generation defaults to 576p; requests with videos or independent
@@ -18,9 +18,9 @@ or video and have a [separate validation scope](ref2va-audio.md).
 
 ## Installation and models
 
-From a checkout of this development build, install the optional CPU vision
+From a checkout of this release, install the optional CPU vision
 dependencies with `./install.sh --ref2va`, then activate the printed Conda path.
-The published v0.1.0.dev1 release predates this feature.
+Install [v0.2.0](install.md) to use these reference features.
 
 Ref2VA uses a separate model bundle. The ordinary text model and automatic
 `h3 models prepare` downloader remain the text-generation recipe. For Ref2VA,

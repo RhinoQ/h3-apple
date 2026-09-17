@@ -10,17 +10,17 @@ generation. Run on AC power.
 
 Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge), or use an
 existing ARM64 Conda installation. Install the
-[v0.1.0.dev1 pre-release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.1.0.dev1):
+[v0.2.0 release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0):
 
 ```bash
-git clone --branch v0.1.0.dev1 --single-branch https://github.com/RhinoQ/h3-apple.git
+git clone --branch v0.2.0 --single-branch https://github.com/RhinoQ/h3-apple.git
 cd h3-apple
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
 h3 --version
 ```
 
-Alternatively, download `h3-apple-0.1.0.dev1-source.zip` from the release,
+Alternatively, download `h3-apple-0.2.0-source.zip` from the release,
 extract it, and run `./install.sh` from the extracted directory. The archive
 contains the installer, environment locks, documentation, and examples.
 `SHA256SUMS` verifies the attached archives, wheel, and release manifest:
@@ -38,10 +38,10 @@ and exact [osx-arm64 lock](../environments/conda-osx-arm64.lock). It creates a
 private Conda cache and environment, with Python 3.11.15, MLX 0.32.0, FFmpeg 8.1.2,
 and locked Python dependencies. It installs a regular wheel without changing
 system Python or user site-packages. Text generation does not require PyTorch.
-The current **0.2.0** checkout adds [Ref2VA images, videos and audio references](ref2va.md),
-[FL2VA LightX2V v1.2](fl2va.md), [portrait output](api.md#portrait-output), and terminal progress; these are not included
-in the pinned v0.1.0.dev1 release. From the development
-checkout, `./install.sh --ref2va` also installs the pinned PyTorch/torchvision
+**0.2.0** includes [Ref2VA images, videos and audio references](ref2va.md),
+[FL2VA LightX2V v1.2](fl2va.md), experimental [portrait output](api.md#portrait-output),
+and terminal progress. From the release checkout, `./install.sh --ref2va`
+also installs the pinned PyTorch/torchvision
 vision dependencies. Rerunning `./install.sh` installs the current checkout.
 
 Scripts and schedulers should use the fixed interpreter:
