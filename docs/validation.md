@@ -7,9 +7,20 @@ source version and scope.
 
 The **0.1.0.dev13** candidate adds `--aspect-ratio 9:16` to all three tasks
 and centers delivery crops along both axes. The default landscape request
-and its numerical recipe are unchanged. Full portrait generation and visual
-review remain pending; API and small-media checks alone do not establish
-portrait quality or new performance results.
+and its numerical recipe are unchanged. Its independently installed wheel
+passed **314 tests**, including three-task CLI/API orientation, invalid-input
+handling and real FFmpeg delivery tests with vertical/horizontal padding.
+Small MLX unit fixtures ran on CPU while a separately frozen generation queue
+continued; these tests did not load H3 model weights. All three model-readiness
+checks passed, and 13 existing requests resolved identically to dev12 when
+the new orientation option was omitted. Only four of the 52 runtime files
+changed; 74 dependency versions and 39 relevant native binaries match dev12.
+
+Full portrait generation and visual review remain pending. The two registered
+768p portrait checks use the original gallery poster and family-confrontation
+inputs at their original durations and seed. API and small-media checks alone
+do not establish portrait quality or new performance results. This candidate
+has not yet replaced the locally integrated dev12 build.
 
 The previous **0.1.0.dev12** build added independent
 [audio references](ref2va-audio.md) and an option to ignore video soundtracks.
