@@ -42,7 +42,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     if request.task in ("ref2va", "fl2va"):
         from importlib.util import find_spec
         if find_spec("torch") is None or find_spec("torchvision") is None:
-            raise RuntimeError("Image conditioning needs the ref2va extra. Run ./install.sh --ref2va.")
+            raise RuntimeError("Reference conditioning needs the ref2va extra. Run ./install.sh --ref2va.")
     if request.task == "fl2va":
         from .fl2va_recipe import fl2va_sampling
         fl2va_sampling(json.loads((Path(assets["checkpoint"]) / "fl2va_recipe.json").read_text()), request.num_steps)
@@ -98,6 +98,17 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                 budget = request.model_width * request.model_height if request.reference_resize == "match" else 672 * 384
                 spec["ref2va"] = dict(native_root=assets["ref2va_native"], image_paths=references,
                                       pixel_budget=budget, attention="vsa", reference_resize=request.reference_resize)
+            if request.reference_videos:
+                options = spec.setdefault("ref2va", dict(native_root=assets["ref2va_native"],
+                    image_paths=[], pixel_budget=672 * 384, attention="vsa",
+                    reference_resize=request.reference_resize))
+                options["video_paths"] = []
+                for index, source in enumerate(request.reference_videos):
+                    target = workspace / f"reference-video-{index + 1}{Path(source).suffix}"
+                    shutil.copyfile(source, target)
+                    options["video_paths"].append(str(target))
+                    run.setdefault("reference_inputs", []).append(dict(kind="video", index=index + 1,
+                        source=source, sha256=digest(target), size=target.stat().st_size))
             if request.task == "fl2va":
                 images, anchors = [], []
                 run["reference_inputs"] = []

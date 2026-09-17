@@ -291,6 +291,36 @@
         "Apply pinned LightX2V FL2VA v1.2 6/3 sampling and use only the 50 FastH3 VSA gates. Protect each condition segment independently with Ref2VA-style routing.",
         "This is a local gate transfer, not an official jointly distilled VSA checkpoint. See docs/fl2va.md for weight links and measured scope."
       ]
+    },
+    {
+      "destination": "src/h3_apple/media.py",
+      "sources": [
+        {
+          "repository": "https://github.com/huggingface/diffusers",
+          "commit": "759164b7ad116e091e9d3e222211c9aa27d835f6",
+          "upstream_path": "src/diffusers/modular_pipelines/minimax_h3/modular_pipeline.py",
+          "upstream_sha256": "9d5284ac8390f97d3e5eb3e0a50eddf25e04e7a12ff7fe063409b3cbd333b0ff"
+        }
+      ],
+      "changes": [
+        "Video canvas policy: short edge 768, pre-rounding area 768*1344, nearest-32 dimensions, including upscaling. Image policy remains separate. CPU-only local video validation."
+      ]
+    },
+    {
+      "destination": "src/h3_apple/runtime/ref2va_multimodal.py",
+      "sources": [
+        {
+          "repository": "https://github.com/huggingface/diffusers",
+          "commit": "759164b7ad116e091e9d3e222211c9aa27d835f6",
+          "upstream_path": "src/diffusers/modular_pipelines/minimax_h3/before_encoder.py",
+          "upstream_sha256": "03612baa8b983d058884d2c1740e57342279a1124002553f78cec98abcfc7c28"
+        }
+      ],
+      "changes": [
+        "Video and image presentation uses the existing native Qwen and VAE primitives with the same packed layout and frozen condition rows. Four-step shifts 12/3 and task-specific Ref4 weights retained.",
+        "Shared prepared RGB frames; video-native canvas independent of image pixel budget; Qwen 2 fps sampling, native temporal VAE chunking, FFmpeg soundtrack resampling.",
+        "Explicit Dense/VSA comparison with immutable conditioning snapshots. Video VSA quality requires independent validation; existing image tests do not confer it."
+      ]
     }
   ],
   "calibration": {

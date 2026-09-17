@@ -63,6 +63,9 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
     else:
         if request["task"] == "fl2va":
             from .fl2va_pipeline import condition_and_denoise
+        elif ref2va.get("video_paths"):
+            from .ref2va_multimodal import condition_and_denoise
+            ref2va = dict(ref2va, audio_vae=assets["audio_vae"])
         else:
             from .ref2va_pipeline import condition_and_denoise
         video, audio, reference_metadata, stats = condition_and_denoise(

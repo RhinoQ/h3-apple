@@ -45,9 +45,12 @@ Optional comparison projects
   vpipe commands. Their software and model licenses apply independently;
   their binaries and weights are not bundled in this repository.
 
-Experimental image-reference VSA
+Reference conditioning and VSA
   Reference packing and conditioning derive from MiniMax/FastVideo interfaces;
   exact upstream source identities are recorded in docs/sources.json.
+  Video canvas sizing and reference semantics also follow Diffusers (Apache-2.0),
+  Copyright 2026 The MiniMax and HuggingFace Teams. The modified canvas rule is
+  in src/h3_apple/media.py; pinned sources are recorded in docs/sources.json.
   Kablex's ComfyUI-Ref2VA-VSA (Apache-2.0) provides the gate-transplant and
   segment-pure prefix design: https://github.com/Kablex/ComfyUI-Ref2VA-VSA.
   The optional Kablex routing mode follows Comfy Kitchen's Sol-Attn top-k,

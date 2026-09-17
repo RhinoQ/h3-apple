@@ -29,8 +29,9 @@ print(result.elapsed_seconds)
 | `preset="ours"` | `--preset ours` | The supported recipe; records its version, code, and model identity |
 | `task=None` | `--task t2va/fl2va/ref2va` | Inferred from inputs when omitted; an explicit task must match the inputs and model bundle |
 | `first_frame` / `last_frame` | `--first-frame` / `--last-frame` | FL2VA still-image anchors; either one or both; cannot mix with Ref2VA references |
-| `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p for text/keyframes, 576p with Ref2VA images |
+| `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p, or 576p for image-only Ref2VA |
 | `reference_images=None` | Repeat `--reference-image /path` | Ordered list of 1–9 still images; requires a dedicated Ref2VA bundle |
+| `reference_videos=None` | Repeat `--reference-video /path` | Ordered list of 1–3 local 2–15s videos, optionally with images; uses the same Ref2VA bundle |
 | `reference_resize="legacy"` | `--reference-resize match` | Ref2VA only: opt into the target canvas's pixel area; legacy keeps the previous 258,048-pixel budget |
 | `duration=15` | `--duration 15` | 5–15 seconds, corresponding to an integer number of frames at 24 fps |
 | `seed=None` | `--seed 87001` | Generated and recorded when omitted; range 0–4294967295 |
@@ -76,13 +77,37 @@ result = generate(
 ```
 
 The complete prompt is preserved. Each image receives its own reference segment
-and aspect-preserving resize. Animated images and video/audio references are not
-accepted by this interface. The run record includes ordered input file hashes.
+and aspect-preserving resize. Animated images are rejected. Supply videos using
+the separate video argument below. The run record includes ordered input file hashes.
 
 For detailed references at 768p, `--reference-resize match` retains more pixels
 from large images. It preserves aspect ratio and does not enlarge small images
 beyond the required 32-pixel grid rounding. It increases encoder and attention
 cost and has a separate quality-validation scope; see [image sizing](ref2va.md#image-size-policy).
+
+## Reference videos
+
+Use the same [Ref2VA bundle](ref2va.md#installation-and-models) and optional
+dependencies as image references. No additional weights are needed.
+
+```bash
+h3 generate --task ref2va --prompt-file prompt.txt --reference-video source.mp4 --model-dir ~/Models/h3-apple-ref2va --resolution 768p --duration 5 --seed 42 --output edited.mp4
+```
+
+```python
+result = generate(
+    "Use Video 1 for the motion and Picture 1 for the subject, with outdoor ambience.",
+    task="ref2va", reference_videos=["source.mp4"], reference_images=["subject.jpg"],
+    reference_resize="match", model_dir="~/Models/h3-apple-ref2va",
+    duration=5, seed=42, output="edited.mp4",
+)
+```
+
+Repeat `--reference-video` in Video-number order. Picture numbering is separate.
+Videos default to 768p output and use the released H3 reference-canvas rule,
+independent of the still-image resize option. Soundtracks are included as audio
+references in video order; silent videos do not consume an Audio number.
+See [video preparation, cost and preservation limits](ref2va-video.md).
 
 ## First and last frames
 

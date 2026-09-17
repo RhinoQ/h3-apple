@@ -43,11 +43,13 @@ def parser():
         command.add_argument("--reference-resize", choices=("legacy", "match"), default="legacy",
                              help="Ref2VA images: legacy 0.258 MP, or match the output canvas area")
         command.add_argument("--resolution", choices=("768p", "576p"),
-                             help="Default: 768p for text or keyframes, 576p with Ref2VA images")
+                             help="Default: 768p; 576p for image-only Ref2VA")
         command.add_argument("--duration", type=float, default=15)
         command.add_argument("--seed", type=int)
         command.add_argument("--reference-image", action="append", dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9 images)")
+        command.add_argument("--reference-video", action="append", dest="reference_videos",
+                             help="Local 2–15s video; repeat in Video-number order (1–3 videos)")
         if name == "generate":
             command.add_argument("--output")
             command.add_argument("--model-dir")

@@ -1,16 +1,19 @@
-# Reference-image video with audio
+# Reference-conditioned video with audio
 
 The current development build exposes Ref2VA through `h3 generate`
-and the Python API. Supply 1–9 still images in picture-number order. Reference
-generation defaults to 576p, four steps and 15 seconds; start with five seconds.
+and the Python API. Supply 1–9 still images in picture-number order and/or
+[1–3 reference videos](ref2va-video.md). Image-only generation defaults to 576p;
+requests with videos default to 768p. Both use four steps and default to
+15 seconds; start with five seconds.
 The complete prompt is retained, including any picture numbers it contains.
 
 One-image / five-second and four-image / fifteen-second cases at 576p have
 completed on M5 Max / 128 GiB and received user quality acceptance. This is a
 limited case review, not a broad or blind quality evaluation. Other image
 counts, 768p reference generation, and smaller memory capacities remain
-unqualified. The public input accepts still images; it does not accept video
-or audio references.
+unqualified. Video-reference quality has a separate, limited validation scope;
+see [video-reference limitations](ref2va-video.md). Standalone audio files are
+not exposed by the public API.
 
 ## Installation and models
 

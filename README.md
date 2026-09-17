@@ -18,7 +18,7 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 
 The current development build offers three tasks: **T2VA** from text,
 **[FL2VA](docs/fl2va.md)** from first/last frames with LightX2V v1.2,
-and **[Ref2VA](docs/ref2va.md)** from ordered reference images. Each uses its own
+and **[Ref2VA](docs/ref2va.md)** from ordered images and/or [reference videos](docs/ref2va-video.md). Each uses its own
 model recipe and the same [terminal progress bar](docs/api.md#terminal-progress).
 These features are newer than the published v0.1.0.dev1 release; use this
 checkout's installer. See the task guides for validation and quality limits.
@@ -323,7 +323,7 @@ print(result.elapsed_seconds)
 Independent installation, model reconstruction, real generation, numerical
 migration, and GPU cancellation have passed the checks recorded in
 [validation](docs/validation.md). The current development interface supports
-text, first/last keyframes, or 1–9 ordered still images with audio output. FL2VA
+text, first/last keyframes, or 1–9 ordered images and/or 1–3 videos with audio output. FL2VA
 needs its [v1.2 bundle](docs/fl2va.md). Reference generation needs
 a [dedicated model bundle](docs/ref2va.md); its tested cases are one and four
 images at 576p on M5 Max / 128 GiB. Training, video/audio reference input,
