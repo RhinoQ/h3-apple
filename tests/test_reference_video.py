@@ -42,6 +42,33 @@ def test_invalid_video_geometry_fails(source):
         reference_video_size(*source)
 
 
+@pytest.mark.parametrize("kind,flag,suffix", [
+    ("videos", "--reference-video", ".mp4"),
+    ("audio", "--reference-audio", ".wav"),
+])
+def test_corrupt_reference_returns_actionable_cli_error(tmp_path, kind, flag, suffix):
+    path = tmp_path / ("broken" + suffix)
+    path.write_bytes(b"incomplete media")
+    with pytest.raises(ValueError, match="Cannot read reference"):
+        probe_reference(path, kind)
+    result = subprocess.run([sys.executable, "-m", "h3_apple", "resolve",
+        "--prompt", "Use this reference.", flag, str(path)],
+        cwd=tmp_path, capture_output=True, text=True)
+    assert result.returncode == 1
+    assert str(path) in result.stderr and "complete and playable" in result.stderr
+    assert "Traceback" not in result.stderr and not result.stdout
+
+
+def test_reference_probe_timeout_is_actionable(tmp_path, monkeypatch):
+    path = tmp_path / "slow.mp4"
+    path.touch()
+    def timeout(*args, **kwargs):
+        raise subprocess.TimeoutExpired("ffprobe", 30)
+    monkeypatch.setattr("h3_apple.media.subprocess.run", timeout)
+    with pytest.raises(ValueError, match="Timed out reading reference video"):
+        probe_reference(path, "videos")
+
+
 def test_image_policy_retains_its_existing_budget():
     assert reference_image_size(854, 480, 672 * 384) == (384, 672)
     assert reference_image_size(64, 64, 672 * 384) == (64, 64)

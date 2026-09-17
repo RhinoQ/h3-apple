@@ -31,7 +31,9 @@ def parser():
     top.add_argument("--version", action="version", version=f"h3-apple {__version__}")
     commands = top.add_subparsers(dest="command", required=True)
     for name in ("generate", "resolve"):
-        command = commands.add_parser(name)
+        command = commands.add_parser(name, help=(
+            "Generate an MP4 and run record" if name == "generate" else
+            "Inspect inputs and output settings without loading models"))
         prompts = command.add_mutually_exclusive_group(required=True)
         prompts.add_argument("--prompt")
         prompts.add_argument("--prompt-file")
@@ -46,7 +48,8 @@ def parser():
                              help="Default: 768p; 576p for Ref2VA with only still images")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9",
                              help="Output orientation for all tasks: landscape (default) or portrait")
-        command.add_argument("--duration", type=float, default=15)
+        command.add_argument("--duration", type=float, default=15,
+                             help="Output seconds, 5–15 at 24 fps (default: 15); start with 5")
         command.add_argument("--seed", type=int)
         command.add_argument("--reference-image", action="append", dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9 images)")
@@ -57,10 +60,11 @@ def parser():
         command.add_argument("--no-reference-video-audio", action="store_false", dest="reference_video_audio",
                              help="Ignore all reference-video soundtracks; keep explicit --reference-audio inputs")
         if name == "generate":
-            command.add_argument("--output")
-            command.add_argument("--model-dir")
+            command.add_argument("--output", help="New .mp4 path; omit to create a unique folder under runs/")
+            command.add_argument("--model-dir", help="Prepared task bundle; defaults to H3_MODEL_DIR or ~/Models/h3-apple")
             command.add_argument("--diagnostics", action="store_true")
-            command.add_argument("--timeout", type=float, default=7200)
+            command.add_argument("--timeout", type=float, default=7200,
+                                 help="Stop the worker after this many seconds (default: 7200)")
             command.add_argument("--no-progress", action="store_true", help="Hide the stderr progress bar")
     doctor = commands.add_parser("doctor", help="Check the machine, runtime, media tools and models")
     doctor.add_argument("--model-dir")

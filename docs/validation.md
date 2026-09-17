@@ -5,7 +5,50 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-The current **0.2.0** version is based on the **0.1.0.dev13** portrait
+## First-use audit (2026-09-17)
+
+The public v0.2.0 source archive and checksums were downloaded anonymously,
+extracted, and installed in a new private Conda environment. Base installation,
+optional reference dependencies, shell activation and imports outside the
+checkout passed. Existing prepared bundles were reused; the 139 GiB weight
+download and model conversion were not repeated. A pinned small-file HTTPS
+download and resume passed, and the large-download guard stopped before transfer.
+
+The initial 31 command checks exposed two issues: `doctor` reported ready for
+FL2VA/Ref2VA without the optional vision packages, and corrupt video/audio
+references printed tracebacks. The local follow-up fixes these entry checks
+and clarifies CLI help. It changes no generation kernels, weights or recipes.
+After installing the fixes, **31/31 command checks and 326 regression tests
+passed**. Real timeout, Ctrl-C after GPU denoising began, worker exit, lock
+release and output protection also passed. The cancellation run used T2VA
+without PyTorch or torchvision installed. The published v0.2.0 assets remain
+unchanged; these entry fixes are a separate local follow-up.
+
+Three complete runs used the **unmodified published v0.2.0 package**:
+
+| Input / mode | Output | Observed CLI wait |
+| --- | --- | ---: |
+| Text / T2VA | 768p, 5 seconds | 8m 12s |
+| First and last frames / FL2VA | 768p, 5 seconds | 13m 06s |
+| One image / Ref2VA | 576p, 5 seconds | 5m 11s |
+
+Each delivered 120 frames at 24 fps with 32 kHz stereo sound, passed complete
+media decoding, and recorded four steps and 200 VSA calls without fallback.
+All three showed progress through completion and returned valid JSON.
+Different inputs and recipes make these individual observations, not a speed
+comparison or general ETA. The [audit record](evidence/first-use-v0.2.0.json)
+contains exact prompts, reference extraction, commands, hashes, timings and limits.
+
+**Execution passed; new quality acceptance is not claimed.** Fixed-interval
+inspection found that FL2VA retained lettering from its last reference despite
+a conflicting “no text” instruction. Ref2VA changed the reference's beige
+retro-window layout into dark-background 3D shapes, missing the requested style
+and composition. This audit did not repeat full portrait or Dense video/audio
+generation, test physical 64 GB hardware, or perform a complete audiovisual review.
+
+## Published v0.2.0 validation
+
+The published **0.2.0** version is based on the **0.1.0.dev13** portrait
 implementation. It adds `--aspect-ratio 9:16` to all three tasks and centers
 delivery crops along both axes. The default landscape request and its
 numerical recipe are unchanged. Relative to dev13, only the package version

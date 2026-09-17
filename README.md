@@ -17,14 +17,11 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 [Native video downloads](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11) ·
 [Reproduce the comparison](benchmarks/README.md)
 
-**0.2.0** offers three tasks: **T2VA** from text,
-**[FL2VA](docs/fl2va.md)** from first/last frames with LightX2V v1.2,
-and **[Ref2VA](docs/ref2va.md)** from ordered images and/or [reference videos](docs/ref2va-video.md), with optional [audio references](docs/ref2va-audio.md). Each uses its own
-model recipe and the same [terminal progress bar](docs/api.md#terminal-progress).
-All three tasks accept experimental [portrait output](docs/api.md#portrait-output) with
-`--aspect-ratio 9:16`; landscape `16:9` remains the default.
-Install the pinned v0.2.0 release below. See the task guides for validation
-and quality limits, including the incomplete full-generation portrait validation.
+**0.2.0** supports text (**T2VA**), first/last frames (**FL2VA**, LightX2V v1.2),
+and pictures or videos (**Ref2VA**), with optional audio references.
+**First time? [Start with a five-second text video](#generate-your-first-video).**
+The automatic model downloader prepares T2VA; FL2VA and Ref2VA need separate
+bundles and additional setup. [Choose a mode](#use-your-own-images-video-or-audio).
 
 ## Video comparisons
 
@@ -185,7 +182,7 @@ remain available for inspection.
 
 ## Hardware and memory
 
-**M5 Max / 128 GiB is the physically tested configuration.** This preview
+**M5 Max / 128 GiB is the physically tested configuration.** This release
 requires an M5 GPU and macOS 26.2 or later. **64 GiB support is experimental:**
 smaller workloads passed total-budget tests on our 128 GiB host, but physical
 64 GB M5 Pro and M5 Max machines still need validation. This does not mean
@@ -198,32 +195,15 @@ every M5 Mac can run H3. Machines below 64 GiB are rejected before loading model
 | Model preparation | 64 GiB | Full reconstruction passed at 64 GiB; all 35 model files matched | 31.18 GiB |
 | 768p / longer than 5 seconds, up to 15 seconds | 96 GiB | One 15-second prompt passed at 96 GiB | 56.27 GiB |
 
-These budget measurements cover text generation. [Ref2VA](docs/ref2va.md)
-has limited image and [video-reference](docs/ref2va-video.md) case validation
-on M5 Max / 128 GiB. Its encoders and reference segments add memory and storage
-requirements that are not covered by these text-only budgets.
+These are **text-generation budget tests on a 128 GiB host**, not tests of
+physical 64 GB machines or FL2VA/Ref2VA memory requirements. Process-tree peaks
+are measured footprints, not minimum RAM specifications. A **768p / 15-second
+attempt failed at 64 GiB** due to swap growth. On a 64 GiB Mac, use
+`--duration 5` or `--resolution 576p` for longer clips.
 
-A **768p / 15-second attempt failed at 64 GiB**, exceeding the test's swap-growth
-limit; it produced no completed video. On a 64 GiB Mac, start with `--duration 5`
-or use `--resolution 576p` for a 15-second video. The entry returns these smaller
-alternatives when a long 768p request exceeds its admitted memory range.
-
-The 64 GiB tests locked half of the 128 GiB Mac's physical pages, leaving
-64 GiB for macOS, other applications and H3 together. All completed tests had
-normal memory pressure and **zero swap growth**. The two short MP4s and the 96 GiB long MP4 exactly
-matched their gallery originals. Process-tree peaks are sampled macOS physical
-footprints, not a Mac's minimum RAM requirement; GPU-only MLX peaks also omit
-other allocations. **64 GiB is the lowest tested total budget, not an established
-absolute minimum or physical 64 GB certification.** The GPU and its device
-limits remain those of the actual host. See the
-[resource report and exact measurements](benchmarks/results/memory-storage-01/README.md).
-
-Apple's [base M5 MacBook Pro](https://support.apple.com/en-us/125405) tops out at
-32 GB. The [M5 Pro/Max configurations](https://support.apple.com/en-us/126318)
-meeting the 64 GB floor are M5 Pro with a 20-core GPU and M5 Max with a 40-core
-GPU. Other M-series generations are not supported by this build. Run one H3 job
-at a time, use AC power, and close other memory-heavy apps; disk swap is not a
-substitute for enough unified memory.
+Run one H3 job at a time and close other memory-heavy apps. Reference encoders
+and additional reference frames add work and memory. The [resource report](benchmarks/results/memory-storage-01/README.md)
+contains the complete budget method, successful runs and failure evidence.
 
 ### Disk space
 
@@ -240,77 +220,126 @@ and generation headroom; it is not an exact minimum disk capacity.
 | Conda environment + private Conda package cache | About 1.7 GiB allocated |
 | Free space required when generating, in addition to retained files | **20 GiB**; checked by the worker |
 
-After successful preparation and verification, the original source cache is
-optional for everyday offline generation. Keeping the prepared bundle and
-environment, with 20 GiB left free, fits within a **120 GiB total disk budget
-(about 129 GB)** before accumulated videos. Keeping the source cache makes
-future rebuilding easier. Shared files must be counted once; the source cache
-and bundle sizes must not be added together.
+After verified preparation, the source cache is optional for offline generation;
+keeping it makes future rebuilding easier. The prepared text bundle, environment
+and 20 GiB free headroom fit within a **120 GiB total budget**, before accumulated
+videos. Shared hard links count once; separate volumes need extra copies.
 
-The preparation test rebuilt all converted files, verified their content and
-measured peak storage; it reused the complete source cache rather than
-redownloading 139 GiB. Different cache/model volumes require extra copies.
-Run `h3 models prepare --plan` for the actual additional space on each volume,
-and see [model storage and reuse](docs/models.md). Diagnostic tensor exports
-are outside these everyday-generation figures.
+The preparation measurement reused verified source files. Run
+`h3 models prepare --plan` for your actual download and disk requirements.
+FL2VA/Ref2VA source preparation and diagnostic tensor exports are outside this
+text-model budget. See [model storage and reuse](docs/models.md).
 
 ## Generate your first video
 
-This is a community project built on MiniMax-H3, FastVideo, and Apple GPU
-optimizations, with no official affiliation. The latest published package is
-**[0.2.0](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0)**.
-The release includes a source archive, Python wheel, and SHA-256 checksums.
-Check the [hardware and memory requirements](#hardware-and-memory)
-before installing.
+You need an **M5 Mac, macOS 26.2+, at least 64 GiB unified memory**, and
+**200 GiB free disk** for the first text-model setup. Physical testing covers
+M5 Max / 128 GiB; see [hardware limits](#hardware-and-memory) before using a
+smaller machine. Run on AC power. H3 Apple is a community project with no
+official MiniMax or Apple affiliation.
 
-Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge) or use your
-existing Conda installation:
+**1. Install.** Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge)
+or use an existing ARM64 Conda installation. Download and unzip the
+[v0.2.0 source archive](https://github.com/RhinoQ/h3-apple/releases/download/v0.2.0/h3-apple-0.2.0-source.zip).
+Open Terminal and enter its extracted folder:
 
 ```bash
-git clone --branch v0.2.0 --single-branch https://github.com/RhinoQ/h3-apple.git
-cd h3-apple
+cd ~/Downloads/h3-apple-0.2.0
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
+h3 --version
+```
+
+Change the `cd` path if you extracted elsewhere. The source archive includes
+the installer; the wheel alone does not. [Git installation, checksums and
+recovery](docs/install.md) are available separately.
+
+**2. Prepare the text model once.** Inspect the plan first:
+
+```bash
 h3 models prepare --plan
 ```
 
-Read the [MiniMax-H3 model terms](licenses/MiniMax-H3.txt) and review the download
-plan before preparing weights. Check the [disk-space budget](#disk-space)
-and [storage and reuse](docs/models.md) before starting. Downloads above
-20 GB require the explicit flag below:
+A fresh setup downloads about **139 GiB**, then converts the weights locally.
+Read the [model terms](licenses/MiniMax-H3.txt) and [storage/reuse guide](docs/models.md).
+If the plan fits your disk and download budget, explicitly allow the download:
 
 ```bash
 h3 models prepare --allow-large-download
 h3 doctor
-h3 generate --prompt "A quiet bakery opens at dawn. Soft birdsong and a gentle doorbell." --seed 87001 --duration 5 --output bakery.mp4
 ```
 
-Reuse existing files with `--reuse-dir`. Once prepared, generation runs offline.
-Without duration/resolution flags, the API defaults to **768p / 15 seconds /
-24 fps with stereo audio**, which requires at least 96 GiB. The command above
-uses five seconds so it also fits the experimental 64 GiB entry. For a smaller
-first run, add `--resolution 576p`.
+Wait for preparation to finish and `doctor` to report `"ready": true`.
+Models default to `~/Models/h3-apple`. To use an existing **prepared bundle**,
+pass `--model-dir /path/to/bundle` to `doctor` and `generate`, or set
+`H3_MODEL_DIR`. `--reuse-dir` is for reusing **source downloads** during preparation.
+Once prepared, generation runs offline.
 
-Each run returns an MP4 and adjacent `.run.json` with the actual dimensions,
-seed, time, version, and model identity. Existing files are never overwritten.
-Ctrl-C cancels the worker and preserves failure logs.
+**3. Generate and play.** This command creates five seconds of video and stereo sound:
 
-```python
-from h3_apple import generate
-
-result = generate(
-    "A quiet bakery opens at dawn. Soft birdsong and a gentle doorbell.",
-    resolution="768p",
-    duration=5,
-    seed=87001,
-    output="bakery-short.mp4",
-)
-print(result.video_path)
-print(result.elapsed_seconds)
+```bash
+h3 generate --prompt "A quiet bakery opens at dawn. Soft birdsong and a gentle doorbell." --resolution 768p --duration 5 --seed 87001 --timeout 1800 --output bakery.mp4
+open bakery.mp4
 ```
 
-[Installation and recovery](docs/install.md) · [Models](docs/models.md) ·
-[All API parameters](docs/api.md) · [Runnable Python example](examples/generate.py)
+Wait for **Complete**: denoising is followed by video/audio decoding and validation.
+The result is `bakery.mp4` plus `bakery.run.json`, recording the prompt, seed,
+dimensions, timing, software and model identity. Use a new output filename
+for another run; existing results are never overwritten. Ctrl-C cancels the
+worker. The 30-minute timeout stops an unfinished run; failed/cancelled runs
+retain their record and worker logs.
+
+Keep `--duration 5` for initial checks: omitting it requests **15 seconds**,
+and 768p above five seconds requires at least 96 GiB. `--resolution 576p`
+reduces work; prefer 768p for small faces and fine details. The gallery's
+five-second text runs averaged about six minutes on the tested M5 Max;
+that is not an ETA for other modes or inputs.
+
+[Python example](examples/generate.py) · [All API parameters](docs/api.md) ·
+[Installation and recovery](docs/install.md) · [Validation scope](docs/validation.md)
+
+## Use your own images, video or audio
+
+Choose a mode by what the reference should do:
+
+| Input / purpose | Mode | Model setup | Attention |
+| --- | --- | --- | --- |
+| Text description | T2VA | Automatic `h3 models prepare` | VSA |
+| Starting image, ending image, or both | FL2VA | [Separate LightX2V v1.2 conversion and bundle](docs/fl2va.md#prepare-and-generate) | VSA |
+| Pictures for identity, objects, setting or style | Ref2VA | [Separate Ref2VA conversion and bundle](docs/ref2va.md#installation-and-models) | VSA |
+| Reference video and/or audio, with a picture or video | Ref2VA | Same Ref2VA bundle; [video](docs/ref2va-video.md) / [audio](docs/ref2va-audio.md) guide | Dense |
+
+**FL2VA and Ref2VA setup is currently manual.** `--task` does not download or
+switch model weights automatically. Both require the optional vision packages:
+run `./install.sh --ref2va` from the extracted source folder, then follow the
+linked conversion guide. The extra's name also applies to FL2VA.
+
+After preparing the matching bundle, replace the image paths below with your
+own files. First/last anchors guide the endpoints; ordered reference pictures
+guide the content throughout the clip.
+
+```bash
+h3 doctor --model-dir ~/Models/h3-apple-fl2va-v12
+h3 generate --task fl2va --prompt "A smooth continuous shot from Picture 1 to Picture 2, with natural ambience." --first-frame first.png --last-frame last.png --model-dir ~/Models/h3-apple-fl2va-v12 --resolution 768p --duration 5 --seed 42 --timeout 1800 --output keyframes.mp4
+
+h3 doctor --model-dir ~/Models/h3-apple-ref2va
+h3 generate --task ref2va --prompt "Use Picture 1 for the subject and setting. A slow camera move with natural ambience." --reference-image reference.jpg --model-dir ~/Models/h3-apple-ref2va --resolution 768p --duration 5 --seed 42 --timeout 1800 --output reference.mp4
+```
+
+FL2VA also accepts just one anchor. Ref2VA supports up to nine ordered images;
+name their roles as Picture 1, Picture 2, etc. Image-only Ref2VA otherwise
+defaults to **576p**. Clear original references matter: `--reference-resize match`
+can retain more detail from large images, with extra cost; it cannot restore
+detail absent from the source. [Image-size policy](docs/ref2va.md#image-size-policy).
+
+Video and independent audio references select **Dense** and can take much
+longer, including over an hour for larger requests. Use `--timeout 3600` if
+one hour is your limit. Audio requires a picture or video and guides newly
+generated sound. Precise preservation of faces, scene, motion, voice or text
+is not guaranteed. [Practical limits and measured waiting times](docs/user-guide.md).
+
+All modes default to landscape. `--aspect-ratio 9:16` enables experimental
+[portrait output](docs/api.md#portrait-output); consult its validation limits.
 
 ## What you get
 

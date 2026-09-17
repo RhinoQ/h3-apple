@@ -45,9 +45,17 @@ def probe_reference(path, kind):
     path = Path(path)
     if not path.is_file():
         raise FileNotFoundError(path)
-    result = subprocess.run([tool("ffprobe"), "-v", "error", "-show_streams", "-show_format",
-                             "-of", "json", str(path)], capture_output=True, text=True,
-                            check=True, timeout=30)
+    label = "video" if kind == "videos" else "audio"
+    try:
+        result = subprocess.run([tool("ffprobe"), "-v", "error", "-show_streams", "-show_format",
+                                 "-of", "json", str(path)], capture_output=True, text=True,
+                                check=True, timeout=30)
+    except subprocess.CalledProcessError as error:
+        raise ValueError(f"Cannot read reference {label}: {path}. "
+                         "Check that the file is complete and playable in FFmpeg.") from error
+    except subprocess.TimeoutExpired as error:
+        raise ValueError(f"Timed out reading reference {label}: {path}. "
+                         "Try a complete local media file.") from error
     data = json.loads(result.stdout)
     videos = [s for s in data.get("streams", []) if s.get("codec_type") == "video"]
     audios = [s for s in data.get("streams", []) if s.get("codec_type") == "audio"]

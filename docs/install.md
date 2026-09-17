@@ -8,9 +8,10 @@ generation. Run on AC power.
 
 ## Conda environment
 
-Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge), or use an
-existing ARM64 Conda installation. Install the
-[v0.2.0 release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0):
+For the shortest path, follow the [README's source-archive installation](../README.md#generate-your-first-video).
+It needs no Git checkout. If you prefer Git, install ARM64
+[Miniforge](https://github.com/conda-forge/miniforge), or use an existing ARM64
+Conda installation, then check out the pinned release:
 
 ```bash
 git clone --branch v0.2.0 --single-branch https://github.com/RhinoQ/h3-apple.git
@@ -20,7 +21,8 @@ conda activate "$PWD/.local/envs/h3"
 h3 --version
 ```
 
-Alternatively, download `h3-apple-0.2.0-source.zip` from the release,
+Alternatively, download `h3-apple-0.2.0-source.zip` from the
+[release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0),
 extract it, and run `./install.sh` from the extracted directory. The archive
 contains the installer, environment locks, documentation, and examples.
 `SHA256SUMS` verifies the attached archives, wheel, and release manifest:
@@ -79,11 +81,16 @@ download missing components during a run.
 ## Recovery
 
 - **Conda not found:** install Conda, or set `CONDA_EXE` to its absolute executable path.
-- **Missing models:** run model preparation; register existing files with `--reuse-dir`.
+- **`conda activate` asks for initialization:** run `source "$(conda info --base)/etc/profile.d/conda.sh"`, then repeat the activation command in that terminal.
+- **`h3` not found:** activate the printed environment, or use its fixed Python with `-m h3_apple`.
+- **Missing models:** use `h3 models prepare` for T2VA; FL2VA and Ref2VA need their separate conversion guides. `--reuse-dir` reuses source downloads; `--model-dir` selects an already prepared bundle.
+- **Wrong model task:** use the matching bundle with `--model-dir`; choosing `--task` alone does not switch weights.
+- **Reference dependencies missing:** rerun `./install.sh --ref2va` for either FL2VA or Ref2VA.
 - **Backend mismatch:** rerun `./install.sh` instead of replacing a single library manually.
 - **Device busy:** wait for the current H3 job. The shared device lock defaults to `~/.cache/h3-apple/device.lock`.
 - **Resource stop:** inspect the `.run.json` and logs, free disk or memory, or allow cooling, then retry with a new output path.
 - **Interrupted installation or download:** rerun the command. Retain error logs; corrupt files are not accepted as complete assets.
+- **Output already exists:** use a new `.mp4` filename. Failed or cancelled runs also reserve their `.run.json` path.
 
 `H3_MODEL_DIR` changes the default model directory. `H3_DEVICE_LOCK` sets the
 lock path shared by cooperating jobs. No Metal or thread environment tuning

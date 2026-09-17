@@ -4,6 +4,7 @@ from contextlib import contextmanager
 import ctypes
 import fcntl
 import importlib.metadata
+import importlib.util
 import os
 from pathlib import Path
 import platform
@@ -103,6 +104,12 @@ def backend_identity():
                           ("mlx", "mlx-metal", "numpy", "transformers")})
 
 
+def check_reference_dependencies(task):
+    if task in ("ref2va", "fl2va"):
+        if any(importlib.util.find_spec(name) is None for name in ("torch", "torchvision")):
+            raise RuntimeError("Reference conditioning needs the ref2va extra. Run ./install.sh --ref2va.")
+
+
 def doctor(model_dir=None):
     info = snapshot()
     errors = []
@@ -122,7 +129,9 @@ def doctor(model_dir=None):
     try:
         assets = load_assets(model_dir)
         info["models"] = {k: assets[k] for k in ("directory", "identity")}
-    except (OSError, ValueError) as error:
+        info["models"]["task"] = assets.get("task", "t2va")
+        check_reference_dependencies(info["models"]["task"])
+    except (OSError, ValueError, RuntimeError) as error:
         errors.append(str(error))
     info["free_disk_bytes"] = shutil.disk_usage(Path.cwd()).free
     info["errors"] = errors

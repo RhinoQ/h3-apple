@@ -1,7 +1,8 @@
 # Model preparation
 
-This page describes the text-generation bundle. For ordered reference images,
-use the dedicated [Ref2VA weights and import instructions](ref2va.md).
+This page describes the automatically prepared **T2VA** bundle. FL2VA and
+Ref2VA require separate, manual conversion: [FL2VA v1.2](fl2va.md#prepare-and-generate)
+and [Ref2VA images, videos and audio](ref2va.md#installation-and-models).
 
 Read the [MiniMax-H3 model terms](../licenses/MiniMax-H3.txt) before preparing
 weights. The code's Apache-2.0 license does not change the model's geographic,
@@ -16,7 +17,6 @@ Python wheel.
 
 ```bash
 h3 models prepare --plan
-h3 models prepare
 ```
 
 `--plan` validates reusable files and shows each source, deduplicated missing
@@ -44,6 +44,12 @@ and the generation bundle to `~/Models/h3-apple`. Use `--cache-dir` and
 Conversion runs in a separate worker and atomically publishes the completed bundle.
 
 ## Reuse existing downloads or converted weights
+
+If you already have a complete H3 Apple bundle containing `bundle.json`,
+point `h3 doctor` and `h3 generate` at it with `--model-dir /path/to/bundle`,
+or set `H3_MODEL_DIR`. No import or download is needed. Its task must match
+your request. The options below apply to source files or converted components
+that have not yet been assembled into a bundle.
 
 Repeat `--reuse-dir` for existing official files. Repository snapshot roots,
 FL2VA directories, adapter snapshots, and standard Hugging Face caches are supported:

@@ -44,3 +44,25 @@ def test_other_host_requirements_remain_enforced(field, value, reason):
     info[field] = value
     with pytest.raises(RuntimeError, match=reason):
         check_machine(info)
+
+
+@pytest.mark.parametrize("task", ["t2va", "fl2va", "ref2va"])
+@pytest.mark.parametrize("missing", [None, "torch", "torchvision"])
+def test_doctor_readiness_matches_reference_dependency_check(monkeypatch, tmp_path, task, missing):
+    from h3_apple import host
+    monkeypatch.setattr(host, "snapshot", lambda: mac(128))
+    monkeypatch.setattr(host, "backend_identity", lambda: {})
+    monkeypatch.setattr(host, "tool", lambda name: str(tmp_path / name))
+    monkeypatch.setattr(host.importlib.util, "find_spec", lambda name: None if name == missing else object())
+    monkeypatch.setattr("h3_apple.assets.load_assets", lambda _: dict(
+        directory=str(tmp_path), identity="fixture", task=task))
+    result = host.doctor(tmp_path)
+    needs_extra = task != "t2va" and missing is not None
+    assert result["ready"] is not needs_extra
+    assert result["models"]["task"] == task
+    if needs_extra:
+        assert "./install.sh --ref2va" in result["errors"][0]
+        with pytest.raises(RuntimeError, match="install.sh --ref2va"):
+            host.check_reference_dependencies(task)
+    else:
+        host.check_reference_dependencies(task)

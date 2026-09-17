@@ -31,4 +31,5 @@ fi
 "$prefix/bin/python" -m pip check
 echo "Installed. Activate with: conda activate $prefix"
 echo "Fixed Python: $prefix/bin/python"
-echo "Next: h3 doctor, then h3 models prepare"
+echo "Next: h3 models prepare --plan (T2VA). Review downloads before preparation."
+echo "FL2VA and Ref2VA need separate model bundles; see README.md."

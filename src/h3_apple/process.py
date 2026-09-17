@@ -39,10 +39,8 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     assets = load_assets(model_dir)
     if assets.get("task", "t2va") != request.task:
         raise ValueError(f"This request needs a {request.task.upper()} model bundle; select the matching --model-dir.")
-    if request.task in ("ref2va", "fl2va"):
-        from importlib.util import find_spec
-        if find_spec("torch") is None or find_spec("torchvision") is None:
-            raise RuntimeError("Reference conditioning needs the ref2va extra. Run ./install.sh --ref2va.")
+    from .host import check_reference_dependencies
+    check_reference_dependencies(request.task)
     if request.task == "fl2va":
         from .fl2va_recipe import fl2va_sampling
         fl2va_sampling(json.loads((Path(assets["checkpoint"]) / "fl2va_recipe.json").read_text()), request.num_steps)

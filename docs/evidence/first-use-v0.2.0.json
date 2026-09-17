@@ -1,0 +1,512 @@
+{
+  "schema": "h3-apple-first-use/v1",
+  "date": "2026-09-17",
+  "base_release": "v0.2.0",
+  "base_commit": "d947c65c8eb1460eb0979854546dc40b9683f1c9",
+  "hardware": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "macos": "26.6.1",
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472
+  },
+  "public_assets": [
+    {
+      "name": "h3-apple-0.2.0-source.zip",
+      "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.2.0/h3-apple-0.2.0-source.zip",
+      "bytes": 12079151,
+      "sha256": "2e1705214b0ae933e6e35ebff65dca0c1bb15bbcbdfd5a607dc0541b1f356875"
+    },
+    {
+      "name": "h3_apple-0.2.0-py3-none-any.whl",
+      "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.2.0/h3_apple-0.2.0-py3-none-any.whl",
+      "bytes": 1523461,
+      "sha256": "9349b8b0a91dfc44fc4c64c74fc2db7381790dca51dc337d9de72dc9878c17fd"
+    },
+    {
+      "name": "release-manifest.json",
+      "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.2.0/release-manifest.json",
+      "bytes": 11214,
+      "sha256": "48c4692d5431cf37976c979c22334a8655b720b414b07b6350ff0b1f7db95241"
+    },
+    {
+      "name": "SHA256SUMS",
+      "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.2.0/SHA256SUMS",
+      "bytes": 278,
+      "sha256": "46b9dd8a95f2894fd82ff6a1d1feb5fd09bb1877de5bcd381760708e95d04089"
+    }
+  ],
+  "installation": {
+    "source": "Anonymous public release source ZIP, extracted with macOS unzip",
+    "environment": "New private Conda prefix; installed regular wheel; commands launched outside source checkout; no user site packages",
+    "base_install_passed": true,
+    "optional_vision_install_passed": true,
+    "activation_and_console_entry_passed": true,
+    "pip_check_passed": true,
+    "download_network_scope": "Release assets and environment setup; one pinned 604-byte model configuration downloaded and resumed from byte 73. Large model weights were reused."
+  },
+  "model_preparation": {
+    "empty_cache_plan_passed": true,
+    "planned_model_download_bytes": 149367157026,
+    "over_20GB_guard_passed": true,
+    "automatic_task": "t2va",
+    "conditioned_task_setup": "Manual conversion and bundle import remain necessary.",
+    "existing_prepared_bundle_reuse_passed": true,
+    "full_download_and_conversion_repeated": false
+  },
+  "first_use_checks": {
+    "original_cases": 31,
+    "original_passed": 27,
+    "original_failures": [
+      "doctor-ref-without-extra",
+      "doctor-fl-without-extra",
+      "corrupt-video",
+      "corrupt-audio"
+    ],
+    "fixed_cases": 31,
+    "fixed_passed": 31,
+    "cases": [
+      {
+        "name": "version",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "help",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "generate-help",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "pip-check",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "doctor-empty",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "models-empty",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "models-plan",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "downloads-blocked",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "models-reuse",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "doctor-text",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "doctor-ref-without-extra",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "doctor-fl-without-extra",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "generate-extra-missing",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "resolve-default",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-t2va",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-fl-first",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-fl-last",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-fl-both",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-images",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-mixed",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-portrait",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "resolve-prompt-file",
+        "expected_exit": 0,
+        "actual_exit": 0,
+        "passed": true
+      },
+      {
+        "name": "bad-duration",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "task-mismatch",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "missing-image",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "corrupt-video",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "corrupt-audio",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "audio-only",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "wrong-bundle",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "missing-model-generation",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      },
+      {
+        "name": "bad-output-extension",
+        "expected_exit": 1,
+        "actual_exit": 1,
+        "passed": true
+      }
+    ]
+  },
+  "local_fixes": {
+    "status": "Local follow-up to the immutable published v0.2.0 release; not a replacement release asset",
+    "issues": [
+      "doctor reported ready for FL2VA/Ref2VA without optional vision packages",
+      "Corrupt audio/video references printed Python tracebacks"
+    ],
+    "changed_runtime_files": [
+      "cli.py",
+      "host.py",
+      "media.py",
+      "process.py"
+    ],
+    "inference_kernels_recipes_weights_unchanged": true,
+    "package_source_sha256": "0c2fd07a870a1ba42866378daeb5c2bd8fbfe135887640af027e16ed76a315c8",
+    "wheel_sha256": "917136ae6374c5e4c5e94f43cb1d725ce88629017f60b9972bd8b90d477ff0bc"
+  },
+  "installed_regressions": {
+    "tests": 326,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "small_mlx_fixtures_device": "cpu",
+    "full_models_loaded_by_unit_tests": false
+  },
+  "controls": {
+    "no_overwrite": true,
+    "checks": [
+      {
+        "case": "timeout",
+        "pass": true,
+        "status": "failed",
+        "elapsed_seconds": 2.1429630829952657,
+        "published_video": false
+      },
+      {
+        "case": "ctrl-c",
+        "pass": true,
+        "exit_code": 130,
+        "status": "cancelled",
+        "actual_gpu_progress_observed": true,
+        "optional_vision_packages_installed": false,
+        "elapsed_seconds": 16.478776250005467,
+        "published_video": false,
+        "worker_exited": true
+      }
+    ],
+    "lock_released": true
+  },
+  "generation": {
+    "package": "Unmodified public v0.2.0 source archive installation, with optional vision packages installed",
+    "scope": "Three serial 5-second execution checks, existing prepared bundles, offline mode, no diagnostic tensors. Each used distinct task inputs and weights; times are not a speed comparison.",
+    "cases": [
+      {
+        "task": "t2va",
+        "prompt": "A quiet bakery opens at dawn. Soft birdsong and a gentle doorbell.",
+        "inputs": [],
+        "reproduction_argv": [
+          "h3",
+          "generate",
+          "--task",
+          "t2va",
+          "--prompt",
+          "A quiet bakery opens at dawn. Soft birdsong and a gentle doorbell.",
+          "--resolution",
+          "768p",
+          "--duration",
+          "5",
+          "--seed",
+          "87001",
+          "--timeout",
+          "1800",
+          "--output",
+          "first-use-t2va.mp4"
+        ],
+        "seed": 87001,
+        "resolution": "768p",
+        "width": 1366,
+        "height": 768,
+        "duration_seconds": 5,
+        "num_frames": 120,
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "cli_elapsed_seconds": 492.1555682499893,
+        "api_elapsed_seconds": 492.1149124589865,
+        "model_identity": "6b2716e05fd19c8d554a609bc97e46ef29c504e81f1798b02008ea003670b942",
+        "package_source_sha256": "5db1bbb4faaf50a43be112d1eb9a3bace5dcbea47623f91bf5c32f74a4b868a5",
+        "video_sha256": "dd31c13db939cc5f4bfcff58fa4c0a2d43ca28f3b2cc6b0c597aef2d0d43b35f",
+        "actual_nfe": 4,
+        "sparse_calls": 200,
+        "fallbacks": [],
+        "full_media_validation": true,
+        "progress_complete": true,
+        "stdout_json_valid": true,
+        "timings_seconds": {
+          "conditioning": 21.573762165993685,
+          "denoise": 382.22631016597734,
+          "video_decode": 83.3152911660145,
+          "audio_decode": 0.49430766599834897,
+          "mux": 1.0098877090204041
+        }
+      },
+      {
+        "task": "fl2va",
+        "prompt": "A smooth continuous abstract animation connecting Picture 1 and Picture 2. Keep the clean graphic style and simple geometric shapes. Soft electronic tones with a gentle rhythm. No people, speech, subtitles or text.",
+        "inputs": [
+          {
+            "role": "first_frame",
+            "file": "first.png",
+            "sha256": "d78c8c1b208a30470a8d600e75739f823bbe5c5d16c7e1fa92e432c8c3d42ef4"
+          },
+          {
+            "role": "last_frame",
+            "file": "last.png",
+            "sha256": "908f1ae9a3ba53cae61376a99aad7917724b0a8107ad97c54ec8a3b26e286b32"
+          }
+        ],
+        "reproduction_argv": [
+          "h3",
+          "generate",
+          "--task",
+          "fl2va",
+          "--prompt",
+          "A smooth continuous abstract animation connecting Picture 1 and Picture 2. Keep the clean graphic style and simple geometric shapes. Soft electronic tones with a gentle rhythm. No people, speech, subtitles or text.",
+          "--resolution",
+          "768p",
+          "--duration",
+          "5",
+          "--seed",
+          "42",
+          "--timeout",
+          "1800",
+          "--first-frame",
+          "first-use-inputs/first.png",
+          "--last-frame",
+          "first-use-inputs/last.png",
+          "--model-dir",
+          "~/Models/h3-apple-fl2va-v12",
+          "--output",
+          "first-use-fl2va.mp4"
+        ],
+        "seed": 42,
+        "resolution": "768p",
+        "width": 1366,
+        "height": 768,
+        "duration_seconds": 5,
+        "num_frames": 120,
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "cli_elapsed_seconds": 785.9029805000173,
+        "api_elapsed_seconds": 785.8189004590095,
+        "model_identity": "ad5b733b79b067500a24b8f9530391be63da79a793600930cc64d4b54fab14f5",
+        "package_source_sha256": "5db1bbb4faaf50a43be112d1eb9a3bace5dcbea47623f91bf5c32f74a4b868a5",
+        "video_sha256": "ebc160636da88791e260b7ebc2e03559dc3e46fa02cfe21c09da5923889c6347",
+        "actual_nfe": 4,
+        "sparse_calls": 200,
+        "fallbacks": [],
+        "full_media_validation": true,
+        "progress_complete": true,
+        "stdout_json_valid": true,
+        "timings_seconds": {
+          "conditioning": 49.556374292005785,
+          "denoise": 654.9238566659915,
+          "video_decode": 77.39904750001733,
+          "audio_decode": 0.4893821250007022,
+          "mux": 0.918893082998693
+        }
+      },
+      {
+        "task": "ref2va",
+        "prompt": "Use Picture 1 for the visual style and composition. The abstract shapes slowly move in a smooth continuous animation. Soft electronic tones. No people, speech, subtitles or text.",
+        "inputs": [
+          {
+            "role": "Picture 1",
+            "file": "first.png",
+            "sha256": "d78c8c1b208a30470a8d600e75739f823bbe5c5d16c7e1fa92e432c8c3d42ef4"
+          }
+        ],
+        "reproduction_argv": [
+          "h3",
+          "generate",
+          "--task",
+          "ref2va",
+          "--prompt",
+          "Use Picture 1 for the visual style and composition. The abstract shapes slowly move in a smooth continuous animation. Soft electronic tones. No people, speech, subtitles or text.",
+          "--resolution",
+          "576p",
+          "--duration",
+          "5",
+          "--seed",
+          "42",
+          "--timeout",
+          "1800",
+          "--reference-image",
+          "first-use-inputs/first.png",
+          "--model-dir",
+          "~/Models/h3-apple-ref2va",
+          "--output",
+          "first-use-ref2va.mp4"
+        ],
+        "seed": 42,
+        "resolution": "576p",
+        "width": 1024,
+        "height": 576,
+        "duration_seconds": 5,
+        "num_frames": 120,
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "cli_elapsed_seconds": 310.5123438750161,
+        "api_elapsed_seconds": 310.4160816670046,
+        "model_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428",
+        "package_source_sha256": "5db1bbb4faaf50a43be112d1eb9a3bace5dcbea47623f91bf5c32f74a4b868a5",
+        "video_sha256": "270c09e53e8edb2e2e22324956dad3bd22203d1dc86de0e8dc9efbdd21f6071a",
+        "actual_nfe": 4,
+        "sparse_calls": 200,
+        "fallbacks": [],
+        "full_media_validation": true,
+        "progress_complete": true,
+        "stdout_json_valid": true,
+        "timings_seconds": {
+          "conditioning": 12.497250749991508,
+          "denoise": 253.03434183300124,
+          "video_decode": 41.85764483301318,
+          "audio_decode": 0.4852766249969136,
+          "mux": 0.5685487499868032
+        }
+      }
+    ]
+  },
+  "reference_extraction": {
+    "source": "examples/previews/motion-graphics-ours.mp4",
+    "source_sha256": "393b9c7b06cd760a86204f6b9ba9d1f0402dec8eec3e9bf6be909eafbb3b2eac",
+    "commands": [
+      "mkdir -p first-use-inputs",
+      "ffmpeg -v error -n -i examples/previews/motion-graphics-ours.mp4 -vf 'select=eq(n\\,0)' -frames:v 1 first-use-inputs/first.png",
+      "ffmpeg -v error -n -i examples/previews/motion-graphics-ours.mp4 -vf 'select=eq(n\\,119)' -frames:v 1 first-use-inputs/last.png"
+    ]
+  },
+  "visual_observations": {
+    "method": "Nonblind inspection of ten frames at fixed half-second intervals per output; not a complete temporal or listening review",
+    "t2va": "A bakery scene is visible; this check does not establish prompt or audio fidelity.",
+    "fl2va": "Output retains lettering and an illustrated figure from the last reference despite the no-people/no-text prompt. The reference conflicts with that instruction; this is not a clean prompt-compliance test.",
+    "ref2va": "Output shifts from a beige retro-window reference to orange 3D forms on a dark background. The requested visual style and composition are not faithfully preserved.",
+    "quality_pass_claimed": false
+  },
+  "limits": [
+    "No complete cold weight download or fresh model conversion in this audit.",
+    "Full generation covered landscape T2VA 768p, two-anchor FL2VA 768p and one-image Ref2VA 576p only.",
+    "Portrait geometry/delivery and video/audio reference interfaces were tested without new full portrait or Dense generation.",
+    "No new voice similarity, lip synchronization, human audiovisual acceptance or broad visual-quality claim.",
+    "Physical 64 GB hardware was not tested."
+  ],
+  "local_evidence": ".local/validation/first-use-v020-20260917-01/ (local logs, inputs, three MP4s, run metadata and inspection sheets; not public media downloads)"
+}

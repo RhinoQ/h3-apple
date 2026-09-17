@@ -1,6 +1,6 @@
 # Video references
 
-The 0.1.0.dev11 development build adds `reference_videos` / `--reference-video`
+H3 Apple 0.2.0 includes `reference_videos` / `--reference-video`
 to the [generation API](api.md#reference-videos). It uses the existing
 [Ref2VA model bundle and pinned weights](ref2va.md#installation-and-models).
 It retains the Ref2VA four-step weights and sampler. Requests containing video
@@ -20,8 +20,9 @@ decoding and completion of four steps are execution checks only.
 Supply 1–3 local videos of 2–15 seconds, each with one video stream, square
 pixels, and at most one soundtrack. Source aspect ratios from 1:4 to 4:1 are
 accepted. Right-angle display rotation is applied during decoding. Output is
-still landscape, 768p by default; `--resolution 576p` changes output geometry,
-not the reference canvas. Ordered images may accompany videos.
+landscape and 768p by default; `--aspect-ratio 9:16` selects experimental
+[portrait output](api.md#portrait-output). `--resolution 576p` changes output
+geometry, not the reference canvas. Ordered images may accompany videos.
 
 Each video is sampled at 24 fps. Its reference canvas follows the released H3
 rule: start with a 768-pixel short edge, cap area at `768*1344`, then round both
