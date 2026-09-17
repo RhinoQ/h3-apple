@@ -5,7 +5,13 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-The current development build is **0.1.0.dev12**, adding independent
+The **0.1.0.dev13** candidate adds `--aspect-ratio 9:16` to all three tasks
+and centers delivery crops along both axes. The default landscape request
+and its numerical recipe are unchanged. Full portrait generation and visual
+review remain pending; API and small-media checks alone do not establish
+portrait quality or new performance results.
+
+The previous **0.1.0.dev12** build added independent
 [audio references](ref2va-audio.md) and an option to ignore video soundtracks.
 Its independently installed wheel passed **286 tests**, dependency checking
 and all three model-readiness checks. A complete six-second 768p image-plus-audio

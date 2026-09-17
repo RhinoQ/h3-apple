@@ -48,7 +48,7 @@ class GenerationResult:
 def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
             duration=15, seed=None, reference_images=None, task=None,
             first_frame=None, last_frame=None, reference_resize="legacy", reference_videos=None,
-            reference_audio=None, reference_video_audio=True):
+            reference_audio=None, reference_video_audio=True, aspect_ratio="16:9"):
     """Return the delivery and model geometry without importing MLX.
 
     Durations are 5–15 seconds in whole delivery frames at 24 fps. The model
@@ -62,6 +62,8 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
         raise ValueError("prompt must be nonempty text without NUL characters.")
     if preset != "ours":
         raise ValueError("The supported preset is 'ours'.")
+    if aspect_ratio not in ("16:9", "9:16"):
+        raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     references = ()
     if reference_images is not None:
         if not isinstance(reference_images, (list, tuple)) or not 1 <= len(reference_images) <= 9:
@@ -151,8 +153,11 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
         raise ValueError("seed must be an integer from 0 to 4294967295.")
     count = int(frames.to_integral_value())
     width, height, model_width = canvases[resolution]
+    model_height = height
+    if aspect_ratio == "9:16":
+        width, height, model_width, model_height = height, width, height, model_width
     return GenerationRequest(prompt, preset, resolution, count / 24, seed,
-                             width, height, count, model_width, height,
+                             width, height, count, model_width, model_height,
                              ((count - 5 + 16) // 17) * 17 + 5,
                              preset_version="ours-fl2va-vsa-v1.2" if has_keyframes else
                                  "ours-ref2va-audio-dense-v1" if audios else
@@ -169,7 +174,8 @@ def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
              duration=15, seed=None, output=None, model_dir=None, on_progress=None,
              diagnostics=False, timeout=7200, reference_images=None,
              task=None, first_frame=None, last_frame=None, reference_resize="legacy",
-             reference_videos=None, reference_audio=None, reference_video_audio=True):
+             reference_videos=None, reference_audio=None, reference_video_audio=True,
+             aspect_ratio="16:9"):
     """Generate a complete MP4 and metadata; Ctrl-C cancels the whole worker group.
 
     on_progress receives small dictionaries in the caller process. diagnostics
@@ -180,7 +186,8 @@ def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
                       reference_images=reference_images, task=task,
                       first_frame=first_frame, last_frame=last_frame,
                       reference_resize=reference_resize, reference_videos=reference_videos,
-                      reference_audio=reference_audio, reference_video_audio=reference_video_audio)
+                      reference_audio=reference_audio, reference_video_audio=reference_video_audio,
+                      aspect_ratio=aspect_ratio)
     from .process import run_generation
 
     return run_generation(request, output=output, model_dir=model_dir,

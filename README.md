@@ -20,6 +20,8 @@ The current development build offers three tasks: **T2VA** from text,
 **[FL2VA](docs/fl2va.md)** from first/last frames with LightX2V v1.2,
 and **[Ref2VA](docs/ref2va.md)** from ordered images and/or [reference videos](docs/ref2va-video.md), with optional [audio references](docs/ref2va-audio.md). Each uses its own
 model recipe and the same [terminal progress bar](docs/api.md#terminal-progress).
+All three tasks accept [portrait output](docs/api.md#portrait-output) with
+`--aspect-ratio 9:16`; landscape `16:9` remains the default.
 These features are newer than the published v0.1.0.dev1 release; use this
 checkout's installer. See the task guides for validation and quality limits.
 

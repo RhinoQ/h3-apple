@@ -83,7 +83,8 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
         raise ValueError("Unexpected decoded video geometry.")
     observer.capture("audio", lambda: {"waveform": waveform})
     left = (request["model_width"] - request["width"]) // 2
-    frames = frames[:request["num_frames"], :, left:left + request["width"]]
+    top = (request["model_height"] - request["height"]) // 2
+    frames = frames[:request["num_frames"], top:top + request["height"], left:left + request["width"]]
     samples = (request["num_frames"] * request["audio_sample_rate"] + request["fps"] - 1) // request["fps"]
     if waveform.shape[-1] < samples:
         raise ValueError("Generated audio does not cover the delivery duration.")
