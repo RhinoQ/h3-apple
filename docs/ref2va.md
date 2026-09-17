@@ -2,8 +2,9 @@
 
 The current development build exposes Ref2VA through `h3 generate`
 and the Python API. Supply 1–9 still images in picture-number order and/or
-[1–3 reference videos](ref2va-video.md). Image-only generation defaults to 576p;
-requests with videos default to 768p. Both use four steps and default to
+[1–3 reference videos](ref2va-video.md), optionally with [independent audio](ref2va-audio.md).
+Image-only generation defaults to 576p; requests with videos or independent
+audio default to 768p. All use four steps and default to
 15 seconds; start with five seconds.
 The complete prompt is retained, including any picture numbers it contains.
 
@@ -12,8 +13,8 @@ completed on M5 Max / 128 GiB and received user quality acceptance. This is a
 limited case review, not a broad or blind quality evaluation. Other image
 counts, 768p image-reference generation, and smaller memory capacities remain
 unqualified. Video-reference quality has a separate, limited validation scope;
-see [video-reference limitations](ref2va-video.md). Standalone audio files are
-not exposed by the public API.
+see [video-reference limitations](ref2va-video.md). Audio files require an image
+or video and have a [separate validation scope](ref2va-audio.md).
 
 ## Installation and models
 
@@ -103,6 +104,7 @@ counts are recorded separately. Text generation retains its FastH3 route.
 Requests containing video use true Dense attention after a video VSA trial
 failed removal and motion-preservation checks. The same bundle is reused, but
 its compression gates are disabled for that path; see [video references](ref2va-video.md).
+Independent audio also starts with Dense; it does not inherit VSA quality qualification.
 
 The implementation uses Ours INT8/group64 and BF16, native H3 decoding and NumPy
 seed streams. It does not reproduce ComfyUI ConvRot/NVFP4, CUDA arithmetic or

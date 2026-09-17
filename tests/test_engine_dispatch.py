@@ -12,6 +12,8 @@ from h3_apple.runtime import engine, fl2va_pipeline, ref2va_pipeline, ref2va_mul
     ('ref2va', {'image_paths': ['picture.png']}, 'images'),
     ('ref2va', {'image_paths': [], 'video_paths': ['video.mp4']}, 'videos'),
     ('ref2va', {'image_paths': ['picture.png'], 'video_paths': ['video.mp4']}, 'videos'),
+    ('ref2va', {'image_paths': ['picture.png'], 'audio_paths': ['voice.wav']}, 'videos'),
+    ('ref2va', {'image_paths': [], 'video_paths': ['video.mp4'], 'audio_paths': ['voice.wav']}, 'videos'),
 ])
 def test_all_task_routes_use_the_public_bundle_contract(tmp_path, monkeypatch, task, options, expected):
     class ReachedEncoder(Exception):

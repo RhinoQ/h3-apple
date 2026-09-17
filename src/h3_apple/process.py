@@ -98,20 +98,24 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                 budget = request.model_width * request.model_height if request.reference_resize == "match" else 672 * 384
                 spec["ref2va"] = dict(native_root=assets["ref2va_native"], image_paths=references,
                                       pixel_budget=budget, attention="vsa", reference_resize=request.reference_resize)
-            if request.reference_videos:
+            if request.reference_videos or request.reference_audio:
                 options = spec.setdefault("ref2va", dict(native_root=assets["ref2va_native"],
                     image_paths=[], pixel_budget=672 * 384, attention="vsa",
                     reference_resize=request.reference_resize))
-                # The accepted video-reference recipe uses true Dense attention.
-                # Transferred VSA gates regress preservation on the tested video.
+                # Video uses the accepted Dense recipe; new audio conditions
+                # use Dense until separately evaluated with transferred gates.
                 options["attention"] = "dense"
-                options["video_paths"] = []
-                for index, source in enumerate(request.reference_videos):
-                    target = workspace / f"reference-video-{index + 1}{Path(source).suffix}"
-                    shutil.copyfile(source, target)
-                    options["video_paths"].append(str(target))
-                    run.setdefault("reference_inputs", []).append(dict(kind="video", index=index + 1,
-                        source=source, sha256=digest(target), size=target.stat().st_size))
+                options["video_audio"] = request.reference_video_audio
+                for kind, sources in (("audio", request.reference_audio), ("video", request.reference_videos)):
+                    if not sources:
+                        continue
+                    options[kind + "_paths"] = []
+                    for index, source in enumerate(sources):
+                        target = workspace / f"reference-{kind}-{index + 1}{Path(source).suffix}"
+                        shutil.copyfile(source, target)
+                        options[kind + "_paths"].append(str(target))
+                        run.setdefault("reference_inputs", []).append(dict(kind=kind, index=index + 1,
+                            source=source, sha256=digest(target), size=target.stat().st_size))
             if request.task == "fl2va":
                 images, anchors = [], []
                 run["reference_inputs"] = []

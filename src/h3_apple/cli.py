@@ -43,13 +43,17 @@ def parser():
         command.add_argument("--reference-resize", choices=("legacy", "match"), default="legacy",
                              help="Ref2VA images: legacy 0.258 MP, or match the output canvas area")
         command.add_argument("--resolution", choices=("768p", "576p"),
-                             help="Default: 768p; 576p for image-only Ref2VA")
+                             help="Default: 768p; 576p for Ref2VA with only still images")
         command.add_argument("--duration", type=float, default=15)
         command.add_argument("--seed", type=int)
         command.add_argument("--reference-image", action="append", dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9 images)")
         command.add_argument("--reference-video", action="append", dest="reference_videos",
                              help="Local 2–15s video; repeat in Video-number order (1–3 videos)")
+        command.add_argument("--reference-audio", action="append", dest="reference_audio",
+                             help="Local 2–15s audio; repeat in Audio-number order (1–3 files); also provide an image or video")
+        command.add_argument("--no-reference-video-audio", action="store_false", dest="reference_video_audio",
+                             help="Ignore all reference-video soundtracks; keep explicit --reference-audio inputs")
         if name == "generate":
             command.add_argument("--output")
             command.add_argument("--model-dir")

@@ -30,6 +30,8 @@ class GenerationRequest:
     last_frame: str | None = None
     reference_resize: str = "legacy"
     reference_videos: tuple[str, ...] = ()
+    reference_audio: tuple[str, ...] = ()
+    reference_video_audio: bool = True
 
     def to_dict(self):
         return asdict(self)
@@ -45,7 +47,8 @@ class GenerationResult:
 
 def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
             duration=15, seed=None, reference_images=None, task=None,
-            first_frame=None, last_frame=None, reference_resize="legacy", reference_videos=None):
+            first_frame=None, last_frame=None, reference_resize="legacy", reference_videos=None,
+            reference_audio=None, reference_video_audio=True):
     """Return the delivery and model geometry without importing MLX.
 
     Durations are 5–15 seconds in whole delivery frames at 24 fps. The model
@@ -82,6 +85,24 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
         from .media import probe_reference
         for path in videos:
             probe_reference(path, "videos")
+    audios = ()
+    if reference_audio is not None:
+        if not isinstance(reference_audio, (list, tuple)) or not 1 <= len(reference_audio) <= 3:
+            raise ValueError("reference_audio must be an ordered list of 1–3 audio paths.")
+        if any(not isinstance(p, (str, Path)) or not str(p).strip() for p in reference_audio):
+            raise ValueError("Each reference audio needs a nonempty file path.")
+        audios = tuple(str(Path(p).expanduser().resolve()) for p in reference_audio)
+        from .media import probe_reference
+        for path in audios:
+            probe_reference(path, "audio")
+    if type(reference_video_audio) is not bool:
+        raise ValueError("reference_video_audio must be a boolean.")
+    if not reference_video_audio and not videos:
+        raise ValueError("reference_video_audio=False requires a reference video.")
+    if len(references) + len(videos) + len(audios) > 12:
+        raise ValueError("Ref2VA accepts at most 12 reference images, videos and audio files in total.")
+    if audios and not (references or videos):
+        raise ValueError("Reference audio requires at least one Ref2VA reference image or video.")
     keyframes = []
     for value in (first_frame, last_frame):
         if value is None:
@@ -97,7 +118,7 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
             image.verify()
         keyframes.append(str(path))
     has_keyframes = any(keyframes)
-    if has_keyframes and (references or videos):
+    if has_keyframes and (references or videos or audios):
         raise ValueError("First/last frames and Ref2VA references use different model tasks.")
     inferred = "fl2va" if has_keyframes else "ref2va" if references or videos else "t2va"
     if task is not None and task not in ("t2va", "fl2va", "ref2va"):
@@ -109,7 +130,7 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
     if reference_resize != "legacy" and not references:
         raise ValueError("reference_resize applies only to Ref2VA images.")
     if resolution is None:
-        resolution = "576p" if references and not videos else "768p"
+        resolution = "576p" if references and not (videos or audios) else "768p"
     canvases = {"768p": (1366, 768, 1376), "576p": (1024, 576, 1024)}
     if resolution not in canvases:
         raise ValueError("resolution must be '768p' or '576p'.")
@@ -134,19 +155,21 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
                              width, height, count, model_width, height,
                              ((count - 5 + 16) // 17) * 17 + 5,
                              preset_version="ours-fl2va-vsa-v1.2" if has_keyframes else
+                                 "ours-ref2va-audio-dense-v1" if audios else
                                  "ours-ref2va-video-dense-v1" if videos else
                                  "ours-ref2va-match-v1" if references and reference_resize == "match" else
                                  "ours-ref2va-v1" if references else "ours-v1",
                              reference_images=references, task=inferred,
                              first_frame=keyframes[0], last_frame=keyframes[1],
-                             reference_resize=reference_resize, reference_videos=videos)
+                             reference_resize=reference_resize, reference_videos=videos,
+                             reference_audio=audios, reference_video_audio=reference_video_audio)
 
 
 def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
              duration=15, seed=None, output=None, model_dir=None, on_progress=None,
              diagnostics=False, timeout=7200, reference_images=None,
              task=None, first_frame=None, last_frame=None, reference_resize="legacy",
-             reference_videos=None):
+             reference_videos=None, reference_audio=None, reference_video_audio=True):
     """Generate a complete MP4 and metadata; Ctrl-C cancels the whole worker group.
 
     on_progress receives small dictionaries in the caller process. diagnostics
@@ -156,7 +179,8 @@ def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
                       resolution=resolution, duration=duration, seed=seed,
                       reference_images=reference_images, task=task,
                       first_frame=first_frame, last_frame=last_frame,
-                      reference_resize=reference_resize, reference_videos=reference_videos)
+                      reference_resize=reference_resize, reference_videos=reference_videos,
+                      reference_audio=reference_audio, reference_video_audio=reference_video_audio)
     from .process import run_generation
 
     return run_generation(request, output=output, model_dir=model_dir,

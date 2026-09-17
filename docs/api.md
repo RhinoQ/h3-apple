@@ -32,6 +32,8 @@ print(result.elapsed_seconds)
 | `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p, or 576p for image-only Ref2VA |
 | `reference_images=None` | Repeat `--reference-image /path` | Ordered list of 1–9 still images; requires a dedicated Ref2VA bundle |
 | `reference_videos=None` | Repeat `--reference-video /path` | Ordered list of 1–3 local 2–15s videos, optionally with images; uses the same Ref2VA bundle |
+| `reference_audio=None` | Repeat `--reference-audio /path` | Ordered list of 1–3 local 2–15s mono/stereo audio files; requires a Ref2VA image or video |
+| `reference_video_audio=True` | `--no-reference-video-audio` | Disable all reference-video soundtracks while keeping explicit audio files; requires a video |
 | `reference_resize="legacy"` | `--reference-resize match` | Ref2VA images only: opt into the target canvas's pixel area; legacy keeps the previous 258,048-pixel budget |
 | `duration=15` | `--duration 15` | 5–15 seconds, corresponding to an integer number of frames at 24 fps |
 | `seed=None` | `--seed 87001` | Generated and recorded when omitted; range 0–4294967295 |
@@ -110,6 +112,10 @@ Videos default to 768p output with true Dense attention and use the released H3 
 independent of the still-image resize option. Soundtracks are included as audio
 references in video order; silent videos do not consume an Audio number.
 See [video preparation, cost and preservation limits](ref2va-video.md).
+
+Independent audio files can accompany these videos or reference images. They
+use Dense and default to 768p. Explicit Audio numbers precede video soundtracks;
+see [audio input, numbering, examples and validation limits](ref2va-audio.md).
 
 ## First and last frames
 

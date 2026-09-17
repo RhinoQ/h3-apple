@@ -18,6 +18,7 @@ def cache_contract(request, options):
                      for path in options.get(f"{kind}_paths", []))
     return dict(request={k: v for k, v in request.items() if k not in omitted},
                 media=media, pixel_budget=options["pixel_budget"],
+                video_audio=options.get("video_audio", True),
                 video_reference_canvas=dict(VIDEO_REFERENCE_CANVAS),
                 model_identity=options["cache_model_identity"],
                 source_identity=options["cache_source_identity"])

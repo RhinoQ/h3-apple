@@ -121,6 +121,7 @@ def prepare_references(options, model_frames):
     duration = model_frames / 24
     # Keep explicitly numbered Audio inputs ahead of implicit video soundtracks.
     for path in options.get("audio_paths", []):
+        probe_reference(path, "audio")
         references.append(dict(kind="audio", waveform=decode_waveform(path, duration)))
     for path in options.get("video_paths", []):
         probe = probe_reference(path, "videos")
@@ -138,7 +139,7 @@ def prepare_references(options, model_frames):
         if len(frames) < 5:
             raise ValueError("A video reference needs at least five decoded frames.")
         ref = dict(kind="video", frames=frames)
-        if any(s["codec_type"] == "audio" for s in probe["streams"]):
+        if options.get("video_audio", True) and any(s["codec_type"] == "audio" for s in probe["streams"]):
             ref["waveform"] = decode_waveform(path, duration)
         references.append(ref)
     if not references or len(references) > 12:
@@ -222,8 +223,13 @@ def encode_references(native, audio_vae_dir, references, prompt, observer):
     gc.collect(); mx.clear_cache()
     vae = load_native_image_vae(native / "video_vae")
     visual_rows, audio_rows, metadata = [], [], []
+    audio_index = 0
     for ref in references:
         item = dict(kind=ref["kind"])
+        if ref.get("waveform") is not None:
+            audio_index += 1
+            item.update(audio_index=audio_index, audio_samples=ref["waveform"].shape[1],
+                        audio_sample_rate=32000, audio_source="video_soundtrack" if ref["kind"] == "video" else "standalone")
         if ref["kind"] == "image":
             item["prepared_width_height"] = list(ref["image"].size)
         elif ref["kind"] == "video":
@@ -326,6 +332,7 @@ def prepare_conditioning(request, options, observer):
         text_sha256=checksum(text), reference_video_sha256=checksum(visual), reference_audio_sha256=checksum(fixed_audio),
         fixed_video_sha256=checksum(fixed_video), initial_video_sha256=checksum(video),
         initial_audio_sha256=checksum(audio),
+        reference_video_audio=options.get("video_audio", True),
         audio_numbering="Standalone audio before video soundtracks; each list preserves its supplied order.",
         resampling="FFmpeg: 24 fps RGB with Lanczos scaling; 32 kHz stereo audio")
     del references, encoded, visual
@@ -337,7 +344,7 @@ def prepare_conditioning(request, options, observer):
 def condition_and_denoise(request, options, checkpoint, observer, phase):
     attention = options.get("attention")
     if request["num_steps"] != 4 or attention not in ("dense", "vsa"):
-        raise ValueError("Video references require four-step Ref2VA dense or vsa attention.")
+        raise ValueError("Audio/video references require four-step Ref2VA dense or vsa attention.")
     recipe = json.loads((Path(checkpoint) / "ref2va_recipe.json").read_text())
     expected = dict(schema="h3-apple-ref2va/v1", task="ref2va", lora_tensors=624,
                     lora_rank=128, lora_alpha=8, gate_tensors=50, fasth3_t2va_deltas_applied=False)

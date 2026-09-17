@@ -39,9 +39,9 @@ def reference_video_size(width, height):
 
 
 def probe_reference(path, kind):
-    """Validate bounded local video inputs before starting the model worker."""
-    if kind != "videos":
-        raise ValueError("Only video files are supported by this reference probe.")
+    """Validate bounded local audio/video inputs before starting the worker."""
+    if kind not in ("videos", "audio"):
+        raise ValueError("Reference probe kind must be videos or audio.")
     path = Path(path)
     if not path.is_file():
         raise FileNotFoundError(path)
@@ -51,6 +51,17 @@ def probe_reference(path, kind):
     data = json.loads(result.stdout)
     videos = [s for s in data.get("streams", []) if s.get("codec_type") == "video"]
     audios = [s for s in data.get("streams", []) if s.get("codec_type") == "audio"]
+    if kind == "audio":
+        # MP3/M4A cover art is not a moving video reference.
+        if len(audios) != 1 or any(not s.get("disposition", {}).get("attached_pic") for s in videos):
+            raise ValueError("Reference audio needs one audio stream and no moving video; use --reference-video for videos.")
+        audio = audios[0]
+        duration = float(audio.get("duration") or data.get("format", {}).get("duration", 0))
+        if not math.isfinite(duration) or not 2 <= duration <= 15:
+            raise ValueError("Reference audio must be between 2 and 15 seconds.")
+        if audio.get("channels") not in (1, 2) or int(audio.get("sample_rate", 0)) <= 0:
+            raise ValueError("Reference audio must be mono or stereo with a valid sample rate.")
+        return data
     if len(videos) != 1 or len(audios) > 1:
         raise ValueError("Reference video needs exactly one video stream and at most one soundtrack.")
     video = videos[0]

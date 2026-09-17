@@ -18,7 +18,7 @@ tested M5 Max. Watch every pair below, with generation times on screen.
 
 The current development build offers three tasks: **T2VA** from text,
 **[FL2VA](docs/fl2va.md)** from first/last frames with LightX2V v1.2,
-and **[Ref2VA](docs/ref2va.md)** from ordered images and/or [reference videos](docs/ref2va-video.md). Each uses its own
+and **[Ref2VA](docs/ref2va.md)** from ordered images and/or [reference videos](docs/ref2va-video.md), with optional [audio references](docs/ref2va-audio.md). Each uses its own
 model recipe and the same [terminal progress bar](docs/api.md#terminal-progress).
 These features are newer than the published v0.1.0.dev1 release; use this
 checkout's installer. See the task guides for validation and quality limits.
@@ -315,7 +315,7 @@ print(result.elapsed_seconds)
 | --- | --- |
 | Everyday interface | One CLI and Python API for text, first/last frames, or ordered reference images and videos |
 | Video and audio | 768p or 576p, 5–15 seconds, 24 fps, stereo audio |
-| Generation recipe | Four steps; VSA with M5 NAX kernels for text, keyframes and image references; Dense for video references; accelerated full H3 VAE |
+| Generation recipe | Four steps; VSA with M5 NAX kernels for text, keyframes and image-only references; Dense for video/audio references; accelerated full H3 VAE |
 | Reproducibility | Locked Conda environment, verified model preparation, recorded seeds and asset identity |
 | Process control | Separate worker, progress, cancellation, timeout, shared device lock |
 | Optional comparison | Fixed Ours/vpipe VDN suites with complete delivery timing |
@@ -328,7 +328,7 @@ needs its [v1.2 bundle](docs/fl2va.md). Reference generation needs
 a [dedicated model bundle](docs/ref2va.md). Its limited validation covers
 one and four images at 576p and a five-second video-reference regression at
 768p on M5 Max / 128 GiB. [Video editing can still change the source scene or motion](docs/ref2va-video.md).
-Training, standalone audio reference files, a web service and output videos
+Independent audio can accompany Ref2VA images or videos. Training, a web service and output videos
 longer than fifteen seconds are not exposed.
 
 ## Reproduce and improve

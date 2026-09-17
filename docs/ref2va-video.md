@@ -39,9 +39,11 @@ model generates the continuation, so motion after the source ends has no
 reference ground truth.
 
 A soundtrack is resampled to 32 kHz stereo and included as an audio reference.
-The first video with sound is Audio 1, the second with sound is Audio 2, and so
-on. FFmpeg resampling is not asserted numerically identical to Torchaudio.
-Standalone audio input is not exposed. Reference audio conditions generation;
+Without separate audio files, the first enabled video with sound is Audio 1,
+the second is Audio 2, and so on. [Independent audio files](ref2va-audio.md)
+take the first Audio numbers when supplied. `--no-reference-video-audio`
+disables video soundtracks while retaining those files. FFmpeg resampling is
+not asserted numerically identical to Torchaudio. Reference audio conditions generation;
 it is not simply copied into the final MP4.
 Soundtrack decoding and the real audio encoder passed a component check.
 The completed generation case uses one short, silent reference video; it does
