@@ -134,7 +134,7 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
                              width, height, count, model_width, height,
                              ((count - 5 + 16) // 17) * 17 + 5,
                              preset_version="ours-fl2va-vsa-v1.2" if has_keyframes else
-                                 "ours-ref2va-video-v1" if videos else
+                                 "ours-ref2va-video-dense-v1" if videos else
                                  "ours-ref2va-match-v1" if references and reference_resize == "match" else
                                  "ours-ref2va-v1" if references else "ours-v1",
                              reference_images=references, task=inferred,

@@ -102,6 +102,9 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                 options = spec.setdefault("ref2va", dict(native_root=assets["ref2va_native"],
                     image_paths=[], pixel_budget=672 * 384, attention="vsa",
                     reference_resize=request.reference_resize))
+                # The accepted video-reference recipe uses true Dense attention.
+                # Transferred VSA gates regress preservation on the tested video.
+                options["attention"] = "dense"
                 options["video_paths"] = []
                 for index, source in enumerate(request.reference_videos):
                     target = workspace / f"reference-video-{index + 1}{Path(source).suffix}"

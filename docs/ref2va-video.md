@@ -1,9 +1,10 @@
 # Video references
 
-The 0.1.0.dev10 development build adds `reference_videos` / `--reference-video`
+The 0.1.0.dev11 development build adds `reference_videos` / `--reference-video`
 to the [generation API](api.md#reference-videos). It uses the existing
 [Ref2VA model bundle and pinned weights](ref2va.md#installation-and-models).
-No new LoRA, gate, sampler, or output-resolution recipe is introduced.
+It retains the Ref2VA four-step weights and sampler. Requests containing video
+use true Dense attention; T2VA, FL2VA and image-only Ref2VA retain their VSA recipes.
 
 Video input support does not guarantee faithful editing or preservation.
 A single animal-replacement case using Dense attention received user acceptance
@@ -48,9 +49,11 @@ Run metadata records input hashes, prompt, seed, model and code identities,
 the canvas policy, actual prepared sizes, decoded and VAE-retained frames,
 reference geometry, condition hashes, attention statistics and phase timings.
 The four-step path preserves reference latent rows and decodes only generated
-rows. The public API selects VSA. The Dense example's acceptance must not be
-treated as general VSA quality acceptance. Dense remains an explicit
-internal comparison path, not a user-facing quality preset.
+rows. The public API selects Dense for any request containing video. A same-input
+VSA trial retained an extra dog and changed the source motion; it was not adopted.
+VSA also took 28m 27s on that run, versus approximately 26m 19s for the historical
+Dense example. These are descriptive single-run timings, not a controlled speed
+ratio or a general performance guarantee. See the [integration record](../benchmarks/results/ref2va-video-01/README.md).
 
 Larger references add both encoder work and attention tokens. A longer or
 multi-video reference can substantially increase time and memory even when

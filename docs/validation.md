@@ -5,7 +5,7 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-The current development build is **0.1.0.dev10**, adding
+The current development build is **0.1.0.dev11**, adding
 [video references](ref2va-video.md) alongside T2VA and
 [FL2VA LightX2V v1.2](fl2va.md). Source video, generated video and soundtrack
 preservation are separate quality questions; see the linked validation scope.

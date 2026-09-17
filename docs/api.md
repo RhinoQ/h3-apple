@@ -104,7 +104,7 @@ result = generate(
 ```
 
 Repeat `--reference-video` in Video-number order. Picture numbering is separate.
-Videos default to 768p output and use the released H3 reference-canvas rule,
+Videos default to 768p output with true Dense attention and use the released H3 reference-canvas rule,
 independent of the still-image resize option. Soundtracks are included as audio
 references in video order; silent videos do not consume an Audio number.
 See [video preparation, cost and preservation limits](ref2va-video.md).

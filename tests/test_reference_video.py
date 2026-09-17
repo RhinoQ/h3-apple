@@ -50,7 +50,7 @@ def test_image_policy_retains_its_existing_budget():
 def test_api_and_cli_preserve_video_order_without_loading_mlx(reference, tmp_path):
     r = resolve("Use Video 1, then Video 2.", reference_videos=[reference, reference], seed=42)
     assert r.reference_videos == (str(reference), str(reference))
-    assert (r.task, r.resolution, r.preset_version) == ("ref2va", "768p", "ours-ref2va-video-v1")
+    assert (r.task, r.resolution, r.preset_version) == ("ref2va", "768p", "ours-ref2va-video-dense-v1")
     assert resolve("A scene", reference_videos=[reference], resolution="576p").resolution == "576p"
     result = subprocess.run([sys.executable, "-m", "h3_apple", "resolve", "--prompt", r.prompt,
         "--reference-video", str(reference), "--duration", "5", "--seed", "42"],
@@ -128,10 +128,14 @@ def test_probe_rejects_unsupported_media_before_worker(tmp_path, monkeypatch, ch
         probe_reference(path, "videos")
 
 
-def test_product_worker_receives_immutable_ordered_video_inputs(reference, tmp_path, monkeypatch):
+@pytest.mark.parametrize("with_image", [False, True])
+def test_product_worker_receives_immutable_ordered_video_inputs(reference, tmp_path, monkeypatch, with_image):
     from h3_apple import process as runner
     from h3_apple.io import digest
-    request = resolve("Edit Video 1", reference_videos=[reference], duration=5, seed=42)
+    image = tmp_path / "picture.png"
+    Image.new("RGB", (64, 64), "red").save(image)
+    request = resolve("Edit Video 1", reference_videos=[reference],
+                      reference_images=[image] if with_image else None, duration=5, seed=42)
     worker = tmp_path / "worker.py"
     worker.write_text("import json,sys,pathlib\ns=json.loads(sys.stdin.readline())\n"
         "pathlib.Path(s['workspace'],'received.json').write_text(json.dumps(s))\n"
@@ -149,8 +153,8 @@ def test_product_worker_receives_immutable_ordered_video_inputs(reference, tmp_p
     snapshot = Path(options["video_paths"][0])
     assert snapshot.parent == Path(record["workspace"])
     assert snapshot.read_bytes() == reference.read_bytes()
-    assert options["attention"] == "vsa" and options["image_paths"] == []
-    assert record["reference_inputs"][0]["sha256"] == digest(reference)
+    assert options["attention"] == "dense" and len(options["image_paths"]) == int(with_image)
+    assert record["reference_inputs"][-1]["sha256"] == digest(reference)
 
 
 def test_video_display_rotation_is_applied_before_canvas_selection(reference, tmp_path):
