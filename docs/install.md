@@ -21,6 +21,11 @@ conda activate "$PWD/.local/envs/h3"
 h3 --version
 ```
 
+The `main` branch also includes the [first-use audit fixes](validation.md#first-use-audit-2026-09-17)
+for reference-dependency checks and corrupt-media errors. To install those fixes,
+use `--branch main` instead of `--branch v0.2.0` above. The published v0.2.0
+archives are unchanged; generation kernels, weights and recipes are the same.
+
 Alternatively, download `h3-apple-0.2.0-source.zip` from the
 [release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0),
 extract it, and run `./install.sh` from the extracted directory. The archive

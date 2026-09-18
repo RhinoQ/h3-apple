@@ -10,9 +10,12 @@ The complete prompt is retained, including any picture numbers it contains.
 
 One-image / five-second and four-image / fifteen-second cases at 576p have
 completed on M5 Max / 128 GiB and received user quality acceptance. This is a
-limited case review, not a broad or blind quality evaluation. Other image
-counts, 768p image-reference generation, and smaller memory capacities remain
-unqualified. Video-reference quality has a separate, limited validation scope;
+limited case review, not a broad or blind quality evaluation. A later
+[one-image 768p portrait check](validation.md#portrait-and-dense-follow-up-2026-09-18)
+also completed with `--reference-resize match`; fixed-frame inspection does
+not extend the earlier user quality acceptance. Other image counts, general
+768p quality, and smaller memory capacities remain unqualified.
+Video-reference quality has a separate, limited validation scope;
 see [video-reference limitations](ref2va-video.md). Audio files require an image
 or video and have a [separate validation scope](ref2va-audio.md).
 

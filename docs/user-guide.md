@@ -36,7 +36,7 @@ loading. FL2VA v1.2 does not update Ref2VA to v1.2.
 | Is H3 Apple faster than official FastH3? | There is no completed matched comparison establishing that claim. The headline speed measurements compare H3 Apple with **vpipe / VDN**, on specified prompts and hardware. [Timing scope](../README.md#measurement-and-review-scope). |
 | Should I always use the newest LoRA? | Use the bundle prepared for your task and product version. FL2VA v1.2 binds its adapter to its sampling settings. Do not stack it on already fused weights or substitute it into Ref2VA. A newer adapter alone does not prove better faces, layout or audio in this runtime. |
 | Can I ignore the reference video's soundtrack? | Add `--no-reference-video-audio`. Separately supplied `--reference-audio` files remain enabled. Write the intended dialogue and sound explicitly in the prompt. [Audio guide](ref2va-audio.md). |
-| Is portrait output available? | **0.2.0** includes experimental portrait output for all three tasks: add `--aspect-ratio 9:16` (768×1366 at 768p; 576×1024 at 576p). Landscape 16:9 remains the default, including for portrait inputs. API and delivery tests pass; full H3 portrait generation and visual quality remain unvalidated. [Portrait usage](api.md#portrait-output). |
+| Is portrait output available? | Add `--aspect-ratio 9:16` (768×1366 at 768p; 576×1024 at 576p). Landscape remains the default, including for portrait inputs. Five-second 768p T2VA, two-anchor FL2VA and one-image Ref2VA runs passed full execution checks. Quality remains experimental; Dense portrait, longer portrait clips and 576p portrait generation were not included in this follow-up. [Tests and limits](validation.md#portrait-and-dense-follow-up-2026-09-18). |
 | What duration and format should I request? | Start with `--duration 5`; the default is **15 seconds**. Supported output is 5–15 seconds at 24 fps, 576p or 768p, with 32 kHz stereo sound. More frames and pixels increase waiting and memory needs. |
 | Is the progress bar the whole job? | All three tasks show progress. Denoising 100% is followed by decoding, muxing and validation. Wait for **Complete**. Progress is on stderr; final JSON is on stdout. `--no-progress` hides the display. |
 | Is a queue managed by the generator? | Each generation has a parent process and a separate worker that holds model memory. A batch queue is a separate scheduler calling the API/CLI sequentially. The product enforces one active generation per device; run serially on one Mac. |
@@ -85,3 +85,7 @@ These use different inputs and recorded product versions; several include
 diagnostics. They are observations, not a speed ranking, a 0.2.0 benchmark
 suite or an ETA for another prompt. The linked records retain reproduction
 details, failures and the separate visual/listening review boundaries.
+
+The later [portrait and Dense checks](validation.md#portrait-and-dense-follow-up-2026-09-18)
+record three complete 768p portrait runs and exact reproduction of the accepted
+Dense video-reference clip on the source tree after v0.2.0.

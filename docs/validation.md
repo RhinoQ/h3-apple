@@ -5,6 +5,56 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
+## Portrait and Dense follow-up (2026-09-18)
+
+The ordinary wheel from source commit `5e39dc8` was run in the independent
+Conda environment used for the first-use audit, outside the source checkout,
+with existing prepared models and offline generation. The tests below use
+the same M5 Max / 128 GiB host. Each request has a 55-minute timeout.
+
+| Input / mode | Output | Attention | Observed CLI wait |
+| --- | --- | --- | ---: |
+| Text / T2VA | 768×1366, 5 seconds | VSA | 7m 46s |
+| First and last frames / FL2VA | 768×1366, 5 seconds | VSA | 13m 25s |
+| One image / Ref2VA, `match` resize | 768×1366, 5 seconds | VSA | 11m 16s |
+| 2.33-second silent video / Ref2VA | 1366×768, 5 seconds | Dense | 32m 33s |
+
+All four runs delivered 120 frames at 24 fps with 32 kHz stereo audio and
+passed complete decoding. Each recorded four steps, valid JSON and completed
+terminal progress. The three portrait runs recorded 200 VSA calls without
+fallback; the video-reference run used Dense with zero sparse calls. No run
+grew swap. These are individual execution checks with different inputs and
+recipes, not a speed comparison. Occasional CPU inspection of completed clips
+overlapped the next GPU job; this was not an isolated performance benchmark.
+
+The Dense result is **byte-identical to the previously user-accepted clip**
+in the [video-reference report](../benchmarks/results/ref2va-video-01/README.md).
+Independent full RGB-frame and float-audio decoding also matches exactly, as
+do the conditioning and initial-noise hashes. This preserves the earlier
+nonblind acceptance for that same clip; it does not qualify arbitrary edits.
+
+Fixed-interval frame inspection found upright, naturally framed output in
+all three cases. T2VA showed a café/storefront but did not clearly establish
+the requested bakery opening. FL2VA broadly followed both anchors, with a
+hard cut between frames 78 and 79 rather than a demonstrated continuous camera
+move. Additional inspection of frames 72–86 found no morphing transition
+there. Image Ref2VA showed the referenced appearance and a smile; native-size
+frames 0 and 60 had no obvious large face or hand collapse. These observations
+are not a complete temporal review, blind evaluation or new human audio/visual
+acceptance.
+
+The [machine-readable record](evidence/portrait-dense-v0.2.0.json) contains
+full prompts, ordered source links and hashes, reproduction commands, source
+and model identities, timings, media checks, and observations. Raw logs,
+MP4s and inspection frames are retained locally at the path recorded there.
+The [326-test first-use regression suite](evidence/first-use-v0.2.0.json)
+applies to the same source; this follow-up adds generation evidence and docs.
+
+This follow-up did not test Dense portrait, 576p portrait, longer portrait
+clips, multiple-image portrait, new independent-audio generation, or physical
+64 GB hardware. It reused prepared weights rather than repeating downloads
+and conversion. The v0.2.0 release archives are unchanged.
+
 ## First-use audit (2026-09-17)
 
 The public v0.2.0 source archive and checksums were downloaded anonymously,
@@ -16,13 +66,13 @@ download and resume passed, and the large-download guard stopped before transfer
 
 The initial 31 command checks exposed two issues: `doctor` reported ready for
 FL2VA/Ref2VA without the optional vision packages, and corrupt video/audio
-references printed tracebacks. The local follow-up fixes these entry checks
+references printed tracebacks. The follow-up source commit fixes these entry checks
 and clarifies CLI help. It changes no generation kernels, weights or recipes.
 After installing the fixes, **31/31 command checks and 326 regression tests
 passed**. Real timeout, Ctrl-C after GPU denoising began, worker exit, lock
 release and output protection also passed. The cancellation run used T2VA
 without PyTorch or torchvision installed. The published v0.2.0 assets remain
-unchanged; these entry fixes are a separate local follow-up.
+unchanged; these entry fixes are in the source tree after the release.
 
 Three complete runs used the **unmodified published v0.2.0 package**:
 
@@ -63,11 +113,12 @@ passed, and 13 existing requests resolved identically to dev12 when the new
 orientation option was omitted. Only four of the 52 runtime files changed
 from dev12; 74 dependency versions and 39 relevant native binaries matched.
 
-Full H3 portrait generation and visual quality have not been validated.
-The portrait interface and delivery checks do not establish complete model
-execution, portrait quality or new performance results. This version includes
-the portrait implementation with that experimental status. Historical results
-below retain their measured versions and limitations.
+At release, validation covered the portrait interface and delivery rather
+than full model generation. The [later follow-up](#portrait-and-dense-follow-up-2026-09-18)
+adds complete generation checks for three five-second 768p portrait cases.
+Portrait quality remains experimental. The interface tests themselves do not
+establish model execution, quality or performance. Historical results below
+retain their measured versions and limitations.
 
 The **0.1.0.dev12** build added independent
 [audio references](ref2va-audio.md) and an option to ignore video soundtracks.

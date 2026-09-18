@@ -56,10 +56,12 @@ alternatives before model loading. `resolve()` describes geometry without
 checking the current host; `generate()` enforces the memory boundary. See the
 [hardware validation and limits](../README.md#hardware-and-memory) before
 using a new machine; budget validation does not establish physical 64 GB support.
-Those memory-budget tests cover text generation. Ref2VA image cases cover
-one and four images at 576p on M5 Max / 128 GiB; other image counts, 768p
-image-reference generation and smaller memory capacities do not yet have
-equivalent validation. [Video-reference validation](ref2va-video.md) has its
+Those memory-budget tests cover text generation. User-reviewed Ref2VA image
+cases cover one and four images at 576p on M5 Max / 128 GiB. A later
+[one-image 768p portrait run](validation.md#portrait-and-dense-follow-up-2026-09-18)
+passed full execution checks with `reference_resize="match"`; it adds no broad
+quality or smaller-memory qualification. Other image counts and smaller
+memory capacities do not yet have equivalent validation. [Video-reference validation](ref2va-video.md) has its
 own limited scope and does not extend those memory-budget results.
 
 ## Portrait output

@@ -338,8 +338,10 @@ one hour is your limit. Audio requires a picture or video and guides newly
 generated sound. Precise preservation of faces, scene, motion, voice or text
 is not guaranteed. [Practical limits and measured waiting times](docs/user-guide.md).
 
-All modes default to landscape. `--aspect-ratio 9:16` enables experimental
-[portrait output](docs/api.md#portrait-output); consult its validation limits.
+All modes default to landscape. Add `--aspect-ratio 9:16` for
+[portrait output](docs/api.md#portrait-output). Five-second 768p runs completed
+for T2VA, two-anchor FL2VA and one-image Ref2VA. Portrait quality remains
+experimental; see the [actual tests and limits](docs/validation.md#portrait-and-dense-follow-up-2026-09-18).
 
 ## What you get
 
