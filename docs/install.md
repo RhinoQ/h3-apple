@@ -14,20 +14,20 @@ It needs no Git checkout. If you prefer Git, install ARM64
 Conda installation, then check out the pinned release:
 
 ```bash
-git clone --branch v0.2.0 --single-branch https://github.com/RhinoQ/h3-apple.git
+git clone --branch v0.2.1 --single-branch https://github.com/RhinoQ/h3-apple.git
 cd h3-apple
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
 h3 --version
 ```
 
-The `main` branch also includes the [first-use audit fixes](validation.md#first-use-audit-2026-09-17)
-for reference-dependency checks and corrupt-media errors. To install those fixes,
-use `--branch main` instead of `--branch v0.2.0` above. The published v0.2.0
-archives are unchanged; generation kernels, weights and recipes are the same.
+Version 0.2.1 includes the [first-use audit fixes](validation.md#first-use-audit-2026-09-17)
+for reference-dependency checks and corrupt-media errors. Existing prepared
+model bundles can be reused; no weight download or conversion is needed to
+upgrade from 0.2.0. Generation kernels, weights and recipes are unchanged.
 
-Alternatively, download `h3-apple-0.2.0-source.zip` from the
-[release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.0),
+Alternatively, download `h3-apple-0.2.1-source.zip` from the
+[release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.1),
 extract it, and run `./install.sh` from the extracted directory. The archive
 contains the installer, environment locks, documentation, and examples.
 `SHA256SUMS` verifies the attached archives, wheel, and release manifest:
@@ -45,7 +45,7 @@ and exact [osx-arm64 lock](../environments/conda-osx-arm64.lock). It creates a
 private Conda cache and environment, with Python 3.11.15, MLX 0.32.0, FFmpeg 8.1.2,
 and locked Python dependencies. It installs a regular wheel without changing
 system Python or user site-packages. Text generation does not require PyTorch.
-**0.2.0** includes [Ref2VA images, videos and audio references](ref2va.md),
+**0.2.1** includes [Ref2VA images, videos and audio references](ref2va.md),
 [FL2VA LightX2V v1.2](fl2va.md), experimental [portrait output](api.md#portrait-output),
 and terminal progress. From the release checkout, `./install.sh --ref2va`
 also installs the pinned PyTorch/torchvision

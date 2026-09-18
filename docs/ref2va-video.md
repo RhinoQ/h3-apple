@@ -1,6 +1,6 @@
 # Video references
 
-H3 Apple 0.2.0 includes `reference_videos` / `--reference-video`
+H3 Apple 0.2.1 includes `reference_videos` / `--reference-video`
 to the [generation API](api.md#reference-videos). It uses the existing
 [Ref2VA model bundle and pinned weights](ref2va.md#installation-and-models).
 It retains the Ref2VA four-step weights and sampler. Requests containing video

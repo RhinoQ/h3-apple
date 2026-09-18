@@ -1,6 +1,6 @@
 # Independent audio references
 
-The development API accepts `reference_audio=[...]` / repeated
+The CLI and Python API accept `reference_audio=[...]` / repeated
 `--reference-audio` arguments together with at least one Ref2VA image or video.
 It uses the existing [Ref2VA model bundle](ref2va.md#installation-and-models),
 four-step weights and audio encoder. No additional H3 checkpoint is required.

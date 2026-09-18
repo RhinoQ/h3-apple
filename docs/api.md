@@ -93,7 +93,7 @@ completed tests and full-generation checks.
 
 ## Reference images
 
-Available in 0.2.0. Follow
+Available since 0.2.0. Follow
 [Ref2VA setup](ref2va.md) to install its optional dependencies and prepare a
 dedicated model bundle. Image order determines picture numbers in the prompt.
 

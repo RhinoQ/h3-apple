@@ -5,6 +5,22 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
+## v0.2.1 patch
+
+Version 0.2.1 packages the first-use audit fixes: `doctor` checks the optional
+vision dependencies for FL2VA/Ref2VA, and invalid video/audio references produce
+concise CLI errors. The release also includes the installation guidance and
+portrait/Dense execution evidence below. Existing model bundles and dependency
+locks are unchanged from v0.2.0.
+
+The generation implementation matches source commit `5e39dc8`, used for the
+portrait/Dense follow-up; only the package version changes in the runtime.
+No new H3 generation was run for patch packaging. Earlier measurements retain
+their original source and package identities, and portrait quality remains
+experimental. The [release manifest](https://github.com/RhinoQ/h3-apple/releases/download/v0.2.1/release-manifest.json)
+records the tagged source, artifact hashes, ordinary-wheel regression checks
+and model-readiness checks.
+
 ## Portrait and Dense follow-up (2026-09-18)
 
 The ordinary wheel from source commit `5e39dc8` was run in the independent
@@ -72,7 +88,7 @@ After installing the fixes, **31/31 command checks and 326 regression tests
 passed**. Real timeout, Ctrl-C after GPU denoising began, worker exit, lock
 release and output protection also passed. The cancellation run used T2VA
 without PyTorch or torchvision installed. The published v0.2.0 assets remain
-unchanged; these entry fixes are in the source tree after the release.
+unchanged; these entry fixes are included in v0.2.1.
 
 Three complete runs used the **unmodified published v0.2.0 package**:
 
