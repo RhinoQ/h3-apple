@@ -96,7 +96,8 @@ def test_mixed_sampler_preserves_both_modalities_and_updates_only_generated_rows
 @pytest.mark.parametrize("dense_sparse_calls", [0, 1])
 def test_full_mixed_pair_shares_states_and_rejects_dense_sparse_calls(tmp_path, monkeypatch, dense_sparse_calls):
     recipe = dict(schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128, lora_alpha=8,
-                  lora_tensors=624, gate_tensors=50, fasth3_t2va_deltas_applied=False)
+                  lora_tensors=624, gate_tensors=50, precision="int8_group64_bf16",
+                  fasth3_t2va_deltas_applied=False)
     (tmp_path / "ref2va_recipe.json").write_text(json.dumps(recipe))
     clip = tmp_path / "clip.mp4"; clip.write_bytes(b"synthetic media identity only")
     encodes = []

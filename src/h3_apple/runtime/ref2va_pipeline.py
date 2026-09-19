@@ -52,10 +52,8 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     if attention not in ("dense", "vsa"):
         raise ValueError("Reference attention must be dense or vsa.")
     recipe = json.loads((Path(checkpoint) / "ref2va_recipe.json").read_text())
-    if (recipe.get("schema") != "h3-apple-ref2va/v1" or recipe.get("task") != "ref2va"
-            or recipe.get("lora_tensors") != 624 or recipe.get("gate_tensors") != 50
-            or recipe.get("fasth3_t2va_deltas_applied") is not False):
-        raise ValueError("Expected a dedicated Ref2VA + LightX2V checkpoint with gate-only transplant.")
+    from ..ref2va_recipe import validate_ref2va_recipe
+    validate_ref2va_recipe(recipe)
     native = Path(options["native_root"])
     prepared = prepare_images(options)
     metadata = dict(task="ref2va", precision="int8_group64_bf16", attention=attention,

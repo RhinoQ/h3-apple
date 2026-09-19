@@ -153,7 +153,17 @@ def adapter_plan(header, target_shapes: dict, *, vsa: bool) -> dict:
             raise ValueError(f"incomplete low-rank pair: {target}")
     return plans
 
-def merge_parameter(base, edits: dict, tensors: dict, *, xp, consumed: set, lora_scale=1.0):
+def transform_lora_b(value, transform, *, xp=np):
+    """ComfyUI QKV is contiguous Q/K/V, unlike native per-head QKV."""
+    if transform in ("comfy_q", "comfy_k", "comfy_v"):
+        if value.shape[0] % 3:
+            raise ValueError("ComfyUI QKV row count mismatch")
+        return xp.split(value, 3, axis=0)["qkv".index(transform[-1])]
+    return transform_native(value, transform, xp=xp)
+
+
+def merge_parameter(base, edits: dict, tensors: dict, *, xp, consumed: set, lora_scale=1.0,
+                    lora_b_transform="identity"):
     """Published W_base + B @ A, then additive deltas, then replacements.
 
     FP32 accumulation followed by one cast to the source dtype; this reconstructs
@@ -162,7 +172,8 @@ def merge_parameter(base, edits: dict, tensors: dict, *, xp, consumed: set, lora
     value = base.astype(xp.float32)
     if "lora_A.weight" in edits:
         a, b = edits["lora_A.weight"], edits["lora_B.weight"]
-        delta = tensors[b].astype(xp.float32) @ tensors[a].astype(xp.float32)
+        b_value = transform_lora_b(tensors[b], lora_b_transform, xp=xp)
+        delta = b_value.astype(xp.float32) @ tensors[a].astype(xp.float32)
         value = value + delta * lora_scale
     for kind in ("diff", "diff_b"):
         if kind in edits:
@@ -197,6 +208,41 @@ def ref2va_adapter_plan(header, target_shapes: dict) -> dict:
     if set(plans) != expected or any(set(v) != {"lora_A.weight", "lora_B.weight"} for v in plans.values()):
         raise ValueError("Ref2VA requires all 312 complete low-rank pairs and no extra tensors.")
     return plans
+
+
+def dareties_adapter_plan(header, target_shapes: dict) -> tuple[dict, dict]:
+    """Validate the normalized dynamic-rank ComfyUI adapter, including AdaLN.
+
+    The 52 fused QKV pairs expand to 156 Diffusers projections. FC1 changes
+    from ComfyUI gate-first to Diffusers value-first; AdaLN stays unpermuted.
+    Source-file identity is checked separately before conversion.
+    """
+    if (header.metadata.get("alpha_normalized") != "true" or
+            header.metadata.get("alpha_normalization") !=
+            "lora_up := lora_up * (alpha / rank); alpha tensors removed"):
+        raise ValueError("DARE/TIES requires explicitly normalized alpha metadata.")
+    prefixes = [f"token_refiner.blocks.{i}" for i in range(2)] + [f"blocks.{i}" for i in range(50)]
+    modules = {f"{p}.{s}" for p in prefixes for s in
+               ("attn.qkv_proj", "attn.out_proj", "mlp.fc1", "mlp.fc2")}
+    modules |= {f"blocks.{i}.adaln_proj.linear" for i in range(50)}
+    modules.add("final_layer.adaln_proj.linear")
+    expected = {f"diffusion_model.{m}.lora_{ab}.weight" for m in modules for ab in "AB"}
+    if set(header.tensors) != expected:
+        raise ValueError("DARE/TIES requires exactly 259 complete pairs, including 51 AdaLN pairs.")
+    plans, transforms = {}, {}
+    for module in sorted(modules):
+        a, b = (f"diffusion_model.{module}.lora_{ab}.weight" for ab in "AB")
+        ashape, bshape = header.tensors[a].shape, header.tensors[b].shape
+        targets = native_key_plan(module + ".weight")
+        if len(ashape) != 2 or len(bshape) != 2 or ashape[0] <= 0 or ashape[0] != bshape[1]:
+            raise ValueError(f"Invalid DARE/TIES low-rank pair: {module}")
+        for target, transform in targets:
+            shape = target_shapes.get(target)
+            if shape is None or len(shape) != 2 or (bshape[0] // len(targets), ashape[1]) != tuple(shape) or bshape[0] % len(targets):
+                raise ValueError(f"DARE/TIES projection shape mismatch: {module}")
+            plans[target] = {"lora_A.weight": a, "lora_B.weight": b}
+            transforms[target] = "comfy_" + transform if transform in ("q", "k", "v") else transform
+    return plans, transforms
 
 
 def ref2va_gate_plan(gate_header) -> dict:
@@ -241,13 +287,24 @@ def header(path):
             for key in reader.keys()})
 
 
-def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=None):
+def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=None,
+                adapter_flavor="lightx2v"):
     """Stream transformed shards through an explicit loader, without monkeypatching."""
     import mlx.core as mx
     from ._vendor.fastvideo_mlx import minimax_h3 as h3
     native, adapter, output = Path(native), Path(adapter), Path(output)
     if task not in ("t2va", "ref2va", "fl2va"):
         raise ValueError("DiT conversion task must be t2va, ref2va or fl2va.")
+    if adapter_flavor not in ("lightx2v", "dareties-fro0995"):
+        raise ValueError("Unknown adapter flavor.")
+    dareties = adapter_flavor == "dareties-fro0995"
+    if dareties:
+        from .ref2va_recipe import DARETIES_SOURCE
+        from .io import digest
+        if task != "ref2va" or gate_source is None:
+            raise ValueError("DARE/TIES requires Ref2VA and a separate gate-only source.")
+        if adapter.stat().st_size != DARETIES_SOURCE["bytes"] or digest(adapter) != DARETIES_SOURCE["sha256"]:
+            raise ValueError("Expected the pinned silveroxides fro0995 adapter.")
     if gate_source is not None and task == "t2va":
         raise ValueError("A separate gate source is only valid for conditioned LightX2V tasks.")
     if output.exists():
@@ -271,7 +328,11 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
             raise ValueError("Expected the pinned official LightX2V FL2VA v1.2 BF16 LoRA.")
         if gate_source is None:
             raise ValueError("FL2VA VSA preparation requires a separate gate source.")
-    plans = ref2va_adapter_plan(adapter_header, shapes) if task != "t2va" else adapter_plan(adapter_header, shapes, vsa=True)
+    if dareties:
+        plans, b_transforms = dareties_adapter_plan(adapter_header, shapes)
+    else:
+        plans = ref2va_adapter_plan(adapter_header, shapes) if task != "t2va" else adapter_plan(adapter_header, shapes, vsa=True)
+        b_transforms = {}
     adapter_tensors = mx.load(str(adapter))
     consumed = set()
     gates = ref2va_gate_plan(header(gate_source)) if gate_source is not None else {}
@@ -287,7 +348,9 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
             for target, op in native_key_plan(key):
                 base = transform_native(value, op, xp=mx)
                 converted[target] = (merge_parameter(base, plans[target], adapter_tensors,
-                    xp=mx, consumed=consumed, lora_scale=8/128 if task != "t2va" else 1.0) if target in plans else base)
+                    xp=mx, consumed=consumed,
+                    lora_scale=8/128 if task != "t2va" and not dareties else 1.0,
+                    lora_b_transform=b_transforms.get(target, "identity")) if target in plans else base)
         if phase == "weights" and shard == shards[-1]:
             for target, edits in plans.items():
                 if "set_weight" in edits:
@@ -306,20 +369,25 @@ def convert_dit(native, adapter, output, progress, *, task="t2va", gate_source=N
         quantization="int8", adaln_cache_timesteps=timesteps,
         include_vsa=task == "t2va" or bool(gates), _shard_loader=load)
     if consumed != set(adapter_header.tensors):
-        raise ValueError("The converted model did not consume every official adapter tensor.")
+        raise ValueError("The converted model did not consume every adapter tensor.")
     if gates_consumed != set(gates.values()):
         raise ValueError("The converted model did not consume all selected gates.")
     h3.save_mlx_h3_checkpoint(dit, output)
     if task != "t2va":
         from .fl2va_recipe import FL12_SAMPLING
-        (output / f"{task}_recipe.json").write_text(json.dumps(dict(
+        from .ref2va_recipe import DARETIES_RECIPE
+        recipe = dict(
             schema=f"h3-apple-{task}/v1", task=task, lora_rank=128, lora_alpha=8,
             lora_tensors=len(consumed), gate_tensors=len(gates_consumed),
             base_directory=str(native.resolve()), adapter_path=str(adapter.resolve()),
             gate_source=None if gate_source is None else str(Path(gate_source).resolve()),
             precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False,
             **({"sampling": FL12_SAMPLING} if task == "fl2va" else {}),
-        ), indent=2) + "\n")
+        )
+        if dareties:
+            recipe = dict(DARETIES_RECIPE, base_directory=str(native.resolve()),
+                          adapter_path=str(adapter.resolve()), gate_source=str(Path(gate_source).resolve()))
+        (output / f"{task}_recipe.json").write_text(json.dumps(recipe, indent=2) + "\n")
     return dict(base_shards=len(shards), adapter_tensors=len(consumed),
                 gate_tensors=len(gates_consumed), timesteps=timesteps.tolist())
 

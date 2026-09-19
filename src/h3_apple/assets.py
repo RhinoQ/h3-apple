@@ -50,7 +50,10 @@ def _files(checkpoint, components, ref2va_native=None, fl2va_native=None):
         expected = dict(schema=f"h3-apple-{task}/v1", task=task, lora_rank=128,
                         lora_alpha=8, lora_tensors=624, gate_tensors=50,
                         precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False)
-        if any(recipe.get(key) != value for key, value in expected.items()):
+        if task == "ref2va":
+            from .ref2va_recipe import validate_ref2va_recipe
+            validate_ref2va_recipe(recipe)
+        elif any(recipe.get(key) != value for key, value in expected.items()):
             raise ValueError("Expected the dedicated Ref2VA + LightX2V four-step checkpoint with 50 VSA gates.")
         if task == "fl2va":
             from .fl2va_recipe import fl2va_sampling

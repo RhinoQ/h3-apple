@@ -346,10 +346,8 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     if request["num_steps"] != 4 or attention not in ("dense", "vsa"):
         raise ValueError("Audio/video references require four-step Ref2VA dense or vsa attention.")
     recipe = json.loads((Path(checkpoint) / "ref2va_recipe.json").read_text())
-    expected = dict(schema="h3-apple-ref2va/v1", task="ref2va", lora_tensors=624,
-                    lora_rank=128, lora_alpha=8, gate_tensors=50, fasth3_t2va_deltas_applied=False)
-    if any(recipe.get(k) != v for k, v in expected.items()):
-        raise ValueError("Expected the dedicated Ref2VA checkpoint with gate-only transplant.")
+    from ..ref2va_recipe import validate_ref2va_recipe
+    validate_ref2va_recipe(recipe)
 
     def condition():
         if options.get("conditioning_cache") is None:
