@@ -4,24 +4,30 @@ Choose the input that best describes the job, start with five seconds, and use
 768p when small faces or fine details matter. H3 Apple generates video and
 stereo audio together; a separate audio reference is optional.
 
-This guide describes **0.2.1**. Check your installation with `h3 --version`.
-Follow the [release installation instructions](install.md) and prepare the matching
-model bundle before using these commands.
+This guide describes the **0.2.2 source**. Check your installation with `h3 --version`.
+The [published release installation](install.md) remains 0.2.1; DARE/TIES needs
+the newer source and its separately prepared Ref2VA bundle.
 
 | I want to… | Choose / provide | Recipe selected by the product | What to expect |
 | --- | --- | --- | --- |
 | Generate a scene from a description | **T2VA**; text only | [Native H3 + FastH3 VSA adapter](models.md), four steps, VSA | Defaults to 768p. Describe action, camera and sound. |
 | Animate a starting image or guide the ending | **FL2VA**; `--first-frame`, `--last-frame`, or both | [Native FL2VA + LightX2V FL2V v1.2 + 50 FastH3 gates](fl2va.md#model-recipe), four steps, VSA | Defaults to 768p. Anchors guide composition; the delivered endpoints are not guaranteed pixel copies. |
-| Use pictures for a character, object, setting or style | **Ref2VA**; repeat `--reference-image` in prompt order | [Native Ref2VA + LightX2V Ref2V Turbo v0.1 + 50 FastH3 gates](ref2va.md#installation-and-models), four steps, VSA | Image-only default is **576p**. Set `--resolution 768p` explicitly for small faces. |
+| Use pictures for a character, object, setting or style | **Ref2VA**; repeat `--reference-image` in prompt order | [Native Ref2VA + DARE/TIES fro0995 + 50 FastH3 gates](ref2va.md#installation-and-models), four steps, VSA; legacy LightX2V bundles remain supported | Image-only default is **576p**. Set `--resolution 768p` explicitly for small faces. |
 | Use motion or edit content from an existing clip | **Ref2VA**; `--reference-video`, optionally with images | Same Ref2VA bundle and four-step weights; **Dense**, gates disabled | Defaults to 768p. Reference length and size add substantial work. Subject replacement and scene/motion preservation can still fail. |
 | Guide a voice or other sound | **Ref2VA**; `--reference-audio` plus at least one image or video | Same Ref2VA bundle; four steps, **Dense** | Defaults to 768p. Audio conditions newly generated sound; it is not copied into the MP4. Voice similarity and lip sync are not guaranteed. |
 
 The model links above contain pinned weight downloads and preparation commands.
-T2VA uses the FastH3 adapter; FL2VA and Ref2VA use different LightX2V adapters.
+T2VA uses FastH3, FL2VA uses LightX2V v1.2, and new Ref2VA preparation uses
+DARE/TIES fro0995. The selected bundle determines which weights actually run.
 They are **not interchangeable four-step LoRAs**. VSA is an attention method,
 not a universal adapter-compatibility guarantee. The product selects its tested
 recipe; the everyday API does not expose a Dense/VSA switch or arbitrary LoRA
 loading. FL2VA v1.2 does not update Ref2VA to v1.2.
+
+The DARE/TIES preference evidence covers image-only inputs. The earlier video
+and independent-audio reviews used the LightX2V bundle; retain that bundle to
+reproduce them. Support for those input types does not qualify the new adapter's
+quality on them. [Adapter evidence and limitations](ref2va.md).
 
 | Common question | Practical guidance |
 | --- | --- |

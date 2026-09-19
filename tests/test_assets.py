@@ -119,13 +119,17 @@ def test_failed_import_does_not_publish_partial_bundle(tmp_path, sources, monkey
     assert list(tmp_path.glob(".models-prepare-*"))
 
 
-@pytest.fixture
-def reference_sources(tmp_path, sources):
+@pytest.fixture(params=["lightx2v", "dareties-fro0995"])
+def reference_sources(tmp_path, sources, request):
     checkpoint, components = sources
-    (checkpoint / "ref2va_recipe.json").write_text(json.dumps(dict(
+    recipe = dict(
         schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128, lora_alpha=8,
         lora_tensors=624, gate_tensors=50, precision="int8_group64_bf16",
-        fasth3_t2va_deltas_applied=False)))
+        fasth3_t2va_deltas_applied=False)
+    if request.param == "dareties-fro0995":
+        from h3_apple.ref2va_recipe import DARETIES_RECIPE
+        recipe = DARETIES_RECIPE
+    (checkpoint / "ref2va_recipe.json").write_text(json.dumps(recipe))
     native = tmp_path / "source/native"
     for relative in ["processor/preprocessor_config.json", "tokenizer/tokenizer.json",
                      "text_encoder/config.json", "text_encoder/model.safetensors",

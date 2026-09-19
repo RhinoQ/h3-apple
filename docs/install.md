@@ -26,6 +26,12 @@ for reference-dependency checks and corrupt-media errors. Existing prepared
 model bundles can be reused; no weight download or conversion is needed to
 upgrade from 0.2.0. Generation kernels, weights and recipes are unchanged.
 
+The current 0.2.2 source additionally supports the recommended
+[DARE/TIES Ref2VA bundle](ref2va.md). It has not been published as a release;
+the pinned commands above still install 0.2.1. From a local 0.2.2 checkout,
+`./install.sh --ref2va` installs that source. Retain an existing LightX2V bundle
+for rollback and select the separately prepared new bundle explicitly.
+
 Alternatively, download `h3-apple-0.2.1-source.zip` from the
 [release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.1),
 extract it, and run `./install.sh` from the extracted directory. The archive

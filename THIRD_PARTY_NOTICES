@@ -58,5 +58,11 @@ Reference conditioning and VSA
   for the existing MLX runtime: https://github.com/Comfy-Org/comfy-kitchen.
   LightX2V Ref2VA / FL2VA v1.2 and FastH3 gate weights are supplied separately;
   FL2VA v1.2 release and settings: https://huggingface.co/lightx2v/Minimax-h3-Turbo/discussions/52.
+  The recommended Ref2VA DARE/TIES fro0995 adapter is supplied separately by
+  silveroxides: https://huggingface.co/silveroxides/MiniMax-H3_tests.
+  Its pinned revision, filename and checksum are in src/h3_apple/ref2va_recipe.py.
+  This is a community merge of the LightX2V / larryvrh adapter lines; credit and
+  model terms remain with their respective sources. No claim of additional
+  model rights follows from this code's license.
   The original
   MiniMax model terms continue to apply. No trained weights are bundled here.

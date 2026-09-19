@@ -57,8 +57,9 @@ comparison to its source results and native videos.
 ## Software releases
 
 Update both `version` in `pyproject.toml` and `__version__` in
-`src/h3_apple/__init__.py`. Use `0.2.1` in these files; the CLI reads
-`__version__`, while Git tags use the `v` prefix (`v0.2.1`). Update current-version
+`src/h3_apple/__init__.py`. The current source uses `0.2.2`; the CLI reads
+`__version__`, while Git tags use the `v` prefix. The latest published tag is
+`v0.2.1`. Update current-version
 documentation and retain the original version in historical benchmark records.
 Rebuild and install a regular wheel so package metadata, Python imports and
 `h3 --version` agree; editing the checkout alone does not update an installed

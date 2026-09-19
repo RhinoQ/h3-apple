@@ -1,0 +1,358 @@
+{
+  "schema": "h3-apple-ref2va-dareties-evaluation/v1",
+  "date": "2026-09-19",
+  "hardware": "Apple M5 Max / 128 GiB / macOS 26.6.1",
+  "status": "Adopted in local product 0.2.2; integration validation passed.",
+  "adapter": {
+    "schema": "h3-apple-ref2va-dareties/v1",
+    "task": "ref2va",
+    "adapter_source": {
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "revision": "16f950c2e3d78440778fe1e84d9179932e19b1de",
+      "filename": "ref2v_dareties/minimax_h3_ref2v_turbo_4step_v0.1_v4_step600_dareties_fro0995.safetensors",
+      "bytes": 1158485256,
+      "sha256": "e44c667b162a6e951f663b75d88facfd4e24c915e2c556b07ec1fec23fef5a61"
+    },
+    "lora_tensors": 518,
+    "lora_pairs": 259,
+    "mapped_targets": 363,
+    "adaln_targets": 51,
+    "alpha_normalized": true,
+    "lora_strength": 1.0,
+    "qkv_layout": "comfy_contiguous_qkv",
+    "swiglu_layout": "gate_first",
+    "gate_tensors": 50,
+    "precision": "int8_group64_bf16",
+    "fasth3_t2va_deltas_applied": false
+  },
+  "evaluation_runtime": {
+    "product_commit": "0432a8940dfaf2e0841602b3748b1f71f2730d30",
+    "source_sha256": "a140c63c744e9bb06b7ea12bcc753bfc68513e95e6594d37a06b4f9db375137f",
+    "wheel": {
+      "sha256": "85712ef86e266d7140c1bfe53e1f308d2853e16cbc4ec5ffb349fd5bb4bf05fd"
+    }
+  },
+  "cases": [
+    {
+      "id": "case-04",
+      "title": "Desert Fashion Campaign",
+      "configuration": {
+        "prompt": "Create a premium 16:9 landscape fashion film. Use Image 1 for the overall mood, location, and film texture; Image 2 for the talent; Image 3 for the bag; and Image 4 for the closing brand mark. This is a fashion campaign for the clothing and bag. The tone is elevated, cool, and restrained, but the edit should still feel lively and fashion-forward—not like a conventional narrative film or an e-commerce ad.\n\nKeep the story simple: beside a vintage car on a desert highway, a woman walks to the rear of the car, opens the trunk, takes out a black bag, shares a quiet beat with the man standing nearby, then leaves carrying the bag. Integrate the clothing and bag naturally into the performance so they feel like part of the characters’ identity.",
+        "task": "ref2va",
+        "seed": 42,
+        "duration": 15.0,
+        "resolution": "768p",
+        "aspect_ratio": "16:9",
+        "reference_resize": "legacy"
+      },
+      "references": [
+        {
+          "path": "benchmarks/inputs/ref2va-dareties/132f0c01f195bd2e8a8b0223.webp",
+          "sha256": "981f9b6eec1a3e436d3b9af1ad61daadd569146be1252151e22b9e4705313d9c",
+          "bytes": 43072,
+          "role": "Picture 1"
+        },
+        {
+          "path": "benchmarks/inputs/ref2va-dareties/c9a2b6ff48d3d8d52b82b484.webp",
+          "sha256": "0ec8d5ddf1bdc1a7ec54eb16ea14250ddeddf838b4fb161d15eb115046e1d44b",
+          "bytes": 38866,
+          "role": "Picture 2"
+        },
+        {
+          "path": "benchmarks/inputs/ref2va-dareties/4562c03897eb4cd5ee14907f.webp",
+          "sha256": "1bc50aadf215b6b2d4e0bb345bfd0a2e8fdf26f2ec31a4d71b59b70ed7e31028",
+          "bytes": 53706,
+          "role": "Picture 3"
+        },
+        {
+          "path": "benchmarks/inputs/ref2va-dareties/cdb02fc829f665946d143412.webp",
+          "sha256": "2bf9e65f2dfd17e62e1cc31e377227955ce4282d6898a4ee661a43f472f5219b",
+          "bytes": 4758,
+          "role": "Picture 4"
+        }
+      ],
+      "runs": [
+        {
+          "end_to_end_seconds": 2840.3211930000107,
+          "budget_pass": true,
+          "actual_nfe": 4,
+          "vsa_calls": 200,
+          "peak_memory_gib": {
+            "conditioning": 3.0408701095730066,
+            "denoise": 51.01437938865274,
+            "video_decode": 24.01064147427678,
+            "audio_decode": 2.744217123836279,
+            "mux": 0.0
+          },
+          "maximum_sampled_swap_bytes": 0,
+          "sampled_thermal_states": [
+            "fair",
+            "nominal"
+          ],
+          "media": {
+            "width": 1366,
+            "height": 768,
+            "fps": "24/1",
+            "frames": 360,
+            "video_seconds": 15.0,
+            "audio_seconds": 15.0,
+            "audio_sample_rate": 32000,
+            "audio_channels": 2
+          },
+          "output_sha256": "d4f97c687441e566fccc35bf722ca52429db4bd0af8ddb91a90654c01d8cd44a",
+          "record_sha256": "8c6b7abe3af347c6c6bd28c601aacce7db18c9f9c737e99a0c6d6086faa7b1ce",
+          "model_identity": "78efb06876f6d5105e62a07b756252510a4f7bf6e6306621201ffce9eba3e982",
+          "package_source_sha256": "a140c63c744e9bb06b7ea12bcc753bfc68513e95e6594d37a06b4f9db375137f",
+          "execution_receipt_sha256": "9e365d86bc98bc386053edf74d9053475e38fee540058bd67581af148ab16ab5",
+          "budget_receipt_sha256": "fffeec6ce30f66a302fb6e4136aa61b48cbea6d7d64dbf14129c3cd685d206d6",
+          "adapter": "dareties-fro0995",
+          "local_evidence_directory": "/Users/rhino/Projects/h3-apple/.local/integration/ref2va-dareties-01/evaluated-runs/case04-candidate"
+        },
+        {
+          "end_to_end_seconds": 2812.835318917001,
+          "budget_pass": true,
+          "actual_nfe": 4,
+          "vsa_calls": 200,
+          "peak_memory_gib": {
+            "conditioning": 3.0408701095730066,
+            "denoise": 51.0143798654899,
+            "video_decode": 24.010641492903233,
+            "audio_decode": 2.744235645979643,
+            "mux": 0.0
+          },
+          "maximum_sampled_swap_bytes": 0,
+          "sampled_thermal_states": [
+            "fair"
+          ],
+          "media": {
+            "width": 1366,
+            "height": 768,
+            "fps": "24/1",
+            "frames": 360,
+            "video_seconds": 15.0,
+            "audio_seconds": 15.0,
+            "audio_sample_rate": 32000,
+            "audio_channels": 2
+          },
+          "output_sha256": "73368b28311316f8d15a328f681f92b17167d1875c2979264d6f8bdaec798c63",
+          "record_sha256": "f56fcc9ca7ae49a49597db8072c6e1830f1ae32d4f2e398626bec6ea5dc900f5",
+          "model_identity": "ab66cfebff80ab009c07d0026db823d9aedd7f9e55b6c55c9c1b66e97d189faf",
+          "package_source_sha256": "a140c63c744e9bb06b7ea12bcc753bfc68513e95e6594d37a06b4f9db375137f",
+          "execution_receipt_sha256": "5e5aac916419f4b459b56b74ecc8879b05ddf06ce06d465a799f08c8b4642ba3",
+          "budget_receipt_sha256": "1cc16428e5a15e5da52fd9e8f3bc8d28cbbbed0a0dc1d42f7e8888a1eca4820a",
+          "adapter": "lightx2v-ref2v-v0.1",
+          "local_evidence_directory": "/Users/rhino/Projects/h3-apple/.local/integration/ref2va-dareties-01/evaluated-runs/case04-official"
+        }
+      ],
+      "user_preference": "dareties-fro0995"
+    },
+    {
+      "id": "case-22",
+      "title": "Fantasy Wuxia Character Film",
+      "configuration": {
+        "prompt": "Use Image 2 as the locked character reference. Preserve the half-up long black hair, openwork silver crown, indigo ribbon, layered pale hanfu, translucent blue outer robe, deep-blue sash, silver floral fastener, and long tassels. Use Image 1 for storyboard order and pacing.\n\nRender in high-quality 4K, 16:9 Chinese-inspired 3D with cinematic xianxia production value: intense, solemn, and shaped by destiny. Follow the storyboard beat by beat, with natural camera movement and seamless transitions—never a slideshow. Show the face only in close-up or extreme close-up. In wide shots, use back view, rear three-quarter view, or empty environment shots; never show a distant frontal face.",
+        "task": "ref2va",
+        "seed": 42,
+        "duration": 15.0,
+        "resolution": "768p",
+        "aspect_ratio": "16:9",
+        "reference_resize": "legacy"
+      },
+      "references": [
+        {
+          "path": "benchmarks/inputs/ref2va-dareties/95c486759652032ea16ccf08.webp",
+          "sha256": "91b80e27e32502c4171b8298941acc3c4d272807f5534cd266c3ee5b0b085f01",
+          "bytes": 113040,
+          "role": "Picture 1"
+        },
+        {
+          "path": "benchmarks/inputs/ref2va-dareties/675600eb810303fb218c60d0.webp",
+          "sha256": "8c91f15aca88c2ec85aeae68caca6ecf2dd31e17b60efed1ea2252671b0bf54f",
+          "bytes": 55308,
+          "role": "Picture 2"
+        }
+      ],
+      "runs": [
+        {
+          "end_to_end_seconds": 2724.7075586660067,
+          "budget_pass": true,
+          "actual_nfe": 4,
+          "vsa_calls": 200,
+          "peak_memory_gib": {
+            "conditioning": 3.027152094990015,
+            "denoise": 50.75560165103525,
+            "video_decode": 24.010641492903233,
+            "audio_decode": 2.744266789406538,
+            "mux": 0.0
+          },
+          "maximum_sampled_swap_bytes": 0,
+          "sampled_thermal_states": [
+            "fair"
+          ],
+          "media": {
+            "width": 1366,
+            "height": 768,
+            "fps": "24/1",
+            "frames": 360,
+            "video_seconds": 15.0,
+            "audio_seconds": 15.0,
+            "audio_sample_rate": 32000,
+            "audio_channels": 2
+          },
+          "output_sha256": "c12d8f9048983dba3172e80fc731660eacb0fbb8ab47c00367cec2e572d3ccb6",
+          "record_sha256": "723748d22a90cd2e52738d3c39ef951213cab883e4783566193cb3c32be231ad",
+          "model_identity": "ab66cfebff80ab009c07d0026db823d9aedd7f9e55b6c55c9c1b66e97d189faf",
+          "package_source_sha256": "a140c63c744e9bb06b7ea12bcc753bfc68513e95e6594d37a06b4f9db375137f",
+          "execution_receipt_sha256": "2de476ccbb111cc01841c363bb392cb183b5d52965bda15de5a3ffa380133c2f",
+          "budget_receipt_sha256": "9679acbf57e3b97cf5639d91283d829513efebea20053dead981f6ab27125f2f",
+          "adapter": "lightx2v-ref2v-v0.1",
+          "local_evidence_directory": "/Users/rhino/Projects/h3-apple/.local/integration/ref2va-dareties-01/evaluated-runs/case22-official"
+        },
+        {
+          "end_to_end_seconds": 2680.8708650830085,
+          "budget_pass": true,
+          "actual_nfe": 4,
+          "vsa_calls": 200,
+          "peak_memory_gib": {
+            "conditioning": 3.027152094990015,
+            "denoise": 50.75560594256967,
+            "video_decode": 24.01064147427678,
+            "audio_decode": 2.747808650135994,
+            "mux": 0.0
+          },
+          "maximum_sampled_swap_bytes": 0,
+          "sampled_thermal_states": [
+            "fair"
+          ],
+          "media": {
+            "width": 1366,
+            "height": 768,
+            "fps": "24/1",
+            "frames": 360,
+            "video_seconds": 15.0,
+            "audio_seconds": 15.0,
+            "audio_sample_rate": 32000,
+            "audio_channels": 2
+          },
+          "output_sha256": "29f610ad441a70ba474f299d3e3b3062d65b6c190f90e0d764b6777a05cfe9ee",
+          "record_sha256": "886fce4e05b39c8b4f01094e0d038eb2513b3601e28d3dcb957099c9a8c6fbea",
+          "model_identity": "78efb06876f6d5105e62a07b756252510a4f7bf6e6306621201ffce9eba3e982",
+          "package_source_sha256": "a140c63c744e9bb06b7ea12bcc753bfc68513e95e6594d37a06b4f9db375137f",
+          "execution_receipt_sha256": "fab43debc10df7ff31fa39179e044c2b84ffee70626b9dbe20f2e3cff98d0f6c",
+          "budget_receipt_sha256": "a29fee1fbf7fc50632e57fa5b7023c16162114f8eb4c7bb99fceeadc5f96922d",
+          "adapter": "dareties-fro0995",
+          "local_evidence_directory": "/Users/rhino/Projects/h3-apple/.local/integration/ref2va-dareties-01/evaluated-runs/case22-candidate"
+        }
+      ],
+      "user_preference": "dareties-fro0995"
+    }
+  ],
+  "quality_boundary": {
+    "user_preference_pairs": 2,
+    "evaluated_pairs": 2,
+    "seeds_per_case": 1,
+    "known_failure_regression_set": true,
+    "confirmed_blind_votes": false,
+    "feedback_scope": "Overall preference; component-level reasons and viewing/listening coverage unspecified.",
+    "case_04": "Both retain duplicated-character defects. Candidate still-frame inspection found a duplicated woman and marked late facial deformation. User nevertheless preferred the candidate overall.",
+    "case_22": "Candidate preferred; sampled frames avoid the baseline storyboard collage, but repeated characters and shot-order defects remain.",
+    "original_expansion_gate": "Stopped on the case-04 still-frame regression. Later explicit adoption does not retroactively mark that gate passed.",
+    "audio_motion_and_video_reference_quality": "Not newly qualified.",
+    "speed": "Single sequential samples; no general or repeated speed advantage claim."
+  },
+  "integration": {
+    "status": "passed",
+    "raw_evidence_directory": "/Users/rhino/Projects/h3-apple/.local/integration/ref2va-dareties-01",
+    "runtime": {
+      "package_version": "0.2.2",
+      "python": "/Users/rhino/Projects/h3-apple/.local/envs/h3/bin/python",
+      "package_path": "/Users/rhino/Projects/h3-apple/.local/envs/h3/lib/python3.11/site-packages/h3_apple",
+      "source_sha256": "bd7200164f41849bcfa906be14481fec509f6c76992f8d980627bc15c0ceae47",
+      "changes_from_evaluated_runtime": [
+        "__init__.py"
+      ],
+      "compared_runtime_files": 53,
+      "unchanged_native_binaries": 39,
+      "wheel_sha256": "4552688473ba5396728f85948236344acefd085089f6250a6ff072195804dade"
+    },
+    "regression_tests": {
+      "passed": 341,
+      "scope": "Installed ordinary wheel; full lightweight suite; MLX CPU for small fixtures.",
+      "log_sha256": "eb3d296dce1864e59dc48d83c413a168787c7ce300aa06d50a95d1b4001033ff"
+    },
+    "dependency_check": "passed",
+    "model_readiness_checks": [
+      "t2va",
+      "fl2va-v1.2",
+      "ref2va-legacy-lightx2v",
+      "ref2va-dareties-fro0995"
+    ],
+    "model_registration": {
+      "directory": "/Users/rhino/Models/h3-apple-ref2va-dareties-01",
+      "alias": "/Users/rhino/Models/h3-apple-ref2va",
+      "model_identity": "78efb06876f6d5105e62a07b756252510a4f7bf6e6306621201ffce9eba3e982",
+      "method": "Local hardlinks; complete SHA-256 verification; no download or conversion."
+    },
+    "smoke": {
+      "status": "passed",
+      "checked_at_utc": "2026-09-19T09:43:28.341044+00:00",
+      "scope": "Integration and media delivery only; no new quality comparison or acceptance.",
+      "command": [
+        "/Users/rhino/Projects/h3-apple/.local/envs/h3/bin/ffmpeg",
+        "-v",
+        "error",
+        "-xerror",
+        "-i",
+        "/Users/rhino/Projects/h3-apple/.local/integration/ref2va-dareties-01/smoke-01/output.mp4",
+        "-map",
+        "0:v:0",
+        "-map",
+        "0:a:0",
+        "-f",
+        "null",
+        "-"
+      ],
+      "full_decode_returncode": 0,
+      "elapsed_seconds": 239.62109179099207,
+      "model_identity": "78efb06876f6d5105e62a07b756252510a4f7bf6e6306621201ffce9eba3e982",
+      "package_source_sha256": "bd7200164f41849bcfa906be14481fec509f6c76992f8d980627bc15c0ceae47",
+      "actual_nfe": 4,
+      "vsa_calls": 200,
+      "dense_fallbacks": [],
+      "media": {
+        "width": 1024,
+        "height": 576,
+        "frames": 120,
+        "fps": "24/1",
+        "video_seconds": 5.0,
+        "audio_seconds": 5.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "peak_memory_gib": {
+        "conditioning": 3.02712157741189,
+        "denoise": 28.51775339897722,
+        "video_decode": 13.427496332675219,
+        "audio_decode": 2.3852942772209644,
+        "mux": 0.0
+      },
+      "maximum_sampled_swap_bytes": 0,
+      "sampled_thermal_states": [
+        "fair",
+        "nominal"
+      ],
+      "output_sha256": "02239bad6551533f5752731648ce9bf5d6cbe46871416d330a64841d80306b91",
+      "record_sha256": "403c5c3494efd42d2385f5f398e073b3fe6f9843e3a54552b9b472227cddd309",
+      "execution_sha256": "abe497950f72a7c2ae2bbf4642b206998122a1adf0b91bc7988d51a6582cae46",
+      "prompt": "Use Picture 1 for the person and clothing. A single continuous medium shot of the person standing outdoors in soft daylight, looking toward the camera with subtle natural movement. Gentle outdoor ambience, no music, no subtitles.",
+      "reference_path": "benchmarks/inputs/ref2va-dareties/c9a2b6ff48d3d8d52b82b484.webp",
+      "reference_sha256": "0ec8d5ddf1bdc1a7ec54eb16ea14250ddeddf838b4fb161d15eb115046e1d44b",
+      "task": "ref2va",
+      "duration": 5,
+      "resolution": "576p",
+      "seed": 42,
+      "reference_resize": "legacy",
+      "offline": true
+    }
+  }
+}

@@ -194,7 +194,8 @@
       "destination": "src/h3_apple/conversion.py",
       "research_path": "python/tqlm_h3_apple/fasth3_mlx.py",
       "changes": [
-        "Extract native key transforms, official VSA adapter merge, and full decoder conversion; omit other adapters and research bootstrap."
+        "Extract native key transforms, official VSA adapter merge, and full decoder conversion; omit other adapters and research bootstrap.",
+        "Support the checksum-pinned silveroxides Ref2VA DARE/TIES fro0995 merge with normalized dynamic-rank LoRAs, contiguous QKV, gate-first FF and AdaLN targets; retain the legacy LightX2V conversion."
       ]
     },
     {
@@ -330,5 +331,11 @@
     "sha256": "747aa0d979c5608d4b9801c712a7f1e567d44395e9aaa85909d1de892cd8d68d",
     "source": "P090 fixed calibration retained by adopted P091 VAE; generated channel maxima, not model weights",
     "bytes": 1493982
+  },
+  "ref2va_adapter": {
+    "definition": "src/h3_apple/ref2va_recipe.py",
+    "source": "https://huggingface.co/silveroxides/MiniMax-H3_tests/tree/16f950c2e3d78440778fe1e84d9179932e19b1de/ref2v_dareties",
+    "conversion": "Independent ComfyUI-layout mapping and normalized strength 1.0, before INT8/group64 conversion. The recipe module pins the only accepted file and checksum.",
+    "legacy": "Existing LightX2V Ref2V v0.1 conversion and bundles remain supported."
   }
 }

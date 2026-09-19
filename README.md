@@ -23,6 +23,10 @@ and pictures or videos (**Ref2VA**), with optional audio references.
 The automatic model downloader prepares T2VA; FL2VA and Ref2VA need separate
 bundles and additional setup. [Choose a mode](#use-your-own-images-video-or-audio).
 
+The current **0.2.2 source** adds the pinned four-step **DARE/TIES fro0995**
+Ref2VA adapter. [Preparation, existing-bundle compatibility and quality scope](docs/ref2va.md).
+The published release remains 0.2.1; upgrading software does not replace model weights.
+
 ## Video comparisons
 
 **Left: H3 Apple (Ours). Right: vpipe / VDN.**
@@ -359,9 +363,11 @@ migration, and GPU cancellation have passed the checks recorded in
 [validation](docs/validation.md). The public interface supports
 text, first/last keyframes, or 1–9 ordered images and/or 1–3 videos with audio output. FL2VA
 needs its [v1.2 bundle](docs/fl2va.md). Reference generation needs
-a [dedicated model bundle](docs/ref2va.md). Its limited validation covers
+a [dedicated model bundle](docs/ref2va.md). Earlier LightX2V validation covers
 one and four images at 576p and a five-second video-reference regression at
 768p on M5 Max / 128 GiB. [Video editing can still change the source scene or motion](docs/ref2va-video.md).
+The DARE/TIES adapter has separate, limited image-reference evidence; earlier
+video/audio-reference reviews do not automatically qualify the new weights.
 Independent audio can accompany Ref2VA images or videos; a [six-second 768p execution check](benchmarks/results/ref2va-audio-01/README.md) includes full reproduction details and separate voice/synchronization limits. Training, a web service and output videos
 longer than fifteen seconds are not exposed.
 

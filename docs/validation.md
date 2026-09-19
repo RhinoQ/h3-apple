@@ -5,6 +5,32 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
+## DARE/TIES Ref2VA adoption (0.2.2 source)
+
+The new Ref2VA preparation recipe uses the pinned silveroxides `fro0995`
+adapter at normalized strength 1.0, four steps and shifts 12/3. Legacy
+LightX2V bundles remain loadable. T2VA and FL2VA keep their existing weights
+and runtime. See the [evaluation and integration record](evidence/ref2va-dareties.json).
+
+In two known fifteen-second 768p image-reference cases, the user preferred
+DARE/TIES over LightX2V v0.1. The feedback was received after adapter identities
+were disclosed; these are not confirmed blind votes. Still-frame inspection
+also found duplicated characters and late facial deformation in one candidate
+clip. The adopted recipe preserves those observations and does not imply a
+general quality improvement, independent audio/listening acceptance, or new
+video/audio-reference qualification. Earlier results below retain their
+original model identities.
+
+The installed 0.2.2 ordinary wheel passed all **341 regression tests**, dependency
+checks, and readiness checks for T2VA, FL2VA, legacy Ref2VA and DARE/TIES Ref2VA.
+Its 53 runtime files match the evaluated candidate except for the package version;
+39 native dependency binaries are unchanged. One offline public-CLI integration
+run delivered 120 frames at 1024×576 and 24 fps, with five seconds of 32 kHz stereo
+audio, in **239.62 seconds**. Full media decoding passed; the run recorded four
+NFE, 200 VSA calls without fallback, 28.52 GiB peak denoising memory and no sampled
+swap. Thermal samples were nominal or fair. This checks installation and delivery,
+not new perceptual quality or a speed comparison.
+
 ## v0.2.1 patch
 
 Version 0.2.1 packages the first-use audit fixes: `doctor` checks the optional

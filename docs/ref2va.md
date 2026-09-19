@@ -1,6 +1,6 @@
 # Reference-conditioned video with audio
 
-H3 Apple 0.2.1 exposes Ref2VA through `h3 generate`
+H3 Apple exposes Ref2VA through `h3 generate`
 and the Python API. Supply 1–9 still images in picture-number order and/or
 [1–3 reference videos](ref2va-video.md), optionally with [independent audio](ref2va-audio.md).
 Image-only generation defaults to 576p; requests with videos or independent
@@ -8,7 +8,21 @@ audio default to 768p. All use four steps and default to
 15 seconds; start with five seconds.
 The complete prompt is retained, including any picture numbers it contains.
 
-One-image / five-second and four-image / fifteen-second cases at 576p have
+The current **0.2.2 source** recommends the pinned silveroxides DARE/TIES
+`fro0995` adapter at strength **1.0**. It retains the four-step, video/audio
+shift **12/3** recipe. Existing LightX2V v0.1 bundles remain supported;
+installing software alone does not replace their weights. Select a separately
+prepared DARE/TIES bundle with `--model-dir` to use the new adapter.
+
+DARE/TIES was preferred by the user in two known fifteen-second 768p image
+reference cases. Both still had defects, including duplicated people; one
+showed late facial deformation. These preferences were reported after adapter
+identities had been disclosed and are not confirmed blind votes. They do not
+establish general quality, audio quality, synchronization or video/audio-reference
+quality. See the [adapter evaluation record](evidence/ref2va-dareties.json).
+
+With the earlier LightX2V v0.1 bundle, one-image / five-second and
+four-image / fifteen-second cases at 576p have
 completed on M5 Max / 128 GiB and received user quality acceptance. This is a
 limited case review, not a broad or blind quality evaluation. A later
 [one-image 768p portrait check](validation.md#portrait-and-dense-follow-up-2026-09-18)
@@ -21,9 +35,11 @@ or video and have a [separate validation scope](ref2va-audio.md).
 
 ## Installation and models
 
-From a checkout of this release, install the optional CPU vision
+From the current source checkout, install the optional CPU vision
 dependencies with `./install.sh --ref2va`, then activate the printed Conda path.
-Install [v0.2.1](install.md) to use these reference features.
+DARE/TIES requires the 0.2.2 source or a later version. The
+[published v0.2.1 installation](install.md) supports the earlier LightX2V
+bundle; its release links do not yet provide DARE/TIES support.
 
 Ref2VA uses a separate model bundle. The ordinary text model and automatic
 `h3 models prepare` downloader remain the text-generation recipe. For Ref2VA,
@@ -32,7 +48,7 @@ reuse or obtain these pinned sources:
 | Component | Source and use |
 | --- | --- |
 | Native transformer and reference encoders | [MiniMax-H3 Ref2VA](https://huggingface.co/MiniMaxAI/MiniMax-H3/tree/bfc8ed0353f5a9733be73e6b2c98ec0948195b86/Ref2VA): 13 transformer shards, processor, tokenizer, Qwen vision/language weights and video VAE encoder |
-| Four-step adapter | [LightX2V Ref2V Turbo v0.1](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/ec01fa4c86263832faa0bd1d6d8f36a281eaabb2/minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors): rank 128, alpha 8, all 624 LoRA tensors |
+| Recommended four-step adapter | [silveroxides Ref2V DARE/TIES fro0995](https://huggingface.co/silveroxides/MiniMax-H3_tests/resolve/16f950c2e3d78440778fe1e84d9179932e19b1de/ref2v_dareties/minimax_h3_ref2v_turbo_4step_v0.1_v4_step600_dareties_fro0995.safetensors): 259 dynamic-rank pairs, normalized alpha, strength 1.0 |
 | VSA compression gates | [FastH3 VSA Data-Free adapter](https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA/resolve/bcf40ca6f457ed66f8badf13514943e390205fca/vsa-datafree/adapter_model.safetensors): only the 50 compression-gate tensors |
 | Output decoders | Reuse the prepared text bundle's H3 video/audio decoder components; original [MiniMax FL2VA sources](https://huggingface.co/MiniMaxAI/MiniMax-H3/tree/bfc8ed0353f5a9733be73e6b2c98ec0948195b86/FL2VA) |
 
@@ -44,10 +60,11 @@ from h3_apple.conversion import convert_dit
 
 convert_dit(
     "/path/to/Ref2VA/transformer",
-    "/path/to/minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors",
+    "/path/to/minimax_h3_ref2v_turbo_4step_v0.1_v4_step600_dareties_fro0995.safetensors",
     "/path/to/new-ref2va-checkpoint",
     print,
     task="ref2va",
+    adapter_flavor="dareties-fro0995",
     gate_source="/path/to/vsa-datafree/adapter_model.safetensors",
 )
 ```
@@ -59,6 +76,16 @@ architecture override when generating; the generation worker sets the M5 runtime
 Conversion writes `ref2va_recipe.json` and refuses an existing checkpoint path.
 It merges the Ref2V LoRA before INT8/group64 conversion and selects only the
 50 FastH3 gates; FastH3 T2VA low-rank and exact-delta updates are not applied.
+The adapter's published alpha normalization is already incorporated: do not
+apply a second alpha/rank factor. Conversion validates the exact source hash,
+maps the fused ComfyUI QKV/FF layouts and all 51 AdaLN targets, and recomputes
+the four-step AdaLN tables. Other compression variants are not interchangeable.
+
+To reproduce an older bundle, use the pinned
+[LightX2V Ref2V Turbo v0.1 file](https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/ec01fa4c86263832faa0bd1d6d8f36a281eaabb2/minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors)
+with `adapter_flavor="lightx2v"` and a different output directory. Its rank-128,
+alpha-8 scaling remains unchanged. Keep that bundle for rollback rather than
+editing an existing model directory.
 
 Import the converted checkpoint and native reference components:
 
