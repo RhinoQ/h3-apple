@@ -5,7 +5,7 @@ the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured
 source version and scope.
 
-## DARE/TIES Ref2VA adoption (0.2.2 source)
+## DARE/TIES Ref2VA adoption (0.2.2)
 
 The new Ref2VA preparation recipe uses the pinned silveroxides `fro0995`
 adapter at normalized strength 1.0, four steps and shifts 12/3. Legacy
@@ -30,6 +30,11 @@ audio, in **239.62 seconds**. Full media decoding passed; the run recorded four
 NFE, 200 VSA calls without fallback, 28.52 GiB peak denoising memory and no sampled
 swap. Thermal samples were nominal or fair. This checks installation and delivery,
 not new perceptual quality or a speed comparison.
+
+The [0.2.2 release manifest](https://github.com/RhinoQ/h3-apple/releases/download/v0.2.2/release-manifest.json)
+records the tagged source, artifact hashes and release-wheel checks. All runtime
+files match the adopted 0.2.2 build used for the integration run above; release
+packaging adds no new generation or quality result.
 
 ## v0.2.1 patch
 

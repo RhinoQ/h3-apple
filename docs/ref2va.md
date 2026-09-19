@@ -8,7 +8,7 @@ audio default to 768p. All use four steps and default to
 15 seconds; start with five seconds.
 The complete prompt is retained, including any picture numbers it contains.
 
-The current **0.2.2 source** recommends the pinned silveroxides DARE/TIES
+**0.2.2** recommends the pinned silveroxides DARE/TIES
 `fro0995` adapter at strength **1.0**. It retains the four-step, video/audio
 shift **12/3** recipe. Existing LightX2V v0.1 bundles remain supported;
 installing software alone does not replace their weights. Select a separately
@@ -35,11 +35,10 @@ or video and have a [separate validation scope](ref2va-audio.md).
 
 ## Installation and models
 
-From the current source checkout, install the optional CPU vision
+From the release source checkout, install the optional CPU vision
 dependencies with `./install.sh --ref2va`, then activate the printed Conda path.
-DARE/TIES requires the 0.2.2 source or a later version. The
-[published v0.2.1 installation](install.md) supports the earlier LightX2V
-bundle; its release links do not yet provide DARE/TIES support.
+DARE/TIES requires [0.2.2 or a later version](install.md); 0.2.1 supports
+the earlier LightX2V bundle only.
 
 Ref2VA uses a separate model bundle. The ordinary text model and automatic
 `h3 models prepare` downloader remain the text-generation recipe. For Ref2VA,

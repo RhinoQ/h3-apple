@@ -4,9 +4,9 @@ Choose the input that best describes the job, start with five seconds, and use
 768p when small faces or fine details matter. H3 Apple generates video and
 stereo audio together; a separate audio reference is optional.
 
-This guide describes the **0.2.2 source**. Check your installation with `h3 --version`.
-The [published release installation](install.md) remains 0.2.1; DARE/TIES needs
-the newer source and its separately prepared Ref2VA bundle.
+This guide describes **0.2.2**. Check your installation with `h3 --version`.
+Follow the [release installation instructions](install.md). DARE/TIES needs
+0.2.2 or later and its separately prepared Ref2VA bundle.
 
 | I want to… | Choose / provide | Recipe selected by the product | What to expect |
 | --- | --- | --- | --- |
