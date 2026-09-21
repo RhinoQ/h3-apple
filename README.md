@@ -28,6 +28,12 @@ Ref2VA adapter. [Preparation, existing-bundle compatibility and quality scope](d
 Upgrading software does not replace model weights; select a separately prepared
 DARE/TIES bundle to use the new adapter.
 
+The candidate branch also offers optional native vpipe presets:
+**`ultrafast`** (i8 + Sol + Sage) and **`vpipe-dense`** (i8 + dense attention).
+`ours` remains the default. [Setup, supported inputs and quality/memory scope](docs/vpipe.md).
+The released comparisons below use the recorded vpipe / VDN configuration;
+their performance numbers do not describe these new presets.
+
 ## Video comparisons
 
 **Left: H3 Apple (Ours). Right: vpipe / VDN.**

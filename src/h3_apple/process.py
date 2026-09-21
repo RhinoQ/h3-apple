@@ -22,12 +22,21 @@ from .io import digest, write_json
 
 def _stop(process):
     if process.poll() is None:
-        os.killpg(process.pid, signal.SIGTERM)
+        try:
+            os.killpg(process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
         try:
             process.wait(timeout=5)
         except subprocess.TimeoutExpired:
-            os.killpg(process.pid, signal.SIGKILL)
-            process.wait(timeout=10)
+            pass
+    # A worker can exit before a native child that handles or ignores SIGTERM.
+    # Reap the whole group even after the group leader has already exited.
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+    process.wait(timeout=10)
 
 
 def run_generation(request, *, output=None, model_dir=None, on_progress=None,
@@ -36,12 +45,18 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
         raise ValueError("timeout must be a positive finite number of seconds.")
     if type(diagnostics) is not bool:
         raise ValueError("diagnostics must be a boolean.")
-    assets = load_assets(model_dir)
-    if assets.get("task", "t2va") != request.task:
+    native = request.preset in ("ultrafast", "vpipe-dense")
+    if native:
+        from .vpipe_assets import load_vpipe_assets
+        assets = load_vpipe_assets(model_dir)
+    else:
+        assets = load_assets(model_dir)
+    if (request.task not in assets["tasks"] if native else assets.get("task", "t2va") != request.task):
         raise ValueError(f"This request needs a {request.task.upper()} model bundle; select the matching --model-dir.")
     from .host import check_reference_dependencies
-    check_reference_dependencies(request.task)
-    if request.task == "fl2va":
+    if not native:
+        check_reference_dependencies(request.task)
+    if request.task == "fl2va" and not native:
         from .fl2va_recipe import fl2va_sampling
         fl2va_sampling(json.loads((Path(assets["checkpoint"]) / "fl2va_recipe.json").read_text()), request.num_steps)
     if output is None:
@@ -94,10 +109,10 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                     run["reference_inputs"].append(dict(index=index + 1, source=source,
                                                         sha256=digest(target), size=target.stat().st_size))
                 budget = request.model_width * request.model_height if request.reference_resize == "match" else 672 * 384
-                spec["ref2va"] = dict(native_root=assets["ref2va_native"], image_paths=references,
+                spec["ref2va"] = dict(native_root=assets.get("ref2va_native"), image_paths=references,
                                       pixel_budget=budget, attention="vsa", reference_resize=request.reference_resize)
             if request.reference_videos or request.reference_audio:
-                options = spec.setdefault("ref2va", dict(native_root=assets["ref2va_native"],
+                options = spec.setdefault("ref2va", dict(native_root=assets.get("ref2va_native"),
                     image_paths=[], pixel_budget=672 * 384, attention="vsa",
                     reference_resize=request.reference_resize))
                 # Video uses the accepted Dense recipe; new audio conditions
@@ -126,7 +141,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                     images.append(str(target)); anchors.append(name)
                     run["reference_inputs"].append(dict(kind="keyframe", anchor=name, source=source,
                         sha256=digest(target), size=target.stat().st_size))
-                spec["ref2va"] = dict(task="fl2va", native_root=assets["fl2va_native"],
+                spec["ref2va"] = dict(task="fl2va", native_root=assets.get("fl2va_native"),
                                       image_paths=images, anchors=anchors, attention="vsa")
             process.stdin.write(json.dumps(spec) + "\n")
             process.stdin.close()

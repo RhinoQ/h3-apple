@@ -37,7 +37,8 @@ def parser():
         prompts = command.add_mutually_exclusive_group(required=True)
         prompts.add_argument("--prompt")
         prompts.add_argument("--prompt-file")
-        command.add_argument("--preset", default="ours")
+        command.add_argument("--preset", choices=("ours", "ultrafast", "vpipe-dense"), default="ours",
+                             help="ours: current VSA default; ultrafast: native i8+Sol+Sage; vpipe-dense: comparison candidate")
         command.add_argument("--task", choices=("t2va", "fl2va", "ref2va"),
                              help="Infer from inputs when omitted; reject mismatched task and inputs")
         command.add_argument("--first-frame", help="FL2VA first-frame image")
@@ -68,6 +69,7 @@ def parser():
             command.add_argument("--no-progress", action="store_true", help="Hide the stderr progress bar")
     doctor = commands.add_parser("doctor", help="Check the machine, runtime, media tools and models")
     doctor.add_argument("--model-dir")
+    doctor.add_argument("--preset", choices=("ours", "ultrafast", "vpipe-dense"), default="ours")
     models = commands.add_parser("models").add_subparsers(dest="model_command", required=True)
     prepare = models.add_parser("prepare", help="Prepare a verified local model bundle")
     prepare.add_argument("--checkpoint", help="Existing converted T2VA, FL2VA or Ref2VA VSA checkpoint")
@@ -81,6 +83,12 @@ def parser():
     prepare.add_argument("--plan", action="store_true", help="Show download and disk requirements without downloading")
     prepare.add_argument("--allow-large-download", action="store_true",
                          help="Explicitly confirm the displayed downloads when they exceed 20 GB")
+    native = models.add_parser("import-vpipe", help="Register an existing native vpipe installation and 8-bit model; no downloads")
+    native.add_argument("--model-dir", required=True, help="New small bundle directory")
+    native.add_argument("--native-model", required=True, help="Unmerged vpipe 8-bit H3 model directory")
+    native.add_argument("--lora", required=True, help="Pinned FL2VA v1.2 or Ref2VA DARE/TIES adapter")
+    native.add_argument("--vpipe-binary", required=True)
+    native.add_argument("--vpipe-library", required=True, help="libvpipe.0.1.dylib next to its loader link")
     for name in ("status", "verify"):
         command = models.add_parser(name)
         command.add_argument("--model-dir")
@@ -106,7 +114,10 @@ def main(argv=None):
             from .assets import import_assets, load_assets
             name = args.pop("model_command")
             directory = args.pop("model_dir")
-            if name == "prepare":
+            if name == "import-vpipe":
+                from .vpipe_assets import import_vpipe_assets
+                result = import_vpipe_assets(model_dir=directory, progress=progress, **args)
+            elif name == "prepare":
                 checkpoint, components = args.pop("checkpoint"), args.pop("components")
                 native = args.pop("ref2va_native")
                 fl_native = args.pop("fl2va_native")
@@ -131,8 +142,13 @@ def main(argv=None):
                         return 0
                     result = prepare(directory, progress=progress, **args)
             else:
-                result = load_assets(directory, verify=name == "verify")
-            result = {key: result[key] for key in ("directory", "identity", "checkpoint", "components")}
+                from pathlib import Path
+                if directory is not None and (Path(directory).expanduser() / "vpipe.json").is_file():
+                    from .vpipe_assets import load_vpipe_assets
+                    result = load_vpipe_assets(directory, verify=name == "verify")
+                else:
+                    result = load_assets(directory, verify=name == "verify")
+            result = {key: result[key] for key in ("directory", "identity", "checkpoint", "components", "native_model", "tasks") if key in result}
         print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
         return 0
     except KeyboardInterrupt:

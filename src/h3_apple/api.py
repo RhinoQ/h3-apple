@@ -60,8 +60,8 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
         prompt = Path(prompt_file).read_text(encoding="utf-8")
     if not isinstance(prompt, str) or not prompt.strip() or "\x00" in prompt:
         raise ValueError("prompt must be nonempty text without NUL characters.")
-    if preset != "ours":
-        raise ValueError("The supported preset is 'ours'.")
+    if preset not in ("ours", "ultrafast", "vpipe-dense"):
+        raise ValueError("preset must be 'ours', 'ultrafast' or 'vpipe-dense'.")
     if aspect_ratio not in ("16:9", "9:16"):
         raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     references = ()
@@ -119,6 +119,9 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
                 raise ValueError("Keyframes must be still images.")
             image.verify()
         keyframes.append(str(path))
+    if preset != "ours" and (videos or audios):
+        raise ValueError("The vpipe presets currently support text, still references and keyframes; "
+                         "use ours for reference video or audio.")
     has_keyframes = any(keyframes)
     if has_keyframes and (references or videos or audios):
         raise ValueError("First/last frames and Ref2VA references use different model tasks.")
@@ -159,7 +162,8 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
     return GenerationRequest(prompt, preset, resolution, count / 24, seed,
                              width, height, count, model_width, model_height,
                              ((count - 5 + 16) // 17) * 17 + 5,
-                             preset_version="ours-fl2va-vsa-v1.2" if has_keyframes else
+                             preset_version=f"{preset}-{inferred}-v1" if preset != "ours" else
+                                 "ours-fl2va-vsa-v1.2" if has_keyframes else
                                  "ours-ref2va-audio-dense-v1" if audios else
                                  "ours-ref2va-video-dense-v1" if videos else
                                  "ours-ref2va-match-v1" if references and reference_resize == "match" else

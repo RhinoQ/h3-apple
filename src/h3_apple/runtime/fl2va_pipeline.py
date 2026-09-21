@@ -30,16 +30,7 @@ def checksum(array):
     return hashlib.sha256(np.ascontiguousarray(array).tobytes()).hexdigest()
 
 
-def prepare_keyframe(image, width, height, *, stretch):
-    image = ImageOps.exif_transpose(image).convert("RGB")
-    if image.size == (width, height):
-        return image
-    if stretch:
-        return image.resize((width, height), Image.Resampling.LANCZOS)
-    scale = max(width / image.width, height / image.height)
-    size = (max(width, round(image.width * scale)), max(height, round(image.height * scale)))
-    left, top = max(0, (size[0] - width) // 2), max(0, (size[1] - height) // 2)
-    return image.resize(size, Image.Resampling.LANCZOS).crop((left, top, left + width, top + height))
+from ..image_inputs import prepare_keyframe
 
 
 def keyframe_layout(tags, geometry, model_frames, anchors):

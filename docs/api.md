@@ -237,3 +237,11 @@ changed model assets, a busy device, unsupported hardware, and failed media
 validation produce explicit errors. The API does not silently switch recipes.
 Treat a prepared model directory as read-only; prepare changed weights in a
 new directory.
+
+## Optional native backend
+
+`preset="ultrafast"` selects native vpipe i8 + Sol + Sage;
+`preset="vpipe-dense"` selects the native dense comparison candidate.
+Both require `model_dir` pointing to a separately registered native bundle.
+The default stays `preset="ours"`.
+[Registration, recipes, input scope and diagnostics](vpipe.md).

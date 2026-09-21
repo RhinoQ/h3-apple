@@ -110,14 +110,15 @@ def check_reference_dependencies(task):
             raise RuntimeError("Reference conditioning needs the ref2va extra. Run ./install.sh --ref2va.")
 
 
-def doctor(model_dir=None):
+def doctor(model_dir=None, preset="ours"):
     info = snapshot()
     errors = []
     try:
         check_machine(info)
-        os.environ["MLX_ENABLE_TF32"] = "0"
-        os.environ["MLX_METAL_GPU_ARCH"] = ""
-        info["backend"] = backend_identity()
+        if preset == "ours":
+            os.environ["MLX_ENABLE_TF32"] = "0"
+            os.environ["MLX_METAL_GPU_ARCH"] = ""
+            info["backend"] = backend_identity()
     except Exception as error:
         errors.append(str(error))
     for name in ("ffmpeg", "ffprobe"):
@@ -127,10 +128,18 @@ def doctor(model_dir=None):
             errors.append(str(error))
     from .assets import load_assets
     try:
-        assets = load_assets(model_dir)
+        if preset in ("ultrafast", "vpipe-dense"):
+            from .vpipe_assets import load_vpipe_assets
+            assets = load_vpipe_assets(model_dir)
+            info["backend"] = {k: assets[k] for k in ("binary", "library", "tested_interface_commit")}
+        else:
+            assets = load_assets(model_dir)
         info["models"] = {k: assets[k] for k in ("directory", "identity")}
-        info["models"]["task"] = assets.get("task", "t2va")
-        check_reference_dependencies(info["models"]["task"])
+        if preset == "ours":
+            info["models"]["task"] = assets.get("task", "t2va")
+            check_reference_dependencies(info["models"]["task"])
+        else:
+            info["models"]["tasks"] = assets["tasks"]
     except (OSError, ValueError, RuntimeError) as error:
         errors.append(str(error))
     info["free_disk_bytes"] = shutil.disk_usage(Path.cwd()).free

@@ -131,3 +131,22 @@ def validate(path, expected, *, allow_aac_padding=False):
                     "-map", "0:v:0", "-map", "0:a:0", "-f", "null", "-"],
                    capture_output=True, timeout=300, check=True)
     return data
+
+
+def finish_native(source, destination, request):
+    """Validate full native media before the common center crop and fixed trim."""
+    native=dict(request,width=request["model_width"],height=request["model_height"],num_frames=request["model_num_frames"])
+    media=validate(source,native,allow_aac_padding=True)
+    audio=next(s for s in media["streams"] if s["codec_type"]=="audio")
+    if float(audio["duration"])+1/request["audio_sample_rate"]+1e-5 < request["num_frames"]/request["fps"]:
+        raise ValueError("Native audio does not cover the requested delivery duration.")
+    left=(native["width"]-request["width"])//2; top=(native["height"]-request["height"])//2
+    command=[tool("ffmpeg"),"-v","error","-nostdin","-n","-i",str(source),"-map","0:v:0","-map","0:a:0","-vf",
+        f"format=rgb24,crop={request['width']}:{request['height']}:{left}:{top},setsar=1",
+        "-af", f"atrim=end_sample={(request['num_frames']*request['audio_sample_rate']+request['fps']-1)//request['fps']},asetpts=PTS-STARTPTS",
+        "-frames:v",str(request["num_frames"]),"-t",str(request["duration"]),"-c:v","libx264","-preset","fast","-crf","18",
+        "-pix_fmt","yuv420p","-c:a","aac","-b:a","192k","-ar","32000","-ac","2","-movie_timescale",str(math.lcm(request["fps"],request["audio_sample_rate"])),
+        "-movflags","+faststart",str(destination)]
+    subprocess.run(command,check=True,capture_output=True,timeout=300)
+    return command
+
