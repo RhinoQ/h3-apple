@@ -127,6 +127,23 @@ def test_wrong_lora_fails_before_registering_bundle(tmp_path,monkeypatch):
     assert not options["model_dir"].exists()
 
 
+def test_native_video_vae_source_directory_is_registered(tmp_path, monkeypatch):
+    options = native_fixture(tmp_path, monkeypatch)
+    vae = options["native_model"] / "video_vae"
+    source = vae / "source"
+    source.mkdir()
+    (vae / "model.safetensors").rename(source / "model.safetensors")
+    (source / "config.json").write_text("{}")
+    manifest = vpipe_assets.import_vpipe_assets(**options)
+    weights = source / "model.safetensors"
+    assert any(entry["path"] == str(weights) and entry["sha256"] == digest(weights)
+               for entry in manifest["files"])
+    vpipe_assets.load_vpipe_assets(options["model_dir"], verify=True)
+    weights.unlink()
+    with pytest.raises(ValueError, match="Missing native weights: video_vae"):
+        vpipe_assets.model_partition(options["native_model"])
+
+
 def test_hand_edited_recipe_is_rejected_even_with_new_manifest_checksum(tmp_path, monkeypatch):
     options = native_fixture(tmp_path, monkeypatch)
     vpipe_assets.import_vpipe_assets(**options)

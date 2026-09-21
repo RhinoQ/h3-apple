@@ -43,7 +43,8 @@ def model_partition(root):
         if not (root / name).is_dir():
             raise ValueError(f"Missing native model component: {name}")
     for name in ("transformer", "text_encoder", "video_vae", "audio_vae"):
-        if not list((root / name).glob("*.safetensors")):
+        # Native H3's video VAE wrapper stores its weights in source/.
+        if not list((root / name).rglob("*.safetensors")):
             raise ValueError(f"Missing native weights: {name}")
     return partition
 
