@@ -68,7 +68,7 @@ def main():
             signal.signal(signal.SIGUSR1, stop)
             threading.Thread(target=watch, daemon=True).start()
             emit({"phase": "loading", "message": "Checking the runtime and preparing generation"})
-            if spec["request"]["preset"] in ("ultrafast", "vpipe-dense"):
+            if spec["request"]["preset"] == "ultrafast":
                 from .vpipe import run
                 result = run(spec["request"], spec["assets"], workspace, emit,
                              references=spec.get("ref2va"), diagnostics=spec["diagnostics"])

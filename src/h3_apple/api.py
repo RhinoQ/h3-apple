@@ -60,8 +60,8 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
         prompt = Path(prompt_file).read_text(encoding="utf-8")
     if not isinstance(prompt, str) or not prompt.strip() or "\x00" in prompt:
         raise ValueError("prompt must be nonempty text without NUL characters.")
-    if preset not in ("ours", "ultrafast", "vpipe-dense"):
-        raise ValueError("preset must be 'ours', 'ultrafast' or 'vpipe-dense'.")
+    if preset not in ("ours", "ultrafast"):
+        raise ValueError("preset must be 'ours' or 'ultrafast'.")
     if aspect_ratio not in ("16:9", "9:16"):
         raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     references = ()

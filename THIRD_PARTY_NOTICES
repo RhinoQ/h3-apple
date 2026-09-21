@@ -67,7 +67,7 @@ Reference conditioning and VSA
   The original
   MiniMax model terms continue to apply. No trained weights are bundled here.
 
-Optional native vpipe presets
+Optional native vpipe ultrafast preset
   Graph interface follows https://github.com/tgo-app-dev/vpipe, Apache-2.0.
   Tested interface: f34e2cc3a3adae759eea254419f436f5b7800057.
   H3 Apple invokes a separately installed vpipe binary; no vpipe Metal core,

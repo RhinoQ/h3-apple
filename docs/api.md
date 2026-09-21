@@ -1,6 +1,6 @@
 # Generation API
 
-The CLI and Python interface share `generate()` and the versioned `ours` recipe.
+The CLI and Python interface share `generate()` and versioned presets.
 Each generation runs in a separate worker process and releases model memory
 when it exits. No persistent service is required.
 
@@ -26,7 +26,7 @@ print(result.elapsed_seconds)
 | Python parameter | CLI | Behavior |
 | --- | --- | --- |
 | `prompt` / `prompt_file` | `--prompt` / `--prompt-file` | Supply exactly one; accepts arbitrary UTF-8 prompt text |
-| `preset="ours"` | `--preset ours` | The supported recipe; records its version, code, and model identity |
+| `preset="ours"` | `--preset ours` / `--preset ultrafast` | `ours` is the default; optional [ultrafast](vpipe.md) requires a native bundle. Both record recipe, code and model identity |
 | `task=None` | `--task t2va/fl2va/ref2va` | Inferred from inputs when omitted; an explicit task must match the inputs and model bundle |
 | `first_frame` / `last_frame` | `--first-frame` / `--last-frame` | FL2VA still-image anchors; either one or both; cannot mix with Ref2VA references |
 | `resolution=None` | `--resolution 768p` | `768p` or `576p`; defaults to 768p, or 576p for image-only Ref2VA |
@@ -240,8 +240,7 @@ new directory.
 
 ## Optional native backend
 
-`preset="ultrafast"` selects native vpipe i8 + Sol + Sage;
-`preset="vpipe-dense"` selects the native dense comparison candidate.
-Both require `model_dir` pointing to a separately registered native bundle.
+`preset="ultrafast"` selects native vpipe i8 + Sol + Sage in 0.3.0 or later.
+It requires `model_dir` pointing to a separately registered native bundle.
 The default stays `preset="ours"`.
 [Registration, recipes, input scope and diagnostics](vpipe.md).

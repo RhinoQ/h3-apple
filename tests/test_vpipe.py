@@ -22,21 +22,46 @@ def assets():
         video_shift=6.0,audio_shift=3.0,lora_scale=1.0,graph_steps=5))
 
 
-@pytest.mark.parametrize("preset", ["ultrafast", "vpipe-dense"])
-def test_modes_preserve_full_prompt_and_explicit_switches(preset):
+def test_ultrafast_preserves_full_prompt_and_explicit_switches():
     prompt="Picture 1 → picture 2.\nFull dialogue and soundscape, unchanged."
-    request=resolve(prompt,preset=preset,seed=0).to_dict()
+    request=resolve(prompt,preset="ultrafast",seed=0).to_dict()
     graph=vpipe.build_graph(request,assets(),[],"/output.mp4")
     nodes={s["id"]:s for s in graph["stages"]}
     assert nodes["text-prompt"]["config"]["text"]==prompt
     config=nodes["generate-video"]["config"]
     assert config["steps"]==5 and config["i8_gemm"] is True
-    assert config["sol_attn"]==config["sage_attn"]==(preset=="ultrafast")
+    assert config["sol_attn"] is True and config["sage_attn"] is True
     assert resolve("Default").preset=="ours"
     seen=set()
     for node in graph["stages"]:
         assert all(not p["src"] or p["src"] in seen for p in node["iports"])
         seen.add(node["id"])
+
+
+def test_unreleased_dense_preset_is_rejected_before_loading_or_writing(tmp_path):
+    from h3_apple.host import doctor
+    with pytest.raises(ValueError, match="preset must be"):
+        resolve("Text", preset="vpipe-dense")
+    with pytest.raises(ValueError, match="preset must be"):
+        doctor(model_dir=tmp_path / "missing", preset="vpipe-dense")
+    request = replace(resolve("Text"), preset="vpipe-dense")
+    with pytest.raises(ValueError, match="preset must be"):
+        runner.run_generation(request, model_dir=tmp_path / "missing", output=tmp_path / "out.mp4")
+    with pytest.raises(ValueError, match="requires preset='ultrafast'"):
+        vpipe.build_graph(request.to_dict(), {}, [], tmp_path / "out.mp4")
+    with pytest.raises(ValueError, match="requires preset='ultrafast'"):
+        vpipe.audit_log("baked AdaLN for 4 steps", "vpipe-dense")
+    assert not list(tmp_path.iterdir())
+
+
+@pytest.mark.parametrize("command", ["generate", "resolve", "doctor"])
+def test_cli_does_not_offer_or_accept_dense(command, capsys):
+    from h3_apple.cli import parser
+    with pytest.raises(SystemExit) as error:
+        parser().parse_args([command, "--preset", "vpipe-dense"] +
+                            ([] if command == "doctor" else ["--prompt", "Text"]))
+    assert error.value.code == 2
+    assert "invalid choice" in capsys.readouterr().err
 
 
 @pytest.mark.parametrize("anchors", [("first",),("last",),("first","last")])

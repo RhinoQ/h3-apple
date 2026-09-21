@@ -11,29 +11,28 @@ Across ten five-second prompts, H3 Apple averaged **5m 56s** from launch to a
 validated MP4, versus **9m 07s** for vpipe / VDN: **34.8% less waiting** on the
 tested M5 Max. Watch every pair below, with generation times on screen.
 
-[Release v0.2.2](https://github.com/RhinoQ/h3-apple/releases/tag/v0.2.2) ·
+[Release v0.3.0](https://github.com/RhinoQ/h3-apple/releases/tag/v0.3.0) ·
 [Install](#generate-your-first-video) · [Python / CLI API](docs/api.md) ·
 [User guide: modes, references, quality and waiting time](docs/user-guide.md) ·
 [Native video downloads](https://github.com/RhinoQ/h3-apple/releases/tag/benchmark-videos-2026-09-11) ·
 [Reproduce the comparison](benchmarks/README.md)
 
-**0.2.2** supports text (**T2VA**), first/last frames (**FL2VA**, LightX2V v1.2),
+**0.3.0** supports text (**T2VA**), first/last frames (**FL2VA**, LightX2V v1.2),
 and pictures or videos (**Ref2VA**), with optional audio references.
 **First time? [Start with a five-second text video](#generate-your-first-video).**
 The automatic model downloader prepares T2VA; FL2VA and Ref2VA need separate
 bundles and additional setup. [Choose a mode](#use-your-own-images-video-or-audio).
 
-**0.2.2** adds the pinned four-step **DARE/TIES fro0995**
+Since **0.2.2**, H3 Apple supports the pinned four-step **DARE/TIES fro0995**
 Ref2VA adapter. [Preparation, existing-bundle compatibility and quality scope](docs/ref2va.md).
 Upgrading software does not replace model weights; select a separately prepared
 DARE/TIES bundle to use the new adapter.
 
-The unreleased source also offers optional native vpipe presets:
-**`ultrafast`** (i8 + Sol + Sage) and **`vpipe-dense`** (i8 + dense attention).
-`ours` remains the default. [Setup, supported inputs and quality/memory scope](docs/vpipe.md).
-These presets are not included in the published v0.2.2 package.
-The released comparisons below use the recorded vpipe / VDN configuration;
-their performance numbers do not describe these new presets.
+**0.3.0** adds **`--preset ultrafast`**: native vpipe i8 + Sol + Sage, using
+separately registered native weights and binaries. `ours` remains the default.
+[Setup, supported inputs and quality/memory scope](docs/vpipe.md).
+The comparisons below use the recorded vpipe / VDN configuration;
+their performance numbers do not describe ultrafast.
 
 ## Video comparisons
 
@@ -252,11 +251,11 @@ official MiniMax or Apple affiliation.
 
 **1. Install.** Install ARM64 [Miniforge](https://github.com/conda-forge/miniforge)
 or use an existing ARM64 Conda installation. Download and unzip the
-[v0.2.2 source archive](https://github.com/RhinoQ/h3-apple/releases/download/v0.2.2/h3-apple-0.2.2-source.zip).
+[v0.3.0 source archive](https://github.com/RhinoQ/h3-apple/releases/download/v0.3.0/h3-apple-0.3.0-source.zip).
 Open Terminal and enter its extracted folder:
 
 ```bash
-cd ~/Downloads/h3-apple-0.2.2
+cd ~/Downloads/h3-apple-0.3.0
 ./install.sh
 conda activate "$PWD/.local/envs/h3"
 h3 --version

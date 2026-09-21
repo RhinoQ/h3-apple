@@ -111,6 +111,8 @@ def check_reference_dependencies(task):
 
 
 def doctor(model_dir=None, preset="ours"):
+    if preset not in ("ours", "ultrafast"):
+        raise ValueError("preset must be 'ours' or 'ultrafast'.")
     info = snapshot()
     errors = []
     try:
@@ -128,7 +130,7 @@ def doctor(model_dir=None, preset="ours"):
             errors.append(str(error))
     from .assets import load_assets
     try:
-        if preset in ("ultrafast", "vpipe-dense"):
+        if preset == "ultrafast":
             from .vpipe_assets import load_vpipe_assets
             assets = load_vpipe_assets(model_dir)
             info["backend"] = {k: assets[k] for k in ("binary", "library", "tested_interface_commit")}

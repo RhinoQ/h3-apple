@@ -1,4 +1,4 @@
-"""Small user-facing commands for Ours generation and local model preparation."""
+"""Small user-facing commands for video generation and local model preparation."""
 
 import argparse
 from dataclasses import asdict
@@ -37,8 +37,8 @@ def parser():
         prompts = command.add_mutually_exclusive_group(required=True)
         prompts.add_argument("--prompt")
         prompts.add_argument("--prompt-file")
-        command.add_argument("--preset", choices=("ours", "ultrafast", "vpipe-dense"), default="ours",
-                             help="ours: current VSA default; ultrafast: native i8+Sol+Sage; vpipe-dense: comparison candidate")
+        command.add_argument("--preset", choices=("ours", "ultrafast"), default="ours",
+                             help="ours: default; ultrafast: native i8+Sol+Sage (separate native bundle)")
         command.add_argument("--task", choices=("t2va", "fl2va", "ref2va"),
                              help="Infer from inputs when omitted; reject mismatched task and inputs")
         command.add_argument("--first-frame", help="FL2VA first-frame image")
@@ -69,7 +69,7 @@ def parser():
             command.add_argument("--no-progress", action="store_true", help="Hide the stderr progress bar")
     doctor = commands.add_parser("doctor", help="Check the machine, runtime, media tools and models")
     doctor.add_argument("--model-dir")
-    doctor.add_argument("--preset", choices=("ours", "ultrafast", "vpipe-dense"), default="ours")
+    doctor.add_argument("--preset", choices=("ours", "ultrafast"), default="ours")
     models = commands.add_parser("models").add_subparsers(dest="model_command", required=True)
     prepare = models.add_parser("prepare", help="Prepare a verified local model bundle")
     prepare.add_argument("--checkpoint", help="Existing converted T2VA, FL2VA or Ref2VA VSA checkpoint")

@@ -45,7 +45,9 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
         raise ValueError("timeout must be a positive finite number of seconds.")
     if type(diagnostics) is not bool:
         raise ValueError("diagnostics must be a boolean.")
-    native = request.preset in ("ultrafast", "vpipe-dense")
+    if request.preset not in ("ours", "ultrafast"):
+        raise ValueError("preset must be 'ours' or 'ultrafast'.")
+    native = request.preset == "ultrafast"
     if native:
         from .vpipe_assets import load_vpipe_assets
         assets = load_vpipe_assets(model_dir)

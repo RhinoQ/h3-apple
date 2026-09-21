@@ -17,6 +17,8 @@ from .media import tool, finish_native
 
 
 def build_graph(request, assets, prepared, output):
+    if request["preset"] != "ultrafast":
+        raise ValueError("The native backend requires preset='ultrafast'.")
     stages = []
     def add(name, kind=None, inputs=(), **config):
         stages.append(dict(id=name, type=kind or name,
@@ -40,10 +42,9 @@ def build_graph(request, assets, prepared, output):
             add("load-"+anchor,"load-image",url=[reference["path"]])
             add("encode-"+anchor,"vae-encode",inputs=(("load-"+anchor,0),("model-select",0)),unload_when_idle="always")
             ports[5 if anchor=="first" else 6]=("encode-"+anchor,0)
-    fast=request["preset"]=="ultrafast"
     add("generate-video",inputs=ports,width=request["model_width"],height=request["model_height"],
         frames=request["model_num_frames"],fps=request["fps"],steps=recipe["graph_steps"],seed=request["seed"],
-        i8_gemm=True,sol_attn=fast,sage_attn=fast,sol_tau=1.0,sol_dense_layers=1,
+        i8_gemm=True,sol_attn=True,sage_attn=True,sol_tau=1.0,sol_dense_layers=1,
         sol_local_radius=1,sage_dense_layers=0,unload_when_idle="always")
     add("vae-decode",inputs=(("generate-video",0),("model-select",0)))
     add("audio-vae-decode",inputs=(("generate-video",1),("model-select",0)))
@@ -72,13 +73,14 @@ def prepare_inputs(request, references, directory):
 
 
 def audit_log(text, preset):
+    if preset != "ultrafast":
+        raise ValueError("The native backend requires preset='ultrafast'.")
     if "baked AdaLN for 4 steps" not in text:
         raise RuntimeError("vpipe did not confirm the expected four denoising steps; keep the native log.")
-    fast=preset=="ultrafast"
     for label in ("Sol-Attn ON","SageAttention ON"):
-        if (label in text)!=fast:
+        if label not in text:
             raise RuntimeError(f"vpipe did not confirm the requested attention mode: {label}")
-    if fast and ("Sol-Attn kept" not in text or re.search(r"sage_attn.*(off at|no matrix cores|requested but)",text)):
+    if "Sol-Attn kept" not in text or re.search(r"sage_attn.*(off at|no matrix cores|requested but)",text):
         raise RuntimeError("vpipe attention acceleration fell back; this is not a completed ultrafast run.")
 
 
@@ -100,7 +102,7 @@ def progress_event(line):
 
 
 def run(request, assets, workspace, emit, *, references=None, diagnostics=False):
-    if request["num_steps"]!=4: raise ValueError("The native presets require four denoising steps.")
+    if request["num_steps"]!=4: raise ValueError("Ultrafast requires four denoising steps.")
     workspace=Path(workspace); native=workspace/"native.mp4"
     prepared=prepare_inputs(request,references,workspace)
     graph=build_graph(request,assets,prepared,native)
@@ -139,7 +141,7 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False)
     if diagnostics:
         directory=workspace/"diagnostics"; directory.mkdir()
         write_json(directory/"native-run.json",dict(graph=graph,command=command,delivery_command=delivery))
-    return dict(actual_nfe=4,vsa=None,sparse_implementation="vpipe-sol-sage" if request["preset"]=="ultrafast" else None,
+    return dict(actual_nfe=4,vsa=None,sparse_implementation="vpipe-sol-sage",
         timings_seconds=timings,diagnostics_enabled=diagnostics,diagnostic_export_seconds=0,
         backend=dict(name="vpipe",binary=assets["binary"],library=assets["library"],tested_interface_commit=assets["tested_interface_commit"]),
         native=dict(graph=graph,graph_sha256=digest(graph_path),log_sha256=digest(workspace/"native.log"),

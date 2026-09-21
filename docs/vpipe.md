@@ -1,11 +1,9 @@
-# Optional native vpipe presets
+# Ultrafast generation with native vpipe
 
-The unreleased source adds `ultrafast` (native INT8 GEMM + Sol-Attn + SageAttention)
-and `vpipe-dense` (native INT8 GEMM + dense attention). `ours` remains the
-default. `vpipe-dense` is a comparison option, not an adopted quality default;
-neither option guarantees better quality or lower latency for every input.
-These presets require an installation built from this source; the published
-v0.2.2 package does not include them.
+Version 0.3.0 adds `ultrafast`: native INT8 GEMM + Sol-Attn + SageAttention,
+with four denoising steps. Select it explicitly with `--preset ultrafast`;
+`ours` remains the default. Speed and quality depend on the input and hardware.
+[Release validation and limits](validation.md#v030-ultrafast).
 
 H3 Apple invokes the separately installed **vpipe inference core**. It handles
 input snapshots, process cancellation, resource monitoring and final MP4
@@ -48,14 +46,13 @@ Use `--first-frame` / `--last-frame` with the FL2VA bundle, or ordered
 `--reference-image` arguments with the Ref2VA bundle. `--reference-resize match`
 uses the output canvas area for each reference image, as in `ours`.
 The Python API uses the same `preset` and `model_dir` arguments.
-Switch to `--preset vpipe-dense` for the native dense candidate.
 
 ## Scope and reproducibility
 
 - Supported: T2VA, still-image Ref2VA, first/last-frame FL2VA, landscape and
   portrait, existing 576p/768p delivery sizes and 5–15 second durations.
-  Reference video/audio is rejected by the native presets; use `ours` for it.
-- Both native presets use four actual denoising steps. The native graph has
+  Reference video/audio is rejected by ultrafast; use `ours` for it.
+- Ultrafast uses four actual denoising steps. The native graph has
   five sigma entries including terminal zero. FL2VA/T2VA use LightX2V v1.2
   with video/audio shifts 6/3; Ref2VA uses DARE/TIES with shifts 12/3.
 - Native seeds use vpipe's RNG. The same integer seed does **not** produce

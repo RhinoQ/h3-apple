@@ -4,9 +4,14 @@ Choose the input that best describes the job, start with five seconds, and use
 768p when small faces or fine details matter. H3 Apple generates video and
 stereo audio together; a separate audio reference is optional.
 
-This guide describes **0.2.2**. Check your installation with `h3 --version`.
+This guide describes **0.3.0**. Check your installation with `h3 --version`.
 Follow the [release installation instructions](install.md). DARE/TIES needs
 0.2.2 or later and its separately prepared Ref2VA bundle.
+
+For faster native generation, select `--preset ultrafast` and a separately
+registered vpipe bundle. It supports text, first/last frames and still-image
+references with i8 + Sol + Sage. Follow the [ultrafast setup guide](vpipe.md).
+The tables below describe the default `ours` preset.
 
 | I want to… | Choose / provide | Recipe selected by the product | What to expect |
 | --- | --- | --- | --- |

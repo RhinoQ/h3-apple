@@ -3,4 +3,4 @@
 from .api import GenerationResult, generate, resolve
 
 __all__ = ["GenerationResult", "generate", "resolve"]
-__version__ = "0.2.2"
+__version__ = "0.3.0"
