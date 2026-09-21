@@ -1,4 +1,4 @@
-"""Small user-facing commands for video generation and local model preparation."""
+"""Small commands for preparing H3 and generating videos from images."""
 
 import argparse
 from dataclasses import asdict
@@ -9,89 +9,46 @@ from .api import generate, resolve
 
 
 def progress(event):
-    phase = event.get("phase", "progress")
-    if "block" in event:
-        line = f"Denoise {event['step']}/{event['steps']}, block {event['block']}/{event['blocks']}"
-    elif "file" in event:
-        line = f"Preparing {event['file']}"
-    elif "tiles_completed" in event:
-        line = f"Video decode: {event['tiles_completed']} tiles complete"
-    elif phase == "model_plan":
-        line = (f"Missing downloads: {event['download_bytes'] / 1024**3:.2f} GiB; "
-                f"additional space including conversion: {event['additional_disk_bytes'] / 1024**3:.2f} GiB; "
-                f"source-cache space requirement: {event['cache_additional_disk_bytes'] / 1024**3:.2f} GiB")
+    if event.get("phase") == "model_plan":
+        line = (f"Download: {event['download_bytes'] / 10**9:.2f} GB; "
+                f"additional disk required: {event['additional_disk_bytes'] / 10**9:.2f} GB")
     else:
-        line = phase.replace("_", " ").capitalize()
+        line = event.get("message") or event.get("phase", "preparing").replace("_", " ").capitalize()
+        if event.get("file"):
+            line += ": " + event["file"]
     print(line, file=sys.stderr, flush=True)
 
 
 def parser():
-    top = argparse.ArgumentParser(prog="h3", description="Generate MiniMax-H3 video with stereo audio on Apple Silicon.")
     from . import __version__
+    top = argparse.ArgumentParser(prog="h3", description="Turn reference images and a prompt into video with stereo audio.")
     top.add_argument("--version", action="version", version=f"h3-apple {__version__}")
     commands = top.add_subparsers(dest="command", required=True)
     for name in ("generate", "resolve"):
-        command = commands.add_parser(name, help=(
-            "Generate an MP4 and run record" if name == "generate" else
-            "Inspect inputs and output settings without loading models"))
+        command = commands.add_parser(name, help="Generate a video" if name == "generate" else "Check inputs without generating")
         prompts = command.add_mutually_exclusive_group(required=True)
         prompts.add_argument("--prompt")
         prompts.add_argument("--prompt-file")
-        command.add_argument("--preset", choices=("ours", "ultrafast"), default="ours",
-                             help="ours: default; ultrafast: native i8+Sol+Sage (separate native bundle)")
-        command.add_argument("--task", choices=("t2va", "fl2va", "ref2va"),
-                             help="Infer from inputs when omitted; reject mismatched task and inputs")
-        command.add_argument("--first-frame", help="FL2VA first-frame image")
-        command.add_argument("--last-frame", help="FL2VA last-frame image; may be used alone")
-        command.add_argument("--reference-resize", choices=("legacy", "match"), default="legacy",
-                             help="Ref2VA images: legacy 0.258 MP, or match the output canvas area")
-        command.add_argument("--resolution", choices=("768p", "576p"),
-                             help="Default: 768p; 576p for Ref2VA with only still images")
-        command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9",
-                             help="Output orientation for all tasks: landscape (default) or portrait")
-        command.add_argument("--duration", type=float, default=15,
-                             help="Output seconds, 5–15 at 24 fps (default: 15); start with 5")
+        command.add_argument("--image", action="append", required=True, dest="reference_images",
+                             help="Reference image; repeat in picture-number order (1–9)")
+        command.add_argument("--duration", type=float, default=15, help="5–15 seconds (default: 15)")
+        command.add_argument("--resolution", choices=("576p", "768p"), default="576p")
+        command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         command.add_argument("--seed", type=int)
-        command.add_argument("--reference-image", action="append", dest="reference_images",
-                             help="Reference image; repeat in picture-number order (1–9 images)")
-        command.add_argument("--reference-video", action="append", dest="reference_videos",
-                             help="Local 2–15s video; repeat in Video-number order (1–3 videos)")
-        command.add_argument("--reference-audio", action="append", dest="reference_audio",
-                             help="Local 2–15s audio; repeat in Audio-number order (1–3 files); also provide an image or video")
-        command.add_argument("--no-reference-video-audio", action="store_false", dest="reference_video_audio",
-                             help="Ignore all reference-video soundtracks; keep explicit --reference-audio inputs")
         if name == "generate":
-            command.add_argument("--output", help="New .mp4 path; omit to create a unique folder under runs/")
-            command.add_argument("--model-dir", help="Prepared task bundle; defaults to H3_MODEL_DIR or ~/Models/h3-apple")
-            command.add_argument("--diagnostics", action="store_true")
-            command.add_argument("--timeout", type=float, default=7200,
-                                 help="Stop the worker after this many seconds (default: 7200)")
-            command.add_argument("--no-progress", action="store_true", help="Hide the stderr progress bar")
-    doctor = commands.add_parser("doctor", help="Check the machine, runtime, media tools and models")
-    doctor.add_argument("--model-dir")
-    doctor.add_argument("--preset", choices=("ours", "ultrafast"), default="ours")
-    models = commands.add_parser("models").add_subparsers(dest="model_command", required=True)
-    prepare = models.add_parser("prepare", help="Prepare a verified local model bundle")
-    prepare.add_argument("--checkpoint", help="Existing converted T2VA, FL2VA or Ref2VA VSA checkpoint")
-    prepare.add_argument("--components", help="Existing text encoder, tokenizer and VAEs")
-    prepare.add_argument("--ref2va-native", help="Native Ref2VA processor, tokenizer, text encoder and image VAE; use with a converted Ref2VA checkpoint")
-    prepare.add_argument("--fl2va-native", help="Native FL2VA processor, tokenizer, text encoder and image VAE; use with a converted FL2VA v1.2 checkpoint")
+            command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
+            command.add_argument("--model-dir")
+            command.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
+            command.add_argument("--timeout", type=float, default=7200)
+            command.add_argument("--no-progress", action="store_true")
+    prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
-    prepare.add_argument("--cache-dir", help="Reusable source files; defaults beside the model bundle")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
-                         help="Search an existing source snapshot or FL2VA directory; repeat as needed")
-    prepare.add_argument("--plan", action="store_true", help="Show download and disk requirements without downloading")
-    prepare.add_argument("--allow-large-download", action="store_true",
-                         help="Explicitly confirm the displayed downloads when they exceed 20 GB")
-    native = models.add_parser("import-vpipe", help="Register an existing native vpipe installation and 8-bit model; no downloads")
-    native.add_argument("--model-dir", required=True, help="New small bundle directory")
-    native.add_argument("--native-model", required=True, help="Unmerged vpipe 8-bit H3 model directory")
-    native.add_argument("--lora", required=True, help="Pinned FL2VA v1.2 or Ref2VA DARE/TIES adapter")
-    native.add_argument("--vpipe-binary", required=True)
-    native.add_argument("--vpipe-library", required=True, help="libvpipe.0.1.dylib next to its loader link")
-    for name in ("status", "verify"):
-        command = models.add_parser(name)
-        command.add_argument("--model-dir")
+                         help="Reuse a source snapshot or an existing H3 model installation")
+    prepare.add_argument("--plan", action="store_true", help="Check download and disk requirements only")
+    prepare.add_argument("--allow-large-download", action="store_true", help="Confirm downloads exceeding 20 GB")
+    for name in ("doctor", "verify"):
+        commands.add_parser(name, help="Check installation" if name == "doctor" else "Verify all model checksums").add_argument("--model-dir")
     return top
 
 
@@ -99,61 +56,43 @@ def main(argv=None):
     args = vars(parser().parse_args(argv))
     command = args.pop("command")
     try:
-        if command == "resolve":
-            result = resolve(**args).to_dict()
-        elif command == "generate":
+        if command == "generate":
             from .progress import ProgressBar
             with ProgressBar(enabled=not args.pop("no_progress")) as display:
                 result = asdict(generate(**args, on_progress=display))
+        elif command == "resolve":
+            result = resolve(**args).to_dict()
         elif command == "doctor":
             from .host import doctor
             result = doctor(**args)
-            print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
+            print(json.dumps(result, indent=2, default=str))
             return 0 if result["ready"] else 1
+        elif command == "verify":
+            from .assets import load_assets
+            data = load_assets(args["model_dir"], verify=True)
+            result = dict(status="verified", directory=data["directory"], identity=data["identity"])
         else:
-            from .assets import import_assets, load_assets
-            name = args.pop("model_command")
-            directory = args.pop("model_dir")
-            if name == "import-vpipe":
-                from .vpipe_assets import import_vpipe_assets
-                result = import_vpipe_assets(model_dir=directory, progress=progress, **args)
-            elif name == "prepare":
-                checkpoint, components = args.pop("checkpoint"), args.pop("components")
-                native = args.pop("ref2va_native")
-                fl_native = args.pop("fl2va_native")
-                if native and fl_native:
-                    raise ValueError("Choose only one native conditioned model task.")
-                if bool(checkpoint) != bool(components):
-                    raise ValueError("Provide both --checkpoint and --components to import converted assets.")
-                if (native or fl_native) and not checkpoint:
-                    raise ValueError("--ref2va-native / --fl2va-native requires --checkpoint and --components.")
-                show_plan = args.pop("plan")
-                if checkpoint:
-                    if show_plan or args["cache_dir"] or args["reuse_dirs"] or args["allow_large_download"]:
-                        raise ValueError("Source-download options cannot be combined with converted-asset import.")
-                    result = import_assets(checkpoint, components, directory, progress=progress,
-                                           ref2va_native=native, fl2va_native=fl_native)
-                else:
-                    from .preparation import plan, prepare
-                    if show_plan:
-                        args.pop("allow_large_download")
-                        result = plan(directory, progress=progress, **args)
-                        print(json.dumps(result, indent=2, ensure_ascii=False))
-                        return 0
-                    result = prepare(directory, progress=progress, **args)
+            from .preparation import plan, prepare, LIMIT
+            show_plan = args.pop("plan")
+            allowed = args.pop("allow_large_download")
+            spec = plan(**args, progress=progress)
+            progress(dict(spec, phase="model_plan"))
+            if show_plan:
+                result = {k: v for k, v in spec.items() if k not in ("groups", "prepared")}
             else:
-                from pathlib import Path
-                if directory is not None and (Path(directory).expanduser() / "vpipe.json").is_file():
-                    from .vpipe_assets import load_vpipe_assets
-                    result = load_vpipe_assets(directory, verify=name == "verify")
-                else:
-                    result = load_assets(directory, verify=name == "verify")
-            result = {key: result[key] for key in ("directory", "identity", "checkpoint", "components", "native_model", "tasks") if key in result}
+                if spec["download_bytes"] > LIMIT and not allowed and sys.stdin.isatty():
+                    allowed = input("Download these model files? [y/N] ").strip().lower() in ("y", "yes")
+                data = prepare(spec, allow_large_download=allowed, progress=progress)
+                result = dict(status="ready", directory=data["directory"], identity=data["identity"])
         print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
         return 0
     except KeyboardInterrupt:
-        print("Generation cancelled.", file=sys.stderr)
+        print("Cancelled. Working files were preserved.", file=sys.stderr)
         return 130
-    except (OSError, ValueError, RuntimeError) as error:
+    except (OSError, ValueError, RuntimeError, TimeoutError) as error:
         print(f"h3: {error}", file=sys.stderr)
         return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

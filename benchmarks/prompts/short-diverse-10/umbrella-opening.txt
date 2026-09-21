@@ -1,5 +1,0 @@
-integrated_multimodal_description: [Shot 1] A five-second cinematic medium shot on a rainy sidewalk. An adult cyclist in a tan coat stands beside a silver bicycle, holding a closed navy umbrella. She raises it above her shoulder and pushes the runner until the canopy opens; droplets shake from the fabric as she settles underneath. The camera moves back slightly to keep the umbrella and bicycle visible. Soft grey daylight reflects on the pavement.
-
-overall_soundscape: Steady rain, the runner's metallic click, a fabric snap, and water dripping from the bicycle.
-
-non_diegetic_music: N/A

@@ -1,87 +1,57 @@
 # Development
 
-See [architecture](architecture.md) for the runtime layout and [validation](validation.md)
-for completed checks and their scope.
+h3-apple has one public path: still-image Ref2VA with four denoising forwards,
+INT8 GEMM, Sol-Attn and SageAttention. The prompt and reference ordering are
+preserved. Image preprocessing uses the output canvas area and 32-pixel
+alignment. The 768p model canvas is center-cropped to the delivered dimensions;
+extra model frames are trimmed with sample-accurate audio endpoints.
 
-## Install and test
+The Python layer owns input validation, model preparation, resource limits,
+progress, cancellation, media validation and run records. The native engine
+owns model execution and Metal kernels. `engine.py` builds one fixed graph;
+there is no alternate inference backend or silent attention fallback.
+
+The engine comes from the unmodified [vpipe source at the pinned commit](https://github.com/tgo-app-dev/vpipe/tree/f34e2cc3a3adae759eea254419f436f5b7800057).
+Its authors and dependencies are credited in [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES).
+The product downloads and manages that engine internally; users do not need
+another project or configuration interface.
+
+## Verify a change
 
 ```bash
-./install.sh
-"$PWD/.local/envs/h3/bin/python" -m pip install -r environments/dev.lock
-"$PWD/.local/envs/h3/bin/python" -m pytest -q
+.local/envs/h3/bin/python -m pip install -r environments/dev.lock
+.local/envs/h3/bin/python -m pip install --no-deps --no-build-isolation .
+.local/envs/h3/bin/python -I -m pytest tests -q
 ```
 
-Fast tests use temporary files and small media, without loading H3 or relying
-on local historical experiments. Installation-independence tests require a
-regular wheel installation first. After code changes, rerun `./install.sh`.
-Formal timing uses a frozen, regular installation. Editable installs are useful
-during development but do not qualify as frozen-release measurements.
+Tests use temporary files and synthetic media. A release also needs a normal
+wheel installation, an actual model preparation or verified local reuse,
+and a complete image-reference video through the public CLI. Keep execution,
+quality judgments and performance comparisons as separate claims.
 
-## Validate performance changes
+## Build the engine artifact
 
-Run the public CLI/API from outside the repository with a fixed interpreter,
-model identity, full input, and preset. Declare the question,
-single change, acceptance criteria, and stopping conditions before running.
-Preserve raw results in a unique directory. `diagnostics=True` exports necessary
-tensors through the existing observer; ordinary runs do not prepare diagnostics.
+Check out the exact source revision above, including its submodules. Build
+against the FFmpeg headers from the project environment, in Release mode:
 
-Compare a candidate with a fixed stable version using separate regular wheel
-installations. Match inputs, models, delivery specifications, and measurement
-conditions except for the declared change. Record full audiovisual delivery
-time and quality findings, including failures. Public benchmark prompts are
-already seen; use separate calibration and held-out data for new quality claims.
-Identical seeds need not create identical noise across engines.
+```bash
+cmake -S /path/to/vpipe -B /path/to/build -DCMAKE_BUILD_TYPE=Release \
+  -DVPIPE_METAL_RUNTIME_COMPILE=ON \
+  -DVPIPE_FFMPEG_INCLUDE_DIRS="$PWD/.local/envs/h3/include"
+cmake --build /path/to/build --target vpipe vpipe-cli -j 8
+.local/envs/h3/bin/python tools/package_engine.py \
+  --source-dir /path/to/vpipe --build-dir /path/to/build \
+  --output /path/to/h3-apple-engine-macos-arm64.zip
+```
 
-Add regression coverage appropriate to the change and verify timings after
-integration. Keep the previous wheel, environment locks, and model identity
-available for rollback. The optional [Ours/vpipe benchmark](../benchmarks/README.md)
-compares complete systems with different recipes; it does not isolate an
-individual optimization's contribution.
+Follow upstream build requirements for CMake and platform tools. Metal sources
+are embedded in the library and compiled at runtime. The release CLI and library
+link only to system libraries; FFmpeg is loaded from the private Conda environment.
+The artifact carries upstream licenses and notices. `data/engine.json` pins the
+archive and every member by size and SHA256. Build identity is recorded, but
+byte-identical compiler output across SDK versions is not promised.
 
-## Upstream code and distribution
-
-Required FastVideo MLX files are bundled as a fixed snapshot. Paths and local
-changes are recorded in [sources.json](sources.json). Review actual diffs,
-licenses, and runtime results when updating.
-
-Our Apache-2.0 code, upstream MIT/BSD/Apache code, and separate model terms are
-attributed in [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES) and the wheel's license
-files.
-
-Review the complete code, evidence, and presentation before publication.
-Large originals belong in Release assets; small previews and input/run manifests
-with hashes belong in Git. Public download links must resolve to published files.
-The [gallery manifest](../examples/gallery/manifest.json) maps each displayed
-comparison to its source results and native videos.
-
-## Software releases
-
-Update both `version` in `pyproject.toml` and `__version__` in
-`src/h3_apple/__init__.py`. The current source uses `0.3.0`; the CLI reads
-`__version__`, while Git tags use the `v` prefix. The latest published tag is
-`v0.3.0`. Update current-version
-documentation and retain the original version in historical benchmark records.
-Rebuild and install a regular wheel so package metadata, Python imports and
-`h3 --version` agree; editing the checkout alone does not update an installed
-environment. Keep model recipe and bundle-format versions unchanged unless
-those formats or recipes actually change.
-
-Use patch versions for compatible fixes (for example, `0.2.1`) and minor
-versions for feature milestones (for example, `0.3.0`). A version change
-does not establish new quality or performance results. A local commit or tag
-does not publish a GitHub release; keep published installation links pinned to
-available assets until the new release is uploaded and verified.
-
-[Software releases](https://github.com/RhinoQ/h3-apple/releases) use annotated
-`v<package-version>` tags. The tag, `pyproject.toml`, and `h3 --version` must agree.
-Development versions are marked **Pre-release** on GitHub. Installation examples
-pin the published tag so a later change on `main` does not change that release.
-
-Build the wheel and complete source archive from the tagged commit. Verify a
-regular wheel installation outside the checkout, run the relevant tests, and
-check that all packaged runtime files match the validated baseline. Publish
-the source archive, wheel, `release-manifest.json`, and `SHA256SUMS` together;
-the manifest records the commit, runtime identity, environment locks, and
-artifact hashes. Verify the published downloads before announcing the release.
-Keep published tags and artifacts unchanged; corrections use a new version.
-Video-only releases have separate `benchmark-videos-*` tags.
+Release source and wheel must contain identical Python/data files. Publish the
+engine archive alongside them, a release manifest, and SHA256SUMS. The source
+installer must work without a pre-existing Python environment. Do not bundle
+model weights or user reference images in release assets.

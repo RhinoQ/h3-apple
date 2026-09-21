@@ -3,8 +3,6 @@
 from contextlib import contextmanager
 import ctypes
 import fcntl
-import importlib.metadata
-import importlib.util
 import os
 from pathlib import Path
 import platform
@@ -12,7 +10,6 @@ import re
 import shutil
 import subprocess
 
-from .io import digest
 from .media import tool
 
 
@@ -55,13 +52,13 @@ def snapshot():
 
 def check_machine(info, request=None):
     if info["system"] != "Darwin" or info["machine"] != "arm64":
-        raise RuntimeError("Ours requires an Apple Silicon Mac.")
+        raise RuntimeError("H3 Apple requires an Apple Silicon Mac.")
     if "M5" not in info["chip"]:
-        raise RuntimeError("This Ours version requires M5 GPU kernels; other chips are not validated.")
+        raise RuntimeError("This H3 Apple version requires M5 GPU kernels; other chips are not validated.")
     if tuple(map(int, info["macos"].split(".")[:2])) < (26, 2):
-        raise RuntimeError("The fixed MLX Metal build requires macOS 26.2 or later.")
+        raise RuntimeError("The H3 engine requires macOS 26.2 or later.")
     if info["memory_bytes"] < 64 * 1024**3:
-        raise RuntimeError("This Ours preset requires at least 64 GiB unified memory.")
+        raise RuntimeError("H3 Apple requires at least 64 GiB unified memory.")
     if (request is not None and request["resolution"] == "768p"
             and request["duration"] > 5 and info["memory_bytes"] < 96 * 1024**3):
         raise RuntimeError("768p videos longer than 5 seconds require at least 96 GiB unified memory. "
@@ -84,44 +81,12 @@ def device_lock(path=None):
             fcntl.flock(stream, fcntl.LOCK_UN)
 
 
-def backend_identity():
-    import mlx.core as mx
-    dist = importlib.metadata.distribution("mlx-metal")
-    lib = Path(dist.locate_file("mlx/lib/libmlx.dylib")).resolve()
-    dyld = ctypes.CDLL(None)
-    count = dyld._dyld_image_count
-    count.restype = ctypes.c_uint32
-    name = dyld._dyld_get_image_name
-    name.argtypes = [ctypes.c_uint32]
-    name.restype = ctypes.c_char_p
-    loaded = [Path(name(i).decode()).resolve() for i in range(count())]
-    checksum = digest(lib)
-    if lib not in loaded or checksum != "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51":
-        raise RuntimeError("The loaded MLX backend differs from the pinned macOS 26 wheel. Run ./install.sh.")
-    return dict(device=mx.device_info(), libmlx_sha256=checksum,
-                metallib_sha256=digest(lib.parent / "mlx.metallib"),
-                versions={n: importlib.metadata.version(n) for n in
-                          ("mlx", "mlx-metal", "numpy", "transformers")})
-
-
-def check_reference_dependencies(task):
-    if task in ("ref2va", "fl2va"):
-        if any(importlib.util.find_spec(name) is None for name in ("torch", "torchvision")):
-            raise RuntimeError("Reference conditioning needs the ref2va extra. Run ./install.sh --ref2va.")
-
-
-def doctor(model_dir=None, preset="ours"):
-    if preset not in ("ours", "ultrafast"):
-        raise ValueError("preset must be 'ours' or 'ultrafast'.")
+def doctor(model_dir=None):
     info = snapshot()
     errors = []
     try:
         check_machine(info)
-        if preset == "ours":
-            os.environ["MLX_ENABLE_TF32"] = "0"
-            os.environ["MLX_METAL_GPU_ARCH"] = ""
-            info["backend"] = backend_identity()
-    except Exception as error:
+    except RuntimeError as error:
         errors.append(str(error))
     for name in ("ffmpeg", "ffprobe"):
         try:
@@ -130,18 +95,9 @@ def doctor(model_dir=None, preset="ours"):
             errors.append(str(error))
     from .assets import load_assets
     try:
-        if preset == "ultrafast":
-            from .vpipe_assets import load_vpipe_assets
-            assets = load_vpipe_assets(model_dir)
-            info["backend"] = {k: assets[k] for k in ("binary", "library", "tested_interface_commit")}
-        else:
-            assets = load_assets(model_dir)
+        assets = load_assets(model_dir)
         info["models"] = {k: assets[k] for k in ("directory", "identity")}
-        if preset == "ours":
-            info["models"]["task"] = assets.get("task", "t2va")
-            check_reference_dependencies(info["models"]["task"])
-        else:
-            info["models"]["tasks"] = assets["tasks"]
+        info["engine"] = {k: assets[k] for k in ("binary", "library", "tested_interface_commit")}
     except (OSError, ValueError, RuntimeError) as error:
         errors.append(str(error))
     info["free_disk_bytes"] = shutil.disk_usage(Path.cwd()).free

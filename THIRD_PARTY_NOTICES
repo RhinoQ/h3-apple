@@ -1,75 +1,46 @@
-H3 Apple is a community project, not an official MiniMax, FastVideo or vpipe release.
+h3-apple is an independent community project.
 Copyright 2026 H3 Apple contributors. Independently authored code is Apache-2.0.
-Third-party code, models and model-derived material retain their own terms.
+Third-party software and models retain their respective terms.
 
-FastVideo
-  https://github.com/hao-ai-lab/FastVideo
-  Snapshot: 7bb76b5ec99807a66aa3047b901f15019abe0f00
-  The selected MLX runtime files are under Apache-2.0.
-  Full license: licenses/FastVideo-APACHE-2.0.txt
-  Modified files carry notices. Origins and changes: docs/sources.json.
+Native inference engine: vpipe
+  https://github.com/tgo-app-dev/vpipe
+  Pinned source: f34e2cc3a3adae759eea254419f436f5b7800057
+  Copyright 2026 T-Go LLC. Apache-2.0.
+  This product includes software developed at T-Go LLC.
+  The release redistributes the unmodified CLI executable and shared library,
+  with the CLI filename changed to h3-engine. No inference kernels are claimed
+  as independently authored by h3-apple.
+  Full license: licenses/vpipe-APACHE-2.0.txt
+  Required notice: licenses/vpipe-NOTICE.txt
+  Dependency notices: licenses/vpipe-THIRD-PARTY-LICENSES.txt
+  The engine archive also carries these three files. FFmpeg is supplied
+  separately through Conda, not bundled into the engine archive.
 
-MLX, mlx-flashattention-steel / MFA, Draw Things
-  The selected-route attention kernel includes adapted sparse attention and
-  Apple MLX Steel helpers. Source revisions, changes and full MIT / BSD terms
-  are retained in src/h3_apple/runtime/metal/p085_NOTICE.txt and the adjacent
-  p085_mfa_LICENSE.txt, p085_MLX_LICENSE.txt and p085_DRAWTHINGS_LICENSE.txt.
+Image reference preprocessing
+  The size/alignment conventions follow MiniMax/FastVideo and Diffusers.
+  Copyright 2026 The MiniMax and HuggingFace Teams. Apache-2.0.
+  The H3 Apple implementation applies EXIF orientation, RGB conversion,
+  output-area sizing and Lanczos resizing with Pillow.
+  The retained Apache text is licenses/FastVideo-APACHE-2.0.txt.
 
-h3.c
-  https://github.com/antirez/h3.c
-  Snapshot: 8974cc055ea9c02fcd14cc27dfda3e1027c05153
-  Copyright (c) 2026 Salvatore Sanfilippo. MIT.
-  Adaptations and full license: src/h3_apple/runtime/metal/p087_NOTICE.txt.
-
-MiniMax-H3 and FastH3 adapter models
-  Model weights are downloaded separately and are not covered by the code's
-  Apache license. The pinned base and VSA adapter both carry the MiniMax H3
-  Community License Agreement. Full text: licenses/MiniMax-H3.txt.
+MiniMax H3 model
+  https://huggingface.co/MiniMaxAI/MiniMax-H3
+  Revision: bfc8ed0353f5a9733be73e6b2c98ec0948195b86
   MiniMax H3 is licensed under the MiniMax H3 Community License Agreement,
   Copyright © 2026 MiniMax. All Rights Reserved.
-  Source revisions and checksums: src/h3_apple/data/model-sources.json.
-  Native layout conversion, adapter fusion, INT8 quantization, omitted image
-  encoder and precomputed modulation tables are local model modifications.
-  The Qwen3-VL-32B text encoder's Apache-2.0 terms are identified by the model
-  license; retained text encoder/tokenizer files are unmodified.
+  Full terms: licenses/MiniMax-H3.txt. Built with MiniMax H3.
+  Models are downloaded separately. Local 8-bit quantization and runtime
+  adapter application are modifications of the model, not new model rights.
+  The included Qwen3-VL encoder/tokenizer retain their Apache-2.0 terms.
 
-Calibration statistics
-  src/h3_apple/data/vae-calibration.npz contains frozen channel maxima from
-  the research project's adopted VAE calibration, not model weights or a
-  downloadable replacement model. Its origin and checksum are in
-  docs/sources.json. Use of MiniMax-derived material remains subject to the
-  model terms; the code license does not remove those conditions.
+Ref2VA four-step adapter
+  https://huggingface.co/silveroxides/MiniMax-H3_tests
+  Revision: 16f950c2e3d78440778fe1e84d9179932e19b1de
+  ref2v_dareties/minimax_h3_ref2v_turbo_4step_v0.1_v4_step600_dareties_fro0995.safetensors
+  This DARE/TIES community merge credits the LightX2V and larryvrh adapter
+  lines. Original model terms continue to apply. No trained weights are
+  bundled in source, wheel or engine releases. Exact source checksums are
+  in src/h3_apple/data/model-sources.json.
 
-Optional comparison projects
-  The comparison script invokes separately installed official FastVideo and
-  vpipe commands. Their software and model licenses apply independently;
-  their binaries and weights are not bundled in this repository.
-
-Reference conditioning and VSA
-  Reference packing and conditioning derive from MiniMax/FastVideo interfaces;
-  exact upstream source identities are recorded in docs/sources.json.
-  Video canvas sizing and reference semantics also follow Diffusers (Apache-2.0),
-  Copyright 2026 The MiniMax and HuggingFace Teams. The modified canvas rule is
-  in src/h3_apple/media.py; pinned sources are recorded in docs/sources.json.
-  Kablex's ComfyUI-Ref2VA-VSA (Apache-2.0) provides the gate-transplant and
-  segment-pure prefix design: https://github.com/Kablex/ComfyUI-Ref2VA-VSA.
-  The optional Kablex routing mode follows Comfy Kitchen's Sol-Attn top-k,
-  forced-neighbor, tie and coarse-gate semantics, implemented independently
-  for the existing MLX runtime: https://github.com/Comfy-Org/comfy-kitchen.
-  LightX2V Ref2VA / FL2VA v1.2 and FastH3 gate weights are supplied separately;
-  FL2VA v1.2 release and settings: https://huggingface.co/lightx2v/Minimax-h3-Turbo/discussions/52.
-  The recommended Ref2VA DARE/TIES fro0995 adapter is supplied separately by
-  silveroxides: https://huggingface.co/silveroxides/MiniMax-H3_tests.
-  Its pinned revision, filename and checksum are in src/h3_apple/ref2va_recipe.py.
-  This is a community merge of the LightX2V / larryvrh adapter lines; credit and
-  model terms remain with their respective sources. No claim of additional
-  model rights follows from this code's license.
-  The original
-  MiniMax model terms continue to apply. No trained weights are bundled here.
-
-Optional native vpipe ultrafast preset
-  Graph interface follows https://github.com/tgo-app-dev/vpipe, Apache-2.0.
-  Tested interface: f34e2cc3a3adae759eea254419f436f5b7800057.
-  H3 Apple invokes a separately installed vpipe binary; no vpipe Metal core,
-  binaries or weights are bundled. Runtime binary/library hashes and local
-  model receipts are recorded per installation and per generated video.
+Older MLX/VSA implementations and their original notices remain in the
+v0.3.0 Git tag; they are not part of this release's Python runtime.

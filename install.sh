@@ -1,35 +1,38 @@
 #!/bin/bash
 set -euo pipefail
 root="$(cd "$(dirname "$0")" && pwd)"
-ref2va=false
-if [[ "${1:-}" == --ref2va && $# -eq 1 ]]; then
-  ref2va=true
-elif [[ $# -ne 0 ]]; then
-  echo "Usage: ./install.sh [--ref2va]" >&2
+if [[ $# -ne 0 ]]; then
+  echo 'Usage: ./install.sh' >&2
   exit 2
 fi
 if [[ "$(uname -s)" != Darwin || "$(uname -m)" != arm64 ]]; then
-  echo "H3 Apple requires an Apple Silicon Mac." >&2
+  echo 'H3 Apple requires an Apple Silicon Mac.' >&2
   exit 1
 fi
 conda_bin="${CONDA_EXE:-$(command -v conda || true)}"
 if [[ -z "$conda_bin" ]]; then
-  echo "Install Miniforge or Miniconda, then run ./install.sh again." >&2
-  exit 1
+  conda_bin="$root/.local/miniforge/bin/conda"
+  if [[ ! -x "$conda_bin" ]]; then
+    mkdir -p "$root/.local/downloads"
+    name='Miniforge3-26.7.2-0-MacOSX-arm64.sh'
+    installer="$root/.local/downloads/$name"
+    if [[ ! -f "$installer" ]]; then
+      curl --fail --location --retry 3 --output "$installer.partial" \
+        "https://github.com/conda-forge/miniforge/releases/download/26.7.2-0/$name"
+      mv "$installer.partial" "$installer"
+    fi
+    (cd "$root/.local/downloads" && shasum --algorithm 256 --check "$root/environments/miniforge.sha256")
+    bash "$installer" -b -p "$root/.local/miniforge"
+  fi
 fi
 prefix="$root/.local/envs/h3"
 if [[ ! -f "$prefix/conda-meta/history" ]]; then
-  # A private cache plus copies keeps pip from modifying Conda's shared hardlinks.
   CONDA_PKGS_DIRS="$root/.local/conda-pkgs" "$conda_bin" create --yes --copy \
     --prefix "$prefix" --file "$root/environments/conda-osx-arm64.lock"
 fi
 "$prefix/bin/python" -m pip install --requirement "$root/environments/requirements.lock"
-if $ref2va; then
-  "$prefix/bin/python" -m pip install --requirement "$root/environments/ref2va.lock"
-fi
 "$prefix/bin/python" -m pip install --no-deps --no-build-isolation "$root"
 "$prefix/bin/python" -m pip check
-echo "Installed. Activate with: conda activate $prefix"
-echo "Fixed Python: $prefix/bin/python"
-echo "Next: h3 models prepare --plan (T2VA). Review downloads before preparation."
-echo "FL2VA and Ref2VA need separate model bundles; see README.md."
+printf '\nInstalled h3-apple. Preparing the model (existing weights are reused).\n'
+"$root/h3" prepare
+printf '\nReady. Generate with: ./h3 generate --image reference.jpg --prompt "Your scene"\n'

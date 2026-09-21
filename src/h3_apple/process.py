@@ -45,22 +45,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
         raise ValueError("timeout must be a positive finite number of seconds.")
     if type(diagnostics) is not bool:
         raise ValueError("diagnostics must be a boolean.")
-    if request.preset not in ("ours", "ultrafast"):
-        raise ValueError("preset must be 'ours' or 'ultrafast'.")
-    native = request.preset == "ultrafast"
-    if native:
-        from .vpipe_assets import load_vpipe_assets
-        assets = load_vpipe_assets(model_dir)
-    else:
-        assets = load_assets(model_dir)
-    if (request.task not in assets["tasks"] if native else assets.get("task", "t2va") != request.task):
-        raise ValueError(f"This request needs a {request.task.upper()} model bundle; select the matching --model-dir.")
-    from .host import check_reference_dependencies
-    if not native:
-        check_reference_dependencies(request.task)
-    if request.task == "fl2va" and not native:
-        from .fl2va_recipe import fl2va_sampling
-        fl2va_sampling(json.loads((Path(assets["checkpoint"]) / "fl2va_recipe.json").read_text()), request.num_steps)
+    assets = load_assets(model_dir)
     if output is None:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         directory = Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}"
@@ -88,10 +73,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     process = None
     worker_result = None
     try:
-        environment = dict(os.environ, MLX_ENABLE_TF32="0", FASTVIDEO_MLX_DQ_GEMM="1",
-                           MLX_METAL_GPU_ARCH="",
-                           HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1",
-                           TOKENIZERS_PARALLELISM="false")
+        environment = dict(os.environ, HF_HUB_OFFLINE="1")
         environment["PATH"] = str(Path(sys.executable).parent) + os.pathsep + environment.get("PATH", "")
         with (workspace / "worker.log").open("w") as log:
             process = subprocess.Popen([sys.executable, "-m", "h3_apple.worker"],
@@ -110,41 +92,8 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
                     references.append(str(target))
                     run["reference_inputs"].append(dict(index=index + 1, source=source,
                                                         sha256=digest(target), size=target.stat().st_size))
-                budget = request.model_width * request.model_height if request.reference_resize == "match" else 672 * 384
-                spec["ref2va"] = dict(native_root=assets.get("ref2va_native"), image_paths=references,
-                                      pixel_budget=budget, attention="vsa", reference_resize=request.reference_resize)
-            if request.reference_videos or request.reference_audio:
-                options = spec.setdefault("ref2va", dict(native_root=assets.get("ref2va_native"),
-                    image_paths=[], pixel_budget=672 * 384, attention="vsa",
-                    reference_resize=request.reference_resize))
-                # Video uses the accepted Dense recipe; new audio conditions
-                # use Dense until separately evaluated with transferred gates.
-                options["attention"] = "dense"
-                options["video_audio"] = request.reference_video_audio
-                for kind, sources in (("audio", request.reference_audio), ("video", request.reference_videos)):
-                    if not sources:
-                        continue
-                    options[kind + "_paths"] = []
-                    for index, source in enumerate(sources):
-                        target = workspace / f"reference-{kind}-{index + 1}{Path(source).suffix}"
-                        shutil.copyfile(source, target)
-                        options[kind + "_paths"].append(str(target))
-                        run.setdefault("reference_inputs", []).append(dict(kind=kind, index=index + 1,
-                            source=source, sha256=digest(target), size=target.stat().st_size))
-            if request.task == "fl2va":
-                images, anchors = [], []
-                run["reference_inputs"] = []
-                for name in ("first", "last"):
-                    source = getattr(request, name + "_frame")
-                    if source is None:
-                        continue
-                    target = workspace / f"{name}-frame{Path(source).suffix}"
-                    shutil.copyfile(source, target)
-                    images.append(str(target)); anchors.append(name)
-                    run["reference_inputs"].append(dict(kind="keyframe", anchor=name, source=source,
-                        sha256=digest(target), size=target.stat().st_size))
-                spec["ref2va"] = dict(task="fl2va", native_root=assets.get("fl2va_native"),
-                                      image_paths=images, anchors=anchors, attention="vsa")
+                spec["ref2va"] = dict(image_paths=references,
+                                      pixel_budget=request.model_width * request.model_height)
             process.stdin.write(json.dumps(spec) + "\n")
             process.stdin.close()
             run.update(status="running", worker_pid=process.pid)

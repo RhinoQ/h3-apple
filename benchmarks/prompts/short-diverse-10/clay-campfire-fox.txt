@@ -1,5 +1,0 @@
-integrated_multimodal_description: [Shot 1] A five-second handcrafted clay-animation scene in a miniature forest campsite. A small orange fox pads up to a seated camper holding a toasted marshmallow. The camper lowers the stick slightly, and the fox tilts its head to sniff. A tiny campfire flickers beside a blue tent. Use visible clay texture, warm firelight, a fixed medium-wide camera, and deliberate stop-motion movement.
-
-overall_soundscape: Soft paw steps, a curious sniff, and gentle fire crackles.
-
-non_diegetic_music: A few softly plucked acoustic-guitar notes.

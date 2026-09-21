@@ -1,5 +1,0 @@
-case,method,status,elapsed_seconds,actual_nfe,quality_review,video_sha256
-motion-graphics,ours,complete,354.4176160839852,4,pending,35753ae30b3f5acd1172ee78d6cca1b44fda96f3a78146389476de63952c755d
-motion-graphics,vpipe,complete,528.6738102501258,,pending,cb0185b8a9ac8cf843b2e29058eb42fd49526088dfa8667a12374e3256e4491a
-bakery,ours,complete,355.172739040805,4,pending,895e245bddb2958651ebd09d14508abc85769ab078d962a566fa7f622351d3df
-bakery,vpipe,complete,540.8828982079867,,pending,17fd21798725ece062a4dc640147b3b07a9b1c1c6629d6bdccf7dde0e901a556

@@ -1,4 +1,4 @@
-"""Immutable local model bundles, with explicit content identity and reuse."""
+"""The single pinned Ref2VA model and managed native engine."""
 
 import hashlib
 import json
@@ -6,200 +6,145 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
+import zipfile
 
+from .downloads import download
 from .io import digest, write_json
+
+SCHEMA = "h3-apple-model/v1"
+RECIPE = dict(steps=4, graph_steps=5, video_shift=12.0, audio_shift=3.0, lora_scale=1.0)
+
+
+def data_file(name):
+    return json.loads((Path(__file__).parent / 'data' / name).read_text())
 
 
 def model_directory(value=None):
-    return Path(value or os.environ.get("H3_MODEL_DIR", Path.home() / "Models/h3-apple")).expanduser().resolve()
+    return Path(value or os.environ.get('H3_MODEL_DIR') or
+                Path.home() / 'Models/h3-apple/ref2va').expanduser().resolve()
 
 
-def bundle_identity(manifest):
-    content = [{k: e[k] for k in ("path", "sha256", "size")} for e in manifest["files"]]
-    if manifest["format_version"] == 2:
-        content = {"files": content, "derivation": manifest["derivation"]}
-    elif manifest["format_version"] == 3:
-        content = {"files": content, **{key: manifest[key] for key in
-                   ("derivation", "task", "checkpoint", "components", "ref2va_native")}}
-    elif manifest["format_version"] == 4:
-        content = {"files": content, **{key: manifest[key] for key in
-                   ("derivation", "task", "checkpoint", "components", "fl2va_native")}}
-    return hashlib.sha256(json.dumps(content, sort_keys=True).encode()).hexdigest()
+def identity(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
 
 
-def _files(checkpoint, components, ref2va_native=None, fl2va_native=None):
-    checkpoint, components = Path(checkpoint).resolve(), Path(components).resolve()
-    manifest = checkpoint / "mlx_h3_dit.json"
-    config = json.loads(manifest.read_text())
-    if (not config.get("vsa", {}).get("capable") or config.get("num_blocks") != 50
-            or config.get("quantization") != {"mode": "affine", "bits": 8, "group_size": 64}):
-        raise ValueError("Ours requires a 50-block affine INT8/group64 VSA checkpoint.")
-    paths = {"dit/mlx_h3_dit.json": manifest,
-             "dit/mlx_h3_dit.safetensors": checkpoint / "mlx_h3_dit.safetensors"}
-    if ref2va_native is not None and fl2va_native is not None:
-        raise ValueError("A checkpoint must have exactly one conditioned task.")
-    task = "fl2va" if fl2va_native is not None else "ref2va"
-    native_source = fl2va_native if fl2va_native is not None else ref2va_native
-    recipe_path = checkpoint / f"{task}_recipe.json"
-    if (checkpoint / "fl2va_recipe.json").exists() and fl2va_native is None:
-        raise ValueError("An FL2VA checkpoint requires fl2va_native.")
-    if recipe_path.exists() != (native_source is not None):
-        raise ValueError("A Ref2VA checkpoint requires --ref2va-native; a text-only checkpoint must not use it.")
-    if native_source is not None:
-        recipe = json.loads(recipe_path.read_text())
-        expected = dict(schema=f"h3-apple-{task}/v1", task=task, lora_rank=128,
-                        lora_alpha=8, lora_tensors=624, gate_tensors=50,
-                        precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False)
-        if task == "ref2va":
-            from .ref2va_recipe import validate_ref2va_recipe
-            validate_ref2va_recipe(recipe)
-        elif any(recipe.get(key) != value for key, value in expected.items()):
-            raise ValueError("Expected the dedicated Ref2VA + LightX2V four-step checkpoint with 50 VSA gates.")
-        if task == "fl2va":
-            from .fl2va_recipe import fl2va_sampling
-            fl2va_sampling(recipe)
-        paths[f"dit/{task}_recipe.json"] = recipe_path
-        native = Path(native_source).expanduser().resolve()
-        for name in ("processor", "tokenizer", "text_encoder", "video_vae"):
-            source = (native / name).resolve()
-            if not source.is_dir():
-                raise FileNotFoundError(f"Missing native reference component: {source}")
-            for path in sorted(source.rglob("*")):
-                if path.is_file() and path.suffix in (".json", ".safetensors", ".txt", ".jinja"):
-                    paths[f"{task}/{name}/{path.relative_to(source)}"] = path.resolve()
-        for relative in ("processor/preprocessor_config.json", "tokenizer/tokenizer.json",
-                         "text_encoder/config.json", "video_vae/config.json", "video_vae/source/config.json"):
-            if task + "/" + relative not in paths:
-                raise ValueError(f"Missing native reference configuration: {relative}")
-        for name in ("text_encoder", "video_vae/source"):
-            if not any(p.startswith(f"{task}/{name}/") and p.endswith(".safetensors") for p in paths):
-                raise ValueError(f"Missing native reference {name} weights.")
-    for name in ("LICENSE", "NOTICE"):
-        if (components / name).is_file():
-            paths[name] = (components / name).resolve()
-    for name in ("text_encoder", "tokenizer", "vae", "audio_vae"):
-        source = (components / name).resolve()
-        if not source.is_dir():
-            raise FileNotFoundError(f"Missing component directory: {source}")
-        for path in sorted(source.rglob("*")):
-            if path.is_file() and path.suffix in (".json", ".safetensors", ".txt", ".jinja"):
-                paths[f"components/{name}/{path.relative_to(source)}"] = path.resolve()
-    required = ["components/tokenizer/tokenizer.json", "components/text_encoder/config.json",
-                "components/vae/config.json", "components/audio_vae/config.json"]
-    if any(name not in paths for name in required):
-        raise ValueError("Model bundle is missing required tokenizer or component configuration.")
-    for name in ("text_encoder", "vae", "audio_vae"):
-        if not any(p.startswith(f"components/{name}/") and p.endswith(".safetensors") for p in paths):
-            raise ValueError(f"Missing {name} weights.")
-    for path in paths.values():
-        if not path.is_file():
-            raise FileNotFoundError(path)
-    return paths
+def file_record(path):
+    path = Path(path).resolve(strict=True)
+    before = path.stat()
+    checksum = digest(path)
+    after = path.stat()
+    if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+        raise ValueError(f'File changed while checking: {path}')
+    return dict(path=str(path), bytes=after.st_size, mtime_ns=after.st_mtime_ns, sha256=checksum)
 
 
-def import_assets(checkpoint, components, directory=None, *, progress=None, provenance=None,
-                  download_bytes=0, ref2va_native=None, fl2va_native=None):
-    directory = model_directory(directory)
-    if (directory / "bundle.json").exists():
-        raise FileExistsError(f"A model bundle already exists at {directory}; use another directory.")
-    paths = _files(checkpoint, components, ref2va_native, fl2va_native)
+def check_file(entry, *, verify=False):
+    file = Path(entry['path'])
+    stat = file.stat()
+    if (stat.st_size, stat.st_mtime_ns) != (entry['bytes'], entry['mtime_ns']):
+        raise ValueError(f'Model file changed; run h3 prepare in a new model directory: {file}')
+    if verify and digest(file) != entry['sha256']:
+        raise ValueError(f'Checksum differs: {file}')
+
+
+def check_model(root):
+    root = Path(root)
+    config = json.loads((root / 'transformer/config.json').read_text())
+    text = json.loads((root / 'text_encoder/config.json').read_text())
+    meta = json.loads((root / 'model_index.json').read_text())
+    if (config.get('_class_name') != 'MiniMaxH3DiTModel' or config.get('num_layers') != 50
+            or config.get('quantization') != dict(bits=8, group_size=64)
+            or text.get('quantization') != dict(bits=8, group_size=64)
+            or meta.get('_minimax_h3', {}).get('partition') != 'ref2va'):
+        raise ValueError('Expected the pinned H3 Ref2VA 8-bit model. Run h3 prepare.')
+    for name in ('transformer', 'text_encoder', 'video_vae', 'audio_vae'):
+        if not list((root / name).rglob('*.safetensors')):
+            raise ValueError(f'Missing model weights: {name}')
+
+
+def engine_paths():
+    record = data_file('engine.json')
+    cache = Path.home() / '.cache/h3-apple'
+    return record, cache / 'engines' / record['sha256'], cache / 'downloads' / (record['sha256'] + '.zip')
+
+
+def load_engine():
+    record, directory, _ = engine_paths()
+    for entry in record['files']:
+        path = directory / entry['name']
+        if not path.is_file() or path.stat().st_size != entry['bytes'] or digest(path) != entry['sha256']:
+            raise ValueError('H3 engine is missing or changed. Run h3 prepare.')
+    if not os.access(directory / 'h3-engine', os.X_OK):
+        raise ValueError('H3 engine is not executable. Run h3 prepare.')
+    return dict(binary=file_record(directory / 'h3-engine'),
+                library=file_record(directory / 'libvpipe.0.dylib'),
+                tested_interface_commit=record['commit'])
+
+
+def ensure_engine(progress=None):
+    record, directory, archive = engine_paths()
+    if directory.exists():
+        return load_engine()
+    if archive.exists():
+        if archive.stat().st_size != record['bytes'] or digest(archive) != record['sha256']:
+            raise ValueError(f'Engine download cache changed: {archive}')
+    else:
+        if progress:
+            progress(dict(phase='installing_engine'))
+        download(record['url'], archive, record['bytes'], record['sha256'])
     directory.parent.mkdir(parents=True, exist_ok=True)
-    if directory.exists() and any(directory.iterdir()):
-        raise FileExistsError("Model destination contains an incomplete or existing bundle.")
-    for source in paths.values():
-        if directory == source or directory in source.parents:
-            raise ValueError("Model destination must not contain the source assets.")
-    copy_bytes = sum(p.stat().st_size for p in paths.values()
-                     if p.stat().st_dev != directory.parent.stat().st_dev)
-    if shutil.disk_usage(directory.parent).free < copy_bytes + 2 * 1024**3:
-        raise OSError(f"Insufficient disk space for {copy_bytes} bytes of model copies.")
-    staging = Path(tempfile.mkdtemp(prefix=f".{directory.name}-prepare-", dir=directory.parent))
-    entries = []
+    temporary = Path(tempfile.mkdtemp(prefix='.engine-', dir=directory.parent))
     try:
-        for relative, source in paths.items():
-            if progress is not None:
-                progress({"phase": "model_import", "file": relative})
-            destination = staging / relative
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            before = source.stat()
-            checksum = digest(source)
-            after = source.stat()
-            if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
-                raise ValueError(f"Source asset changed while hashing: {source}")
-            if source.stat().st_dev == staging.stat().st_dev:
-                os.link(source, destination)
-                method = "hardlink"
-            else:
-                shutil.copy2(source, destination)
-                if digest(destination) != checksum:
-                    raise ValueError(f"Model copy failed verification: {relative}")
-                method = "copy"
-            stat = destination.stat()
-            entries.append(dict(path=relative, sha256=checksum, size=stat.st_size,
-                                mtime_ns=stat.st_mtime_ns, method=method))
-        derivation = {"input": "existing converted assets; converter provenance not supplied"}
-        if provenance is not None:
-            conversion = provenance["conversion"]
-            derivation = {"recipe": provenance["recipe"], "sources": provenance["sources"],
-                          "converter": conversion["converter"],
-                          "converter_source_sha256": conversion["package_source_sha256"],
-                          "conversion_settings": conversion.get("settings", {}),
-                          "libmlx_sha256": conversion["backend"]["libmlx_sha256"],
-                          "metallib_sha256": conversion["backend"]["metallib_sha256"],
-                          "dit": conversion["dit"]}
-        manifest = dict(format_version=2, preset="ours", derivation=derivation, files=entries,
-                        checkpoint="dit", components="components",
-                        download_bytes=download_bytes, copied_bytes=copy_bytes,
-                        provenance=provenance)
-        if ref2va_native is not None:
-            manifest.update(format_version=3, task="ref2va", ref2va_native="ref2va")
-        if fl2va_native is not None:
-            manifest.update(format_version=4, task="fl2va", fl2va_native="fl2va")
-        manifest["identity"] = bundle_identity(manifest)
-        write_json(staging / "bundle.json", manifest)
-        # A single directory rename publishes the complete bundle. A populated
-        # destination cannot be replaced by POSIX directory rename.
-        staging.rename(directory)
-    except BaseException:
-        # Preserve partial assets and their paths for diagnosis; never overwrite them on retry.
-        raise
-    return load_assets(directory)
+        with zipfile.ZipFile(archive) as z:
+            if sorted(z.namelist()) != sorted(f['name'] for f in record['files']):
+                raise ValueError('Unexpected engine archive members.')
+            for entry in record['files']:
+                name = entry['name']
+                if Path(name).name != name or z.getinfo(name).file_size != entry['bytes']:
+                    raise ValueError('Invalid engine archive path or size.')
+                data = z.read(name)
+                if hashlib.sha256(data).hexdigest() != entry['sha256']:
+                    raise ValueError('Engine file checksum differs.')
+                (temporary / name).write_bytes(data)
+                (temporary / name).chmod(entry['mode'])
+        temporary.rename(directory)
+    finally:
+        if temporary.exists():
+            shutil.rmtree(temporary)
+    return load_engine()
 
 
-def load_assets(directory=None, *, verify=False):
-    directory = model_directory(directory)
-    path = directory / "bundle.json"
+def load_manifest(model_dir=None, *, verify=False):
+    directory = model_directory(model_dir)
+    path = directory / 'model.json'
     if not path.is_file():
-        raise FileNotFoundError(f"Models are not prepared at {directory}. Run h3 models prepare.")
+        raise ValueError('H3 models are not prepared. Run h3 prepare once.')
     data = json.loads(path.read_text())
-    if data.get("format_version") not in (1, 2, 3, 4) or data.get("preset") != "ours" or not data.get("files"):
-        raise ValueError("Unsupported or empty model bundle.")
-    directories = ["checkpoint", "components"]
-    if data["format_version"] == 4:
-        if data.get("task") != "fl2va" or not isinstance(data.get("fl2va_native"), str):
-            raise ValueError("Invalid FL2VA model bundle.")
-        directories.append("fl2va_native")
-    elif data["format_version"] == 3:
-        if data.get("task") != "ref2va" or not isinstance(data.get("ref2va_native"), str):
-            raise ValueError("Invalid Ref2VA model bundle.")
-        directories.append("ref2va_native")
-    elif data.get("task", "t2va") != "t2va" or "ref2va_native" in data:
-        raise ValueError("Reference assets require the Ref2VA bundle format.")
-    for name in directories:
-        target = directory / data[name]
-        if not target.resolve().is_relative_to(directory) or not target.is_dir():
-            raise ValueError(f"Invalid {name} directory in the model bundle.")
-    identity = bundle_identity(data)
-    if identity != data.get("identity"):
-        raise ValueError("Model bundle identity does not match its file manifest.")
-    for entry in data["files"]:
-        target = directory / entry["path"]
-        if not target.resolve().is_relative_to(directory):
-            raise ValueError("Model manifest contains a path outside its bundle.")
-        stat = target.stat()
-        if (stat.st_size, stat.st_mtime_ns) != (entry["size"], entry["mtime_ns"]):
-            raise ValueError(f"Model asset changed: {target}; verify or prepare the bundle again.")
-        if verify and digest(target) != entry["sha256"]:
-            raise ValueError(f"Model SHA256 mismatch: {target}")
-    return dict(data, directory=str(directory),
-                **{name: str(directory / data[name]) for name in directories})
+    expected_adapter = data_file('prepared-model.json')['adapter']
+    if (data.get('schema') != SCHEMA or data.get('recipe') != RECIPE
+            or data.get('adapter', {}).get('sha256') != expected_adapter['sha256']
+            or data.get('identity') != identity({k: v for k, v in data.items() if k != 'identity'})):
+        raise ValueError('Model manifest changed or is unsupported. Run h3 prepare in a new model directory.')
+    for entry in [*data['files'], data['adapter']]:
+        check_file(entry, verify=verify)
+    check_model(data['native_model'])
+    return dict(data, directory=str(directory))
+
+
+def load_assets(model_dir=None, *, verify=False):
+    return dict(load_manifest(model_dir, verify=verify), **load_engine())
+
+
+def register_model(directory, *, provenance, records=None):
+    """Commit a prepared directory only after all weights and the adapter are checked."""
+    directory = Path(directory)
+    check_model(directory / 'model')
+    entries = records or [file_record(p) for p in sorted((directory / 'model').rglob('*')) if p.is_file()]
+    adapter = file_record(directory / 'adapter.safetensors')
+    if adapter['sha256'] != data_file('prepared-model.json')['adapter']['sha256']:
+        raise ValueError('The Ref2VA adapter checksum differs.')
+    manifest = dict(schema=SCHEMA, native_model=str(directory / 'model'), files=entries,
+                    adapter=adapter, recipe=RECIPE, provenance=provenance)
+    manifest['identity'] = identity(manifest)
+    write_json(directory / 'model.json', manifest)
+    return manifest

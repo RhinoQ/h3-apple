@@ -1,107 +1,70 @@
-# Installation and your first video
+# Installation
 
-Check the [hardware and memory requirements](../README.md#hardware-and-memory)
-before installing. The README distinguishes physical-machine validation,
-constrained total-memory budgets and the requests admitted at each capacity.
-Review the [disk-space budget](../README.md#disk-space) for setup and everyday
-generation. Run on AC power.
+Run `./install.sh` from the release source folder. It uses an existing Conda
+installation, or bootstraps a pinned Miniforge under `.local/miniforge`.
+The project environment lives in `.local/envs/h3`. System Python is not modified.
+Run commands through `./h3`; activating the environment is optional.
 
-## Conda environment
+Only Pillow is needed by the Python runtime. Python, FFmpeg, Pillow and the
+native engine are pinned. The engine is downloaded automatically from the
+same release, checked by SHA256 and installed in `~/.cache/h3-apple/engines`.
+No compiler, Xcode, PyTorch, Transformers or MLX Python package is required.
 
-For the shortest path, follow the [README's source-archive installation](../README.md#generate-your-first-video).
-It needs no Git checkout. If you prefer Git, install ARM64
-[Miniforge](https://github.com/conda-forge/miniforge), or use an existing ARM64
-Conda installation, then check out the pinned release:
+## Models
+
+The default location is `~/Models/h3-apple/ref2va`. To use another volume,
+set this before installing and keep it set when generating:
 
 ```bash
-git clone --branch v0.3.0 --single-branch https://github.com/RhinoQ/h3-apple.git
-cd h3-apple
+export H3_MODEL_DIR=/Volumes/Models/h3-apple
 ./install.sh
-conda activate "$PWD/.local/envs/h3"
-h3 --version
 ```
 
-Version 0.3.0 adds the optional [ultrafast preset](vpipe.md), with a separately
-installed vpipe core and native weights. Existing model bundles and dependency
-locks are unchanged. It retains support for the recommended four-step
-[DARE/TIES Ref2VA bundle](ref2va.md) and retains the 0.2.1
-[first-use fixes](validation.md#first-use-audit-2026-09-17).
-Existing T2VA, FL2VA and LightX2V Ref2VA bundles remain usable without a weight
-download or conversion. Software installation does not switch model weights:
-prepare and select a separate DARE/TIES bundle to use the new adapter.
-Retain the earlier LightX2V bundle for rollback or reproduction.
+Model preparation uses the pinned MiniMax Ref2VA base and DARE/TIES four-step
+adapter. It converts the transformer and text encoder to 8-bit group-64
+weights automatically. Model sources, revisions, sizes and SHA256 hashes are
+in [model-sources.json](../src/h3_apple/data/model-sources.json).
+Weights remain subject to their model licenses.
 
-Alternatively, download `h3-apple-0.3.0-source.zip` from the
-[release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.3.0),
-extract it, and run `./install.sh` from the extracted directory. The archive
-contains the installer, environment locks, documentation, and examples.
-`SHA256SUMS` verifies the attached archives, wheel, and release manifest:
+A fresh preparation downloads approximately 145 GB. Source files remain
+cached for reuse; the combined source and converted footprint is approximately
+218 GB, with additional temporary headroom during preparation. The prepared
+model alone is about 85 GB. These are disk sizes, not peak runtime memory.
+
+The installer asks for confirmation before downloads over 20 GB. For a
+noninteractive installation, it stops before the model download; then inspect
+and explicitly confirm the plan:
 
 ```bash
-shasum -a 256 -c SHA256SUMS
+./h3 prepare --plan
+./h3 prepare --allow-large-download
 ```
 
-Run that check in the directory containing all four release assets. Model
-weights are downloaded separately by `h3 models prepare`. The wheel alone
-does not set up the pinned Conda environment or download models.
+Downloads resume from verified partial files. Run `./h3 prepare` again after
+an interruption. Failed preparation logs remain beside the model directory.
+A successful source cache is retained; the installer does not delete your
+existing models or research files.
 
-The installer uses the readable [environment definition](../environments/environment.yml)
-and exact [osx-arm64 lock](../environments/conda-osx-arm64.lock). It creates a
-private Conda cache and environment, with Python 3.11.15, MLX 0.32.0, FFmpeg 8.1.2,
-and locked Python dependencies. It installs a regular wheel without changing
-system Python or user site-packages. Text generation does not require PyTorch.
-**0.3.0** includes [Ref2VA images, videos and audio references](ref2va.md),
-[FL2VA LightX2V v1.2](fl2va.md), experimental [portrait output](api.md#portrait-output),
-and terminal progress. From the release checkout, `./install.sh --ref2va`
-also installs the pinned PyTorch/torchvision
-vision dependencies. Rerunning `./install.sh` installs the current checkout.
-
-Scripts and schedulers should use the fixed interpreter:
+To reuse a local source snapshot or an earlier compatible H3 installation:
 
 ```bash
-"$PWD/.local/envs/h3/bin/python" -m h3_apple --version
+./h3 prepare --reuse-dir /path/to/models
 ```
 
-MLX publishes different platform wheels under the same version number. The
-installer selects the macOS 26 backend, and `doctor` checks the loaded libraries.
-Matching `pip freeze` output alone does not verify the backend.
+The existing registered native Ref2VA installations from h3-apple 0.3 are
+automatically detected under `~/Models` when no explicit reuse directory is
+provided. Weights are checked before reuse and linked into an independent
+model directory on the same volume; cross-volume reuse makes verified copies.
+Old MLX-converted bundles cannot substitute for these native weights.
 
-## Models and offline generation
+## Troubleshooting
 
-See [model preparation](models.md) for downloads, reuse, storage requirements,
-and recovery. Once the model is ready:
+`./h3 doctor` checks hardware, the engine, media tools and model receipts.
+`./h3 verify` performs a full weight checksum pass. An explicit `--model-dir`
+overrides `H3_MODEL_DIR` for either command and for generation.
 
-```bash
-h3 doctor
-h3 generate --prompt "A paper boat drifts across a quiet pond. Soft water sounds and birdsong." --duration 5 --output boat.mp4
-```
-
-The example requests five seconds and fits the experimental 64 GiB entry.
-Omitting duration/resolution flags requests 768p / 15 seconds and requires at
-least 96 GiB. For a smaller first check:
-
-```bash
-h3 generate --prompt "A paper boat drifts across a quiet pond. Soft water sounds and birdsong." --resolution 576p --duration 5 --seed 123 --output boat-smoke.mp4
-```
-
-If models are missing, `doctor` exits nonzero and points to `h3 models prepare`.
-Generation enables Hugging Face and Transformers offline mode; it does not
-download missing components during a run.
-
-## Recovery
-
-- **Conda not found:** install Conda, or set `CONDA_EXE` to its absolute executable path.
-- **`conda activate` asks for initialization:** run `source "$(conda info --base)/etc/profile.d/conda.sh"`, then repeat the activation command in that terminal.
-- **`h3` not found:** activate the printed environment, or use its fixed Python with `-m h3_apple`.
-- **Missing models:** use `h3 models prepare` for T2VA; FL2VA and Ref2VA need their separate conversion guides. `--reuse-dir` reuses source downloads; `--model-dir` selects an already prepared bundle.
-- **Wrong model task:** use the matching bundle with `--model-dir`; choosing `--task` alone does not switch weights.
-- **Reference dependencies missing:** rerun `./install.sh --ref2va` for either FL2VA or Ref2VA.
-- **Backend mismatch:** rerun `./install.sh` instead of replacing a single library manually.
-- **Device busy:** wait for the current H3 job. The shared device lock defaults to `~/.cache/h3-apple/device.lock`.
-- **Resource stop:** inspect the `.run.json` and logs, free disk or memory, or allow cooling, then retry with a new output path.
-- **Interrupted installation or download:** rerun the command. Retain error logs; corrupt files are not accepted as complete assets.
-- **Output already exists:** use a new `.mp4` filename. Failed or cancelled runs also reserve their `.run.json` path.
-
-`H3_MODEL_DIR` changes the default model directory. `H3_DEVICE_LOCK` sets the
-lock path shared by cooperating jobs. No Metal or thread environment tuning
-is required. See the [API reference](api.md) for parameters.
+An M5 GPU is required for the integrated accelerated kernels. Other Apple
+Silicon generations have not been qualified. Use 576p on a 64 GB machine;
+768p beyond 5 seconds requires 96 GB. Generation stops if swap grows by more
+than 2 GiB or macOS reports serious thermal pressure. It reserves 20 GiB of
+free disk for temporary media. Failed jobs retain their workspace and logs.

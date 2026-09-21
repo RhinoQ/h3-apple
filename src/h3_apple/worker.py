@@ -11,7 +11,7 @@ import sys
 import threading
 import traceback
 
-from .host import backend_identity, check_machine, device_lock, snapshot
+from .host import check_machine, device_lock, snapshot
 from .io import digest
 from .media import validate
 
@@ -68,21 +68,10 @@ def main():
             signal.signal(signal.SIGUSR1, stop)
             threading.Thread(target=watch, daemon=True).start()
             emit({"phase": "loading", "message": "Checking the runtime and preparing generation"})
-            if spec["request"]["preset"] == "ultrafast":
-                from .vpipe import run
-                result = run(spec["request"], spec["assets"], workspace, emit,
-                             references=spec.get("ref2va"), diagnostics=spec["diagnostics"])
-                backend = result.pop("backend")
-            else:
-                backend = backend_identity()
-                if spec.get("ref2va") is not None:
-                    import torch
-                    torch.set_num_threads(8)
-                    torch.set_grad_enabled(False)
-                from .runtime.engine import run
-                result = run(spec["request"], spec["assets"], workspace / "output.mp4", emit,
-                             workspace / "diagnostics" if spec["diagnostics"] else None,
-                             ref2va=spec.get("ref2va"))
+            from .engine import run
+            result = run(spec["request"], spec["assets"], workspace, emit,
+                         references=spec["ref2va"], diagnostics=spec["diagnostics"])
+            backend = result.pop("backend")
             emit({"phase": "validating"})
             media = validate(workspace / "output.mp4", spec["request"])
             result.update(backend=backend, initial_host=initial, final_host=snapshot(),

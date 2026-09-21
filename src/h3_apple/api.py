@@ -1,4 +1,4 @@
-"""Resolve user intent before launching a fresh, isolated model worker."""
+"""One public generation path: ordered still references and a complete prompt."""
 
 from dataclasses import asdict, dataclass
 from decimal import Decimal, InvalidOperation
@@ -9,7 +9,7 @@ import secrets
 @dataclass(frozen=True)
 class GenerationRequest:
     prompt: str
-    preset: str
+    reference_images: tuple[str, ...]
     resolution: str
     duration: float
     seed: int
@@ -19,19 +19,11 @@ class GenerationRequest:
     model_width: int
     model_height: int
     model_num_frames: int
-    preset_version: str = "ours-v1"
+    recipe: str = "ref2va-i8-sol-sage-v1"
     fps: int = 24
     audio_sample_rate: int = 32000
     audio_channels: int = 2
     num_steps: int = 4
-    reference_images: tuple[str, ...] = ()
-    task: str = "t2va"
-    first_frame: str | None = None
-    last_frame: str | None = None
-    reference_resize: str = "legacy"
-    reference_videos: tuple[str, ...] = ()
-    reference_audio: tuple[str, ...] = ()
-    reference_video_audio: bool = True
 
     def to_dict(self):
         return asdict(self)
@@ -45,100 +37,34 @@ class GenerationResult:
     seed: int
 
 
-def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
-            duration=15, seed=None, reference_images=None, task=None,
-            first_frame=None, last_frame=None, reference_resize="legacy", reference_videos=None,
-            reference_audio=None, reference_video_audio=True, aspect_ratio="16:9"):
-    """Return the delivery and model geometry without importing MLX.
-
-    Durations are 5–15 seconds in whole delivery frames at 24 fps. The model
-    generates the next valid 17*n+5 frame count, followed by a fixed trim.
-    """
+def resolve(prompt=None, *, prompt_file=None, reference_images=None,
+            resolution="576p", duration=15, seed=None, aspect_ratio="16:9"):
+    """Validate inputs and resolve geometry without loading model weights."""
     if (prompt is None) == (prompt_file is None):
         raise ValueError("Provide exactly one of prompt or prompt_file.")
     if prompt_file is not None:
-        prompt = Path(prompt_file).read_text(encoding="utf-8")
+        prompt = Path(prompt_file).expanduser().read_text(encoding="utf-8")
     if not isinstance(prompt, str) or not prompt.strip() or "\x00" in prompt:
         raise ValueError("prompt must be nonempty text without NUL characters.")
-    if preset not in ("ours", "ultrafast"):
-        raise ValueError("preset must be 'ours' or 'ultrafast'.")
-    if aspect_ratio not in ("16:9", "9:16"):
-        raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
-    references = ()
-    if reference_images is not None:
-        if not isinstance(reference_images, (list, tuple)) or not 1 <= len(reference_images) <= 9:
-            raise ValueError("reference_images must be an ordered list of 1–9 image paths.")
-        if any(not isinstance(p, (str, Path)) or not str(p).strip() for p in reference_images):
-            raise ValueError("Each reference image needs a nonempty file path.")
-        references = tuple(str(Path(p).expanduser().resolve()) for p in reference_images)
-        from PIL import Image
-        for path in references:
-            with Image.open(path) as image:
-                if getattr(image, "n_frames", 1) != 1:
-                    raise ValueError("Reference inputs must be still images, not animations or videos.")
-                image.verify()
-    videos = ()
-    if reference_videos is not None:
-        if not isinstance(reference_videos, (list, tuple)) or not 1 <= len(reference_videos) <= 3:
-            raise ValueError("reference_videos must be an ordered list of 1–3 video paths.")
-        if any(not isinstance(p, (str, Path)) or not str(p).strip() for p in reference_videos):
-            raise ValueError("Each reference video needs a nonempty file path.")
-        videos = tuple(str(Path(p).expanduser().resolve()) for p in reference_videos)
-        from .media import probe_reference
-        for path in videos:
-            probe_reference(path, "videos")
-    audios = ()
-    if reference_audio is not None:
-        if not isinstance(reference_audio, (list, tuple)) or not 1 <= len(reference_audio) <= 3:
-            raise ValueError("reference_audio must be an ordered list of 1–3 audio paths.")
-        if any(not isinstance(p, (str, Path)) or not str(p).strip() for p in reference_audio):
-            raise ValueError("Each reference audio needs a nonempty file path.")
-        audios = tuple(str(Path(p).expanduser().resolve()) for p in reference_audio)
-        from .media import probe_reference
-        for path in audios:
-            probe_reference(path, "audio")
-    if type(reference_video_audio) is not bool:
-        raise ValueError("reference_video_audio must be a boolean.")
-    if not reference_video_audio and not videos:
-        raise ValueError("reference_video_audio=False requires a reference video.")
-    if len(references) + len(videos) + len(audios) > 12:
-        raise ValueError("Ref2VA accepts at most 12 reference images, videos and audio files in total.")
-    if audios and not (references or videos):
-        raise ValueError("Reference audio requires at least one Ref2VA reference image or video.")
-    keyframes = []
-    for value in (first_frame, last_frame):
-        if value is None:
-            keyframes.append(None)
-            continue
-        if not isinstance(value, (str, Path)) or not str(value).strip():
-            raise ValueError("A first or last frame needs a local still-image path.")
-        from PIL import Image
-        path = Path(value).expanduser().resolve()
+    if not isinstance(reference_images, (list, tuple)) or not 1 <= len(reference_images) <= 9:
+        raise ValueError("Provide an ordered list of 1–9 reference images.")
+    if any(not isinstance(p, (str, Path)) or not str(p).strip() for p in reference_images):
+        raise ValueError("Each reference image needs a nonempty file path.")
+    references = tuple(str(Path(p).expanduser().resolve()) for p in reference_images)
+    from PIL import Image, ImageOps
+    from .image_inputs import reference_image_size
+    for path in references:
         with Image.open(path) as image:
             if getattr(image, "n_frames", 1) != 1:
-                raise ValueError("Keyframes must be still images.")
+                raise ValueError("Reference inputs must be still images.")
+            reference_image_size(*ImageOps.exif_transpose(image).size, 1024 * 576)
+        with Image.open(path) as image:
             image.verify()
-        keyframes.append(str(path))
-    if preset != "ours" and (videos or audios):
-        raise ValueError("The vpipe presets currently support text, still references and keyframes; "
-                         "use ours for reference video or audio.")
-    has_keyframes = any(keyframes)
-    if has_keyframes and (references or videos or audios):
-        raise ValueError("First/last frames and Ref2VA references use different model tasks.")
-    inferred = "fl2va" if has_keyframes else "ref2va" if references or videos else "t2va"
-    if task is not None and task not in ("t2va", "fl2va", "ref2va"):
-        raise ValueError("task must be t2va, fl2va or ref2va.")
-    if task is not None and task != inferred:
-        raise ValueError(f"task={task} does not match the supplied inputs ({inferred}).")
-    if reference_resize not in ("legacy", "match"):
-        raise ValueError("reference_resize must be legacy or match.")
-    if reference_resize != "legacy" and not references:
-        raise ValueError("reference_resize applies only to Ref2VA images.")
-    if resolution is None:
-        resolution = "576p" if references and not (videos or audios) else "768p"
-    canvases = {"768p": (1366, 768, 1376), "576p": (1024, 576, 1024)}
+    canvases = {"576p": (1024, 576, 1024), "768p": (1366, 768, 1376)}
     if resolution not in canvases:
-        raise ValueError("resolution must be '768p' or '576p'.")
+        raise ValueError("resolution must be '576p' or '768p'.")
+    if aspect_ratio not in ("16:9", "9:16"):
+        raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     if isinstance(duration, bool):
         raise ValueError("duration must be a number of seconds.")
     try:
@@ -159,41 +85,19 @@ def resolve(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
     model_height = height
     if aspect_ratio == "9:16":
         width, height, model_width, model_height = height, width, height, model_width
-    return GenerationRequest(prompt, preset, resolution, count / 24, seed,
+    return GenerationRequest(prompt, references, resolution, count / 24, seed,
                              width, height, count, model_width, model_height,
-                             ((count - 5 + 16) // 17) * 17 + 5,
-                             preset_version=f"{preset}-{inferred}-v1" if preset != "ours" else
-                                 "ours-fl2va-vsa-v1.2" if has_keyframes else
-                                 "ours-ref2va-audio-dense-v1" if audios else
-                                 "ours-ref2va-video-dense-v1" if videos else
-                                 "ours-ref2va-match-v1" if references and reference_resize == "match" else
-                                 "ours-ref2va-v1" if references else "ours-v1",
-                             reference_images=references, task=inferred,
-                             first_frame=keyframes[0], last_frame=keyframes[1],
-                             reference_resize=reference_resize, reference_videos=videos,
-                             reference_audio=audios, reference_video_audio=reference_video_audio)
+                             ((count - 5 + 16) // 17) * 17 + 5)
 
 
-def generate(prompt=None, *, prompt_file=None, preset="ours", resolution=None,
-             duration=15, seed=None, output=None, model_dir=None, on_progress=None,
-             diagnostics=False, timeout=7200, reference_images=None,
-             task=None, first_frame=None, last_frame=None, reference_resize="legacy",
-             reference_videos=None, reference_audio=None, reference_video_audio=True,
-             aspect_ratio="16:9"):
-    """Generate a complete MP4 and metadata; Ctrl-C cancels the whole worker group.
-
-    on_progress receives small dictionaries in the caller process. diagnostics
-    additionally saves numerical arrays for migration/algorithm research.
-    """
-    request = resolve(prompt, prompt_file=prompt_file, preset=preset,
+def generate(prompt=None, *, prompt_file=None, reference_images=None,
+             resolution="576p", duration=15, seed=None, aspect_ratio="16:9",
+             output=None, model_dir=None, on_progress=None, diagnostics=False,
+             timeout=7200):
+    """Generate an MP4 with stereo audio and a run record in an isolated worker."""
+    request = resolve(prompt, prompt_file=prompt_file, reference_images=reference_images,
                       resolution=resolution, duration=duration, seed=seed,
-                      reference_images=reference_images, task=task,
-                      first_frame=first_frame, last_frame=last_frame,
-                      reference_resize=reference_resize, reference_videos=reference_videos,
-                      reference_audio=reference_audio, reference_video_audio=reference_video_audio,
                       aspect_ratio=aspect_ratio)
     from .process import run_generation
-
     return run_generation(request, output=output, model_dir=model_dir,
-                          on_progress=on_progress, diagnostics=diagnostics,
-                          timeout=timeout)
+                          on_progress=on_progress, diagnostics=diagnostics, timeout=timeout)

@@ -1,3 +1,0 @@
-case,method,status,elapsed_seconds,failed_attempt_seconds,complete_av_validation,assistant_visual_check,quality_review,error
-motion-graphics,fastvideo,failed,,7458.8329740839545,failed at native duration validation before delivery crop/trim,failed,pending,Output audio/video duration differs from the requested delivery.
-bakery,fastvideo,failed,,6595.964420999866,failed at native duration validation before delivery crop/trim,failed,pending,Output audio/video duration differs from the requested delivery.

@@ -58,8 +58,8 @@ def test_cli_keeps_result_json_on_stdout(monkeypatch, capsys, disabled):
         return GenerationResult(Path("result.mp4"), Path("result.run.json"), 12.0, 42)
 
     monkeypatch.setattr(cli, "generate", generate)
-    args = ["generate", "--prompt", "A film.", "--reference-image", "first.png",
-            "--reference-image", "second.png"]
+    args = ["generate", "--prompt", "A film.", "--image", "first.png",
+            "--image", "second.png"]
     assert cli.main(args + (["--no-progress"] if disabled else [])) == 0
     output = capsys.readouterr()
     assert json.loads(output.out)["video_path"] == "result.mp4"

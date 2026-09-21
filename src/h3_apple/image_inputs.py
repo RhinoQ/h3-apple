@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2026 The MiniMax and HuggingFace Teams.
-# Existing H3 Apple image preparation shared by both inference backends.
+# H3 Apple still-image preparation.
 """Prepare still RGB inputs without importing a model runtime."""
 
 import math
@@ -22,17 +22,3 @@ def prepare_reference_image(image: Image.Image, pixel_budget: int) -> Image.Imag
     image = ImageOps.exif_transpose(image).convert("RGB")
     height, width = reference_image_size(*image.size, pixel_budget)
     return image.resize((width, height), Image.Resampling.LANCZOS)
-
-
-
-def prepare_keyframe(image, width, height, *, stretch):
-    image = ImageOps.exif_transpose(image).convert("RGB")
-    if image.size == (width, height):
-        return image
-    if stretch:
-        return image.resize((width, height), Image.Resampling.LANCZOS)
-    scale = max(width / image.width, height / image.height)
-    size = (max(width, round(image.width * scale)), max(height, round(image.height * scale)))
-    left, top = max(0, (size[0] - width) // 2), max(0, (size[1] - height) // 2)
-    return image.resize(size, Image.Resampling.LANCZOS).crop((left, top, left + width, top + height))
-

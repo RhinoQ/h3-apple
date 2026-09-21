@@ -1,0 +1,165 @@
+{
+  "schema": "h3-apple-validation/v1",
+  "release": "0.4.0",
+  "date": "2026-09-21",
+  "input": {
+    "origin": "ModelTC/Minimax-H3-Turbo complete Ref2VA test case 3; public reference URLs in argument order. Reuses the previously tested full prompt, without tuning or result selection.",
+    "source_revision": "02e26d591f7a04d5d1a074c9566d5dd4f22f6225",
+    "prompt_file": "ultrafast-ref2va-prompt.txt",
+    "prompt_sha256": "65fa0ccdf3fd416df0a67e0b169e3beb6e0f77d7679b905f99c27922c4534899",
+    "references": [
+      {
+        "index": 1,
+        "file": "ref2va_test_3_1.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_1.jpg",
+        "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d"
+      },
+      {
+        "index": 2,
+        "file": "ref2va_test_3_2.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_2.jpg",
+        "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f"
+      },
+      {
+        "index": 3,
+        "file": "ref2va_test_3_3.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_3.jpg",
+        "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29"
+      }
+    ],
+    "resolved_request": {
+      "preset": "ultrafast",
+      "resolution": "576p",
+      "duration": 5.166666666666667,
+      "seed": 0,
+      "width": 1024,
+      "height": 576,
+      "num_frames": 124,
+      "model_width": 1024,
+      "model_height": 576,
+      "model_num_frames": 124,
+      "preset_version": "ultrafast-ref2va-v1",
+      "fps": 24,
+      "audio_sample_rate": 32000,
+      "audio_channels": 2,
+      "num_steps": 4,
+      "reference_images": [
+        "ref2va_test_3_1.jpg",
+        "ref2va_test_3_2.jpg",
+        "ref2va_test_3_3.jpg"
+      ],
+      "task": "ref2va",
+      "first_frame": null,
+      "last_frame": null,
+      "reference_resize": "match",
+      "reference_videos": [],
+      "reference_audio": [],
+      "reference_video_audio": true
+    }
+  },
+  "runtime": {
+    "package_source_sha256": "1664ae174aa7a1cf359de98b79f172e6816beabff218fe629372dcea19e4904a",
+    "engine_source": "f34e2cc3a3adae759eea254419f436f5b7800057",
+    "binary_sha256": "e472d4f7b79d7bcf27da9991cf787308e4fdd7205278a82046d7bf7b83ec7d8e",
+    "library_sha256": "e03b7e279e94b8c09b3db39b85bfc94d8dae1434c9b59cb8f9b95283ceac1631"
+  },
+  "request": {
+    "resolution": "576p",
+    "duration": 5.166666666666667,
+    "seed": 0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 124,
+    "model_width": 1024,
+    "model_height": 576,
+    "model_num_frames": 124,
+    "recipe": "ref2va-i8-sol-sage-v1",
+    "fps": 24,
+    "audio_sample_rate": 32000,
+    "audio_channels": 2,
+    "num_steps": 4
+  },
+  "reference_inputs": [
+    {
+      "index": 1,
+      "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d",
+      "size": 469333
+    },
+    {
+      "index": 2,
+      "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f",
+      "size": 360816
+    },
+    {
+      "index": 3,
+      "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29",
+      "size": 228730
+    }
+  ],
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "integration": {
+    "status": "PASS",
+    "elapsed_seconds": 254.58541225001682,
+    "actual_nfe": 4,
+    "acceleration": "i8-sol-sage",
+    "video_sha256": "ff2c9c9d9e0358f0006af54ddfdae99d3254cef93fcd17f9937cb09746fffedf",
+    "video": {
+      "width": 1024,
+      "height": 576,
+      "frames": 124,
+      "fps": "24/1",
+      "duration": "5.166667"
+    },
+    "audio": {
+      "codec": "aac",
+      "sample_rate": "32000",
+      "channels": 2,
+      "duration": "5.166656"
+    },
+    "full_decode": "PASS",
+    "attention_confirmation": [
+      "[INFO] memory-plan (declared): peak 9936 MB at 'vae-decode' streaming, 79302 MB at 'generate-video' preloaded, over 9 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1713 MB, audio-vae-decode 581 MB, vae-decode 9936 MB, rgb-to-video 0 MB, save-video 0 MB)",
+      "[NORMAL] MetalMiniMaxH3Transformer: Sol-Attn ON -- tau 1.00, diag threshold, layers 1+, local radius 1",
+      "[NORMAL] MetalMiniMaxH3Transformer: SageAttention ON -- INT8 QK^T, layers 0+, key smoothing on",
+      "[INFO] memory-plan (generate-video): peak 9936 MB at 'vae-decode' streaming, 55594 MB at 'vae-decode' preloaded, over 9 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1713 MB, audio-vae-decode 581 MB, vae-decode 9936 MB, rgb-to-video 0 MB, save-video 0 MB)",
+      "[NORMAL] MetalMiniMaxH3Transformer: baked AdaLN for 4 steps (11 rows) -- 51 projections (13216 MB of weights) replaced by 101 MB of tables, and no longer streamed per step",
+      "[NORMAL] [h3-dit] Sol-Attn kept 319006660 of 909081712 key blocks exact (35.1%) over 49 routed layers of the PREVIOUS forward",
+      "[NORMAL] [h3-dit] Sol-Attn kept 326552426 of 909081712 key blocks exact (35.9%) over 49 routed layers of the PREVIOUS forward",
+      "[NORMAL] [h3-dit] Sol-Attn kept 327793906 of 909081712 key blocks exact (36.1%) over 49 routed layers of the PREVIOUS forward",
+      "[INFO] memory-plan (vae-decode): peak 10564 MB at 'vae-decode' streaming, 56222 MB at 'vae-decode' preloaded, over 9 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1713 MB, audio-vae-decode 581 MB, vae-decode 10564 MB, rgb-to-video 0 MB, save-video 0 MB)"
+    ],
+    "swap_growth_bytes": 0
+  },
+  "installation": {
+    "fresh_conda_environment": "PASS",
+    "miniforge_bootstrap_without_existing_conda": "PASS",
+    "bootstrap_packages": {
+      "packaging": "26.3",
+      "wheel": "0.47.0",
+      "h3-apple": "0.4.0",
+      "setuptools": "81.0.0",
+      "pip": "26.2.1",
+      "pillow": "12.3.0"
+    },
+    "model_reuse": "PASS",
+    "model_download_bytes": 0,
+    "source_preparation": {
+      "status": "PASS",
+      "seconds": 127.40630083304131,
+      "files": 44,
+      "all_files_match_accepted_sha256": true,
+      "download_bytes": 0
+    }
+  },
+  "tests": {
+    "passed": 70,
+    "failures": 0,
+    "scope": "Temporary-file unit tests, real subprocess cancellation, local HTTP download tests and synthetic FFmpeg media."
+  },
+  "reproduction": "h3 generate --image ref2va_test_3_1.jpg --image ref2va_test_3_2.jpg --image ref2va_test_3_3.jpg --prompt-file ref2va-prompt.txt --duration 5.166666666666667 --seed 0 --diagnostics --output output.mp4",
+  "scope": "One complete CLI integration and installation/preparation checks on M5 Max 128 GB. This is not a new quality ranking, general speed comparison, audio-content review or lower-memory hardware qualification."
+}
