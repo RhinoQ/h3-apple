@@ -1,9 +1,11 @@
 # Optional native vpipe presets
 
-The candidate API adds `ultrafast` (native INT8 GEMM + Sol-Attn + SageAttention)
+The unreleased source adds `ultrafast` (native INT8 GEMM + Sol-Attn + SageAttention)
 and `vpipe-dense` (native INT8 GEMM + dense attention). `ours` remains the
 default. `vpipe-dense` is a comparison option, not an adopted quality default;
 neither option guarantees better quality or lower latency for every input.
+These presets require an installation built from this source; the published
+v0.2.2 package does not include them.
 
 H3 Apple invokes the separately installed **vpipe inference core**. It handles
 input snapshots, process cancellation, resource monitoring and final MP4
