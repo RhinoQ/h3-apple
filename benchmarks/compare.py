@@ -23,7 +23,7 @@ import uuid
 from h3_apple import resolve
 from h3_apple.host import device_lock, snapshot
 from h3_apple.io import digest
-from h3_apple.media import tool, validate
+from h3_apple.media import finish_native, tool, validate
 
 HERE = Path(__file__).resolve().parent
 METHODS = ("ours", "fastvideo", "vpipe")
@@ -216,27 +216,6 @@ def stop(process):
     except ProcessLookupError:
         process.wait(timeout=15)
 
-
-def finish_native(source, destination, request):
-    """Only center-crop and trim. Preserve the original official output beside it."""
-    native = {**request, "width": request["model_width"], "height": request["model_height"],
-              "num_frames": request["model_num_frames"]}
-    media = validate(source, native, allow_aac_padding=True)
-    audio = next(stream for stream in media["streams"] if stream["codec_type"] == "audio")
-    tolerance = 1 / request["audio_sample_rate"] + 1e-5
-    if float(audio["duration"]) + tolerance < request["num_frames"] / request["fps"]:
-        raise ValueError("Native audio does not cover the requested delivery duration.")
-    left = (native["width"] - request["width"]) // 2
-    top = (native["height"] - request["height"]) // 2
-    command = [tool("ffmpeg"), "-v", "error", "-nostdin", "-n", "-i", str(source),
-               "-map", "0:v:0", "-map", "0:a:0", "-vf",
-               f"format=rgb24,crop={request['width']}:{request['height']}:{left}:{top},setsar=1",
-               "-frames:v", str(request["num_frames"]), "-t", str(request["duration"]),
-               "-c:v", "libx264", "-preset", "fast", "-crf", "18", "-pix_fmt", "yuv420p",
-               "-c:a", "aac", "-b:a", "192k", "-ar", "32000", "-ac", "2",
-               "-movflags", "+faststart", str(destination)]
-    subprocess.run(command, check=True, capture_output=True, timeout=300)
-    return command
 
 
 def run_job(method, case, directory, timeout, cooldown_timeout):
