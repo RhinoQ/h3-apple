@@ -5,7 +5,7 @@
   "input": {
     "origin": "ModelTC/Minimax-H3-Turbo complete Ref2VA test case 3; public reference URLs in argument order. Reuses the previously tested full prompt, without tuning or result selection.",
     "source_revision": "02e26d591f7a04d5d1a074c9566d5dd4f22f6225",
-    "prompt_file": "ultrafast-ref2va-prompt.txt",
+    "prompt_file": "ref2va-prompt.txt",
     "prompt_sha256": "65fa0ccdf3fd416df0a67e0b169e3beb6e0f77d7679b905f99c27922c4534899",
     "references": [
       {
@@ -26,36 +26,7 @@
         "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_3.jpg",
         "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29"
       }
-    ],
-    "resolved_request": {
-      "preset": "ultrafast",
-      "resolution": "576p",
-      "duration": 5.166666666666667,
-      "seed": 0,
-      "width": 1024,
-      "height": 576,
-      "num_frames": 124,
-      "model_width": 1024,
-      "model_height": 576,
-      "model_num_frames": 124,
-      "preset_version": "ultrafast-ref2va-v1",
-      "fps": 24,
-      "audio_sample_rate": 32000,
-      "audio_channels": 2,
-      "num_steps": 4,
-      "reference_images": [
-        "ref2va_test_3_1.jpg",
-        "ref2va_test_3_2.jpg",
-        "ref2va_test_3_3.jpg"
-      ],
-      "task": "ref2va",
-      "first_frame": null,
-      "last_frame": null,
-      "reference_resize": "match",
-      "reference_videos": [],
-      "reference_audio": [],
-      "reference_video_audio": true
-    }
+    ]
   },
   "runtime": {
     "package_source_sha256": "1664ae174aa7a1cf359de98b79f172e6816beabff218fe629372dcea19e4904a",
