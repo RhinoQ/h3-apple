@@ -1,0 +1,27 @@
+subject_definitions:
+<Subject 1> is the abandoned warehouse in <Picture 1>, preserving the open doorway, long wooden table, two chairs, wet reflective floor, storage racks, crates, industrial architecture, sparse overhead lamps, cold rain light, and dim warm practical light.
+<Subject 2> is the younger East Asian man in <Picture 2>, preserving his face, lean build, short messy black hair, dark layered hooded jacket, black cargo pants, work boots, and one plain black backpack.
+<Subject 3> is the middle-aged East Asian man in <Picture 3>, preserving his face, stocky build, slicked-back black hair, black patterned shirt, black trousers, belt, and leather shoes.
+
+summary:
+[reference generation] In one continuous 5.1667-second crime-thriller shot, <Subject 2> crosses the final steps from the rainy doorway to the table in <Subject 1>, removes his backpack, and places it between himself and the seated <Subject 3>, ending in a compressed silent confrontation.
+
+retention_analysis:
+<Subject 1> (appears throughout): fully_preserved - retain the warehouse geometry, doorway, table, chairs, wet floor, racks, rain, and mixed cold-warm lighting.
+<Subject 2> (appears throughout): fully_preserved - retain his face, hair, lean proportions, dark clothing, wet appearance, and exactly one backpack.
+<Subject 3> (appears throughout): fully_preserved - retain his face, hair, stocky proportions, black clothing, seated posture, and position across the table.
+
+detailed_description:
+Photorealistic live-action crime thriller, 16:9, restrained contrast, cold blue rain light and dim amber practical light. One continuous shot with a slow small push-in. Preserve both identities, the spatial axis, and one physically consistent backpack. No dialogue, bodyguards, extra people, duplicate bags, identity swapping, wardrobe changes, readable text, or weapons.
+
+[Shot 1, 00:00.000-00:01.400] From low beside the long table, the camera looks directly toward the rain-filled doorway. <Subject 3> is a dark motionless silhouette at the far end. <Subject 2> strides the final few steps from the doorway with the backpack secured over both shoulders; cold backlight outlines his wet hood and shoulders while his boots kick shallow water across the reflective concrete. The camera pushes rapidly but smoothly toward the table.
+
+[Shot 1, 00:01.400-00:03.450] <Subject 2> reaches the near chair without stopping. In one continuous motion he hooks one strap off his shoulder, rotates his torso, slides the second strap free, and swings the same wet backpack onto the tabletop. It lands firmly between the two men with a heavy impact; water droplets scatter across the wood and the hanging lamp trembles. <Subject 3> does not flinch, following the bag only with his eyes.
+
+[Shot 1, 00:03.450-00:05.166] <Subject 2> drags the near chair back with one sharp scrape and drops into it opposite <Subject 3>. He plants both hands on the wet table without touching the backpack. A lightning flash turns both faces stark for an instant as the camera completes its push-in: the single bag remains centered between them and they lock eyes across it while rain lashes the doorway.
+
+overall_soundscape:
+Heavy rain on metal, distant thunder, measured wet footsteps, soaked fabric and backpack straps, one muted bag impact on wood, and low warehouse room tone. No dialogue.
+
+non_diegetic_music:
+A restrained low-frequency drone rises slightly as the backpack reaches the table and holds through the final stare.

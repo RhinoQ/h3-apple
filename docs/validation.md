@@ -1,5 +1,36 @@
 # Implementation and validation
 
+## v0.3.0 ultrafast
+
+Version 0.3.0 adds the optional [ultrafast preset](vpipe.md): native vpipe
+INT8 GEMM + Sol-Attn + SageAttention. It supports text, first/last frames and
+still-image Ref2VA using separately installed native binaries and weights.
+`ours` remains the default; the unreleased native dense comparison preset is
+not included. Existing `ours` video/audio-reference attention is unchanged.
+
+The ordinary 0.3.0 wheel passed **368 regression tests** outside the checkout,
+including native graph construction, full-prompt/reference order, stream
+endpoints, asset checksums, acceleration fallback detection and cancellation
+of native child processes. Dependency locks remain unchanged from 0.2.2.
+
+A fresh public-CLI run with three ordered reference images and the complete
+warehouse test prompt delivered **124 frames at 1024×576 / 24 fps**, with
+**5.1667 seconds of 32 kHz stereo audio**, in **252.48 seconds**. Full decoding
+passed. The run confirmed four denoising steps and i8/Sol/Sage settings without
+a detected attention fallback. No sampled swap growth occurred. This is one
+execution measurement on an M5 Max / 128 GiB / macOS 26.6.1, not a speed ranking
+or a new perceptual-quality or audio-content assessment. Repeating the same
+request did not produce byte-identical video or decoded audio/video streams.
+
+The [input and execution record](evidence/ultrafast-v0.3.0.json) includes the
+complete prompt, ordered public reference URLs and hashes, model/recipe and
+binary identities, output checks, and a reproduction command. The tagged
+[release manifest](https://github.com/RhinoQ/h3-apple/releases/download/v0.3.0/release-manifest.json)
+records the final source archive, wheel, installed runtime identity, regression
+and readiness checks. All packaged runtime files match the ordinary-wheel
+build used for the integration run above. Earlier benchmark measurements below
+retain their original versions and configurations.
+
 Independent installation, arbitrary-prompt generation, model preparation, and
 the comparison script are implemented and validated as detailed below, on
 **Apple M5 Max / 128 GiB / macOS 26.6.1**. Each result retains its measured

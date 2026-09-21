@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "release": "0.3.0",
+  "decision": "Adopt ultrafast as an optional native preset; keep ours as default. Do not expose the unreleased native dense comparison preset.",
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "implementation": {
+    "source_commit": "b0ce7b8dbe77d52670e2cbb22c80fd4de3b4b780",
+    "package_source_sha256": "0c98cdcf730227f3380a54c055a7e56bcca35eefb50afef77f78ea56f0686353",
+    "native_core_repository": "https://github.com/tgo-app-dev/vpipe",
+    "tested_interface_commit": "f34e2cc3a3adae759eea254419f436f5b7800057",
+    "binary": {
+      "bytes": 86152,
+      "sha256": "e472d4f7b79d7bcf27da9991cf787308e4fdd7205278a82046d7bf7b83ec7d8e"
+    },
+    "library": {
+      "bytes": 19164416,
+      "sha256": "e03b7e279e94b8c09b3db39b85bfc94d8dae1434c9b59cb8f9b95283ceac1631"
+    }
+  },
+  "models": {
+    "partition": "ref2va",
+    "quantization": {
+      "bits": 8,
+      "group_size": 64
+    },
+    "recipe": {
+      "steps": 4,
+      "graph_steps": 5,
+      "video_shift": 12.0,
+      "audio_shift": 3.0,
+      "lora_scale": 1.0
+    },
+    "adapter": {
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "revision": "16f950c2e3d78440778fe1e84d9179932e19b1de",
+      "filename": "ref2v_dareties/minimax_h3_ref2v_turbo_4step_v0.1_v4_step600_dareties_fro0995.safetensors",
+      "bytes": 1158485256,
+      "sha256": "e44c667b162a6e951f663b75d88facfd4e24c915e2c556b07ec1fec23fef5a61"
+    },
+    "bundle_identity": "1f593e329d845276200d2efd2be0ccc16f7bbd6bab880e2e88f538f2f154572f",
+    "files": [
+      {
+        "file": "audio_vae/config.json",
+        "bytes": 1973,
+        "sha256": "d8f3bcc62e23c7e9806970fa63cca6139c06faa3797cf9c94034f60db8512771"
+      },
+      {
+        "file": "audio_vae/metadata.json",
+        "bytes": 440,
+        "sha256": "755d0529d43b2b5c83590f6f44ca659bc68e6a21b01d5669c93e8b2965749bff"
+      },
+      {
+        "file": "audio_vae/model.safetensors",
+        "bytes": 605429308,
+        "sha256": "37dddc2f3e6d5d5139d823d5ea283bbf304dadcb885b1ccda818aa13dade5ea2"
+      },
+      {
+        "file": "model_index.json",
+        "bytes": 707,
+        "sha256": "b160b13700bf08aea7fce1bc3dd0d3a49ea15036298c50082ec107f87843b90c"
+      },
+      {
+        "file": "processor/chat_template.json",
+        "bytes": 5499,
+        "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+      },
+      {
+        "file": "processor/merges.txt",
+        "bytes": 1671839,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      {
+        "file": "processor/preprocessor_config.json",
+        "bytes": 390,
+        "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+      },
+      {
+        "file": "processor/tokenizer.json",
+        "bytes": 7032403,
+        "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+      },
+      {
+        "file": "processor/tokenizer_config.json",
+        "bytes": 11003,
+        "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+      },
+      {
+        "file": "processor/video_preprocessor_config.json",
+        "bytes": 385,
+        "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+      },
+      {
+        "file": "processor/vocab.json",
+        "bytes": 2776833,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      {
+        "file": "text_encoder/chat_template.json",
+        "bytes": 5499,
+        "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+      },
+      {
+        "file": "text_encoder/config.json",
+        "bytes": 1532,
+        "sha256": "0ed03708f2ac326008f7dc93a60fdd1235bbdcc305d85f86a93fe2eef7c000f7"
+      },
+      {
+        "file": "text_encoder/merges.txt",
+        "bytes": 1671839,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      {
+        "file": "text_encoder/model-00001-of-00008.safetensors",
+        "bytes": 5323269440,
+        "sha256": "7f559994c5bdc0d455bcda5f0b81d2cfc87a7226e4716195add9b8ae99a033b9"
+      },
+      {
+        "file": "text_encoder/model-00002-of-00008.safetensors",
+        "bytes": 5320127376,
+        "sha256": "16bf0b0851567c6d96be4741d29b9c52eb41a2cfdffb0893553fd9e6da03e9f5"
+      },
+      {
+        "file": "text_encoder/model-00003-of-00008.safetensors",
+        "bytes": 5367652256,
+        "sha256": "841a8f6bcb70d782e9a9f491350827889cac803713956e1ba081b5e9e5af52ad"
+      },
+      {
+        "file": "text_encoder/model-00004-of-00008.safetensors",
+        "bytes": 5364703360,
+        "sha256": "4d96badf7ed928bb950498155f9723baa23f9ed510d162a70450c6aaa70b1e4a"
+      },
+      {
+        "file": "text_encoder/model-00005-of-00008.safetensors",
+        "bytes": 5328319632,
+        "sha256": "cb296fd2dc4bd06606a59ca686b9eff75d7ad76d3f65c69a06085aec24324fa8"
+      },
+      {
+        "file": "text_encoder/model-00006-of-00008.safetensors",
+        "bytes": 5367652256,
+        "sha256": "7686d7ee59ea7738158923d17b3fe049ea18e609dcfff2974f6e3eb27aa792b0"
+      },
+      {
+        "file": "text_encoder/model-00007-of-00008.safetensors",
+        "bytes": 5331991296,
+        "sha256": "6e1bc42807330a3b40c11dbcbe1bc5f692f237a66b94eef916ff1b3002e95e98"
+      },
+      {
+        "file": "text_encoder/model-00008-of-00008.safetensors",
+        "bytes": 56040832,
+        "sha256": "93688e518be440fb0f1e3a83594d5fb73e54ad417f9e0189722817e3acbea9ff"
+      },
+      {
+        "file": "text_encoder/model.safetensors.index.json",
+        "bytes": 172335,
+        "sha256": "53933357a309969d054acc5b6f73634bc55b96b612d63d49a02662ee9e81f937"
+      },
+      {
+        "file": "text_encoder/preprocessor_config.json",
+        "bytes": 390,
+        "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+      },
+      {
+        "file": "text_encoder/tokenizer.json",
+        "bytes": 7032403,
+        "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+      },
+      {
+        "file": "text_encoder/tokenizer_config.json",
+        "bytes": 11003,
+        "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+      },
+      {
+        "file": "text_encoder/video_preprocessor_config.json",
+        "bytes": 385,
+        "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+      },
+      {
+        "file": "text_encoder/vocab.json",
+        "bytes": 2776833,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      {
+        "file": "tokenizer/merges.txt",
+        "bytes": 1671839,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      {
+        "file": "tokenizer/tokenizer.json",
+        "bytes": 7032403,
+        "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+      },
+      {
+        "file": "tokenizer/tokenizer_config.json",
+        "bytes": 11003,
+        "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+      },
+      {
+        "file": "tokenizer/vocab.json",
+        "bytes": 2776833,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      {
+        "file": "transformer/config.json",
+        "bytes": 664,
+        "sha256": "b0aac34e1dd6135e0016dcec97e968abc500137df8bc846fbf53305bbb5c308a"
+      },
+      {
+        "file": "transformer/model-00001-of-00007.safetensors",
+        "bytes": 5243211392,
+        "sha256": "6e555b68b4b64eaf5354cb1faef1db38be20f4128dbf996a194d95a84d27ae7c"
+      },
+      {
+        "file": "transformer/model-00002-of-00007.safetensors",
+        "bytes": 5365354432,
+        "sha256": "bb18e28a4fa14f921fada923634ab411f5a48faac39507dd516ffa288f45cf24"
+      },
+      {
+        "file": "transformer/model-00003-of-00007.safetensors",
+        "bytes": 5170871232,
+        "sha256": "e172378e8e0e7f21909065c95f545cf0cefa047d01a48e35320d0842bef9323a"
+      },
+      {
+        "file": "transformer/model-00004-of-00007.safetensors",
+        "bytes": 5242307968,
+        "sha256": "811c3989d76c00d927e2c01895071d51eefedb21ba5a68a04c79f3d08411b1fc"
+      },
+      {
+        "file": "transformer/model-00005-of-00007.safetensors",
+        "bytes": 5365354432,
+        "sha256": "1de336b1258213aada5a63b0510c25b64cc1c9bd8ec3a4e3db645939ba85261b"
+      },
+      {
+        "file": "transformer/model-00006-of-00007.safetensors",
+        "bytes": 5170871216,
+        "sha256": "43db96804f2b173e0490b9f2498cf83f45e241b16d0dece7918ef7c4be1b9114"
+      },
+      {
+        "file": "transformer/model-00007-of-00007.safetensors",
+        "bytes": 3716811792,
+        "sha256": "139a0eed0bfabd4dd02c2ce41400aec16182638a46118dac91f46d2025be247f"
+      },
+      {
+        "file": "transformer/model.safetensors.index.json",
+        "bytes": 69577,
+        "sha256": "f7292d240d40adf50511a7a3c80b8d1f51ea52319c4715b51ce1d39b5bdc5402"
+      },
+      {
+        "file": "video_vae/config.json",
+        "bytes": 1807,
+        "sha256": "3edd2cdd1ebc823c868be55ef917e1b3b8a398fde4d3150dae44a3bf05d9f627"
+      },
+      {
+        "file": "video_vae/source/config.json",
+        "bytes": 1164,
+        "sha256": "66c68f541e6578ce613ce7a0fc985eb59097038829e49f7535e6d08e6d95ab12"
+      },
+      {
+        "file": "video_vae/source/model.safetensors",
+        "bytes": 10415548320,
+        "sha256": "5f0c2e161d895a9fee7645ca32d4a7e3a22b90cacfcbeba62ec999cdbbefe0d3"
+      }
+    ]
+  },
+  "input": {
+    "origin": "ModelTC/Minimax-H3-Turbo complete Ref2VA test case 3; public reference URLs in argument order. Reuses the previously tested full prompt, without tuning or result selection.",
+    "source_revision": "02e26d591f7a04d5d1a074c9566d5dd4f22f6225",
+    "prompt_file": "ultrafast-ref2va-prompt.txt",
+    "prompt_sha256": "65fa0ccdf3fd416df0a67e0b169e3beb6e0f77d7679b905f99c27922c4534899",
+    "references": [
+      {
+        "index": 1,
+        "file": "ref2va_test_3_1.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_1.jpg",
+        "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d"
+      },
+      {
+        "index": 2,
+        "file": "ref2va_test_3_2.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_2.jpg",
+        "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f"
+      },
+      {
+        "index": 3,
+        "file": "ref2va_test_3_3.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_3.jpg",
+        "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29"
+      }
+    ],
+    "resolved_request": {
+      "preset": "ultrafast",
+      "resolution": "576p",
+      "duration": 5.166666666666667,
+      "seed": 0,
+      "width": 1024,
+      "height": 576,
+      "num_frames": 124,
+      "model_width": 1024,
+      "model_height": 576,
+      "model_num_frames": 124,
+      "preset_version": "ultrafast-ref2va-v1",
+      "fps": 24,
+      "audio_sample_rate": 32000,
+      "audio_channels": 2,
+      "num_steps": 4,
+      "reference_images": [
+        "ref2va_test_3_1.jpg",
+        "ref2va_test_3_2.jpg",
+        "ref2va_test_3_3.jpg"
+      ],
+      "task": "ref2va",
+      "first_frame": null,
+      "last_frame": null,
+      "reference_resize": "match",
+      "reference_videos": [],
+      "reference_audio": [],
+      "reference_video_audio": true
+    }
+  },
+  "reproduction": "h3 generate --preset ultrafast --model-dir /path/to/registered-native-ref2va-bundle --prompt-file ultrafast-ref2va-prompt.txt --reference-image ref2va_test_3_1.jpg --reference-image ref2va_test_3_2.jpg --reference-image ref2va_test_3_3.jpg --reference-resize match --resolution 576p --duration 5.166666666666667 --seed 0 --diagnostics --timeout 1080 --output output.mp4",
+  "regression": {
+    "tests": 368,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "integration": {
+    "status": "PASS",
+    "started_utc": "2026-09-21T14:29:21.239238+00:00",
+    "source_commit": "b0ce7b8dbe77d52670e2cbb22c80fd4de3b4b780",
+    "package_source_sha256": "0c98cdcf730227f3380a54c055a7e56bcca35eefb50afef77f78ea56f0686353",
+    "wheel_sha256": "b709bdad15afdb7f4a2fb62f016b3d89341906ab76d724e47b275a65e09bf8af",
+    "task": "ref2va",
+    "preset": "ultrafast",
+    "elapsed_seconds": 252.48153374996036,
+    "actual_nfe": 4,
+    "streams": [
+      {
+        "codec_type": "video",
+        "codec_name": "h264",
+        "width": 1024,
+        "height": 576,
+        "avg_frame_rate": "24/1",
+        "nb_read_frames": "124",
+        "duration": "5.166667"
+      },
+      {
+        "codec_type": "audio",
+        "codec_name": "aac",
+        "avg_frame_rate": "0/0",
+        "nb_read_frames": "162",
+        "duration": "5.166656",
+        "sample_rate": "32000",
+        "channels": 2
+      }
+    ],
+    "full_decode": "PASS",
+    "video_sha256": "07cf6eb442c3a56f1c2b4c9fa9761a19b0b46a01089a9302c8d9b38a6552758c",
+    "raw_run_record_sha256": "e853054ac67003732b3064da60c1c173a202a0d343eff1be97b9caf431189c8a",
+    "native_log_sha256": "6e603769ad3eebb181867699169fe916336216ec7c4a76665f506f74c408c25f",
+    "native_graph_sha256": "5bd4289219f795577372409c733d0e0311ea0f30326399b101c8d3218fb07fdc",
+    "peak_sampled_process_tree_rss_bytes": 62261231616,
+    "swap_growth_bytes": 0,
+    "thermal_states": [
+      "fair",
+      "nominal"
+    ],
+    "switches": {
+      "width": 1024,
+      "height": 576,
+      "frames": 124,
+      "fps": 24,
+      "steps": 5,
+      "seed": 0,
+      "i8_gemm": true,
+      "sol_attn": true,
+      "sage_attn": true,
+      "sol_tau": 1.0,
+      "sol_dense_layers": 1,
+      "sol_local_radius": 1,
+      "sage_dense_layers": 0,
+      "unload_when_idle": "always"
+    },
+    "runtime_confirmation": [
+      "[INFO] memory-plan (declared): peak 9936 MB at 'vae-decode' streaming, 79302 MB at 'generate-video' preloaded, over 9 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1713 MB, audio-vae-decode 581 MB, vae-decode 9936 MB, rgb-to-video 0 MB, save-video 0 MB)",
+      "[NORMAL] MetalMiniMaxH3Transformer: Sol-Attn ON -- tau 1.00, diag threshold, layers 1+, local radius 1",
+      "[NORMAL] MetalMiniMaxH3Transformer: SageAttention ON -- INT8 QK^T, layers 0+, key smoothing on",
+      "[INFO] memory-plan (generate-video): peak 9936 MB at 'vae-decode' streaming, 55594 MB at 'vae-decode' preloaded, over 9 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1713 MB, audio-vae-decode 581 MB, vae-decode 9936 MB, rgb-to-video 0 MB, save-video 0 MB)",
+      "[NORMAL] MetalMiniMaxH3Transformer: baked AdaLN for 4 steps (11 rows) -- 51 projections (13216 MB of weights) replaced by 101 MB of tables, and no longer streamed per step",
+      "[NORMAL] [h3-dit] Sol-Attn kept 318978974 of 909081712 key blocks exact (35.1%) over 49 routed layers of the PREVIOUS forward",
+      "[NORMAL] [h3-dit] Sol-Attn kept 326649310 of 909081712 key blocks exact (35.9%) over 49 routed layers of the PREVIOUS forward",
+      "[NORMAL] [h3-dit] Sol-Attn kept 328022532 of 909081712 key blocks exact (36.1%) over 49 routed layers of the PREVIOUS forward",
+      "[INFO] memory-plan (vae-decode): peak 10564 MB at 'vae-decode' streaming, 56222 MB at 'vae-decode' preloaded, over 9 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1713 MB, audio-vae-decode 581 MB, vae-decode 10564 MB, rgb-to-video 0 MB, save-video 0 MB)"
+    ],
+    "prepared_references": [
+      {
+        "index": 1,
+        "width": 1024,
+        "height": 576,
+        "sha256": "2465e75a5c3ee967ceb7ddb750b28c49f4ba6921b084388df971b8b0aa583d80"
+      },
+      {
+        "index": 2,
+        "width": 1088,
+        "height": 544,
+        "sha256": "d312bc9bf8cfd1c958c150a762e8aac59d28de845807f75e099f5783feb0db42"
+      },
+      {
+        "index": 3,
+        "width": 896,
+        "height": 672,
+        "sha256": "181fe0126111fd6df58e5fe52a5951bc3de7a046574861592ad2949a6718a134"
+      }
+    ],
+    "repeatability": {
+      "same_request_as_prior_cli_check": true,
+      "video_bytes_equal": false,
+      "decoded_streams_equal": {
+        "video": false,
+        "audio": false
+      },
+      "scope": "This is execution acceptance, not bitwise reproducibility or a quality comparison."
+    }
+  },
+  "scope": "One fresh ordinary-wheel execution check. No new perceptual quality, audio-content, synchronization, general speed or lower-memory hardware qualification. No weights, native binaries or private user reference images are bundled in the release."
+}
