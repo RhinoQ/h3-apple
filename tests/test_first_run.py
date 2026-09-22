@@ -33,8 +33,7 @@ def test_automatic_setup_shares_explicit_consent_and_progress(monkeypatch, local
     from h3_apple import media
     spec = dict(local_setup, status='preparation_required', download_bytes=145_000_000_000)
     monkeypatch.setattr(preparation, 'plan', lambda *a, **kw: spec)
-    monkeypatch.setattr(media, 'tool', lambda _: 'bundled-ffmpeg')
-    monkeypatch.setattr(media, 'ffmpeg_libraries', lambda: Path('/bundled/libs'))
+    monkeypatch.setattr(media, 'check_runtime', lambda: {})
     calls = []
     monkeypatch.setattr(preparation, 'prepare', lambda value, **kw: calls.append((value, kw)) or {'identity':'ready'})
     events = []
@@ -83,20 +82,12 @@ def test_invalid_output_does_not_trigger_setup(tmp_path, monkeypatch):
     assert record.read_text() == 'keep'
 
 
-def test_media_tools_are_from_pip_not_path(tmp_path, monkeypatch):
-    from h3_apple.media import tool, ffmpeg_libraries
-    monkeypatch.setenv('PATH', str(tmp_path))
-    monkeypatch.setenv('IMAGEIO_FFMPEG_EXE', '/unrelated/ffmpeg')
-    assert 'site-packages/imageio_ffmpeg/binaries' in tool('ffmpeg')
-    assert all('.dylibs' in str(p.resolve()) for p in ffmpeg_libraries().iterdir())
-
-
-def test_changed_library_links_cannot_fall_back_to_system(tmp_path, monkeypatch):
-    import h3_apple.media as media
-    monkeypatch.setattr(media.Path, 'home', lambda: tmp_path)
-    directory = media.ffmpeg_libraries()
-    link = directory / 'libavcodec.dylib'
-    link.unlink()
-    link.symlink_to(tmp_path / 'unrelated.dylib')
-    with pytest.raises(ValueError, match='link changed'):
-        media.ffmpeg_libraries()
+def test_broken_media_stops_before_model_download(monkeypatch, local_setup):
+    from h3_apple import media
+    monkeypatch.setattr(preparation, 'plan', lambda *a, **kw: local_setup)
+    monkeypatch.setattr(preparation, 'prepare', lambda *a, **kw: pytest.fail('setup with broken FFmpeg'))
+    def broken():
+        raise RuntimeError('Install Conda FFmpeg')
+    monkeypatch.setattr(media, 'check_runtime', broken)
+    with pytest.raises(RuntimeError, match='Conda FFmpeg'):
+        preparation.ensure_ready()

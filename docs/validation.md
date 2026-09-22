@@ -1,29 +1,34 @@
 # Validation
 
-Version 0.5.0 moves installation to pip and shares automatic first-run setup
-between the CLI and Python API. The inference engine, weights, adapter and
-acceleration recipe remain pinned to the accepted identities. Its
-[validation evidence](evidence/v0.5.0.json) records the two complete runs,
-exact source identities, media-library hashes and package-validation boundary.
+Version 0.5.0 installs as a Python package in a Conda environment containing
+Python and FFmpeg 8.1.2. The CLI and Python API share automatic first-run setup.
+The [release evidence](evidence/v0.5.0-conda.json) records the complete input,
+source and media-library identities, model verification, outputs and timing.
 
 | Check | Result |
 | --- | --- |
-| Clean Python 3.11 and 3.14 environments, pip-installed dependencies | Passed |
-| Runtime use with no system FFmpeg or Conda commands on PATH | Passed |
-| Automatic model preparation from verified local weights | Passed; zero model-download bytes |
+| Documented Conda Python + FFmpeg installation | Passed on Python 3.11 and 3.14 |
+| Normal wheel installation, dependency checks and runtime preflight | Passed; Pillow is the only pip runtime dependency |
+| Automatic model preparation from verified local weights | Passed; all 44 files match the pinned prepared-model manifest, zero model-download bytes |
 | Public CLI generation, three reference images | Passed; 124 frames, 1024×576, 24 fps, stereo 32 kHz audio |
 | Public Python API generation in Python 3.14 | Passed; 120 frames / 5 seconds, including native-frame trimming |
+| Native media libraries and final processing | Passed; all seven libraries, ffmpeg and ffprobe use the running Python's Conda environment |
 | Four forwards, i8 + Sol + Sage, complete media decode | Passed in both runs |
-| Unit, consent, subprocess, download and media tests | 78 passed |
-| Wheel and sdist metadata, ordinary wheel installation | Passed |
+| Unit, consent, subprocess, download and media tests | 86 passed |
+| Source, wheel and installed Python/data files | Identical across both complete runs and the release |
 
-The tests ran on M5 Max with 128 GB memory and macOS 26.6.1. The same
+The checks ran on M5 Max with 128 GB memory and macOS 26.6.1. They use the
 [complete prompt](evidence/ref2va-prompt.txt) and public references from the
-0.4.0 case were used; the API test requests a 5-second delivery to exercise
-trimming. These are installation and execution checks, not a new quality
-ranking, controlled speed comparison or qualification of other hardware.
-The original 145 GB model download was not repeated. Model preparation from
-original weights retains the previous evidence below.
+0.4.0 integration case. The API requests a 5-second delivery to exercise trimming.
+Both executions deliberately omit Conda tools from PATH and set an unrelated
+CONDA_PREFIX; media discovery follows the actual Python interpreter.
+
+These checks establish installation and complete execution, not a new quality
+ranking, controlled speed comparison or qualification of other hardware. The
+engine, weights, adapter and acceleration recipe remain pinned. The original
+model download and quantization were not repeated; prior preparation evidence
+is retained below. The release evidence also retains the initial synthetic-media
+fixture timeout and its resolution before the passing suite.
 
 ## Version 0.4.0
 

@@ -13,17 +13,16 @@ other projects. If you do not have Conda, install the Apple Silicon version of
 [Miniforge](https://github.com/conda-forge/miniforge) first.
 
 ```bash
-conda create -n h3 -c conda-forge python=3.11 pip -y
+conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install h3-apple
+python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.0/h3_apple-0.5.0-py3-none-any.whl
 ```
 
-Conda manages the isolated environment; pip installs h3-apple and its dependencies
-inside it, including the required FFmpeg executable and libraries. The first
-generation automatically prepares the inference engine and models, then continues
-to your video. No repository checkout, Homebrew, separate FFmpeg installation,
-compiler or mode selection is needed. Existing compatible models are verified
-and reused. Python 3.11–3.14 is supported.
+The release wheel is installed directly from GitHub.
+Conda manages Python and FFmpeg together; pip installs h3-apple and Pillow in
+that environment. The first generation automatically prepares the inference
+engine and models, then continues to your video. Existing compatible models
+are verified and reused. Python 3.11–3.14 is supported.
 
 In a new terminal, run `conda activate h3` before using the CLI or Python API.
 
@@ -80,7 +79,8 @@ repeat with `allow_large_download=True`. No flag is needed for prepared models.
 Importing the package does not download models or start the engine.
 
 If your shell cannot find `h3`, use `python -m h3_apple` with the Python that
-installed the package. Upgrade with `python -m pip install --upgrade h3-apple`.
+installed the package. To upgrade, repeat the release-wheel installation command
+with `--upgrade`.
 
 [Python API](https://github.com/RhinoQ/h3-apple/blob/main/docs/api.md) · [Validation](https://github.com/RhinoQ/h3-apple/blob/main/docs/validation.md) · [Development and credits](https://github.com/RhinoQ/h3-apple/blob/main/docs/development.md)
 

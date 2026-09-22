@@ -2,7 +2,7 @@
 
 Follow the [Conda installation steps](install.md), activate the `h3` environment,
 and use its Python for your script or notebook. Both the CLI and Python API use
-the same installed package and pip-provided FFmpeg components:
+the same installed package and Conda FFmpeg installation:
 
 ```python
 from h3_apple import generate

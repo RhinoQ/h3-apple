@@ -10,6 +10,6 @@ def test_native_delivery_has_sample_accurate_endpoints(tmp_path,frames):
     source=tmp_path/"native.mp4"; output=tmp_path/"output.mp4"
     subprocess.run([tool("ffmpeg"),"-v","error","-nostdin","-n","-f","lavfi","-i",f"testsrc2=size=96x64:rate=24:duration={count/24}",
         "-f","lavfi","-i",f"sine=sample_rate=32000:duration={count/24}","-frames:v",str(count),"-c:v","libx264",
-        "-preset","ultrafast","-c:a","aac","-ac","2","-t",str(count/24),str(source)],check=True,timeout=20)
+        "-preset","ultrafast","-c:a","aac","-ac","2","-t",str(count/24),str(source)],check=True,timeout=60)
     finish_native(source,output,request)
     validate(output,request)

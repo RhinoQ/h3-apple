@@ -1,0 +1,242 @@
+{
+  "schema": "h3-apple-validation/v1",
+  "version": "0.5.0",
+  "date": "2026-09-22",
+  "base_commit": "d324967a2bbdb591823947d0d37c804fbf6a6b7c",
+  "input": {
+    "origin": "Previously accepted three-image warehouse integration case, retaining the complete prompt and public reference order used for version 0.4.0.",
+    "source_revision": "02e26d591f7a04d5d1a074c9566d5dd4f22f6225",
+    "prompt_file": "ref2va-prompt.txt",
+    "prompt_sha256": "65fa0ccdf3fd416df0a67e0b169e3beb6e0f77d7679b905f99c27922c4534899",
+    "references": [
+      {
+        "index": 1,
+        "file": "ref2va_test_3_1.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_1.jpg",
+        "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d"
+      },
+      {
+        "index": 2,
+        "file": "ref2va_test_3_2.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_2.jpg",
+        "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f"
+      },
+      {
+        "index": 3,
+        "file": "ref2va_test_3_3.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_3.jpg",
+        "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29"
+      }
+    ]
+  },
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "engine": {
+    "engine_source": "f34e2cc3a3adae759eea254419f436f5b7800057",
+    "binary_sha256": "e472d4f7b79d7bcf27da9991cf787308e4fdd7205278a82046d7bf7b83ec7d8e",
+    "library_sha256": "e03b7e279e94b8c09b3db39b85bfc94d8dae1434c9b59cb8f9b95283ceac1631"
+  },
+  "models": {
+    "prepared_manifest_identity": "916710c2880faf6e410026061dfa2ac0211f99cbda510affdc21ae93e5b8d21d",
+    "prepared_recipe_sha256": "4b92a5a41235e203d2ccd5e4ba23a752c4a7d7e434a1af3ca37ac1fabb2af9f0",
+    "verified_files": 44,
+    "adapter_sha256": "e44c667b162a6e951f663b75d88facfd4e24c915e2c556b07ec1fec23fef5a61",
+    "preparation": "Automatic first-generation reuse; all 44 registered file hashes match the pinned prepared-model manifest."
+  },
+  "integration": [
+    {
+      "entry": "h3 generate",
+      "python": "3.11",
+      "request": {
+        "resolution": "576p",
+        "duration": 5.166666666666667,
+        "seed": 0,
+        "width": 1024,
+        "height": 576,
+        "num_frames": 124,
+        "model_width": 1024,
+        "model_height": 576,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "elapsed_seconds": 253.71115958399605,
+      "timings_seconds": {
+        "native_generation": 252.55110949999653,
+        "delivery_adapter": 0.5475657500210218
+      },
+      "video_sha256": "07cf6eb442c3a56f1c2b4c9fa9761a19b0b46a01089a9302c8d9b38a6552758c",
+      "run_record_sha256": "790c6e77b840c87891aaa7d623ab010b167abf48aff070e03c6a028d4b63c12e",
+      "native_log_sha256": "99fbf9ed434b4da8f62443612c64876e774c8bb301eb3a700b7d7da3f0b17e10",
+      "package_source_sha256": "c8b31ce08829b1244f9247d77aa94c6058272acabe13313082f878c64f603804",
+      "actual_nfe": 4,
+      "acceleration": "i8-sol-sage",
+      "media": {
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1024,
+            "height": 576,
+            "pix_fmt": "yuv420p",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_time": "0.000000",
+            "duration_ts": 63488,
+            "duration": "5.166667",
+            "nb_read_frames": "124"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_time": "0.000000",
+            "duration_ts": 165333,
+            "duration": "5.166656",
+            "nb_read_frames": "162"
+          }
+        ]
+      },
+      "full_decode": "PASS",
+      "native_ffmpeg_from_conda": "All seven libraries confirmed in native log",
+      "model_download_bytes": 0,
+      "ffmpeg_package": {
+        "name": "ffmpeg",
+        "version": "8.1.2",
+        "build": "gpl_h5f9a2c2_108",
+        "channel": "https://conda.anaconda.org/conda-forge/osx-arm64",
+        "sha256": "f719c7ee889cb48cff6dca0c69a00e8b1af19936d17a74d03463b7a8d80e0022",
+        "md5": "2fa9c54dc3f149e64db826820846ca97"
+      },
+      "media_libraries": {
+        "libavutil": "e67c370a946a767ba42f569e0d972bda5f1a23e3605fd4bb0c8003019a71761a",
+        "libavcodec": "6f625e55986ade126a0911eef8e0b29e38198561b5e7c0a26733dd201677aacf",
+        "libswresample": "40c0e687ad7afa84a7d614d8ef9e5e7a9f20e8f1ad916898b1db06ef892cbb58",
+        "libswscale": "2bfe21ab2531037a74302ffe8819054af956b1c31339827031631ec215a90593",
+        "libavformat": "cadb2c2f667c055d7568638ad3288885625f0251501ff71974c2222084f0a273",
+        "libavdevice": "56d4972a42f6827e461aa136b5c25f816ebff6d223b72b1c56746747f3e95cfc",
+        "libavfilter": "54c3151fc51743cb80a56629591f28a93cfe94044d9eabc2c6722fda5436dbe5"
+      }
+    },
+    {
+      "entry": "h3_apple.generate",
+      "python": "3.14",
+      "request": {
+        "resolution": "576p",
+        "duration": 5.0,
+        "seed": 0,
+        "width": 1024,
+        "height": 576,
+        "num_frames": 120,
+        "model_width": 1024,
+        "model_height": 576,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "elapsed_seconds": 286.2778550829971,
+      "timings_seconds": {
+        "native_generation": 285.1175345410011,
+        "delivery_adapter": 0.5354040000238456
+      },
+      "video_sha256": "6b4ac5024a2f2cc0f1dca7aedc160397e0289dbfcf08ba1e041d60f9ce073887",
+      "run_record_sha256": "826a7325b866bf8e1d3d8a7e633d96aaa6488b8e4052d567ca4f3b702746c575",
+      "native_log_sha256": "bfeab2822715cc369b13d227cced2d770109ea5417166820552f169e8ba71ca7",
+      "package_source_sha256": "c8b31ce08829b1244f9247d77aa94c6058272acabe13313082f878c64f603804",
+      "actual_nfe": 4,
+      "acceleration": "i8-sol-sage",
+      "media": {
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1024,
+            "height": 576,
+            "pix_fmt": "yuv420p",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_time": "0.000000",
+            "duration_ts": 61440,
+            "duration": "5.000000",
+            "nb_read_frames": "120"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "32000",
+            "channels": 2,
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_time": "0.000000",
+            "duration_ts": 160000,
+            "duration": "5.000000",
+            "nb_read_frames": "157"
+          }
+        ]
+      },
+      "full_decode": "PASS",
+      "native_ffmpeg_from_conda": "All seven libraries confirmed in native log",
+      "model_download_bytes": 0,
+      "ffmpeg_package": {
+        "name": "ffmpeg",
+        "version": "8.1.2",
+        "build": "gpl_h5f9a2c2_108",
+        "channel": "https://conda.anaconda.org/conda-forge/osx-arm64",
+        "sha256": "f719c7ee889cb48cff6dca0c69a00e8b1af19936d17a74d03463b7a8d80e0022",
+        "md5": "2fa9c54dc3f149e64db826820846ca97"
+      },
+      "media_libraries": {
+        "libavutil": "017849294ffab77cdacc17b61944104c4ac765f256567853b377ba53f74b830e",
+        "libavcodec": "6d84f9cb7cf788ede04a84b16dfb4ad9a3f628ff1ed54049590bf2c86b0b8dcd",
+        "libswresample": "722bb641d842ea09459c6403a3369c7a32c6c93dbad309e14ccf6286d6722658",
+        "libswscale": "a464b6009737a5d59cd92a9972d6a02f608f6883ae7e93482e41dbbc32cf8e72",
+        "libavformat": "4ccaa0fd8ffe7e47ad50fdacf5abf86056c714d4d10c324972bfea2a2e40b143",
+        "libavdevice": "5a668985ea54b7e25837d8133b86388f3817594f88caca75989b0154362f781c",
+        "libavfilter": "0753cdb77a6b89f888593255f522e4375081f22b3c2c7e3560933164f2cb2fa7"
+      }
+    }
+  ],
+  "tests": {
+    "tests": 86,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "installation": {
+    "python_versions": [
+      "3.11",
+      "3.14"
+    ],
+    "conda_requirements": [
+      "python=3.11 (or 3.14)",
+      "ffmpeg=8.1.2",
+      "pip"
+    ],
+    "pip_runtime_requirements": [
+      "Pillow==12.3.0"
+    ],
+    "clean_python314_packages": {
+      "pip": "26.2.1",
+      "pillow": "12.3.0",
+      "h3-apple": "0.5.0"
+    },
+    "ffmpeg_resolution": "sys.prefix/bin and sys.prefix/lib; both runs used a PATH without Conda media tools and an intentionally unrelated CONDA_PREFIX",
+    "model_download_bytes": 0
+  },
+  "package_source_sha256": "c8b31ce08829b1244f9247d77aa94c6058272acabe13313082f878c64f603804",
+  "validation_boundary": "Both complete runs and the final release contain identical Python/data files. Publication documentation and evidence are finalized after the runs. Raw runs, wheel installs, explicit Conda package lists, and the initial failed fixture timeout are retained in the release evidence directory.",
+  "initial_test_failure": "The first synthetic FFmpeg invocation exceeded the previous 20-second fixture timeout; 84 other tests passed. Startup and fixture bounds were changed to 60 seconds, and the final 86-test suite passed. No inference or codec settings changed.",
+  "scope": "Installation, dependency integration and complete execution on M5 Max 128 GB. Not a new quality ranking, controlled speed comparison or qualification of other hardware. No fresh model network download or quantization was repeated."
+}

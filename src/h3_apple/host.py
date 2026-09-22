@@ -10,7 +10,7 @@ import re
 import shutil
 import subprocess
 
-from .media import tool, ffmpeg_libraries
+from .media import check_runtime
 
 
 def command(*args):
@@ -88,11 +88,10 @@ def doctor(model_dir=None):
         check_machine(info)
     except RuntimeError as error:
         errors.append(str(error))
-    for name, resolve in (("ffmpeg", lambda: tool("ffmpeg")), ("ffmpeg_libraries", ffmpeg_libraries)):
-        try:
-            info[name] = str(resolve())
-        except (OSError, ValueError, RuntimeError) as error:
-            errors.append(str(error))
+    try:
+        info.update(check_runtime())
+    except (OSError, ValueError, RuntimeError) as error:
+        errors.append(str(error))
     from .assets import load_assets
     try:
         assets = load_assets(model_dir)

@@ -38,8 +38,10 @@ def test_native_progress_counts_four_forwards():
 
 
 def test_runtime_drops_experimental_overrides(monkeypatch):
+    monkeypatch.setattr(engine, 'ffmpeg_libraries', lambda: '/conda/h3/lib')
     for key in ('VPIPE_SAGE_ATTN','DYLD_INSERT_LIBRARIES','MTL_CAPTURE_ENABLED','MLX_METAL_GPU_ARCH','FASTVIDEO_EXPERIMENT'):
         monkeypatch.setenv(key,'bad')
     environment=engine.runtime_environment(dict(library=dict(path='/engine/libvpipe.0.dylib')))
     assert environment['DYLD_LIBRARY_PATH']=='/engine'
+    assert environment['VPIPE_FFMPEG_DIR']=='/conda/h3/lib'
     assert not any(k in environment for k in ('VPIPE_SAGE_ATTN','DYLD_INSERT_LIBRARIES','MTL_CAPTURE_ENABLED','MLX_METAL_GPU_ARCH','FASTVIDEO_EXPERIMENT'))

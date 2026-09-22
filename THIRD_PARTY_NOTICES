@@ -13,13 +13,12 @@ Native inference engine: vpipe
   Full license: licenses/vpipe-APACHE-2.0.txt
   Required notice: licenses/vpipe-NOTICE.txt
   Dependency notices: licenses/vpipe-THIRD-PARTY-LICENSES.txt
-  The engine archive also carries these three files. FFmpeg is supplied
-  separately through the PyAV and imageio-ffmpeg pip dependencies, not bundled
-  into the h3-apple wheel or engine archive. Their wheels retain their FFmpeg
-  and codec-library licenses and build provenance:
-  https://github.com/PyAV-Org/PyAV
-  https://github.com/PyAV-Org/pyav-ffmpeg
-  https://github.com/imageio/imageio-ffmpeg
+  The engine archive also carries these three files. FFmpeg is installed
+  separately through conda-forge, not bundled into the h3-apple wheel or engine
+  archive. Its Conda packages retain their FFmpeg and codec-library licenses
+  and build provenance:
+  https://github.com/conda-forge/ffmpeg-feedstock
+  https://ffmpeg.org/legal.html
 
 Image reference preprocessing
   The size/alignment conventions follow MiniMax/FastVideo and Diffusers.

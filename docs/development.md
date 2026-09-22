@@ -19,11 +19,10 @@ another project or configuration interface.
 ## Verify a change
 
 Development uses a project-local Conda environment. Users are also guided to use
-Conda for isolation, with pip managing h3-apple and its dependencies inside it.
-Runtime media dependencies come from the pinned pip wheels.
+Conda for Python and FFmpeg, with pip managing h3-apple and Pillow inside it.
 
 ```bash
-conda create --prefix .local/envs/h3 -c conda-forge python=3.11 pip
+conda create --prefix .local/envs/h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 .local/envs/h3/bin/python -m pip install -r environments/dev.lock
 .local/envs/h3/bin/python -m pip install --no-build-isolation .
 .local/envs/h3/bin/python -I -m pytest tests -q
@@ -52,7 +51,8 @@ cmake --build /path/to/build --target vpipe vpipe-cli -j 8
 
 Follow upstream build requirements for CMake and platform tools. Metal sources
 are embedded in the library and compiled at runtime. The release CLI and library
-link only to system libraries; at runtime FFmpeg 8 is loaded from the PyAV wheel.
+link only to system libraries; at runtime FFmpeg 8 is loaded from the running
+Python environment’s `lib` directory.
 The artifact carries upstream licenses and notices. `data/engine.json` pins the
 archive and every member by size and SHA256. Build identity is recorded, but
 byte-identical compiler output across SDK versions is not promised.
@@ -65,11 +65,13 @@ weights or user reference images in release assets.
 
 Build an sdist and wheel with `python -m build`, then check them with
 `python -m twine check dist/*`. Verify installation from the wheel in a clean
-environment with no system FFmpeg on PATH, and test the documented CLI and
+Conda environment containing Python and FFmpeg, and test the documented CLI and
 Python calls against real models before publishing a release.
 
-The `publish.yml` workflow builds and checks the package on a version tag and
-publishes it through [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/).
+The `publish.yml` workflow builds and checks the package on a version tag.
+PyPI publication uses [Trusted Publishing](https://docs.pypi.org/trusted-publishers/):
+run the workflow manually against that tag with `publish_to_pypi` enabled after
+registering the publisher. Until then, users install the GitHub release wheel.
 Register the GitHub owner `RhinoQ`, repository `h3-apple`, workflow `publish.yml`
 and environment `pypi` in the PyPI project's publishing settings (or as a pending
 publisher before the first release). This links the maintainer's PyPI account

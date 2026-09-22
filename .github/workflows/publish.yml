@@ -4,6 +4,12 @@ on:
   push:
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      publish_to_pypi:
+        description: Publish this tag to PyPI after configuring its Trusted Publisher
+        type: boolean
+        default: false
+        required: true
 
 permissions:
   contents: read
@@ -39,6 +45,7 @@ jobs:
           if-no-files-found: error
 
   publish:
+    if: github.event_name == 'workflow_dispatch' && inputs.publish_to_pypi
     needs: build
     runs-on: ubuntu-latest
     environment:
