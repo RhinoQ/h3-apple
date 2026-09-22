@@ -13,7 +13,7 @@ from PIL import Image
 
 from .image_inputs import prepare_reference_image
 from .io import digest, write_json
-from .media import tool, finish_native
+from .media import ffmpeg_libraries, finish_native
 
 
 def build_graph(request, assets, prepared, output):
@@ -85,7 +85,7 @@ def progress_event(line):
 def runtime_environment(assets):
     # Never inherit experimental noise, allocator or kernel overrides.
     environment={k:v for k,v in os.environ.items() if not k.startswith(("VPIPE_","DYLD_","MTL_","MLX_","FASTVIDEO_"))}
-    environment.update(VPIPE_FFMPEG_DIR=str(Path(tool("ffmpeg")).parent.parent/"lib"),
+    environment.update(VPIPE_FFMPEG_DIR=str(ffmpeg_libraries()),
         DYLD_LIBRARY_PATH=str(Path(assets["library"]["path"]).parent))
     return environment
 

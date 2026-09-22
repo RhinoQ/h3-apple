@@ -6,6 +6,20 @@ from pathlib import Path
 import secrets
 
 
+class DownloadApprovalRequired(RuntimeError):
+    """A first-run download exceeds 20 GB and needs explicit consent."""
+
+    def __init__(self, plan):
+        self.download_bytes = plan["download_bytes"]
+        self.additional_disk_bytes = plan["additional_disk_bytes"]
+        super().__init__(
+            f"First-time model setup needs {self.download_bytes / 10**9:.2f} GB of downloads "
+            f"and {self.additional_disk_bytes / 10**9:.2f} GB of additional disk space. "
+            "Confirm with --allow-large-download on the command line, or "
+            "allow_large_download=True in generate()."
+        )
+
+
 @dataclass(frozen=True)
 class GenerationRequest:
     prompt: str
@@ -93,11 +107,16 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
              resolution="576p", duration=15, seed=None, aspect_ratio="16:9",
              output=None, model_dir=None, on_progress=None, diagnostics=False,
-             timeout=7200):
-    """Generate an MP4 with stereo audio and a run record in an isolated worker."""
+             timeout=7200, allow_large_download=False):
+    """Prepare H3 if needed, then generate an MP4 with stereo audio.
+
+    Model downloads over 20 GB raise DownloadApprovalRequired unless explicitly
+    allowed. Importing this module and resolving inputs never download anything.
+    """
     request = resolve(prompt, prompt_file=prompt_file, reference_images=reference_images,
                       resolution=resolution, duration=duration, seed=seed,
                       aspect_ratio=aspect_ratio)
     from .process import run_generation
     return run_generation(request, output=output, model_dir=model_dir,
-                          on_progress=on_progress, diagnostics=diagnostics, timeout=timeout)
+                          on_progress=on_progress, diagnostics=diagnostics, timeout=timeout,
+                          allow_large_download=allow_large_download)

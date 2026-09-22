@@ -67,8 +67,13 @@ class ProgressBar:
             line = f"{label} [{bar}] {completed * 100 // total:3d}%  Step {step}/{steps}"
         elif phase == "video_decode" and "tiles_completed" in event:
             line = f"{label}: {event['tiles_completed']} tiles complete"
+        elif phase == "model_plan":
+            line = (f"Preparing models: {event['download_bytes'] / 10**9:.2f} GB download, "
+                    f"{event['additional_disk_bytes'] / 10**9:.2f} GB additional disk")
         else:
-            line = label
+            line = event.get("message") or label
+            if event.get("file"):
+                line += ": " + str(event["file"])
         self._write(f"{line}  |  elapsed {self.elapsed()}")
 
     def close(self, *, success=False):

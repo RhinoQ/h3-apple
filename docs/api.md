@@ -1,6 +1,6 @@
 # Python API
 
-Use the private environment's `.local/envs/h3/bin/python`:
+Install with `python -m pip install h3-apple`, then use the same Python:
 
 ```python
 from h3_apple import generate
@@ -24,9 +24,19 @@ it is always recorded. There is one fixed inference recipe.
 
 `resolve(...)` accepts these input and delivery settings and returns a
 `GenerationRequest` without loading models. `generate(...)` also accepts
-`model_dir`, `output`, `on_progress`, `diagnostics=False`, and `timeout=7200`.
+`model_dir`, `output`, `on_progress`, `diagnostics=False`, `timeout=7200`, and
+`allow_large_download=False`.
 The callback receives small progress dictionaries in the caller process.
 Diagnostics retain intermediate media and native logs for debugging.
+
+`generate()` automatically prepares the engine and models on first use.
+It never prompts for terminal input. Downloads over 20 GB raise
+`h3_apple.DownloadApprovalRequired` before downloading; its `download_bytes`
+and `additional_disk_bytes` describe the plan. After reviewing the plan,
+call `generate(..., allow_large_download=True)` to authorize it. Compatible
+prepared models are reused without the flag. Installation, import and
+`resolve()` do not download models. Preparation progress also uses the callback;
+the generation timeout and `elapsed_seconds` exclude one-time preparation.
 
 The result contains `video_path`, `metadata_path`, `elapsed_seconds` and `seed`.
 Existing output files are never overwritten. Ctrl-C and timeouts stop the

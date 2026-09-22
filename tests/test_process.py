@@ -36,7 +36,7 @@ def test_device_lock_is_shared_across_processes(tmp_path):
 def test_no_clobber_before_worker_launch(tmp_path, monkeypatch, request_image):
     output = tmp_path / "keep.mp4"
     output.write_bytes(b"user content")
-    monkeypatch.setattr(runner, "load_assets", lambda _: {"identity": "fixture"})
+    monkeypatch.setattr(runner, "ensure_ready", lambda *_, **kw: {"identity": "fixture"})
     with pytest.raises(FileExistsError):
         runner.run_generation(resolve("Text", reference_images=[request_image]), output=output)
     assert output.read_bytes() == b"user content"
@@ -48,7 +48,7 @@ def test_worker_failure_preserves_evidence(tmp_path, monkeypatch, request_image)
                       "print(json.dumps({'kind':'error','error':'intentional test failure'}),flush=True)\n"
                       "sys.exit(7)\n")
     real_popen = subprocess.Popen
-    monkeypatch.setattr(runner, "load_assets", lambda _: {"identity": "fixture"})
+    monkeypatch.setattr(runner, "ensure_ready", lambda *_, **kw: {"identity": "fixture"})
     monkeypatch.setattr(runner.subprocess, "Popen", lambda args, **kwargs:
                         real_popen([sys.executable, str(worker)], **kwargs))
     output = tmp_path / "failed.mp4"
@@ -68,7 +68,7 @@ def test_timeout_reaps_the_worker(tmp_path, monkeypatch, request_image):
         child = real_popen([sys.executable, str(worker)], **kwargs)
         children.append(child)
         return child
-    monkeypatch.setattr(runner, "load_assets", lambda _: {"identity": "fixture"})
+    monkeypatch.setattr(runner, "ensure_ready", lambda *_, **kw: {"identity": "fixture"})
     monkeypatch.setattr(runner.subprocess, "Popen", launch)
     output = tmp_path / "timeout.mp4"
     with pytest.raises(TimeoutError):
@@ -91,7 +91,7 @@ def test_reference_inputs_are_snapshotted_in_order(tmp_path, monkeypatch):
                       "print(json.dumps({'kind':'error','error':'captured specification'}),flush=True)\n"
                       "sys.exit(7)\n")
     real_popen = subprocess.Popen
-    monkeypatch.setattr(runner, "load_assets", lambda _: dict(identity="fixture", task="ref2va", ref2va_native="native"))
+    monkeypatch.setattr(runner, "ensure_ready", lambda *_, **kw: dict(identity="fixture", task="ref2va", ref2va_native="native"))
     monkeypatch.setattr(runner.subprocess, "Popen", lambda args, **kwargs:
                         real_popen([sys.executable, str(worker)], **kwargs))
     output = tmp_path / "output.mp4"
@@ -117,7 +117,7 @@ def test_cancellation_reaps_native_descendant(tmp_path,monkeypatch,mode,request_
         "pathlib.Path(s['workspace'],'native.pid').write_text(str(p.pid))\n"
         "print(json.dumps({'phase':'native_generation'}),flush=True)\ntime.sleep(60)\n")
     real_popen=subprocess.Popen
-    monkeypatch.setattr(runner,"load_assets",lambda _:dict(identity="fixture",tasks=["t2va"]))
+    monkeypatch.setattr(runner,"ensure_ready",lambda *_, **kw:dict(identity="fixture",tasks=["t2va"]))
     monkeypatch.setattr(runner.subprocess,"Popen",lambda args,**kw:real_popen([sys.executable,str(worker)],**kw))
     def cancel(_event):raise KeyboardInterrupt()
     output=tmp_path/"out.mp4"

@@ -4,37 +4,116 @@
 """Validate and deliver synchronized audio/video."""
 
 from fractions import Fraction
-import json
+import ctypes
+import hashlib
 import math
+import os
 from pathlib import Path
 import shutil
 import subprocess
-import sys
+import tempfile
 
 
 def tool(name):
-    candidate = Path(sys.executable).parent / name
-    if candidate.is_file():
-        return str(candidate)
-    found = shutil.which(name)
-    if found is None:
-        raise RuntimeError(f"{name} is missing; run ./install.sh to install the Conda media tools.")
-    return found
+    """Use the pip wheel's executable, independently of PATH and Conda."""
+    import imageio_ffmpeg
+
+    if name != "ffmpeg":
+        raise ValueError(f"Unsupported media tool: {name}")
+    candidates = list((Path(imageio_ffmpeg.__file__).parent / "binaries").glob("ffmpeg-*-v*"))
+    if len(candidates) != 1 or not os.access(candidates[0], os.X_OK):
+        raise RuntimeError("The bundled FFmpeg executable is missing. Reinstall h3-apple with pip.")
+    return str(candidates[0])
+
+
+def ffmpeg_libraries():
+    """Expose PyAV's matching FFmpeg ABI to the unchanged native engine."""
+    import av
+
+    majors = dict(libavutil=60, libavcodec=62, libavformat=62, libavdevice=62,
+                  libavfilter=11, libswresample=6, libswscale=9)
+    root = Path(av.__file__).parent / ".dylibs"
+    libraries = {}
+    for name, major in majors.items():
+        candidates = list(root.glob(f"{name}.{major}.*.dylib"))
+        if av.library_versions.get(name, (None,))[0] != major or len(candidates) != 1:
+            raise RuntimeError("H3 needs the pinned PyAV macOS wheel and FFmpeg 8 libraries. "
+                               "Reinstall h3-apple with pip on an Apple Silicon Mac.")
+        target = candidates[0].resolve(strict=True)
+        ctypes.CDLL(str(target))  # Fail before inference instead of falling back to system libraries.
+        libraries[name + ".dylib"] = target
+    key = hashlib.sha256('\n'.join(map(str, libraries.values())).encode()).hexdigest()
+    directory = Path.home() / ".cache/h3-apple/media" / key
+    if not directory.exists():
+        directory.parent.mkdir(parents=True, exist_ok=True)
+        temporary = Path(tempfile.mkdtemp(prefix=".media-", dir=directory.parent))
+        try:
+            for name, target in libraries.items():
+                (temporary / name).symlink_to(target)
+            try:
+                temporary.rename(directory)
+            except FileExistsError:
+                pass  # Another process prepared the same links.
+        finally:
+            if temporary.exists():
+                shutil.rmtree(temporary)
+    for name, target in libraries.items():
+        if not (directory / name).is_symlink() or (directory / name).resolve() != target:
+            raise ValueError(f"FFmpeg library link changed: {directory / name}")
+    return directory
+
+
+def probe(path):
+    """Read stream metadata and count decoded frames without an external ffprobe."""
+    import av
+
+    streams = []
+    with av.open(str(path)) as container:
+        for stream in container.streams:
+            if stream.type not in ("video", "audio"):
+                continue
+            if stream.duration is None or stream.time_base is None:
+                raise ValueError("Output stream has no duration.")
+            entry = dict(index=stream.index, codec_type=stream.type,
+                         codec_name=stream.codec_context.name,
+                         start_time=str(float((stream.start_time or 0) * stream.time_base)),
+                         duration=str(float(stream.duration * stream.time_base)))
+            if stream.type == "video":
+                entry.update(width=stream.width, height=stream.height,
+                             avg_frame_rate=str(stream.average_rate), nb_read_frames=0)
+            else:
+                entry.update(sample_rate=str(stream.sample_rate),
+                             channels=len(stream.layout.channels), decoded_samples=0)
+            streams.append(entry)
+        by_index = {entry['index']: entry for entry in streams}
+        for packet in container.demux():
+            if packet.stream.index not in by_index:
+                continue
+            if packet.is_corrupt:
+                raise ValueError("Output contains a corrupt media packet.")
+            for frame in packet.decode():
+                if frame.is_corrupt:
+                    raise ValueError("Output contains a corrupt decoded frame.")
+                entry = by_index[packet.stream.index]
+                if entry['codec_type'] == 'video':
+                    entry['nb_read_frames'] += 1
+                else:
+                    entry['decoded_samples'] += frame.samples
+    return dict(streams=streams)
 
 
 def validate(path, expected, *, allow_aac_padding=False):
     path = Path(path)
     if not path.is_file() or path.stat().st_size == 0:
         raise ValueError(f"No completed video at {path}")
-    result = subprocess.run([tool("ffprobe"), "-v", "error", "-count_frames",
-                             "-show_streams", "-show_format", "-of", "json", str(path)],
-                            capture_output=True, text=True, timeout=300, check=True)
-    data = json.loads(result.stdout)
+    data = probe(path)
     videos = [s for s in data["streams"] if s["codec_type"] == "video"]
     audios = [s for s in data["streams"] if s["codec_type"] == "audio"]
     if len(videos) != 1 or len(audios) != 1:
         raise ValueError("Output must contain exactly one video stream and one audio stream.")
     video, audio = videos[0], audios[0]
+    if audio['decoded_samples'] == 0:
+        raise ValueError("Output audio contains no decoded samples.")
     measured = (video["width"], video["height"], int(video["nb_read_frames"]),
                 Fraction(video["avg_frame_rate"]), int(audio["sample_rate"]), audio["channels"])
     wanted = (expected["width"], expected["height"], expected["num_frames"],
@@ -76,4 +155,3 @@ def finish_native(source, destination, request):
         "-movflags","+faststart",str(destination)]
     subprocess.run(command,check=True,capture_output=True,timeout=300)
     return command
-

@@ -1,70 +1,97 @@
 # Installation
 
-Run `./install.sh` from the release source folder. It uses an existing Conda
-installation, or bootstraps a pinned Miniforge under `.local/miniforge`.
-The project environment lives in `.local/envs/h3`. System Python is not modified.
-Run commands through `./h3`; activating the environment is optional.
+With Python 3.11–3.14 on an Apple Silicon Mac:
 
-Only Pillow is needed by the Python runtime. Python, FFmpeg, Pillow and the
-native engine are pinned. The engine is downloaded automatically from the
-same release, checked by SHA256 and installed in `~/.cache/h3-apple/engines`.
-No compiler, Xcode, PyTorch, Transformers or MLX Python package is required.
+```bash
+python -m pip install h3-apple
+h3 generate --image reference.jpg --prompt "Your scene, movement and sound."
+```
 
-## Models
+Use a Python environment that you own. If Python reports an
+`externally-managed-environment`, create and activate a virtual environment
+instead of overriding the protection:
 
-The default location is `~/Models/h3-apple/ref2va`. To use another volume,
-set this before installing and keep it set when generating:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install h3-apple
+```
+
+`python -m h3_apple` is equivalent to `h3` and works when the scripts directory
+is not on PATH. The package also exposes `import h3_apple`; both entry points
+share the same first-run preparation and generation code.
+
+pip installs Pillow, PyAV and imageio-ffmpeg. Their wheels provide image handling,
+FFmpeg libraries and the FFmpeg executable. No Conda, Homebrew, system FFmpeg,
+compiler, Xcode, PyTorch, Transformers or MLX Python package is required.
+The inference engine is downloaded on first use, checked by SHA256 and cached
+under `~/.cache/h3-apple/engines`. Models are never bundled into the pip package
+or downloaded during installation or import.
+
+## First generation
+
+`h3 generate` automatically checks the Mac, reuses or downloads model files,
+prepares them, then generates your video. There is no required setup command.
+
+The pinned MiniMax Ref2VA model and DARE/TIES adapter need approximately
+**145 GB of downloads and 233 GB of free disk** for a fresh preparation.
+Source files remain cached for reuse; their combined footprint with prepared
+models is approximately 218 GB. The prepared model alone is about 85 GB.
+The transformer and text encoder are converted to 8-bit group-64 weights.
+These are disk sizes, not peak runtime memory.
+
+The CLI asks before downloads over 20 GB. In scripts and the Python API,
+explicit consent is required instead of a terminal prompt:
+
+```bash
+h3 prepare --plan
+h3 generate --image reference.jpg --prompt "Your scene" --allow-large-download
+```
+
+In Python, review `DownloadApprovalRequired.download_bytes` and
+`additional_disk_bytes`, then pass `allow_large_download=True` to `generate()`.
+This is download consent, not a generation mode. Already prepared models need
+no confirmation. Interrupted downloads resume when you run the command again;
+checksums are verified before use.
+
+## Model location and reuse
+
+Models default to `~/Models/h3-apple/ref2va`. To use another volume:
 
 ```bash
 export H3_MODEL_DIR=/Volumes/Models/h3-apple
-./install.sh
+h3 generate --image reference.jpg --prompt "Your scene"
 ```
 
-Model preparation uses the pinned MiniMax Ref2VA base and DARE/TIES four-step
-adapter. It converts the transformer and text encoder to 8-bit group-64
-weights automatically. Model sources, revisions, sizes and SHA256 hashes are
-in [model-sources.json](../src/h3_apple/data/model-sources.json).
-Weights remain subject to their model licenses.
+Keep the variable set for subsequent runs, or pass `--model-dir` / `model_dir`
+explicitly. Existing registered native Ref2VA installations from h3-apple 0.3
+are automatically detected under `~/Models`. Existing 0.4 prepared models
+continue to work. Files are verified and hard-linked on the same volume;
+cross-volume reuse makes verified copies. Existing models are not deleted.
 
-A fresh preparation downloads approximately 145 GB. Source files remain
-cached for reuse; the combined source and converted footprint is approximately
-218 GB, with additional temporary headroom during preparation. The prepared
-model alone is about 85 GB. These are disk sizes, not peak runtime memory.
-
-The installer asks for confirmation before downloads over 20 GB. For a
-noninteractive installation, it stops before the model download; then inspect
-and explicitly confirm the plan:
+For a custom source snapshot or another prepared model directory:
 
 ```bash
-./h3 prepare --plan
-./h3 prepare --allow-large-download
+h3 prepare --reuse-dir /path/to/models
 ```
 
-Downloads resume from verified partial files. Run `./h3 prepare` again after
-an interruption. Failed preparation logs remain beside the model directory.
-A successful source cache is retained; the installer does not delete your
-existing models or research files.
-
-To reuse a local source snapshot or an earlier compatible H3 installation:
-
-```bash
-./h3 prepare --reuse-dir /path/to/models
-```
-
-The existing registered native Ref2VA installations from h3-apple 0.3 are
-automatically detected under `~/Models` when no explicit reuse directory is
-provided. Weights are checked before reuse and linked into an independent
-model directory on the same volume; cross-volume reuse makes verified copies.
-Old MLX-converted bundles cannot substitute for these native weights.
+`h3 prepare` remains an optional way to prepare in advance. Old MLX-converted
+bundles cannot substitute for native weights. Sources, revisions and SHA256
+hashes are in [model-sources.json](../src/h3_apple/data/model-sources.json).
+Model license terms still apply.
 
 ## Troubleshooting
 
-`./h3 doctor` checks hardware, the engine, media tools and model receipts.
-`./h3 verify` performs a full weight checksum pass. An explicit `--model-dir`
-overrides `H3_MODEL_DIR` for either command and for generation.
+`h3 doctor` checks hardware, pip-provided media tools, the engine and model
+receipts. Before first generation it may report that models are not yet ready.
+`h3 verify` performs a full weight checksum pass. To upgrade:
 
-An M5 GPU is required for the integrated accelerated kernels. Other Apple
-Silicon generations have not been qualified. Use 576p on a 64 GB machine;
-768p beyond 5 seconds requires 96 GB. Generation stops if swap grows by more
-than 2 GiB or macOS reports serious thermal pressure. It reserves 20 GiB of
-free disk for temporary media. Failed jobs retain their workspace and logs.
+```bash
+python -m pip install --upgrade h3-apple
+```
+
+An M5 Mac with macOS 26.2+ and at least 64 GB unified memory is required.
+Other Apple Silicon generations have not been qualified. Use 576p on a 64 GB
+machine; 768p beyond 5 seconds requires 96 GB. Generation stops if swap grows
+by more than 2 GiB or macOS reports serious thermal pressure. It reserves
+20 GiB of free disk for temporary media. Failed jobs retain their logs.

@@ -1,0 +1,259 @@
+{
+  "schema": "h3-apple-validation/v1",
+  "version": "0.5.0",
+  "date": "2026-09-21",
+  "base_commit": "195f44939738656f59b4372f37fe620e8e1f7c42",
+  "input": {
+    "origin": "ModelTC/Minimax-H3-Turbo complete Ref2VA test case 3; public reference URLs in argument order. Reuses the previously tested full prompt, without tuning or result selection.",
+    "source_revision": "02e26d591f7a04d5d1a074c9566d5dd4f22f6225",
+    "prompt_file": "ref2va-prompt.txt",
+    "prompt_sha256": "65fa0ccdf3fd416df0a67e0b169e3beb6e0f77d7679b905f99c27922c4534899",
+    "references": [
+      {
+        "index": 1,
+        "file": "ref2va_test_3_1.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_1.jpg",
+        "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d"
+      },
+      {
+        "index": 2,
+        "file": "ref2va_test_3_2.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_2.jpg",
+        "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f"
+      },
+      {
+        "index": 3,
+        "file": "ref2va_test_3_3.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_3.jpg",
+        "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29"
+      }
+    ]
+  },
+  "reference_inputs": [
+    {
+      "index": 1,
+      "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d",
+      "size": 469333
+    },
+    {
+      "index": 2,
+      "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f",
+      "size": 360816
+    },
+    {
+      "index": 3,
+      "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29",
+      "size": 228730
+    }
+  ],
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "engine": {
+    "engine_source": "f34e2cc3a3adae759eea254419f436f5b7800057",
+    "binary_sha256": "e472d4f7b79d7bcf27da9991cf787308e4fdd7205278a82046d7bf7b83ec7d8e",
+    "library_sha256": "e03b7e279e94b8c09b3db39b85bfc94d8dae1434c9b59cb8f9b95283ceac1631"
+  },
+  "media_runtime": {
+    "packages": {
+      "h3-apple": "0.5.0",
+      "av": "18.1.0",
+      "imageio-ffmpeg": "0.6.0"
+    },
+    "libav_versions": {
+      "libavutil": [
+        60,
+        26,
+        102
+      ],
+      "libavcodec": [
+        62,
+        28,
+        102
+      ],
+      "libavformat": [
+        62,
+        12,
+        102
+      ],
+      "libavdevice": [
+        62,
+        3,
+        102
+      ],
+      "libavfilter": [
+        11,
+        14,
+        102
+      ],
+      "libswscale": [
+        9,
+        5,
+        102
+      ],
+      "libswresample": [
+        6,
+        3,
+        102
+      ]
+    },
+    "ffmpeg_version": "ffmpeg version 7.1 Copyright (c) 2000-2024 the FFmpeg developers",
+    "ffmpeg_sha256": "6d175a4743ca50256e89a8cdd731100f9cee33bd79aeea46894d209410dc6617",
+    "libraries": {
+      "libavcodec.dylib": {
+        "sha256": "7a1fbb75b775d60b834f246b18e3c24d604cc7dce87c4888ee6f993755af679c"
+      },
+      "libavdevice.dylib": {
+        "sha256": "37216cbc43d4b6128945cc242398714672e73eb5ad07f362dd3d751a8be1be0e"
+      },
+      "libavfilter.dylib": {
+        "sha256": "4f5f51d1bf6538422c36288ade44319508fd3a4e1441c249583eb02518f22dab"
+      },
+      "libavformat.dylib": {
+        "sha256": "e7c6906a4b7cab74b228a065a84f62c89e794d47c4e47b71230cf4d799dcc86f"
+      },
+      "libavutil.dylib": {
+        "sha256": "0b997a3f3d830302cfd7de9d33788f6a2c9bf353c4ce83e0553b7308985db881"
+      },
+      "libswresample.dylib": {
+        "sha256": "49e31da0018b796bc3ace3ab41f9e039666beedb6673de8140673d1ce34d40d2"
+      },
+      "libswscale.dylib": {
+        "sha256": "13301cd7c18088a3dd70c9c1eb0b59fcc9dffe0b5ee29241fcdb4e259cf4e711"
+      }
+    }
+  },
+  "final_package_source_sha256": "a5e84cd327972dfe70398b486c4cc80526aa4c2b150af999ecbbda5222e3d575",
+  "integration": [
+    {
+      "entry": "h3 generate",
+      "python": "3.11",
+      "request": {
+        "resolution": "576p",
+        "duration": 5.166666666666667,
+        "seed": 0,
+        "width": 1024,
+        "height": 576,
+        "num_frames": 124,
+        "model_width": 1024,
+        "model_height": 576,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "elapsed_seconds": 265.3582826250349,
+      "video_sha256": "68b3301bd2395da58658b095dd8116c33f5816412cb5d648d70256bfcf19b6d1",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_type": "video",
+            "codec_name": "h264",
+            "start_time": "0.0",
+            "duration": "5.166666666666667",
+            "width": 1024,
+            "height": 576,
+            "avg_frame_rate": "24",
+            "nb_read_frames": 124
+          },
+          {
+            "index": 1,
+            "codec_type": "audio",
+            "codec_name": "aac",
+            "start_time": "0.0",
+            "duration": "5.16665625",
+            "sample_rate": "32000",
+            "channels": 2,
+            "decoded_samples": 165888
+          }
+        ]
+      },
+      "package_source_sha256": "8a709fdaa62b5294cd51b693cb3aacc0715cebd3bc8b4a2597ba32a0bbfbc3e3",
+      "actual_nfe": 4,
+      "acceleration": "i8-sol-sage",
+      "full_decode": "PASS",
+      "native_ffmpeg_from_pip": "seven libraries confirmed in native.log",
+      "model_download_bytes": 0
+    },
+    {
+      "entry": "h3_apple.generate",
+      "python": "3.14",
+      "request": {
+        "resolution": "576p",
+        "duration": 5.0,
+        "seed": 0,
+        "width": 1024,
+        "height": 576,
+        "num_frames": 120,
+        "model_width": 1024,
+        "model_height": 576,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4
+      },
+      "elapsed_seconds": 253.640312833013,
+      "video_sha256": "308c2b11236b1832ca8aef2ac4eba967f435930181e5744ec8701ca484b4f393",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_type": "video",
+            "codec_name": "h264",
+            "start_time": "0.0",
+            "duration": "5.0",
+            "width": 1024,
+            "height": 576,
+            "avg_frame_rate": "24",
+            "nb_read_frames": 120
+          },
+          {
+            "index": 1,
+            "codec_type": "audio",
+            "codec_name": "aac",
+            "start_time": "0.0",
+            "duration": "5.0",
+            "sample_rate": "32000",
+            "channels": 2,
+            "decoded_samples": 160768
+          }
+        ]
+      },
+      "package_source_sha256": "8a709fdaa62b5294cd51b693cb3aacc0715cebd3bc8b4a2597ba32a0bbfbc3e3",
+      "actual_nfe": 4,
+      "acceleration": "i8-sol-sage",
+      "full_decode": "PASS",
+      "native_ffmpeg_from_pip": "seven libraries confirmed in native.log",
+      "model_download_bytes": 0
+    }
+  ],
+  "tests": {
+    "tests": 78,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "installation": {
+    "clean_python_versions": [
+      "3.11",
+      "3.14"
+    ],
+    "pip_dependencies": [
+      "Pillow==12.3.0",
+      "av==18.1.0",
+      "imageio-ffmpeg==0.6.0"
+    ],
+    "system_ffmpeg_on_path": false,
+    "model_preparation": "Automatic verified local reuse on first CLI generation; API reused the prepared model.",
+    "model_download_bytes": 0
+  },
+  "validation_boundary": "The complete generation runs precede a cache-key-only correction in media.py (include resolved library filenames when selecting the link-cache directory). Final installed wheel passes the full suite and loads all seven native libraries. Inference, media handling and model inputs are unchanged by that correction.",
+  "scope": "Installation and API integration, not a quality or speed comparison. Fresh model network downloads were not repeated. M5 Max 128 GB only; no new hardware qualification."
+}

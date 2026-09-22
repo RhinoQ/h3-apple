@@ -18,26 +18,31 @@ another project or configuration interface.
 
 ## Verify a change
 
+Development uses a project-local Conda environment; installed users do not need
+Conda. Runtime media dependencies come from pip wheels, not Conda FFmpeg.
+
 ```bash
+conda create --prefix .local/envs/h3 -c conda-forge python=3.11 pip
 .local/envs/h3/bin/python -m pip install -r environments/dev.lock
-.local/envs/h3/bin/python -m pip install --no-deps --no-build-isolation .
+.local/envs/h3/bin/python -m pip install --no-build-isolation .
 .local/envs/h3/bin/python -I -m pytest tests -q
 ```
 
 Tests use temporary files and synthetic media. A release also needs a normal
 wheel installation, an actual model preparation or verified local reuse,
-and a complete image-reference video through the public CLI. Keep execution,
+and a complete image-reference video through both public entry points. Keep execution,
 quality judgments and performance comparisons as separate claims.
 
 ## Build the engine artifact
 
 Check out the exact source revision above, including its submodules. Build
-against the FFmpeg headers from the project environment, in Release mode:
+against FFmpeg 8 headers in a separate build environment, in Release mode:
 
 ```bash
+conda create --prefix .local/envs/engine-build -c conda-forge ffmpeg=8.1.2
 cmake -S /path/to/vpipe -B /path/to/build -DCMAKE_BUILD_TYPE=Release \
   -DVPIPE_METAL_RUNTIME_COMPILE=ON \
-  -DVPIPE_FFMPEG_INCLUDE_DIRS="$PWD/.local/envs/h3/include"
+  -DVPIPE_FFMPEG_INCLUDE_DIRS="$PWD/.local/envs/engine-build/include"
 cmake --build /path/to/build --target vpipe vpipe-cli -j 8
 .local/envs/h3/bin/python tools/package_engine.py \
   --source-dir /path/to/vpipe --build-dir /path/to/build \
@@ -46,12 +51,26 @@ cmake --build /path/to/build --target vpipe vpipe-cli -j 8
 
 Follow upstream build requirements for CMake and platform tools. Metal sources
 are embedded in the library and compiled at runtime. The release CLI and library
-link only to system libraries; FFmpeg is loaded from the private Conda environment.
+link only to system libraries; at runtime FFmpeg 8 is loaded from the PyAV wheel.
 The artifact carries upstream licenses and notices. `data/engine.json` pins the
 archive and every member by size and SHA256. Build identity is recorded, but
 byte-identical compiler output across SDK versions is not promised.
 
-Release source and wheel must contain identical Python/data files. Publish the
-engine archive alongside them, a release manifest, and SHA256SUMS. The source
-installer must work without a pre-existing Python environment. Do not bundle
-model weights or user reference images in release assets.
+Release source and wheel must contain identical Python/data files. The pinned
+engine artifact is reused until its implementation changes. Do not bundle model
+weights or user reference images in release assets.
+
+## Publish the Python package
+
+Build an sdist and wheel with `python -m build`, then check them with
+`python -m twine check dist/*`. Verify installation from the wheel in a clean
+environment with no system FFmpeg on PATH, and test the documented CLI and
+Python calls against real models before publishing a release.
+
+The `publish.yml` workflow builds and checks the package on a version tag and
+publishes it through [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/).
+Register the GitHub owner `RhinoQ`, repository `h3-apple`, workflow `publish.yml`
+and environment `pypi` in the PyPI project's publishing settings (or as a pending
+publisher before the first release). This links the maintainer's PyPI account
+without storing a long-lived API token in the repository. Uploads require a
+tag whose version matches both the project metadata and the Python package.

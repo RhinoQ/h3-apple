@@ -5,7 +5,7 @@ from dataclasses import asdict
 import json
 import sys
 
-from .api import generate, resolve
+from .api import DownloadApprovalRequired, generate, resolve
 
 
 def progress(event):
@@ -41,6 +41,8 @@ def parser():
             command.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
             command.add_argument("--timeout", type=float, default=7200)
             command.add_argument("--no-progress", action="store_true")
+            command.add_argument("--allow-large-download", action="store_true",
+                                 help="Confirm first-run model downloads exceeding 20 GB")
     prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
@@ -59,7 +61,17 @@ def main(argv=None):
         if command == "generate":
             from .progress import ProgressBar
             with ProgressBar(enabled=not args.pop("no_progress")) as display:
-                result = asdict(generate(**args, on_progress=display))
+                try:
+                    result = asdict(generate(**args, on_progress=display))
+                except DownloadApprovalRequired as error:
+                    if not sys.stdin.isatty():
+                        raise
+                    print(f"\n{error}", file=sys.stderr)
+                    print("Download these model files? [y/N] ", end="", file=sys.stderr, flush=True)
+                    if sys.stdin.readline().strip().lower() not in ("y", "yes"):
+                        raise RuntimeError("Model download cancelled. No model files were downloaded.") from None
+                    args["allow_large_download"] = True
+                    result = asdict(generate(**args, on_progress=display))
         elif command == "resolve":
             result = resolve(**args).to_dict()
         elif command == "doctor":

@@ -16,7 +16,7 @@ import time
 import uuid
 
 from .api import GenerationResult
-from .assets import load_assets
+from .preparation import ensure_ready
 from .io import digest, write_json
 
 
@@ -40,26 +40,28 @@ def _stop(process):
 
 
 def run_generation(request, *, output=None, model_dir=None, on_progress=None,
-                   diagnostics=False, timeout=7200):
+                   diagnostics=False, timeout=7200, allow_large_download=False):
     if isinstance(timeout, bool) or not math.isfinite(timeout) or timeout <= 0:
         raise ValueError("timeout must be a positive finite number of seconds.")
     if type(diagnostics) is not bool:
         raise ValueError("diagnostics must be a boolean.")
-    assets = load_assets(model_dir)
     if output is None:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         directory = Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}"
-        directory.mkdir(parents=True, exist_ok=False)
         video = directory / "output.mp4"
         metadata = directory / "run.json"
     else:
         video = Path(output).expanduser().absolute()
         if video.suffix.lower() != ".mp4":
             raise ValueError("output must be an .mp4 path.")
-        video.parent.mkdir(parents=True, exist_ok=True)
         metadata = video.with_suffix(".run.json")
     if os.path.lexists(video):
         raise FileExistsError(f"Output already exists: {video}")
+    if os.path.lexists(metadata):
+        raise FileExistsError(f"Run record already exists: {metadata}")
+    assets = ensure_ready(model_dir, allow_large_download=allow_large_download,
+                          progress=on_progress, request=request.to_dict())
+    video.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     run = dict(status="starting", request=request.to_dict(), seed=request.seed,
                started_utc=datetime.now(timezone.utc).isoformat(),

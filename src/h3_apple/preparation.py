@@ -21,6 +21,26 @@ LIMIT = 20_000_000_000
 RESERVE = 2 * 1024**3
 
 
+def ensure_ready(model_dir=None, *, allow_large_download=False, progress=None, request=None):
+    """Shared first-run setup for the CLI and Python API; never prompt in Python."""
+    from .api import DownloadApprovalRequired
+    from .media import tool, ffmpeg_libraries
+
+    if type(allow_large_download) is not bool:
+        raise ValueError('allow_large_download must be a boolean.')
+    progress = progress or (lambda event: None)
+    check_machine(snapshot(), request)
+    spec = plan(model_dir, progress=progress)
+    if spec['download_bytes'] > LIMIT and not allow_large_download:
+        raise DownloadApprovalRequired(spec)
+    # Resolve pip-provided media dependencies before any large download.
+    tool('ffmpeg')
+    ffmpeg_libraries()
+    if spec['status'] != 'ready' or spec['download_bytes']:
+        progress(dict(spec, phase='model_plan'))
+    return prepare(spec, allow_large_download=allow_large_download, progress=progress)
+
+
 def cache_path(cache, entry):
     return cache / entry['repo'].replace('/', '--') / entry['revision'] / entry['filename']
 
