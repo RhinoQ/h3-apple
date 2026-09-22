@@ -18,8 +18,9 @@ another project or configuration interface.
 
 ## Verify a change
 
-Development uses a project-local Conda environment; installed users do not need
-Conda. Runtime media dependencies come from pip wheels, not Conda FFmpeg.
+Development uses a project-local Conda environment. Users are also guided to use
+Conda for isolation, with pip managing h3-apple and its dependencies inside it.
+Runtime media dependencies come from the pinned pip wheels.
 
 ```bash
 conda create --prefix .local/envs/h3 -c conda-forge python=3.11 pip

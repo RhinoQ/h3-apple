@@ -8,14 +8,24 @@ Ref2VA generation path, with acceleration enabled automatically. Give it
 
 ## Install
 
+Use a dedicated Conda environment to keep H3's dependencies separate from your
+other projects. If you do not have Conda, install the Apple Silicon version of
+[Miniforge](https://github.com/conda-forge/miniforge) first.
+
 ```bash
-pip install h3-apple
+conda create -n h3 -c conda-forge python=3.11 pip -y
+conda activate h3
+python -m pip install h3-apple
 ```
 
-Use Python 3.11–3.14. pip installs the Python and media dependencies. The first
+Conda manages the isolated environment; pip installs h3-apple and its dependencies
+inside it, including the required FFmpeg executable and libraries. The first
 generation automatically prepares the inference engine and models, then continues
-to your video. No repository checkout, Conda, Homebrew, compiler or mode selection
-is needed. Existing compatible models are verified and reused.
+to your video. No repository checkout, Homebrew, separate FFmpeg installation,
+compiler or mode selection is needed. Existing compatible models are verified
+and reused. Python 3.11–3.14 is supported.
+
+In a new terminal, run `conda activate h3` before using the CLI or Python API.
 
 **Requirements:** an M5 Mac, macOS 26.2+, and at least 64 GB unified memory.
 A first model preparation downloads about **145 GB** and needs about **233 GB**

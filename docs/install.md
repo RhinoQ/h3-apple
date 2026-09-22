@@ -1,29 +1,37 @@
 # Installation
 
-With Python 3.11–3.14 on an Apple Silicon Mac:
+The recommended installation uses a dedicated Conda environment on an Apple
+Silicon Mac. Use your existing Conda installation, or install the Apple Silicon
+version of [Miniforge](https://github.com/conda-forge/miniforge) first:
 
 ```bash
+conda create -n h3 -c conda-forge python=3.11 pip -y
+conda activate h3
 python -m pip install h3-apple
 h3 generate --image reference.jpg --prompt "Your scene, movement and sound."
 ```
 
-Use a Python environment that you own. If Python reports an
-`externally-managed-environment`, create and activate a virtual environment
-instead of overriding the protection:
+Conda isolates Python and the dependencies from your other projects. pip installs
+and upgrades h3-apple inside that environment. Activate it in each new terminal:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install h3-apple
+conda activate h3
 ```
 
 `python -m h3_apple` is equivalent to `h3` and works when the scripts directory
 is not on PATH. The package also exposes `import h3_apple`; both entry points
 share the same first-run preparation and generation code.
 
-pip installs Pillow, PyAV and imageio-ffmpeg. Their wheels provide image handling,
-FFmpeg libraries and the FFmpeg executable. No Conda, Homebrew, system FFmpeg,
-compiler, Xcode, PyTorch, Transformers or MLX Python package is required.
+Python 3.11–3.14 is supported. The package also works in an existing isolated
+Python environment; Conda is the documented default, not a runtime dependency.
+
+pip installs Pillow, PyAV and imageio-ffmpeg into the active environment. A wheel
+can contain native executables and shared libraries as well as Python code:
+`imageio-ffmpeg` supplies the FFmpeg executable for final video processing, while
+`av` (PyAV) supplies FFmpeg 8 libraries used by the inference engine and media
+validation. h3 resolves those packaged paths directly. A global `ffmpeg` command
+on PATH is not required. No Homebrew, separate FFmpeg installation, compiler,
+Xcode, PyTorch, Transformers or MLX Python package is needed.
 The inference engine is downloaded on first use, checked by SHA256 and cached
 under `~/.cache/h3-apple/engines`. Models are never bundled into the pip package
 or downloaded during installation or import.
