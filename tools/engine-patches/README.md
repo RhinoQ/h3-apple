@@ -1,4 +1,4 @@
-# Native compute policy
+# Native compute policy and VAE
 
 `stable-compute.patch` applies to the vpipe revision pinned before this change,
 `f34e2cc3a3adae759eea254419f436f5b7800057`. It adds checked H3 QMM replay,
@@ -9,6 +9,20 @@ Apply it before following the native build instructions in `docs/development.md`
 The wrapper supplies the versioned policy internally and records it for every
 generation, including when diagnostics are disabled. The current candidate
 policy targets the 40-core M5 Max; qualification on other GPUs is separate.
+
+Apply `vae-fusion.patch` after `stable-compute.patch`. It keeps the decoder's
+full-K FP32 accumulation, BF16 projection rounding and separate BF16 bias
+rounding while combining the FFN and projection epilogues. Decoder weights,
+tile geometry, overlap and attention are unchanged. The encoder uses its
+existing path. The recorded native routes distinguish the fused implementation.
+
+The native patch adds `minimax_h3_vvae_fused` GPU tests for partial row/column
+tiles, guard regions and absent biases. The original path remains available
+to native diagnostics for comparison; there is no new public mode or tuning
+parameter. Local artifacts use `tools/package_engine.py --local-only` and the
+`stable-compute-v1` / `vae-fusion-v1` capabilities. An unpublished artifact
+requires the matching archive in the local cache; its URL is intentionally
+unset until a release is published.
 
 Upstream behavior is retained when no product policy is supplied, for controlled
 comparisons. Internal native environment controls are not public user settings.

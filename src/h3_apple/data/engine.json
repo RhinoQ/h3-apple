@@ -1,10 +1,10 @@
 {
   "schema": "h3-apple-engine/v1",
   "upstream": "https://github.com/tgo-app-dev/vpipe",
-  "commit": "f898590",
+  "commit": "932b941",
   "url": null,
-  "bytes": 6024213,
-  "sha256": "fd027a4c80d5463c6e2a8dee018a8c1c1291be7d0b458541c211656b967e9d70",
+  "bytes": 6026796,
+  "sha256": "3f34d7183ca03db79ccb60fbbdf0a8307c2f72eb0eb80de34e8cfd8b8a99d3d6",
   "files": [
     {
       "name": "LICENSE.txt",
@@ -27,17 +27,18 @@
     {
       "name": "h3-engine",
       "bytes": 86600,
-      "sha256": "b53421125460c4a76422ea2d7fcc1f969a49277869b1b6a476f3ccf20e0ee21d",
+      "sha256": "9417f7e055a37eaaa8efdd225ca10b06e3903ce661f6703cdc3bbcfa4e1bdd1d",
       "mode": 493
     },
     {
       "name": "libvpipe.0.dylib",
-      "bytes": 19386592,
-      "sha256": "f872236c6c13fbea17313f1da04eac8155a9bdccea43a9b54e81c7a796f9359a",
+      "bytes": 19409456,
+      "sha256": "3ceb74d17eb1147276d73347a240fdd987f9d96fc5e18255d6570b8746365db6",
       "mode": 493
     }
   ],
   "capabilities": [
-    "stable-compute-v1"
+    "stable-compute-v1",
+    "vae-fusion-v1"
   ]
 }

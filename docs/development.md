@@ -12,7 +12,7 @@ owns model execution and Metal kernels. `engine.py` builds one fixed graph;
 there is no alternate inference backend or silent attention fallback.
 
 The engine builds on [vpipe at the pinned commit](https://github.com/tgo-app-dev/vpipe/tree/f34e2cc3a3adae759eea254419f436f5b7800057)
-with the [compute-policy patch](../tools/engine-patches/README.md).
+with the [native patches](../tools/engine-patches/README.md).
 Its authors and dependencies are credited in [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES).
 The product downloads and manages that engine internally; users do not need
 another project or configuration interface.
@@ -37,7 +37,8 @@ quality judgments and performance comparisons as separate claims.
 ## Build the engine artifact
 
 Check out the exact source revision above, including its submodules, and apply
-`tools/engine-patches/stable-compute.patch`. Build
+`tools/engine-patches/stable-compute.patch`, then
+`tools/engine-patches/vae-fusion.patch`. Build
 against FFmpeg 8 headers in a separate build environment, in Release mode:
 
 ```bash

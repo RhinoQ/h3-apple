@@ -2,5 +2,5 @@
 
 from .api import DownloadApprovalRequired, GenerationRequest, GenerationResult, generate, resolve
 
-__version__ = "0.5.0"
+__version__ = "0.5.1.dev1"
 __all__ = ["generate", "resolve", "GenerationRequest", "GenerationResult", "DownloadApprovalRequired"]

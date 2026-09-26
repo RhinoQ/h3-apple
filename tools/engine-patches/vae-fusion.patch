@@ -1,0 +1,467 @@
+diff --git a/apple-silicon/metal-compute/CMakeLists.txt b/apple-silicon/metal-compute/CMakeLists.txt
+index 5dc5e48..d7d770e 100644
+--- a/apple-silicon/metal-compute/CMakeLists.txt
++++ b/apple-silicon/metal-compute/CMakeLists.txt
+@@ -148,6 +148,8 @@ add_vpipe_metal_kernel(dense_gemm_mma SRC gemm/dense_gemm_mma.metal
+ add_vpipe_metal_kernel(dense_gemm_mma_bf16 SRC gemm/dense_gemm_mma.metal
+                        STD metal4.0 DEFINES VPIPE_ELT=bfloat
+                        FLAGS ${VPIPE_NAX_MIN_OS})
++add_vpipe_metal_kernel(h3_vae_fused SRC gemm/h3_vae_fused.metal
++                       STD metal4.0 FLAGS ${VPIPE_NAX_MIN_OS})
+ # Matrix-core (M5+) 3x3 conv2d via MetalPerformancePrimitives convolution2d.
+ # Fuses away the im2col DRAM round-trip for the Krea-2 VAE 3x3 convs. metal4.0
+ # tensor intrinsics; capability-gated at runtime (older GPUs keep im2col).
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc b/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
+index 531da6f..fa73f74 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
++++ b/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
+@@ -733,6 +733,20 @@ MetalMiniMaxH3VideoVae::load(std::shared_ptr<WeightSet> ws_in, MetalCompute* mc,
+   if (h3_fixed_compute() && !m->_use_mma2) {
+     throw std::runtime_error("H3 compute plan: VAE matrix-core kernels unavailable");
+   }
++  // Same full-K contractions and BF16 round points; only the FFN's
++  // intermediate stores disappear. The opt-out is for native A/B diagnostics.
++  const char* fused = std::getenv("VPIPE_H3_VVAE_FUSED_FFN");
++  if (m->_use_mma2 && (fused == nullptr || std::strcmp(fused, "0") != 0)) {
++    m->_lib_fused_ffn = mc->load_library("h3_vae_fused");
++    m->_fn_fused_up = m->_lib_fused_ffn.function("h3_vae_up_swiglu");
++    m->_fn_fused_down = m->_lib_fused_ffn.function("h3_vae_down_residual");
++    m->_fn_fused_bias = m->_lib_fused_ffn.function("h3_vae_bias_n128");
++    m->_fn_fused_bias_deep = m->_lib_fused_ffn.function("h3_vae_bias_n256");
++    if (!m->_fn_fused_up.valid() || !m->_fn_fused_down.valid() ||
++        !m->_fn_fused_bias.valid() || !m->_fn_fused_bias_deep.valid()) {
++      throw std::runtime_error("H3 VAE fused feed-forward kernels unavailable");
++    }
++  }
+   m->_post_quant = m->linear_(ws, "post_quant_conv");
+   m->_proj_in    = m->linear_(ws, "decoder.x_embedder");
+   m->_proj_out   = m->linear_(ws, "decoder.proj_out");
+@@ -804,7 +818,7 @@ void
+ MetalMiniMaxH3VideoVae::gemm_(ComputeEncoder& enc, const SharedBuffer& x,
+                               std::size_t x_off, const Linear& l,
+                               const SharedBuffer& y, std::size_t y_off, int M,
+-                              int N, int K)
++                              int N, int K, bool fuse_bias)
+ {
+   // Rows in bands narrow enough that no dispatch addresses past 2^31,
+   // each rebased through the buffer offset so the kernel's own
+@@ -825,13 +839,15 @@ MetalMiniMaxH3VideoVae::gemm_(ComputeEncoder& enc, const SharedBuffer& x,
+   if (M > band) {
+     for (int m0 = 0; m0 < M; m0 += band) {
+       gemm_(enc, x, x_off + (std::size_t)m0 * K, l, y,
+-            y_off + (std::size_t)m0 * N, std::min(band, M - m0), N, K);
++            y_off + (std::size_t)m0 * N, std::min(band, M - m0), N, K, fuse_bias);
+     }
+     return;
+   }
+   const bool bias = !l.b.empty();
+-  if (gemm_mma_(enc, x, x_off, l, y, y_off, M, N, K)) {
+-    if (bias) {
++  bool bias_fused = false;
++  if (gemm_mma_(enc, x, x_off, l, y, y_off, M, N, K,
++                fuse_bias ? &bias_fused : nullptr)) {
++    if (bias && !bias_fused) {
+       enc.set_function(_fn_bias_add);
+       enc.set_buffer(0, y, y_off * 2);
+       enc.set_buffer(1, l.b);
+@@ -887,8 +903,9 @@ bool
+ MetalMiniMaxH3VideoVae::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+                                   std::size_t x_off, const Linear& l,
+                                   const SharedBuffer& y, std::size_t y_off,
+-                                  int M, int N, int K)
++                                  int M, int N, int K, bool* bias_fused)
+ {
++  if (bias_fused != nullptr) { *bias_fused = false; }
+   if (!_use_mma2 || M < _mma_min_m || N < 16) { return false; }
+   const SharedBuffer* wdense = nullptr;
+   if (l.quantized) {
+@@ -937,18 +954,23 @@ MetalMiniMaxH3VideoVae::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+     }
+   }
+   const int RN = wide ? 256 : 128;
+-  _compute_routes.note(_mc, fmt("vae M={} N={} K={} route=bf16-n{} split=0", M, N, K, RN));
+-  enc.set_function(wide ? _fn_dense_mma_deep : _fn_dense_mma);
++  const bool fused = bias_fused != nullptr && !l.b.empty() &&
++                     _fn_fused_bias.valid() && _fn_fused_bias_deep.valid();
++  _compute_routes.note(_mc, fmt("vae M={} N={} K={} route=bf16-n{}{} split=0",
++                              M, N, K, RN, fused ? "-bias-v1" : ""));
++  enc.set_function(fused ? (wide ? _fn_fused_bias_deep : _fn_fused_bias)
++                         : (wide ? _fn_dense_mma_deep : _fn_dense_mma));
+   enc.set_buffer(0, x, x_off * 2);
+   enc.set_buffer(1, *wdense);
+-  enc.set_buffer(2, *wdense);      // bias slot, unread (has_bias = 0)
++  enc.set_buffer(2, fused ? l.b : *wdense);
+   enc.set_buffer(3, y, y_off * 2);
+   enc.set_constant(4, K);
+   enc.set_constant(5, N);
+   enc.set_constant(6, M);
+-  enc.set_constant(7, 0);
++  enc.set_constant(7, fused ? 1 : 0);
+   enc.dispatch({(unsigned)(((N + RN - 1) / RN) * 256),
+                 (unsigned)((M + 127) / 128), 1}, {256, 1, 1});
++  if (bias_fused != nullptr) { *bias_fused = fused; }
+   return true;
+ }
+ 
+@@ -1133,6 +1155,43 @@ MetalMiniMaxH3VideoVae::ane_stage_(int L, const Block& b)
+               view(b.w2, 0), _quant_group);
+ }
+ 
++bool
++MetalMiniMaxH3VideoVae::fused_ffn_(ComputeEncoder& enc, const Block& b, int rows)
++{
++  const int D = _cfg.dim, FF = _cfg.ffn_inner;
++  // This pair preserves the shipped H3 tile choices. Quantized weights,
++  // other architectures, forced/tuned tiles, and split contractions keep
++  // the existing path; neither a shape nor a precision is silently changed.
++  if (!_fn_fused_up.valid() || !_fn_fused_down.valid() ||
++      D != 2048 || FF != 8192 || rows < _mma_min_m ||
++      rows > row_band_(2 * FF) || b.w1.quantized || b.w2.quantized ||
++      _force_tile != 0 || !_tile_tuned.empty() ||
++      _splitk.plan(D, 2 * FF, rows).splits != 0 ||
++      _splitk.plan(FF, D, rows).splits != 0) {
++    return false;
++  }
++  _compute_routes.note(_mc, fmt(
++      "vae-ffn M={} D={} FF={} route=bf16-fused-v1 split=0", rows, D, FF));
++  enc.set_function(_fn_fused_up);
++  enc.set_buffer(0, _s.nm); enc.set_buffer(1, b.w1.w);
++  enc.set_buffer(2, b.w1.b.empty() ? b.w1.w : b.w1.b);
++  enc.set_buffer(3, _s.qkv);
++  enc.set_constant(4, D); enc.set_constant(5, FF);
++  enc.set_constant(6, rows); enc.set_constant(7, b.w1.b.empty() ? 0 : 1);
++  enc.dispatch({(unsigned)(FF / 128 * 256), (unsigned)((rows + 127) / 128), 1},
++               {256, 1, 1});
++  enc.set_function(_fn_fused_down);
++  enc.set_buffer(0, _s.qkv); enc.set_buffer(1, b.w2.w);
++  enc.set_buffer(2, b.w2.b.empty() ? b.w2.w : b.w2.b);
++  enc.set_buffer(3, _s.x);
++  enc.set_constant(4, FF); enc.set_constant(5, D);
++  enc.set_constant(6, rows); enc.set_constant(7, b.w2.b.empty() ? 0 : 1);
++  enc.set_buffer(8, b.s2);
++  enc.dispatch({(unsigned)(D / 256 * 256), (unsigned)((rows + 127) / 128), 1},
++               {256, 1, 1});
++  return true;
++}
++
+ SharedBuffer
+ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+                                std::string* err)
+@@ -1229,8 +1288,8 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+     ComputeEncoder enc = stream.begin_compute();
+     // 1. post_quant_conv is a 1x1x1 convolution, i.e. a Linear over the
+     // channel axis, then the patch embedding.
+-    gemm_(enc, s.zt, 0, _post_quant, s.nm, 0, voxels, ZC, ZC);
+-    gemm_(enc, s.nm, 0, _proj_in, s.x, 0, voxels, D, ZC);
++    gemm_(enc, s.zt, 0, _post_quant, s.nm, 0, voxels, ZC, ZC, true);
++    gemm_(enc, s.nm, 0, _proj_in, s.x, 0, voxels, D, ZC, true);
+     // 2. The suffix rows: `n_register` LEARNED register tokens and one
+     // all-zero token. They never reach the patch projection, but they
+     // are attended over by every real token, so they are part of the
+@@ -1269,7 +1328,7 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+       enc.set_buffer(0, s.x); enc.set_buffer(1, b.n1); enc.set_buffer(2, s.nm);
+       enc.set_constant(3, D); enc.set_constant(4, c.norm_eps);
+       enc.dispatch({256, (unsigned)rows, 1}, {256, 1, 1});
+-      gemm_(enc, s.nm, 0, b.qkv, s.qkv, 0, rows, 3 * D, D);
++      gemm_(enc, s.nm, 0, b.qkv, s.qkv, 0, rows, 3 * D, D, true);
+       // Per-head RMS with NO affine, then the partial rotate-half rope
+       // over 48 of the 64 head channels. Both read straight out of the
+       // fused projection.
+@@ -1324,7 +1383,7 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+       enc.set_constant(4, HD);
+       enc.dispatch({(unsigned)HD, (unsigned)rows, (unsigned)NH},
+                    {(unsigned)HD, 1, 1});
+-      gemm_(enc, s.ob, 0, b.out, s.nm, 0, rows, D, D);
++      gemm_(enc, s.ob, 0, b.out, s.nm, 0, rows, D, D, true);
+       // The residual gate is a learned per-CHANNEL vector (zero-init at
+       // training time), not a per-row modulation -- so the DiT's indexed
+       // gate is the wrong kernel and the plain broadcast one is right.
+@@ -1337,6 +1396,9 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+       enc.set_buffer(0, s.x); enc.set_buffer(1, b.n2); enc.set_buffer(2, s.nm);
+       enc.set_constant(3, D); enc.set_constant(4, c.norm_eps);
+       enc.dispatch({256, (unsigned)rows, 1}, {256, 1, 1});
++      // ANE retains its existing staging/merge. The fused GPU pair writes
++      // the gated residual directly to x and has no ff/nm output to merge.
++      if (!ane_on && fused_ffn_(enc, b, rows)) { continue; }
+       // ---- the ANE split -------------------------------------------
+       // The ANE takes the TAIL rows of s.nm and the GPU the head: every
+       // kernel below reads from row 0 and the feed-forward is
+@@ -1405,7 +1467,7 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+     enc.dispatch({256, (unsigned)rows, 1}, {256, 1, 1});
+     // Only the voxel rows reach the patch projection; the register and
+     // cls rows are dropped.
+-    gemm_(enc, s.nm, 0, _proj_out, s.patches, 0, voxels, PE, D);
++    gemm_(enc, s.nm, 0, _proj_out, s.patches, 0, voxels, PE, D, true);
+   }
+   std::string gpu_err;
+   if (!stream.commit().wait_ok(&gpu_err)) {
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-video-vae.h b/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
+index a7e95bd..034ca47 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
++++ b/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
+@@ -389,7 +389,7 @@ class MetalMiniMaxH3VideoVae {
+   void gemm_(metal_compute::ComputeEncoder& enc,
+              const metal_compute::SharedBuffer& x, std::size_t x_off,
+              const Linear& l, const metal_compute::SharedBuffer& y,
+-             std::size_t y_off, int M, int N, int K);
++             std::size_t y_off, int M, int N, int K, bool fuse_bias = false);
+   // Rows one dispatch may write into an N-wide destination.
+   //
+   // Two limits, and the tighter one is the same number. The mma tiles
+@@ -418,7 +418,8 @@ class MetalMiniMaxH3VideoVae {
+   bool gemm_mma_(metal_compute::ComputeEncoder& enc,
+                  const metal_compute::SharedBuffer& x, std::size_t x_off,
+                  const Linear& l, const metal_compute::SharedBuffer& y,
+-                 std::size_t y_off, int M, int N, int K);
++                 std::size_t y_off, int M, int N, int K,
++                 bool* bias_fused = nullptr);
+ 
+   // cos/sin over the [-1, 1) normalized (t, h, w) grid of ONE tile, plus
+   // the register and cls rows, which all sit at position 0.
+@@ -433,6 +434,7 @@ class MetalMiniMaxH3VideoVae {
+   };
+   bool ensure_scratch_(int rows, int voxels);
+   Scratch _s;
++  bool fused_ffn_(metal_compute::ComputeEncoder& enc, const Block& b, int rows);
+ 
+   // ---- the ANE tier ------------------------------------------------
+   // Built at the first decode, from its tile's row count. Null == every
+@@ -517,6 +519,9 @@ class MetalMiniMaxH3VideoVae {
+   // a real transformer over every voxel, so the shapes are large enough to
+   // reach the tile.
+   metal_compute::ComputeFunction _fn_dense_mma, _fn_dense_mma_deep;
++  metal_compute::ComputeLibrary _lib_fused_ffn;
++  metal_compute::ComputeFunction _fn_fused_up, _fn_fused_down;
++  metal_compute::ComputeFunction _fn_fused_bias, _fn_fused_bias_deep;
+   metal_compute::ComputeFunction _fn_dequant4, _fn_dequant8;
+   metal_compute::SharedBuffer _w_deq;
+   // Deep-K split for the encoder's conv GEMMs (a 3x3x3 conv is an im2col
+diff --git a/gpu-kernels/metal/gemm/h3_vae_fused.metal b/gpu-kernels/metal/gemm/h3_vae_fused.metal
+new file mode 100644
+index 0000000..eb7a5fd
+--- /dev/null
++++ b/gpu-kernels/metal/gemm/h3_vae_fused.metal
+@@ -0,0 +1,99 @@
++#include <metal_stdlib>
++#include <metal_tensor>
++#include <MetalPerformancePrimitives/MetalPerformancePrimitives.h>
++using namespace metal;
++using namespace mpp::tensor_ops;
++
++#if defined(__HAVE_TENSOR__)
++// Same matmul tiles, full-K float accumulation and BF16 projection rounding
++// as dense_gemm_mma. Bias has its OWN BF16 rounding before the next operation.
++// Removing that rounding changes the decoder; it is not an optional fast path.
++template <int BN, bool RESIDUAL>
++static inline void h3_vae_projection(
++    const device bfloat* x, const device bfloat* w, const device bfloat* bias,
++    device bfloat* y, int K, int N, int M, int has_bias,
++    const device bfloat* gate, uint3 group)
++{
++  using T = tensor<device bfloat, dextents<int32_t, 2>, tensor_inline>;
++  T tx(const_cast<device bfloat*>(x), dextents<int32_t, 2>(K, M));
++  T tw(const_cast<device bfloat*>(w), dextents<int32_t, 2>(K, N));
++  T ty(y, dextents<int32_t, 2>(N, M));
++  constexpr auto desc = matmul2d_descriptor(128, BN, int(dynamic_extent),
++                                           false, true, false);
++  matmul2d<desc, execution_simdgroups<8>> op;
++  const int m0 = int(group.y) * 128, n0 = int(group.x) * BN;
++  auto a = tx.slice(0, m0), b = tw.slice(0, n0);
++  auto c = op.template get_destination_cooperative_tensor<
++      decltype(a), decltype(b), bfloat>();
++  op.run(a, b, c);
++  for (auto it = c.begin(); it != c.end(); ++it) {
++    if (!c.is_valid_element(it)) continue;
++    const auto ij = c.get_multidimensional_index(it);
++    const int n = n0 + ij[0], m = m0 + ij[1];
++    if (n >= N || m >= M) continue;
++    bfloat v = *it;
++    if (has_bias) v = bfloat(float(v) + float(bias[n]));
++    if (RESIDUAL) v = bfloat(float(y[size_t(m)*N+n]) + float(gate[n])*float(v));
++    *it = v;
++  }
++  c.store(ty.slice(n0, m0));
++}
++
++#define H3_VAE_PROJ(NAME, BN, RESIDUAL)                                  \
++kernel void NAME(                                                       \
++    const device bfloat* x [[buffer(0)]],                               \
++    const device bfloat* w [[buffer(1)]],                               \
++    const device bfloat* bias [[buffer(2)]],                            \
++    device bfloat* y [[buffer(3)]],                                     \
++    constant int& K [[buffer(4)]], constant int& N [[buffer(5)]],         \
++    constant int& M [[buffer(6)]], constant int& has_bias [[buffer(7)]],  \
++    const device bfloat* gate [[buffer(8)]],                            \
++    uint3 group [[threadgroup_position_in_grid]]) {                     \
++  h3_vae_projection<BN, RESIDUAL>(x,w,bias,y,K,N,M,has_bias,gate,group);   \
++}
++H3_VAE_PROJ(h3_vae_bias_n128, 128, false)
++H3_VAE_PROJ(h3_vae_bias_n256, 256, false)
++H3_VAE_PROJ(h3_vae_down_residual, 256, true)
++
++// The two halves still use independent 128x128 matmuls. Keep their BF16
++// values in cooperative tensors, apply the original bias rounding and
++// gate-first SwiGLU, then store only the FF-wide activation.
++kernel void h3_vae_up_swiglu(
++    const device bfloat* x [[buffer(0)]],
++    const device bfloat* w [[buffer(1)]],
++    const device bfloat* bias [[buffer(2)]],
++    device bfloat* y [[buffer(3)]],
++    constant int& K [[buffer(4)]], constant int& FF [[buffer(5)]],
++    constant int& M [[buffer(6)]], constant int& has_bias [[buffer(7)]],
++    uint3 group [[threadgroup_position_in_grid]])
++{
++  using T = tensor<device bfloat, dextents<int32_t, 2>, tensor_inline>;
++  T tx(const_cast<device bfloat*>(x), dextents<int32_t, 2>(K, M));
++  T tw(const_cast<device bfloat*>(w), dextents<int32_t, 2>(K, 2*FF));
++  T ty(y, dextents<int32_t, 2>(FF, M));
++  constexpr auto desc = matmul2d_descriptor(128, 128, int(dynamic_extent),
++                                           false, true, false);
++  matmul2d<desc, execution_simdgroups<8>> op;
++  const int m0 = int(group.y)*128, n0 = int(group.x)*128;
++  auto a = tx.slice(0,m0), wg = tw.slice(0,n0), wu = tw.slice(0,FF+n0);
++  auto g = op.template get_destination_cooperative_tensor<decltype(a),decltype(wg),bfloat>();
++  auto u = op.template get_destination_cooperative_tensor<decltype(a),decltype(wu),bfloat>();
++  op.run(a,wg,g);
++  op.run(a,wu,u);
++  auto iu = u.begin();
++  for (auto ig = g.begin(); ig != g.end(); ++ig, ++iu) {
++    if (!g.is_valid_element(ig)) continue;
++    const auto ij = g.get_multidimensional_index(ig);
++    const int n = n0+ij[0];
++    if (n >= FF || m0+ij[1] >= M) continue;
++    bfloat gv=*ig, uv=*iu;
++    if (has_bias) {
++      gv=bfloat(float(gv)+float(bias[n]));
++      uv=bfloat(float(uv)+float(bias[FF+n]));
++    }
++    const float gate=float(gv), value=float(uv);
++    *ig=bfloat(value*(gate/(1.0f+exp(-gate))));
++  }
++  g.store(ty.slice(n0,m0));
++}
++#endif
+diff --git a/tests/unit-tests/CMakeLists.txt b/tests/unit-tests/CMakeLists.txt
+index 8ce1f9a..802e36e 100644
+--- a/tests/unit-tests/CMakeLists.txt
++++ b/tests/unit-tests/CMakeLists.txt
+@@ -199,6 +199,7 @@ if(APPLE AND VPIPE_BUILD_APPLE_SILICON)
+         minimax-h3-dit.cc
+         minimax-h3-vdn-hybrid.cc
+         minimax-h3-vvae.cc
++        minimax-h3-vvae-fused.cc
+         minimax-h3-avae.cc
+         audio-vae-encode.cc
+         load-audio-stage.cc
+diff --git a/tests/unit-tests/minimax-h3-vvae-fused.cc b/tests/unit-tests/minimax-h3-vvae-fused.cc
+new file mode 100644
+index 0000000..bd1c89f
+--- /dev/null
++++ b/tests/unit-tests/minimax-h3-vvae-fused.cc
+@@ -0,0 +1,106 @@
++#include "minitest.h"
++#include "common/session.h"
++#include "apple-silicon/metal-compute/metal-compute.h"
++#include <bit>
++#include <cstdint>
++#include <cstring>
++#include <stdexcept>
++#include <vector>
++
++using namespace vpipe::metal_compute;
++namespace {
++std::uint16_t bf(float value) {
++  std::uint32_t u = std::bit_cast<std::uint32_t>(value);
++  return (u + 0x7fffu + ((u >> 16) & 1u)) >> 16;
++}
++
++// Compare the entire FFN to its original multi-dispatch expression, including
++// both intermediate BF16 rounds. Guards catch stores from partial M/N tiles.
++bool check_ffn(int rows, bool has_bias) {
++  vpipe::Session session;
++  auto* gpu = session.metal_compute();
++  if (!gpu || !gpu->supports_matrix_cores()) return true;
++  constexpr int D = 128, FF = 256;
++  auto alloc = [&](std::size_t elements) {
++    auto value = gpu->make_shared_buffer(elements * 2);
++    if (value.empty()) throw std::runtime_error("test allocation");
++    auto* p = static_cast<std::uint16_t*>(value.contents());
++    for (std::size_t i = 0; i < elements; ++i)
++      p[i] = bf(float(int((i * 37 + 11) % 193) - 96) / 127.f);
++    return value;
++  };
++  auto x = alloc(rows * D), w1 = alloc(2 * FF * D), b1 = alloc(2 * FF);
++  auto w2 = alloc(D * FF), b2 = alloc(D), gate = alloc(D);
++  auto ff = alloc(rows * 2 * FF), down = alloc(rows * D);
++  std::vector<SharedBuffer> storage, activation, result;
++  for (int arm = 0; arm < 2; ++arm) {
++    for (int width : {FF, D}) {
++      auto b = alloc(rows * width + 64);
++      std::memset(b.contents(), 0x55, 64);
++      std::memset(static_cast<char*>(b.contents()) + 64 + rows * width * 2, 0x55, 64);
++      auto view = b.subview(64, rows * width * 2);
++      (width == FF ? activation : result).push_back(std::move(view));
++      storage.push_back(std::move(b));
++    }
++  }
++  auto dense = gpu->load_library("dense_gemm_mma_bf16");
++  auto elt = gpu->load_library("llm_elementwise_bf16");
++  auto fused = gpu->load_library("h3_vae_fused");
++  auto up = dense.function("dense_gemm_mma_t_n128_f16");
++  auto dn = dense.function("dense_gemm_mma_t_n128x256_f16");
++  auto add = elt.function("bias_add_rows_f16");
++  auto silu = elt.function("swiglu_split_gate_first_f16");
++  auto residual = elt.function("gated_residual_f16");
++  auto fup = fused.function("h3_vae_up_swiglu");
++  auto fdn = fused.function("h3_vae_down_residual");
++  if (!up.valid() || !dn.valid() || !add.valid() || !silu.valid() ||
++      !residual.valid() || !fup.valid() || !fdn.valid()) return false;
++  auto stream = gpu->make_command_stream();
++  {
++    auto e = stream.begin_compute();
++    auto gemm = [&](const ComputeFunction& fn, const SharedBuffer& in,
++                    const SharedBuffer& w, const SharedBuffer& b,
++                    const SharedBuffer& out, int N, int K, int tile, bool fuse) {
++      e.set_function(fn);
++      e.set_buffer(0,in); e.set_buffer(1,w); e.set_buffer(2,b); e.set_buffer(3,out);
++      e.set_constant(4,K); e.set_constant(5,N); e.set_constant(6,rows);
++      e.set_constant(7, fuse && has_bias ? 1 : 0); e.set_buffer(8,gate);
++      e.dispatch({unsigned((N+tile-1)/tile*256),unsigned((rows+127)/128),1},{256,1,1});
++    };
++    auto bias = [&](const SharedBuffer& out, const SharedBuffer& b, int N) {
++      if (!has_bias) return;
++      e.set_function(add); e.set_buffer(0,out); e.set_buffer(1,b);
++      e.set_constant(2,N); e.set_constant(3,rows*N);
++      e.dispatch({unsigned(rows*N),1,1},{256,1,1});
++    };
++    gemm(up,x,w1,b1,ff,2*FF,D,128,false); bias(ff,b1,2*FF);
++    e.set_function(silu); e.set_buffer(0,ff); e.set_buffer(1,activation[0]);
++    e.set_constant(2,rows); e.set_constant(3,FF);
++    e.dispatch({unsigned(rows*FF),1,1},{256,1,1});
++    gemm(dn,activation[0],w2,b2,down,D,FF,256,false); bias(down,b2,D);
++    e.set_function(residual); e.set_buffer(0,result[0]); e.set_buffer(1,gate);
++    e.set_buffer(2,down); e.set_constant(3,D); e.set_constant(4,rows*D);
++    e.dispatch({unsigned(rows*D),1,1},{256,1,1});
++    gemm(fup,x,w1,b1,activation[1],FF,D,128,true);
++    gemm(fdn,activation[1],w2,b2,result[1],D,FF,256,true);
++  }
++  std::string error;
++  if (!stream.commit().wait_ok(&error)) throw std::runtime_error(error);
++  for (const auto* outputs : {&activation, &result}) {
++    if (std::memcmp((*outputs)[0].contents(),(*outputs)[1].contents(),(*outputs)[0].byte_size()) != 0) return false;
++    const auto* p = static_cast<const std::uint16_t*>((*outputs)[0].contents());
++    for (std::size_t i=0; i<(*outputs)[0].byte_size()/2; ++i)
++      if ((p[i] & 0x7f80u) == 0x7f80u) return false;
++  }
++  for (const auto& b : storage) {
++    const auto* p = static_cast<const unsigned char*>(b.contents());
++    for (std::size_t i=0; i<64; ++i)
++      if (p[i] != 0x55 || p[b.byte_size()-64+i] != 0x55) return false;
++  }
++  return true;
++}
++}
++
++TEST(minimax_h3_vvae_fused, partial_tile_with_bias) { EXPECT_TRUE(check_ffn(1,true)); }
++TEST(minimax_h3_vvae_fused, complete_tile_without_bias) { EXPECT_TRUE(check_ffn(128,false)); }
++TEST(minimax_h3_vvae_fused, tail_tile_with_bias) { EXPECT_TRUE(check_ffn(129,true)); }
