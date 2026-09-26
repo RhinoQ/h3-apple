@@ -1,0 +1,20 @@
+subject_definitions:
+<Subject 1> is Spike in <Picture 1>, preserving the same adult face, dark tousled hair, navy suit, yellow open-collar shirt, loose black tie and slender build.
+<Subject 2> is the worn blue metal spaceport corridor in <Picture 1>, with warm doorway light, wet pavement and the distant futuristic skyline.
+
+summary:
+[reference generation] A five-second live-action neo-noir shot of <Subject 1> taking three unhurried steps along <Subject 2>, then glancing toward a passing light.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - retain the referenced person's face, hairstyle and costume.
+<Subject 2> (appears in [Shot 1]): fully_preserved - retain the blue industrial architecture, warm doorway and rainy evening atmosphere.
+
+detailed_description:
+Cinematic live-action science-fiction noir, with natural facial detail, subdued color, blue evening shadows and warm practical lighting reflected on wet metal and stone.
+[Shot 1] A medium-full shot shows Spike, <Subject 1>, alone near the blue wall of <Subject 2>. His full head and both feet are visible, with the warm doorway behind him at frame left and the elevated city in the distance at frame right. He begins walking slowly toward the camera on a slight diagonal. His left hand stays loosely in his trouser pocket; his right arm swings naturally at his side. He takes three relaxed steps over the five seconds. Each shoe touches the shallow wet ground and raises a small, physically modest splash. His suit hem and loose tie sway gently with the movement. The camera tracks backward at matching speed, keeping him near the central left third while the corridor recedes behind him. Near the middle of the clip, a soft amber light travels across the far background and briefly warms one side of his face. He follows it with his eyes, then turns his head slightly toward frame right while continuing his walk. His expression stays quietly alert rather than exaggerated. Rain falls as fine separate streaks where the doorway backlights it. Small ripples spread through reflected gold and blue light on the pavement. The camera maintains a stable eye-level perspective and steady focus on his face; background lamps remain softly defocused without overwhelming the scene. The shot stays continuous through the final footfall, with no change of location or wardrobe. Natural shoe splashes, a distant engine hum and gentle rain accompany the action. There is no dialogue.
+
+overall_soundscape:
+Soft rainfall, three clear wet footsteps, distant ventilation and a quiet passing spacecraft rumble.
+
+non_diegetic_music:
+Very soft original brushed jazz percussion and upright bass, leaving the rain and footsteps audible.

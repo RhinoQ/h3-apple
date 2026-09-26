@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>h3-apple 0.5.1 · 5 秒样片</title>
+<style>
+  :root { color-scheme: dark; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
+  body { margin: 0; background: #10151c; color: #ecf1f7; }
+  main { max-width: 1380px; margin: auto; padding: 42px 30px 50px; }
+  .eyebrow { color: #9bb5d1; letter-spacing: .14em; font-size: 12px; }
+  h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 650; margin: 12px 0; }
+  .intro { color: #b2bfce; line-height: 1.8; margin-bottom: 28px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  article { min-width: 0; background: #19222e; border: 1px solid #303d4b; border-radius: 14px; overflow: hidden; }
+  .screen { aspect-ratio: 16/9; display: grid; place-items: center; background: #080b10; }
+  video { display: block; width: 100%; height: 100%; aspect-ratio: 16/9; }
+  video[hidden], [hidden] { display: none; }
+  .pending { color: #96a8bc; font-size: 14px; }
+  .info { padding: 19px 21px; }
+  h2 { margin: 0 0 9px; font-size: 19px; font-weight: 600; }
+  .meta { color: #a5b6c9; font-size: 13px; line-height: 1.8; min-height: 24px; }
+  .links { display: flex; gap: 19px; margin-top: 13px; font-size: 13px; }
+  a { color: #91c5ff; text-underline-offset: 4px; }
+  a:hover { color: #c2e1ff; }
+  a:focus-visible, video:focus-visible { outline: 3px solid #91c5ff; outline-offset: 4px; }
+  footer { color: #91a2b6; font-size: 12px; line-height: 1.9; margin-top: 27px; }
+  #status { color: #a9cfac; }
+  @media(max-width: 800px) { main { padding: 25px 16px; } .grid { grid-template-columns: 1fr; } }
+</style>
+<main>
+  <div class="eyebrow">H3-APPLE 0.5.1 · VIEWING SAMPLES</div>
+  <h1>四个世界，各看五秒</h1>
+  <p class="intro">5 秒 / 1024 × 576 / 24 fps / 生成音轨<br>点击播放，可全屏查看或下载原片。<span id="status">已完成 4 / 4</span></p>
+  <div class="grid"><article>
+  <div class="screen"><video controls playsinline preload="metadata" aria-label="鸣人 · 风起木叶"
+    src="01-naruto-sage/video.mp4" poster="01-naruto-sage/poster.jpg">请下载原片后播放。</video></div>
+  <div class="info"><h2>鸣人 · 风起木叶</h2>
+    <div class="meta">生成 3 分 16 秒 · 内存峰值 56.73 GiB</div>
+    <div class="links"><a href="01-naruto-sage/video.mp4" download>下载原片</a>
+      <a href="01-naruto-sage/prompt.txt" target="_blank" rel="noopener">查看提示词</a></div>
+  </div>
+</article>
+<article>
+  <div class="screen"><video controls playsinline preload="metadata" aria-label="Spike · 雨夜漫步"
+    src="02-spike-rain/video.mp4" poster="02-spike-rain/poster.jpg">请下载原片后播放。</video></div>
+  <div class="info"><h2>Spike · 雨夜漫步</h2>
+    <div class="meta">生成 4 分 54 秒 · 内存峰值 56.78 GiB</div>
+    <div class="links"><a href="02-spike-rain/video.mp4" download>下载原片</a>
+      <a href="02-spike-rain/prompt.txt" target="_blank" rel="noopener">查看提示词</a></div>
+  </div>
+</article>
+<article>
+  <div class="screen"><video controls playsinline preload="metadata" aria-label="银发星术师 · 掌心微光"
+    src="03-silver-comet/video.mp4" poster="03-silver-comet/poster.jpg">请下载原片后播放。</video></div>
+  <div class="info"><h2>银发星术师 · 掌心微光</h2>
+    <div class="meta">生成 4 分 22 秒 · 内存峰值 56.89 GiB</div>
+    <div class="links"><a href="03-silver-comet/video.mp4" download>下载原片</a>
+      <a href="03-silver-comet/prompt.txt" target="_blank" rel="noopener">查看提示词</a></div>
+  </div>
+</article>
+<article>
+  <div class="screen"><video controls playsinline preload="metadata" aria-label="纸艺花园 · 蝴蝶停驻"
+    src="04-paper-garden/video.mp4" poster="04-paper-garden/poster.jpg">请下载原片后播放。</video></div>
+  <div class="info"><h2>纸艺花园 · 蝴蝶停驻</h2>
+    <div class="meta">生成 4 分 18 秒 · 内存峰值 56.89 GiB</div>
+    <div class="links"><a href="04-paper-garden/video.mp4" download>下载原片</a>
+      <a href="04-paper-garden/prompt.txt" target="_blank" rel="noopener">查看提示词</a></div>
+  </div>
+</article></div>
+  <footer>耗时从调用生成到成片完成，包含当前调用的准备时间。内存为生成进程树的物理占用峰值，每秒采样，单位 GiB；读数不可用时使用该进程 RSS。<br>
+    本页是四条独立观看样片，画面保留模型原始生成结果。<br>
+    <a href="https://github.com/RhinoQ/h3-apple/releases/tag/v0.5.1">h3-apple v0.5.1</a> ·
+    <a href="samples.json">样片记录</a> ·
+    <a href="https://github.com/RhinoQ/h3-apple#license">模型与依赖许可</a>
+  </footer>
+</main>
+</html>

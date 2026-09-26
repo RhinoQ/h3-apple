@@ -1,0 +1,18 @@
+subject_definitions:
+<Subject 1> is the paper-crafted young adult woman in <Picture 1>, with warm brown skin, two dark braided pigtails, an olive jacket, cream blouse, layered rust-red skirt, teal boots and a cape made from folded cream and terracotta paper leaves. Preserve the visible fibrous paper texture and folded construction.
+
+summary:
+[reference generation] A five-second handmade paper-animation scene. <Subject 1> stands in a garden of folded paper flowers and gently offers her hand to a small origami butterfly.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - retain her face, braids, color palette, layered clothing, leaf cape and physical paper material.
+
+detailed_description:
+A tactile miniature world made from cut and folded colored paper, animated with charming restrained stop-motion movement. Warm studio sunlight reveals paper fibers, crease lines and the thin shadows between overlapping layers.
+[Shot 1] The camera begins in a medium shot of <Subject 1> standing alone among cream, mustard and terracotta paper flowers. Her face, both shoulders and both hands are clearly visible, and the top of her layered skirt fills the lower portion of the frame. Pale green paper stems rise at the sides, framing her without covering her face. A small golden origami butterfly enters from the right in a gently curving path. Its two folded wings open and close slowly, with readable angular creases. She notices it and tilts her head a little, her expression becoming curious and warm. During the middle of the clip she extends her right hand forward, palm tilted slightly upward and fingers relaxed. The butterfly slows, hovers briefly and settles on her index finger during the final second. She smiles softly while watching it. Her left hand remains beside her skirt. The layered leaves of her cape lift and settle slightly in a light breeze; each layer stays attached and casts a small moving shadow on the layer beneath it. Several nearby flower heads rock once on their stems. The camera moves forward only a few inches over the entire five seconds, maintaining a clear view of the face and butterfly together. The garden behind her remains softly focused, with the same warm direction of light and a gentle cream-colored backdrop. Movement continues naturally through the ending as the butterfly opens its wings once on her finger. The paper material stays visible on the character, flowers and butterfly. One continuous shot, accompanied by light papery wing sounds and soft leaf rustling. No dialogue.
+
+overall_soundscape:
+Delicate paper-wing flutters, dry paper-leaf rustles and a soft outdoor breeze.
+
+non_diegetic_music:
+A few quiet celesta notes with a warm soft plucked-string accompaniment.

@@ -1,0 +1,18 @@
+subject_definitions:
+<Subject 1> is the silver-haired adult man in <Picture 1>, preserving his illustrated face, short wavy silver hair, navy long coat with fine gold seams, white porcelain shoulder pieces, dark trousers and crescent pendant.
+
+summary:
+[reference generation] A five-second elegant fantasy animation. <Subject 1> raises one hand in a moonlit observatory while a small luminous star slowly forms above his open palm.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - retain the illustrated character design, face, coat pattern, crescent pendant and porcelain armor details.
+
+detailed_description:
+A polished hand-painted fantasy animation with softly shaded forms, crisp clothing edges and delicate gold linework. The character retains the stylized illustrated appearance of the reference rather than becoming a photographic actor.
+[Shot 1] Frame <Subject 1> alone in a waist-up three-quarter view inside a spacious midnight-blue observatory. His complete head, shoulders and hands fit comfortably inside the frame. An open stone arch reveals a deep starry sky in the softly focused background, and cool moonlight outlines the white porcelain shoulder panels. At the start he looks down toward his empty right palm near waist height. He raises that hand smoothly to chest level during the first two seconds, opening his fingers into a natural relaxed curve. Fine pale-gold sparks gather into a small floating point of light two inches above the palm. The light becomes a delicate star-shaped glow by the middle of the clip. He watches it with a slight, almost private smile and lifts his eyes toward the viewer in the final second. The star remains small enough that its warm illumination subtly reveals his fingers and the lower part of his face. Thin golden particles orbit slowly around it and fade individually. His left hand stays relaxed near his coat seam. Silver hair tips and the coat's long fabric panels move gently in the observatory breeze. The crescent pendant shifts a little as his chest moves with a natural breath. The camera makes a very slow rightward arc of only a few degrees, preserving the same waist-up scale and clear view of the raised hand. Gold coat lines and white shoulder shapes remain consistent throughout the movement. Background stars stay fixed in the sky while the foreground light moves with the hand. One unbroken shot, with soft wind and a delicate bell-like shimmer as the light appears. No spoken words.
+
+overall_soundscape:
+Quiet air moving through a stone observatory, soft cloth movement and one clear crystalline shimmer.
+
+non_diegetic_music:
+A gentle sustained ambient string harmony, sparse and unobtrusive.

@@ -1,0 +1,22 @@
+subject_definitions:
+<Subject 1> is Naruto in <Picture 1>, with the same young adult face, blond spiky hair, forehead protector, whisker markings, orange-and-black outfit, red sage cloak and large scroll strapped to his back.
+<Subject 2> is the enormous orange toad in <Picture 1>, preserving its textured skin and golden eye.
+<Picture 1> is the opening composition, showing Naruto standing on the toad above the ruined village.
+
+summary:
+[keyframe completion + reference generation] A five-second cinematic live-action hero moment. <Subject 1> stands on <Subject 2> as a strong gust moves his cloak, then calmly unfolds his arms and looks toward the distant village.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - retain his identity, sage costume and single visible human presence.
+<Subject 2> (appears in [Shot 1]): fully_preserved - retain the giant toad's orange skin and scale relative to Naruto.
+<Picture 1> ([Shot 1] first frame): fully_preserved - begin with the same low-angle village composition.
+
+detailed_description:
+The video has the texture of a live-action fantasy film: natural skin, weathered cloth, detailed stone, volumetric dust and soft late-afternoon sunlight beneath heavy clouds.
+[Shot 1] Begin with Naruto, <Subject 1>, centered in a low-angle medium-wide composition atop <Subject 2>. The toad's orange brow and one golden eye occupy the lower foreground. Naruto's head, shoulders, hands and upper legs remain clearly visible. Broken village rooftops and distant carved mountain faces establish deep background scale. At the beginning his arms are crossed, his expression calm and determined. A gust travels through the shot from left to right: the red cloak lifts and settles in two broad cloth folds, loose headband ribbons trail behind him, and individual blond hair tips move with the breeze. Across the middle of the shot he slowly uncrosses his arms and lowers both hands naturally beside his waist, keeping his feet firmly planted. His eyes turn slightly toward the right, followed by a small controlled head turn. By the final second he has settled into a relaxed ready stance, breathing subtly as the cloak continues to ripple. The giant toad remains a stable platform, its visible eyelid closing and reopening once. Dust drifts horizontally between the ruined buildings and thins as it catches the light. The camera performs one slow, smooth forward drift throughout all five seconds, retaining the low angle and leaving room above his hair. Lighting stays continuous, with warm edges on the cloak and cool shadows on his face. One continuous shot with uninterrupted visible movement. The sound is a broad wind gust, layered cloth flutter and a faint low toad breath. There is no dialogue.
+
+overall_soundscape:
+Air moving across an open ruined village, soft granular dust, cloth flutter and a single quiet resonant toad breath.
+
+non_diegetic_music:
+A restrained low orchestral note with one soft drum accent, beneath the natural wind.
