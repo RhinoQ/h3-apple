@@ -91,3 +91,12 @@ def test_policy_scope_does_not_guess_on_other_devices(tmp_path, fixture):
     hardware["gpus"][0]["cores"] = "32"
     with pytest.raises(RuntimeError, match="40-core M5 Max"):
         compute.prepare(request, assets, prepared, tmp_path, {})
+
+
+def test_replay_rejects_wrapper_changes(tmp_path, fixture, monkeypatch):
+    result = saved_plan(tmp_path, fixture)
+    _, assets, request, prepared = fixture
+    monkeypatch.setattr(compute, "source_identity", lambda: "changed")
+    with pytest.raises(ValueError, match="incompatible"):
+        compute.prepare(request, assets, prepared, tmp_path, {}, replay=result)
+    assert not (tmp_path / "qmm-plan.json").exists()

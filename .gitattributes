@@ -1,0 +1,2 @@
+# A unified diff's blank context lines contain one required space.
+tools/engine-patches/*.patch -whitespace

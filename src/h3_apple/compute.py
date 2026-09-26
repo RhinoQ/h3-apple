@@ -8,7 +8,7 @@ import re
 import subprocess
 
 from .assets import data_file, identity
-from .io import write_json
+from .io import source_identity, write_json
 
 SCHEMA = "h3-apple-compute/v1"
 
@@ -43,6 +43,7 @@ def prepare(request, assets, prepared, workspace, environment, *, replay=None):
                             for p in prepared]
     context = dict(hardware=hardware, model=assets["identity"],
                    adapter=assets["adapter"]["sha256"], recipe=assets["recipe"],
+                   package_source_sha256=source_identity(),
                    engine={k: assets[k]["sha256"] for k in ("binary", "library")},
                    policy_sha256=identity(policy), inputs=inputs)
     plan = deepcopy(dict(schema=SCHEMA, policy=policy["id"], context=context,

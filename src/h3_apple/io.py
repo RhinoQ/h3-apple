@@ -15,6 +15,14 @@ def digest(path):
     return checksum.hexdigest()
 
 
+def source_identity():
+    """Bind replay to the installed wrapper and its packaged policy data."""
+    root = Path(__file__).parent
+    hashes = {str(path.relative_to(root)): digest(path) for path in sorted(root.rglob("*"))
+              if path.is_file() and path.suffix in (".py", ".metal", ".npz", ".json", ".txt")}
+    return hashlib.sha256(json.dumps(hashes, sort_keys=True).encode()).hexdigest()
+
+
 def write_json(path, value):
     path = Path(path)
     fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)

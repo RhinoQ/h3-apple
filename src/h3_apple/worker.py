@@ -1,6 +1,5 @@
 """Private process entry point. Receives one request, emits progress and a result."""
 
-import hashlib
 import json
 import logging
 import os
@@ -12,7 +11,7 @@ import threading
 import traceback
 
 from .host import check_machine, device_lock, snapshot
-from .io import digest
+from .io import digest, source_identity
 from .media import validate
 
 
@@ -22,13 +21,6 @@ class ResourceStop(BaseException):
 
 def emit(value):
     print(json.dumps(value, ensure_ascii=False, allow_nan=False), flush=True)
-
-
-def source_identity():
-    root = Path(__file__).parent
-    hashes = {str(path.relative_to(root)): digest(path) for path in sorted(root.rglob("*"))
-              if path.is_file() and path.suffix in (".py", ".metal", ".npz", ".json", ".txt")}
-    return hashlib.sha256(json.dumps(hashes, sort_keys=True).encode()).hexdigest()
 
 
 def main():
