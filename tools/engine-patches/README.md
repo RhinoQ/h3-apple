@@ -24,6 +24,26 @@ parameter. Local artifacts use `tools/package_engine.py --local-only` and the
 requires the matching archive in the local cache; its URL is intentionally
 unset until a release is published.
 
+The experimental `0.5.1.dev2` build also applies `vae-int8.patch` after those
+two patches. It includes exact QK/RoPE layout fusion and an opt-in H256 rowwise
+W8A8 decoder, pinned at native revision `2070ba62f5e5ef552bce65a6137638b245da6e54`.
+The wrapper's `m5max-h256-int8-v1` policy requires the `vae-h256-int8-v1` engine
+capability and confirms the executed integer route. The native policy for the
+DiT remains `m5max-v1`. Strict replay binds both the engine and precision policy.
+
+H256 rotation disperses channel outliers before symmetric rowwise INT8
+quantization. INT32 dot products are restored with FP32 scales; projection,
+bias and downstream BF16 round points remain explicit. The temporary dense
+weight is released after conversion. The encoder, attention precision and
+decoding geometry retain their preceding behavior. This is approximate
+arithmetic and requires perceptual validation, even when numerical screens pass.
+`minimax_h3_vvae_int8` tests check closed-form H256 results, integer contractions,
+tail blocks, buffer guards, bias handling and nonfinite propagation.
+
+Algorithm reference: [Comfy Kitchen ConvRot INT8 linear](https://github.com/Comfy-Org/comfy-kitchen/blob/main/comfy_kitchen/backends/cuda/ops/int8_linear.cu)
+(Apache-2.0). The implementation uses native Metal MPP integer matrix operations;
+Comfy's CUDA performance measurements do not predict its performance on a Mac.
+
 Upstream behavior is retained when no product policy is supplied, for controlled
 comparisons. Internal native environment controls are not public user settings.
 

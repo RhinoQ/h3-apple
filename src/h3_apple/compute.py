@@ -31,6 +31,9 @@ def prepare(request, assets, prepared, workspace, environment, *, replay=None):
     if "stable-compute-v1" not in assets.get("engine_capabilities", ()):
         raise RuntimeError("The installed engine does not support the required compute policy.")
     policy = data_file("compute-policy.json")
+    if (policy["environment"].get("VPIPE_H3_VVAE_INT8") == "1"
+            and "vae-h256-int8-v1" not in assets.get("engine_capabilities", ())):
+        raise RuntimeError("The installed engine does not support H256 INT8 VAE decoding.")
     hardware = hardware_identity(assets, environment)
     if (hardware["native"].get("cpu") != policy["device"]["model"]
             or not hardware["native"].get("matrix_cores")
@@ -72,6 +75,9 @@ def complete(plan, replay, log, workspace):
             or not any(r.startswith("vae ") for r in routes)
             or "replayed research qmm plan:" not in log):
         raise RuntimeError("The engine did not confirm the complete compute policy.")
+    if (plan.get("environment", {}).get("VPIPE_H3_VVAE_INT8") == "1"
+            and not any("route=h256-i8-v1-" in r for r in routes)):
+        raise RuntimeError("The engine did not confirm H256 INT8 VAE decoding.")
     if replay is not None and routes != replay["actual_routes"]:
         raise RuntimeError("Actual compute routes differ from the strict replay record.")
     result = dict(plan, actual_routes=routes)

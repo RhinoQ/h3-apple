@@ -1,5 +1,5 @@
 {
-  "id": "m5max-v1",
+  "id": "m5max-h256-int8-v1",
   "device": {"model": "Apple M5 Max", "cores": "40"},
   "qmm": {
     "schema": 1, "row_key": 4096, "quant_bits": 8, "quant_group": 64,
@@ -13,6 +13,7 @@
   },
   "environment": {
     "VPIPE_H3_COMPUTE_POLICY": "m5max-v1",
+    "VPIPE_H3_VVAE_INT8": "1",
     "VPIPE_H3_NO_ATTN_TILE_AUTOTUNE": "1",
     "VPIPE_QMV_AUTOTUNE": "0",
     "VPIPE_QWEN_PREFILL_AUTOTUNE": "0",

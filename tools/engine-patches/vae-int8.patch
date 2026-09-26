@@ -1,0 +1,638 @@
+diff --git a/apple-silicon/metal-compute/CMakeLists.txt b/apple-silicon/metal-compute/CMakeLists.txt
+index d7d770e..6e181be 100644
+--- a/apple-silicon/metal-compute/CMakeLists.txt
++++ b/apple-silicon/metal-compute/CMakeLists.txt
+@@ -150,6 +150,8 @@ add_vpipe_metal_kernel(dense_gemm_mma_bf16 SRC gemm/dense_gemm_mma.metal
+                        FLAGS ${VPIPE_NAX_MIN_OS})
+ add_vpipe_metal_kernel(h3_vae_fused SRC gemm/h3_vae_fused.metal
+                        STD metal4.0 FLAGS ${VPIPE_NAX_MIN_OS})
++add_vpipe_metal_kernel(h3_vae_int8 SRC gemm/h3_vae_int8.metal
++                       STD metal4.0 FLAGS ${VPIPE_NAX_MIN_OS})
+ # Matrix-core (M5+) 3x3 conv2d via MetalPerformancePrimitives convolution2d.
+ # Fuses away the im2col DRAM round-trip for the Krea-2 VAE 3x3 convs. metal4.0
+ # tensor intrinsics; capability-gated at runtime (older GPUs keep im2col).
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc b/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
+index fa73f74..a8654aa 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
++++ b/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
+@@ -460,6 +460,38 @@ MetalMiniMaxH3VideoVae::linear_(WeightSet& ws, const std::string& nm)
+     }
+     l.codes = {}; l.scales = {}; l.qbias = {};
+   }
++  if (_rot_int8 && nm.starts_with("decoder.transformer_blocks.")) {
++    if (ci == nullptr || ci->shape.size() != 2 ||
++        (ci->shape[1] != 2048 && ci->shape[1] != 8192)) {
++      throw std::runtime_error("H3 VAE H256 INT8: unsupported weight shape");
++    }
++    const int N = (int)ci->shape[0], K = (int)ci->shape[1];
++    const std::size_t bytes = (std::size_t)N * K;
++    auto packed = ws.derived(std::string(kKey) + "h256-i8-v1:" + nm, [&]() {
++      // Temporary BF16 is intentionally uncached: only the rotated INT8
++      // weight remains resident, under a precision-specific cache identity.
++      auto dense = ci->dtype == "BF16"
++          ? ws.read(nm + ".weight", _mc, WeightSet::Residency::Copied)
++          : to_bf16_(ws.src(), _mc, nm + ".weight");
++      auto out = _mc->make_shared_buffer(bytes + (std::size_t)N * 4);
++      if (dense.empty() || out.empty())
++        throw std::runtime_error("H3 VAE H256 INT8: weight allocation failed");
++      auto stream = _mc->make_command_stream();
++      {
++        auto enc = stream.begin_compute();
++        enc.set_function(K == 2048 ? _fn_rot_quant : _fn_rot_quant_deep);
++        enc.set_buffer(0, dense); enc.set_buffer(1, out);
++        enc.set_buffer(2, out, bytes);
++        enc.dispatch({(unsigned)N * 256, 1, 1}, {256, 1, 1});
++      }
++      std::string error;
++      if (!stream.commit().wait_ok(&error)) throw std::runtime_error(error);
++      return out;
++    }, _part);
++    l.rot_i8 = packed.subview(0, bytes);
++    l.rot_scale = packed.subview(bytes, (std::size_t)N * 4);
++    return l;
++  }
+   l.w = weight_(ws, nm + ".weight");
+   return l;
+ }
+@@ -742,11 +774,29 @@ MetalMiniMaxH3VideoVae::load(std::shared_ptr<WeightSet> ws_in, MetalCompute* mc,
+     m->_fn_fused_down = m->_lib_fused_ffn.function("h3_vae_down_residual");
+     m->_fn_fused_bias = m->_lib_fused_ffn.function("h3_vae_bias_n128");
+     m->_fn_fused_bias_deep = m->_lib_fused_ffn.function("h3_vae_bias_n256");
++    m->_fn_fused_heads = m->_lib_fused_ffn.function("h3_vae_qk_norm_rope");
+     if (!m->_fn_fused_up.valid() || !m->_fn_fused_down.valid() ||
+-        !m->_fn_fused_bias.valid() || !m->_fn_fused_bias_deep.valid()) {
++        !m->_fn_fused_bias.valid() || !m->_fn_fused_bias_deep.valid() ||
++        !m->_fn_fused_heads.valid()) {
+       throw std::runtime_error("H3 VAE fused feed-forward kernels unavailable");
+     }
+   }
++  // Native experimental switch; never selected by memory size or autotuning.
++  const char* int8 = std::getenv("VPIPE_H3_VVAE_INT8");
++  if (int8 != nullptr && std::strcmp(int8, "0") != 0) {
++    if (std::strcmp(int8, "1") != 0 || !m->_use_mma2 ||
++        m->_quant_bits != 0 || cfg.dim != 2048 || cfg.ffn_inner != 8192 || cfg.ane_ffn)
++      throw std::runtime_error("H3 VAE H256 INT8: unsupported configuration");
++    m->_lib_rot_int8 = mc->load_library("h3_vae_int8");
++    m->_fn_rot_quant = m->_lib_rot_int8.function("h3_vae_quant_h256_k2048");
++    m->_fn_rot_quant_deep = m->_lib_rot_int8.function("h3_vae_quant_h256_k8192");
++    m->_fn_rot_gemm = m->_lib_rot_int8.function("h3_vae_i8_n128");
++    m->_fn_rot_gemm_deep = m->_lib_rot_int8.function("h3_vae_i8_n256");
++    if (!m->_fn_rot_quant.valid() || !m->_fn_rot_quant_deep.valid() ||
++        !m->_fn_rot_gemm.valid() || !m->_fn_rot_gemm_deep.valid())
++      throw std::runtime_error("H3 VAE H256 INT8: kernels unavailable");
++    m->_rot_int8 = true;
++  }
+   m->_post_quant = m->linear_(ws, "post_quant_conv");
+   m->_proj_in    = m->linear_(ws, "decoder.x_embedder");
+   m->_proj_out   = m->linear_(ws, "decoder.proj_out");
+@@ -844,6 +894,32 @@ MetalMiniMaxH3VideoVae::gemm_(ComputeEncoder& enc, const SharedBuffer& x,
+     return;
+   }
+   const bool bias = !l.b.empty();
++  if (!l.rot_i8.empty()) {
++    if ((K != 2048 && K != 8192) || M <= 0 || N <= 0 ||
++        l.rot_i8.byte_size() != (std::size_t)N * K ||
++        l.rot_scale.byte_size() != (std::size_t)N * 4)
++      throw std::runtime_error("H3 VAE H256 INT8: invalid projection extent");
++    if (_rot_x.byte_size() < (std::size_t)M*K)
++      _rot_x = _mc->make_shared_buffer((std::size_t)M*K);
++    if (_rot_x_scale.byte_size() < (std::size_t)M*4)
++      _rot_x_scale = _mc->make_shared_buffer((std::size_t)M*4);
++    if (_rot_x.empty() || _rot_x_scale.empty())
++      throw std::runtime_error("H3 VAE H256 INT8: activation allocation failed");
++    const int tile = K == 8192 ? 256 : 128;
++    _compute_routes.note(_mc, fmt("vae M={} N={} K={} route=h256-i8-v1-n{} split=0", M,N,K,tile));
++    enc.set_function(K == 2048 ? _fn_rot_quant : _fn_rot_quant_deep);
++    enc.set_buffer(0, x, x_off*2); enc.set_buffer(1, _rot_x);
++    enc.set_buffer(2, _rot_x_scale);
++    enc.dispatch({(unsigned)M*256,1,1}, {256,1,1});
++    enc.set_function(K == 2048 ? _fn_rot_gemm : _fn_rot_gemm_deep);
++    enc.set_buffer(0, _rot_x); enc.set_buffer(1, l.rot_i8);
++    enc.set_buffer(2, _rot_x_scale); enc.set_buffer(3, l.rot_scale);
++    enc.set_buffer(4, bias ? l.b : l.rot_i8); enc.set_buffer(5, y, y_off*2);
++    enc.set_constant(6, K); enc.set_constant(7, N); enc.set_constant(8, M);
++    enc.set_constant(9, bias ? 1 : 0);
++    enc.dispatch({(unsigned)((N+tile-1)/tile*256), (unsigned)((M+127)/128),1}, {256,1,1});
++    return;
++  }
+   bool bias_fused = false;
+   if (gemm_mma_(enc, x, x_off, l, y, y_off, M, N, K,
+                 fuse_bias ? &bias_fused : nullptr)) {
+@@ -1121,7 +1197,7 @@ MetalMiniMaxH3VideoVae::ane_eligible_(int L, const Block& b)
+                       : _cfg.n_layers;
+   if (L >= cap) { return false; }
+   auto stageable = [](const Linear& l) {
+-    if (l.empty()) { return false; }
++    if (l.empty() || !l.rot_i8.empty()) { return false; }
+     if (!l.quantized) { return true; }
+     return (l.bits == 4 || l.bits == 8) && !l.scales.empty() &&
+            !l.qbias.empty();
+@@ -1165,6 +1241,7 @@ MetalMiniMaxH3VideoVae::fused_ffn_(ComputeEncoder& enc, const Block& b, int rows
+   if (!_fn_fused_up.valid() || !_fn_fused_down.valid() ||
+       D != 2048 || FF != 8192 || rows < _mma_min_m ||
+       rows > row_band_(2 * FF) || b.w1.quantized || b.w2.quantized ||
++      !b.w1.rot_i8.empty() || !b.w2.rot_i8.empty() ||
+       _force_tile != 0 || !_tile_tuned.empty() ||
+       _splitk.plan(D, 2 * FF, rows).splits != 0 ||
+       _splitk.plan(FF, D, rows).splits != 0) {
+@@ -1245,6 +1322,7 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+   }
+   const int A_BQ = _attn_nax ? 64 : 32;
+   const int A_BK = _attn_nax ? 32 : 16;
++  const bool fused_layout = _fn_fused_heads.valid() && HD == 64 && c.rope_dim() == 48;
+   bool use_steel = _steel_ok;
+   if (use_steel && _attn_rows != rows) {
+     struct P {
+@@ -1270,6 +1348,12 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+       p->V_strides[i] = p->Q_strides[i];
+       p->O_strides[i] = p->Q_strides[i];
+     }
++    if (fused_layout) {
++      p->Q_strides[0] = p->K_strides[0] = p->V_strides[0] = (std::int64_t)rows*3*D;
++      p->Q_strides[1] = p->K_strides[1] = p->V_strides[1] = 3*HD;
++      p->Q_strides[2] = p->K_strides[2] = p->V_strides[2] = 3*D;
++      p->O_strides[1] = HD; p->O_strides[2] = D;
++    }
+     metal_compute::FunctionConstants fc;
+     fc.set_bool(200, (rows % A_BQ) == 0).set_bool(201, (rows % A_BK) == 0)
+         .set_bool(300, false).set_bool(301, false).set_bool(302, false);
+@@ -1338,32 +1422,45 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+       // blend of its own q, k and v: attention then relates no token to
+       // its neighbours, and every 16x16 patch decodes on its own, which
+       // reads as a tile grid rather than as noise.
+-      for (int qk = 0; qk < 2; ++qk) {
+-        enc.set_function(_fn_rms_heads);
+-        enc.set_buffer(0, s.qkv); enc.set_buffer(1, s.ones);
+-        enc.set_constant(2, rows); enc.set_constant(3, NH);
+-        enc.set_constant(4, HD); enc.set_constant(5, 3 * D);
+-        enc.set_constant(6, qk * HD); enc.set_constant(7, c.norm_eps);
+-        enc.set_constant(8, 3 * HD);
+-        enc.dispatch({32, (unsigned)(rows * NH), 1}, {32, 1, 1});
+-      }
+-      for (int i = 0; i < 3; ++i) {
+-        enc.set_function(_fn_trope);
+-        enc.set_buffer(0, s.qkv);
+-        enc.set_buffer(1, i == 0 ? s.qh : i == 1 ? s.kh : s.vh);
+-        enc.set_buffer(2, s.rcos); enc.set_buffer(3, s.rsin);
+-        enc.set_constant(4, NH); enc.set_constant(5, rows);
+-        enc.set_constant(6, HD);
+-        enc.set_constant(7, i < 2 ? c.rope_dim() : 0);
+-        enc.set_constant(8, 3 * D); enc.set_constant(9, i * HD);
+-        enc.set_constant(10, 3 * HD);   // per-head grouping, see above
+-        enc.dispatch({(unsigned)HD, (unsigned)rows, (unsigned)NH},
+-                     {(unsigned)HD, 1, 1});
++      if (use_steel && fused_layout) {
++        _compute_routes.note(_mc, fmt("vae-attention M={} route=strided-qk-rope-v1", rows));
++        enc.set_function(_fn_fused_heads);
++        enc.set_buffer(0, s.qkv); enc.set_buffer(1, s.rcos); enc.set_buffer(2, s.rsin);
++        enc.set_constant(3, rows); enc.set_constant(4, NH); enc.set_constant(5, c.norm_eps);
++        enc.dispatch({32, (unsigned)(rows*NH), 2}, {32, 1, 1});
++      } else {
++        for (int qk = 0; qk < 2; ++qk) {
++          enc.set_function(_fn_rms_heads);
++          enc.set_buffer(0, s.qkv); enc.set_buffer(1, s.ones);
++          enc.set_constant(2, rows); enc.set_constant(3, NH);
++          enc.set_constant(4, HD); enc.set_constant(5, 3 * D);
++          enc.set_constant(6, qk * HD); enc.set_constant(7, c.norm_eps);
++          enc.set_constant(8, 3 * HD);
++          enc.dispatch({32, (unsigned)(rows * NH), 1}, {32, 1, 1});
++        }
++        for (int i = 0; i < 3; ++i) {
++          enc.set_function(_fn_trope);
++          enc.set_buffer(0, s.qkv);
++          enc.set_buffer(1, i == 0 ? s.qh : i == 1 ? s.kh : s.vh);
++          enc.set_buffer(2, s.rcos); enc.set_buffer(3, s.rsin);
++          enc.set_constant(4, NH); enc.set_constant(5, rows);
++          enc.set_constant(6, HD);
++          enc.set_constant(7, i < 2 ? c.rope_dim() : 0);
++          enc.set_constant(8, 3 * D); enc.set_constant(9, i * HD);
++          enc.set_constant(10, 3 * HD);   // per-head grouping, see above
++          enc.dispatch({(unsigned)HD, (unsigned)rows, (unsigned)NH},
++                       {(unsigned)HD, 1, 1});
++        }
+       }
+       if (use_steel) {
+         enc.set_function(_fn_attn);
+-        enc.set_buffer(0, s.qh); enc.set_buffer(1, s.kh);
+-        enc.set_buffer(2, s.vh); enc.set_buffer(3, s.oh);
++        if (fused_layout) {
++          enc.set_buffer(0, s.qkv); enc.set_buffer(1, s.qkv, HD*2);
++          enc.set_buffer(2, s.qkv, 2*HD*2); enc.set_buffer(3, s.ob);
++        } else {
++          enc.set_buffer(0, s.qh); enc.set_buffer(1, s.kh);
++          enc.set_buffer(2, s.vh); enc.set_buffer(3, s.oh);
++        }
+         enc.set_buffer(4, _attn_p);
+         enc.dispatch({32 * (unsigned)((rows + A_BQ - 1) / A_BQ),
+                       4 * (unsigned)NH, 1}, {32, 4, 1});
+@@ -1377,12 +1474,14 @@ MetalMiniMaxH3VideoVae::decode(const SharedBuffer& z, int T, int h, int w,
+         enc.set_constant(10, rows);
+         enc.dispatch({32, (unsigned)NH, (unsigned)rows}, {32, 1, 1});
+       }
+-      enc.set_function(_fn_transpose);
+-      enc.set_buffer(0, s.oh); enc.set_buffer(1, s.ob);
+-      enc.set_constant(2, NH); enc.set_constant(3, rows);
+-      enc.set_constant(4, HD);
+-      enc.dispatch({(unsigned)HD, (unsigned)rows, (unsigned)NH},
+-                   {(unsigned)HD, 1, 1});
++      if (!(use_steel && fused_layout)) {
++        enc.set_function(_fn_transpose);
++        enc.set_buffer(0, s.oh); enc.set_buffer(1, s.ob);
++        enc.set_constant(2, NH); enc.set_constant(3, rows);
++        enc.set_constant(4, HD);
++        enc.dispatch({(unsigned)HD, (unsigned)rows, (unsigned)NH},
++                     {(unsigned)HD, 1, 1});
++      }
+       gemm_(enc, s.ob, 0, b.out, s.nm, 0, rows, D, D, true);
+       // The residual gate is a learned per-CHANNEL vector (zero-init at
+       // training time), not a per-row modulation -- so the DiT's indexed
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-video-vae.h b/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
+index 034ca47..baf5e0f 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
++++ b/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
+@@ -345,10 +345,11 @@ class MetalMiniMaxH3VideoVae {
+ 
+   struct Linear {
+     metal_compute::SharedBuffer w, b;
++    metal_compute::SharedBuffer rot_i8, rot_scale;
+     metal_compute::SharedBuffer codes, scales, qbias;
+     bool quantized = false;
+     int  bits = 0;
+-    bool empty() const { return quantized ? codes.empty() : w.empty(); }
++    bool empty() const { return rot_i8.empty() && (quantized ? codes.empty() : w.empty()); }
+   };
+ 
+   struct Block {
+@@ -522,6 +523,14 @@ class MetalMiniMaxH3VideoVae {
+   metal_compute::ComputeLibrary _lib_fused_ffn;
+   metal_compute::ComputeFunction _fn_fused_up, _fn_fused_down;
+   metal_compute::ComputeFunction _fn_fused_bias, _fn_fused_bias_deep;
++  metal_compute::ComputeFunction _fn_fused_heads;
++  // Experimental, fixed H256 rowwise W8A8 decoder projections. The encoder
++  // and attention arithmetic keep their original precision and geometry.
++  bool _rot_int8 = false;
++  metal_compute::ComputeLibrary _lib_rot_int8;
++  metal_compute::ComputeFunction _fn_rot_quant, _fn_rot_quant_deep;
++  metal_compute::ComputeFunction _fn_rot_gemm, _fn_rot_gemm_deep;
++  metal_compute::SharedBuffer _rot_x, _rot_x_scale;
+   metal_compute::ComputeFunction _fn_dequant4, _fn_dequant8;
+   metal_compute::SharedBuffer _w_deq;
+   // Deep-K split for the encoder's conv GEMMs (a 3x3x3 conv is an im2col
+diff --git a/gpu-kernels/metal/gemm/h3_vae_fused.metal b/gpu-kernels/metal/gemm/h3_vae_fused.metal
+index eb7a5fd..2468106 100644
+--- a/gpu-kernels/metal/gemm/h3_vae_fused.metal
++++ b/gpu-kernels/metal/gemm/h3_vae_fused.metal
+@@ -55,6 +55,48 @@ H3_VAE_PROJ(h3_vae_bias_n128, 128, false)
+ H3_VAE_PROJ(h3_vae_bias_n256, 256, false)
+ H3_VAE_PROJ(h3_vae_down_residual, 256, true)
+ 
++// H3's head is 64 wide, with only the first 48 channels rotated. Keep
++// the original 32-lane RMS reduction and its BF16 round before RoPE.
++// Attention consumes the interleaved QKV strides, so no head transpose
++// is needed. Each SIMD group owns one (token, head, Q-or-K) region.
++kernel void h3_vae_qk_norm_rope(
++    device bfloat* qkv [[buffer(0)]],
++    const device float* cosb [[buffer(1)]],
++    const device float* sinb [[buffer(2)]],
++    constant int& S [[buffer(3)]], constant int& H [[buffer(4)]],
++    constant float& eps [[buffer(5)]],
++    uint3 group [[threadgroup_position_in_grid]],
++    uint lane [[thread_index_in_threadgroup]])
++{
++  const int row = int(group.y), part = int(group.z);
++  if (row >= S*H || part >= 2) return;
++  const int t = row/H, h = row%H;
++  device bfloat* r = qkv + size_t(t)*H*192 + h*192 + part*64;
++  float acc = 0.0f;
++  for (int i = int(lane); i < 64; i += 32) {
++    const float v = float(r[i]);
++    acc += v*v;
++  }
++  acc = simd_sum(acc);
++  const float inv = rsqrt(acc/64.0f + eps);
++  bfloat output[2];
++  for (int j = 0; j < 2; ++j) {
++    const int d = int(lane)+j*32;
++    if (d >= 48) {
++      output[j] = bfloat(float(r[d])*inv);
++    } else {
++      const int i = d < 24 ? d : d-24;
++      const float x1 = float(bfloat(float(r[i])*inv));
++      const float x2 = float(bfloat(float(r[i+24])*inv));
++      const float c = cosb[t*24+i], s = sinb[t*24+i];
++      output[j] = bfloat(d < 24 ? x1*c-x2*s : x2*c+x1*s);
++    }
++  }
++  // Both partners must have read the old values before any in-place store.
++  threadgroup_barrier(mem_flags::mem_device);
++  r[lane] = output[0]; r[lane+32] = output[1];
++}
++
+ // The two halves still use independent 128x128 matmuls. Keep their BF16
+ // values in cooperative tensors, apply the original bias rounding and
+ // gate-first SwiGLU, then store only the FF-wide activation.
+diff --git a/gpu-kernels/metal/gemm/h3_vae_int8.metal b/gpu-kernels/metal/gemm/h3_vae_int8.metal
+new file mode 100644
+index 0000000..d30c679
+--- /dev/null
++++ b/gpu-kernels/metal/gemm/h3_vae_int8.metal
+@@ -0,0 +1,122 @@
++#include <metal_stdlib>
++#include <metal_tensor>
++#include <MetalPerformancePrimitives/MetalPerformancePrimitives.h>
++using namespace metal;
++using namespace mpp::tensor_ops;
++
++// H256 = (H4 / 2)^tensor4, H4 symmetric with a negative anti-diagonal.
++// The rotation preserves dot products before quantization and disperses channel
++// outliers. Algorithm reference: Comfy Kitchen's ConvRot INT8 linear (Apache-2.0),
++// comfy_kitchen/backends/cuda/ops/int8_linear.cu. This is a native Metal kernel.
++static inline float h4(uint d, float a, float b, float c, float e) {
++  const uint neg = 3 - d;
++  a = neg == 0 ? -a : a; b = neg == 1 ? -b : b;
++  c = neg == 2 ? -c : c; e = neg == 3 ? -e : e;
++  return 0.5f * (((a + b) + c) + e);
++}
++
++// A SIMD group owns each 256-element group; eight values per lane. The two
++// high radix-4 digits live partly/wholly in registers, avoiding a shared-memory
++// round trip for every butterfly. Only the row's absmax crosses SIMD groups.
++template<int K>
++static inline void h256_quant(const device bfloat* x, device int8_t* q,
++                             device float* scales, uint row, uint lane,
++                             uint sg, threadgroup float* maxima) {
++  constexpr int G = (K / 256 + 7) / 8;
++  float values[G][8];
++  float maximum = 0.0f;
++  bool invalid = false;
++  for (int g = 0; g < G; ++g) {
++    const uint base = (g * 8 + sg) * 256;
++    float v[8], t[8];
++    for (int j = 0; j < 8; ++j) {
++      const bfloat input = base < K ? x[size_t(row) * K + base + j * 32 + lane] : bfloat(0);
++      invalid |= (as_type<ushort>(input) & 0x7f80u) == 0x7f80u;
++      v[j] = float(input);
++    }
++    for (int stride = 1; stride <= 4; stride *= 4) {
++      const uint d = (lane / stride) & 3, root = lane - d * stride;
++      for (int j = 0; j < 8; ++j)
++        t[j] = h4(d, simd_shuffle(v[j], root), simd_shuffle(v[j], root + stride),
++                  simd_shuffle(v[j], root + 2*stride), simd_shuffle(v[j], root + 3*stride));
++      for (int j = 0; j < 8; ++j) v[j] = t[j];
++    }
++    for (int j = 0; j < 8; ++j) {
++      const uint d = (lane >> 4) + 2 * (j & 1), root = lane & 15;
++      t[j] = h4(d, simd_shuffle(v[j & ~1], root), simd_shuffle(v[j & ~1], root + 16),
++                simd_shuffle(v[j | 1], root), simd_shuffle(v[j | 1], root + 16));
++    }
++    for (int j = 0; j < 8; ++j) {
++      const int p = j & 1;
++      values[g][j] = h4(j / 2, t[p], t[p+2], t[p+4], t[p+6]);
++      invalid |= (as_type<uint>(values[g][j]) & 0x7f800000u) == 0x7f800000u;
++      maximum = max(maximum, abs(values[g][j]));
++    }
++  }
++  maximum = simd_max(invalid ? INFINITY : maximum);
++  if (lane == 0) maxima[sg] = maximum;
++  threadgroup_barrier(mem_flags::mem_threadgroup);
++  maximum = simd_max(lane < 8 ? maxima[lane] : 0.0f);
++  const float scale = max(maximum / 127.0f, 1.0e-30f);
++  const bool bad_scale = (as_type<uint>(scale) & 0x7f800000u) == 0x7f800000u;
++  if (sg == 0 && lane == 0) scales[row] = scale;
++  for (int g = 0; g < G; ++g) {
++    const uint base = (g * 8 + sg) * 256;
++    if (base >= K) continue;
++    for (int j = 0; j < 8; ++j)
++      q[size_t(row)*K + base + j*32 + lane] = bad_scale ? int8_t(0) :
++          int8_t(clamp(rint(values[g][j] / scale), -127.0f, 127.0f));
++  }
++}
++
++#define H256_QUANT(NAME, K) \
++kernel void NAME(const device bfloat* x [[buffer(0)]], device int8_t* q [[buffer(1)]], \
++                 device float* scales [[buffer(2)]], uint row [[threadgroup_position_in_grid]], \
++                 uint lane [[thread_index_in_simdgroup]], uint sg [[simdgroup_index_in_threadgroup]]) { \
++  threadgroup float maxima[8]; h256_quant<K>(x, q, scales, row, lane, sg, maxima); \
++}
++H256_QUANT(h3_vae_quant_h256_k256, 256)
++H256_QUANT(h3_vae_quant_h256_k2048, 2048)
++H256_QUANT(h3_vae_quant_h256_k8192, 8192)
++
++#if defined(__HAVE_TENSOR__)
++template<int BN>
++static inline void h3_vae_i8(const device int8_t* x, const device int8_t* w,
++    const device float* sx, const device float* sw, const device bfloat* bias,
++    device bfloat* y, int K, int N, int M, int has_bias, uint3 group) {
++  using T = tensor<device int8_t, dextents<int32_t, 2>, tensor_inline>;
++  T tx(const_cast<device int8_t*>(x), dextents<int32_t, 2>(K,M));
++  T tw(const_cast<device int8_t*>(w), dextents<int32_t, 2>(K,N));
++  constexpr auto desc = matmul2d_descriptor(128, BN, int(dynamic_extent), false, true, false);
++  matmul2d<desc, execution_simdgroups<8>> op;
++  const int m0 = int(group.y)*128, n0 = int(group.x)*BN;
++  auto a = tx.slice(0,m0), b = tw.slice(0,n0);
++  auto c = op.template get_destination_cooperative_tensor<decltype(a), decltype(b), int32_t>();
++  op.run(a,b,c);
++  for (auto it = c.begin(); it != c.end(); ++it) {
++    if (!c.is_valid_element(it)) continue;
++    const auto ij = c.get_multidimensional_index(it);
++    const int n = n0 + ij[0], m = m0 + ij[1];
++    if (n >= N || m >= M) continue;
++    const float sa = sx[m], sb = sw[n];
++    const bool invalid = ((as_type<uint>(sa) & 0x7f800000u) == 0x7f800000u) ||
++                         ((as_type<uint>(sb) & 0x7f800000u) == 0x7f800000u);
++    bfloat v = bfloat(float(*it) * sa * sb);
++    if (has_bias) v = bfloat(float(v) + float(bias[n]));
++    // Preserve invalid inputs as NaNs instead of silently quantizing them away.
++    y[size_t(m)*N+n] = invalid ? as_type<bfloat>(ushort(0x7fc0)) : v;
++  }
++}
++
++#define I8_GEMM(NAME, BN) \
++kernel void NAME(const device int8_t* x [[buffer(0)]], const device int8_t* w [[buffer(1)]], \
++    const device float* sx [[buffer(2)]], const device float* sw [[buffer(3)]], \
++    const device bfloat* bias [[buffer(4)]], device bfloat* y [[buffer(5)]], \
++    constant int& K [[buffer(6)]], constant int& N [[buffer(7)]], \
++    constant int& M [[buffer(8)]], constant int& has_bias [[buffer(9)]], \
++    uint3 group [[threadgroup_position_in_grid]]) { \
++  h3_vae_i8<BN>(x,w,sx,sw,bias,y,K,N,M,has_bias,group); \
++}
++I8_GEMM(h3_vae_i8_n128, 128)
++I8_GEMM(h3_vae_i8_n256, 256)
++#endif
+diff --git a/tests/unit-tests/CMakeLists.txt b/tests/unit-tests/CMakeLists.txt
+index 802e36e..d464102 100644
+--- a/tests/unit-tests/CMakeLists.txt
++++ b/tests/unit-tests/CMakeLists.txt
+@@ -200,6 +200,7 @@ if(APPLE AND VPIPE_BUILD_APPLE_SILICON)
+         minimax-h3-vdn-hybrid.cc
+         minimax-h3-vvae.cc
+         minimax-h3-vvae-fused.cc
++  minimax-h3-vvae-int8.cc
+         minimax-h3-avae.cc
+         audio-vae-encode.cc
+         load-audio-stage.cc
+diff --git a/tests/unit-tests/minimax-h3-vvae-fused.cc b/tests/unit-tests/minimax-h3-vvae-fused.cc
+index bd1c89f..25cb529 100644
+--- a/tests/unit-tests/minimax-h3-vvae-fused.cc
++++ b/tests/unit-tests/minimax-h3-vvae-fused.cc
+@@ -2,6 +2,7 @@
+ #include "common/session.h"
+ #include "apple-silicon/metal-compute/metal-compute.h"
+ #include <bit>
++#include <cmath>
+ #include <cstdint>
+ #include <cstring>
+ #include <stdexcept>
+@@ -104,3 +105,73 @@ bool check_ffn(int rows, bool has_bias) {
+ TEST(minimax_h3_vvae_fused, partial_tile_with_bias) { EXPECT_TRUE(check_ffn(1,true)); }
+ TEST(minimax_h3_vvae_fused, complete_tile_without_bias) { EXPECT_TRUE(check_ffn(128,false)); }
+ TEST(minimax_h3_vvae_fused, tail_tile_with_bias) { EXPECT_TRUE(check_ffn(129,true)); }
++
++namespace {
++bool check_qk(int rows, int heads) {
++  vpipe::Session session;
++  auto* gpu = session.metal_compute();
++  if (!gpu || !gpu->supports_matrix_cores()) return true;
++  const int count = rows*heads*192;
++  auto original = gpu->make_shared_buffer(count*2);
++  auto storage = gpu->make_shared_buffer(count*2+128);
++  std::memset(storage.contents(),0x55,storage.byte_size());
++  auto candidate = storage.subview(64,count*2);
++  auto* input = static_cast<std::uint16_t*>(original.contents());
++  for (int i=0; i<count; ++i)
++    input[i] = bf(i<64 ? 0.f : float((i*37+11)%193-96)/127.f);
++  std::memcpy(candidate.contents(),original.contents(),count*2);
++  auto gamma = gpu->make_shared_buffer(64*2);
++  for (int i=0; i<64; ++i) static_cast<std::uint16_t*>(gamma.contents())[i]=bf(1.f);
++  auto cosine = gpu->make_shared_buffer(rows*24*sizeof(float));
++  auto sine = gpu->make_shared_buffer(rows*24*sizeof(float));
++  for (int i=0; i<rows*24; ++i) {
++    static_cast<float*>(cosine.contents())[i]=std::cos(float(i)*.03f);
++    static_cast<float*>(sine.contents())[i]=std::sin(float(i)*.03f);
++  }
++  std::vector<SharedBuffer> expected;
++  for (int i=0; i<3; ++i) expected.push_back(gpu->make_shared_buffer(rows*heads*64*2));
++  auto rope = gpu->load_library("rope_bf16");
++  auto fused = gpu->load_library("h3_vae_fused");
++  auto rms = rope.function("rms_norm_heads_strided_f16");
++  auto transpose = rope.function("transpose_rope_half_part_ftab_f16");
++  auto fn = fused.function("h3_vae_qk_norm_rope");
++  if (!rms.valid() || !transpose.valid() || !fn.valid()) return false;
++  auto stream = gpu->make_command_stream();
++  {
++    auto e = stream.begin_compute();
++    for (int qk=0; qk<2; ++qk) {
++      e.set_function(rms);e.set_buffer(0,original);e.set_buffer(1,gamma);
++      e.set_constant(2,rows);e.set_constant(3,heads);e.set_constant(4,64);
++      e.set_constant(5,heads*192);e.set_constant(6,qk*64);e.set_constant(7,1e-6f);
++      e.set_constant(8,192);e.dispatch({32,unsigned(rows*heads),1},{32,1,1});
++    }
++    for (int part=0; part<3; ++part) {
++      e.set_function(transpose);e.set_buffer(0,original);e.set_buffer(1,expected[part]);
++      e.set_buffer(2,cosine);e.set_buffer(3,sine);e.set_constant(4,heads);
++      e.set_constant(5,rows);e.set_constant(6,64);e.set_constant(7,part<2?48:0);
++      e.set_constant(8,heads*192);e.set_constant(9,part*64);e.set_constant(10,192);
++      e.dispatch({64,unsigned(rows),unsigned(heads)},{64,1,1});
++    }
++    e.set_function(fn);e.set_buffer(0,candidate);e.set_buffer(1,cosine);e.set_buffer(2,sine);
++    e.set_constant(3,rows);e.set_constant(4,heads);e.set_constant(5,1e-6f);
++    e.dispatch({32,unsigned(rows*heads),2},{32,1,1});
++  }
++  std::string error;
++  if (!stream.commit().wait_ok(&error)) throw std::runtime_error(error);
++  const auto* actual=static_cast<const std::uint16_t*>(candidate.contents());
++  for (int part=0; part<3; ++part) {
++    const auto* reference=static_cast<const std::uint16_t*>(expected[part].contents());
++    for (int t=0; t<rows; ++t) for (int h=0; h<heads; ++h) for (int d=0; d<64; ++d) {
++      const auto value=actual[t*heads*192+h*192+part*64+d];
++      if (value!=reference[(h*rows+t)*64+d] || (value&0x7f80u)==0x7f80u) return false;
++    }
++  }
++  const auto* guard=static_cast<const unsigned char*>(storage.contents());
++  for (int i=0; i<64; ++i)
++    if (guard[i]!=0x55 || guard[storage.byte_size()-64+i]!=0x55) return false;
++  return true;
++}
++}
++
++TEST(minimax_h3_vvae_fused, qk_zero_and_rope_tail) { EXPECT_TRUE(check_qk(1,1)); }
++TEST(minimax_h3_vvae_fused, qk_multiple_rows_and_heads) { EXPECT_TRUE(check_qk(65,3)); }
+diff --git a/tests/unit-tests/minimax-h3-vvae-int8.cc b/tests/unit-tests/minimax-h3-vvae-int8.cc
+new file mode 100644
+index 0000000..985c382
+--- /dev/null
++++ b/tests/unit-tests/minimax-h3-vvae-int8.cc
+@@ -0,0 +1,73 @@
++#include "minitest.h"
++#include "common/session.h"
++#include "apple-silicon/metal-compute/metal-compute.h"
++#include <algorithm>
++#include <bit>
++#include <cmath>
++#include <cstdint>
++#include <cstring>
++#include <stdexcept>
++#include <vector>
++using namespace vpipe::metal_compute;
++namespace {
++uint16_t bf(float f) {auto u=std::bit_cast<uint32_t>(f);return (u+0x7fff+((u>>16)&1))>>16;}
++float fp(uint16_t b) {return std::bit_cast<float>(uint32_t(b)<<16);}
++
++bool check(int M,int N,int K,int tile,bool bias,bool invalid=false) {
++  vpipe::Session session;auto* gpu=session.metal_compute();
++  if (!gpu || !gpu->supports_matrix_cores()) return true;
++  auto lib=gpu->load_library("h3_vae_int8");
++  auto q=lib.function("h3_vae_quant_h256_k"+std::to_string(K));
++  auto mm=lib.function("h3_vae_i8_n"+std::to_string(tile));
++  if (!q.valid()||!mm.valid()) return false;
++  auto alloc=[&](size_t n){auto b=gpu->make_shared_buffer(n);if(b.empty())throw std::runtime_error("test allocation");std::memset(b.contents(),0,n);return b;};
++  auto x=alloc(size_t(M)*K*2),w=alloc(size_t(N)*K*2),b=alloc(N*2);
++  auto xq=alloc(size_t(M)*K),wq=alloc(size_t(N)*K),sx=alloc(M*4),sw=alloc(N*4);
++  auto storage=alloc(size_t(M)*N*2+128),out=storage.subview(64,size_t(M)*N*2);
++  std::memset(storage.contents(),0x55,storage.byte_size());
++  for(auto* buf:{&x,&w,&b})for(size_t i=0;i<buf->byte_size()/2;++i)
++    static_cast<uint16_t*>(buf->contents())[i]=bf(float(int((i*37+11)%193)-96)/128.f);
++  std::memset(x.contents(),0,K*2);
++  static_cast<uint16_t*>(x.contents())[K+37]=bf(128.f);
++  if(invalid){static_cast<uint16_t*>(x.contents())[K+41]=0x7fc0;static_cast<uint16_t*>(w.contents())[2*K+3]=0x7f80;}
++  auto stream=gpu->make_command_stream();
++  {auto enc=stream.begin_compute();
++   auto quant=[&](const SharedBuffer& a,const SharedBuffer& codes,const SharedBuffer& scales,int rows){enc.set_function(q);enc.set_buffer(0,a);enc.set_buffer(1,codes);enc.set_buffer(2,scales);enc.dispatch({unsigned(rows*256),1,1},{256,1,1});};
++   quant(x,xq,sx,M);quant(w,wq,sw,N);
++   enc.set_function(mm);enc.set_buffer(0,xq);enc.set_buffer(1,wq);enc.set_buffer(2,sx);enc.set_buffer(3,sw);enc.set_buffer(4,b);enc.set_buffer(5,out);
++   enc.set_constant(6,K);enc.set_constant(7,N);enc.set_constant(8,M);enc.set_constant(9,int(bias));
++   enc.dispatch({unsigned((N+tile-1)/tile*256),unsigned((M+127)/128),1},{256,1,1});
++  }
++  std::string err;if(!stream.commit().wait_ok(&err))throw std::runtime_error(err);
++  // Dense H256 reference uses its closed-form Kronecker entries, independent
++  // of the GPU's SIMD/register butterfly and reduction implementation.
++  int8_t H[256][256];
++  for(int r=0;r<256;++r)for(int c=0;c<256;++c){int sign=1;for(int d=0;d<4;++d)if(((r>>(2*d))&3)+((c>>(2*d))&3)==3)sign=-sign;H[r][c]=int8_t(sign);}
++  const auto* xp=static_cast<uint16_t*>(x.contents());
++  for(int m=0;m<M;++m){
++    if(invalid&&m==1){if(std::isfinite(static_cast<float*>(sx.contents())[m]))return false;continue;}
++    std::vector<float> v(K);float maximum=0;
++    for(int k=0;k<K;++k){float sum=0;for(int j=0;j<256;++j)sum+=H[k%256][j]*fp(xp[m*K+(k/256)*256+j]);v[k]=sum/16.f;maximum=std::max(maximum,std::abs(v[k]));}
++    const float scale=std::max(maximum/127.f,1.e-30f);
++    if(scale!=static_cast<float*>(sx.contents())[m])return false;
++    for(int k=0;k<K;++k)if(int(std::nearbyint(v[k]/scale))!=static_cast<int8_t*>(xq.contents())[m*K+k])return false;
++  }
++  // Exact INT32 dot product, with the declared BF16 projection/bias rounds.
++  const auto* y=static_cast<uint16_t*>(out.contents());
++  for(int m=0;m<M;++m)for(int n=0;n<N;++n){
++    if(invalid&&(m==1||n==2)){if(std::isfinite(fp(y[m*N+n])))return false;continue;}
++    int32_t dot=0;for(int k=0;k<K;++k)dot+=int32_t(static_cast<int8_t*>(xq.contents())[m*K+k])*int32_t(static_cast<int8_t*>(wq.contents())[n*K+k]);
++    auto ref=bf(float(dot)*static_cast<float*>(sx.contents())[m]*static_cast<float*>(sw.contents())[n]);
++    if(bias)ref=bf(fp(ref)+fp(static_cast<uint16_t*>(b.contents())[n]));
++    if(ref!=y[m*N+n])return false;
++  }
++  const auto* bytes=static_cast<unsigned char*>(storage.contents());
++  for(size_t i=0;i<64;++i)if(bytes[i]!=0x55||bytes[storage.byte_size()-64+i]!=0x55)return false;
++  return true;
++}
++}
++TEST(minimax_h3_vvae_int8, tails_with_bias) { EXPECT_TRUE(check(131,269,256,128,true)); }
++TEST(minimax_h3_vvae_int8, tails_without_bias) { EXPECT_TRUE(check(131,269,256,256,false)); }
++TEST(minimax_h3_vvae_int8, actual_shallow_k) { EXPECT_TRUE(check(3,17,2048,128,true)); }
++TEST(minimax_h3_vvae_int8, actual_deep_k) { EXPECT_TRUE(check(3,17,8192,256,false)); }
++TEST(minimax_h3_vvae_int8, nonfinite_propagates) { EXPECT_TRUE(check(3,17,2048,128,true,true)); }

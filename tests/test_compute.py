@@ -13,7 +13,7 @@ def fixture(monkeypatch):
                     gpus=[dict(model="Apple M5 Max", cores="40", metal="metal4")],
                     machine="arm64", kernel="25.6.0")
     monkeypatch.setattr(compute, "hardware_identity", lambda *_: copy.deepcopy(hardware))
-    assets = dict(engine_capabilities=["stable-compute-v1"], identity="model",
+    assets = dict(engine_capabilities=["stable-compute-v1", "vae-h256-int8-v1"], identity="model",
                   adapter=dict(sha256="adapter"), recipe=dict(steps=4),
                   binary=dict(sha256="binary"), library=dict(sha256="library"))
     request = dict(prompt="Picture 1 walks.", seed=7, reference_images=["/original.png"])
@@ -23,7 +23,8 @@ def fixture(monkeypatch):
 
 LOG = ("replayed research qmm plan: test\n"
        "[h3-plan] dit M=26033 N=5376 K=14336 route=u8-w8-cm1 split=2\n"
-       "[h3-plan] vae M=303 N=1024 K=27648 route=bf16-n256 split=0\n")
+       "[h3-plan] vae M=303 N=1024 K=27648 route=bf16-n256 split=0\n"
+       "[h3-plan] vae M=1797 N=2048 K=8192 route=h256-i8-v1-n256 split=0\n")
 
 
 def saved_plan(tmp_path, fixture):
@@ -34,6 +35,7 @@ def saved_plan(tmp_path, fixture):
     plan, replay = compute.prepare(request, assets, prepared, directory, environment)
     assert replay is None
     assert environment["VPIPE_H3_COMPUTE_POLICY"] == "m5max-v1"
+    assert environment["VPIPE_H3_VVAE_INT8"] == "1"
     return compute.complete(plan, None, LOG, directory)
 
 
@@ -100,3 +102,14 @@ def test_replay_rejects_wrapper_changes(tmp_path, fixture, monkeypatch):
     with pytest.raises(ValueError, match="incompatible"):
         compute.prepare(request, assets, prepared, tmp_path, {}, replay=result)
     assert not (tmp_path / "qmm-plan.json").exists()
+
+
+def test_int8_policy_requires_capability_and_executed_route(tmp_path, fixture):
+    _, assets, request, prepared = fixture
+    assets["engine_capabilities"] = ["stable-compute-v1"]
+    with pytest.raises(RuntimeError, match="support H256"):
+        compute.prepare(request, assets, prepared, tmp_path, {})
+    assert not (tmp_path / "qmm-plan.json").exists()
+    with pytest.raises(RuntimeError, match="confirm H256"):
+        compute.complete(dict(environment={"VPIPE_H3_VVAE_INT8":"1"}), None,
+                         LOG.replace("h256-i8-v1-n256", "bf16-n256"), tmp_path)

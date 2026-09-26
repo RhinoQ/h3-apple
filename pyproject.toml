@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "h3-apple"
-version = "0.5.1.dev1"
+version = "0.5.1.dev2"
 description = "Fast, simple MiniMax-H3 image-reference video generation on Mac"
 readme = "README.md"
 license = "Apache-2.0"
