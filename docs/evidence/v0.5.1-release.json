@@ -1,0 +1,170 @@
+{
+  "schema": "h3-apple-release-evidence/v1",
+  "version": "0.5.1",
+  "date": "2026-09-26",
+  "runtime_source_commit": "a51cf36b5413a77cfab60ec85ea3087f1f6ab1c6",
+  "package_source_sha256": "c05ac668e1654aab5eed215fd069188bdd307f962e1ea3f6d3a0a56f23b149de",
+  "python": "3.11.16 (main, Sep  2 2026, 23:33:55) [Clang 21.1.8 ]",
+  "input": "v0.5.1-performance.json#input",
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "engine": {
+    "schema": "h3-apple-engine/v1",
+    "upstream": "https://github.com/tgo-app-dev/vpipe",
+    "commit": "2070ba62f5e5ef552bce65a6137638b245da6e54",
+    "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.5.1/h3-apple-engine-macos-arm64.zip",
+    "bytes": 6034511,
+    "sha256": "b473b1ee15c7394524bd70f13293291dba62b463a1d1f4c85421081ff8e2e2ae",
+    "files": [
+      {
+        "name": "LICENSE.txt",
+        "bytes": 11338,
+        "sha256": "da1a325757e207244cd589713ce51febe3859aab6034f34afbccd57eb96cb53a",
+        "mode": 420
+      },
+      {
+        "name": "NOTICE.txt",
+        "bytes": 672,
+        "sha256": "a58393c97bac82375a4e3acc982bc9497b5157e8b9ddf22f4f039490f1d7b09a",
+        "mode": 420
+      },
+      {
+        "name": "THIRD_PARTY_LICENSES.txt",
+        "bytes": 18653,
+        "sha256": "5e7c6318ee6ee46f05e02f4ed3286bfafe13b5fa97a0184d0ac63ef8878481ed",
+        "mode": 420
+      },
+      {
+        "name": "h3-engine",
+        "bytes": 86600,
+        "sha256": "ba9cf796e9daa33b32fa41a464a5ea8667c6e8b3ea50c1b837b9f8ca5a7344c7",
+        "mode": 493
+      },
+      {
+        "name": "libvpipe.0.dylib",
+        "bytes": 19429408,
+        "sha256": "4ad9e9b424abbbf8227028d63f581a2b81e26f2a7b080fb4a06adfb18a030387",
+        "mode": 493
+      }
+    ],
+    "capabilities": [
+      "stable-compute-v1",
+      "vae-fusion-v1",
+      "vae-h256-int8-v1"
+    ]
+  },
+  "native_source_reconstruction": {
+    "base_commit": "f34e2cc3a3adae759eea254419f436f5b7800057",
+    "patched_tree": "f90526d78be3efbcffab0b8b66c45b310f735ccb",
+    "matches_built_source": true,
+    "patches": [
+      {
+        "name": "stable-compute.patch",
+        "sha256": "15a3e27913a6a56cff21fd4711c3f2441dbbc041b936bbc8d0fd6ac3bb6a4b5f"
+      },
+      {
+        "name": "vae-fusion.patch",
+        "sha256": "5d2e08f106439ebb71033013438ff093378fc2b7d0fc26627e9d5601012eeb56"
+      },
+      {
+        "name": "vae-int8.patch",
+        "sha256": "733a9bb3fb92557910785ed88cb1c149a36a9109db6bf49041c3e19400541112"
+      }
+    ]
+  },
+  "model_sources": "../../src/h3_apple/data/model-sources.json",
+  "installation": {
+    "method": "Fresh project-local Conda environment, normal wheel installation, no PYTHONPATH override.",
+    "ffmpeg": "8.1.2",
+    "path_test": "Conda tools omitted from PATH and unrelated CONDA_PREFIX; libraries follow the running Python.",
+    "model_preparation": "Reused existing verified model receipt; original downloads and quantization were not repeated.",
+    "model_download_bytes": 0,
+    "initial_environment_attempts": "Offline creation/clone with a different Miniforge package cache failed before installation; creation using the original project Conda cache succeeded."
+  },
+  "tests": {
+    "installed_package_passed": 104,
+    "native_passed": 10,
+    "test_log_sha256": "14eeda0bb1fb337a4c5ed7b083d34a48091807973f96edcc464cd827f796cb2e"
+  },
+  "tested_wheel_sha256": "b34f7a68b894d4a19acbdcca2cef1c15580a1d9c5a0ca9a3cf99e7801a0d7671",
+  "integration": [
+    {
+      "entry": "cli",
+      "passed": true,
+      "request_seconds": 328.1221503750421,
+      "process_seconds": 329.7464937090408,
+      "peak_footprint_bytes": 62120219472,
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "decoded_sha256": {
+        "v": "SHA256=88bcf0bacfb33cd34390925ab2b2df2af1a0a5ef05257d9989d3f44cfaa3b00b",
+        "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+      },
+      "video_sha256": "3f75a387fbd156dfe66a26fee91ac76b6e2c63d1535a867d4059bbd08741f3ae",
+      "video_bytes": 2206083,
+      "model_identity": "18d60ac845cae4d99e92c3aa041bcbc89f0aeacd5ca5405a8d5bba9898a9cb41",
+      "media": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1024,
+          "height": 576,
+          "avg_frame_rate": "24/1",
+          "nb_read_frames": "120",
+          "duration": "5.000000"
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "avg_frame_rate": "0/0",
+          "nb_read_frames": "157",
+          "sample_rate": "32000",
+          "channels": 2,
+          "duration": "5.000000"
+        }
+      ],
+      "matches_frozen_candidate": true
+    },
+    {
+      "entry": "api",
+      "passed": true,
+      "request_seconds": 347.07952783291694,
+      "process_seconds": 348.30646779201925,
+      "peak_footprint_bytes": 61977121376,
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "decoded_sha256": {
+        "v": "SHA256=88bcf0bacfb33cd34390925ab2b2df2af1a0a5ef05257d9989d3f44cfaa3b00b",
+        "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+      },
+      "video_sha256": "3f75a387fbd156dfe66a26fee91ac76b6e2c63d1535a867d4059bbd08741f3ae",
+      "video_bytes": 2206083,
+      "model_identity": "18d60ac845cae4d99e92c3aa041bcbc89f0aeacd5ca5405a8d5bba9898a9cb41",
+      "media": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1024,
+          "height": 576,
+          "avg_frame_rate": "24/1",
+          "nb_read_frames": "120",
+          "duration": "5.000000"
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "avg_frame_rate": "0/0",
+          "nb_read_frames": "157",
+          "sample_rate": "32000",
+          "channels": 2,
+          "duration": "5.000000"
+        }
+      ],
+      "matches_frozen_candidate": true
+    }
+  ],
+  "scope": "Installation and complete execution only, not additional performance or perceptual-quality evidence. Final release Python/data files must match this runtime fingerprint."
+}

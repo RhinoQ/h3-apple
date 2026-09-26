@@ -14,6 +14,15 @@ Measurements below used frozen candidate `0.5.1.dev2`; the release uses identica
 native binaries and computation policy. Release installation checks are recorded
 separately from those performance results.
 
+The [release installation evidence](evidence/v0.5.1-release.json) records a fresh
+Conda Python 3.11 / FFmpeg 8.1.2 environment, a normal wheel installation and
+**104 passing tests**. Public CLI and API each delivered a complete 120-frame,
+1024×576 video with stereo 32 kHz audio. Decoded video/audio matched the frozen
+candidate exactly. The source, wheel, sdist and installed Python/data files were
+identical; all native patches were included in the sdist. Ten native tests passed
+on the unchanged engine. Existing models were reused without model downloads.
+These are execution checks, separate from performance and perceptual quality.
+
 | Measurement | Result |
 | --- | --- |
 | Four paired fixed-latent VAE decodes | Median 1.2257× speed ratio, equivalent to 18.4% less waiting; every pair improved |
