@@ -12,7 +12,7 @@
   "samples": [
     {
       "id": "01-naruto-sage",
-      "title": "鸣人 · 风起木叶",
+      "title": "Naruto · Wind over Konoha",
       "seed": 5101,
       "video": "01-naruto-sage/video.mp4",
       "prompt": "01-naruto-sage/prompt.txt",
@@ -28,7 +28,7 @@
     },
     {
       "id": "02-spike-rain",
-      "title": "Spike · 雨夜漫步",
+      "title": "Spike · A Walk in the Rain",
       "seed": 5102,
       "video": "02-spike-rain/video.mp4",
       "prompt": "02-spike-rain/prompt.txt",
@@ -44,7 +44,7 @@
     },
     {
       "id": "03-silver-comet",
-      "title": "银发星术师 · 掌心微光",
+      "title": "Star Mage · Starlight in His Palm",
       "seed": 5103,
       "video": "03-silver-comet/video.mp4",
       "prompt": "03-silver-comet/prompt.txt",
@@ -60,7 +60,7 @@
     },
     {
       "id": "04-paper-garden",
-      "title": "纸艺花园 · 蝴蝶停驻",
+      "title": "Paper Garden · A Butterfly Lands",
       "seed": 5104,
       "video": "04-paper-garden/video.mp4",
       "prompt": "04-paper-garden/prompt.txt",
