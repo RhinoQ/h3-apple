@@ -1,10 +1,10 @@
 {
   "schema": "h3-apple-engine/v1",
   "upstream": "https://github.com/tgo-app-dev/vpipe",
-  "commit": "f34e2cc3a3adae759eea254419f436f5b7800057",
-  "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.4.0/h3-apple-engine-macos-arm64.zip",
-  "bytes": 5921988,
-  "sha256": "bd645cbabb813008c01bd724d0f99bc1d1d2b2d83908dc979be058370c285c21",
+  "commit": "f898590",
+  "url": null,
+  "bytes": 6024213,
+  "sha256": "fd027a4c80d5463c6e2a8dee018a8c1c1291be7d0b458541c211656b967e9d70",
   "files": [
     {
       "name": "LICENSE.txt",
@@ -26,15 +26,18 @@
     },
     {
       "name": "h3-engine",
-      "bytes": 86152,
-      "sha256": "e472d4f7b79d7bcf27da9991cf787308e4fdd7205278a82046d7bf7b83ec7d8e",
+      "bytes": 86600,
+      "sha256": "b53421125460c4a76422ea2d7fcc1f969a49277869b1b6a476f3ccf20e0ee21d",
       "mode": 493
     },
     {
       "name": "libvpipe.0.dylib",
-      "bytes": 19164416,
-      "sha256": "e03b7e279e94b8c09b3db39b85bfc94d8dae1434c9b59cb8f9b95283ceac1631",
+      "bytes": 19386592,
+      "sha256": "f872236c6c13fbea17313f1da04eac8155a9bdccea43a9b54e81c7a796f9359a",
       "mode": 493
     }
+  ],
+  "capabilities": [
+    "stable-compute-v1"
   ]
 }

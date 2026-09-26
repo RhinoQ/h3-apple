@@ -78,7 +78,8 @@ def load_engine():
         raise ValueError('H3 engine is not executable. Run h3 prepare.')
     return dict(binary=file_record(directory / 'h3-engine'),
                 library=file_record(directory / 'libvpipe.0.dylib'),
-                tested_interface_commit=record['commit'])
+                tested_interface_commit=record['commit'],
+                engine_capabilities=record.get('capabilities', []))
 
 
 def ensure_engine(progress=None):

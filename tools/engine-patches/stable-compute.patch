@@ -1,0 +1,461 @@
+diff --git a/generative-models/minimax-h3/compute-policy.h b/generative-models/minimax-h3/compute-policy.h
+new file mode 100644
+index 0000000..ac18ea0
+--- /dev/null
++++ b/generative-models/minimax-h3/compute-policy.h
+@@ -0,0 +1,41 @@
++#ifndef VPIPE_H3_COMPUTE_POLICY_H
++#define VPIPE_H3_COMPUTE_POLICY_H
++
++#include "apple-silicon/metal-compute/metal-compute.h"
++#include "interfaces/session-context-intf.h"
++#include "common/vpipe-format.h"
++#include <cstdlib>
++#include <set>
++#include <stdexcept>
++#include <string>
++
++namespace vpipe::genai {
++
++// An internal product policy, scoped by the wrapper to its qualified device.
++// No change to upstream callers when the variable is absent.
++inline bool h3_fixed_compute()
++{
++  const char* value = std::getenv("VPIPE_H3_COMPUTE_POLICY");
++  if (!value) { return false; }
++  if (std::string(value) != "m5max-v1") {
++    throw std::runtime_error("Unknown H3 compute policy");
++  }
++  return true;
++}
++
++// Unique actual dispatch shapes, including tail bands and precision gates.
++// Kept on each model, not globally: a newly loaded model reports its routes.
++struct H3ComputeRoutes {
++  std::set<std::string> seen;
++  void note(metal_compute::MetalCompute* mc, const VpipeFormat& message)
++  {
++    if (!h3_fixed_compute() || !mc || !mc->session()) { return; }
++    const auto description = message();
++    if (seen.insert(description).second) {
++      mc->session()->log_normal(fmt("[h3-plan] {}", description));
++    }
++  }
++};
++
++}  // namespace vpipe::genai
++#endif
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-transformer.cc b/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
+index 70b1cc0..d57a10b 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
++++ b/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
+@@ -25,6 +25,7 @@
+ #include <filesystem>
+ #include <cctype>
+ #include <fstream>
++#include <stdexcept>
+ #include <string>
+ #include <vector>
+ 
+@@ -2353,6 +2354,10 @@ MetalMiniMaxH3Transformer::gemm_route_dispatch_(
+                 lora_folded, lora_off)) {
+     return;
+   }
++  if (h3_fixed_compute() && route_is_mma_(route) && route_ok_(route, M, N, K)) {
++    throw std::runtime_error("H3 compute plan: matrix-core route fell back");
++  }
++  _compute_routes.note(_mc, fmt("dit M={} N={} K={} route={} split=0", M, N, K, l.quantized ? "steel" : "dense-scalar"));
+   if (l.quantized) {
+     const int bm = (route == GemmRoute::kSteelBm128) ? 128
+                  : (route == GemmRoute::kSteelBm64)  ? 64
+@@ -2414,8 +2419,12 @@ MetalMiniMaxH3Transformer::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+   if (_i8 && l.quantized &&
+       _i8->gemm_affine(enc, x, x_off, l.codes, l.scales, l.qbias, l.bits, y,
+                        y_off, M, N, K)) {
++    _compute_routes.note(_mc, fmt("dit M={} N={} K={} route=u8-w8-cm{} split={}", M, N, K, _i8->native_cmode(), _i8->plan_for_test(M, N, K)));
+     return true;
+   }
++  if (h3_fixed_compute() && _i8 && l.quantized && _i8->accepts(M, N, K)) {
++    throw std::runtime_error("H3 compute plan: native INT8 route fell back");
++  }
+   const SharedBuffer* wdense = nullptr;
+   if (l.quantized) {
+     const metal_compute::ComputeFunction& dq =
+@@ -2446,6 +2455,7 @@ MetalMiniMaxH3Transformer::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+   // sits after the dequant and before the tile choice; a shape it does not
+   // accept falls through to bf16 with nothing encoded.
+   if (_i8 && _i8->gemm(enc, x, x_off, *wdense, y, y_off, M, N, K)) {
++    _compute_routes.note(_mc, fmt("dit M={} N={} K={} route=i8-dense split={}", M, N, K, _i8->plan_for_test(M, N, K)));
+     return true;
+   }
+   // Deep contraction (fc2, K = ffn): split it across planes and fold. Same
+@@ -2453,6 +2463,7 @@ MetalMiniMaxH3Transformer::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+   // tile; declines on every other projection here, whose K is hidden or
+   // inner and far short of the floor.
+   if (_splitk.encode(_mc, enc, x, *wdense, y, K, N, M, x_off, y_off)) {
++    _compute_routes.note(_mc, fmt("dit M={} N={} K={} route=bf16-split split={}", M, N, K, _splitk.plan(K, N, M).splits));
+     return true;
+   }
+   // The adapter's second factor, folded into this tile. Deliberately the
+@@ -2508,9 +2519,11 @@ MetalMiniMaxH3Transformer::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+       enc.dispatch({(unsigned)(((N + FRN - 1) / FRN) * 256),
+                     (unsigned)((M + 127) / 128), 1}, {256, 1, 1});
+       *lora_folded = true;
++      _compute_routes.note(_mc, fmt("dit M={} N={} K={} route={}-lora split=0", M, N, K, route_name_(route)));
+       return true;
+     }
+   }
++  _compute_routes.note(_mc, fmt("dit M={} N={} K={} route={} split=0", M, N, K, route_name_(route)));
+   // RN is the N-region one threadgroup owns (TN*BN), which is what the
+   // grid divides N by -- 512 for the tn2 tile, else BN.
+   int RN = 128;
+@@ -2823,6 +2836,10 @@ MetalMiniMaxH3Transformer::note_attn_tile_(double block_ms)
+ void
+ MetalMiniMaxH3Transformer::tune_qmm_(int M)
+ {
++  if ((std::getenv("VPIPE_H3_QMM_PLAN_INPUT") || std::getenv("VPIPE_H3_QMM_PLAN_OUTPUT")) &&
++      (_qmm_manual || std::getenv("VPIPE_H3_NO_QMM_AUTOTUNE"))) {
++    throw std::runtime_error("H3 QMM plan: recording/replay conflicts with fixed routes");
++  }
+   if (_qmm_manual) { return; }   // the caller is driving; see set_qmm_tile
+   // Keyed on what will be MEASURED, not on what the caller asked for --
+   // see tune_ceiling_. Two video geometries above the ceiling share one
+@@ -2872,6 +2889,72 @@ MetalMiniMaxH3Transformer::tune_qmm_(int M)
+   // tuning it would write 2*ffn columns into a row that is not that wide.
+   const bool skip_fc1 = !_ff_needs_wide;
+ 
++  // Research-only plan recording/replay. The public wrapper strips these
++  // environment variables. Keep the release tuner unchanged when absent.
++  const char* plan_in = std::getenv("VPIPE_H3_QMM_PLAN_INPUT");
++  const char* plan_out = std::getenv("VPIPE_H3_QMM_PLAN_OUTPUT");
++  auto require_plan = [](bool ok, const char* why) {
++    if (!ok) { throw std::runtime_error(std::string("H3 QMM plan: ") + why); }
++  };
++  if (plan_in || plan_out) {
++    require_plan(!(plan_in && plan_out), "input and output are mutually exclusive");
++    require_plan(_i8 && _quant_bits == 8 && _quant_group == 64 &&
++                 _i8->group() == 64 && _i8->native_cmode() == 1 && !skip_fc1,
++                 "only the original W8/G64/CM1 unfused recipe is supported");
++  }
++  if (h3_fixed_compute()) {
++    require_plan(plan_in && !plan_out, "fixed policy requires a supplied plan");
++    _i8->strict_plan = true;
++    _splitk.strict_plan = true;
++    _attn_bq = 64;
++    _attn_tile_latched = true;
++  }
++  if (plan_in) {
++    std::ifstream file(plan_in);
++    require_plan(file.good(), "cannot open input");
++    const auto data = FlexData::from_json(file);
++    const auto obj = data.as_object();
++    require_plan(obj.at("schema").get_int() == 1 &&
++                 obj.at("row_key").get_int() == key &&
++                 obj.at("quant_bits").get_int() == _quant_bits &&
++                 obj.at("quant_group").get_int() == _quant_group &&
++                 obj.at("i8_group").get_int() == _i8->group() &&
++                 obj.at("i8_cmode").get_int() == _i8->native_cmode(),
++                 "recipe or row key mismatch");
++    const auto entries_data = obj.at("shapes");
++    const auto entries = entries_data.as_array();
++    require_plan(entries.size() == 4, "expected four projection shapes");
++    std::vector<QmmTune> replay;
++    std::string description;
++    for (std::size_t i = 0; i < 4; ++i) {
++      const auto entry_data = entries[i];
++      const auto entry = entry_data.as_object();
++      const auto& sh = shapes[i];
++      const auto r = entry.at("route").get_int();
++      const auto sp = entry.at("i8_splits").get_int();
++      require_plan(entry.at("N").get_int() == sh.N &&
++                   entry.at("K").get_int() == sh.K &&
++                   r >= (int)GemmRoute::kSteelBm32 &&
++                   r <= (int)GemmRoute::kMma128x256Tn2 && sp >= 0 && sp <= 16,
++                   "invalid shape, route or split");
++      const auto route = (GemmRoute)r;
++      require_plan(route_ok_(route, M, sh.N, sh.K), "route unavailable");
++      require_plan(_i8->restore_plan(M, sh.N, sh.K, (int)sp),
++                   "split unavailable or conflicts with cached plan");
++      replay.push_back(QmmTune{sh.N, sh.K, route});
++      if (!description.empty()) { description += " "; }
++      description += std::string(sh.name) + "=" + route_name_(route);
++      if (sp > 0) { description += "+i8split" + std::to_string(sp); }
++    }
++    if (_qmm_tuned.size() >= 8) { _qmm_tuned.erase(_qmm_tuned.begin()); }
++    _qmm_tuned.push_back(QmmTuneSet{key, std::move(replay)});
++    _qmm_tuning_desc = std::to_string(key) + " rows: " + description;
++    if (_mc->session()) {
++      _mc->session()->log_normal(fmt("[h3-dit] replayed research qmm plan: {}", _qmm_tuning_desc));
++    }
++    return;
++  }
++
+   static const GemmRoute kAll[] = {
+       GemmRoute::kSteelBm32, GemmRoute::kSteelBm64, GemmRoute::kSteelBm128,
+       GemmRoute::kMma128,    GemmRoute::kMma128x256,
+@@ -3048,6 +3131,33 @@ MetalMiniMaxH3Transformer::tune_qmm_(int M)
+   // is deliberately not what this string names, because after the
+   // bucketing it is not what the answer belongs to.
+   _qmm_tuning_desc = std::to_string(key) + " rows: " + detail;
++  if (plan_out) {
++    require_plan(!std::filesystem::exists(plan_out), "output already exists");
++    auto data = FlexData::make_object();
++    auto obj = data.as_object();
++    for (const auto& item : std::vector<std::pair<std::string, int>>{
++             {"schema", 1}, {"row_key", key}, {"quant_bits", _quant_bits},
++             {"quant_group", _quant_group}, {"i8_group", _i8->group()},
++             {"i8_cmode", _i8->native_cmode()}}) {
++      obj.insert(item.first, FlexData::make_int(item.second));
++    }
++    auto entries = FlexData::make_array();
++    for (const QmmTune& sh : _qmm_tuned.back().shapes) {
++      auto entry = FlexData::make_object();
++      auto fields = entry.as_object();
++      fields.insert("N", FlexData::make_int(sh.N));
++      fields.insert("K", FlexData::make_int(sh.K));
++      fields.insert("route", FlexData::make_int((int)sh.route));
++      fields.insert("i8_splits", FlexData::make_int(_i8->plan_for_test(M, sh.N, sh.K)));
++      entries.as_array().push_back(std::move(entry));
++    }
++    obj.insert("shapes", std::move(entries));
++    std::ofstream file(plan_out);
++    require_plan(file.good(), "cannot create output");
++    data.to_json(file, true);
++    file << '\n';
++    require_plan(file.good(), "cannot write output");
++  }
+   if (_mc->session() != nullptr) {
+     _mc->session()->log_debug(fmt(
+         "[h3-dit] qmm autotune for {} rows, timed over {}: {} "
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-transformer.h b/generative-models/minimax-h3/metal-minimax-h3-transformer.h
+index 7159115..f173a6f 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-transformer.h
++++ b/generative-models/minimax-h3/metal-minimax-h3-transformer.h
+@@ -12,6 +12,7 @@
+ #include "generative-models/shared/i8-gemm.h"
+ #include "generative-models/shared/mma-splitk.h"
+ #include "generative-models/shared/dit-block-progress.h"
++#include "generative-models/minimax-h3/compute-policy.h"
+ 
+ #include <algorithm>
+ #include <cstddef>
+@@ -1311,6 +1312,7 @@ class MetalMiniMaxH3Transformer {
+   // -- cheap once per clip, ruinous once per step.
+   struct QmmTuneSet { int m = -1; std::vector<QmmTune> shapes; };
+   std::vector<QmmTuneSet> _qmm_tuned;
++  H3ComputeRoutes _compute_routes;
+   std::string _qmm_tuning_desc;   // human-readable, for qmm_tuning()
+   bool _qmm_manual = false;       // set_qmm_tile/route called: tuning off
+   int  _qmm_tune_count = 0;       // measurements taken, not cache hits
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc b/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
+index ddf3ba3..531da6f 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
++++ b/generative-models/minimax-h3/metal-minimax-h3-video-vae.cc
+@@ -715,6 +715,7 @@ MetalMiniMaxH3VideoVae::load(std::shared_ptr<WeightSet> ws_in, MetalCompute* mc,
+         m->_lib_dense_mma.function("dense_gemm_mma_t_n128x256_f16");
+     m->_use_mma2 = m->_fn_dense_mma.valid() && m->_fn_dense_mma_deep.valid();
+     m->_splitk.load(mc, m->_lib_dense_mma, m->_lib_elt);
++    m->_splitk.strict_plan = h3_fixed_compute();
+     if (m->_use_mma2 && m->_quant_bits > 0) {
+       const std::string g = "g" + std::to_string(m->_quant_group);
+       m->_lib_dequant = mc->load_library("affine_dequant_bf16");
+@@ -729,6 +730,9 @@ MetalMiniMaxH3VideoVae::load(std::shared_ptr<WeightSet> ws_in, MetalCompute* mc,
+     }
+   }
+ 
++  if (h3_fixed_compute() && !m->_use_mma2) {
++    throw std::runtime_error("H3 compute plan: VAE matrix-core kernels unavailable");
++  }
+   m->_post_quant = m->linear_(ws, "post_quant_conv");
+   m->_proj_in    = m->linear_(ws, "decoder.x_embedder");
+   m->_proj_out   = m->linear_(ws, "decoder.proj_out");
+@@ -837,6 +841,7 @@ MetalMiniMaxH3VideoVae::gemm_(ComputeEncoder& enc, const SharedBuffer& x,
+     }
+     return;
+   }
++  _compute_routes.note(_mc, fmt("vae M={} N={} K={} route={} split=0", M, N, K, l.quantized ? "steel" : "dense-scalar"));
+   if (l.quantized) {
+     enc.set_function(l.bits == 8 ? _fn_qmm8 : _fn_qmm4);
+     enc.set_buffer(0, l.codes);
+@@ -898,7 +903,10 @@ MetalMiniMaxH3VideoVae::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+     const std::size_t need = (std::size_t)N * (std::size_t)K * 2;
+     if (_w_deq.empty() || _w_deq.byte_size() < need) {
+       _w_deq = _mc->make_shared_buffer(need);
+-      if (_w_deq.empty()) { return false; }
++      if (_w_deq.empty()) {
++        if (h3_fixed_compute()) { throw std::runtime_error("H3 compute plan: VAE dequant allocation failed"); }
++        return false;
++      }
+     }
+     enc.set_function(dq);
+     enc.set_buffer(0, l.codes);
+@@ -917,6 +925,7 @@ MetalMiniMaxH3VideoVae::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+   // tuned entry says otherwise, which for this tower is the usual answer --
+   // see the tune loop in encode() for why the band size decides it.
+   if (_splitk.encode(_mc, enc, x, *wdense, y, K, N, M, x_off, y_off)) {
++    _compute_routes.note(_mc, fmt("vae M={} N={} K={} route=bf16-split split={}", M, N, K, _splitk.plan(K, N, M).splits));
+     return true;
+   }
+   bool wide = mma_use_wide_tile(N, K);
+@@ -928,6 +937,7 @@ MetalMiniMaxH3VideoVae::gemm_mma_(ComputeEncoder& enc, const SharedBuffer& x,
+     }
+   }
+   const int RN = wide ? 256 : 128;
++  _compute_routes.note(_mc, fmt("vae M={} N={} K={} route=bf16-n{} split=0", M, N, K, RN));
+   enc.set_function(wide ? _fn_dense_mma_deep : _fn_dense_mma);
+   enc.set_buffer(0, x, x_off * 2);
+   enc.set_buffer(1, *wdense);
+@@ -1688,7 +1698,7 @@ MetalMiniMaxH3VideoVae::encode(const SharedBuffer& x, int T, int H, int W,
+   // it is measured per shape here, so raising col_cap (or a level's band)
+   // flips these decisions automatically instead of needing this comment to
+   // be re-read.
+-  if (_use_mma2 && _splitk.enabled) {
++  if (_use_mma2 && _splitk.enabled && !h3_fixed_compute()) {
+     int tt = T, hh = H, ww = W;
+     for (const EncLevel& lv : _enc_levels) {
+       for (const EncResnet& r : lv.res) {
+diff --git a/generative-models/minimax-h3/metal-minimax-h3-video-vae.h b/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
+index 8623cdb..a7e95bd 100644
+--- a/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
++++ b/generative-models/minimax-h3/metal-minimax-h3-video-vae.h
+@@ -7,6 +7,7 @@
+ #include "generative-models/minimax-h3/minimax-h3-layout.h"
+ #include "generative-models/shared/dit-block-progress.h"
+ #include "generative-models/shared/mma-splitk.h"
++#include "generative-models/minimax-h3/compute-policy.h"
+ 
+ #include <cstddef>
+ #include <memory>
+@@ -532,6 +533,7 @@ class MetalMiniMaxH3VideoVae {
+   // tuner drives this same dispatch (0 = decide, 1 = n128, 2 = n256).
+   struct TileTune { int N, K, M; bool wide; };
+   std::vector<TileTune> _tile_tuned;
++  H3ComputeRoutes _compute_routes;
+   int _force_tile = 0;
+   // Tile progress, and the counters it reports against. `_prog_total`
+   // is set by decode_video (chunks x tiles) so the bar spans the whole
+diff --git a/generative-models/shared/i8-gemm.cc b/generative-models/shared/i8-gemm.cc
+index 5c645e0..b3c4020 100644
+--- a/generative-models/shared/i8-gemm.cc
++++ b/generative-models/shared/i8-gemm.cc
+@@ -166,6 +166,7 @@ I8GemmContext::gemm(ComputeEncoder& enc, const SharedBuffer& x,
+     if (b.empty() || b.byte_size() < bytes) {
+       b = _mc->make_shared_buffer(bytes);
+     }
++    if (strict_plan && b.empty()) { throw std::runtime_error("H3 compute plan: INT8 allocation failed"); }
+     return !b.empty();
+   };
+   if (!need(_xq, (std::size_t)M * KP) ||
+@@ -236,6 +237,7 @@ I8GemmContext::gemm(ComputeEncoder& enc, const SharedBuffer& x,
+   const std::size_t plane_bytes =
+       (std::size_t)S * (std::size_t)rows * (std::size_t)N * 4u;
+   if (rows < 64 || !need(_planes, plane_bytes)) {
++    if (strict_plan) { throw std::runtime_error("H3 compute plan: split plane budget insufficient"); }
+     // Fall back rather than fail: the caller has no dense path left at
+     // this point (the quantize dispatches are already encoded), so the
+     // single op is the only correct answer.
+@@ -309,6 +311,7 @@ I8GemmContext::gemm_affine(ComputeEncoder& enc, const SharedBuffer& x,
+     if (sb.empty() || sb.byte_size() < bytes) {
+       sb = _mc->make_shared_buffer(bytes);
+     }
++    if (strict_plan && sb.empty()) { throw std::runtime_error("H3 compute plan: affine INT8 allocation failed"); }
+     return !sb.empty();
+   };
+   if (!need(_xu, (std::size_t)M * K) ||
+@@ -363,6 +366,9 @@ I8GemmContext::gemm_affine(ComputeEncoder& enc, const SharedBuffer& x,
+     enc.set_buffer(15, _clo);
+     enc.dispatch({nx, (unsigned)((M + 63) / 64), 1}, {128, 1, 1});
+   };
++  if (strict_plan && ((_cmode == 1 && !cm) || (S > 0 && !fsk.valid()))) {
++    throw std::runtime_error("H3 compute plan: requested affine kernel unavailable");
++  }
+   if (S <= 0 || !fsk.valid()) {
+     single();
+     return true;
+@@ -371,6 +377,7 @@ I8GemmContext::gemm_affine(ComputeEncoder& enc, const SharedBuffer& x,
+   const std::size_t plane_bytes =
+       (std::size_t)S * (std::size_t)rows * (std::size_t)N * 4u;
+   if (rows < 64 || !need(_planes, plane_bytes)) {
++    if (strict_plan) { throw std::runtime_error("H3 compute plan: split plane budget insufficient"); }
+     single();
+     return true;
+   }
+diff --git a/generative-models/shared/i8-gemm.h b/generative-models/shared/i8-gemm.h
+index c5f0187..a046be5 100644
+--- a/generative-models/shared/i8-gemm.h
++++ b/generative-models/shared/i8-gemm.h
+@@ -5,8 +5,10 @@
+ #include "apple-silicon/metal-compute/shared-buffer.h"
+ #include "generative-models/shared/kernel-autotune.h"
+ 
++#include <algorithm>
+ #include <cstddef>
+ #include <cstdlib>
++#include <stdexcept>
+ #include <vector>
+ 
+ namespace vpipe {
+@@ -335,12 +337,31 @@ class I8GemmContext {
+   // Set by tune() around each candidate; see MmaSplitK for the pattern.
+   bool bypass_split = false;
+   int  force_splits = 0;
++  // H3 strict policies must fail rather than silently change arithmetic.
++  bool strict_plan = false;
+ 
+   // The width this shape would use right now. Test-only: a split is not
+   // observable from the OUTPUT (it is a reassociation), so a test that
+   // wants to know the tuner's answer took effect has to ask.
+   int plan_for_test(int M, int N, int K) const { return plan_(M, N, K); }
+ 
++  // Install a legal plan without timing. Shape gates and plane budget remain
++  // authoritative; replay never changes a split to fit an insufficient budget.
++  bool restore_plan(int M, int N, int K, int splits)
++  {
++    if (!accepts(M, N, K) || !split_available() || splits < 0) { return false; }
++    const auto legal = split_candidates(M, N, K);
++    if (splits != 0 && std::find(legal.begin(), legal.end(), splits) == legal.end()) {
++      return false;
++    }
++    const int key = m_key_(M);
++    for (const Tuned& t : _tuned) {
++      if (t.N == N && t.K == K && t.M == key) { return t.splits == splits; }
++    }
++    _tuned.push_back(Tuned{N, K, key, splits});
++    return true;
++  }
++
+   // The quantization group on both operands (64; 32, 128 or 512 under
+   // the A/B).
+   int group() const { return _group; }
+diff --git a/generative-models/shared/mma-splitk.h b/generative-models/shared/mma-splitk.h
+index e171211..8601ad7 100644
+--- a/generative-models/shared/mma-splitk.h
++++ b/generative-models/shared/mma-splitk.h
+@@ -62,6 +62,7 @@
+ #include <algorithm>
+ #include <cstdlib>
+ #include <string>
++#include <stdexcept>
+ #include <utility>
+ #include <vector>
+ 
+@@ -122,6 +123,7 @@ struct MmaSplitK {
+   metal_compute::ComputeFunction fn_fold;
+   metal_compute::SharedBuffer planes;
+   bool enabled = false;
++  bool strict_plan = false;
+   // kc -> kernel, resolved on first use. A model asks for the same depth in
+   // every layer, so this is looked up once per checkpoint and not per GEMM.
+   // RESERVED at load: fn_for_kc hands out pointers INTO this vector, and a
+@@ -361,7 +363,10 @@ struct MmaSplitK {
+         (std::size_t)block * (std::size_t)N * (std::size_t)p.splits * 4;
+     if (planes.empty() || planes.byte_size() < need) {
+       planes = mc->make_shared_buffer(need);
+-      if (planes.empty()) { return false; }   // fall back, do not fault
++      if (planes.empty()) {
++        if (strict_plan) { throw std::runtime_error("H3 compute plan: dense split allocation failed"); }
++        return false;
++      }
+     }
+     // One (split, fold) pair per row block. The blocks share the plane
+     // scratch, and Metal's hazard tracking serialises them through it --

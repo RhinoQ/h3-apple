@@ -9,6 +9,9 @@ p = argparse.ArgumentParser()
 p.add_argument('--build-dir', type=Path, required=True)
 p.add_argument('--source-dir', type=Path, required=True)
 p.add_argument('--output', type=Path, required=True)
+p.add_argument('--commit', default='f34e2cc3a3adae759eea254419f436f5b7800057')
+p.add_argument('--capability', action='append', default=[])
+p.add_argument('--local-only', action='store_true', help='Unpublished build; install the archive in the local cache')
 a = p.parse_args()
 root = Path(__file__).resolve().parents[1]
 entries = {
@@ -30,8 +33,20 @@ with zipfile.ZipFile(a.output, 'x', compression=zipfile.ZIP_DEFLATED, compressle
         z.writestr(info, data)
         files.append(dict(name=name, bytes=len(data), sha256=hashlib.sha256(data).hexdigest(), mode=mode))
 record = dict(schema='h3-apple-engine/v1', upstream='https://github.com/tgo-app-dev/vpipe',
-    commit='f34e2cc3a3adae759eea254419f436f5b7800057',
-    url='https://github.com/RhinoQ/h3-apple/releases/download/v0.4.0/' + a.output.name,
+    commit=a.commit,
+    url=None if a.local_only else 'https://github.com/RhinoQ/h3-apple/releases/download/v0.4.0/' + a.output.name,
     bytes=a.output.stat().st_size, sha256=hashlib.sha256(a.output.read_bytes()).hexdigest(), files=files)
+if a.capability:
+    record['capabilities'] = a.capability
+if a.local_only:
+    import shutil
+    destination = Path.home()/'.cache/h3-apple/downloads'/(record['sha256']+'.zip')
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists():
+        if hashlib.sha256(destination.read_bytes()).hexdigest() != record['sha256']:
+            raise ValueError('A different engine archive exists at the cache path')
+    else:
+        with destination.open('xb') as target, a.output.open('rb') as source:
+            shutil.copyfileobj(source, target)
 (root / 'src/h3_apple/data/engine.json').write_text(json.dumps(record, indent=2) + '\n')
 print(json.dumps(dict(archive=str(a.output), bytes=record['bytes'], sha256=record['sha256'])))

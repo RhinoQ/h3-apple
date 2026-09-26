@@ -14,6 +14,7 @@ from PIL import Image
 from .image_inputs import prepare_reference_image
 from .io import digest, write_json
 from .media import ffmpeg_libraries, finish_native
+from . import compute
 
 
 def build_graph(request, assets, prepared, output):
@@ -90,7 +91,8 @@ def runtime_environment(assets):
     return environment
 
 
-def run(request, assets, workspace, emit, *, references=None, diagnostics=False):
+def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
+        replay_plan=None):
     if request["num_steps"]!=4: raise ValueError("H3 requires four denoising steps.")
     workspace=Path(workspace); native=workspace/"native.mp4"
     prepared=prepare_inputs(request,references,workspace)
@@ -98,6 +100,8 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False)
     graph_path=workspace/"input.vpipeline"; write_json(graph_path,graph)
     (workspace/"db").mkdir(); write_json(workspace/"session.json",dict(db=dict(path=str(workspace/"db"))))
     environment=runtime_environment(assets)
+    compute_plan, replay = compute.prepare(request, assets, prepared, workspace,
+                                           environment, replay=replay_plan)
     command=[assets["binary"]["path"],"--config",str(workspace/"session.json"),"--launch",str(graph_path)]
     emit(dict(phase="native_generation",message="Generating with h3-apple"))
     start=time.monotonic(); process=None
@@ -105,7 +109,7 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False)
         with (workspace/"native.log").open("x") as log:
             # Same process group as the isolated worker: API cancellation kills both.
             process=subprocess.Popen(command,cwd=workspace,env=environment,stdin=subprocess.DEVNULL,
-                                     stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+                                     stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,errors='backslashreplace')
             for line in process.stdout:
                 log.write(line); log.flush()
                 event = progress_event(line)
@@ -121,6 +125,7 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False)
             process.stdout.close()
     native_seconds=time.monotonic()-start
     log=(workspace/"native.log").read_text(); audit_log(log)
+    compute_plan = compute.complete(compute_plan, replay, log, workspace)
     emit(dict(phase="delivery_adapter")); start=time.monotonic()
     delivery=finish_native(native,workspace/"output.mp4",request)
     timings=dict(native_generation=native_seconds,delivery_adapter=time.monotonic()-start)
@@ -128,10 +133,11 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False)
         directory=workspace/"diagnostics"; directory.mkdir()
         write_json(directory/"native-run.json",dict(graph=graph,command=command,delivery_command=delivery))
     return dict(actual_nfe=4,acceleration="i8-sol-sage",
+        compute_plan=compute_plan,
         timings_seconds=timings,diagnostics_enabled=diagnostics,diagnostic_export_seconds=0,
         backend=dict(name="h3-apple",upstream="vpipe",binary=assets["binary"],library=assets["library"],tested_interface_commit=assets["tested_interface_commit"]),
         native=dict(graph=graph,graph_sha256=digest(graph_path),log_sha256=digest(workspace/"native.log"),
             prepared_inputs=prepared,recipe=assets["recipe"],adapter=assets["adapter"],
             switches=next(s for s in graph["stages"] if s["id"]=="generate-video")["config"],
             runtime_confirmation=[line for line in log.splitlines() if any(word in line for word in ("Sol-Attn","SageAttention","baked AdaLN","PRELOADED","memory-plan","i8"))],
-            rng="Native engine RNG; seeds are reproducible inputs, not a promise of byte-identical GPU output.",delivery_command=delivery))
+            rng="Native engine RNG; strict replay also binds the recorded compute plan, inputs and execution environment.",delivery_command=delivery))
