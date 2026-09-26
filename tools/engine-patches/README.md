@@ -7,7 +7,7 @@ failure handling. It does not change Metal kernels, weights or attention math.
 
 Apply it before following the native build instructions in `docs/development.md`.
 The wrapper supplies the versioned policy internally and records it for every
-generation, including when diagnostics are disabled. The current candidate
+generation, including when diagnostics are disabled. The current
 policy targets the 40-core M5 Max; qualification on other GPUs is separate.
 
 Apply `vae-fusion.patch` after `stable-compute.patch`. It keeps the decoder's
@@ -24,7 +24,7 @@ parameter. Local artifacts use `tools/package_engine.py --local-only` and the
 requires the matching archive in the local cache; its URL is intentionally
 unset until a release is published.
 
-The experimental `0.5.1.dev2` build also applies `vae-int8.patch` after those
+Version `0.5.1` also applies `vae-int8.patch` after those
 two patches. It includes exact QK/RoPE layout fusion and an opt-in H256 rowwise
 W8A8 decoder, pinned at native revision `2070ba62f5e5ef552bce65a6137638b245da6e54`.
 The wrapper's `m5max-h256-int8-v1` policy requires the `vae-h256-int8-v1` engine

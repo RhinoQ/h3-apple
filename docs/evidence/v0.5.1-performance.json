@@ -1,0 +1,325 @@
+{
+  "schema": "h3-apple-performance-evidence/v1",
+  "date": "2026-09-26",
+  "version": "0.5.1",
+  "measured_candidate": "0.5.1.dev2",
+  "native_commit": "2070ba62f5e5ef552bce65a6137638b245da6e54",
+  "product_candidate_commit": "966a06999df8635d1b1cd2c346fb07d5f5f7145e",
+  "input": {
+    "origin": "Previously accepted three-image warehouse integration case, retaining the complete prompt and public reference order used for version 0.4.0.",
+    "source_revision": "02e26d591f7a04d5d1a074c9566d5dd4f22f6225",
+    "prompt_file": "ref2va-prompt.txt",
+    "prompt_sha256": "65fa0ccdf3fd416df0a67e0b169e3beb6e0f77d7679b905f99c27922c4534899",
+    "references": [
+      {
+        "index": 1,
+        "file": "ref2va_test_3_1.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_1.jpg",
+        "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d"
+      },
+      {
+        "index": 2,
+        "file": "ref2va_test_3_2.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_2.jpg",
+        "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f"
+      },
+      {
+        "index": 3,
+        "file": "ref2va_test_3_3.jpg",
+        "url": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_3.jpg",
+        "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29"
+      }
+    ]
+  },
+  "request": {
+    "reference_images": [
+      "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_1.jpg",
+      "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_2.jpg",
+      "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_3_3.jpg"
+    ],
+    "resolution": "576p",
+    "duration": 5.0,
+    "seed": 0,
+    "width": 1024,
+    "height": 576,
+    "num_frames": 120,
+    "model_width": 1024,
+    "model_height": 576,
+    "model_num_frames": 124,
+    "recipe": "ref2va-i8-sol-sage-v1",
+    "fps": 24,
+    "audio_sample_rate": 32000,
+    "audio_channels": 2,
+    "num_steps": 4,
+    "prompt_file": "ref2va-prompt.txt"
+  },
+  "host": {
+    "chip": "Apple M5 Max",
+    "gpu_cores": 40,
+    "memory_bytes": 137438953472,
+    "macos": "26.6.1",
+    "fan_policy": "Auto"
+  },
+  "model": {
+    "prepared_manifest_identity": "18d60ac845cae4d99e92c3aa041bcbc89f0aeacd5ca5405a8d5bba9898a9cb41",
+    "recipe": {
+      "steps": 4,
+      "graph_steps": 5,
+      "video_shift": 12.0,
+      "audio_shift": 3.0,
+      "lora_scale": 1.0
+    },
+    "adapter_sha256": "e44c667b162a6e951f663b75d88facfd4e24c915e2c556b07ec1fec23fef5a61",
+    "sources": "../../src/h3_apple/data/model-sources.json"
+  },
+  "vae": {
+    "paired_ratios": [
+      1.2273150031444289,
+      1.26454444688284,
+      1.163110855962613,
+      1.224050550656449
+    ],
+    "paired_median_ratio": 1.225682776900439,
+    "speed_gate_pass": true,
+    "baseline_peak_gib_approx": 5.34,
+    "candidate_peak_gib_approx": 3.18,
+    "scope": "Same fixed latent, same native build and fusions; only H256 INT8 flag changes. Rotation and quantization costs included."
+  },
+  "quality": {
+    "cases": [
+      {
+        "case": "quality-01",
+        "shape": [
+          124,
+          3,
+          576,
+          1024
+        ],
+        "psnr_db": 54.72935957505693,
+        "ssim": 0.9986476322849193,
+        "min_frame_psnr_db": 51.68251335394406,
+        "min_frame_ssim": 0.9983751699668464,
+        "max_abs": 31,
+        "temporal_error_rmse": 0.6210422712888959,
+        "metric_screen_pass": true
+      },
+      {
+        "case": "holdout-01",
+        "shape": [
+          124,
+          3,
+          576,
+          1024
+        ],
+        "psnr_db": 56.712604616757005,
+        "ssim": 0.9988559227554019,
+        "min_frame_psnr_db": 55.28752098040097,
+        "min_frame_ssim": 0.9986254859626009,
+        "max_abs": 15,
+        "temporal_error_rmse": 0.4940550679970716,
+        "metric_screen_pass": true
+      },
+      {
+        "case": "holdout-02",
+        "shape": [
+          124,
+          3,
+          576,
+          1024
+        ],
+        "psnr_db": 56.994470011541196,
+        "ssim": 0.9988697433964312,
+        "min_frame_psnr_db": 56.04433522370317,
+        "min_frame_ssim": 0.998740680830258,
+        "max_abs": 17,
+        "temporal_error_rmse": 0.4776970040935637,
+        "metric_screen_pass": true
+      }
+    ],
+    "scope": "One calibration warehouse scene, two independent actions of the same reference subject; fixed decoder latents, no parameter selection on independent cases.",
+    "anonymous_still_review": "No clear preference in three cases",
+    "continuous_video_human_blind_review": "pending",
+    "perceptual_equivalence_proven": false
+  },
+  "integration_correctness": {
+    "condition_and_latents_and_pcm_match": true,
+    "rgb_matches_standalone_decoder": true
+  },
+  "native_tests_passed": 10,
+  "whole_generation": {
+    "scope": "Ordinary API, diagnostics=False; fixed-route 0.5.0 wheel versus 0.5.1.dev2; calibration 5-second 576p case on one 128-GiB 40-core M5 Max",
+    "pairs": [
+      {
+        "baseline_s": 291.9494647500105,
+        "candidate_s": 312.33598733402323,
+        "ratio": 0.9347288707970413,
+        "wait_reduction_pct": -6.982894317504296
+      },
+      {
+        "baseline_s": 322.52818162506446,
+        "candidate_s": 311.4169885000447,
+        "ratio": 1.035679470084588,
+        "wait_reduction_pct": 3.445030157996065
+      },
+      {
+        "baseline_s": 318.42737950000446,
+        "candidate_s": 303.37871741701383,
+        "ratio": 1.0496035523227072,
+        "wait_reduction_pct": 4.725932206778227
+      }
+    ],
+    "paired_median_ratio": 1.035679470084588,
+    "median_wait_reduction_pct": 3.445030157996065,
+    "speed_gate_pass": false,
+    "all_audio_identical": true,
+    "within_arm_repeatable": true,
+    "total_seconds": {
+      "baseline": 932.9050258750794,
+      "candidate": 927.1316932510817
+    },
+    "aggregate_wait_reduction_pct": 0.618855345814251,
+    "max_pair_wait_increase_pct": 6.982894317504296,
+    "rows": [
+      {
+        "arm": "baseline",
+        "seconds": 291.9494647500105,
+        "peak_gib": 59.88475776463747,
+        "policy": "m5max-v1",
+        "decoded_sha256": {
+          "v": "SHA256=e086ca2b880943a571093c0d57217375a989945d66f2de4fa61d77f857ccbed6",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "busy_gpu_mhz_median": 840.0,
+        "thermal_states": [
+          "fair"
+        ],
+        "swap_growth_bytes": 0,
+        "progress_windows_s": {
+          "denoise_start_to_decode_0": 214.7949674159754,
+          "decode_0_to_95": 38.992133209016174
+        }
+      },
+      {
+        "arm": "candidate",
+        "seconds": 312.33598733402323,
+        "peak_gib": 57.69261625409126,
+        "policy": "m5max-h256-int8-v1",
+        "decoded_sha256": {
+          "v": "SHA256=88bcf0bacfb33cd34390925ab2b2df2af1a0a5ef05257d9989d3f44cfaa3b00b",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "busy_gpu_mhz_median": 710,
+        "thermal_states": [
+          "fair"
+        ],
+        "swap_growth_bytes": 0,
+        "progress_windows_s": {
+          "denoise_start_to_decode_0": 247.02127100003418,
+          "decode_0_to_95": 26.11055324994959
+        }
+      },
+      {
+        "arm": "candidate",
+        "seconds": 311.4169885000447,
+        "peak_gib": 57.68857195973396,
+        "policy": "m5max-h256-int8-v1",
+        "decoded_sha256": {
+          "v": "SHA256=88bcf0bacfb33cd34390925ab2b2df2af1a0a5ef05257d9989d3f44cfaa3b00b",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "busy_gpu_mhz_median": 711,
+        "thermal_states": [
+          "fair"
+        ],
+        "swap_growth_bytes": 0,
+        "progress_windows_s": {
+          "denoise_start_to_decode_0": 246.35411754099187,
+          "decode_0_to_95": 26.050219999975525
+        }
+      },
+      {
+        "arm": "baseline",
+        "seconds": 322.52818162506446,
+        "peak_gib": 59.937918581068516,
+        "policy": "m5max-v1",
+        "decoded_sha256": {
+          "v": "SHA256=e086ca2b880943a571093c0d57217375a989945d66f2de4fa61d77f857ccbed6",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "busy_gpu_mhz_median": 719,
+        "thermal_states": [
+          "fair"
+        ],
+        "swap_growth_bytes": 0,
+        "progress_windows_s": {
+          "denoise_start_to_decode_0": 244.1740065420745,
+          "decode_0_to_95": 38.87436658295337
+        }
+      },
+      {
+        "arm": "baseline",
+        "seconds": 318.42737950000446,
+        "peak_gib": 59.937705628573895,
+        "policy": "m5max-v1",
+        "decoded_sha256": {
+          "v": "SHA256=e086ca2b880943a571093c0d57217375a989945d66f2de4fa61d77f857ccbed6",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "busy_gpu_mhz_median": 733.0,
+        "thermal_states": [
+          "fair"
+        ],
+        "swap_growth_bytes": 0,
+        "progress_windows_s": {
+          "denoise_start_to_decode_0": 240.9203180409968,
+          "decode_0_to_95": 38.55378291697707
+        }
+      },
+      {
+        "arm": "candidate",
+        "seconds": 303.37871741701383,
+        "peak_gib": 57.66774460673332,
+        "policy": "m5max-h256-int8-v1",
+        "decoded_sha256": {
+          "v": "SHA256=88bcf0bacfb33cd34390925ab2b2df2af1a0a5ef05257d9989d3f44cfaa3b00b",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "busy_gpu_mhz_median": 733,
+        "thermal_states": [
+          "fair"
+        ],
+        "swap_growth_bytes": 0,
+        "progress_windows_s": {
+          "denoise_start_to_decode_0": 239.40039170894306,
+          "decode_0_to_95": 25.864069874980487
+        }
+      }
+    ],
+    "artifacts": {
+      "baseline": {
+        "wheel": {
+          "bytes": 73762,
+          "sha256": "8fc72c86bf4de406f113bfc1fb2470e014487339d72c18a2949fe3bd92299d17"
+        },
+        "native_commit": "f898590",
+        "binary_sha256": "b53421125460c4a76422ea2d7fcc1f969a49277869b1b6a476f3ccf20e0ee21d",
+        "library_sha256": "f872236c6c13fbea17313f1da04eac8155a9bdccea43a9b54e81c7a796f9359a"
+      },
+      "candidate": {
+        "wheel": {
+          "bytes": 74263,
+          "sha256": "05f9bd505045b55250d043470fe185dc38fe9999f98d4d53bc8da9bd941d479b"
+        },
+        "native_commit": "2070ba62f5e5ef552bce65a6137638b245da6e54",
+        "binary_sha256": "ba9cf796e9daa33b32fa41a464a5ea8667c6e8b3ea50c1b837b9f8ca5a7344c7",
+        "library_sha256": "4ad9e9b424abbbf8227028d63f581a2b81e26f2a7b080fb4a06adfb18a030387"
+      }
+    },
+    "interpretation": "The first pair exceeded the predeclared 3% regression limit. Frequency varied; progress-window timing is post-hoc and is not isolated GPU timing. No frequency normalization or pair exclusion."
+  },
+  "limitations": [
+    "No universal lossless-quality claim.",
+    "Whole-generation speed gate failed; release adoption does not change that result.",
+    "No real-machine validation of lower memory, other GPUs, long duration or larger resolution."
+  ]
+}

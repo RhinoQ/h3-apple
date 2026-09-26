@@ -1,5 +1,45 @@
 # Validation
 
+## Version 0.5.1
+
+The H256 rotated INT8 video decoder was tested on a **40-core M5 Max, 128 GiB
+unified memory, macOS 26.6.1**. It keeps the original encoder, four-step DiT
+recipe, adapter, attention precision and audio generation. Fixed arithmetic
+selection and the executed compute routes are recorded for each generation.
+There are no new mode or tuning settings.
+
+The [performance and quality evidence](evidence/v0.5.1-performance.json) retains
+inputs, source/engine identities, all paired measurements, metrics and failures.
+Measurements below used frozen candidate `0.5.1.dev2`; the release uses identical
+native binaries and computation policy. Release installation checks are recorded
+separately from those performance results.
+
+| Measurement | Result |
+| --- | --- |
+| Four paired fixed-latent VAE decodes | Median 1.2257× speed ratio, equivalent to 18.4% less waiting; every pair improved |
+| Standalone VAE process peak | About 5.34 → 3.18 GiB |
+| Three complete normal-API pairs | Candidate waiting: +6.98%, −3.45%, −4.73%; aggregate reduction 0.62% |
+| Complete-generation process peak | About 59.9 → 57.7 GiB; no swap growth in the six runs |
+| Three decoder quality cases | PSNR 54.73–56.99 dB; SSIM 0.99865–0.99887 |
+| Full integration correctness | Conditioning, denoised video/audio latents and PCM matched the fixed-route baseline exactly |
+| Repeated generation | Stable decoded video within each version; identical audio across all six runs |
+
+The whole-generation performance target was **not met**: the first pair exceeded
+the permitted 3% regression. GPU frequency varied, and the first pair's slowdown
+occurred before VAE decoding. This does not establish frequency as the sole cause,
+nor a consistent whole-video speed improvement. The full-version baseline was a
+fixed-route 0.5.0 build; it was not the unmodified public autotuning build. The
+standalone decoder comparison isolates INT8; the full candidate also includes
+VAE operation fusions.
+
+Decoder arithmetic is approximate, not bitwise lossless. Three numerical screens
+and anonymous still-frame inspection passed; continuous-video human blind review
+remains pending. Two validation actions share one reference subject. Results are
+limited to 5-second 576p clips and do not qualify every input, long video, lower
+memory configuration or other GPU. Release adoption does not change those limits.
+
+## Version 0.5.0
+
 Version 0.5.0 installs as a Python package in a Conda environment containing
 Python and FFmpeg 8.1.2. The CLI and Python API share automatic first-run setup.
 The [release evidence](evidence/v0.5.0-conda.json) records the complete input,

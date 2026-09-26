@@ -2,7 +2,7 @@
   "schema": "h3-apple-engine/v1",
   "upstream": "https://github.com/tgo-app-dev/vpipe",
   "commit": "2070ba62f5e5ef552bce65a6137638b245da6e54",
-  "url": null,
+  "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.5.1/h3-apple-engine-macos-arm64.zip",
   "bytes": 6034511,
   "sha256": "b473b1ee15c7394524bd70f13293291dba62b463a1d1f4c85421081ff8e2e2ae",
   "files": [

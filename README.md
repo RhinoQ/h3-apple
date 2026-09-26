@@ -6,13 +6,12 @@ h3-apple focuses on making MiniMax-H3 fast and simple on Apple Silicon. One
 Ref2VA generation path, with acceleration enabled automatically. Give it
 1–9 images and describe the scene, movement and sound.
 
-This checkout is an unpublished experimental `0.5.1.dev2` build for the
-40-core M5 Max. It uses a fixed H256 INT8 VAE decoder with the same denoising
-recipe. Decoder outputs are approximate. Numerical quality screening passed on
-three clips, and paired decoder benchmarks passed on the calibration clip.
-Complete-generation benchmarks have not established a consistent speed gain;
-continuous-video blind review remains pending.
-The public download below remains v0.5.0.
+Version **0.5.1** adds faster, lower-memory video decoding on the **40-core M5
+Max**, with the same four-step generation recipe. Four paired decoder checks
+showed 18.4% less waiting and about 40% lower decoder memory. Complete-generation
+speed remained variable. The decoder uses approximate INT8 arithmetic; three
+clips passed numerical quality screening, while continuous-video blind review
+is still pending. See the [measurements and limits](docs/validation.md).
 
 ## Install
 
@@ -23,7 +22,7 @@ other projects. If you do not have Conda, install the Apple Silicon version of
 ```bash
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.0/h3_apple-0.5.0-py3-none-any.whl
+python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.1/h3_apple-0.5.1-py3-none-any.whl
 ```
 
 The release wheel is installed directly from GitHub.
@@ -34,7 +33,8 @@ are verified and reused. Python 3.11–3.14 is supported.
 
 In a new terminal, run `conda activate h3` before using the CLI or Python API.
 
-**Requirements:** an M5 Mac, macOS 26.2+, and at least 64 GB unified memory.
+**Requirements:** a 40-core M5 Max, macOS 26.2+, and at least 64 GB unified memory.
+This release was tested on 128 GB; smaller-memory machines have not been validated.
 A first model preparation downloads about **145 GB** and needs about **233 GB**
 free disk. The CLI shows the actual plan and asks before downloads over 20 GB.
 Already prepared models take about **85 GB**. See [installation details](https://github.com/RhinoQ/h3-apple/blob/main/docs/install.md)

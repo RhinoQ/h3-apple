@@ -39,7 +39,7 @@ def prepare(request, assets, prepared, workspace, environment, *, replay=None):
             or not hardware["native"].get("matrix_cores")
             or len(hardware["gpus"]) != 1
             or hardware["gpus"][0]["cores"] != policy["device"]["cores"]):
-        raise RuntimeError("This candidate compute policy currently targets only the 40-core M5 Max.")
+        raise RuntimeError("This H3 Apple version requires the 40-core M5 Max.")
     # Content identity deliberately excludes filesystem paths and live RAM.
     inputs = {k: v for k, v in request.items() if k != "reference_images"}
     inputs["references"] = [{k: p[k] for k in ("index", "width", "height", "sha256")}

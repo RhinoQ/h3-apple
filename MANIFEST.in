@@ -1,3 +1,4 @@
 recursive-include docs *.md *.json *.txt
 recursive-include environments *.lock
-recursive-include tools *.py
+recursive-include tools *.py *.md *.patch
+recursive-include tests *.py *.cc

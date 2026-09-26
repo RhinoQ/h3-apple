@@ -39,7 +39,7 @@ quality judgments and performance comparisons as separate claims.
 Check out the exact source revision above, including its submodules, and apply
 `tools/engine-patches/stable-compute.patch`, then
 `tools/engine-patches/vae-fusion.patch`, then `tools/engine-patches/vae-int8.patch`
-for this experimental checkout. Build
+for version 0.5.1. Build
 against FFmpeg 8 headers in a separate build environment, in Release mode:
 
 ```bash

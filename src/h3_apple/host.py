@@ -3,6 +3,7 @@
 from contextlib import contextmanager
 import ctypes
 import fcntl
+import json
 import os
 from pathlib import Path
 import platform
@@ -53,12 +54,17 @@ def snapshot():
 def check_machine(info, request=None):
     if info["system"] != "Darwin" or info["machine"] != "arm64":
         raise RuntimeError("H3 Apple requires an Apple Silicon Mac.")
-    if "M5" not in info["chip"]:
-        raise RuntimeError("This H3 Apple version requires M5 GPU kernels; other chips are not validated.")
+    from .assets import data_file
+    device = data_file("compute-policy.json")["device"]
+    if info["chip"] != device["model"]:
+        raise RuntimeError("This H3 Apple version requires the 40-core M5 Max.")
     if tuple(map(int, info["macos"].split(".")[:2])) < (26, 2):
         raise RuntimeError("The H3 engine requires macOS 26.2 or later.")
     if info["memory_bytes"] < 64 * 1024**3:
         raise RuntimeError("H3 Apple requires at least 64 GiB unified memory.")
+    gpus = json.loads(command("/usr/sbin/system_profiler", "SPDisplaysDataType", "-json"))["SPDisplaysDataType"]
+    if len(gpus) != 1 or str(gpus[0].get("sppci_cores")) != device["cores"]:
+        raise RuntimeError("This H3 Apple version requires the 40-core M5 Max.")
     if (request is not None and request["resolution"] == "768p"
             and request["duration"] > 5 and info["memory_bytes"] < 96 * 1024**3):
         raise RuntimeError("768p videos longer than 5 seconds require at least 96 GiB unified memory. "

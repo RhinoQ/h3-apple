@@ -7,7 +7,7 @@ version of [Miniforge](https://github.com/conda-forge/miniforge) first:
 ```bash
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.0/h3_apple-0.5.0-py3-none-any.whl
+python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.1/h3_apple-0.5.1-py3-none-any.whl
 h3 generate --image reference.jpg --prompt "Your scene, movement and sound."
 ```
 
@@ -105,11 +105,14 @@ receipts. Before first generation it may report that models are not yet ready.
 `h3 verify` performs a full weight checksum pass. To upgrade:
 
 ```bash
-python -m pip install --upgrade https://github.com/RhinoQ/h3-apple/releases/download/v0.5.0/h3_apple-0.5.0-py3-none-any.whl
+python -m pip install --upgrade https://github.com/RhinoQ/h3-apple/releases/download/v0.5.1/h3_apple-0.5.1-py3-none-any.whl
 ```
 
-An M5 Mac with macOS 26.2+ and at least 64 GB unified memory is required.
-Other Apple Silicon generations have not been qualified. Use 576p on a 64 GB
-machine; 768p beyond 5 seconds requires 96 GB. Generation stops if swap grows
+A 40-core M5 Max with macOS 26.2+ and at least 64 GB unified memory is required.
+Version 0.5.1 checks this GPU configuration before preparing models; other GPU
+configurations are not supported by its fixed compute policy. Existing users of
+other M5 configurations should retain v0.5.0. Measurements used 128 GB; smaller
+memory configurations have not been validated. The memory guard permits 576p at
+64 GB; 768p beyond 5 seconds requires 96 GB. Generation stops if swap grows
 by more than 2 GiB or macOS reports serious thermal pressure. It reserves
 20 GiB of free disk for temporary media. Failed jobs retain their logs.

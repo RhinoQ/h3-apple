@@ -4,12 +4,14 @@ Third-party software and models retain their respective terms.
 
 Native inference engine: vpipe
   https://github.com/tgo-app-dev/vpipe
-  Pinned source: f34e2cc3a3adae759eea254419f436f5b7800057
+  Base source: f34e2cc3a3adae759eea254419f436f5b7800057
   Copyright 2026 T-Go LLC. Apache-2.0.
   This product includes software developed at T-Go LLC.
-  The release redistributes the unmodified CLI executable and shared library,
-  with the CLI filename changed to h3-engine. No inference kernels are claimed
-  as independently authored by h3-apple.
+  The release redistributes a modified engine built from this base and the
+  patches in tools/engine-patches, with the CLI filename changed to h3-engine.
+  Changes add fixed compute selection, VAE operation fusion and H256 W8A8
+  decoder projections; upstream ownership and notices are retained.
+  The exact modified revision is pinned in src/h3_apple/data/engine.json.
   Full license: licenses/vpipe-APACHE-2.0.txt
   Required notice: licenses/vpipe-NOTICE.txt
   Dependency notices: licenses/vpipe-THIRD-PARTY-LICENSES.txt
@@ -19,6 +21,13 @@ Native inference engine: vpipe
   and build provenance:
   https://github.com/conda-forge/ffmpeg-feedstock
   https://ffmpeg.org/legal.html
+
+H256 rotated INT8 linear algorithm reference: Comfy Kitchen
+  https://github.com/Comfy-Org/comfy-kitchen
+  comfy_kitchen/backends/cuda/ops/int8_linear.cu (Apache-2.0).
+  The h3-apple implementation uses native Metal integer matrix operations.
+  No CUDA binary is bundled; Comfy performance measurements are not claimed
+  as h3-apple results. Apache-2.0 text is included in LICENSE.
 
 Image reference preprocessing
   The size/alignment conventions follow MiniMax/FastVideo and Diffusers.
