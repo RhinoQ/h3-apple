@@ -6,9 +6,10 @@ h3-apple focuses on making MiniMax-H3 fast and simple on Apple Silicon. One
 Ref2VA generation path, with acceleration enabled automatically. Give it
 1–9 images and describe the scene, movement and sound.
 
-This checkout is the unpublished `0.5.1.dev1` candidate for the 40-core M5 Max.
-It keeps the existing generation recipe and enables the VAE optimization
-automatically. Validation is in progress; the public download below is v0.5.0.
+This checkout is an unpublished experimental `0.5.1.dev1` build for the
+40-core M5 Max. It preserves the generation recipe and passed the tested output
+comparisons, but has not established a sustained generation speed improvement.
+The public download below remains v0.5.0.
 
 ## Install
 
