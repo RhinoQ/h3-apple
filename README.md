@@ -8,9 +8,10 @@ Ref2VA generation path, with acceleration enabled automatically. Give it
 
 This checkout is an unpublished experimental `0.5.1.dev2` build for the
 40-core M5 Max. It uses a fixed H256 INT8 VAE decoder with the same denoising
-recipe. Decoder outputs are approximate; numerical quality screening and
-paired decoder benchmarks passed on a calibration clip. Whole-generation
-performance and independent perceptual validation are still being evaluated.
+recipe. Decoder outputs are approximate. Numerical quality screening passed on
+three clips, and paired decoder benchmarks passed on the calibration clip.
+Complete-generation benchmarks have not established a consistent speed gain;
+continuous-video blind review remains pending.
 The public download below remains v0.5.0.
 
 ## Install
