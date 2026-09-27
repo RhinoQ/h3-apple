@@ -1,0 +1,164 @@
+{
+  "title": "Delegation \u2014 Local VOSR",
+  "source_generator": "h3-apple 0.5.1",
+  "generator_commit": "0f098218107728c505ec591f0eb6dccf98dddb87",
+  "repair_is_released_feature": false,
+  "video": "video.mp4",
+  "comparison": "comparison.mp4",
+  "picture_duration_seconds": 17.75,
+  "container_duration_seconds": 17.8,
+  "frames": 426,
+  "width": 1024,
+  "height": 576,
+  "fps": 24,
+  "audio": "Complete original AAC track, copied; decoded PCM matches the source exactly.",
+  "source_film": "Original 17.75-second Delegation edit, not the separate 16.21-second eyeline-retake edit.",
+  "source_film_sha256": "1e262496cbc36efba352ce2249b5946f9558d8933fcabd8b9c9124b6d97c6e37",
+  "enhancement": {
+    "invocation_seconds": 417.1784379169112,
+    "peak_footprint_gib": 10.047397375106812,
+    "enhanced_frames": 234,
+    "face_passes": 352,
+    "unprocessed_closeup_frames": 192,
+    "memory_definition": "One-second sampled sum of process-tree physical footprints; GiB=2^30 bytes; no RSS fallback in these calls.",
+    "timing_scope": "Complete worker invocation: imports, asset verification, fresh detection, tracking, model loading, restoration, compositing, PNG diagnostics, original-audio handling, video export and delivery decode/audio validation. Excludes environment/model setup and the separate side-by-side review export.",
+    "recipe": {
+      "weights": "P6 official VOSR2/DINO/Qwen 2D VAE",
+      "dtype": "float32",
+      "step_count": 1,
+      "seed_per_face": 42,
+      "posterior_mode": true,
+      "dit_tile": 512,
+      "dit_overlap": 32,
+      "vae_tiling": false,
+      "color": "official wavelet sigma 5",
+      "temporal_conditioning": false
+    },
+    "assets": [
+      {
+        "name": "diffusion_pytorch_model.safetensors",
+        "bytes": 178418892,
+        "sha256": "1dd2c67f3f29734d48709513ed181d4f351966d76ba95f77a5cff8e1daf547fa"
+      },
+      {
+        "name": "ema_model.safetensors",
+        "bytes": 5576385424,
+        "sha256": "bdcaa81e4c675b6074de643e27daafe73eb8125d4d0264d1bf30a004e9644b71"
+      },
+      {
+        "name": "dinov2_vitl14_pretrain.pth",
+        "bytes": 1217586395,
+        "sha256": "d5383ea8f4877b2472eb973e0fd72d557c7da5d3611bd527ceeb1d7162cbf428"
+      },
+      {
+        "name": "detection_Resnet50_Final.pth",
+        "bytes": 109497761,
+        "sha256": "6d1de9c2944f2ccddca5f5e010ea5ae64a39845a86311af6fdf30841b0a5a16d"
+      }
+    ],
+    "frozen_pipeline_sha256": "f4935350338c339d1580fb6854da6293c21335eadbe8b698309152f6006eaedc"
+  },
+  "historical_source_generation": {
+    "invocation_seconds": 1032.8031084990362,
+    "generated_seconds": 20,
+    "edited_picture_seconds": 17.75,
+    "enhancement_fraction": 0.40392833298419584,
+    "scope": "Added repair cost relative to previously recorded generation effort for three source clips (20 generated seconds, edited to 17.75 seconds). Different stages/times; not a controlled speed comparison."
+  },
+  "latency_acceptance": "The user accepts the measured enhancement time for this optional workflow. The original 10% target was not met.",
+  "environment": "Apple M5 Max, 40 GPU cores, 128 GiB unified memory, macOS 26.6.1; PyTorch 2.11.0 FP32 MPS, existing VOSR2 one-step.",
+  "attempts": [
+    {
+      "id": "independent-01",
+      "invocation_seconds": 23.700578749994747,
+      "peak_footprint_gib": 9.484423704445362,
+      "frames": 48,
+      "enhanced_frames": 10,
+      "face_passes": 10,
+      "status": "selection_gate_failed"
+    },
+    {
+      "id": "selection-fix-02",
+      "invocation_seconds": 52.612032666103914,
+      "peak_footprint_gib": 9.511508122086525,
+      "frames": 48,
+      "enhanced_frames": 48,
+      "face_passes": 48,
+      "status": "complete_for_review"
+    },
+    {
+      "id": "spike-validation-01",
+      "invocation_seconds": 32.018452499993145,
+      "peak_footprint_gib": 9.59711093455553,
+      "frames": 24,
+      "enhanced_frames": 24,
+      "face_passes": 24,
+      "status": "complete_for_review"
+    },
+    {
+      "id": "delegation-full-02",
+      "invocation_seconds": 417.1784379169112,
+      "peak_footprint_gib": 10.047397375106812,
+      "frames": 426,
+      "enhanced_frames": 234,
+      "face_passes": 352,
+      "status": "complete_for_review"
+    }
+  ],
+  "quality": {
+    "scope": "All 48 profile frames and all 24 different-character frames; 83 comparison panels across 61 sampled full-film frames and the last full frame.",
+    "boundary": "Fine features are reconstructed. Glow and motion-blurred faces can acquire stronger outlines; exact identity, gaze and temporal fidelity are not guaranteed.",
+    "outside_mask": "Original pixels match outside the face masks before lossy delivery encoding.",
+    "accepted_overlap": "48 full-film composites match the previously accepted calibration frames byte for byte.",
+    "audio_listened_by_human": false,
+    "full_film_user_fidelity_accepted": false
+  },
+  "reencoded_for_upload": false,
+  "assets": [
+    {
+      "path": "video.mp4",
+      "bytes": 6189127,
+      "sha256": "d2cbcf96d1ca2903517b4282a324f9d28c13bc42949e5bbf46940fa31626a342"
+    },
+    {
+      "path": "comparison.mp4",
+      "bytes": 11681021,
+      "sha256": "14d642b467c0b29ff52e4c9cbdcf8e0348d5addf6e026501122bcdcaa51c96bd"
+    },
+    {
+      "path": "profile.mp4",
+      "bytes": 958901,
+      "sha256": "19ae07359c45367a8707a9a881787b886eb89cf8184965e4c5d57f56d68fc9fe"
+    },
+    {
+      "path": "profile-comparison.mp4",
+      "bytes": 1783452,
+      "sha256": "520b5c5261f6dec967780139dbcfa42c8858961416216782e912c59220a62ee2"
+    },
+    {
+      "path": "rain.mp4",
+      "bytes": 526657,
+      "sha256": "31e6849eb9fd0b107a8c8c88ef1d71e26dedd98881d5e3094b68ac431d1288c6"
+    },
+    {
+      "path": "rain-comparison.mp4",
+      "bytes": 975325,
+      "sha256": "47a2ed75761fcaaff66ea227f0b8eb778955732fdefc24f64832872233f6b17f"
+    },
+    {
+      "path": "poster.png",
+      "bytes": 597978,
+      "sha256": "e000d1e18b63df313ba9beedcbf040480545f8d3dda245b360d419f19e682463"
+    },
+    {
+      "path": "profile-detail.jpg",
+      "bytes": 223303,
+      "sha256": "851dd3e01661d8a7b0dae476c1feab23619357f4e40c209dbe709a38d3072d97"
+    },
+    {
+      "path": "rain-detail.jpg",
+      "bytes": 216844,
+      "sha256": "343ef8b4ff4cfef8684639a2bd7f38ea256be87ada7ea63f99bdffd41962a627"
+    }
+  ]
+}
