@@ -51,6 +51,16 @@ def parser():
     prepare.add_argument("--allow-large-download", action="store_true", help="Confirm downloads exceeding 20 GB")
     for name in ("doctor", "verify"):
         commands.add_parser(name, help="Check installation" if name == "doctor" else "Verify all model checksums").add_argument("--model-dir")
+    faces = commands.add_parser("enhance-faces", help="Optionally enhance small faces in an existing H3 video")
+    faces.add_argument("--input", required=True, dest="video")
+    faces.add_argument("--output")
+    faces.add_argument("--model-dir", help="Optional face model directory (separate from H3 generation models)")
+    faces.add_argument("--diagnostics", action="store_true")
+    faces.add_argument("--timeout", type=float, default=7200)
+    prepare_faces = commands.add_parser("prepare-faces", help="Prepare the optional 7.08 GB face models")
+    prepare_faces.add_argument("--model-dir")
+    prepare_faces.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
+    prepare_faces.add_argument("--plan", action="store_true")
     return top
 
 
@@ -83,6 +93,13 @@ def main(argv=None):
             from .assets import load_assets
             data = load_assets(args["model_dir"], verify=True)
             result = dict(status="verified", directory=data["directory"], identity=data["identity"])
+        elif command == "enhance-faces":
+            from .faces.api import enhance_faces
+            result = asdict(enhance_faces(**args, on_progress=progress))
+        elif command == "prepare-faces":
+            from .faces.assets import plan, prepare
+            show_plan = args.pop("plan")
+            result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
         else:
             from .preparation import plan, prepare, LIMIT
             show_plan = args.pop("plan")

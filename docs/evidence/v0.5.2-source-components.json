@@ -1,0 +1,98 @@
+[
+  {
+    "file": "src/h3_apple/faces/_vendor/vosr/lightningdit.py",
+    "url": "https://github.com/cswry/VOSR/blob/516f292b99cf23c76fdc33351e86dc4f97711fe8/models/lightningdit.py",
+    "upstream_sha256": "d8510bce892cb0a5b5d22cbc35f62d216b1af5176410659831b0163efde726cc",
+    "packaged_sha256": "d9728aef23eb01c6efc559f13cc49bd1baf7c3670b087e633eb930e6a28b0e08"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/vosr/qwenimage_vae2d.py",
+    "url": "https://github.com/cswry/VOSR/blob/516f292b99cf23c76fdc33351e86dc4f97711fe8/models/qwenimage_vae2d.py",
+    "upstream_sha256": "016f71d018296de2c7a98ce1548908722380cefd203fb3b9c474e03bc10a29b6",
+    "packaged_sha256": "5633e82db464d9f981eacc1d9fd6a32ae607f564dfc767710cee388062204a12"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/vosr/pos_embed.py",
+    "url": "https://github.com/cswry/VOSR/blob/516f292b99cf23c76fdc33351e86dc4f97711fe8/models/pos_embed.py",
+    "upstream_sha256": "53052abc3be9b3b39eef639142e382d493bae8de6c395e4d1042c466e74b1936",
+    "packaged_sha256": "bcece29f366daed29382364f8bd44f1066e130451c66906bfc305c23a7be0e36"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/vosr/swiglu_ffn.py",
+    "url": "https://github.com/cswry/VOSR/blob/516f292b99cf23c76fdc33351e86dc4f97711fe8/models/swiglu_ffn.py",
+    "upstream_sha256": "f47835f5e2d7ca8fada59bf3a6bf593b6051e2334cf56ac5b0d540c8e6fe286a",
+    "packaged_sha256": "e64cc7d926038bf2ee98c99a2f03b512e3345d2d6d999388e09abccf7e83d01f"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/vosr/rmsnorm.py",
+    "url": "https://github.com/cswry/VOSR/blob/516f292b99cf23c76fdc33351e86dc4f97711fe8/models/rmsnorm.py",
+    "upstream_sha256": "f2a00e364306b83a46c6ddb02d28740c448189b8503eb198148349dcaab66971",
+    "packaged_sha256": "ea12cdcb7a7d3dc555488336a226dcc4364ecd23b81c89d4aee5fe64cf22fc92"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/__init__.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/__init__.py",
+    "upstream_sha256": "380238900f0a60770e4102ac2849e72b17776f5b12754a600429a3567ef26202",
+    "packaged_sha256": "380238900f0a60770e4102ac2849e72b17776f5b12754a600429a3567ef26202"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/attention.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/attention.py",
+    "upstream_sha256": "aa021503d047191839447ceb7e52ce47a27a81fb3200e0dd3b40b51be301f8c9",
+    "packaged_sha256": "aa021503d047191839447ceb7e52ce47a27a81fb3200e0dd3b40b51be301f8c9"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/block.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/block.py",
+    "upstream_sha256": "f395ba19dd990213ef4bcf22431463aab59321dc74cc10256c5f10b47690d209",
+    "packaged_sha256": "f395ba19dd990213ef4bcf22431463aab59321dc74cc10256c5f10b47690d209"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/dino_head.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/dino_head.py",
+    "upstream_sha256": "21a3c10983280abab3103274e690531a6b97f5145d9d909f5b68863c9b972e84",
+    "packaged_sha256": "21a3c10983280abab3103274e690531a6b97f5145d9d909f5b68863c9b972e84"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/drop_path.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/drop_path.py",
+    "upstream_sha256": "0e992756228930464d447ea1ab9337e463c8b2e6b265aef0639252d592bf2fef",
+    "packaged_sha256": "0e992756228930464d447ea1ab9337e463c8b2e6b265aef0639252d592bf2fef"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/layer_scale.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/layer_scale.py",
+    "upstream_sha256": "29ac5aee9fcafaf59cfe9f97d6306cf35abfcfeb67333027de297ea908070562",
+    "packaged_sha256": "29ac5aee9fcafaf59cfe9f97d6306cf35abfcfeb67333027de297ea908070562"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/mlp.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/mlp.py",
+    "upstream_sha256": "4253b84f60dbd82696d1c4868517ae6f992c3ddec37b0168061679bec203cd59",
+    "packaged_sha256": "4253b84f60dbd82696d1c4868517ae6f992c3ddec37b0168061679bec203cd59"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/patch_embed.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/patch_embed.py",
+    "upstream_sha256": "087f6d61b517ca6768817885dbcb4dcef7bf48540630f1e819784f6fc666d234",
+    "packaged_sha256": "087f6d61b517ca6768817885dbcb4dcef7bf48540630f1e819784f6fc666d234"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/layers/swiglu_ffn.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py",
+    "upstream_sha256": "98a8679ab3557368e75280cd69be03f7c05726f5ec94d99646f5f31c96faf8c4",
+    "packaged_sha256": "98a8679ab3557368e75280cd69be03f7c05726f5ec94d99646f5f31c96faf8c4"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/dinov2/vision_transformer.py",
+    "url": "https://huggingface.co/CSWRY/VOSR/blob/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/torch_cache/facebookresearch_dinov2_main/dinov2/models/vision_transformer.py",
+    "upstream_sha256": "df4834fc4208bfa0ae15e306364271dc984d613684bbdcbada8fd88c1556110f",
+    "packaged_sha256": "a86e100681b7825a182afeb7b48bc45f9e66d210385d7c070303424bddd631c3"
+  },
+  {
+    "file": "src/h3_apple/faces/_vendor/vosr/conditioning.py",
+    "url": "https://github.com/cswry/VOSR/blob/516f292b99cf23c76fdc33351e86dc4f97711fe8/inference_vosr_onestep.py",
+    "modification": "Keep only wavelet_color_fix, preprocess_raw_image and get_venc_features; remove training/CLI imports.",
+    "packaged_sha256": "c3e9a81d05b6bb9b3382d224f2ff219dc4ba94a9cdcf3a36f35a09a74b2e569e"
+  }
+]

@@ -39,7 +39,7 @@ quality judgments and performance comparisons as separate claims.
 Check out the exact source revision above, including its submodules, and apply
 `tools/engine-patches/stable-compute.patch`, then
 `tools/engine-patches/vae-fusion.patch`, then `tools/engine-patches/vae-int8.patch`
-for version 0.5.1. Build
+for versions 0.5.1 and 0.5.2 (the same engine artifact). Build
 against FFmpeg 8 headers in a separate build environment, in Release mode:
 
 ```bash
@@ -64,6 +64,23 @@ byte-identical compiler output across SDK versions is not promised.
 Release source and wheel must contain identical Python/data files. The pinned
 engine artifact is reused until its implementation changes. Do not bundle model
 weights or user reference images in release assets.
+
+## Optional restoration
+
+`faces/` is a separate worker path, sharing the generation device lock. It does
+not import PyTorch into the caller. Install the `faces` extra to run its full
+tests; the core environment skips tests requiring those optional packages.
+Keep the fixed model manifest and component notices with the vendored inference
+subset. Do not reintroduce dynamic Torch Hub downloads, research-directory
+imports or training dependencies. Two decoding passes bound image memory to one
+frame; temporary PNGs support exact pre-encode replay and are removed after a
+successful ordinary run. See [the public contract](face-enhancement.md).
+
+An enhancement release must exercise both public entry points, verify source
+audio and no-face copying, and compare installed pre-encode output against the
+accepted fixed recipe. Tests for cancellation, existing files, cuts and input
+timing are independent of subjective quality evaluation. Model setup is
+verified separately from processing time.
 
 ## Publish the Python package
 

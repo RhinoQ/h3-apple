@@ -57,3 +57,46 @@ Ref2VA four-step adapter
 
 Older MLX/VSA implementations and their original notices remain in the
 v0.3.0 Git tag; they are not part of this release's Python runtime.
+
+Optional local face enhancement (0.5.2)
+  VOSR source: https://github.com/cswry/VOSR
+  Commit: 516f292b99cf23c76fdc33351e86dc4f97711fe8
+  Project-authored code/weights are Apache-2.0; full source component identities
+  and modifications are in docs/evidence/v0.5.2-source-components.json.
+  Inference uses fixed FP32 MPS with compile decorators removed, package-relative
+  imports, no training code and the reviewed one-step 512-pixel crop recipe.
+  licenses/VOSR-APACHE-2.0.txt retains the project license.
+
+  Qwen 2D VAE: Copyright 2025 The Qwen-Image Team, Wan Team and The HuggingFace
+  Team. Apache-2.0; converted implementation is retained from VOSR.
+  Model/asset snapshot: https://huggingface.co/CSWRY/VOSR/tree/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3
+  Models are not bundled; data/face-model-sources.json pins their exact bytes.
+
+  DINOv2: Copyright (c) Meta Platforms, Inc. and affiliates. Apache-2.0.
+  Source: https://github.com/facebookresearch/dinov2
+  Model-specific source snapshot is retained from the above VOSR HF revision.
+  Only the vision transformer and layers are bundled; the import is namespaced.
+  Full license: licenses/DINOv2-APACHE-2.0.txt.
+
+  LightningDiT: Copyright (c) 2024 HUST Vision Lab. MIT.
+  https://github.com/hustvl/LightningDiT
+  Full license: licenses/LightningDiT-MIT.txt.
+  It credits DiT (https://github.com/facebookresearch/DiT, CC BY-NC 4.0)
+  and SiT (https://github.com/willisma/SiT, MIT). Inherited portions retain
+  those terms; see licenses/DiT-CC-BY-NC-4.0.txt and licenses/SiT-MIT.txt.
+  The optional restoration source is not granted unrestricted commercial use.
+
+  Rotary embedding: Copyright (c) 2023 Beijing Academy of Artificial
+  Intelligence (BAAI), EVA-02; based on rotary-embedding-torch by Phil Wang.
+  MIT licenses: licenses/EVA-MIT.txt and licenses/Rotary-Embedding-MIT.txt.
+
+  RMSNorm: retained from VOSR models/rmsnorm.py. Only the normalization class
+  is included; unrelated language-model code and fairscale imports are removed.
+  Llama 2 is licensed under the LLAMA 2 Community License,
+  Copyright (c) Meta Platforms, Inc. All Rights Reserved.
+  Full agreement and required notice: licenses/Llama-2.txt and
+  licenses/Llama-2-Notice.txt. No Llama model or weights are bundled.
+
+  facexlib/RetinaFace: https://github.com/xinntao/facexlib
+  Installed separately under its upstream terms; detector assets are fetched
+  from the checksum-pinned v0.1.0 GitHub release. No detector weights are bundled.

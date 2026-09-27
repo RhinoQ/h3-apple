@@ -1,0 +1,42 @@
+{
+  "recipe": "local-vosr-v1",
+  "model_revision": "f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3",
+  "files": [
+    {
+      "path": "Qwen-Image-vae-2d/config.json",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/Qwen-Image-vae-2d/config.json",
+      "bytes": 811,
+      "sha256": "1e294faf15188e06fcb72ce09652e8fb7368bd77b8dd794b5b39fe77d610681b"
+    },
+    {
+      "path": "VOSR2/args.json",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/VOSR2/args.json",
+      "bytes": 816,
+      "sha256": "63b2f423eafae1f684ca860eb8fd0e81aa5fac858397f783d8f337871241c281"
+    },
+    {
+      "path": "Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+      "bytes": 178418892,
+      "sha256": "1dd2c67f3f29734d48709513ed181d4f351966d76ba95f77a5cff8e1daf547fa"
+    },
+    {
+      "path": "VOSR2/checkpoints/ema_model.safetensors",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/VOSR2/checkpoints/ema_model.safetensors",
+      "bytes": 5576385424,
+      "sha256": "bdcaa81e4c675b6074de643e27daafe73eb8125d4d0264d1bf30a004e9644b71"
+    },
+    {
+      "path": "torch_cache/checkpoints/dinov2_vitl14_pretrain.pth",
+      "url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitl14/dinov2_vitl14_pretrain.pth",
+      "bytes": 1217586395,
+      "sha256": "d5383ea8f4877b2472eb973e0fd72d557c7da5d3611bd527ceeb1d7162cbf428"
+    },
+    {
+      "path": "detection_Resnet50_Final.pth",
+      "url": "https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth",
+      "bytes": 109497761,
+      "sha256": "6d1de9c2944f2ccddca5f5e010ea5ae64a39845a86311af6fdf30841b0a5a16d"
+    }
+  ]
+}

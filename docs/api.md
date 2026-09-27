@@ -49,3 +49,10 @@ before publication. Model, engine and input identities accompany each run.
 The output always includes generated audio. Describe desired music, ambience,
 dialogue or silence in the prompt. Exact sounds and synchronization remain
 model capabilities, not deterministic editing controls.
+
+## Optional enhancement of an existing video
+
+After installing the `faces` extra and running `h3 prepare-faces`, call
+`enhance_faces("video.mp4", output="enhanced.mp4")`. It uses a separate worker,
+preserves input audio, skips large closeups and leaves ordinary generation unchanged.
+See [the complete optional API, input limits and quality boundary](face-enhancement.md).

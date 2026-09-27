@@ -6,12 +6,13 @@ h3-apple focuses on making MiniMax-H3 fast and simple on Apple Silicon. One
 Ref2VA generation path, with acceleration enabled automatically. Give it
 1–9 images and describe the scene, movement and sound.
 
-Version **0.5.1** adds faster, lower-memory video decoding on the **40-core M5
-Max**, with the same four-step generation recipe. Four paired decoder checks
-showed 18.4% less waiting and about 40% lower decoder memory. Complete-generation
-speed remained variable. The decoder uses approximate INT8 arithmetic; three
-clips passed numerical quality screening, while continuous-video blind review
-is still pending. See the [measurements and limits](docs/validation.md).
+Version **0.5.2** adds optional **small-face enhancement** for finished videos.
+It automatically selects small face tracks, enhances their local detail and
+preserves the source audio. Normal generation keeps the 0.5.1 four-step engine
+and its speed/quality characteristics. Enhancement is an additional operation,
+with separately installed dependencies and models. See the
+[preview, setup and limits](docs/face-enhancement.md) and
+[generation measurements](docs/validation.md).
 
 ## Install
 
@@ -22,7 +23,7 @@ other projects. If you do not have Conda, install the Apple Silicon version of
 ```bash
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.1/h3_apple-0.5.1-py3-none-any.whl
+python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.2/h3_apple-0.5.2-py3-none-any.whl
 ```
 
 The release wheel is installed directly from GitHub.
@@ -86,6 +87,19 @@ terminal input: if a first-time download exceeds 20 GB, it raises
 repeat with `allow_large_download=True`. No flag is needed for prepared models.
 Importing the package does not download models or start the engine.
 
+## Optional face enhancement
+
+After the [one-time optional setup](docs/face-enhancement.md):
+
+```bash
+h3 enhance-faces --input weekend.mp4 --output weekend-enhanced.mp4
+```
+
+This uses VOSR2 on automatically selected small faces. It keeps the video size,
+frame rate and original audio; large closeups are skipped. Inspect the result:
+restored eye, mouth and skin detail can change, and the model has no temporal
+conditioning. It cannot fix acting, gaze direction or story continuity.
+
 If your shell cannot find `h3`, use `python -m h3_apple` with the Python that
 installed the package. To upgrade, repeat the release-wheel installation command
 with `--upgrade`.
@@ -95,7 +109,12 @@ with `--upgrade`.
 ## License
 
 Built with MiniMax H3. This is an independent community project.
-Code: [Apache-2.0](https://github.com/RhinoQ/h3-apple/blob/main/LICENSE); models: [MiniMax H3 Community License](https://github.com/RhinoQ/h3-apple/blob/main/licenses/MiniMax-H3.txt).
+Independently authored code: [Apache-2.0](https://github.com/RhinoQ/h3-apple/blob/main/LICENSE);
+generation models: [MiniMax H3 Community License](https://github.com/RhinoQ/h3-apple/blob/main/licenses/MiniMax-H3.txt).
+The optional restoration components have separate terms, including the retained
+Llama 2 normalization component and the CC BY-NC DiT source lineage. The combined
+package is not offered under an Apache-only commercial-use grant. See the
+[component terms](docs/face-enhancement.md#component-terms).
 The integrated native engine and other upstream work retain their credits and
 licenses in [THIRD_PARTY_NOTICES](https://github.com/RhinoQ/h3-apple/blob/main/THIRD_PARTY_NOTICES).
 
