@@ -1,5 +1,10 @@
 # Validation
 
+Version 0.5.2 keeps the 0.5.1 native generator unchanged. Its installed CLI/API
+generation checks and separate optional-restoration checks are recorded in
+[the 0.5.2 release evidence](evidence/v0.5.2-release.json). The measurements
+below retain their original version and scope.
+
 ## Version 0.5.1
 
 The H256 rotated INT8 video decoder was tested on a **40-core M5 Max, 128 GiB

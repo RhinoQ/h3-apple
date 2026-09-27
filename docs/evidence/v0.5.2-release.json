@@ -1,0 +1,196 @@
+{
+  "schema": "h3-apple-release-validation/v1",
+  "version": "0.5.2",
+  "runtime_source_commit": "72708954cc9983b9133bee846ab5634d2ce9b193",
+  "scope": "Installed-package integration and bounded restoration reproduction, not a new quality study or performance comparison.",
+  "package_source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d",
+  "host": {
+    "chip": "Apple M5 Max",
+    "gpu_cores": 40,
+    "unified_memory_gib": 128,
+    "macos": "26.6.1",
+    "python": "3.11.16",
+    "ffmpeg": "8.1.2",
+    "restoration": "PyTorch 2.11.0 FP32 MPS"
+  },
+  "tests": {
+    "optional_environment_passed": 126,
+    "base_only_environment_passed": 116,
+    "base_only_optional_tests_skipped": 10,
+    "optional_log_sha256": "464950d32e9ecb70584e5667081ae1cca6689aafa74cf80be7bd3baf1ee68f8b",
+    "base_log_sha256": "f2eda02e6593b618afb0486f297f4a868436906ba9f61cd3dfa73734966be2ea",
+    "no_heavy_imports": [
+      "torch",
+      "torchvision",
+      "cv2",
+      "numpy",
+      "diffusers",
+      "transformers",
+      "mlx"
+    ]
+  },
+  "default_generation": {
+    "unchanged_modules": [
+      "src/h3_apple/api.py",
+      "src/h3_apple/assets.py",
+      "src/h3_apple/compute.py",
+      "src/h3_apple/downloads.py",
+      "src/h3_apple/engine.py",
+      "src/h3_apple/host.py",
+      "src/h3_apple/image_inputs.py",
+      "src/h3_apple/io.py",
+      "src/h3_apple/media.py",
+      "src/h3_apple/preparation.py",
+      "src/h3_apple/process.py",
+      "src/h3_apple/progress.py",
+      "src/h3_apple/worker.py"
+    ],
+    "native_commit": "2070ba62f5e5ef552bce65a6137638b245da6e54",
+    "native_archive_sha256": "b473b1ee15c7394524bd70f13293291dba62b463a1d1f4c85421081ff8e2e2ae",
+    "decoded_outputs_equal_v051": true,
+    "runs": [
+      {
+        "entry": "cli",
+        "passed": true,
+        "process_seconds": 212.57145062508062,
+        "peak_footprint_bytes": 61841675280,
+        "rss_fallback_samples": 0,
+        "decoded_sha256": {
+          "v": "SHA256=88bcf0bacfb33cd34390925ab2b2df2af1a0a5ef05257d9989d3f44cfaa3b00b",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "package_source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d"
+      },
+      {
+        "entry": "api",
+        "passed": true,
+        "process_seconds": 282.94558524992317,
+        "peak_footprint_bytes": 61907292792,
+        "rss_fallback_samples": 1,
+        "decoded_sha256": {
+          "v": "SHA256=88bcf0bacfb33cd34390925ab2b2df2af1a0a5ef05257d9989d3f44cfaa3b00b",
+          "a": "SHA256=97294a48afa66fee36b68993e9f88143b8f19c627914874c7c1e60557ef21cb1"
+        },
+        "package_source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d"
+      }
+    ],
+    "fixture": "v0.5.1-release.json",
+    "diagnostics": false,
+    "steps": 4,
+    "configuration": "5 seconds, 1024x576, seed 0, default fixed compute policy; same frozen three references and prompt as v0.5.1 release integration."
+  },
+  "face_enhancement": {
+    "recipe": "local-vosr-v1",
+    "source_url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.5.2/face-validation-input.mp4",
+    "source_sha256": "1e262496cbc36efba352ce2249b5946f9558d8933fcabd8b9c9124b6d97c6e37",
+    "output_url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.5.2/face-validation-output.mp4",
+    "output_sha256": "d2cbcf96d1ca2903517b4282a324f9d28c13bc42949e5bbf46940fa31626a342",
+    "source_video_seconds": 17.75,
+    "original_audio_seconds": 17.8,
+    "dimensions": [
+      1024,
+      576
+    ],
+    "fps": 24,
+    "frames": 426,
+    "all_rgb_equal": true,
+    "unequal_frames": [],
+    "geometry_equal": true,
+    "enhanced_frames": 234,
+    "face_passes": 352,
+    "audio_preserved": true,
+    "exterior_pixels_exact_before_encoding": true,
+    "final_installed_attempt": "faces-api-03",
+    "attempts": [
+      {
+        "id": "faces-api-01",
+        "status": "failed",
+        "started_utc": "2026-09-27T07:38:26.285413+00:00",
+        "elapsed_seconds": 31.258414209005423,
+        "peak_footprint_bytes": 268224384,
+        "rss_fallback_samples": 0,
+        "measurement_sha256": "521836510d3cadda2d37b3d01881ae8f1474240fdea8c9cb23c0878f0028899b",
+        "reason": "An initial overly strict audio-tail check rejected the existing 50 ms AAC tail before restoration. Corrected to preserve and verify original audio timing; regression test added."
+      },
+      {
+        "id": "faces-api-02",
+        "status": "complete",
+        "started_utc": "2026-09-27T07:44:33.411403+00:00",
+        "elapsed_seconds": 387.12845058296807,
+        "peak_footprint_bytes": 10259763208,
+        "rss_fallback_samples": 3,
+        "measurement_sha256": "07781f0880464355aeb947e6c77f95e2531d4b540a7b15133fd8290d19117520",
+        "package_source_sha256": "20cf71e5dc822f4d978cee25b0fe45eea877b5c2493406a7445349a45b51a25c",
+        "enhanced_frames": 234,
+        "face_passes": 352,
+        "audio_preserved": true,
+        "unchanged_copy": false,
+        "video_sha256": "d2cbcf96d1ca2903517b4282a324f9d28c13bc42949e5bbf46940fa31626a342"
+      },
+      {
+        "id": "faces-cli-01",
+        "status": "complete",
+        "started_utc": "2026-09-27T07:52:10.949417+00:00",
+        "elapsed_seconds": 49.50950237503275,
+        "peak_footprint_bytes": 10214870928,
+        "rss_fallback_samples": 1,
+        "measurement_sha256": "cdc4d42ce1d46d08ee6b7034ebafaf19e9a9442f908f1b378f111316d660a479",
+        "package_source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d",
+        "enhanced_frames": 24,
+        "face_passes": 48,
+        "audio_preserved": true,
+        "unchanged_copy": false,
+        "video_sha256": "06d8aa87ba4262b83e35f3cf1c74c1ee26cd624c5b4a76e9958036baadf56204"
+      },
+      {
+        "id": "no-face-cli-01",
+        "status": "complete",
+        "started_utc": "2026-09-27T07:53:00.554621+00:00",
+        "elapsed_seconds": 6.189418875030242,
+        "peak_footprint_bytes": 1766836672,
+        "rss_fallback_samples": 1,
+        "measurement_sha256": "32663dbb5ebc34e89aa58ac45c253da2ad1a778b5fb713f3713199e254241238",
+        "package_source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d",
+        "enhanced_frames": 0,
+        "face_passes": 0,
+        "audio_preserved": true,
+        "unchanged_copy": true,
+        "video_sha256": "8952a8ab82ab8a64b52580f8ffa1f7caef3015a6b096a1ae76b47f698c1ebc6b"
+      },
+      {
+        "id": "faces-api-03",
+        "status": "complete",
+        "started_utc": "2026-09-27T08:02:37.160504+00:00",
+        "elapsed_seconds": 370.787262458005,
+        "peak_footprint_bytes": 10257764216,
+        "rss_fallback_samples": 1,
+        "measurement_sha256": "f1c55426ad895d3eac991f371974a977aa9b45af1b5e1692d093cb5979805610",
+        "package_source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d",
+        "enhanced_frames": 234,
+        "face_passes": 352,
+        "audio_preserved": true,
+        "unchanged_copy": false,
+        "video_sha256": "d2cbcf96d1ca2903517b4282a324f9d28c13bc42949e5bbf46940fa31626a342",
+        "reason": "Final installed-wheel replay: earlier full-film candidate had a different package source fingerprint. Repeated in a fresh immutable directory to bind every frame to the actual release runtime."
+      }
+    ],
+    "memory_definition": "One-second sampled sum of process-tree physical footprint; individual inaccessible process readings use RSS and the fallback count is disclosed. Not dedicated VRAM, a guaranteed maximum or minimum machine RAM.",
+    "model_download_bytes": 0,
+    "model_manifest": "../../src/h3_apple/data/face-model-sources.json",
+    "quality_review": "https://rhinoq.github.io/h3-apple/previews/delegation-local-vosr/",
+    "limits": [
+      "Detail is reconstructed; exact facial identity and temporal fidelity are not guaranteed.",
+      "No sharp ground truth or new blind review.",
+      "Does not repair actions, gaze direction or narrative continuity; diagnostic source film remains rejected as a finished story.",
+      "Lossy H.264 encode can alter pixels outside restoration masks.",
+      "Technical decoded-audio equality does not imply human listening.",
+      "Different export scope prevents treating historical and installed timings as a measured speedup."
+    ]
+  },
+  "license_manifest": "v0.5.2-source-components.json",
+  "boundaries": [
+    "Default ultrafast engine is unchanged.",
+    "No whole-generation speedup, batch acceleration, smaller-memory support or unrestricted commercial license claim.",
+    "GitHub release distribution; PyPI publication is not part of this release."
+  ]
+}

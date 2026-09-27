@@ -106,6 +106,11 @@ target was not met; the user accepted this measured cost for an optional pass.
 
 Installed-package release checks are recorded in
 [v0.5.2 release evidence](evidence/v0.5.2-release.json).
+The final installed-wheel replay took **370.79 seconds**, with a **9.55 GiB**
+sampled process-tree peak (one individual process reading used RSS fallback).
+All 426 pre-encode RGB frames, selection geometry and the complete MP4 bytes
+match the accepted comparison. The export scope differs from the earlier
+research run, so these timings are not a controlled speedup comparison.
 
 ## Component terms
 
