@@ -63,10 +63,8 @@ Describe how each reference should be used. The full prompt is passed through
 unchanged. Style references may also influence characters and composition;
 precise identity, text and shot timing are not guaranteed.
 
-The [Ref2VA prompting skill](skills/h3-apple-ref2va-prompting/SKILL.md) helps plan
-reference roles, shots and audio, and review motion, visible text and continuity.
-It adapts to the creative brief across different subjects and video forms. A
-standalone skill ZIP is also included in the GitHub release.
+The optional [Codex prompting skill](#prompting-skill-for-codex) helps turn your
+references and creative brief into a complete prompt.
 
 Defaults: **15 seconds, 576p, landscape, 24 fps, stereo audio**. Generated files
 and their run records go into a new `runs/` folder unless `--output` is given.
@@ -77,6 +75,31 @@ Use `--duration 5` for a short first run, `--aspect-ratio 9:16` for portrait,
 ```bash
 h3 doctor
 ```
+
+## Prompting skill for Codex
+
+The [Ref2VA prompting skill](skills/h3-apple-ref2va-prompting/SKILL.md) helps plan
+reference roles, shots and audio, and review motion, visible text and continuity.
+It works across subjects and video styles.
+
+To install it, paste this into a [Codex chat](https://learn.chatgpt.com/docs/build-skills#install-curated-skills-for-local-use):
+
+```text
+$skill-installer install from https://github.com/RhinoQ/h3-apple/tree/v0.5.3/skills/h3-apple-ref2va-prompting
+```
+
+Then attach your reference images and invoke it in your next message:
+
+```text
+$h3-apple-ref2va-prompting
+Plan a 5-second video from these images, with Mandarin dialogue and no subtitles.
+Save the complete prompt as story.txt.
+```
+
+Use the [generation command above](#generate) with `--prompt-file story.txt --duration 5`,
+keeping the images in the order used by the prompt. If the skill does not appear,
+restart Codex. A standalone [skill ZIP](https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3-apple-ref2va-prompting.zip)
+is also available.
 
 ## Python
 
