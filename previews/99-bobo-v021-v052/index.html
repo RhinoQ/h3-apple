@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>99 与 bobo · v0.2.1 / v0.5.2 原片对比</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8f6ef;color:#282c27;font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}main{max-width:1420px;margin:auto;padding:44px 24px 64px}h1{font-size:clamp(28px,4vw,46px);letter-spacing:-1px;line-height:1.2;margin:12px 0 20px}h2{font-size:24px;margin:0}p{max-width:960px}.eyebrow{color:#607257;font-weight:650;font-size:13px;letter-spacing:2px}.intro{font-size:19px}.muted{color:#61685e}.spec{display:flex;gap:10px;flex-wrap:wrap}.spec span{border:1px solid #d8dccf;border-radius:20px;padding:4px 12px;font-size:14px;background:#fffdf8}.case{margin-top:32px;padding:24px;background:#fffefa;border:1px solid #dce0d2;border-radius:18px;box-shadow:0 5px 22px #22331105}.casehead{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.index{color:#7b876d;font-size:14px;margin:0 0 3px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}figure{margin:0;background:#eee;border-radius:10px;overflow:hidden}video{display:block;width:100%;aspect-ratio:1366/768;background:#182018}figcaption{padding:9px 13px;background:#f1f3eb;display:flex;gap:8px;justify-content:space-between;font-size:14px}figcaption a{color:#536849}.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0 12px}button,select{font:inherit;color:inherit;border:1px solid #bcc7b0;background:#fff;border-radius:8px;padding:8px 13px}button{cursor:pointer;background:#426443;color:#fff;border-color:#426443;min-width:106px}button:hover{background:#345435}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #ce8b28;outline-offset:3px}.seek{flex:1;min-width:120px;accent-color:#426443}.time{font-variant-numeric:tabular-nums;min-width:92px;font-size:14px}.controls label{font-size:14px}.error{color:#8b2b23;min-height:1.65em}.verdict{border-left:3px solid #c6a861;padding-left:14px;margin-top:12px}.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px}.notes p{font-size:14px;color:#555d51;margin:6px 0}.notes strong{color:#333b30}table{width:100%;border-collapse:collapse;background:#fffefa;margin:18px 0 12px;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:12px;border-bottom:1px solid #e1e3d8}th{font-size:14px;color:#59684f}footer{margin-top:38px;font-size:14px;color:#62695d}footer a{color:#426443}.limitations{padding:16px 20px;background:#eef0e5;border-radius:12px}.timecard{margin-top:32px;overflow-x:auto}@media(max-width:760px){main{padding:24px 14px}.case{padding:16px}.notes{grid-template-columns:1fr}.casehead{display:block}figcaption{font-size:13px}.controls{gap:8px}.controls label{width:100%}table{font-size:14px}td,th{padding:8px}}
+@media(max-width:600px){.pair{grid-template-columns:1fr}}
+</style>
+<main>
+<div class="eyebrow">同图 · 同提示词 · 同尺寸 · 原生音轨</div>
+<h1>99 与 bobo，哪个版本更适合？</h1>
+<p class="intro" id="recommendation"></p>
+<div class="spec"><span>1366 × 768</span><span>每条 5 秒 · 24 fps</span><span>3 组 × 2 版</span><span>M5 Max · 128 GiB</span></div>
+<p class="muted">左右均为未经修复、未换配音的原片。按“同步播放”对照动作；声音菜单可切换版本，避免两条音轨重叠。点击视频可单独全屏查看。</p>
+<div class="timecard"><h2>生成耗时</h2><table><thead><tr><th>场景</th><th>v0.2.1</th><th>v0.5.2</th><th>0.5.2 等待变化</th></tr></thead><tbody id="timings"></tbody></table><p class="muted" id="speed-summary"></p></div>
+<div id="cases"></div>
+<footer><div class="limitations">这是三组固定种子、每版各一次的产品版本对照，包含各自模型配方与后端差异。画面判断来自非盲密集抽帧；对白文字由未提供台词的本地 ASR 核对。未完成主观听感、逐音素口型及多人盲评，不据此推断通用质量排名。</div><p><a href="samples.json">原片信息、生成耗时与 SHA-256 校验</a> · <a href="https://github.com/RhinoQ/h3-apple">h3-apple 项目</a> · <a href="https://github.com/RhinoQ/h3-apple#license">模型与依赖许可</a></p></footer>
+</main>
+<script id="data" type="application/json">{"recommendation": "快速试剧情优先选 0.5.2；如果更在意卡通动作过渡时的线条干净程度，本轮 0.2.1 更好。两版都完成了主要动作，新版的速度优势伴随跑步、递物局部拖影的取舍。", "speed_summary": "三条 5 秒视频：0.2.1 共 40 分 32 秒，0.5.2 共 24 分 52 秒。新版三组都更快，合计等待减少 38.6%，节省约 15 分 40 秒；不含环境准备、降温和审片。", "cases": [{"id": "01-dialogue", "title": "双人对白与表情", "task": "99：今天精神真好！bobo：因为有你陪我呀！", "verdict": "角色与轮流说话基本持平。旧版自动加字幕，新版画面没有字幕；旧版“因为”的读音/转写仍待人工试听，不能把 ASR 差异直接算成念错。", "versions": {"0.2.1": {"file": "videos/01-dialogue-v0.2.1.mp4", "seconds": 840.2297251669224, "note": "角色、表情和说话顺序保持稳定，景别较近并带有自动字幕。完整音轨及尾句 ASR 都把“因为”转成“一位”，字幕却写作“因为”；保留歧义。"}, "0.5.2": {"file": "videos/01-dialogue-v0.5.2.mp4", "seconds": 495.3550056250533, "note": "角色和轮流说话保持稳定，构图更宽，可见完整服装；未出现字幕。完整音轨与尾句 ASR 均识别出指定台词。"}}, "old_seconds": 840.2297251669224, "new_seconds": 495.3550056250533}, {"id": "02-running", "title": "并排跑步与肢体稳定", "task": "99 稍微领先，和 bobo 持续向右跑；镜头侧向跟拍，无对白。", "verdict": "两版都形成持续跑步和背景位移。旧版动作轮廓更干净；新版步幅更大，但手腕、短裤和鞋子在换步时有较明显的拖影。", "versions": {"0.2.1": {"file": "videos/02-running-v0.2.1.mp4", "seconds": 808.7312894159695, "note": "交替迈步、摆臂和跟拍成立，兔子保持领先。轮廓比新版稳定，末段前景花草遮住一部分鞋子。"}, "0.5.2": {"file": "videos/02-running-v0.5.2.mp4", "seconds": 490.9263222910231, "note": "跑步方向、角色和跟拍成立，步幅更大。约 1.083–1.250、1.500、1.667–1.833 秒可见手腕、短裤或鞋部拖影；没有持续多出一条腿。"}}, "old_seconds": 808.7312894159695, "new_seconds": 490.9263222910231}, {"id": "03-handoff", "title": "递面包与道具连续性", "task": "99：这个面包给你。bobo 接过唯一的面包：谢谢，真香！末尾抬到鼻子附近。", "verdict": "两版都完成面包交接，两句台词均被识别。旧版交接与抬手轮廓更干净；新版交接时间更接近要求，但 2.5 秒与 4.5 秒附近出现明显局部拖影。", "versions": {"0.2.1": {"file": "videos/03-handoff-v0.2.1.mp4", "seconds": 783.1424993340624, "note": "面包从兔转到熊，兔收回空手，熊末尾保留单个面包并抬起；线条较干净。松手约 2.75–2.83 秒，比要求的 2.7 秒略晚。"}, "0.5.2": {"file": "videos/03-handoff-v0.5.2.mp4", "seconds": 506.19495062495116, "note": "约 2.58 秒兔已松手，后续熊独持面包，台词完整。2.500–2.542、2.667–2.708 秒交接附近和 4.458–4.708 秒抬手附近有重影、局部轮廓融化；末帧恢复单个清晰面包。"}}, "old_seconds": 783.1424993340624, "new_seconds": 506.19495062495116}], "total": {"title": "三组总计", "old_seconds": 2432.1035139169544, "new_seconds": 1492.4762785410276}}</script>
+<script>
+'use strict';
+const data=JSON.parse(document.getElementById('data').textContent);
+const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
+const duration=s=>{const n=Math.round(s);return `${Math.floor(n/60)} 分 ${(n%60).toString().padStart(2,'0')} 秒`};
+document.getElementById('recommendation').textContent=data.recommendation;
+document.getElementById('speed-summary').textContent=data.speed_summary;
+for(const entry of [...data.cases,data.total]){
+ const row=el('tr');for(const cell of [entry.title,duration(entry.old_seconds),duration(entry.new_seconds),`${entry.new_seconds<entry.old_seconds?'减少':'增加'} ${Math.abs((entry.new_seconds/entry.old_seconds-1)*100).toFixed(1)}%`])row.append(el('td','',cell));document.getElementById('timings').append(row);
+}
+for(const [index,entry] of data.cases.entries()){
+ const section=el('section','case');section.append(el('p','index',`测试 ${String(index+1).padStart(2,'0')}`));
+ section.append(el('h2','',entry.title));section.append(el('p','muted',entry.task));
+ const pair=el('div','pair');const videos=[];
+ for(const version of ['0.2.1','0.5.2']){
+  const side=entry.versions[version];const fig=el('figure');const video=el('video');video.src=side.file;video.preload='metadata';video.playsInline=true;video.controls=true;video.muted=version!=='0.5.2';video.setAttribute('aria-label',`${entry.title} v${version}`);fig.append(video);
+  const caption=el('figcaption');caption.append(el('strong','',`v${version} · ${duration(side.seconds)}`));const link=el('a','','保存原片');link.href=side.file;link.download='';caption.append(link);fig.append(caption);pair.append(fig);videos.push(video);
+ }
+ section.append(pair);const controls=el('div','controls');const play=el('button','','同步播放');play.type='button';const seek=el('input','seek');seek.type='range';seek.min=0;seek.max=5;seek.step=1/24;seek.value=0;seek.setAttribute('aria-label',`${entry.title} 时间位置`);const clock=el('span','time','0.00 / 5.00');
+ const audioLabel=el('label','','声音 ');const audio=el('select');audio.setAttribute('aria-label',`${entry.title} 声音版本`);for(const [value,label] of [['1','v0.5.2'],['0','v0.2.1'],['-1','静音']]){const option=el('option','',label);option.value=value;audio.append(option)}audioLabel.append(audio);
+ const rateLabel=el('label','','速度 ');const rate=el('select');rate.setAttribute('aria-label',`${entry.title} 播放速度`);for(const value of [1,0.5]){const option=el('option','',`${value}×`);option.value=value;rate.append(option)}rateLabel.append(rate);controls.append(play,seek,clock,audioLabel,rateLabel);section.append(controls);
+ const error=el('div','error');error.setAttribute('role','status');section.append(error);
+ let sync=false;const stop=()=>{sync=false;videos.forEach(v=>v.pause());play.textContent='同步播放'};
+ function tick(){const master=videos[0],slave=videos[1];seek.value=master.currentTime;clock.textContent=`${master.currentTime.toFixed(2)} / 5.00`;if(sync&&!master.paused){if(Math.abs(slave.currentTime-master.currentTime)>.09)slave.currentTime=master.currentTime;requestAnimationFrame(tick)}}
+ play.addEventListener('click',async()=>{error.textContent='';if(sync){stop();return}document.querySelectorAll('video').forEach(v=>{if(!videos.includes(v))v.pause()});if(videos[0].currentTime>=4.98)videos.forEach(v=>v.currentTime=0);videos[1].currentTime=videos[0].currentTime;sync=true;play.textContent='暂停';try{await Promise.all(videos.map(v=>v.play()));requestAnimationFrame(tick)}catch(e){stop();error.textContent='浏览器未能同时播放，请使用视频自带的播放按钮。'}});
+ seek.addEventListener('input',()=>{videos.forEach(v=>v.currentTime=Number(seek.value));clock.textContent=`${Number(seek.value).toFixed(2)} / 5.00`});audio.addEventListener('change',()=>videos.forEach((v,i)=>v.muted=i!==Number(audio.value)));rate.addEventListener('change',()=>videos.forEach(v=>v.playbackRate=Number(rate.value)));
+ videos[0].addEventListener('ended',stop);videos[0].addEventListener('timeupdate',()=>{if(!sync)tick()});
+ section.append(el('p','verdict',entry.verdict));const notes=el('div','notes');for(const version of ['0.2.1','0.5.2']){const note=el('p');note.append(el('strong','',`v${version}：`));note.append(document.createTextNode(entry.versions[version].note));notes.append(note)}section.append(notes);document.getElementById('cases').append(section);
+}
+</script>
+</html>

@@ -1,0 +1,96 @@
+{
+  "title": "99 与 bobo：h3-apple v0.2.1 / v0.5.2",
+  "generated_on": "2026-09-27",
+  "task": "MiniMax-H3 Ref2VA",
+  "duration_seconds": 5,
+  "width": 1366,
+  "height": 768,
+  "fps": 24,
+  "num_frames": 120,
+  "audio_sample_rate": 32000,
+  "audio_channels": 2,
+  "actual_denoising_forwards": 4,
+  "hardware": "Apple M5 Max, 128 GiB, macOS 26.6.1",
+  "scope": "Three paired cases, one fixed seed per case. Released stacks differ in model recipe and backend; equal seeds do not imply identical internal noise. Original videos and generated audio, no enhancement or re-encoding.",
+  "timing": "Public generate() elapsed_seconds; excludes environment setup, cooldown and review.",
+  "review": "Non-blind sampled and targeted dense-frame inspection with unprompted ASR. No subjective audio review, phoneme-level lip-sync review or multi-rater blind evaluation.",
+  "versions": {
+    "0.2.1": {
+      "product_commit": "f5a12e7571e06f8aa15631226f87f56578d374a6",
+      "wheel_sha256": "fe1f6579d1ae0f4244de9ce8484a3e29747e508feb8d8d4d3bda6bab22da7e43",
+      "source_sha256": "88a3de4c5bb85d7b5dd452383b5592f2df508f869261a4a574a1d0e4618e8e86"
+    },
+    "0.5.2": {
+      "product_commit": "694cdffeca06b0f0411e7c240bdb78e66fa4fb00",
+      "wheel_sha256": "3932e285330cb6853d49bcf7c7dc2fbb24aa514aa0e59c5ccd88716e81af2661",
+      "source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d"
+    }
+  },
+  "total_generation_seconds": {
+    "0.2.1": 2432.1035139169544,
+    "0.5.2": 1492.4762785410276
+  },
+  "total_wait_reduction_percent": 38.6343438919932,
+  "samples": [
+    {
+      "case": "01-dialogue",
+      "title": "双人对白与表情",
+      "version": "0.2.1",
+      "seed": 2026092701,
+      "video": "videos/01-dialogue-v0.2.1.mp4",
+      "bytes": 2519533,
+      "sha256": "f9715d5667b81e8c57b7d091cce00e893a3ff669ca217b5b256464e2be630f39",
+      "generation_seconds": 840.2297251669224
+    },
+    {
+      "case": "01-dialogue",
+      "title": "双人对白与表情",
+      "version": "0.5.2",
+      "seed": 2026092701,
+      "video": "videos/01-dialogue-v0.5.2.mp4",
+      "bytes": 2088428,
+      "sha256": "b39e453fa55cbc8d721fb1bd1103cb3606a5141b7afc82b445fe0ee7f3958be5",
+      "generation_seconds": 495.3550056250533
+    },
+    {
+      "case": "02-running",
+      "title": "并排跑步与肢体稳定",
+      "version": "0.2.1",
+      "seed": 2026092702,
+      "video": "videos/02-running-v0.2.1.mp4",
+      "bytes": 5795125,
+      "sha256": "c578bb6a60e0d533ea7cea40b6ebbacbf3144cb60262809a4e56e253f3af8c3c",
+      "generation_seconds": 808.7312894159695
+    },
+    {
+      "case": "02-running",
+      "title": "并排跑步与肢体稳定",
+      "version": "0.5.2",
+      "seed": 2026092702,
+      "video": "videos/02-running-v0.5.2.mp4",
+      "bytes": 5544230,
+      "sha256": "9312e3333a1fc7006fb91c50cadfbfade4c45968377e3bc36480da218d560cbc",
+      "generation_seconds": 490.9263222910231
+    },
+    {
+      "case": "03-handoff",
+      "title": "递面包与道具连续性",
+      "version": "0.2.1",
+      "seed": 2026092703,
+      "video": "videos/03-handoff-v0.2.1.mp4",
+      "bytes": 2148571,
+      "sha256": "b139fe493678ea961db6feac59c317f806bac200c662d0e136da975796548c51",
+      "generation_seconds": 783.1424993340624
+    },
+    {
+      "case": "03-handoff",
+      "title": "递面包与道具连续性",
+      "version": "0.5.2",
+      "seed": 2026092703,
+      "video": "videos/03-handoff-v0.5.2.mp4",
+      "bytes": 2197049,
+      "sha256": "78e59edf78510a3784b49606748d287a215879c6f33745ea643f46422abdb102",
+      "generation_seconds": 506.19495062495116
+    }
+  ]
+}
