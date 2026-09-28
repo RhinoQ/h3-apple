@@ -1,0 +1,146 @@
+{
+  "study": "P136: 99 / bobo original LightX2V vs default DARE-TIES on h3-apple 0.5.2",
+  "result": "本轮支持：在同一 0.5.2 引擎下，换回原始 LightX2V LoRA 能减轻这两组动作的拖影，跑步改善最明显；对白例基本持平。仍有少量模糊过渡帧，不能视为彻底修复。",
+  "limitations": "这是三组已知问题、每组一个固定种子的回归对照。画面判断来自非盲抽帧及关键动作的连续原始帧；未做多人盲评、完整连续运动观感或主观听感验收。ASR 仅支持对白文字核对，不证明声线与逐音素口型。结果不代表所有题材或种子，不自动更改产品默认。",
+  "recipe": {
+    "steps": 4,
+    "graph_steps": 5,
+    "video_shift": 12.0,
+    "audio_shift": 3.0,
+    "lora_scale": 1.0
+  },
+  "runtime": {
+    "h3_apple": "0.5.2",
+    "product_commit": "694cdffeca06b0f0411e7c240bdb78e66fa4fb00",
+    "wheel_sha256": "3932e285330cb6853d49bcf7c7dc2fbb24aa514aa0e59c5ccd88716e81af2661",
+    "package_source_sha256": "04aa5f4fb45551226d489f606758663c0ae1b7eb99798d070d991771eac9224d",
+    "engine_sha256": "ba9cf796e9daa33b32fa41a464a5ea8667c6e8b3ea50c1b837b9f8ca5a7344c7",
+    "library_sha256": "4ad9e9b424abbbf8227028d63f581a2b81e26f2a7b080fb4a06adfb18a030387"
+  },
+  "loras": {
+    "default": {
+      "name": "DARE-TIES fro0995",
+      "adapter_sha256": "e44c667b162a6e951f663b75d88facfd4e24c915e2c556b07ec1fec23fef5a61",
+      "model_identity": "18d60ac845cae4d99e92c3aa041bcbc89f0aeacd5ca5405a8d5bba9898a9cb41"
+    },
+    "original": {
+      "name": "LightX2V Ref2VA Turbo 4step v0.1",
+      "adapter_sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99",
+      "model_identity": "30e7aa0b61f68b1b953f37fea5b03bc67ebeede7377948c0ca0d5c546d7a32c7"
+    }
+  },
+  "original_lora_source": "https://huggingface.co/lightx2v/Minimax-h3-Turbo/resolve/ec01fa4c86263832faa0bd1d6d8f36a281eaabb2/minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors",
+  "controls": "Same engine, base assets, prompt, reference pixels, seed and actual compute routes; only adapter and model identity changed. A fresh default dialogue replay matched the historical MP4, RGB and PCM before historical default videos were reused.",
+  "format": {
+    "width": 1366,
+    "height": 768,
+    "duration_seconds": 5,
+    "fps": 24,
+    "frames": 120,
+    "audio_sample_rate": 32000,
+    "audio_channels": 2
+  },
+  "reference_images": [
+    {
+      "name": "99.jpg",
+      "sha256": "28ddae5599acd8aeafc53d5d953f2616c2236e8c2fac84c94497078c5804324f",
+      "role": "99 identity"
+    },
+    {
+      "name": "bobo.jpg",
+      "sha256": "84cae0ae3ec997d2714e1b1133734619208efc7236a70ee928941f14987ef7e2",
+      "role": "bobo identity"
+    },
+    {
+      "name": "IMG_2304.jpg",
+      "sha256": "c71cc6ea0c0f13bf4dfaca12856fedefdebd6a3cb4edd36cffab61bce3de56b4",
+      "role": "painted style and palette only"
+    }
+  ],
+  "timing_scope": "此处仅列 native_generation 阶段耗时。默认原片与候选在不同日期运行；默认对白重放已逐字节一致，但不能据跨日计时声称严格性能收益。",
+  "cases": [
+    {
+      "id": "01-dialogue",
+      "title": "双人中文对白",
+      "seed": 2026092701,
+      "prompt": "subject_definitions:\n<Subject 1> is 99, the single pastel-pink rabbit whose identity is shown in the three views of <Picture 1>: long upright ears with darker pink centers, rounded cheeks, black dot eyes, tiny dark nose, a yellow pinafore with one pink square front pocket over a white short-sleeved shirt, and white shoes. The views describe one character.\n<Subject 2> is bobo, the single caramel-brown bear whose identity is shown in the three views of <Picture 2>: round ears with cream centers, a cream oval muzzle, dark dot eyes and black nose, pink cheek circles, sage-green short-sleeved T-shirt with one yellow chest pocket, cream shorts, and white shoes. The views describe one character.\n<Subject 3> is the soft hand-painted 2D storybook style and pastoral spring color palette of <Picture 3>: warm dark-brown contour lines, rounded simple characters against softly painted greenery, yellow-green grass, tiny wildflowers, distant blue-green hills, and warm sunlight. This is a style reference; the target cast consists of <Subject 1> and <Subject 2>.\n\nsummary:\n[reference generation] In a five-second conversational scene, 99 <Subject 1> and bobo <Subject 2> enjoy a sunny park morning and exchange two warm Mandarin lines, preserving their identities and the painted style of <Subject 3>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - preserve one pink rabbit with the long ears, face, yellow pinafore, pink pocket, white sleeves and shoes shown in the identity reference.\n<Subject 2> (appears in [Shot 1]): fully_preserved - preserve one brown bear with cream muzzle and ear centers, green shirt, yellow chest pocket, cream shorts and white shoes shown in the identity reference.\n<Subject 3> (appears in [Shot 1]): fully_preserved - preserve the defined soft painted 2D storybook style, warm brown outlines, spring greens, wildflowers and morning sunlight in the new park action.\n\ndetailed_description:\nThe target is a clean full-screen hand-drawn 2D cartoon, with soft painted spring park scenery in the style of <Subject 3>. A pale beige path lies before green trees, small flowers and distant blue-green hills. Warm morning sunlight comes from the upper right.\n[Shot 1] A fixed medium two-shot frames the two characters from the knees upward with both complete heads, ears and hands visible. Bobo <Subject 2> is on the left, and 99 <Subject 1> is on the right, each turned three-quarters toward the other. They stand at an easy conversational distance on the park path. The composition remains stable throughout five seconds. From 0.2 to 2.1 seconds the rabbit <Subject 1>, with a bright medium-high youthful female Mandarin voice, a light warm timbre and clear standard pronunciation (S1), looks at the bear, smiles and says: <d>[Chinese] 今天精神真好！</d> The bear listens with his lips closed and eyes directed toward her. After a small pause, from 2.4 to 4.5 seconds the bear <Subject 2>, with a warm medium-low youthful male Mandarin voice, rounded timbre and clear standard pronunciation (S2), answers her with a relaxed smile: <d>[Chinese] 因为有你陪我呀！</d> The rabbit listens during his turn and gives one small happy nod near the end. The two visible mouths articulate their respective lines. The final half second holds the pair smiling at each other with their hands relaxed at their sides.\n\noverall_soundscape:\nQuiet morning birds and a light breeze through the leaves remain below the two foreground Mandarin speaking turns. The short pause between the lines stays clear.\n\nnon_diegetic_music:\nN/A\n",
+      "prompt_sha256": "0e767acd3902b2fce47d6c1e8ae0074fedc04fbb6f2e5fd8742f3334768b71c1",
+      "verdict": "基本持平。两侧保留人物、服装和先兔后熊的嘴部活动顺序；无提示 ASR 均匹配两句台词。",
+      "observations": [
+        "0–4.958 秒抽帧保留一兔一熊及原衣着；99 的嘴部活动主要位于前半段，bobo 位于后半段。",
+        "两侧 ASR 原文都是「今天精神真好因为有你陪我呀」。"
+      ],
+      "videos": [
+        {
+          "file": "videos/01-dialogue-default.mp4",
+          "bytes": 2088428,
+          "sha256": "b39e453fa55cbc8d721fb1bd1103cb3606a5141b7afc82b445fe0ee7f3958be5",
+          "native_generation_seconds": 493.61151091603097
+        },
+        {
+          "file": "videos/01-dialogue-original.mp4",
+          "bytes": 1927574,
+          "sha256": "161058da9fc58c571684f5c4a98a166f1d9abb6a15a52dc10422dd3c76f7a972",
+          "native_generation_seconds": 486.3935247079935
+        }
+      ]
+    },
+    {
+      "id": "02-running",
+      "title": "公园并排跑步",
+      "seed": 2026092702,
+      "prompt": "subject_definitions:\n<Subject 1> is 99, the single pastel-pink rabbit whose identity is shown in the three views of <Picture 1>: long upright ears with darker pink centers, rounded cheeks, black dot eyes, tiny dark nose, a yellow pinafore with one pink square front pocket over a white short-sleeved shirt, and white shoes. The views describe one character.\n<Subject 2> is bobo, the single caramel-brown bear whose identity is shown in the three views of <Picture 2>: round ears with cream centers, a cream oval muzzle, dark dot eyes and black nose, pink cheek circles, sage-green short-sleeved T-shirt with one yellow chest pocket, cream shorts, and white shoes. The views describe one character.\n<Subject 3> is the soft hand-painted 2D storybook style and pastoral spring color palette of <Picture 3>: warm dark-brown contour lines, rounded simple characters against softly painted greenery, yellow-green grass, tiny wildflowers, distant blue-green hills, and warm sunlight. This is a style reference; the target cast consists of <Subject 1> and <Subject 2>.\n\nsummary:\n[reference generation] A five-second side-tracking park run with 99 <Subject 1> and bobo <Subject 2>, preserving the referenced outfits and warm illustrated scenery of <Subject 3>. Their sustained running and stable bodies are the focus.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - preserve one pink rabbit with the long ears, face, yellow pinafore, pink pocket, white sleeves and shoes shown in the identity reference.\n<Subject 2> (appears in [Shot 1]): fully_preserved - preserve one brown bear with cream muzzle and ear centers, green shirt, yellow chest pocket, cream shorts and white shoes shown in the identity reference.\n<Subject 3> (appears in [Shot 1]): fully_preserved - preserve the defined soft painted 2D storybook style, warm brown outlines, spring greens, wildflowers and morning sunlight in the new park action.\n\ndetailed_description:\nThe target is a clean full-screen hand-drawn 2D cartoon, with soft painted spring park scenery in the style of <Subject 3>. A pale beige path lies before green trees, small flowers and distant blue-green hills. Warm morning sunlight comes from the upper right.\n[Shot 1] A medium-wide full-body side view shows bobo <Subject 2> on the left and 99 <Subject 1> on the right, already jogging together from left to right along the beige park path. The rabbit is about half a body length ahead; their bodies remain separate and their whole heads, ears, hands, legs and shoes are visible. The camera tracks smoothly to the right at their jogging speed so both stay centered while trees and flowers pass slowly to the left behind them. Over the entire five seconds both characters perform a continuous comfortable jog: their left and right feet alternate contact with the ground, knees bend in coherent short strides, opposite arms swing naturally, and the rabbit's ears bounce gently. Their heads stay recognizable and their original clothes retain their shapes and colors. They exchange a quick cheerful sideways glance near the middle while continuing forward at the same pace, then look ahead again. The shot ends while both are still jogging together. Soft rhythmic shoe taps match the footfalls; both remain silent.\n\noverall_soundscape:\nRegular light footsteps alternate against the dry path, with faint leaf rustle and distant bird calls. The characters are silent; there is no speech, singing or narration.\n\nnon_diegetic_music:\nN/A\n",
+      "prompt_sha256": "406913a0a932ee4ed8a8e4646a8d71e55d51d2f30ed010d91fb365303da34efa",
+      "verdict": "原始 LightX2V 更清楚。重点看 1.08–1.25、1.50、1.67–1.83 秒，默认版手腕、短裤和鞋边的重叠轮廓更明显；两侧都完成持续跑步。",
+      "observations": [
+        "0–4.958 秒抽帧和 1–2 秒逐帧序列都显示交替迈步、99 领先及背景向左位移，未用减少主动作换取静态清晰度。",
+        "帧 26–30、36、40–44 的默认手腕/裤脚/鞋边有多层边缘；原始 LoRA 对应帧大多更单一。帧 44 已查看双方完整 1366×768 原帧。",
+        "原始帧 37（1.542 秒）兔子手臂仍有短暂模糊；前景花朵也会遮挡局部脚部，不将遮挡判作新增肢体。",
+        "两侧无提示 ASR 均产生「字幕by索兰娅」，可疑为非语音幻觉；不能据此认定真实台词、字幕或静音合规。"
+      ],
+      "videos": [
+        {
+          "file": "videos/02-running-default.mp4",
+          "bytes": 5544230,
+          "sha256": "9312e3333a1fc7006fb91c50cadfbfade4c45968377e3bc36480da218d560cbc",
+          "native_generation_seconds": 488.58614100003615
+        },
+        {
+          "file": "videos/02-running-original.mp4",
+          "bytes": 4660045,
+          "sha256": "192f8b003a909150bf977d0e7b0d5dab91509ff9b1bdd4ce96296dcbc94dd6d2",
+          "native_generation_seconds": 482.8919638750376
+        }
+      ]
+    },
+    {
+      "id": "03-handoff",
+      "title": "递面包与道具连续性",
+      "seed": 2026092703,
+      "prompt": "subject_definitions:\n<Subject 1> is 99, the single pastel-pink rabbit whose identity is shown in the three views of <Picture 1>: long upright ears with darker pink centers, rounded cheeks, black dot eyes, tiny dark nose, a yellow pinafore with one pink square front pocket over a white short-sleeved shirt, and white shoes. The views describe one character.\n<Subject 2> is bobo, the single caramel-brown bear whose identity is shown in the three views of <Picture 2>: round ears with cream centers, a cream oval muzzle, dark dot eyes and black nose, pink cheek circles, sage-green short-sleeved T-shirt with one yellow chest pocket, cream shorts, and white shoes. The views describe one character.\n<Subject 3> is the soft hand-painted 2D storybook style and pastoral spring color palette of <Picture 3>: warm dark-brown contour lines, rounded simple characters against softly painted greenery, yellow-green grass, tiny wildflowers, distant blue-green hills, and warm sunlight. This is a style reference; the target cast consists of <Subject 1> and <Subject 2>.\n\nsummary:\n[reference generation] In a five-second two-character park scene, 99 <Subject 1> gives one bread roll to bobo <Subject 2>. The visible transfer and two short Mandarin lines unfold in the warm painted style of <Subject 3>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - preserve one pink rabbit with the long ears, face, yellow pinafore, pink pocket, white sleeves and shoes shown in the identity reference.\n<Subject 2> (appears in [Shot 1]): fully_preserved - preserve one brown bear with cream muzzle and ear centers, green shirt, yellow chest pocket, cream shorts and white shoes shown in the identity reference.\n<Subject 3> (appears in [Shot 1]): fully_preserved - preserve the defined soft painted 2D storybook style, warm brown outlines, spring greens, wildflowers and morning sunlight in the new park action.\n\ndetailed_description:\nThe target is a clean full-screen hand-drawn 2D cartoon, with soft painted spring park scenery in the style of <Subject 3>. A pale beige path lies before green trees, small flowers and distant blue-green hills. Warm morning sunlight comes from the upper right.\n[Shot 1] A locked-off medium two-shot shows bobo <Subject 2> on the left and 99 <Subject 1> on the right facing one another, with both complete faces and their hands visible. At the start the rabbit holds one small golden oval bread roll with three pale diagonal scoring marks in her right paw at chest height, and the bear's two paws are empty. From 0.2 to 1.8 seconds the rabbit <Subject 1>, with a bright medium-high youthful female Mandarin voice, a light warm timbre and clear standard pronunciation (S1), looks at the bear and says: <d>[Chinese] 这个面包给你。</d> As she speaks she extends the same roll toward him across the small gap. From about 1.5 to 2.6 seconds the bear reaches forward with both paws, visibly supports the offered roll, and the rabbit releases it and retracts her now-empty right paw. By 2.7 seconds the bear alone holds the one roll at his chest. From 2.8 to 4.4 seconds the bear <Subject 2>, with a warm medium-low youthful male Mandarin voice, rounded timbre and clear standard pronunciation (S2), smiles at the rabbit and replies: <d>[Chinese] 谢谢，真香！</d> The rabbit listens with both hands empty. In the last half second the bear lifts the bread slightly toward his nose with a pleased expression while the rabbit smiles at him. The single bread stays in the bear's paws at the end. The camera retains both faces and the entire hand-to-hand transfer in the same steady frame.\n\noverall_soundscape:\nSoft birds and park leaf rustle sit beneath the two clear Mandarin lines. A very quiet clothing rustle accompanies the reach and transfer.\n\nnon_diegetic_music:\nN/A\n",
+      "prompt_sha256": "db1dcb4102e4fe52e76c711cbbc78b23d925aee1413b87132011e0667bf0dda9",
+      "verdict": "原始 LightX2V 的交接和抬手过渡更干净。重点看 2.50–2.71 与 4.46–4.71 秒；两侧均完成交接，末帧都只有 bobo 持包。",
+      "observations": [
+        "帧 60–61（2.500–2.542 秒）、64–65（2.667–2.708 秒）默认面包/手/脸有重叠轮廓；原始 LoRA 更集中，但帧 60/64 仍有轻微软化。",
+        "原始 LoRA 到帧 60（2.500 秒）已能看到兔手和面包分离；默认约帧 62（2.583 秒）清楚分离。两侧随后都是熊双手持包、兔空手。",
+        "帧 107–113（4.458–4.708 秒）默认抬手造成面包、手、嘴附近较明显残影；原始 LoRA 减轻，帧 108 仍有轻微面包/脸边模糊。双方帧 108 已看原尺寸；末帧 119 保持一只面包在熊手里。",
+        "双方最初均双手托面包，没有严格遵循初始仅右手持包的细节；这不是原始 LoRA 新增缺陷。",
+        "两侧无提示 ASR 均匹配「这个面包给你，谢谢，真香」，候选仅分词空格不同。"
+      ],
+      "videos": [
+        {
+          "file": "videos/03-handoff-default.mp4",
+          "bytes": 2197049,
+          "sha256": "78e59edf78510a3784b49606748d287a215879c6f33745ea643f46422abdb102",
+          "native_generation_seconds": 504.29985100007616
+        },
+        {
+          "file": "videos/03-handoff-original.mp4",
+          "bytes": 2019307,
+          "sha256": "368e36bd687a964a52ba1f3cc49e22afb916fc78590b85593e0aa852e6101def",
+          "native_generation_seconds": 490.9065457080724
+        }
+      ]
+    }
+  ]
+}

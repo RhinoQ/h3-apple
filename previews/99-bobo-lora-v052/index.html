@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>99 与 bobo · 同引擎 LoRA 对比</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8f6ef;color:#282c27;font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}main{max-width:1420px;margin:auto;padding:44px 24px 64px}h1{font-size:clamp(28px,4vw,46px);letter-spacing:-1px;line-height:1.2;margin:12px 0 20px}h2{font-size:24px;margin:0}p{max-width:960px}.eyebrow{color:#607257;font-weight:650;font-size:13px;letter-spacing:2px}.intro{font-size:19px}.muted{color:#61685e}.spec{display:flex;gap:10px;flex-wrap:wrap}.spec span{border:1px solid #d8dccf;border-radius:20px;padding:4px 12px;font-size:14px;background:#fffdf8}.case{margin-top:32px;padding:24px;background:#fffefa;border:1px solid #dce0d2;border-radius:18px;box-shadow:0 5px 22px #22331105}.casehead{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.index{color:#7b876d;font-size:14px;margin:0 0 3px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}figure{margin:0;background:#eee;border-radius:10px;overflow:hidden}video{display:block;width:100%;aspect-ratio:1366/768;background:#182018}figcaption{padding:9px 13px;background:#f1f3eb;display:flex;gap:8px;justify-content:space-between;font-size:14px}figcaption a{color:#536849}.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0 12px}button,select{font:inherit;color:inherit;border:1px solid #bcc7b0;background:#fff;border-radius:8px;padding:8px 13px}button{cursor:pointer;background:#426443;color:#fff;border-color:#426443;min-width:106px}button:hover{background:#345435}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #ce8b28;outline-offset:3px}.seek{flex:1;min-width:120px;accent-color:#426443}.time{font-variant-numeric:tabular-nums;min-width:92px;font-size:14px}.controls label{font-size:14px}.error{color:#8b2b23;min-height:1.65em}.verdict{border-left:3px solid #c6a861;padding-left:14px;margin-top:12px}.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px}.notes p{font-size:14px;color:#555d51;margin:6px 0}.notes strong{color:#333b30}table{width:100%;border-collapse:collapse;background:#fffefa;margin:18px 0 12px;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:12px;border-bottom:1px solid #e1e3d8}th{font-size:14px;color:#59684f}footer{margin-top:38px;font-size:14px;color:#62695d}footer a{color:#426443}.limitations{padding:16px 20px;background:#eef0e5;border-radius:12px}.timecard{margin-top:32px;overflow-x:auto}@media(max-width:760px){main{padding:24px 14px}.case{padding:16px}.notes{grid-template-columns:1fr}.casehead{display:block}figcaption{font-size:13px}.controls{gap:8px}.controls label{width:100%}table{font-size:14px}td,th{padding:8px}}
+@media(max-width:600px){.pair{grid-template-columns:1fr}}
+</style>
+<main>
+<div class="eyebrow">同一 0.5.2 引擎 · 仅更换 LoRA · 原生音轨</div>
+<h1>0.5.2，换回原始 LoRA 会更清晰吗？</h1>
+<p class="intro" id="recommendation"></p>
+<div class="spec"><span>1366 × 768</span><span>每条 5 秒 · 24 fps</span><span>3 组 × 2 种 LoRA</span><span>M5 Max · 128 GiB</span></div>
+<p class="muted">左右均为未经修复、未换配音的原片。按“同步播放”对照动作；声音菜单可切换 LoRA 原片，避免两条音轨重叠。点击视频可单独全屏查看。</p>
+<div class="timecard"><h2>原生引擎耗时</h2><table><thead><tr><th>场景</th><th>默认 DARE-TIES</th><th>原始 LightX2V</th><th>原始 LoRA 耗时变化</th></tr></thead><tbody id="timings"></tbody></table><p class="muted" id="speed-summary"></p></div>
+<div id="cases"></div>
+<footer><div class="limitations">这是三组已知问题、每组一个固定种子的回归对照。画面判断来自非盲抽帧及关键动作的连续原始帧；未做多人盲评、完整连续运动观感或主观听感验收。ASR 仅支持对白文字核对，不证明声线与逐音素口型。结果不代表所有题材或种子，不自动更改产品默认。</div><p>记录：<a href="samples.json">样本、参数与原片校验值</a> · <a href="../99-bobo-v021-v052/">上一轮 0.2.1 / 0.5.2 对照</a></p></footer>
+</main>
+<script id="data" type="application/json">{"recommendation": "本轮支持：在同一 0.5.2 引擎下，换回原始 LightX2V LoRA 能减轻这两组动作的拖影，跑步改善最明显；对白例基本持平。仍有少量模糊过渡帧，不能视为彻底修复。", "speed_summary": "此处仅列 native_generation 阶段耗时。默认原片与候选在不同日期运行；默认对白重放已逐字节一致，但不能据跨日计时声称严格性能收益。", "cases": [{"id": "01-dialogue", "title": "双人中文对白", "task": "99：「今天精神真好！」bobo：「因为有你陪我呀！」", "verdict": "基本持平。两侧保留人物、服装和先兔后熊的嘴部活动顺序；无提示 ASR 均匹配两句台词。", "versions": {"DARE-TIES": {"file": "videos/01-dialogue-default.mp4", "seconds": 493.61151091603097, "note": "角色和画面稳定，目标台词均被识别；此例没有明显运动拖影问题。"}, "LightX2V": {"file": "videos/01-dialogue-original.mp4", "seconds": 486.3935247079935, "note": "角色和画面稳定，构图略有变化；目标台词均被识别，未见明显新增画面缺陷。"}}, "old_seconds": 493.61151091603097, "new_seconds": 486.3935247079935}, {"id": "02-running", "title": "公园并排跑步", "task": "99 领先半个身位，两人从左向右持续慢跑；跟随镜头保留全身。", "verdict": "原始 LightX2V 更清楚。重点看 1.08–1.25、1.50、1.67–1.83 秒，默认版手腕、短裤和鞋边的重叠轮廓更明显；两侧都完成持续跑步。", "versions": {"DARE-TIES": {"file": "videos/02-running-default.mp4", "seconds": 488.58614100003615, "note": "在多次换步时出现较明显的手腕、短裤和鞋子拖影，1.833 秒可直接看到局部轮廓叠加。"}, "LightX2V": {"file": "videos/02-running-original.mp4", "seconds": 482.8919638750376, "note": "同一时间窗的轮廓更集中，步伐和角色关系保留；1.542 秒附近仍有手部模糊过渡，不能称零拖影。"}}, "old_seconds": 488.58614100003615, "new_seconds": 482.8919638750376}, {"id": "03-handoff", "title": "递面包与道具连续性", "task": "99 把一个面包递给 bobo；bobo 回应「谢谢，真香！」并把面包举近鼻子。", "verdict": "原始 LightX2V 的交接和抬手过渡更干净。重点看 2.50–2.71 与 4.46–4.71 秒；两侧均完成交接，末帧都只有 bobo 持包。", "versions": {"DARE-TIES": {"file": "videos/03-handoff-default.mp4", "seconds": 504.29985100007616, "note": "交接和抬手时，面包、手与脸部出现短暂重叠/拖影；约 2.58 秒完成松手。"}, "LightX2V": {"file": "videos/03-handoff-original.mp4", "seconds": 490.9065457080724, "note": "过渡拖影减少，约 2.50 秒已松手；4.50 秒仍有轻微面包/脸边模糊。初始双手托包的旧问题仍在。"}}, "old_seconds": 504.29985100007616, "new_seconds": 490.9065457080724}], "total": {"title": "三组总计", "old_seconds": 1486.4975029161433, "new_seconds": 1460.1920342911035}}</script>
+<script>
+'use strict';
+const data=JSON.parse(document.getElementById('data').textContent);
+const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
+const duration=s=>{const n=Math.round(s);return `${Math.floor(n/60)} 分 ${(n%60).toString().padStart(2,'0')} 秒`};
+document.getElementById('recommendation').textContent=data.recommendation;
+document.getElementById('speed-summary').textContent=data.speed_summary;
+for(const entry of [...data.cases,data.total]){
+ const row=el('tr');for(const cell of [entry.title,duration(entry.old_seconds),duration(entry.new_seconds),`${entry.new_seconds<entry.old_seconds?'减少':'增加'} ${Math.abs((entry.new_seconds/entry.old_seconds-1)*100).toFixed(1)}%`])row.append(el('td','',cell));document.getElementById('timings').append(row);
+}
+for(const [index,entry] of data.cases.entries()){
+ const section=el('section','case');section.append(el('p','index',`测试 ${String(index+1).padStart(2,'0')}`));
+ section.append(el('h2','',entry.title));section.append(el('p','muted',entry.task));
+ const pair=el('div','pair');const videos=[];
+ for(const version of ['DARE-TIES','LightX2V']){
+  const side=entry.versions[version];const fig=el('figure');const video=el('video');video.src=side.file;video.preload='metadata';video.playsInline=true;video.controls=true;video.muted=version!=='LightX2V';video.setAttribute('aria-label',`${entry.title} ${version}`);fig.append(video);
+  const caption=el('figcaption');caption.append(el('strong','',`${version} · ${duration(side.seconds)}`));const link=el('a','','保存原片');link.href=side.file;link.download='';caption.append(link);fig.append(caption);pair.append(fig);videos.push(video);
+ }
+ section.append(pair);const controls=el('div','controls');const play=el('button','','同步播放');play.type='button';const seek=el('input','seek');seek.type='range';seek.min=0;seek.max=5;seek.step=1/24;seek.value=0;seek.setAttribute('aria-label',`${entry.title} 时间位置`);const clock=el('span','time','0.00 / 5.00');
+ const audioLabel=el('label','','声音 ');const audio=el('select');audio.setAttribute('aria-label',`${entry.title} 声音版本`);for(const [value,label] of [['1','原始 LightX2V'],['0','默认 DARE-TIES'],['-1','静音']]){const option=el('option','',label);option.value=value;audio.append(option)}audioLabel.append(audio);
+ const rateLabel=el('label','','速度 ');const rate=el('select');rate.setAttribute('aria-label',`${entry.title} 播放速度`);for(const value of [1,0.5]){const option=el('option','',`${value}×`);option.value=value;rate.append(option)}rateLabel.append(rate);controls.append(play,seek,clock,audioLabel,rateLabel);section.append(controls);
+ const error=el('div','error');error.setAttribute('role','status');section.append(error);
+ let sync=false;const stop=()=>{sync=false;videos.forEach(v=>v.pause());play.textContent='同步播放'};
+ function tick(){const master=videos[0],slave=videos[1];seek.value=master.currentTime;clock.textContent=`${master.currentTime.toFixed(2)} / 5.00`;if(sync&&!master.paused){if(Math.abs(slave.currentTime-master.currentTime)>.09)slave.currentTime=master.currentTime;requestAnimationFrame(tick)}}
+ play.addEventListener('click',async()=>{error.textContent='';if(sync){stop();return}document.querySelectorAll('video').forEach(v=>{if(!videos.includes(v))v.pause()});if(videos[0].currentTime>=4.98)videos.forEach(v=>v.currentTime=0);videos[1].currentTime=videos[0].currentTime;sync=true;play.textContent='暂停';try{await Promise.all(videos.map(v=>v.play()));requestAnimationFrame(tick)}catch(e){stop();error.textContent='浏览器未能同时播放，请使用视频自带的播放按钮。'}});
+ seek.addEventListener('input',()=>{videos.forEach(v=>v.currentTime=Number(seek.value));clock.textContent=`${Number(seek.value).toFixed(2)} / 5.00`});audio.addEventListener('change',()=>videos.forEach((v,i)=>v.muted=i!==Number(audio.value)));rate.addEventListener('change',()=>videos.forEach(v=>v.playbackRate=Number(rate.value)));
+ videos[0].addEventListener('ended',stop);videos[0].addEventListener('timeupdate',()=>{if(!sync)tick()});
+ const markers=el('div','controls');
+ for(const t of (entry.id==='02-running'?[1.5,44/24]:entry.id==='03-handoff'?[2.5,4.5]:[1,3.5])){
+  const marker=el('button','',`查看 ${t.toFixed(2)} 秒`);marker.type='button';
+  marker.addEventListener('click',()=>{stop();videos.forEach(v=>v.currentTime=t);seek.value=t;clock.textContent=`${t.toFixed(2)} / 5.00`});markers.append(marker);
+ }section.append(markers);
+ section.append(el('p','verdict',entry.verdict));const notes=el('div','notes');for(const version of ['DARE-TIES','LightX2V']){const note=el('p');note.append(el('strong','',`${version}：`));note.append(document.createTextNode(entry.versions[version].note));notes.append(note)}section.append(notes);document.getElementById('cases').append(section);
+}
+</script>
+</html>
