@@ -6,10 +6,15 @@ h3-apple focuses on making MiniMax-H3 fast and simple on Apple Silicon. One
 Ref2VA generation path, with acceleration enabled automatically. Give it
 1–9 images and describe the scene, movement and sound.
 
-Version **0.5.2** adds optional **small-face enhancement** for finished videos.
+Version **0.5.3** uses the original **LightX2V Ref2VA Turbo 4-step v0.1 LoRA**.
+The 99/bobo comparison showed less motion ghosting in running and bread handoff,
+with some blur remaining. [Watch the comparison](https://rhinoq.github.io/h3-apple/previews/99-bobo-lora-v052/)
+and see the [validation scope](docs/validation.md).
+
+Optional **small-face enhancement** is available for finished videos.
 It automatically selects small face tracks, enhances their local detail and
-preserves the source audio. Normal generation keeps the 0.5.1 four-step engine
-and its speed/quality characteristics. Enhancement is an additional operation,
+preserves the source audio. Generation uses the existing four-step native engine.
+Enhancement is an additional operation,
 with separately installed dependencies and models. See the
 [preview, setup and limits](docs/face-enhancement.md) and
 [generation measurements](docs/validation.md).
@@ -23,7 +28,7 @@ other projects. If you do not have Conda, install the Apple Silicon version of
 ```bash
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.2/h3_apple-0.5.2-py3-none-any.whl
+python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl
 ```
 
 The release wheel is installed directly from GitHub.

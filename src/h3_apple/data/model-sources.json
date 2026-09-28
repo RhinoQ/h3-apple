@@ -401,11 +401,11 @@
       "sha256": "5f0c2e161d895a9fee7645ca32d4a7e3a22b90cacfcbeba62ec999cdbbefe0d3"
     },
     {
-      "repo": "silveroxides/MiniMax-H3_tests",
-      "revision": "16f950c2e3d78440778fe1e84d9179932e19b1de",
-      "filename": "ref2v_dareties/minimax_h3_ref2v_turbo_4step_v0.1_v4_step600_dareties_fro0995.safetensors",
-      "bytes": 1158485256,
-      "sha256": "e44c667b162a6e951f663b75d88facfd4e24c915e2c556b07ec1fec23fef5a61"
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "revision": "ec01fa4c86263832faa0bd1d6d8f36a281eaabb2",
+      "filename": "minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors",
+      "bytes": 1383677768,
+      "sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99"
     }
   ],
   "quantization": {

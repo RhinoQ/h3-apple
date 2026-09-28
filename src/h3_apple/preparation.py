@@ -10,7 +10,8 @@ import tempfile
 import time
 from urllib.parse import quote
 
-from .assets import (SCHEMA, RECIPE, check_file, check_model, data_file, engine_paths,
+from .assets import (AdapterUpgradeRequired, RECIPE, adapter_directory,
+                     check_file, check_model, data_file, engine_paths,
                      ensure_engine, file_record, identity, load_assets, load_manifest,
                      model_directory, register_model)
 from .downloads import download, partial_path
@@ -67,8 +68,11 @@ def reusable_model(reuse_dirs, progress):
         roots += sorted(p.parent for p in (Path.home() / 'Models').glob('h3-apple*/vpipe.json'))
     for root in dict.fromkeys(roots):
         if (root / 'model.json').is_file():
-            data = load_manifest(root, verify=True)
-            return dict(model=data['native_model'], files=data['files'], adapter=data['adapter'])
+            progress(dict(phase='checking_local_models', file=str(root)))
+            data = load_manifest(root, verify=True, for_reuse=True)
+            adapter = data['adapter'] if data['adapter']['sha256'] == data_file('prepared-model.json')['adapter']['sha256'] else None
+            return dict(model=data['native_model'], files=data['files'], adapter=adapter,
+                        source_identity=data['identity'])
         old = root / 'vpipe.json'
         if not old.is_file():
             continue
@@ -91,7 +95,7 @@ def reusable_model(reuse_dirs, progress):
             continue
         adapter = file_record(old['adapter']['path'])
         if adapter['sha256'] != expected['adapter']['sha256']:
-            continue
+            adapter = None
         check_model(model)
         return dict(model=str(model), files=records, adapter=adapter)
     return None
@@ -102,27 +106,46 @@ def plan(model_dir=None, reuse_dirs=(), progress=None):
     directory = model_directory(model_dir)
     engine, engine_dir, archive = engine_paths()
     engine_download = 0 if engine_dir.exists() or archive.is_file() else engine['bytes']
+    upgrading = False
     if (directory / 'model.json').is_file():
-        data = load_manifest(directory)
-        return dict(status='ready', directory=str(directory), identity=data['identity'],
-                    download_bytes=engine_download, additional_disk_bytes=engine['bytes'] * 5)
-    if directory.exists() and any(directory.iterdir()):
+        try:
+            data = load_manifest(directory)
+        except AdapterUpgradeRequired:
+            upgrading = True
+        else:
+            return dict(status='ready', directory=str(directory), identity=data['identity'],
+                        download_bytes=engine_download, additional_disk_bytes=engine['bytes'] * 5)
+    if not upgrading and directory.exists() and any(directory.iterdir()):
         raise FileExistsError(f'Model directory is not empty: {directory}')
     directory.parent.mkdir(parents=True, exist_ok=True)
-    prepared = reusable_model(reuse_dirs, progress)
-    if prepared:
-        copies = sum(e['bytes'] for e in [*prepared['files'], prepared['adapter']]
-                     if Path(e['path']).stat().st_dev != directory.parent.stat().st_dev)
-        return dict(status='reuse_prepared', directory=str(directory), prepared=prepared,
-                    download_bytes=engine_download, additional_disk_bytes=copies + RESERVE)
+    prepared = reusable_model([directory] if upgrading else reuse_dirs, progress)
     cache = directory.parent / '.sources'
-    cache.mkdir(parents=True, exist_ok=True)
+    if prepared:
+        entries = ([] if upgrading else prepared['files']) + ([prepared['adapter']] if prepared['adapter'] else [])
+        copies = sum(e['bytes'] for e in entries
+                     if Path(e['path']).stat().st_dev != directory.parent.stat().st_dev)
+        groups, downloads, source_copies = source_plan(
+            [] if prepared['adapter'] else [data_file('prepared-model.json')['adapter']],
+            cache, reuse_dirs, progress)
+        return dict(status='upgrade_adapter' if upgrading else 'reuse_prepared',
+                    directory=str(directory), prepared=prepared, cache_dir=str(cache), groups=groups,
+                    download_bytes=engine_download + downloads,
+                    additional_disk_bytes=engine_download + downloads + copies + source_copies + RESERVE)
     manifest = data_file('model-sources.json')
+    groups, downloads, copies = source_plan(manifest['sources'], cache, reuse_dirs, progress)
+    return dict(status='preparation_required', directory=str(directory), cache_dir=str(cache),
+                download_bytes=engine_download + downloads, additional_disk_bytes=engine_download + downloads + copies +
+                    manifest['converted_peak_bytes'] + RESERVE,
+                retained_source_bytes=sum(g['bytes'] for g in groups), groups=groups)
+
+
+def source_plan(entries, cache, reuse_dirs, progress):
+    cache.mkdir(parents=True, exist_ok=True)
     by_hash = defaultdict(list)
-    for entry in manifest['sources']:
+    for entry in entries:
         by_hash[entry['sha256']].append(entry)
     groups = []
-    downloads, copies = engine_download, 0
+    downloads, copies = 0, 0
     for checksum, entries in by_hash.items():
         expected = entries[0]['bytes']
         source = None
@@ -152,10 +175,7 @@ def plan(model_dir=None, reuse_dirs=(), progress=None):
         elif Path(source['path']).stat().st_dev != cache.stat().st_dev:
             copies += expected
         groups.append(dict(sha256=checksum, bytes=expected, source=source, files=entries))
-    return dict(status='preparation_required', directory=str(directory), cache_dir=str(cache),
-                download_bytes=downloads, additional_disk_bytes=downloads + copies +
-                    manifest['converted_peak_bytes'] + RESERVE,
-                retained_source_bytes=sum(g['bytes'] for g in groups), groups=groups)
+    return groups, downloads, copies
 
 
 def copy_file(source, destination, checksum):
@@ -252,28 +272,40 @@ def prepare(spec, *, allow_large_download=False, progress=None):
         raise OSError('Insufficient free disk for preparation; see h3 prepare --plan.')
     with device_lock():
         engine = ensure_engine(progress)
-        if spec['status'] == 'ready' or (directory / 'model.json').exists():
+        upgrading = spec['status'] == 'upgrade_adapter'
+        if (spec['status'] == 'ready' or (adapter_directory(directory) / 'model.json').exists()
+                or (not upgrading and (directory / 'model.json').exists())):
             return load_assets(directory)
-        if directory.exists():
+        if not upgrading and directory.exists():
             raise FileExistsError(f'Choose a new model directory: {directory}')
         work = Path(tempfile.mkdtemp(prefix='.h3-prepare-', dir=directory.parent))
         write_json(work / 'plan.json', spec)
         staging = work / 'output'
         staging.mkdir()
         records = None
-        if spec['status'] == 'reuse_prepared':
+        if spec['status'] in ('reuse_prepared', 'upgrade_adapter'):
             prepared = spec['prepared']
             model = Path(prepared['model'])
             records = []
             for entry in prepared['files']:
                 check_file(entry)
+                if upgrading:
+                    records.append(dict(entry))
+                    continue
                 relative = Path(entry['path']).relative_to(model)
                 target = staging / 'model' / relative
                 copy_file(entry['path'], target, entry['sha256'])
                 records.append(dict(entry, path=str(target), mtime_ns=target.stat().st_mtime_ns))
-            check_file(prepared['adapter'])
-            copy_file(prepared['adapter']['path'], staging / 'adapter.safetensors', prepared['adapter']['sha256'])
+            if prepared['adapter']:
+                check_file(prepared['adapter'])
+                adapter_path = Path(prepared['adapter']['path'])
+            else:
+                cache = materialize(spec, progress)
+                adapter_path = cache_path(cache, data_file('prepared-model.json')['adapter'])
+            copy_file(adapter_path, staging / 'adapter.safetensors', data_file('prepared-model.json')['adapter']['sha256'])
             provenance = dict(kind='verified_local_reuse', model=str(model), download_bytes=spec['download_bytes'])
+            if upgrading:
+                provenance.update(kind='adapter_upgrade', previous_identity=prepared['source_identity'])
         else:
             cache = materialize(spec, progress)
             entries = data_file('model-sources.json')['sources']
@@ -281,7 +313,7 @@ def prepare(spec, *, allow_large_download=False, progress=None):
             source = cache_path(cache, base).parent
             model = quantize(source, work, engine, progress)
             model.rename(staging / 'model')
-            adapter = next(e for e in entries if e['repo'] == 'silveroxides/MiniMax-H3_tests')
+            adapter = data_file('prepared-model.json')['adapter']
             copy_file(cache_path(cache, adapter), staging / 'adapter.safetensors', adapter['sha256'])
             provenance = dict(kind='source_preparation', sources=entries, engine=engine,
                               graph_sha256=digest(work / 'prepare.vpipeline'),
@@ -289,14 +321,19 @@ def prepare(spec, *, allow_large_download=False, progress=None):
         # Retain the upstream model license with the prepared model.
         license_path = Path(__file__).parent / 'data/MiniMax-H3-LICENSE.txt'
         shutil.copy2(license_path, staging / 'LICENSE.txt')
-        manifest = register_model(staging, provenance=provenance, records=records)
+        manifest = register_model(staging, provenance=provenance, records=records,
+                                  native_model=model if upgrading else None)
         # Rewrite only paths into our staging directory before the atomic move.
-        manifest['native_model'] = str(directory / 'model')
+        destination = adapter_directory(directory) if upgrading else directory
+        if not upgrading:
+            manifest['native_model'] = str(directory / 'model')
         for entry in [*manifest['files'], manifest['adapter']]:
-            entry['path'] = str(directory / Path(entry['path']).relative_to(staging))
+            if Path(entry['path']).is_relative_to(staging):
+                entry['path'] = str(destination / Path(entry['path']).relative_to(staging))
         manifest['identity'] = identity({k:v for k,v in manifest.items() if k != 'identity'})
         write_json(staging / 'model.json', manifest)
-        staging.rename(directory)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        staging.rename(destination)
         result = load_assets(directory)
         write_json(work / 'result.json', dict(directory=str(directory), identity=result['identity']))
         # Only our successful intermediate quantization links are removed; source cache and logs stay.

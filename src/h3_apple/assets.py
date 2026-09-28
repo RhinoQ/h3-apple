@@ -15,6 +15,10 @@ SCHEMA = "h3-apple-model/v1"
 RECIPE = dict(steps=4, graph_steps=5, video_shift=12.0, audio_shift=3.0, lora_scale=1.0)
 
 
+class AdapterUpgradeRequired(ValueError):
+    """The prepared base model needs the adapter pinned by this release."""
+
+
 def data_file(name):
     return json.loads((Path(__file__).parent / 'data' / name).read_text())
 
@@ -115,17 +119,32 @@ def ensure_engine(progress=None):
     return load_engine()
 
 
-def load_manifest(model_dir=None, *, verify=False):
+def adapter_directory(directory):
+    return Path(directory) / 'adapters' / data_file('prepared-model.json')['adapter']['sha256']
+
+
+def load_manifest(model_dir=None, *, verify=False, for_reuse=False):
     directory = model_directory(model_dir)
-    path = directory / 'model.json'
+    path = adapter_directory(directory) / 'model.json'
+    if not path.is_file():
+        path = directory / 'model.json'
     if not path.is_file():
         raise ValueError('H3 models are not prepared. Run h3 prepare once.')
     data = json.loads(path.read_text())
     expected_adapter = data_file('prepared-model.json')['adapter']
     if (data.get('schema') != SCHEMA or data.get('recipe') != RECIPE
-            or data.get('adapter', {}).get('sha256') != expected_adapter['sha256']
             or data.get('identity') != identity({k: v for k, v in data.items() if k != 'identity'})):
         raise ValueError('Model manifest changed or is unsupported. Run h3 prepare in a new model directory.')
+    if for_reuse:
+        # An old adapter is reusable only as a source of the exact pinned base weights.
+        model = Path(data['native_model'])
+        records = [{k: entry[k] for k in ('bytes', 'sha256')} |
+                   dict(path=str(Path(entry['path']).relative_to(model))) for entry in data['files']]
+        expected = data_file('prepared-model.json')['files']
+        if sorted(records, key=lambda e: e['path']) != sorted(expected, key=lambda e: e['path']):
+            raise ValueError('Prepared base weights differ from the pinned Ref2VA model.')
+    elif data.get('adapter', {}).get('sha256') != expected_adapter['sha256']:
+        raise AdapterUpgradeRequired('The Ref2VA adapter needs an upgrade. Run h3 prepare; base weights will be reused.')
     for entry in [*data['files'], data['adapter']]:
         check_file(entry, verify=verify)
     check_model(data['native_model'])
@@ -136,15 +155,16 @@ def load_assets(model_dir=None, *, verify=False):
     return dict(load_manifest(model_dir, verify=verify), **load_engine())
 
 
-def register_model(directory, *, provenance, records=None):
+def register_model(directory, *, provenance, records=None, native_model=None):
     """Commit a prepared directory only after all weights and the adapter are checked."""
     directory = Path(directory)
-    check_model(directory / 'model')
-    entries = records or [file_record(p) for p in sorted((directory / 'model').rglob('*')) if p.is_file()]
+    model = Path(native_model) if native_model is not None else directory / 'model'
+    check_model(model)
+    entries = records or [file_record(p) for p in sorted(model.rglob('*')) if p.is_file()]
     adapter = file_record(directory / 'adapter.safetensors')
     if adapter['sha256'] != data_file('prepared-model.json')['adapter']['sha256']:
         raise ValueError('The Ref2VA adapter checksum differs.')
-    manifest = dict(schema=SCHEMA, native_model=str(directory / 'model'), files=entries,
+    manifest = dict(schema=SCHEMA, native_model=str(model), files=entries,
                     adapter=adapter, recipe=RECIPE, provenance=provenance)
     manifest['identity'] = identity(manifest)
     write_json(directory / 'model.json', manifest)

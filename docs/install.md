@@ -7,7 +7,7 @@ version of [Miniforge](https://github.com/conda-forge/miniforge) first:
 ```bash
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.2/h3_apple-0.5.2-py3-none-any.whl
+python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl
 h3 generate --image reference.jpg --prompt "Your scene, movement and sound."
 ```
 
@@ -51,7 +51,7 @@ or downloaded during installation or import.
 `h3 generate` automatically checks the Mac, reuses or downloads model files,
 prepares them, then generates your video. There is no required setup command.
 
-The pinned MiniMax Ref2VA model and DARE/TIES adapter need approximately
+The pinned MiniMax Ref2VA model and original LightX2V Turbo adapter need approximately
 **145 GB of downloads and 233 GB of free disk** for a fresh preparation.
 Source files remain cached for reuse; their combined footprint with prepared
 models is approximately 218 GB. The prepared model alone is about 85 GB.
@@ -83,8 +83,8 @@ h3 generate --image reference.jpg --prompt "Your scene"
 
 Keep the variable set for subsequent runs, or pass `--model-dir` / `model_dir`
 explicitly. Existing registered native Ref2VA installations from h3-apple 0.3
-are automatically detected under `~/Models`. Existing 0.4 prepared models
-continue to work. Files are verified and hard-linked on the same volume;
+are automatically detected under `~/Models`. Existing 0.4–0.5.2 prepared models
+are verified and reused when upgrading the adapter. Files are hard-linked on the same volume;
 cross-volume reuse makes verified copies. Existing models are not deleted.
 
 For a custom source snapshot or another prepared model directory:
@@ -98,6 +98,26 @@ bundles cannot substitute for native weights. Sources, revisions and SHA256
 hashes are in [model-sources.json](../src/h3_apple/data/model-sources.json).
 Model license terms still apply.
 
+## Upgrading to 0.5.3
+
+The first generation or `h3 prepare` upgrades an existing prepared installation
+to the original LightX2V Ref2VA Turbo 4-step v0.1 adapter. Only the **1.38 GB
+adapter** is downloaded when the base weights and engine are already present;
+the base weights are verified and are not downloaded or quantized again.
+To reuse an already downloaded adapter, pass its file or directory with
+`h3 prepare --reuse-dir /path/to/adapter.safetensors`.
+
+The new adapter and its receipt are stored under
+`<model-dir>/adapters/<adapter-sha256>/`. The original `model.json`, base weights
+and adapter remain intact, so an older installed h3-apple version can still use
+the same model directory. Interrupted adapter downloads are resumable. A failed
+upgrade leaves the old receipt intact and can be retried with `h3 prepare`.
+
+The native engine, four denoising steps, video/audio shifts (12/3) and adapter
+scale (1.0) stay the same. The engine handles the adapter's alpha/rank metadata.
+No additional scale adjustment is needed. This change reduces ghosting in the
+tested scenes; it does not guarantee blur-free motion or exact prompt adherence.
+
 ## Troubleshooting
 
 `h3 doctor` checks hardware, Conda media tools and libraries, the engine and model
@@ -105,11 +125,11 @@ receipts. Before first generation it may report that models are not yet ready.
 `h3 verify` performs a full weight checksum pass. To upgrade:
 
 ```bash
-python -m pip install --upgrade https://github.com/RhinoQ/h3-apple/releases/download/v0.5.2/h3_apple-0.5.2-py3-none-any.whl
+python -m pip install --upgrade https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl
 ```
 
 A 40-core M5 Max with macOS 26.2+ and at least 64 GB unified memory is required.
-Version 0.5.2 checks this GPU configuration before preparing models; other GPU
+H3 checks this GPU configuration before preparing models; other GPU
 configurations are not supported by its fixed compute policy. Existing users of
 other M5 configurations should retain v0.5.0. Measurements used 128 GB; smaller
 memory configurations have not been validated. The memory guard permits 576p at

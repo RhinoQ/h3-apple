@@ -47,11 +47,12 @@ MiniMax H3 model
   The included Qwen3-VL encoder/tokenizer retain their Apache-2.0 terms.
 
 Ref2VA four-step adapter
-  https://huggingface.co/silveroxides/MiniMax-H3_tests
-  Revision: 16f950c2e3d78440778fe1e84d9179932e19b1de
-  ref2v_dareties/minimax_h3_ref2v_turbo_4step_v0.1_v4_step600_dareties_fro0995.safetensors
-  This DARE/TIES community merge credits the LightX2V and larryvrh adapter
-  lines. Original model terms continue to apply. No trained weights are
+  https://huggingface.co/lightx2v/Minimax-h3-Turbo
+  Revision: ec01fa4c86263832faa0bd1d6d8f36a281eaabb2
+  minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors
+  Original LightX2V Ref2VA Turbo adapter. Its pinned model card declares
+  Apache-2.0; the underlying MiniMax H3 model terms continue to apply.
+  No trained weights are
   bundled in source, wheel or engine releases. Exact source checksums are
   in src/h3_apple/data/model-sources.json.
 

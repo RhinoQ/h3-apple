@@ -17,7 +17,7 @@ optional PyTorch stack is tested with Python 3.11; it is not required for normal
 generation. Install this exact release with its optional dependencies:
 
 ```bash
-python -m pip install 'h3-apple[faces] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.5.2/h3_apple-0.5.2-py3-none-any.whl'
+python -m pip install 'h3-apple[faces] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl'
 h3 prepare-faces --plan
 h3 prepare-faces
 ```
