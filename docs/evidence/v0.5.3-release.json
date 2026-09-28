@@ -1,0 +1,474 @@
+{
+  "schema": "h3-apple-release-evidence/v1",
+  "version": "0.5.3",
+  "date": "2026-09-28",
+  "runtime_source_commit": "660906c5838489350a4762f8bdb67372cdbcc112",
+  "package_source_sha256": "fb7f2b363b12366e06ae52cc47cc2d2cb1ec742a67c5a661945a4874032848c1",
+  "tested_wheel_sha256": "7d501865a7f39dc5b233414a711f69108433413eee90dded03319cabe19e9a25",
+  "wheel_runtime_files": 48,
+  "python": "3.11.16 (main, Sep  2 2026, 23:33:55) [Clang 21.1.8 ]",
+  "engine": {
+    "schema": "h3-apple-engine/v1",
+    "upstream": "https://github.com/tgo-app-dev/vpipe",
+    "commit": "2070ba62f5e5ef552bce65a6137638b245da6e54",
+    "url": "https://github.com/RhinoQ/h3-apple/releases/download/v0.5.1/h3-apple-engine-macos-arm64.zip",
+    "bytes": 6034511,
+    "sha256": "b473b1ee15c7394524bd70f13293291dba62b463a1d1f4c85421081ff8e2e2ae",
+    "files": [
+      {
+        "name": "LICENSE.txt",
+        "bytes": 11338,
+        "sha256": "da1a325757e207244cd589713ce51febe3859aab6034f34afbccd57eb96cb53a",
+        "mode": 420
+      },
+      {
+        "name": "NOTICE.txt",
+        "bytes": 672,
+        "sha256": "a58393c97bac82375a4e3acc982bc9497b5157e8b9ddf22f4f039490f1d7b09a",
+        "mode": 420
+      },
+      {
+        "name": "THIRD_PARTY_LICENSES.txt",
+        "bytes": 18653,
+        "sha256": "5e7c6318ee6ee46f05e02f4ed3286bfafe13b5fa97a0184d0ac63ef8878481ed",
+        "mode": 420
+      },
+      {
+        "name": "h3-engine",
+        "bytes": 86600,
+        "sha256": "ba9cf796e9daa33b32fa41a464a5ea8667c6e8b3ea50c1b837b9f8ca5a7344c7",
+        "mode": 493
+      },
+      {
+        "name": "libvpipe.0.dylib",
+        "bytes": 19429408,
+        "sha256": "4ad9e9b424abbbf8227028d63f581a2b81e26f2a7b080fb4a06adfb18a030387",
+        "mode": 493
+      }
+    ],
+    "capabilities": [
+      "stable-compute-v1",
+      "vae-fusion-v1",
+      "vae-h256-int8-v1"
+    ]
+  },
+  "adapter": {
+    "repo": "lightx2v/Minimax-h3-Turbo",
+    "revision": "ec01fa4c86263832faa0bd1d6d8f36a281eaabb2",
+    "filename": "minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors",
+    "bytes": 1383677768,
+    "sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99"
+  },
+  "recipe": {
+    "steps": 4,
+    "graph_steps": 5,
+    "video_shift": 12.0,
+    "audio_shift": 3.0,
+    "lora_scale": 1.0
+  },
+  "model_sources": "../../src/h3_apple/data/model-sources.json",
+  "installation": {
+    "method": "Normal wheel installation in an isolated Conda environment cloned offline from the 0.5.2 core validation environment.",
+    "ffmpeg": "ffmpeg version 8.1.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "pillow": "12.3.0",
+    "media_path_check": "Both entry points ran without Conda tools on PATH and with an unrelated CONDA_PREFIX; media discovery followed the running Python.",
+    "model_download_bytes": 0,
+    "preparation_seconds": 29.923458958044648,
+    "base_records_unchanged": true,
+    "old_manifest_unchanged": true,
+    "old_adapter_unchanged": true,
+    "old_v052_loads_unchanged": true,
+    "old_model_identity": "18d60ac845cae4d99e92c3aa041bcbc89f0aeacd5ca5405a8d5bba9898a9cb41",
+    "new_model_identity": "92e40234af2152b7012fb26d2b3f61b5ed359f6238df0b0fde578a1f8bef7ef9",
+    "preparation_scope": "Verified all base-model hashes and reused the existing original LoRA. No new model download or quantization. Synthetic tests separately exercise adapter download/resume and fresh preparation selection."
+  },
+  "tests": {
+    "installed_package_passed": 127,
+    "installed_package_skipped": 10,
+    "skip_reason": "Optional face-enhancement dependencies are absent from the core validation environment.",
+    "test_log_sha256": "43ae9f2578a53123186464c1debae639c4178004a0769981c6e8f8a15ff21b58",
+    "junit_sha256": "9d63dd9bdf2ca1f87dfc5bde36e8f064c2e45b7ccfdd0a3e4da23a2326a8b85a",
+    "adapter_upgrade_passed": 11,
+    "installed_with_faces_passed": 137,
+    "full_test_log_sha256": "7bf5bc20f00062fd46e4e4daac2b82f1df434944c487c8473a8198627c210b13",
+    "full_junit_sha256": "990df6d6076a4cfdff9d4ff3cd53c4df4eed84ab397635447147e3217d1f5c58",
+    "coverage": "Existing receipt upgrade, base reuse in a new directory, legacy vpipe reuse, pinned source selection, download/resume/failure/retry, corruption rejection, atomic receipt preservation and idempotent repeated preparation."
+  },
+  "references": [
+    {
+      "name": "99.jpg",
+      "sha256": "28ddae5599acd8aeafc53d5d953f2616c2236e8c2fac84c94497078c5804324f"
+    },
+    {
+      "name": "bobo.jpg",
+      "sha256": "84cae0ae3ec997d2714e1b1133734619208efc7236a70ee928941f14987ef7e2"
+    },
+    {
+      "name": "IMG_2304.jpg",
+      "sha256": "c71cc6ea0c0f13bf4dfaca12856fedefdebd6a3cb4edd36cffab61bce3de56b4"
+    }
+  ],
+  "integration": [
+    {
+      "entry": "cli",
+      "case": "02-running",
+      "request": {
+        "prompt": "subject_definitions:\n<Subject 1> is 99, the single pastel-pink rabbit whose identity is shown in the three views of <Picture 1>: long upright ears with darker pink centers, rounded cheeks, black dot eyes, tiny dark nose, a yellow pinafore with one pink square front pocket over a white short-sleeved shirt, and white shoes. The views describe one character.\n<Subject 2> is bobo, the single caramel-brown bear whose identity is shown in the three views of <Picture 2>: round ears with cream centers, a cream oval muzzle, dark dot eyes and black nose, pink cheek circles, sage-green short-sleeved T-shirt with one yellow chest pocket, cream shorts, and white shoes. The views describe one character.\n<Subject 3> is the soft hand-painted 2D storybook style and pastoral spring color palette of <Picture 3>: warm dark-brown contour lines, rounded simple characters against softly painted greenery, yellow-green grass, tiny wildflowers, distant blue-green hills, and warm sunlight. This is a style reference; the target cast consists of <Subject 1> and <Subject 2>.\n\nsummary:\n[reference generation] A five-second side-tracking park run with 99 <Subject 1> and bobo <Subject 2>, preserving the referenced outfits and warm illustrated scenery of <Subject 3>. Their sustained running and stable bodies are the focus.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - preserve one pink rabbit with the long ears, face, yellow pinafore, pink pocket, white sleeves and shoes shown in the identity reference.\n<Subject 2> (appears in [Shot 1]): fully_preserved - preserve one brown bear with cream muzzle and ear centers, green shirt, yellow chest pocket, cream shorts and white shoes shown in the identity reference.\n<Subject 3> (appears in [Shot 1]): fully_preserved - preserve the defined soft painted 2D storybook style, warm brown outlines, spring greens, wildflowers and morning sunlight in the new park action.\n\ndetailed_description:\nThe target is a clean full-screen hand-drawn 2D cartoon, with soft painted spring park scenery in the style of <Subject 3>. A pale beige path lies before green trees, small flowers and distant blue-green hills. Warm morning sunlight comes from the upper right.\n[Shot 1] A medium-wide full-body side view shows bobo <Subject 2> on the left and 99 <Subject 1> on the right, already jogging together from left to right along the beige park path. The rabbit is about half a body length ahead; their bodies remain separate and their whole heads, ears, hands, legs and shoes are visible. The camera tracks smoothly to the right at their jogging speed so both stay centered while trees and flowers pass slowly to the left behind them. Over the entire five seconds both characters perform a continuous comfortable jog: their left and right feet alternate contact with the ground, knees bend in coherent short strides, opposite arms swing naturally, and the rabbit's ears bounce gently. Their heads stay recognizable and their original clothes retain their shapes and colors. They exchange a quick cheerful sideways glance near the middle while continuing forward at the same pace, then look ahead again. The shot ends while both are still jogging together. Soft rhythmic shoe taps match the footfalls; both remain silent.\n\noverall_soundscape:\nRegular light footsteps alternate against the dry path, with faint leaf rustle and distant bird calls. The characters are silent; there is no speech, singing or narration.\n\nnon_diegetic_music:\nN/A\n",
+        "reference_images": [
+          "99.jpg",
+          "bobo.jpg",
+          "IMG_2304.jpg"
+        ],
+        "duration": 5.0,
+        "resolution": "768p",
+        "seed": 2026092702
+      },
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "actual_routes_equal": true,
+      "process_seconds": 498.5054929170292,
+      "request_seconds": 493.4952433750732,
+      "native_seconds": 491.148321916,
+      "peak_tree_rss_bytes": 57725812736,
+      "peak_swap_growth_bytes": 0,
+      "decoded_sha256": {
+        "rgb": "SHA256=83d4d089465640a0ac02e4d9438946bdbd7679dcecb7b94e0042c9bdbda4513a",
+        "pcm": "SHA256=813ddc74450540d99a92a7a94acafceb37e0ad5b0750d003a63093722f6e657b"
+      },
+      "video_sha256": "192f8b003a909150bf977d0e7b0d5dab91509ff9b1bdd4ce96296dcbc94dd6d2",
+      "matches_p136_rgb_and_pcm": true,
+      "mp4_identical_to_p136": true,
+      "reference_video_sha256": "192f8b003a909150bf977d0e7b0d5dab91509ff9b1bdd4ce96296dcbc94dd6d2",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "mime_codec_string": "avc1.640020",
+            "width": 1366,
+            "height": 768,
+            "coded_width": 1376,
+            "coded_height": 768,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "683:384",
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "color_range": "tv",
+            "color_space": "smpte170m",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "24/1",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 61440,
+            "duration": "5.000000",
+            "bit_rate": "7270976",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "120",
+            "nb_read_frames": "120",
+            "extradata_size": 50,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "encoder": "Lavc62.28.102 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "mime_codec_string": "mp4a.40.2",
+            "sample_fmt": "fltp",
+            "sample_rate": "32000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 160000,
+            "duration": "5.000000",
+            "bit_rate": "175461",
+            "nb_frames": "158",
+            "nb_read_frames": "157",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "5.000000",
+          "size": "4660045",
+          "bit_rate": "7456072",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf62.12.102"
+          }
+        }
+      },
+      "diagnostics_enabled": false
+    },
+    {
+      "entry": "api",
+      "case": "01-dialogue",
+      "request": {
+        "prompt": "subject_definitions:\n<Subject 1> is 99, the single pastel-pink rabbit whose identity is shown in the three views of <Picture 1>: long upright ears with darker pink centers, rounded cheeks, black dot eyes, tiny dark nose, a yellow pinafore with one pink square front pocket over a white short-sleeved shirt, and white shoes. The views describe one character.\n<Subject 2> is bobo, the single caramel-brown bear whose identity is shown in the three views of <Picture 2>: round ears with cream centers, a cream oval muzzle, dark dot eyes and black nose, pink cheek circles, sage-green short-sleeved T-shirt with one yellow chest pocket, cream shorts, and white shoes. The views describe one character.\n<Subject 3> is the soft hand-painted 2D storybook style and pastoral spring color palette of <Picture 3>: warm dark-brown contour lines, rounded simple characters against softly painted greenery, yellow-green grass, tiny wildflowers, distant blue-green hills, and warm sunlight. This is a style reference; the target cast consists of <Subject 1> and <Subject 2>.\n\nsummary:\n[reference generation] In a five-second conversational scene, 99 <Subject 1> and bobo <Subject 2> enjoy a sunny park morning and exchange two warm Mandarin lines, preserving their identities and the painted style of <Subject 3>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - preserve one pink rabbit with the long ears, face, yellow pinafore, pink pocket, white sleeves and shoes shown in the identity reference.\n<Subject 2> (appears in [Shot 1]): fully_preserved - preserve one brown bear with cream muzzle and ear centers, green shirt, yellow chest pocket, cream shorts and white shoes shown in the identity reference.\n<Subject 3> (appears in [Shot 1]): fully_preserved - preserve the defined soft painted 2D storybook style, warm brown outlines, spring greens, wildflowers and morning sunlight in the new park action.\n\ndetailed_description:\nThe target is a clean full-screen hand-drawn 2D cartoon, with soft painted spring park scenery in the style of <Subject 3>. A pale beige path lies before green trees, small flowers and distant blue-green hills. Warm morning sunlight comes from the upper right.\n[Shot 1] A fixed medium two-shot frames the two characters from the knees upward with both complete heads, ears and hands visible. Bobo <Subject 2> is on the left, and 99 <Subject 1> is on the right, each turned three-quarters toward the other. They stand at an easy conversational distance on the park path. The composition remains stable throughout five seconds. From 0.2 to 2.1 seconds the rabbit <Subject 1>, with a bright medium-high youthful female Mandarin voice, a light warm timbre and clear standard pronunciation (S1), looks at the bear, smiles and says: <d>[Chinese] 今天精神真好！</d> The bear listens with his lips closed and eyes directed toward her. After a small pause, from 2.4 to 4.5 seconds the bear <Subject 2>, with a warm medium-low youthful male Mandarin voice, rounded timbre and clear standard pronunciation (S2), answers her with a relaxed smile: <d>[Chinese] 因为有你陪我呀！</d> The rabbit listens during his turn and gives one small happy nod near the end. The two visible mouths articulate their respective lines. The final half second holds the pair smiling at each other with their hands relaxed at their sides.\n\noverall_soundscape:\nQuiet morning birds and a light breeze through the leaves remain below the two foreground Mandarin speaking turns. The short pause between the lines stays clear.\n\nnon_diegetic_music:\nN/A\n",
+        "reference_images": [
+          "99.jpg",
+          "bobo.jpg",
+          "IMG_2304.jpg"
+        ],
+        "duration": 5.0,
+        "resolution": "768p",
+        "seed": 2026092701
+      },
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "actual_routes_equal": true,
+      "process_seconds": 483.31594491703436,
+      "request_seconds": 479.7935334169306,
+      "native_seconds": 477.9276987920748,
+      "peak_tree_rss_bytes": 60977430528,
+      "peak_swap_growth_bytes": 0,
+      "decoded_sha256": {
+        "rgb": "SHA256=3ac4170b1de1e5ef441cfd092ecaf0638a419a6894ab2faa6e0cf78fe56bc46c",
+        "pcm": "SHA256=b670e209cfa533288d466a872d7e56e2de0bb8525e77ba7cbf1245227e7ea41e"
+      },
+      "video_sha256": "161058da9fc58c571684f5c4a98a166f1d9abb6a15a52dc10422dd3c76f7a972",
+      "matches_p136_rgb_and_pcm": true,
+      "mp4_identical_to_p136": true,
+      "reference_video_sha256": "161058da9fc58c571684f5c4a98a166f1d9abb6a15a52dc10422dd3c76f7a972",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "mime_codec_string": "avc1.640020",
+            "width": 1366,
+            "height": 768,
+            "coded_width": 1376,
+            "coded_height": 768,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "683:384",
+            "pix_fmt": "yuv420p",
+            "level": 32,
+            "color_range": "tv",
+            "color_space": "smpte170m",
+            "chroma_location": "left",
+            "field_order": "progressive",
+            "refs": 4,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "24/1",
+            "avg_frame_rate": "24/1",
+            "time_base": "1/12288",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 61440,
+            "duration": "5.000000",
+            "bit_rate": "2887968",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "120",
+            "nb_read_frames": "120",
+            "extradata_size": 50,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "encoder": "Lavc62.28.102 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "mime_codec_string": "mp4a.40.2",
+            "sample_fmt": "fltp",
+            "sample_rate": "32000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/32000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 160000,
+            "duration": "5.000000",
+            "bit_rate": "186432",
+            "nb_frames": "158",
+            "nb_read_frames": "157",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler"
+            }
+          }
+        ],
+        "format": {
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "5.000000",
+          "size": "1927574",
+          "bit_rate": "3084118",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf62.12.102"
+          }
+        }
+      },
+      "diagnostics_enabled": false
+    }
+  ],
+  "comparison": {
+    "page": "https://rhinoq.github.io/h3-apple/previews/99-bobo-lora-v052/",
+    "immutable_samples": "https://github.com/RhinoQ/h3-apple/blob/69e637e377ec8c9f302965552a53d7911d43d2d1/previews/99-bobo-lora-v052/samples.json",
+    "samples_sha256": "2a89018b0f26ef20fb0006625d2673d1c81ea64b7f802dd2f1b35c6a73fedf40",
+    "scope": "Three known cartoon scenes, one seed each; non-blind sampled-frame review and ASR. Running and handoff ghosting improved but did not disappear; dialogue approximately equal. No broad quality, subjective audio or speed ranking."
+  },
+  "failures": {
+    "generation_failures": 0,
+    "generation_retries": 0,
+    "preflight": "Before freezing, tuple/list representation of reference paths caused a request-comparison assertion. JSON normalization resolved the comparison; no input, product, recipe or generated result changed."
+  },
+  "scope": "Installed-package migration and complete CLI/API execution. Integration reproduces accepted P136 outputs; it is not a new speed or quality study. Final distributions must preserve this runtime fingerprint.",
+  "host": {
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472,
+    "macos": "26.6.1"
+  }
+}

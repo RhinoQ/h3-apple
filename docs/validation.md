@@ -1,5 +1,46 @@
 # Validation
 
+## Version 0.5.3
+
+Version 0.5.3 adopts the original LightX2V Ref2VA Turbo 4-step v0.1 adapter,
+pinned to revision `ec01fa4c86263832faa0bd1d6d8f36a281eaabb2`. The native engine,
+base weights, four steps, video/audio shifts (12/3), adapter scale (1.0) and
+compute policy are unchanged. See the [installation and replay evidence](evidence/v0.5.3-release.json).
+
+The installed CLI and Python API each produced a complete 5-second 1366×768
+video with stereo audio. Both MP4 files, decoded RGB and PCM matched their
+original-LoRA comparison outputs exactly, with identical executed compute
+routes and four denoising forwards. Model migration reused all base weights and
+the locally cached adapter with zero download bytes; the unchanged 0.5.2
+installation still loaded its original receipt. The installed core environment
+passed 127 tests with 10 optional tests skipped; the environment containing face
+dependencies passed all 137 tests, including 11 adapter-upgrade checks.
+
+The adoption follows a controlled three-scene 99/bobo check using the same
+0.5.2 installed runtime, references, prompts and seeds. The default dialogue
+replay first reproduced the historical video and audio exactly. Only the LoRA
+and its model identity changed in the three candidate runs. The six unedited
+videos, complete prompts, source/weight identities and sample hashes are in the
+[comparison and evidence](https://rhinoq.github.io/h3-apple/previews/99-bobo-lora-v052/).
+
+| Scene | Observed result |
+| --- | --- |
+| Mandarin dialogue | Approximately equal character/scene stability; ASR matched both target lines |
+| Side-tracking run | Less overlapping hand, shorts and shoe contours in the inspected motion windows; some hand blur remained |
+| Bread handoff | Less ghosting during transfer and lifting; the handoff completed, with some bread/face-edge blur remaining |
+
+These are three single-seed, five-second 768p cartoon cases on a 40-core M5 Max
+with 128 GiB memory. Review was non-blind: six frames per second across each
+video plus every frame in the declared action windows and full-resolution spot
+checks. Subjective voice quality, precise lip sync, continuous-motion blind
+review and multi-seed generalization were not evaluated. Running-clip ASR
+produced a suspicious non-speech transcription in both arms; it is not evidence
+of actual dialogue or subtitles. Cross-day single-run timings do not establish
+a speed improvement. Adapter adoption does not guarantee the absence of blur,
+unwanted text, identity drift or prompt errors.
+
+## Version 0.5.2
+
 Version 0.5.2 keeps the 0.5.1 native generator unchanged. Its installed CLI/API
 generation checks and separate optional-restoration checks are recorded in
 [the 0.5.2 release evidence](evidence/v0.5.2-release.json). The measurements
