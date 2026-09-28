@@ -1,3 +1,3 @@
 interface:
-  display_name: "H3 Apple Ref2VA 提示词"
-  short_description: "Plan Ref2VA shots and audit story continuity"
+  display_name: "H3 Apple Ref2VA"
+  short_description: "Set up H3, generate videos and review results"

@@ -1,15 +1,32 @@
 ---
 name: h3-apple-ref2va-prompting
-description: Write and review h3-apple Ref2VA prompts, reference selection and shot plans, and assess audiovisual intent, continuity and output quality in generated or edited videos.
+description: Generate and review reference-image videos with h3-apple on Mac, including environment setup, Ref2VA prompts, shot planning and audiovisual continuity.
 ---
 
-# H3 Apple Ref2VA Prompting
+# H3 Apple Ref2VA
 
 This locally authored skill supplements MiniMax's official `h3-prompt-writing`
 guide. Preserve the requested creative intent, subjects, motion, timing, audio
 and reference roles. Keep project preferences, production budgets and experiment
 history in the project's records; consult them when continuing existing work.
 They are context for that production, not universal requirements of this skill.
+
+## Follow the requested deliverable
+
+When the user asks to make or render a video, use the installed **h3-apple** CLI
+or Python API and carry the task through setup, generation and delivery. Read
+[local-generation.md](references/local-generation.md) to find or install a
+compatible Conda environment, check readiness and download requirements, run the
+generation and locate the finished MP4. Reuse a working installation; install
+missing components within the authorized task instead of handing the user
+installation commands. Do not stop after writing a prompt when a video was
+requested.
+
+For prompt writing, story ideas or shot plans alone, deliver that artifact without
+installing h3-apple or running models. Reviewing an existing video also does not
+require generation setup. Preserve an explicitly requested product version and
+delivery settings. A generation request authorizes the necessary local workflow;
+large-download consent and publication remain separate boundaries.
 
 ## Prepare the actual input
 
@@ -70,5 +87,5 @@ When comparing renders or diagnosing a quality change, read
 [output-comparison.md](references/output-comparison.md). Separate prompt changes
 from generation settings, editing and postprocessing when attributing a result.
 A proposed correction is not a tested fix; report what was actually inspected
-and what remains uncertain. Skill use alone does not authorize generation,
-publication or engine changes.
+and what remains uncertain. Do not expand a prompt-only or review request into
+generation, or a generation request into publication or engine changes.

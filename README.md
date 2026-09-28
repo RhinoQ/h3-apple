@@ -63,8 +63,8 @@ Describe how each reference should be used. The full prompt is passed through
 unchanged. Style references may also influence characters and composition;
 precise identity, text and shot timing are not guaranteed.
 
-The optional [Codex prompting skill](#prompting-skill-for-codex) helps turn your
-references and creative brief into a complete prompt.
+The optional [Codex video skill](#codex-video-skill) can handle setup, prompt
+writing and generation from your references and creative brief.
 
 Defaults: **15 seconds, 576p, landscape, 24 fps, stereo audio**. Generated files
 and their run records go into a new `runs/` folder unless `--output` is given.
@@ -76,30 +76,31 @@ Use `--duration 5` for a short first run, `--aspect-ratio 9:16` for portrait,
 h3 doctor
 ```
 
-## Prompting skill for Codex
+## Codex video skill
 
-The [Ref2VA prompting skill](skills/h3-apple-ref2va-prompting/SKILL.md) helps plan
-reference roles, shots and audio, and review motion, visible text and continuity.
-It works across subjects and video styles.
+The [Ref2VA skill](skills/h3-apple-ref2va-prompting/SKILL.md) checks for h3-apple,
+reuses a compatible installation or installs missing components in an isolated
+Conda environment, then plans the prompt, generates the video and reviews the
+result. Downloads over 20 GB require your consent. It works across subjects and
+video styles.
 
 To install it, paste this into a [Codex chat](https://learn.chatgpt.com/docs/build-skills#install-curated-skills-for-local-use):
 
 ```text
-$skill-installer install from https://github.com/RhinoQ/h3-apple/tree/v0.5.3/skills/h3-apple-ref2va-prompting
+$skill-installer install from https://github.com/RhinoQ/h3-apple/tree/main/skills/h3-apple-ref2va-prompting
 ```
 
 Then attach your reference images and invoke it in your next message:
 
 ```text
 $h3-apple-ref2va-prompting
-Plan a 5-second video from these images, with Mandarin dialogue and no subtitles.
-Save the complete prompt as story.txt.
+Create a 5-second video from these images, with Mandarin dialogue and no subtitles.
+Save the finished video as demo.mp4.
 ```
 
-Use the [generation command above](#generate) with `--prompt-file story.txt --duration 5`,
-keeping the images in the order used by the prompt. If the skill does not appear,
-restart Codex. A standalone [skill ZIP](https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3-apple-ref2va-prompting.zip)
-is also available.
+For a prompt or storyboard only, say so; the skill will skip installation and
+generation. If you already installed an older skill, ask Codex to update it from
+the same repository path. If the skill does not appear, restart Codex.
 
 ## Python
 
