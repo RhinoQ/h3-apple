@@ -1,5 +1,5 @@
 {
-  "title": "99 与 bobo：h3-apple v0.2.1 / v0.5.2",
+  "title": "99 and bobo: h3-apple v0.2.1 / v0.5.2",
   "generated_on": "2026-09-27",
   "task": "MiniMax-H3 Ref2VA",
   "duration_seconds": 5,
@@ -34,7 +34,7 @@
   "samples": [
     {
       "case": "01-dialogue",
-      "title": "双人对白与表情",
+      "title": "Dialogue and expressions",
       "version": "0.2.1",
       "seed": 2026092701,
       "video": "videos/01-dialogue-v0.2.1.mp4",
@@ -44,7 +44,7 @@
     },
     {
       "case": "01-dialogue",
-      "title": "双人对白与表情",
+      "title": "Dialogue and expressions",
       "version": "0.5.2",
       "seed": 2026092701,
       "video": "videos/01-dialogue-v0.5.2.mp4",
@@ -54,7 +54,7 @@
     },
     {
       "case": "02-running",
-      "title": "并排跑步与肢体稳定",
+      "title": "Running and limb stability",
       "version": "0.2.1",
       "seed": 2026092702,
       "video": "videos/02-running-v0.2.1.mp4",
@@ -64,7 +64,7 @@
     },
     {
       "case": "02-running",
-      "title": "并排跑步与肢体稳定",
+      "title": "Running and limb stability",
       "version": "0.5.2",
       "seed": 2026092702,
       "video": "videos/02-running-v0.5.2.mp4",
@@ -74,7 +74,7 @@
     },
     {
       "case": "03-handoff",
-      "title": "递面包与道具连续性",
+      "title": "Bread handoff and prop continuity",
       "version": "0.2.1",
       "seed": 2026092703,
       "video": "videos/03-handoff-v0.2.1.mp4",
@@ -84,7 +84,7 @@
     },
     {
       "case": "03-handoff",
-      "title": "递面包与道具连续性",
+      "title": "Bread handoff and prop continuity",
       "version": "0.5.2",
       "seed": 2026092703,
       "video": "videos/03-handoff-v0.5.2.mp4",
