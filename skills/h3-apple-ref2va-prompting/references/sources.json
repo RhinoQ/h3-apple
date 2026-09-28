@@ -1,0 +1,27 @@
+{
+  "checked_utc": "2026-09-24T04:23:03.864649+00:00",
+  "official_repository": "https://github.com/MiniMax-AI/MiniMax-H3",
+  "official_commit": "d21241f0a4b3acbb34c97dae47fa417b7065e438",
+  "official_files": [
+    {
+      "path": "skills/h3-prompt-writing/SKILL.md",
+      "url": "https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/d21241f0a4b3acbb34c97dae47fa417b7065e438/skills/h3-prompt-writing/SKILL.md",
+      "sha256": "a7000443588ca3f145e3b3fd8900f14e0325dc460bd811268fac89a9dc8e56d0",
+      "bytes": 2623
+    },
+    {
+      "path": "skills/h3-prompt-writing/references/ref-en.txt",
+      "url": "https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/d21241f0a4b3acbb34c97dae47fa417b7065e438/skills/h3-prompt-writing/references/ref-en.txt",
+      "sha256": "1e574f356716ad55612247ffb7bbccbcdb484ad96599d63c7dca1af186b1fab7",
+      "bytes": 23553
+    },
+    {
+      "path": "skills/h3-prompt-writing/references/base-en.txt",
+      "url": "https://raw.githubusercontent.com/MiniMax-AI/MiniMax-H3/d21241f0a4b3acbb34c97dae47fa417b7065e438/skills/h3-prompt-writing/references/base-en.txt",
+      "sha256": "2cfebc096a6e08370f288d468d90b60f7f9bcb938f94bf090816e910e48e75fc",
+      "bytes": 15773
+    }
+  ],
+  "official_installation_document": "https://github.com/MiniMax-AI/MiniMax-H3/blob/d21241f0a4b3acbb34c97dae47fa417b7065e438/README.md",
+  "distribution": "Locally authored supplement with links and paraphrases; not an official MiniMax skill or a copy of the complete official manuals."
+}

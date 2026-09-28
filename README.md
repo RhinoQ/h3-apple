@@ -63,6 +63,11 @@ Describe how each reference should be used. The full prompt is passed through
 unchanged. Style references may also influence characters and composition;
 precise identity, text and shot timing are not guaranteed.
 
+The [Ref2VA prompting skill](skills/h3-apple-ref2va-prompting/SKILL.md) helps plan
+reference roles, shots and audio, and review motion, visible text and continuity.
+It adapts to the creative brief across different subjects and video forms. A
+standalone skill ZIP is also included in the GitHub release.
+
 Defaults: **15 seconds, 576p, landscape, 24 fps, stereo audio**. Generated files
 and their run records go into a new `runs/` folder unless `--output` is given.
 Use `--duration 5` for a short first run, `--aspect-ratio 9:16` for portrait,
