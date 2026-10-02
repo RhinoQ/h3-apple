@@ -4,21 +4,19 @@ The recommended installation uses a dedicated Conda environment on an Apple
 Silicon Mac. Use your existing Conda installation, or install the Apple Silicon
 version of [Miniforge](https://github.com/conda-forge/miniforge) first:
 
-For the local 0.6.0 checkout, install both generation modes:
+Install the 0.6.0 GitHub release with both generation modes:
 
 ```bash
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-cd /path/to/h3-apple
-python -m pip install ".[VSA]"
+python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
 h3 generate --image reference.jpg --prompt "Your scene, movement and sound."
 ```
 
 VSA is the default for generation, preparation and environment checks.
-For SOL only, use `python -m pip install .` and pass `--mode SOL` to each command
-(or `mode="SOL"` to the Python API). Version 0.6.0 has not been published;
-the [published 0.5.3 wheel](https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl)
-retains the SOL implementation without mode flags.
+For SOL only, omit `[VSA]` from the installation requirement and pass `--mode SOL`
+to each command (or `mode="SOL"` to the Python API). A source checkout can instead
+be installed with `python -m pip install ".[VSA]"`.
 
 Conda isolates Python and the dependencies from your other projects. pip installs
 and upgrades h3-apple inside that environment. Activate it in each new terminal:
@@ -160,10 +158,10 @@ tested scenes; it does not guarantee blur-free motion or exact prompt adherence.
 `h3 doctor --mode SOL` / `h3 doctor --mode VSA` checks hardware, Conda media tools and libraries, the engine and model
 receipts. Before first generation it may report that models are not yet ready.
 `h3 verify --mode SOL` / `h3 verify --mode VSA` performs a full weight checksum pass.
-To upgrade the local checkout:
+To upgrade the installed release:
 
 ```bash
-python -m pip install --upgrade ".[VSA]"
+python -m pip install --upgrade "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
 ```
 
 A 40-core M5 Max with macOS 26.2+ and at least 64 GB unified memory is required.
@@ -180,5 +178,5 @@ by more than 2 GiB or macOS reports serious thermal pressure. It reserves
 For separately installed small-face enhancement, including its additional 7.08 GB
 models and component terms, see [face enhancement](face-enhancement.md).
 Face enhancement is independent of the selected generation mode. Install
-`.[VSA,faces]` for both modes and face enhancement in the same environment;
+the release with `[VSA,faces]` for both modes and face enhancement in one environment;
 the optional stacks share the tested Transformers 5.14.1 dependency.

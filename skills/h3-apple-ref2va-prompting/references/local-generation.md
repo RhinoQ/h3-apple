@@ -1,22 +1,20 @@
 # Generate locally with h3-apple
 
-Use the public h3-apple CLI/API for rendering. This guide targets **v0.5.3**;
-the [installation guide](https://github.com/RhinoQ/h3-apple/blob/v0.5.3/docs/install.md)
-and [API guide](https://github.com/RhinoQ/h3-apple/blob/v0.5.3/docs/api.md) define
+Use the public h3-apple CLI/API for rendering. This guide targets **v0.6.0**;
+the [installation guide](https://github.com/RhinoQ/h3-apple/blob/v0.6.0/docs/install.md)
+and [API guide](https://github.com/RhinoQ/h3-apple/blob/v0.6.0/docs/api.md) define
 its supported interface. Honor a requested version; inspect that release's docs
 and `--help` before adapting these commands. Do not silently upgrade an existing
 installation or change the model recipe to make a command work.
 
-## VSA and SOL in a 0.6.0 checkout
+## VSA and SOL
 
-An installed 0.6.0 checkout supports `--mode VSA` (default) and `--mode SOL`,
-also `mode="VSA"` / `mode="SOL"` in Python. Honor an explicitly requested mode
-and carry it through `resolve`, `prepare`, `doctor`, `verify` and `generate`.
-Both modes use original LightX2V. VSA needs its optional dependencies in Python
-3.11 and a separate verified model bundle; check the checkout's installation
-guide. `H3_MODEL_DIR` applies to SOL, `H3_VSA_MODEL_DIR` to VSA. Do not pass new
-mode flags to the published 0.5.3 release. Do not invent a 0.6.0 download URL
-before publication. Use a provided local checkout or wheel when authorized.
+Version 0.6.0 supports `--mode VSA` (default) and `--mode SOL`, also `mode="VSA"` /
+`mode="SOL"` in Python. Honor an explicitly requested mode and carry it through
+`resolve`, `prepare`, `doctor`, `verify` and `generate`. Both modes use original
+LightX2V. VSA needs its optional dependencies in Python 3.11 and a separate
+verified model bundle. `H3_MODEL_DIR` applies to SOL, `H3_VSA_MODEL_DIR` to VSA.
+Older releases such as 0.5.3 do not expose these mode flags.
 
 ## Find or install the environment
 
@@ -28,7 +26,7 @@ absolute interpreter for every H3, pip and verification command. Do not use
 system Python, Conda base, `pip --user` or an unrelated project's environment.
 
 Before installing dependencies or downloading weights, check the host against
-the selected release's requirements. v0.5.3 requires an Apple Silicon Mac with
+the selected release's requirements. v0.6.0 requires an Apple Silicon Mac with
 a **40-core M5 Max**, macOS **26.2+**, and **64 GiB** unified memory; 768p beyond
 5 seconds requires **96 GiB**. Read macOS and hardware information rather than
 assuming that any Apple Silicon Mac is supported. Unsupported hardware is a
@@ -43,7 +41,7 @@ exist on the user's machine:
 H3_ENV_PREFIX="$PWD/.local/envs/h3"
 conda create --prefix "$H3_ENV_PREFIX" -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 H3_PYTHON="$H3_ENV_PREFIX/bin/python"
-"$H3_PYTHON" -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl
+"$H3_PYTHON" -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
 "$H3_PYTHON" -m h3_apple --version
 ```
 
@@ -72,7 +70,7 @@ When preparation is needed, inspect the actual plan first:
 "$H3_PYTHON" -m h3_apple prepare --plan
 ```
 
-Carry an existing `--model-dir` or `H3_MODEL_DIR` consistently through `doctor`,
+Carry an existing `--model-dir` or the selected mode's model environment variable through `doctor`,
 `prepare` and `generate`. The plan reports `download_bytes` and
 `additional_disk_bytes`; compare the latter with free space on the destination
 volume. `--plan` does not download weights or generate a video. Prefer verified
@@ -86,8 +84,9 @@ or install the package does not by itself approve a large model download. Never
 pipe `yes` into the CLI or add `--allow-large-download` to suppress this boundary.
 Use that flag (or API `allow_large_download=True`) only after applicable consent.
 A noninteractive run may raise `DownloadApprovalRequired`; report its plan,
-obtain the missing consent, then resume. A fresh v0.5.3 preparation is about
-145 GB of downloads and 233 GB of free disk, but the actual plan governs reuse.
+obtain the missing consent, then resume. A fresh VSA preparation needs about
+151 GB of downloads and 343 GB of free disk; SOL needs about 145 GB / 233 GB.
+The actual mode-specific plan governs reuse.
 
 Within the approved budget, continue automatically. `generate` prepares missing
 engine/models before rendering; `prepare` is optional for advance preparation
@@ -98,7 +97,7 @@ or explicit reuse, not a substitute for the requested video. Never treat
 
 Save the complete prompt in a UTF-8 file and preserve the supplied image order.
 Use the requested duration, resolution, aspect ratio and seed. For omitted
-settings, v0.5.3 defaults to 15 seconds, 576p, 16:9 and a recorded random seed.
+settings, v0.6.0 defaults to VSA, 15 seconds, 576p, 16:9 and a recorded random seed.
 Supported durations are 5–15 seconds at whole 24 fps frames; resolutions are
 576p and 768p, and aspect ratios are 16:9 and 9:16. Do not quietly replace a
 requested production with a shorter or lower-resolution test.

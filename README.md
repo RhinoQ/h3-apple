@@ -31,21 +31,18 @@ Use a dedicated Conda environment to keep H3's dependencies separate from your
 other projects. If you do not have Conda, install the Apple Silicon version of
 [Miniforge](https://github.com/conda-forge/miniforge) first.
 
-The 0.6.0 checkout is available locally; it has not been published as a release.
-Install from that checkout to use both modes:
+Install the [0.6.0 release](https://github.com/RhinoQ/h3-apple/releases/tag/v0.6.0)
+with both generation modes:
 
 ```bash
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-cd /path/to/h3-apple
-python -m pip install ".[VSA]"
+python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
 ```
 
-For SOL alone, use `python -m pip install .`; its Python dependencies remain
-small; select it explicitly with `--mode SOL` or `mode="SOL"`. VSA adds pinned MLX, PyTorch and Transformers dependencies and requires
-Python 3.11. SOL supports Python 3.11–3.14. The latest published
-[0.5.3 wheel](https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl)
-contains the original SOL generation path and does not expose these mode flags.
+For SOL alone, omit `[VSA]` from the installation requirement; select it with
+`--mode SOL` or `mode="SOL"`. VSA adds pinned MLX, PyTorch and Transformers
+dependencies and requires Python 3.11. SOL supports Python 3.11–3.14.
 
 Conda manages Python and FFmpeg together. The first generation prepares the
 selected mode's models, then continues to your video. Existing compatible
@@ -158,7 +155,7 @@ restored eye, mouth and skin detail can change, and the model has no temporal
 conditioning. It cannot fix acting, gaze direction or story continuity.
 
 If your shell cannot find `h3`, use `python -m h3_apple` with the Python that
-installed the package. To upgrade this checkout, repeat its installation command with `--upgrade`.
+installed the package. To upgrade, repeat the installation command above with `--upgrade`.
 
 [Python API](https://github.com/RhinoQ/h3-apple/blob/main/docs/api.md) · [Validation](https://github.com/RhinoQ/h3-apple/blob/main/docs/validation.md) · [Development and credits](https://github.com/RhinoQ/h3-apple/blob/main/docs/development.md)
 

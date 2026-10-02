@@ -1,8 +1,8 @@
 # Optional small-face enhancement
 
-Version 0.5.2 can enhance selected small faces in an existing H3 video. This is
-an additional postprocessing operation. Ordinary `h3 generate` still uses the
-0.5.1 native engine and does not install, import or load the restoration stack.
+h3-apple can enhance selected small faces in an existing H3 video. This is
+an additional postprocessing operation, available since 0.5.2. Ordinary
+generation in either VSA or SOL does not import or load the restoration stack.
 
 Watch the [original/restored comparison](https://rhinoq.github.io/h3-apple/previews/delegation-local-vosr/).
 It demonstrates local detail, not an accepted narrative film: the source has
@@ -13,11 +13,11 @@ the source; exact identity or temporal fidelity is not guaranteed.
 ## Setup
 
 Use the Python 3.11 Conda environment from [installation](install.md). The
-optional PyTorch stack is tested with Python 3.11; it is not required for normal
-generation. Install this exact release with its optional dependencies:
+optional restoration stack is tested with Python 3.11. Install this release
+with VSA and face-enhancement dependencies:
 
 ```bash
-python -m pip install 'h3-apple[faces] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl'
+python -m pip install 'h3-apple[VSA,faces] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl'
 h3 prepare-faces --plan
 h3 prepare-faces
 ```
