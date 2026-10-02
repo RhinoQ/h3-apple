@@ -5,7 +5,7 @@
 Both modes use the original LightX2V Ref2VA Turbo four-step v0.1 recipe. SOL
 retains the 0.5.3 native engine, model format and compute policy. VSA adds the
 MLX implementation with W8A8 main projections, direct BF16 output, consecutive
-QKV activation reuse and INT8 QK inside VSA. Mode values are uppercase; SOL is
+QKV activation reuse and INT8 QK inside VSA. Mode values are uppercase; VSA is
 the default. Their text encoders, attention scheduling and decoders differ, so
 a shared seed does not imply equal output between modes.
 
@@ -27,7 +27,10 @@ Original references and generated media are identified by hashes and are not
 bundled with the package.
 
 The [installed-package checks](evidence/v0.6.0-release.json) replayed all three
-declared cases through the public interfaces on the same M5 Max / 128 GiB host:
+declared cases through the public interfaces on the same M5 Max / 128 GiB host.
+Those frozen builds preceded the change of default from SOL to VSA; every replay
+selected its mode explicitly. The default selection was subsequently checked
+through the CLI and Python API, with both generation implementations unchanged:
 
 | Mode and entry point | Delivered video | Complete wait | Replay result |
 | --- | --- | ---: | --- |

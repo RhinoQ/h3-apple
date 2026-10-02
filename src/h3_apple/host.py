@@ -87,7 +87,7 @@ def device_lock(path=None):
             fcntl.flock(stream, fcntl.LOCK_UN)
 
 
-def doctor(model_dir=None, mode="SOL"):
+def doctor(model_dir=None, mode="VSA"):
     if mode not in ("SOL", "VSA"):
         raise ValueError("mode must be 'SOL' or 'VSA'.")
     info = snapshot()

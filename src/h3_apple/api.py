@@ -33,12 +33,12 @@ class GenerationRequest:
     model_width: int
     model_height: int
     model_num_frames: int
-    recipe: str = "ref2va-i8-sol-sage-v1"
+    recipe: str = "ref2va-w8a8-vsa-int8qk-v1"
     fps: int = 24
     audio_sample_rate: int = 32000
     audio_channels: int = 2
     num_steps: int = 4
-    mode: str = "SOL"
+    mode: str = "VSA"
 
     def to_dict(self):
         return asdict(self)
@@ -53,7 +53,7 @@ class GenerationResult:
 
 
 def resolve(prompt=None, *, prompt_file=None, reference_images=None,
-            resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL"):
+            resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="VSA"):
     """Validate inputs and resolve geometry without loading model weights."""
     if mode not in ("SOL", "VSA"):
         raise ValueError("mode must be 'SOL' or 'VSA'.")
@@ -109,7 +109,7 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
 
 
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
-             resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL",
+             resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="VSA",
              output=None, model_dir=None, on_progress=None, diagnostics=False,
              timeout=7200, allow_large_download=False):
     """Prepare H3 if needed, then generate an MP4 with stereo audio.

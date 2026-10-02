@@ -8,8 +8,8 @@ the original **LightX2V Ref2VA Turbo 4-step v0.1 LoRA**:
 
 | Mode | Generation implementation |
 | --- | --- |
-| **SOL** (default) | Native INT8 GEMM, SOL attention and SageAttention; retains the 0.5.3 generation path |
-| **VSA** | MLX W8A8 projections, shared QKV activation packing, VSA and INT8 QK attention |
+| **VSA** (default) | MLX W8A8 projections, shared QKV activation packing, VSA and INT8 QK attention |
+| **SOL** | Native INT8 GEMM, SOL attention and SageAttention; retains the 0.5.3 generation path |
 
 Choose a mode explicitly when comparing results; the two implementations can
 produce different images and sound with the same seed. See the
@@ -42,7 +42,7 @@ python -m pip install ".[VSA]"
 ```
 
 For SOL alone, use `python -m pip install .`; its Python dependencies remain
-small. VSA adds pinned MLX, PyTorch and Transformers dependencies and requires
+small; select it explicitly with `--mode SOL` or `mode="SOL"`. VSA adds pinned MLX, PyTorch and Transformers dependencies and requires
 Python 3.11. SOL supports Python 3.11–3.14. The latest published
 [0.5.3 wheel](https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl)
 contains the original SOL generation path and does not expose these mode flags.
@@ -82,7 +82,7 @@ precise identity, text and shot timing are not guaranteed.
 The optional [Codex video skill](#codex-video-skill) can handle setup, prompt
 writing and generation from your references and creative brief.
 
-Defaults: **SOL, 15 seconds, 576p, landscape, 24 fps, stereo audio**. Generated files
+Defaults: **VSA, 15 seconds, 576p, landscape, 24 fps, stereo audio**. Generated files
 and their run records go into a new `runs/` folder unless `--output` is given.
 Use `--duration 5` for a short first run, `--aspect-ratio 9:16` for portrait,
 `--resolution 768p` for larger output, or `--seed 42` to record a fixed seed.
@@ -133,7 +133,7 @@ result = h3_apple.generate(
     prompt="Picture 1 and Picture 2 have a picnic at sunset. Birds and a soft breeze.",
     reference_images=["99.jpg", "bobo.jpg"],
     output="weekend.mp4",
-    mode="SOL",  # or "VSA"
+    mode="VSA",  # default; use "SOL" for the other mode
 )
 print(result.video_path)
 ```

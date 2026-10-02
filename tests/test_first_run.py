@@ -24,7 +24,7 @@ def test_api_requests_consent_before_downloading_or_reserving_output(tmp_path, m
     monkeypatch.setattr(preparation, 'prepare', lambda *a, **kw: pytest.fail('download without consent'))
     target = tmp_path / 'outputs/video.mp4'
     with pytest.raises(DownloadApprovalRequired) as error:
-        generate('A scene', reference_images=[image], output=target)
+        generate('A scene', reference_images=[image], output=target, mode='SOL')
     assert error.value.download_bytes == spec['download_bytes']
     assert not target.parent.exists()
 

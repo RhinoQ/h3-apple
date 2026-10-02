@@ -9,7 +9,7 @@ from h3_apple import engine
 def test_reference_order_and_fixed_acceleration(tmp_path):
     paths=[tmp_path/'z.png',tmp_path/'a.png']
     for path,color in zip(paths,('red','blue')):Image.new('RGB',(960,544),color).save(path)
-    request=resolve('Picture 1 red, picture 2 blue',reference_images=paths).to_dict()
+    request=resolve('Picture 1 red, picture 2 blue',reference_images=paths,mode='SOL').to_dict()
     prepared=engine.prepare_inputs(request,dict(image_paths=paths,pixel_budget=1024*576),tmp_path)
     assets=dict(native_model='/model',adapter=dict(path='/adapter'),recipe=RECIPE)
     stages={s['id']:s for s in engine.build_graph(request,assets,prepared,tmp_path/'out.mp4')['stages']}

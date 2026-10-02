@@ -12,7 +12,7 @@ audio endpoints.
 The shared Python facade owns input validation, preparation, resource limits,
 progress, cancellation, media validation and run records. `engine.py` owns SOL
 execution; `runtime/engine.py` owns VSA execution. Each has one implementation
-and its own verified model format. SOL remains the default; there is no silent
+and its own verified model format. VSA is the default; there is no silent
 mode or attention fallback. `vsa_preparation.py` reuses the source downloader
 and launches the converter in an isolated process. VSA imports stay inside its
 worker so a SOL-only installation does not need MLX or PyTorch.

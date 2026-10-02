@@ -35,8 +35,8 @@ def parser():
         command.add_argument("--resolution", choices=("576p", "768p"), default="576p")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         command.add_argument("--seed", type=int)
-        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL",
-                             help="Generation mode (default: SOL)")
+        command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
+                             help="Generation mode (default: VSA)")
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             command.add_argument("--model-dir")
@@ -47,7 +47,7 @@ def parser():
                                  help="Confirm first-run model downloads exceeding 20 GB")
     prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
-    prepare.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
+    prepare.add_argument("--mode", choices=("VSA", "SOL"), default="VSA")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
                          help="Reuse a source snapshot or an existing H3 model installation")
     prepare.add_argument("--plan", action="store_true", help="Check download and disk requirements only")
@@ -55,7 +55,7 @@ def parser():
     for name in ("doctor", "verify"):
         command = commands.add_parser(name, help="Check installation" if name == "doctor" else "Verify all model checksums")
         command.add_argument("--model-dir")
-        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
+        command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA")
     faces = commands.add_parser("enhance-faces", help="Optionally enhance small faces in an existing H3 video")
     faces.add_argument("--input", required=True, dest="video")
     faces.add_argument("--output")

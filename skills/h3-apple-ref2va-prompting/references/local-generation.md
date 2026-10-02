@@ -9,7 +9,7 @@ installation or change the model recipe to make a command work.
 
 ## VSA and SOL in a 0.6.0 checkout
 
-An installed 0.6.0 checkout supports `--mode VSA` and `--mode SOL` (default),
+An installed 0.6.0 checkout supports `--mode VSA` (default) and `--mode SOL`,
 also `mode="VSA"` / `mode="SOL"` in Python. Honor an explicitly requested mode
 and carry it through `resolve`, `prepare`, `doctor`, `verify` and `generate`.
 Both modes use original LightX2V. VSA needs its optional dependencies in Python

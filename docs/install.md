@@ -11,10 +11,12 @@ conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
 cd /path/to/h3-apple
 python -m pip install ".[VSA]"
-h3 generate --mode SOL --image reference.jpg --prompt "Your scene, movement and sound."
+h3 generate --image reference.jpg --prompt "Your scene, movement and sound."
 ```
 
-Use `python -m pip install .` for SOL only. Version 0.6.0 has not been published;
+VSA is the default for generation, preparation and environment checks.
+For SOL only, use `python -m pip install .` and pass `--mode SOL` to each command
+(or `mode="SOL"` to the Python API). Version 0.6.0 has not been published;
 the [published 0.5.3 wheel](https://github.com/RhinoQ/h3-apple/releases/download/v0.5.3/h3_apple-0.5.3-py3-none-any.whl)
 retains the SOL implementation without mode flags.
 
@@ -96,7 +98,7 @@ SOL models default to `~/Models/h3-apple/ref2va`; VSA defaults to
 the selected mode's default. Use separate directories for the two formats. To use another volume:
 
 ```bash
-export H3_MODEL_DIR=/Volumes/Models/h3-apple
+export H3_VSA_MODEL_DIR=/Volumes/Models/h3-apple/VSA
 h3 generate --image reference.jpg --prompt "Your scene"
 ```
 
@@ -133,20 +135,20 @@ hashes are in [model-sources.json](../src/h3_apple/data/model-sources.json) and
 [VSA gate sources](../src/h3_apple/data/vsa-gates.json).
 Model license terms still apply.
 
-## Upgrading to 0.5.3
+## Upgrading SOL models from before 0.5.3
 
-The first generation or `h3 prepare` upgrades an existing prepared installation
+A SOL generation or `h3 prepare --mode SOL` upgrades an existing prepared installation
 to the original LightX2V Ref2VA Turbo 4-step v0.1 adapter. Only the **1.38 GB
 adapter** is downloaded when the base weights and engine are already present;
 the base weights are verified and are not downloaded or quantized again.
 To reuse an already downloaded adapter, pass its file or directory with
-`h3 prepare --reuse-dir /path/to/adapter.safetensors`.
+`h3 prepare --mode SOL --reuse-dir /path/to/adapter.safetensors`.
 
 The new adapter and its receipt are stored under
 `<model-dir>/adapters/<adapter-sha256>/`. The original `model.json`, base weights
 and adapter remain intact, so an older installed h3-apple version can still use
 the same model directory. Interrupted adapter downloads are resumable. A failed
-upgrade leaves the old receipt intact and can be retried with `h3 prepare`.
+upgrade leaves the old receipt intact and can be retried with `h3 prepare --mode SOL`.
 
 The native engine, four denoising steps, video/audio shifts (12/3) and adapter
 scale (1.0) stay the same. The engine handles the adapter's alpha/rank metadata.
