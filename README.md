@@ -1,4 +1,17 @@
-# H3 Apple video studies
+# H3 Apple video gallery
+
+The [homepage](https://rhinoq.github.io/h3-apple/) features three new 99 and bobo
+stories generated with H3 Apple v0.6.0, with VSA on the left and SOL on the right.
+It includes three side-by-side comparisons, six original videos, recorded generation
+times, and independent original audio. VSA is the default product mode.
+
+The same collection has a stable [preview link](previews/99-bobo-v060/).
+Its [generation records](previews/99-bobo-v060/samples.json) include exact prompts,
+settings, source and model identities, hashes, measurements, and review limits.
+The original reference images are not distributed. This is a single-run, whole-mode
+comparison with non-blind sampled-frame review, not a general quality ranking.
+
+## Earlier video studies
 
 An independently authored GitHub Pages gallery of local MiniMax H3 generations.
 The case index comes from [fal's H3 guide](https://fal.ai/learn/devs/minimax-h3-prompting-guide).
@@ -12,8 +25,10 @@ font, analytics, API key, or cloud generation service is required. The small
 `build.py` consumes the private source inventory and local run status using the
 H3 Apple Conda environment. It exports an explicit allowlist of metadata and
 copies only completed H3 Apple output files. The private inventory and source
-media stay outside this repository. `layout.html` and `styles.css` are the page
-sources; `index.html`, `collection.json`, and `records/` are generated exports.
+media stay outside this repository. `layout.html` and `styles.css` are the earlier
+collection's page sources; `studies.html`, `collection.json`, and `records/` are
+generated exports. The 44-case collection remains available at
+[studies.html](studies.html); its builder does not replace the latest homepage.
 
 Each case displays its exact prompt with a copy button and source attribution,
 ordered reference previews, an input-fetching command, and the Python API call.

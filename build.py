@@ -329,7 +329,7 @@ def main():
         public_cases.append(record)
     page = template.replace("{{CASES}}", "\n".join(content)).replace("{{CONTENTS}}", nav).replace("{{GENERATED}}", str(available))
     assert "{{" not in page
-    atomic(root / "index.html", page)
+    atomic(root / "studies.html", page)
     atomic(root / "collection.json", json.dumps({"source": SOURCE, "available_cases": available, "status_counts": dict(count), "cases": public_cases}, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps(dict(current_status_counts=dict(count), available_cases=available)))
 
