@@ -1,5 +1,60 @@
 # Validation
 
+## Version 0.6.0: VSA and SOL
+
+Both modes use the original LightX2V Ref2VA Turbo four-step v0.1 recipe. SOL
+retains the 0.5.3 native engine, model format and compute policy. VSA adds the
+MLX implementation with W8A8 main projections, direct BF16 output, consecutive
+QKV activation reuse and INT8 QK inside VSA. Mode values are uppercase; SOL is
+the default. Their text encoders, attention scheduling and decoders differ, so
+a shared seed does not imply equal output between modes.
+
+The [controlled VSA evidence](evidence/v0.6.0-VSA-performance.json) includes all
+12 complete runs, three full prompts, reference identities, seeds, source/model
+identities, timing pairs and review scope. Three 15-second pairs against VSA
+with INT8 QK alone gave **1.0235× median speedup**, with all pairs faster. This
+missed the predeclared **1.03× incremental target**. Against the original
+v0.2.1 VSA, the single long baseline took 2,410.856 seconds and the three
+candidate runs had a 2,058.701-second median (1.1711×). That second figure uses
+one baseline run and is not a three-pair estimate. These results do not compare
+VSA with SOL and do not establish a universal speed or quality advantage.
+
+The inspected VSA samples preserved the main subjects and actions, with changes
+to clothing, expressions and backgrounds. The non-blind inspection found no new
+severe duplication or collapse in its declared frame coverage; it did not
+establish blind non-inferiority, voice quality or precise lip synchronization.
+Original references and generated media are identified by hashes and are not
+bundled with the package.
+
+The [installed-package checks](evidence/v0.6.0-release.json) replayed all three
+declared cases through the public interfaces on the same M5 Max / 128 GiB host:
+
+| Mode and entry point | Delivered video | Complete wait | Replay result |
+| --- | --- | ---: | --- |
+| VSA CLI | 5 seconds, 1366×768, 120 frames | 623.810 s | MP4, decoded RGB and PCM equal the selected VSA predecessor |
+| SOL Python API | 5 seconds, 1366×768, 120 frames | 429.195 s | MP4, decoded RGB and PCM equal the original SOL predecessor |
+| VSA Python API | 15 seconds, 1366×768, 360 frames | 2,060.801 s | MP4, decoded RGB and PCM equal the selected VSA predecessor |
+
+All runs completed four denoising forwards with stereo 32 kHz audio. VSA
+executed 1,200 W8A8 projections, 800 activation packs, 400 QKV pack reuses and
+200 INT8 QK / VSA calls per video, with no attention fallback. SOL retained its
+executed compute routes. These single replay times verify integration and do
+not establish a controlled speed comparison between modes.
+
+Verified local VSA reuse and fresh conversion from cached original sources both
+passed, with zero model-download bytes. All 70 pinned content files matched;
+the long replay used the freshly converted bundle. An initial conversion used
+the wrong inherited GPU architecture setting and failed the content check;
+restoring the recorded Ref2VA preparation settings reproduced every file hash.
+The failure and correction are retained in the evidence.
+
+The full dependency environment passed 162 tests; a separate SOL-only
+environment passed 137 with 13 optional tests skipped. A fixed restoration crop
+remained pixel-identical after the shared Transformers dependency upgrade.
+All 96 runtime files match between the replay wheel, final wheel, installed
+package and checkout. These checks preserve the selected results without
+extending their quality or hardware scope.
+
 ## Version 0.5.3
 
 Version 0.5.3 adopts the original LightX2V Ref2VA Turbo 4-step v0.1 adapter,

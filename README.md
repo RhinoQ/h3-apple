@@ -89,8 +89,8 @@ Use `--duration 5` for a short first run, `--aspect-ratio 9:16` for portrait,
 768p runs longer than 5 seconds require at least 96 GB memory.
 
 ```bash
-h3 generate --mode VSA --image reference.jpg --prompt-file story.txt --output VSA.mp4
-h3 generate --mode SOL --image reference.jpg --prompt-file story.txt --output SOL.mp4
+h3 generate --mode VSA --image reference.jpg --prompt-file story.txt --seed 42 --output VSA.mp4
+h3 generate --mode SOL --image reference.jpg --prompt-file story.txt --seed 42 --output SOL.mp4
 h3 doctor --mode VSA
 h3 doctor --mode SOL
 ```

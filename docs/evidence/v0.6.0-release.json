@@ -1,0 +1,468 @@
+{
+  "schema": "h3-apple-0.6.0-integration/v1",
+  "status": "passed",
+  "version": "0.6.0",
+  "date": "2026-10-02T11:22:01.998623+00:00",
+  "default_mode": "SOL",
+  "modes": [
+    "VSA",
+    "SOL"
+  ],
+  "runtime_commit": "d82669ef44a9a3d342d8959341254b6c8b1e35c3",
+  "VSA_origin_commit": "d918c981fc48cf7e1ebf668bc47b4183d35d1573",
+  "SOL_base_commit": "164d98bd18ef92bc5a26e02ce0694c1409fd1783",
+  "runtime_source_sha256": "d4b21177ae33f32f4b34259c00223fe8997641510d9b61cc4133e037a204cea7",
+  "runtime_files": 96,
+  "final_wheel": {
+    "file": "h3_apple-0.6.0-py3-none-any.whl",
+    "sha256": "0e094a979b41752a25baf3468b3c020d1a820ea297f5dcadd611d19aa71f1ed2",
+    "bytes": 1622134
+  },
+  "replay_wheel_sha256": "14c49410645e4c3a66bf73f7f8ebd5002c1ef27eacc14151c2fde76016262aa3",
+  "package_check": "Final wheel, replay wheel, checkout and installed runtime bytes are identical; final metadata pins the actually tested Hugging Face dependencies.",
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "macos": "26.6.1",
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472
+  },
+  "python_version": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+  "packages": {
+    "h3-apple": "0.6.0",
+    "mlx": "0.32.0",
+    "mlx-metal": "0.32.0",
+    "numpy": "2.4.6",
+    "torch": "2.11.0",
+    "torchvision": "0.26.0",
+    "transformers": "5.14.1",
+    "huggingface-hub": "1.26.0",
+    "tokenizers": "0.22.2",
+    "Pillow": "12.3.0",
+    "diffusers": "0.35.0"
+  },
+  "media": {
+    "ffmpeg_version": "ffmpeg version 8.1.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe_version": "ffprobe version 8.1.2 Copyright (c) 2007-2026 the FFmpeg developers"
+  },
+  "protocol_sha256": "857b9425444fa7dcb71c1f967af1935bd7c63cf4c38c9d31bd2e9fec39971cd0",
+  "generation_summary_sha256": "9eb19a9198f38ed1eb45b2186ddc935fb3147d187180f4df7b1c5898eff75e72",
+  "tests": {
+    "full": {
+      "passed": 162,
+      "warnings": 4,
+      "log_sha256": "0b45d19364cb3a04f301ec1649891644335e87e5061a9419c818e0f84ffe9019"
+    },
+    "SOL_only": {
+      "passed": 137,
+      "skipped": 13,
+      "log_sha256": "f0c94e3132e13312b47ee0654a32373959b24e29b12a54140511dfcb9e409dba",
+      "optional_dependencies_present": false
+    },
+    "dependency_checks": "Passed in both environments; SOL doctor ready without optional VSA or restoration packages."
+  },
+  "preparation": {
+    "model_download_bytes": 0,
+    "reused_model_identity": "7d1902498bf42540dfb3f5becde5d7cebac8d7f41e3284474a122f6ff5a1d990",
+    "fresh_model_identity": "0e571cf1666d6c3005b14daa5583bbbe075abc3a80d2e5f10764d17fc2062f0b",
+    "verified_content": "All 70 pinned source/weight/config records match; recipe is checked separately. Bundle identity differs only through recorded preparation provenance and recipe source paths.",
+    "long_replay_uses_fresh_conversion": true,
+    "preserved_failure": {
+      "different_tensors": 302,
+      "scope": "AdaLN caches only; learned tensors matched.",
+      "cause": "Inherited T2VA architecture override instead of the original Ref2VA native M5 preparation setting.",
+      "correction": "Restored recorded native architecture and TF32=0; all 70 complete-file content hashes match.",
+      "record_sha256": "c0637b9bee5b3372d47c88e2dc80242708a65b043e70ab6caaea948254aed954"
+    },
+    "content_manifest": "../../src/h3_apple/data/vsa-prepared-model.json",
+    "sources": "../../src/h3_apple/data/model-sources.json",
+    "gate_sources": "../../src/h3_apple/data/vsa-gates.json"
+  },
+  "face_dependency_compatibility": {
+    "input_rgb_sha256": "c6def473b5d79ffb8e7f55ea752e032ed740412af0be7fe2ea4d1ce2ddc9525f",
+    "output_rgb_sha256": "6daa9e0cec6045f6f7b24cb3471f6f45758362461352a5677f5690341a8a8291",
+    "all_rgb_equal": true,
+    "before_transformers": "4.52.0",
+    "after_transformers": "5.14.1",
+    "scope": "One fixed restoration crop only; no new quality evaluation."
+  },
+  "runs": [
+    {
+      "id": "VSA-cal-short",
+      "entry": "cli",
+      "status": "passed",
+      "api_seconds": 623.8102389168926,
+      "wrapper_seconds": 625.3446511661168,
+      "byte_equal": true,
+      "decoded_equal": true,
+      "mode": "VSA",
+      "input_case": {
+        "file": "v0.6.0-VSA-performance.json",
+        "id": "cal-short",
+        "file_sha256": "7514ca0d8af645c45cb943627d35b3fc2ec568f93e4dcdc4665888e5b519074d"
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 2026092701,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA"
+      },
+      "reference_sha256": [
+        "28ddae5599acd8aeafc53d5d953f2616c2236e8c2fac84c94497078c5804324f",
+        "84cae0ae3ec997d2714e1b1133734619208efc7236a70ee928941f14987ef7e2",
+        "c71cc6ea0c0f13bf4dfaca12856fedefdebd6a3cb4edd36cffab61bce3de56b4"
+      ],
+      "model_identity": "7d1902498bf42540dfb3f5becde5d7cebac8d7f41e3284474a122f6ff5a1d990",
+      "source_sha256": "d4b21177ae33f32f4b34259c00223fe8997641510d9b61cc4133e037a204cea7",
+      "actual_nfe": 4,
+      "video": {
+        "file": "VSA-cal-short.mp4",
+        "bytes": 2513791,
+        "sha256": "8834806304abd617237def19785d2fb58e1111f6acafcbfeaa70e0359bd45a1e"
+      },
+      "predecessor": {
+        "file": "formal-cal-short-p1-C-01.mp4",
+        "sha256": "8834806304abd617237def19785d2fb58e1111f6acafcbfeaa70e0359bd45a1e"
+      },
+      "decoded": {
+        "rgb": "SHA256=7b89c0b88dfa8c3efa720283f0f25904afa910cbf897a88ef0b75a3383307b2b",
+        "pcm": "SHA256=2652fd3389124dff5f80481dee6dd1ae5c00d8e1da86a7c14becdafd095db0fe"
+      },
+      "run_record_sha256": "742004c71dd4842106fbd0502ce6836adab9ce195457a78a18983ccf9f40b362",
+      "media": {
+        "width": 1366,
+        "height": 768,
+        "frames": 120,
+        "fps": "24/1",
+        "duration": 5.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "peak_memory_gib": {
+        "conditioning": 6.61246620118618,
+        "denoise": 33.857354692183435,
+        "video_decode": 15.552236933261156,
+        "audio_decode": 2.5149878077208996,
+        "mux": 0.0
+      },
+      "timings_seconds": {
+        "conditioning": 49.08440012508072,
+        "denoise": 511.8326319158077,
+        "video_decode": 59.3006651669275,
+        "audio_decode": 0.46431954205036163,
+        "mux": 0.7833755421452224
+      },
+      "acceleration": {
+        "mode": "VSA",
+        "projection_calls": 1200,
+        "int8_fine_calls": 200,
+        "preparation_seconds": 2.5018919589929283,
+        "activation_pack_calls": 800,
+        "qkv_pack_reuses": 400,
+        "native_output_dtype": "bfloat16",
+        "precision_contract": "Original affine weights, approximate INT8 arithmetic; no BF16 dequantization residual"
+      },
+      "vsa": {
+        "configured_sparsity": 0.75,
+        "layer_sparsity": 0.75,
+        "tile_size": 64,
+        "prefix_mode": "exempt",
+        "impl": "simd",
+        "num_prefix_tiles": 110,
+        "num_video_tiles": 660,
+        "video_keep": 165.5302932739258,
+        "achieved_sparsity": 0.7491965253425364,
+        "dense_fallback_reason": null,
+        "attention_calls": 200,
+        "sparse_calls": 200,
+        "impl_counts": {
+          "simd": 200
+        },
+        "fallback_reasons": [],
+        "routing_mode": "kablex"
+      },
+      "conditioning": {
+        "text_sha256": "804e0fdd627ee84ff2693146823d2617e0323c3122489dad79c06c5c73fcd2cc",
+        "reference_sha256": "23d55553f231ec4f83ff4e62dca469372894788542c43ce2603afd440d371f4d",
+        "condition_sha256": "e1270b2225c5c3b2855ef645a65dede232e25652194c84545a6aff1c2c5545bd",
+        "initial_video_sha256": "a382432f20e8ffa6624da6743125248017267e7537ba83e18a3b1d9784ea3bc8",
+        "initial_audio_sha256": "84c2ac60f4c507a78322dce6a66daa674e4ec6a6a10758aad1906a17e5be995b"
+      },
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      }
+    },
+    {
+      "id": "SOL-cal-short",
+      "entry": "api",
+      "status": "passed",
+      "api_seconds": 429.19528229208663,
+      "wrapper_seconds": 430.54806375014596,
+      "byte_equal": true,
+      "decoded_equal": true,
+      "mode": "SOL",
+      "input_case": {
+        "file": "v0.6.0-VSA-performance.json",
+        "id": "cal-short",
+        "file_sha256": "7514ca0d8af645c45cb943627d35b3fc2ec568f93e4dcdc4665888e5b519074d"
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 2026092701,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL"
+      },
+      "reference_sha256": [
+        "28ddae5599acd8aeafc53d5d953f2616c2236e8c2fac84c94497078c5804324f",
+        "84cae0ae3ec997d2714e1b1133734619208efc7236a70ee928941f14987ef7e2",
+        "c71cc6ea0c0f13bf4dfaca12856fedefdebd6a3cb4edd36cffab61bce3de56b4"
+      ],
+      "model_identity": "92e40234af2152b7012fb26d2b3f61b5ed359f6238df0b0fde578a1f8bef7ef9",
+      "source_sha256": "d4b21177ae33f32f4b34259c00223fe8997641510d9b61cc4133e037a204cea7",
+      "actual_nfe": 4,
+      "video": {
+        "file": "SOL-cal-short.mp4",
+        "bytes": 1927574,
+        "sha256": "161058da9fc58c571684f5c4a98a166f1d9abb6a15a52dc10422dd3c76f7a972"
+      },
+      "predecessor": {
+        "file": "video.mp4",
+        "sha256": "161058da9fc58c571684f5c4a98a166f1d9abb6a15a52dc10422dd3c76f7a972"
+      },
+      "decoded": {
+        "rgb": "SHA256=3ac4170b1de1e5ef441cfd092ecaf0638a419a6894ab2faa6e0cf78fe56bc46c",
+        "pcm": "SHA256=b670e209cfa533288d466a872d7e56e2de0bb8525e77ba7cbf1245227e7ea41e"
+      },
+      "run_record_sha256": "e5279d22ffef5fa1d4fbda2f65bc3c64e3a43c33aca5f3f380dcd7e3794cd837",
+      "media": {
+        "width": 1366,
+        "height": 768,
+        "frames": 120,
+        "fps": "24/1",
+        "duration": 5.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "peak_memory_gib": null,
+      "timings_seconds": {
+        "native_generation": 427.4160785418935,
+        "delivery_adapter": 0.5936751251574606
+      },
+      "actual_routes": [
+        "dit M=1014 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=1014 N=96 K=5376 route=mma128 split=0",
+        "dit M=11 N=10752 K=2688 route=steel split=0",
+        "dit M=11 N=96768 K=2688 route=steel split=0",
+        "dit M=3668 N=21504 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=3668 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=3668 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=3668 N=5376 K=5120 route=i8-dense split=2",
+        "dit M=3668 N=5376 K=7168 route=u8-w8-cm1 split=0",
+        "dit M=37376 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=38184 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=38184 N=96 K=5376 route=i8-dense split=2",
+        "dit M=414 N=32 K=5376 route=mma128 split=0",
+        "dit M=414 N=5376 K=32 route=dense-scalar split=0",
+        "dit M=45092 N=21504 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=45092 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=45092 N=5376 K=7168 route=u8-w8-cm1 split=0",
+        "dit M=7716 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=798 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=798 N=96 K=5376 route=mma128 split=0",
+        "vae M=1024 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1024 N=512 K=13824 route=bf16-split split=6",
+        "vae M=1024 N=512 K=256 route=bf16-n128 split=0",
+        "vae M=1024 N=512 K=6912 route=bf16-n256 split=0",
+        "vae M=16384 N=256 K=128 route=bf16-n128 split=0",
+        "vae M=1669 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1792 N=2048 K=24 route=bf16-n128-bias-v1 split=0",
+        "vae M=1792 N=24 K=24 route=bf16-n128-bias-v1 split=0",
+        "vae M=1792 N=3072 K=2048 route=bf16-n128-bias-v1 split=0",
+        "vae M=1797 N=16384 K=2048 route=h256-i8-v1-n128 split=0",
+        "vae M=1797 N=2048 K=2048 route=h256-i8-v1-n128 split=0",
+        "vae M=1797 N=2048 K=8192 route=h256-i8-v1-n256 split=0",
+        "vae M=1797 N=6144 K=2048 route=h256-i8-v1-n128 split=0",
+        "vae M=1822 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=2427 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=13824 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=512 route=bf16-n128 split=0",
+        "vae M=256 N=48 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=48 K=48 route=bf16-n128 split=0",
+        "vae M=256 N=512 K=13824 route=bf16-n256 split=0",
+        "vae M=4096 N=128 K=3456 route=bf16-n128 split=0",
+        "vae M=4096 N=128 K=81 route=bf16-n128 split=0",
+        "vae M=4096 N=256 K=3456 route=bf16-n128 split=0",
+        "vae-attention M=1797 route=strided-qk-rope-v1"
+      ]
+    },
+    {
+      "id": "VSA-cal-long",
+      "entry": "api",
+      "status": "passed",
+      "api_seconds": 2060.8011079998687,
+      "wrapper_seconds": 2063.6067169168964,
+      "byte_equal": true,
+      "decoded_equal": true,
+      "mode": "VSA",
+      "input_case": {
+        "file": "v0.6.0-VSA-performance.json",
+        "id": "cal-long",
+        "file_sha256": "7514ca0d8af645c45cb943627d35b3fc2ec568f93e4dcdc4665888e5b519074d"
+      },
+      "request": {
+        "resolution": "768p",
+        "duration": 15.0,
+        "seed": 20260922,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 360,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 362,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA"
+      },
+      "reference_sha256": [
+        "0088797628cf095c69143ac9c35b8663077c2809eba3da33521c226772b93438",
+        "ff9a52d0db4a5491b1ba1ae0764f04f8d08180de3629fd4ce78aa2a093989d51"
+      ],
+      "model_identity": "0e571cf1666d6c3005b14daa5583bbbe075abc3a80d2e5f10764d17fc2062f0b",
+      "source_sha256": "d4b21177ae33f32f4b34259c00223fe8997641510d9b61cc4133e037a204cea7",
+      "actual_nfe": 4,
+      "video": {
+        "file": "VSA-cal-long.mp4",
+        "bytes": 12718020,
+        "sha256": "aadd429edf63ee9ddeb1871eb5068068d53746a61abfdf531788aa852cd0b40f"
+      },
+      "predecessor": {
+        "file": "formal-cal-long-p1-C-01.mp4",
+        "sha256": "aadd429edf63ee9ddeb1871eb5068068d53746a61abfdf531788aa852cd0b40f"
+      },
+      "decoded": {
+        "rgb": "SHA256=44c9eefe2a0d77fde71304ab0ae350a1b40fbe089d5ab9f6bd63425c25644147",
+        "pcm": "SHA256=9619265e8b069843bb6cc9446d0f4137635a47e2d7c69d82fe55778a5894debf"
+      },
+      "run_record_sha256": "8f0f13b0251d4a1268b4726dda84bfe0a630cc6d9c7ddb28a351a0217c94363e",
+      "media": {
+        "width": 1366,
+        "height": 768,
+        "frames": 360,
+        "fps": "24/1",
+        "duration": 15.0,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "peak_memory_gib": {
+        "conditioning": 6.091933539137244,
+        "denoise": 57.56641463097185,
+        "video_decode": 24.01064147427678,
+        "audio_decode": 2.6867019943892956,
+        "mux": 0.0
+      },
+      "timings_seconds": {
+        "conditioning": 46.78034716611728,
+        "denoise": 1828.6008550410625,
+        "video_decode": 177.16977779217996,
+        "audio_decode": 1.2085407089907676,
+        "mux": 2.3957983339205384
+      },
+      "acceleration": {
+        "mode": "VSA",
+        "projection_calls": 1200,
+        "int8_fine_calls": 200,
+        "preparation_seconds": 2.478759542107582,
+        "activation_pack_calls": 800,
+        "qkv_pack_reuses": 400,
+        "native_output_dtype": "bfloat16",
+        "precision_contract": "Original affine weights, approximate INT8 arithmetic; no BF16 dequantization residual"
+      },
+      "vsa": {
+        "configured_sparsity": 0.75,
+        "layer_sparsity": 0.75,
+        "tile_size": 64,
+        "prefix_mode": "exempt",
+        "impl": "simd",
+        "num_prefix_tiles": 106,
+        "num_video_tiles": 1782,
+        "video_keep": 446.3440505981446,
+        "achieved_sparsity": 0.7495263464656877,
+        "dense_fallback_reason": null,
+        "attention_calls": 200,
+        "sparse_calls": 200,
+        "impl_counts": {
+          "simd": 200
+        },
+        "fallback_reasons": [],
+        "routing_mode": "kablex"
+      },
+      "conditioning": {
+        "text_sha256": "6a0bc859a32a0c080ecb827ad166575cfc183ee42f2da553ac5e76c373f36a6a",
+        "reference_sha256": "118ae27d38e97d95346fac85abbc32f8a2ed361af34a302bd06520c53528eb13",
+        "condition_sha256": "a5d1e8359e120ce3a58eca910370fcd5e4b705f191834de699af70c9ba3464da",
+        "initial_video_sha256": "1e992b9e26582321fc0183cf5909154e156d5d54f45da64f4066a3855bbfc3f5",
+        "initial_audio_sha256": "fc452635675677c08bf55d890a4794f980236481fad37545d234b0930743cf57"
+      },
+      "backend": {
+        "device": {
+          "device_name": "Apple M5 Max",
+          "max_recommended_working_set_size": 115448725504,
+          "memory_size": 137438953472,
+          "architecture": "applegpu_g17s",
+          "max_buffer_length": 86586540032,
+          "resource_limit": 499000
+        },
+        "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+        "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+        "versions": {
+          "mlx": "0.32.0",
+          "mlx-metal": "0.32.0",
+          "numpy": "2.4.6",
+          "transformers": "5.14.1"
+        }
+      }
+    }
+  ],
+  "scope": "Installed public CLI/API integration replay only. All three MP4 and decoded RGB/PCM outputs equal their frozen predecessors. Timings are single integration observations, not a controlled VSA/SOL speed comparison. Original research speed-gate and perceptual-quality limits remain as documented. No new blind or voice-quality qualification."
+}
