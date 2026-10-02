@@ -1,0 +1,23 @@
+[
+  {
+    "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+    "revision": "bcf40ca6f457ed66f8badf13514943e390205fca",
+    "filename": "LICENSE",
+    "bytes": 17604,
+    "sha256": "59b99642b95ea21630e311198ddbfffbfe05aadba0c2f5d884cbdf4efcc90f44"
+  },
+  {
+    "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+    "revision": "bcf40ca6f457ed66f8badf13514943e390205fca",
+    "filename": "adapter_manifest.json",
+    "bytes": 3306,
+    "sha256": "e7544f806e7f450bba96b4e77788813fbcb3c39af66b56d1f24c57d70cce566f"
+  },
+  {
+    "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+    "revision": "bcf40ca6f457ed66f8badf13514943e390205fca",
+    "filename": "vsa-datafree/adapter_model.safetensors",
+    "bytes": 5339117712,
+    "sha256": "42dc502a2078f166c396a1fa75f29728d1844363652d345d5ef3e2b444ed6470"
+  }
+]

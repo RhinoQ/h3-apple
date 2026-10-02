@@ -108,7 +108,7 @@ source and media-library identities, model verification, outputs and timing.
 | Public CLI generation, three reference images | Passed; 124 frames, 1024×576, 24 fps, stereo 32 kHz audio |
 | Public Python API generation in Python 3.14 | Passed; 120 frames / 5 seconds, including native-frame trimming |
 | Native media libraries and final processing | Passed; all seven libraries, ffmpeg and ffprobe use the running Python's Conda environment |
-| Four forwards, i8 + Sol + Sage, complete media decode | Passed in both runs |
+| Four forwards, i8 + SOL + Sage, complete media decode | Passed in both runs |
 | Unit, consent, subprocess, download and media tests | 86 passed |
 | Source, wheel and installed Python/data files | Identical across both complete runs and the release |
 
@@ -143,10 +143,10 @@ is retained without shortening.
 | Full three-image Ref2VA CLI generation | Passed; 254.59 seconds elapsed |
 | Delivered video | 1024×576, 124 frames, 24 fps, 5.1667 seconds |
 | Delivered audio | AAC stereo, 32 kHz, matching duration |
-| Four actual denoising forwards; Sol and Sage enabled without fallback | Passed |
+| Four actual denoising forwards; SOL and Sage enabled without fallback | Passed |
 | Complete audio/video decode and validation | Passed |
 
-The release keeps the previously tested i8 + Sol + Sage computation and
+The release keeps the previously tested i8 + SOL + Sage computation and
 four-step Ref2VA adapter. Image sizing matches the output-area policy used
 by the comparison case. This release changes installation and the product
 interface; these checks do not establish a new quality ranking, a universal

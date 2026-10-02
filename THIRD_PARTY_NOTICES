@@ -56,8 +56,29 @@ Ref2VA four-step adapter
   bundled in source, wheel or engine releases. Exact source checksums are
   in src/h3_apple/data/model-sources.json.
 
-Older MLX/VSA implementations and their original notices remain in the
-v0.3.0 Git tag; they are not part of this release's Python runtime.
+VSA MLX runtime
+  Selected FastVideo MLX files from 7bb76b5ec99807a66aa3047b901f15019abe0f00
+  retain Apache-2.0 and modification notices. See docs/sources.json and
+  licenses/FastVideo-APACHE-2.0.txt.
+  The sparse attention kernels adapt MLX / mlx-flashattention-steel / MFA
+  (MIT) and Draw Things (BSD-3-Clause). Full notices and terms are retained
+  in src/h3_apple/runtime/metal/p085_*.txt.
+  h3.c decoder kernels: Copyright (c) 2026 Salvatore Sanfilippo, MIT.
+  Source 8974cc055ea9c02fcd14cc27dfda3e1027c05153; see metal/p087_NOTICE.txt.
+  The W8A8 kernel adapts the pinned vpipe unsigned MMA and affine compensation;
+  source and changes are in metal/p138_NOTICE.txt and metal/p139_NOTICE.txt.
+  INT8 QK smoothing follows the SageAttention2 paper; no SageAttention code
+  is copied into this MLX implementation.
+  Kablex/ComfyUI-Ref2VA-VSA (Apache-2.0) informs the gate-only transplant and
+  dense-exempt reference prefix. Comfy Kitchen informs the routing semantics;
+  complete source identities are retained in docs/sources.json.
+  FastH3 gate weights are separately downloaded under the MiniMax H3 terms,
+  pinned in data/vsa-gates.json. Only the 50 gate matrices are used; its trained
+  T2VA LoRA deltas are not applied. The original LightX2V adapter is fused into
+  the VSA checkpoint. No trained weights are bundled.
+  data/vae-calibration.npz contains frozen channel maxima, not model weights.
+  Its origin/hash are recorded in docs/sources.json; MiniMax-derived material
+  remains subject to the model terms.
 
 Optional local face enhancement (0.5.2)
   VOSR source: https://github.com/cswry/VOSR

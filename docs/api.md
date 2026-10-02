@@ -11,6 +11,7 @@ result = generate(
     prompt="Picture 1 and Picture 2 have a picnic at sunset. Wind and birds, no dialogue.",
     reference_images=["99.jpg", "bobo.jpg"],
     output="weekend.mp4",
+    mode="SOL",  # or "VSA"
 )
 print(result.video_path)
 ```
@@ -22,7 +23,11 @@ be between 1:4 and 4:1. EXIF orientation is applied before processing.
 Optional delivery settings: `duration=15` (5–15 seconds in whole frames at
 24 fps), `resolution="576p"` or `"768p"`, `aspect_ratio="16:9"` or `"9:16"`,
 and `seed` (a 32-bit unsigned integer). Omit `seed` to choose one randomly;
-it is always recorded. There is one fixed inference recipe.
+it is always recorded. `mode="SOL"` (default) or `mode="VSA"` selects a fixed
+implementation of the original LightX2V four-step recipe. Mode values are
+uppercase. VSA requires the optional `VSA` dependencies and a VSA model bundle;
+see [installation](install.md). The same seed can produce different output
+between modes. A request's `mode` and `recipe` are recorded in the run metadata.
 
 `resolve(...)` accepts these input and delivery settings and returns a
 `GenerationRequest` without loading models. `generate(...)` also accepts
@@ -44,7 +49,9 @@ The result contains `video_path`, `metadata_path`, `elapsed_seconds` and `seed`.
 Existing output files are never overwritten. Ctrl-C and timeouts stop the
 entire worker process group. Successful output is decoded and checked for
 frame count, dimensions, fps, two audio channels, sample rate and duration
-before publication. Model, engine and input identities accompany each run.
+before publication. Model, engine and input identities accompany each run. VSA records its MLX
+binary identity and checks all 1,200 W8A8 projections, 800 activation packs,
+400 QKV reuses and 200 INT8 QK/VSA block calls for a four-step generation.
 
 The output always includes generated audio. Describe desired music, ambience,
 dialogue or silence in the prompt. Exact sounds and synchronization remain

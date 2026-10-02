@@ -87,8 +87,11 @@ def device_lock(path=None):
             fcntl.flock(stream, fcntl.LOCK_UN)
 
 
-def doctor(model_dir=None):
+def doctor(model_dir=None, mode="SOL"):
+    if mode not in ("SOL", "VSA"):
+        raise ValueError("mode must be 'SOL' or 'VSA'.")
     info = snapshot()
+    info["mode"] = mode
     errors = []
     try:
         check_machine(info)
@@ -98,13 +101,23 @@ def doctor(model_dir=None):
         info.update(check_runtime())
     except (OSError, ValueError, RuntimeError) as error:
         errors.append(str(error))
-    from .assets import load_assets
+    if mode == "VSA":
+        from .vsa_assets import load_assets
+    else:
+        from .assets import load_assets
     try:
         assets = load_assets(model_dir)
         info["models"] = {k: assets[k] for k in ("directory", "identity")}
-        info["engine"] = {k: assets[k] for k in ("binary", "library", "tested_interface_commit")}
+        if mode == "SOL":
+            info["engine"] = {k: assets[k] for k in ("binary", "library", "tested_interface_commit")}
     except (OSError, ValueError, RuntimeError) as error:
         errors.append(str(error))
+    if mode == "VSA":
+        try:
+            from .runtime.backend import backend_identity
+            info["engine"] = backend_identity()
+        except (ImportError, OSError, ValueError, RuntimeError) as error:
+            errors.append(str(error))
     info["free_disk_bytes"] = shutil.disk_usage(Path.cwd()).free
     info["errors"] = errors
     info["ready"] = not errors

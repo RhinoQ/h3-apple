@@ -35,6 +35,8 @@ def parser():
         command.add_argument("--resolution", choices=("576p", "768p"), default="576p")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         command.add_argument("--seed", type=int)
+        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL",
+                             help="Generation mode (default: SOL)")
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             command.add_argument("--model-dir")
@@ -45,12 +47,15 @@ def parser():
                                  help="Confirm first-run model downloads exceeding 20 GB")
     prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
+    prepare.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
                          help="Reuse a source snapshot or an existing H3 model installation")
     prepare.add_argument("--plan", action="store_true", help="Check download and disk requirements only")
     prepare.add_argument("--allow-large-download", action="store_true", help="Confirm downloads exceeding 20 GB")
     for name in ("doctor", "verify"):
-        commands.add_parser(name, help="Check installation" if name == "doctor" else "Verify all model checksums").add_argument("--model-dir")
+        command = commands.add_parser(name, help="Check installation" if name == "doctor" else "Verify all model checksums")
+        command.add_argument("--model-dir")
+        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
     faces = commands.add_parser("enhance-faces", help="Optionally enhance small faces in an existing H3 video")
     faces.add_argument("--input", required=True, dest="video")
     faces.add_argument("--output")
@@ -90,7 +95,10 @@ def main(argv=None):
             print(json.dumps(result, indent=2, default=str))
             return 0 if result["ready"] else 1
         elif command == "verify":
-            from .assets import load_assets
+            if args["mode"] == "VSA":
+                from .vsa_assets import load_assets
+            else:
+                from .assets import load_assets
             data = load_assets(args["model_dir"], verify=True)
             result = dict(status="verified", directory=data["directory"], identity=data["identity"])
         elif command == "enhance-faces":
@@ -101,7 +109,10 @@ def main(argv=None):
             show_plan = args.pop("plan")
             result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
         else:
-            from .preparation import plan, prepare, LIMIT
+            if args.pop("mode") == "VSA":
+                from .vsa_preparation import plan, prepare, LIMIT
+            else:
+                from .preparation import plan, prepare, LIMIT
             show_plan = args.pop("plan")
             allowed = args.pop("allow_large_download")
             spec = plan(**args, progress=progress)

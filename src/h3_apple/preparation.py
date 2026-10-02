@@ -24,6 +24,10 @@ RESERVE = 2 * 1024**3
 
 def ensure_ready(model_dir=None, *, allow_large_download=False, progress=None, request=None):
     """Shared first-run setup for the CLI and Python API; never prompt in Python."""
+    if request is not None and request.get("mode") == "VSA":
+        from .vsa_preparation import ensure_ready as ensure_vsa
+        return ensure_vsa(model_dir, allow_large_download=allow_large_download,
+                          progress=progress, request=request)
     from .api import DownloadApprovalRequired
     from .media import check_runtime
 

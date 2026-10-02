@@ -38,6 +38,7 @@ class GenerationRequest:
     audio_sample_rate: int = 32000
     audio_channels: int = 2
     num_steps: int = 4
+    mode: str = "SOL"
 
     def to_dict(self):
         return asdict(self)
@@ -52,8 +53,10 @@ class GenerationResult:
 
 
 def resolve(prompt=None, *, prompt_file=None, reference_images=None,
-            resolution="576p", duration=15, seed=None, aspect_ratio="16:9"):
+            resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL"):
     """Validate inputs and resolve geometry without loading model weights."""
+    if mode not in ("SOL", "VSA"):
+        raise ValueError("mode must be 'SOL' or 'VSA'.")
     if (prompt is None) == (prompt_file is None):
         raise ValueError("Provide exactly one of prompt or prompt_file.")
     if prompt_file is not None:
@@ -101,11 +104,12 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
         width, height, model_width, model_height = height, width, height, model_width
     return GenerationRequest(prompt, references, resolution, count / 24, seed,
                              width, height, count, model_width, model_height,
-                             ((count - 5 + 16) // 17) * 17 + 5)
+                             ((count - 5 + 16) // 17) * 17 + 5, mode=mode,
+                             recipe="ref2va-i8-sol-sage-v1" if mode == "SOL" else "ref2va-w8a8-vsa-int8qk-v1")
 
 
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
-             resolution="576p", duration=15, seed=None, aspect_ratio="16:9",
+             resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL",
              output=None, model_dir=None, on_progress=None, diagnostics=False,
              timeout=7200, allow_large_download=False):
     """Prepare H3 if needed, then generate an MP4 with stereo audio.
@@ -115,7 +119,7 @@ def generate(prompt=None, *, prompt_file=None, reference_images=None,
     """
     request = resolve(prompt, prompt_file=prompt_file, reference_images=reference_images,
                       resolution=resolution, duration=duration, seed=seed,
-                      aspect_ratio=aspect_ratio)
+                      aspect_ratio=aspect_ratio, mode=mode)
     from .process import run_generation
     return run_generation(request, output=output, model_dir=model_dir,
                           on_progress=on_progress, diagnostics=diagnostics, timeout=timeout,

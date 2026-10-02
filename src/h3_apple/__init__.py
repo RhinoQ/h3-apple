@@ -3,5 +3,5 @@
 from .api import DownloadApprovalRequired, GenerationRequest, GenerationResult, generate, resolve
 from .faces.api import EnhancementResult, enhance_faces
 
-__version__ = "0.5.3"
+__version__ = "0.6.0"
 __all__ = ["generate", "resolve", "GenerationRequest", "GenerationResult", "DownloadApprovalRequired", "enhance_faces", "EnhancementResult"]

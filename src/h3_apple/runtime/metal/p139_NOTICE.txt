@@ -1,0 +1,14 @@
+P139 affine_native.py adapts the quant_f16_u8_row_g64 and affine_group_sums_w8g64
+arithmetic from the pinned vpipe source:
+https://github.com/tgo-app-dev/vpipe/blob/f34e2cc3a3adae759eea254419f436f5b7800057/gpu-kernels/metal/quant/affine_dequant.metal
+
+The shared gemm_u8q_impl excerpt in p138_affine.metal is specialized with
+UB_MMA=true, CMODE=1, SPLIT=false, STRIP=8 and BF16 tensor operands.
+The adopted final store writes BF16 directly. An FP32 store followed by BF16
+conversion remains available only for the independent numerical oracle.
+This has no BF16 dequantized-weight residual and no original-output accuracy claim.
+Scalar pointer address-space adaptation is inherited from P138.
+
+Vpipe Copyright 2026 T-Go LLC. This product includes software developed at T-Go LLC.
+https://github.com/tgo-app-dev/vpipe
+Licensed under Apache License 2.0; see p138_VPIPE_LICENSE.txt and p138_NOTICE.txt.

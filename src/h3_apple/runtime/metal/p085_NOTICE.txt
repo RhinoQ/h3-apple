@@ -1,0 +1,15 @@
+P085 direct selected-route NAX attention
+
+Adapted from mlx-mfa commit b1e7ac2586fde9e28412d81b62540f0bff281771,
+csrc/mfa_sparse_attention.cpp (SHA256 32e6ced1068b37de4ec2a57556f0f575e19c6cc76ff88a6a9512ace68c3111f0).
+https://github.com/marcogva-hub/mlx-flashattention-steel/tree/b1e7ac2586fde9e28412d81b62540f0bff281771
+The extracted header contains Apple MLX steel NAX helpers (MIT).
+See p085_mfa_LICENSE.txt, p085_MLX_LICENSE.txt, p085_DRAWTHINGS_LICENSE.txt.
+
+Changes from upstream: fixed BQ64/BK32/4 simdgroups; visit selected routes
+in their original order; key-valid masks; padded query zero output; prefix
+input and output offsets. BF16 input/output, FP32 softmax state and accumulator
+variables, upstream MPP relaxed_precision=true. Not lossless equivalence.
+The Metal arithmetic is the P085 research prototype; only output offset changes
+from that prototype so the return shape matches the FastVideo sparse boundary.
+No selected-K/V gather, full token mask, dense or mere fallback exists here.

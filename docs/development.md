@@ -1,15 +1,25 @@
 # Development
 
-h3-apple has one public path: still-image Ref2VA with four denoising forwards,
-INT8 GEMM, Sol-Attn and SageAttention. The prompt and reference ordering are
-preserved. Image preprocessing uses the output canvas area and 32-pixel
-alignment. The 768p model canvas is center-cropped to the delivered dimensions;
-extra model frames are trimmed with sample-accurate audio endpoints.
+h3-apple exposes still-image Ref2VA with four denoising forwards through two
+modes. SOL uses the native INT8 GEMM, SOL attention and SageAttention engine.
+VSA uses the vendored MLX runtime with W8A8 projections, direct BF16 output,
+consecutive QKV activation reuse and INT8 QK inside VSA. Both use the original
+LightX2V four-step model recipe. Prompt and reference ordering are preserved.
+Image preprocessing uses the output canvas area and 32-pixel alignment. The
+768p model canvas is center-cropped and extra frames trimmed with sample-accurate
+audio endpoints.
 
-The Python layer owns input validation, model preparation, resource limits,
-progress, cancellation, media validation and run records. The native engine
-owns model execution and Metal kernels. `engine.py` builds one fixed graph;
-there is no alternate inference backend or silent attention fallback.
+The shared Python facade owns input validation, preparation, resource limits,
+progress, cancellation, media validation and run records. `engine.py` owns SOL
+execution; `runtime/engine.py` owns VSA execution. Each has one implementation
+and its own verified model format. SOL remains the default; there is no silent
+mode or attention fallback. `vsa_preparation.py` reuses the source downloader
+and launches the converter in an isolated process. VSA imports stay inside its
+worker so a SOL-only installation does not need MLX or PyTorch.
+
+The adopted VSA arithmetic is fixed in `runtime/dispatch.py`. Research variants
+and environment switches are not exposed. The frozen kernel names retain their
+provenance. See [sources.json](sources.json) and the adjacent Metal notices.
 
 The engine builds on [vpipe at the pinned commit](https://github.com/tgo-app-dev/vpipe/tree/f34e2cc3a3adae759eea254419f436f5b7800057)
 with the [native patches](../tools/engine-patches/README.md).
@@ -25,9 +35,13 @@ Conda for Python and FFmpeg, with pip managing h3-apple and Pillow inside it.
 ```bash
 conda create --prefix .local/envs/h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 .local/envs/h3/bin/python -m pip install -r environments/dev.lock
-.local/envs/h3/bin/python -m pip install --no-build-isolation .
+.local/envs/h3/bin/python -m pip install --no-build-isolation ".[VSA,faces]"
 .local/envs/h3/bin/python -I -m pytest tests -q
 ```
+
+For a SOL-only environment, use `-m "not hardware"`; optional VSA and face
+tests skip when their dependencies are absent. Hardware tests exercise the
+real M5 integer kernels against independent numerical oracles.
 
 Tests use temporary files and synthetic media. A release also needs a normal
 wheel installation, an actual model preparation or verified local reuse,
@@ -39,7 +53,7 @@ quality judgments and performance comparisons as separate claims.
 Check out the exact source revision above, including its submodules, and apply
 `tools/engine-patches/stable-compute.patch`, then
 `tools/engine-patches/vae-fusion.patch`, then `tools/engine-patches/vae-int8.patch`
-for versions 0.5.1–0.5.3 (the same engine artifact). Build
+for SOL in versions 0.5.1–0.6.0 (the same engine artifact). Build
 against FFmpeg 8 headers in a separate build environment, in Release mode:
 
 ```bash

@@ -76,6 +76,10 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     worker_result = None
     try:
         environment = dict(os.environ, HF_HUB_OFFLINE="1")
+        if request.mode == "VSA":
+            environment.update(MLX_ENABLE_TF32="0", FASTVIDEO_MLX_DQ_GEMM="1",
+                               MLX_METAL_GPU_ARCH="", TRANSFORMERS_OFFLINE="1",
+                               TOKENIZERS_PARALLELISM="false")
         environment["PATH"] = str(Path(sys.executable).parent) + os.pathsep + environment.get("PATH", "")
         with (workspace / "worker.log").open("w") as log:
             process = subprocess.Popen([sys.executable, "-m", "h3_apple.worker"],

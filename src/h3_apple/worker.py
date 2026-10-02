@@ -60,10 +60,23 @@ def main():
             signal.signal(signal.SIGUSR1, stop)
             threading.Thread(target=watch, daemon=True).start()
             emit({"phase": "loading", "message": "Checking the runtime and preparing generation"})
-            from .engine import run
-            result = run(spec["request"], spec["assets"], workspace, emit,
-                         references=spec["ref2va"], diagnostics=spec["diagnostics"])
-            backend = result.pop("backend")
+            if spec["request"].get("mode", "SOL") == "VSA":
+                from .runtime.backend import backend_identity
+                backend = backend_identity()
+                import torch
+                torch.set_num_threads(8)
+                torch.set_grad_enabled(False)
+                from .runtime.engine import run
+                references = dict(spec["ref2va"], native_root=spec["assets"]["ref2va_native"],
+                                  attention="vsa", reference_resize="match")
+                result = run(spec["request"], spec["assets"], workspace / "output.mp4", emit,
+                             diagnostics_dir=workspace / "diagnostics" if spec["diagnostics"] else None,
+                             ref2va=references)
+            else:
+                from .engine import run
+                result = run(spec["request"], spec["assets"], workspace, emit,
+                             references=spec["ref2va"], diagnostics=spec["diagnostics"])
+                backend = result.pop("backend")
             emit({"phase": "validating"})
             media = validate(workspace / "output.mp4", spec["request"])
             result.update(backend=backend, initial_host=initial, final_host=snapshot(),

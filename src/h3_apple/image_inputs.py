@@ -8,7 +8,7 @@ from PIL import Image, ImageOps
 
 
 def reference_image_size(width: int, height: int, pixel_budget: int) -> tuple[int, int]:
-    """Return H,W with Sol's per-image area budget and nearest-32 alignment."""
+    """Return H,W with SOL's per-image area budget and nearest-32 alignment."""
     if any(type(value) is not int or value <= 0 for value in (width, height, pixel_budget)):
         raise ValueError("Image dimensions and pixel budget must be positive integers.")
     if not 0.25 <= width / height <= 4:

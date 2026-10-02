@@ -7,6 +7,17 @@ its supported interface. Honor a requested version; inspect that release's docs
 and `--help` before adapting these commands. Do not silently upgrade an existing
 installation or change the model recipe to make a command work.
 
+## VSA and SOL in a 0.6.0 checkout
+
+An installed 0.6.0 checkout supports `--mode VSA` and `--mode SOL` (default),
+also `mode="VSA"` / `mode="SOL"` in Python. Honor an explicitly requested mode
+and carry it through `resolve`, `prepare`, `doctor`, `verify` and `generate`.
+Both modes use original LightX2V. VSA needs its optional dependencies in Python
+3.11 and a separate verified model bundle; check the checkout's installation
+guide. `H3_MODEL_DIR` applies to SOL, `H3_VSA_MODEL_DIR` to VSA. Do not pass new
+mode flags to the published 0.5.3 release. Do not invent a 0.6.0 download URL
+before publication. Use a provided local checkout or wheel when authorized.
+
 ## Find or install the environment
 
 Look first at the project's documented interpreter and prior run records, then
