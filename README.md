@@ -17,6 +17,12 @@ This research candidate was not adopted: it is faster on the four fixed validati
 pairs, but has new visual and prop-continuity failures. Exact prompts, measurements,
 source/model identities and review limits are included in its `samples.json`.
 
+The [Ref8 four-step comparison](previews/p145-ref8-four-step/) starts with a
+three-arm calibration: original Ref4 at four NFEs, native Ref8 v1.0 at four NFEs,
+and the same Ref8 at eight NFEs. All three original videos and soundtracks are
+included. Calibration passed visual screening; broader validation and listening
+assessment are pending. This is an experiment, with no product adoption.
+
 ## Earlier video studies
 
 An independently authored GitHub Pages gallery of local MiniMax H3 generations.
