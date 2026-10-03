@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SOL two-step Ref2VA · P144 · H3 Apple</title><style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#121b22;color:#f5f1e9;font:16px/1.65 system-ui,sans-serif}main{max-width:1600px;margin:auto;padding:32px 26px 54px}h1{font-size:clamp(28px,4vw,42px);line-height:1.2}h2{font-size:24px;line-height:1.3}a{color:#b1d9df;text-underline-offset:4px}nav{display:flex;flex-wrap:wrap;gap:12px 24px}header{max-width:1100px;margin-bottom:36px}.verdict{border-left:4px solid #ebc68c;padding:12px 18px;background:#202b31}.case{border-top:1px solid #39454d;padding:20px 0 30px;scroll-margin-top:20px}.players{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}figure{margin:0;min-width:0}figcaption{font-weight:650;margin:6px 0 10px}video{display:block;width:100%;height:auto;background:#080c10;border-radius:7px}figure p,.meta{color:#bccad0;font-size:14px}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.controls label{display:inline-flex;align-items:center;gap:8px}button,select,input{font:inherit;color:inherit;background:#263740;border:1px solid #647b85;border-radius:5px;padding:7px 10px;max-width:100%}button{cursor:pointer}input{width:85px}.note{max-width:1050px;color:#c9d5d7}.status{min-height:1.5em;color:#c9dfbc;margin:8px 0}summary{cursor:pointer;color:#c9dfbc;padding:7px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:1100px;font:14px/1.7 ui-monospace,monospace}a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,video:focus-visible{outline:3px solid #ebc68c;outline-offset:3px}footer{font-size:14px;color:#bdcbd0;border-top:1px solid #39454d;padding-top:22px}@media(max-width:760px){main{padding:22px 15px}.players{grid-template-columns:1fr}h2{font-size:21px}}
+</style></head><body><main>
+<header><nav aria-label="Main navigation"><a href="../../">H3 Apple gallery</a><a href="../p143-pdmd-2nfe/">Earlier VSA comparison</a><a href="https://github.com/RhinoQ/h3-apple">GitHub</a></nav>
+<h1>Two-step Ref2VA on Mac: the SOL experiment</h1>
+<p>A matched five-second diagnostic with native reference conditioning and generated stereo audio. The comparison changes the complete LoRA-plus-step recipe; the Ref2VA base, SOL/Sage attention, INT8 matrix multiplication, reference pixels, text conditions and initial noise are controlled.</p>
+<p class="verdict">The five-second native Ref2VA two-step run succeeds technically and is 1.614× faster in this pair, but recurrent background breakup remains. The candidate does not pass diagnostic visual quality and is not adopted.</p>
+<p>These are complete, unchanged MP4 outputs. This previously exposed P143 scene is a diagnostic, not held-out validation. The four-step audited build also reproduces the released 0.6.0 SOL video and audio exactly after decoding.</p></header>
+<section class="case" id="diag-running" data-duration="5"><h2>Two characters running</h2>
+<p class="meta">5 s · 1366 × 768 · seed 2026101402 · 1.614× complete-generation speedup in this one pair</p>
+<div class="players"><figure><figcaption>SOL · original LightX2V · 4 steps</figcaption>
+<video controls playsinline preload="metadata" width="1366" height="768" aria-label="SOL · original LightX2V · 4 steps" src="runs/diag-running-S4.mp4"></video>
+<p>415.5 s to generate · 61.8 GiB peak process tree · <a href="runs/diag-running-S4.mp4" download>Download original</a></p></figure><figure><figcaption>SOL · original PDMD · 2 steps</figcaption>
+<video controls playsinline preload="metadata" width="1366" height="768" aria-label="SOL · original PDMD · 2 steps" src="runs/diag-running-S2.mp4"></video>
+<p>257.5 s to generate · 61.7 GiB peak process tree · <a href="runs/diag-running-S2.mp4" download>Download original</a></p></figure></div>
+<div class="controls" role="group" aria-label="Paired playback"><button class="play" type="button">Play both</button><button class="pause" type="button">Pause both</button><button class="reset" type="button">Restart</button>
+<label>Audio <select class="sound"><option value="0">Four-step original</option><option value="1">Two-step candidate</option><option value="-1">Muted</option></select></label>
+<label>Seek to <input class="seek" type="number" min="0" max="5" step="0.1" value="0"> s</label><button class="jump" type="button">Seek both</button></div>
+<p class="status" aria-live="polite"></p><p class="note">Both retain the character designs, outfits and repeated running. The two-step result has conspicuous grid/vertical patches in the scenery, including around 1.25–3.08 s; native 1.50 s and 4.83 s frames confirm original-image defects. Next diagnostic: disable SOL routing while preserving Sage attention and the same two-step recipe.</p>
+<details><summary>Original prompt</summary><pre>subject_definitions:
+&lt;Subject 1&gt; is 99, the single pastel-pink rabbit whose identity is shown in the three views of &lt;Picture 1&gt;: long upright ears with darker pink centers, rounded cheeks, black dot eyes, tiny dark nose, a yellow pinafore with one pink square front pocket over a white short-sleeved shirt, and white shoes. The views describe one character.
+&lt;Subject 2&gt; is bobo, the single caramel-brown bear whose identity is shown in the three views of &lt;Picture 2&gt;: round ears with cream centers, a cream oval muzzle, dark dot eyes and black nose, pink cheek circles, sage-green short-sleeved T-shirt with one yellow chest pocket, cream shorts, and white shoes. The views describe one character.
+&lt;Subject 3&gt; is the soft hand-painted 2D storybook style and pastoral spring color palette of &lt;Picture 3&gt;: warm dark-brown contour lines, rounded simple characters against softly painted greenery, yellow-green grass, tiny wildflowers, distant blue-green hills, and warm sunlight. This is a style reference; the target cast consists of &lt;Subject 1&gt; and &lt;Subject 2&gt;.
+
+summary:
+[reference generation] A five-second side-tracking park run with 99 &lt;Subject 1&gt; and bobo &lt;Subject 2&gt;, preserving the referenced outfits and warm illustrated scenery of &lt;Subject 3&gt;. Their sustained running and stable bodies are the focus.
+
+retention_analysis:
+&lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - preserve one pink rabbit with the long ears, face, yellow pinafore, pink pocket, white sleeves and shoes shown in the identity reference.
+&lt;Subject 2&gt; (appears in [Shot 1]): fully_preserved - preserve one brown bear with cream muzzle and ear centers, green shirt, yellow chest pocket, cream shorts and white shoes shown in the identity reference.
+&lt;Subject 3&gt; (appears in [Shot 1]): fully_preserved - preserve the defined soft painted 2D storybook style, warm brown outlines, spring greens, wildflowers and morning sunlight in the new park action.
+
+detailed_description:
+The target is a clean full-screen hand-drawn 2D cartoon, with soft painted spring park scenery in the style of &lt;Subject 3&gt;. A pale beige path lies before green trees, small flowers and distant blue-green hills. Warm morning sunlight comes from the upper right.
+[Shot 1] A medium-wide full-body side view shows bobo &lt;Subject 2&gt; on the left and 99 &lt;Subject 1&gt; on the right, already jogging together from left to right along the beige park path. The rabbit is about half a body length ahead; their bodies remain separate and their whole heads, ears, hands, legs and shoes are visible. The camera tracks smoothly to the right at their jogging speed so both stay centered while trees and flowers pass slowly to the left behind them. Over the entire five seconds both characters perform a continuous comfortable jog: their left and right feet alternate contact with the ground, knees bend in coherent short strides, opposite arms swing naturally, and the rabbit&#x27;s ears bounce gently. Their heads stay recognizable and their original clothes retain their shapes and colors. They exchange a quick cheerful sideways glance near the middle while continuing forward at the same pace, then look ahead again. The shot ends while both are still jogging together. Soft rhythmic shoe taps match the footfalls; both remain silent.
+
+overall_soundscape:
+Regular light footsteps alternate against the dry path, with faint leaf rustle and distant bird calls. The characters are silent; there is no speech, singing or narration.
+
+non_diegetic_music:
+N/A
+</pre></details></section>
+<footer><p>Apple M5 Max, 128 GiB memory; 24 fps and 32 kHz stereo. Both arms use the same audited native engine. Two actual completed DiT forwards (100 main blocks), all 624 source LoRA factors, finite states, unchanged reference prefix and identical condition/noise fingerprints are checked. The native sigma grid contains three points for two updates.</p>
+<p>Non-blind inspection of all 120 consecutive frames in each video as 24-fps contact sheets, plus listed full-size frames. This is not continuous playback, subjective listening or human blind evaluation. No held-out qualification.</p>
+<p>One accepted timing pair, with no repeated-run interval or broader speed claim. Earlier wrapper-audit failures are preserved and excluded from accepted timing. The two-step transfer has not been adopted into the release.</p>
+<p><a href="samples.json">Prompt, input hashes, source and model identities, exact measurements, audit and review scope (JSON)</a>. Reference images and local machine paths are not distributed.</p>
+<p>The original <a href="https://huggingface.co/pdmd2026/pdmd_2NFE_lora">PDMD adapter</a> was published for FL2VA/T2VA; this experiment applies it to native Ref2VA. Upstream does not establish Ref2VA quality. <a href="https://github.com/RhinoQ/h3-apple#license">Runtime, model and dependency licenses</a>.</p></footer></main><script>
+for(const section of document.querySelectorAll('.case')){
+ const videos=[...section.querySelectorAll('video')],sound=section.querySelector('.sound'),status=section.querySelector('.status');
+ const audio=()=>videos.forEach((v,i)=>v.muted=i!==Number(sound.value));audio();sound.onchange=audio;
+ const pause=()=>videos.forEach(v=>v.pause());
+ section.querySelector('.play').onclick=async()=>{document.querySelectorAll('video').forEach(v=>{if(!videos.includes(v))v.pause()});if(videos[0].ended)videos[0].currentTime=0;videos[1].currentTime=videos[0].currentTime;audio();try{await Promise.all(videos.map(v=>v.play()));status.textContent='Playing both videos'}catch(e){pause();status.textContent='Use the original video controls to play: '+e.message}};
+ section.querySelector('.pause').onclick=()=>{pause();status.textContent='Paused'};
+ section.querySelector('.reset').onclick=()=>{pause();videos.forEach(v=>v.currentTime=0);status.textContent='At the beginning'};
+ section.querySelector('.jump').onclick=()=>{pause();const n=Number(section.querySelector('.seek').value);if(!Number.isFinite(n))return;const t=Math.max(0,Math.min(Number(section.dataset.duration)-1/24,n));videos.forEach(v=>v.currentTime=t);status.textContent='Paused at '+t.toFixed(2)+' s'};
+ videos[0].addEventListener('seeked',()=>{if(Math.abs(videos[0].currentTime-videos[1].currentTime)>.08)videos[1].currentTime=videos[0].currentTime});
+ videos[0].addEventListener('timeupdate',()=>{if(!videos[0].paused&&Math.abs(videos[0].currentTime-videos[1].currentTime)>.15)videos[1].currentTime=videos[0].currentTime});
+ videos[0].addEventListener('ended',()=>{pause();status.textContent='Playback complete'});
+ for(const v of videos){v.addEventListener('play',()=>document.querySelectorAll('video').forEach(other=>{if(!videos.includes(other))other.pause()}));v.addEventListener('error',()=>status.textContent='Video could not load; try the original download link.')}
+}
+</script></body></html>
