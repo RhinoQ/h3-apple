@@ -11,6 +11,12 @@ settings, source and model identities, hashes, measurements, and review limits.
 The original reference images are not distributed. This is a single-run, whole-mode
 comparison with non-blind sampled-frame review, not a general quality ranking.
 
+The [PDMD two-step comparison](previews/p143-pdmd-2nfe/) adds five pairs of
+unchanged Ref2VA originals, synchronized playback and selectable original audio.
+This research candidate was not adopted: it is faster on the four fixed validation
+pairs, but has new visual and prop-continuity failures. Exact prompts, measurements,
+source/model identities and review limits are included in its `samples.json`.
+
 ## Earlier video studies
 
 An independently authored GitHub Pages gallery of local MiniMax H3 generations.
