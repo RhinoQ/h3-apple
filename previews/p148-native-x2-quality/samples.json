@@ -1,0 +1,347 @@
+{
+  "schema": "p148-public-review/v1",
+  "methods": {
+    "L": "Standard VAE + Lanczos 2×",
+    "X": "X2 VAE · B32 off"
+  },
+  "review_mode": "non_blind",
+  "cases": [
+    {
+      "id": "val-portrait-s1",
+      "group": 1,
+      "title": "Portrait",
+      "scope": "native_768p_main",
+      "source_resolution": 768,
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0,
+      "fps": 24,
+      "seed": 2026101801,
+      "roi": [
+        384,
+        160,
+        1024,
+        1024
+      ],
+      "review_frames": [
+        0,
+        23,
+        47,
+        71,
+        95,
+        119
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-portrait-s1-L.mp4",
+          "sha256": "17f0504c5ac9704f95f9ffba46f58d400ff58766cbe3c4bebde988674804991f",
+          "bytes": 9120699,
+          "call_seconds": 62.44535204209387
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-portrait-s1-X.mp4",
+          "sha256": "2a350016194bed1abe9f67e77c619dab384f12e07a67268fe98d1f4badffe97c",
+          "bytes": 9522509,
+          "call_seconds": 83.10190066602081
+        }
+      ]
+    },
+    {
+      "id": "val-portrait-s2",
+      "group": 2,
+      "title": "Portrait",
+      "scope": "native_768p_main",
+      "source_resolution": 768,
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0,
+      "fps": 24,
+      "seed": 2026101802,
+      "roi": [
+        384,
+        160,
+        1024,
+        1024
+      ],
+      "review_frames": [
+        0,
+        23,
+        47,
+        71,
+        95,
+        119
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-portrait-s2-L.mp4",
+          "sha256": "52d42370625823dae4bf31d3ce9b37879972b8ff781ca6b93b9bf44092ba6fe2",
+          "bytes": 9451074,
+          "call_seconds": 62.34118391596712
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-portrait-s2-X.mp4",
+          "sha256": "5cb9eb118a9156bb2cf6f72f78028e9600a3681f0cd20e4051ddf48d937c64fb",
+          "bytes": 10473980,
+          "call_seconds": 79.54618999990635
+        }
+      ]
+    },
+    {
+      "id": "val-handoff-s1",
+      "group": 3,
+      "title": "Two-character key handoff",
+      "scope": "native_768p_main",
+      "source_resolution": 768,
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0,
+      "fps": 24,
+      "seed": 2026101801,
+      "roi": [
+        768,
+        768,
+        1024,
+        768
+      ],
+      "review_frames": [
+        0,
+        23,
+        47,
+        71,
+        95,
+        119
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-handoff-s1-L.mp4",
+          "sha256": "b03ef7c903ebe69aa6f2e90628d56eb5f4fbb40ac21996181b95bb422d389e68",
+          "bytes": 5778530,
+          "call_seconds": 63.31920424988493
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-handoff-s1-X.mp4",
+          "sha256": "17b754cc10baac3a0bde12d1ea2471af9359770a7f44b0687dcb3958017881ce",
+          "bytes": 6949049,
+          "call_seconds": 84.41302187484689
+        }
+      ]
+    },
+    {
+      "id": "val-handoff-s2",
+      "group": 4,
+      "title": "Two-character key handoff",
+      "scope": "native_768p_main",
+      "source_resolution": 768,
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0,
+      "fps": 24,
+      "seed": 2026101802,
+      "roi": [
+        768,
+        768,
+        1024,
+        768
+      ],
+      "review_frames": [
+        0,
+        23,
+        47,
+        71,
+        95,
+        119
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-handoff-s2-L.mp4",
+          "sha256": "00667b101c09546ee33b8b91bc687c1952d74f06f127e6555f67b2171a268a9e",
+          "bytes": 5672961,
+          "call_seconds": 65.6537677499
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-handoff-s2-X.mp4",
+          "sha256": "c691253c8186364102425fbdf321efbfc53cc03098f03bf026da308ab5a9105f",
+          "bytes": 6892592,
+          "call_seconds": 82.5879953331314
+        }
+      ]
+    },
+    {
+      "id": "val-graphics-s1",
+      "group": 5,
+      "title": "Lettering, thin lines and occlusion",
+      "scope": "native_768p_main",
+      "source_resolution": 768,
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0,
+      "fps": 24,
+      "seed": 2026101801,
+      "roi": [
+        640,
+        320,
+        1408,
+        960
+      ],
+      "review_frames": [
+        0,
+        23,
+        47,
+        71,
+        95,
+        119
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-graphics-s1-L.mp4",
+          "sha256": "e5b1091420e44c50075f528c5d06e26b7c46d1c89f29dd3d9740ff74fc4698e3",
+          "bytes": 2973818,
+          "call_seconds": 63.849136125063524
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-graphics-s1-X.mp4",
+          "sha256": "d1d03a4de1431a97ca9762cc02e0fc69a147ce8c4faeb7c756a28f8a2324bf10",
+          "bytes": 3209657,
+          "call_seconds": 81.21042637503706
+        }
+      ]
+    },
+    {
+      "id": "val-graphics-s2",
+      "group": 6,
+      "title": "Lettering, thin lines and occlusion",
+      "scope": "native_768p_main",
+      "source_resolution": 768,
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0,
+      "fps": 24,
+      "seed": 2026101802,
+      "roi": [
+        640,
+        320,
+        1408,
+        960
+      ],
+      "review_frames": [
+        0,
+        23,
+        47,
+        71,
+        95,
+        119
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-graphics-s2-L.mp4",
+          "sha256": "057830464485e5825510c5e23cb0a2dbac201316720d70966f299847b6be1cff",
+          "bytes": 2245157,
+          "call_seconds": 62.888743916060776
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-graphics-s2-X.mp4",
+          "sha256": "cf89242fade4878591da50d55686a3d49502e26a07a63f2c99431b83cc43b6fc",
+          "bytes": 2466883,
+          "call_seconds": 80.68933995789848
+        }
+      ]
+    },
+    {
+      "id": "val-long-s1",
+      "group": 7,
+      "title": "Three-shot compass handoff",
+      "scope": "long_576p_boundary",
+      "source_resolution": 576,
+      "width": 2048,
+      "height": 1152,
+      "duration": 15.0,
+      "fps": 24,
+      "seed": 2026101801,
+      "roi": [
+        256,
+        128,
+        1536,
+        1024
+      ],
+      "review_frames": [
+        0,
+        71,
+        143,
+        215,
+        287,
+        359
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-long-s1-L.mp4",
+          "sha256": "cdb8b0be02466b9b64bb280f0cf6f231b892a8ac4358f0e7ca6bfdbd0c601741",
+          "bytes": 23524512,
+          "call_seconds": 103.70439354190603
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-long-s1-X.mp4",
+          "sha256": "cc717083b6470752749352b3dca7b81b23866f85c58ed8df8ec1ff9e4d4e9261",
+          "bytes": 31967727,
+          "call_seconds": 134.15882591716945
+        }
+      ]
+    },
+    {
+      "id": "val-long-s2",
+      "group": 8,
+      "title": "Three-shot compass handoff",
+      "scope": "long_576p_boundary",
+      "source_resolution": 576,
+      "width": 2048,
+      "height": 1152,
+      "duration": 15.0,
+      "fps": 24,
+      "seed": 2026101802,
+      "roi": [
+        256,
+        128,
+        1536,
+        1024
+      ],
+      "review_frames": [
+        0,
+        71,
+        143,
+        215,
+        287,
+        359
+      ],
+      "clips": [
+        {
+          "method": "L",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-long-s2-L.mp4",
+          "sha256": "a20d912aa1c4c0550db3e0bc7ea94af65390dd7595152727d2ca415ab5bfdbe2",
+          "bytes": 22492242,
+          "call_seconds": 104.16198845789768
+        },
+        {
+          "method": "X",
+          "file": "https://raw.githubusercontent.com/RhinoQ/h3-apple/4d233a0a5f13f7c7ff81ea759466751241f0c8ae/val-long-s2-X.mp4",
+          "sha256": "47f5de7920ac65cf828c320722c64a0d5a5165dae7c8db8a1f71efe6cab07499",
+          "bytes": 28734808,
+          "call_seconds": 135.61610629200004
+        }
+      ]
+    }
+  ],
+  "package_id": "cde304e07a0dc2ff"
+}

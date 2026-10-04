@@ -40,8 +40,18 @@ The [P147 method-labeled review](previews/p147-anonymous-review/) provides 40 un
 original clips in separate calibration and validation sets. Mobile layouts, group
 playback, individual original audio and locally saved review forms support
 non-blind evaluation with a method label on every clip. The original sample IDs
-and media remain unchanged. Quality acceptance is pending; no method ranking or
-product adoption is claimed.
+and media remain unchanged. The user rejected the low-resolution route; it was
+not adopted. Detailed per-case audiovisual qualification remains incomplete.
+
+The [P148 native-resolution X2 comparison](previews/p148-native-x2-quality/) contains
+eight pairs and sixteen original videos. Six five-second pairs start at native
+768p; two fifteen-second pairs start at native 576p and are reported separately.
+Each pair compares standard VAE decoding plus Lanczos with X2 decoding of the
+same saved latent, with identical original audio and B32 disabled. The page
+offers synchronized playback, preselected lossless RGB details and non-blind
+review export. Original videos are pinned to a media-only Git commit to keep
+the Pages site within its size limit. Technical checks passed; quality acceptance
+is pending actual review, and the candidate has not been adopted.
 
 ## Earlier video studies
 
