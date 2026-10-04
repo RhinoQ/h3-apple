@@ -1,0 +1,109 @@
+{
+  "package_id": "75befe6e320f91a1",
+  "groups": [
+    {
+      "group": 1,
+      "title": "真人近景 768p",
+      "prompt": "subject_definitions:\n<Subject 1> is the adult man in <Picture 1>. Retain his face, short hair, red polo shirt and realistic skin texture. The reference supplies identity, clothing and the space-station setting.\n\nsummary:\nA five-second live-action close portrait in a space-station observation module, with a small head turn, a natural blink and a brief spoken sentence.\n\nretention_analysis:\n[Shot 1] Retain <Subject 1>'s identity and red polo shirt throughout. Retain the metal window frame and the blue Earth outside as setting details. Reframe as one close portrait rather than reproducing the original seated full-body composition.\n\ndetailed_description:\n[Shot 1] A steady eye-level head-and-shoulders portrait of <Subject 1>, with his whole face clearly visible and a portion of the window behind him. Soft reflected daylight shows fine facial features, hair, the shirt collar and seams. He starts looking slightly to camera-left, gently turns to face the camera, blinks once and smiles. His lips naturally articulate, \"Ready for the next step.\" His right hand briefly straightens his shirt collar and lowers out of frame. The camera remains still while these small actions finish. The live-action picture contains no captions or overlaid text.\n\noverall_soundscape:\nQuiet ventilation, slight shirt movement and one calm adult male English voice speaking the sentence once, synchronized with his mouth. No other voices.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "01-1",
+          "file": "media/01-1-12eed662e9.mp4",
+          "sha256": "14d3341c306ee63449129cf8a3e3e6523b4d45fba7e81f1627b13052a04f7b49"
+        },
+        {
+          "label": "01-2",
+          "file": "media/01-2-51cbea147e.mp4",
+          "sha256": "1a76e264cf3e4dbc02c56fe1a15930555b2d5f1c6b4810f9e47e08b197a3c837"
+        },
+        {
+          "label": "01-3",
+          "file": "media/01-3-9d07dcc1e6.mp4",
+          "sha256": "46d5e5e9ab5936551f5a568332b8e87cb9e69a8ca2bbd7077916655ab8e8909c"
+        },
+        {
+          "label": "01-4",
+          "file": "media/01-4-a0d59217fe.mp4",
+          "sha256": "06d76509099ce7251fde27b814c0badcfb9d94584544cf3d77a677ddd9171081"
+        },
+        {
+          "label": "01-5",
+          "file": "media/01-5-3023451dbe.mp4",
+          "sha256": "3b65af108da65d6b87bff24831dfac2512d9e3ee53f35d8c815f99b28a0db6d7"
+        },
+        {
+          "label": "01-6",
+          "file": "media/01-6-0e305b5893.mp4",
+          "sha256": "872f74a414d1069edfecfed527ab7b9cf2aeec1424fab18932eb413eb2dd7005"
+        }
+      ]
+    },
+    {
+      "group": 2,
+      "title": "真人近景 576p",
+      "prompt": "subject_definitions:\n<Subject 1> is the adult man in <Picture 1>. Retain his face, short hair, red polo shirt and realistic skin texture. The reference supplies identity, clothing and the space-station setting.\n\nsummary:\nA five-second live-action close portrait in a space-station observation module, with a small head turn, a natural blink and a brief spoken sentence.\n\nretention_analysis:\n[Shot 1] Retain <Subject 1>'s identity and red polo shirt throughout. Retain the metal window frame and the blue Earth outside as setting details. Reframe as one close portrait rather than reproducing the original seated full-body composition.\n\ndetailed_description:\n[Shot 1] A steady eye-level head-and-shoulders portrait of <Subject 1>, with his whole face clearly visible and a portion of the window behind him. Soft reflected daylight shows fine facial features, hair, the shirt collar and seams. He starts looking slightly to camera-left, gently turns to face the camera, blinks once and smiles. His lips naturally articulate, \"Ready for the next step.\" His right hand briefly straightens his shirt collar and lowers out of frame. The camera remains still while these small actions finish. The live-action picture contains no captions or overlaid text.\n\noverall_soundscape:\nQuiet ventilation, slight shirt movement and one calm adult male English voice speaking the sentence once, synchronized with his mouth. No other voices.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "02-1",
+          "file": "media/02-1-81766a0c72.mp4",
+          "sha256": "f196e0bf6ef66a8242ef032c755d6397de6098ecbdd2148343356041ff3cae9e"
+        },
+        {
+          "label": "02-2",
+          "file": "media/02-2-19f996b051.mp4",
+          "sha256": "8a0ba23380da77f0a968795d514a5c81631eda8da7cd963e3e30b0c79f4a3a59"
+        },
+        {
+          "label": "02-3",
+          "file": "media/02-3-57a3c80e20.mp4",
+          "sha256": "bc817bb19e4191c8418628d825f13f397d47c9d38d2bd379926c755cad87d0a2"
+        },
+        {
+          "label": "02-4",
+          "file": "media/02-4-bfb7e728c3.mp4",
+          "sha256": "21a005d4f09efbbde6a0c6c469748adbdc847f4ee3758de571a7645169ff142c"
+        },
+        {
+          "label": "02-5",
+          "file": "media/02-5-cc25e90656.mp4",
+          "sha256": "bff3b3d4e1c7369ed0cb8419897fd87dd5b5c86e65b416cbc9cc45ff9f96e378"
+        }
+      ]
+    },
+    {
+      "group": 3,
+      "title": "文字、细线与遮挡 768p",
+      "prompt": "subject_definitions:\n<Subject 1> is the mint interface card in <Picture 1>, with its dark thin outline, three header dots, horizontal separator, orange play icon and the exact dark word PLAY. <Subject 2> is the separate small orange disk at the left of the card.\n\nsummary:\nA five-second precise flat-design animation with visible card rotation, disk occlusion and a legible final PLAY lockup.\n\nretention_analysis:\n[Shot 1] Retain the cream background, mint/navy/orange palette, single card, three dots, separator, play icon, four PLAY letters and one separate orange disk. The card's contents remain attached to its surface throughout the motion.\n\ndetailed_description:\n[Shot 1] Static camera on the clean graphic composition in <Picture 1>. The card gently rotates about its vertical center axis to a visibly oblique angle, then returns front-facing by the fourth second. At the same time the separate orange disk travels horizontally from the left, passes fully behind the card, disappears while occluded, and reappears to its right. Thin dark outlines and letter strokes stay continuous through the perspective change. Hold the front-facing PLAY card and disk at right for the last second. All motion is smooth and readable.\n\noverall_soundscape:\nA soft short whoosh accompanies the card rotation and a single dry click marks its return to the front-facing position. No voice.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "03-1",
+          "file": "media/03-1-ead44c0cbe.mp4",
+          "sha256": "cae0fd193ce893b6b51b9ceac9c8288eb2a292fce39490adc0a3a4674f07279b"
+        },
+        {
+          "label": "03-2",
+          "file": "media/03-2-49abe874b5.mp4",
+          "sha256": "e1ad0bd41f5959236e9ef614ab4938887e1dd4da89d6d3ead9072f77284ba616"
+        },
+        {
+          "label": "03-3",
+          "file": "media/03-3-34abf4ab55.mp4",
+          "sha256": "3db3fd0f4000f9e07d24aebbc290b0928f776674243bfacbc28183ff895f9d3f"
+        },
+        {
+          "label": "03-4",
+          "file": "media/03-4-f0b6e4ca9d.mp4",
+          "sha256": "70bb9c5a85770980e0254bc24ed16844bb4991178f3e9a927b0bc74dd24a6c1e"
+        },
+        {
+          "label": "03-5",
+          "file": "media/03-5-279ac151b9.mp4",
+          "sha256": "b0d4846b098faf37182a19e963cfadb6bfbffc12087fb71542446652d62d6513"
+        }
+      ]
+    }
+  ]
+}

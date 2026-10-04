@@ -1,0 +1,189 @@
+{
+  "package_id": "c113d92201bdbcf4",
+  "groups": [
+    {
+      "group": 1,
+      "title": "真人近景",
+      "prompt": "subject_definitions:\n<Subject 1> is the adult man in <Picture 1>. Retain his face, short hair and red polo shirt. Use the picture for identity and clothing only.\n\nsummary:\nA five-second live-action portrait in a quiet workshop. A small face turn, a thoughtful reaction and a short sentence are clearly visible.\n\nretention_analysis:\n[Shot 1] Retain <Subject 1>'s identity, hair, realistic skin and red collar. The new setting is a warmly lit workshop with a softly blurred wooden shelf.\n\ndetailed_description:\n[Shot 1] A steady eye-level close portrait, from upper chest to just above the head. <Subject 1> faces slightly to camera-right. He slowly turns to camera, raises his eyebrows, gently rubs his chin once with his right fingertips, lowers his hand and says, \"That should work.\" End with a relaxed closed-mouth smile. Soft side light reveals fine hair, forehead creases and the fabric weave. The shot contains no captions or overlaid text.\n\noverall_soundscape:\nQuiet indoor room tone, a faint cloth rustle and one calm adult male English voice speaking the sentence once, synchronized with his mouth. No other voice.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "01-1",
+          "file": "media/01-1-42fb1209a5.mp4",
+          "sha256": "735e6d5025498c135ea01a9ed649185a2c583678a3ecbe914e49a0d239f35ef8"
+        },
+        {
+          "label": "01-2",
+          "file": "media/01-2-999e3f6af1.mp4",
+          "sha256": "9758be7111564180258bed84f1f52b1cc71ada0c1c459bdeb24a45a048ef0542"
+        },
+        {
+          "label": "01-3",
+          "file": "media/01-3-70403b4f48.mp4",
+          "sha256": "fbb07a28f10318160936856207225d511b3ea96f05b5dd4c7134d77862d8d1ca"
+        }
+      ]
+    },
+    {
+      "group": 2,
+      "title": "真人近景",
+      "prompt": "subject_definitions:\n<Subject 1> is the adult man in <Picture 1>. Retain his face, short hair and red polo shirt. Use the picture for identity and clothing only.\n\nsummary:\nA five-second live-action portrait in a quiet workshop. A small face turn, a thoughtful reaction and a short sentence are clearly visible.\n\nretention_analysis:\n[Shot 1] Retain <Subject 1>'s identity, hair, realistic skin and red collar. The new setting is a warmly lit workshop with a softly blurred wooden shelf.\n\ndetailed_description:\n[Shot 1] A steady eye-level close portrait, from upper chest to just above the head. <Subject 1> faces slightly to camera-right. He slowly turns to camera, raises his eyebrows, gently rubs his chin once with his right fingertips, lowers his hand and says, \"That should work.\" End with a relaxed closed-mouth smile. Soft side light reveals fine hair, forehead creases and the fabric weave. The shot contains no captions or overlaid text.\n\noverall_soundscape:\nQuiet indoor room tone, a faint cloth rustle and one calm adult male English voice speaking the sentence once, synchronized with his mouth. No other voice.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "02-1",
+          "file": "media/02-1-a9b02fba0a.mp4",
+          "sha256": "d04a6c26d007914bd29947e6e498fd8d5f0ec2935cd171e9fd083d421e1c7b68"
+        },
+        {
+          "label": "02-2",
+          "file": "media/02-2-4ea69ef4a3.mp4",
+          "sha256": "4b98ec62a507a6e68ec8c1c57631445ee6918dc11e57faf2e15cb6091fb1a7e7"
+        },
+        {
+          "label": "02-3",
+          "file": "media/02-3-65fd1a205e.mp4",
+          "sha256": "7db0a15d23e3fb2a19c7968f7010014f314cc5077ce5d3fbdc33674d1b336e0e"
+        }
+      ]
+    },
+    {
+      "group": 3,
+      "title": "双角色细小道具交接",
+      "prompt": "subject_definitions:\n<Subject 1> is the pink rabbit with long ears and yellow dress in <Picture 1>. The three views describe one rabbit.\n<Subject 2> is the brown bear with green shirt and small brown bag in <Picture 2>. The three views describe one bear.\n\nsummary:\nA five-second clean hand-drawn animation of two friends carefully handing over one small brass key.\n\nretention_analysis:\n[Shot 1] Retain the identities, clothing, black outlines and pastel coloring of <Subject 1> and <Subject 2>. Place them in a simple cream-colored room at a blue tabletop.\n\ndetailed_description:\n[Shot 1] Static waist-up two-shot with the rabbit at left and the bear at right; both faces and their hands are visible above the table. The rabbit holds one small golden brass key by its round bow, with a narrow shaft and two rectangular teeth clearly visible. The rabbit extends the key toward the bear. The bear takes the bow with its right paw; after contact the rabbit releases and withdraws its empty paw. The bear raises the same key slightly and smiles at the rabbit. End with the one key in the bear's paw and the rabbit's paw visibly empty. Keep the little key and its outline readable during contact and release. No captions or writing.\n\noverall_soundscape:\nSoft hand movement, one light metallic tick at the transfer and quiet room tone. No voice.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "03-1",
+          "file": "media/03-1-9a884789a6.mp4",
+          "sha256": "80f7370b462c45ed8f72d1cfdcb65e1fb028e23af3089bdd7c371e18cab21f72"
+        },
+        {
+          "label": "03-2",
+          "file": "media/03-2-fed4f78136.mp4",
+          "sha256": "224a8c90830f78b0b96c6001d5f670465f3985d2834dde44819005c71957c15a"
+        },
+        {
+          "label": "03-3",
+          "file": "media/03-3-49da4f978b.mp4",
+          "sha256": "f20cdd71ad90e6293dc33e0d7c8b9f1bd8eab11c87e513610e6bb850542b992e"
+        }
+      ]
+    },
+    {
+      "group": 4,
+      "title": "双角色细小道具交接",
+      "prompt": "subject_definitions:\n<Subject 1> is the pink rabbit with long ears and yellow dress in <Picture 1>. The three views describe one rabbit.\n<Subject 2> is the brown bear with green shirt and small brown bag in <Picture 2>. The three views describe one bear.\n\nsummary:\nA five-second clean hand-drawn animation of two friends carefully handing over one small brass key.\n\nretention_analysis:\n[Shot 1] Retain the identities, clothing, black outlines and pastel coloring of <Subject 1> and <Subject 2>. Place them in a simple cream-colored room at a blue tabletop.\n\ndetailed_description:\n[Shot 1] Static waist-up two-shot with the rabbit at left and the bear at right; both faces and their hands are visible above the table. The rabbit holds one small golden brass key by its round bow, with a narrow shaft and two rectangular teeth clearly visible. The rabbit extends the key toward the bear. The bear takes the bow with its right paw; after contact the rabbit releases and withdraws its empty paw. The bear raises the same key slightly and smiles at the rabbit. End with the one key in the bear's paw and the rabbit's paw visibly empty. Keep the little key and its outline readable during contact and release. No captions or writing.\n\noverall_soundscape:\nSoft hand movement, one light metallic tick at the transfer and quiet room tone. No voice.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "04-1",
+          "file": "media/04-1-adba378eda.mp4",
+          "sha256": "a3972fe0270001d668bd1632452309148cc5f8be5e48e485395f1de2844f3e14"
+        },
+        {
+          "label": "04-2",
+          "file": "media/04-2-eac4367118.mp4",
+          "sha256": "5fff7cd55cc89327ee86eaf2998326f6597db594de4cb779cd428d76294abf81"
+        },
+        {
+          "label": "04-3",
+          "file": "media/04-3-9c6316507e.mp4",
+          "sha256": "16ef9777b69213e22886f863d2266fe3d2750a22f300394179d33cb41d94ff44"
+        }
+      ]
+    },
+    {
+      "group": 5,
+      "title": "文字、薄线与遮挡",
+      "prompt": "subject_definitions:\n<Subject 1> is the white thin navy-outlined card with the exact navy word SYNC and three fine horizontal navy lines in <Picture 1>.\n<Subject 2> is the single solid coral vertical bar at the left of the card.\n\nsummary:\nA five-second flat graphic animation in which a moving foreground bar briefly occludes a labeled card, followed by a small card tilt and a clear final lockup.\n\nretention_analysis:\n[Shot 1] Retain the pale blue background, one white card, its navy border, the four SYNC letters, its three fine lines and one coral bar. The bar is in front of the card.\n\ndetailed_description:\n[Shot 1] Static camera on the composition in <Picture 1>. The coral bar slides steadily from left to right across the front of the white card. It covers the letters and the three lines as it crosses; each stroke reappears unchanged behind the passing bar. After the bar reaches the right side, the whole card tilts slightly clockwise and returns level. Its lettering and three lines stay attached to the card. Hold the unchanged word SYNC and all three separate horizontal lines clearly visible for the final second. No additional words or decorative elements.\n\noverall_soundscape:\nA soft sliding swish follows the bar, and one short dry click marks the card returning level. No voice.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "05-1",
+          "file": "media/05-1-f12e2c613a.mp4",
+          "sha256": "0cd3d72ede4f70aadef1baec2638d2baa99979b9b86fd4c78617e0907f3cb005"
+        },
+        {
+          "label": "05-2",
+          "file": "media/05-2-3a3e5daacb.mp4",
+          "sha256": "42172e7241e98f38c89cb9522d27af897088b4dca765e97b8a04199a192ce31b"
+        },
+        {
+          "label": "05-3",
+          "file": "media/05-3-b5014c41d8.mp4",
+          "sha256": "ffc46033f2e582a9c665efc8c4ed080b3b8b5e85b34a3a355a9f988cb7c1fc58"
+        }
+      ]
+    },
+    {
+      "group": 6,
+      "title": "文字、薄线与遮挡",
+      "prompt": "subject_definitions:\n<Subject 1> is the white thin navy-outlined card with the exact navy word SYNC and three fine horizontal navy lines in <Picture 1>.\n<Subject 2> is the single solid coral vertical bar at the left of the card.\n\nsummary:\nA five-second flat graphic animation in which a moving foreground bar briefly occludes a labeled card, followed by a small card tilt and a clear final lockup.\n\nretention_analysis:\n[Shot 1] Retain the pale blue background, one white card, its navy border, the four SYNC letters, its three fine lines and one coral bar. The bar is in front of the card.\n\ndetailed_description:\n[Shot 1] Static camera on the composition in <Picture 1>. The coral bar slides steadily from left to right across the front of the white card. It covers the letters and the three lines as it crosses; each stroke reappears unchanged behind the passing bar. After the bar reaches the right side, the whole card tilts slightly clockwise and returns level. Its lettering and three lines stay attached to the card. Hold the unchanged word SYNC and all three separate horizontal lines clearly visible for the final second. No additional words or decorative elements.\n\noverall_soundscape:\nA soft sliding swish follows the bar, and one short dry click marks the card returning level. No voice.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 5,
+      "clips": [
+        {
+          "label": "06-1",
+          "file": "media/06-1-a38b9c72a2.mp4",
+          "sha256": "ffbcc0ed933ce9e80dd03c2adddffeac200c2b784e4a6a2d026d6c4821e412c0"
+        },
+        {
+          "label": "06-2",
+          "file": "media/06-2-c04d0c5fe0.mp4",
+          "sha256": "1ab5a103ab393842dd2380d2e30f95429ee552c986b197bc47e910c899d792d9"
+        },
+        {
+          "label": "06-3",
+          "file": "media/06-3-a9802a74df.mp4",
+          "sha256": "cfe9e3a6fde163c7532978b630be98dd8cf211f101ee746f64d5f66ccf5167c3"
+        }
+      ]
+    },
+    {
+      "group": 7,
+      "title": "多参考三镜头连续动作",
+      "prompt": "subject_definitions:\n<Subject 1> is Naruto in <Picture 1>, the blond young adult ninja with blue eyes, whisker-like cheek marks, metal forehead protector and orange-and-black jacket.\n<Subject 2> is Sasuke in <Picture 2>, the dark-haired young adult ninja with pale skin and gray open-collar shirt.\n\nsummary:\nA fifteen-second live-action-style three-shot scene. Naruto gives Sasuke one small brass compass; Sasuke checks it, then both leave together.\n\nretention_analysis:\n[Shot 1] Retain both subjects' identities, hairstyles, clothing and realistic appearance. Set them on a quiet stone path in the village shown behind the references.\n[Shot 2] Retain the same subjects, positions and the single brass compass transferred in Shot 1.\n[Shot 3] Retain the same subjects and compass ownership established in Shot 2. Sasuke still holds it as both leave.\n\ndetailed_description:\n[Shot 1] At 00:00.000, eye-level medium two-shot. Naruto stands on the left facing Sasuke on the right. Naruto shows one small round brass compass in his open right palm, says, \"Take this,\" and passes it to Sasuke's left hand. Show contact, Naruto's release and Sasuke holding the same compass. Naruto's right palm is then empty.\n[Shot 2] At 00:05.000, cut to a closer view from the same side, showing Sasuke's face and the compass in his left hand, with Naruto visible at the left edge. Sasuke tilts the compass once; its glass face, dark needle and circular brass rim remain intact. He looks from the compass to Naruto, nods and says, \"I know the way.\"\n[Shot 3] At 00:10.000, cut back to a wider eye-level two-shot. Sasuke lowers his left hand while still holding the compass. He turns toward the path and begins walking away. Naruto turns and walks beside him. End with both distinct characters moving down the path, the compass still with Sasuke. Keep the scene free of subtitles or overlaid writing.\n\noverall_soundscape:\nConsistent quiet outdoor wind, subtle fabric movement, a small metallic touch at the transfer and footsteps as they leave. Naruto speaks the first English line; Sasuke answers with the second. The two young adult male voices are distinct and synchronized with the visible speaker.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 15,
+      "clips": [
+        {
+          "label": "07-1",
+          "file": "media/07-1-a2314a1fc1.mp4",
+          "sha256": "8f708b41242061f5885973498a7e2a12d18898cf1e1bc83b6939a51e8b3a4521"
+        },
+        {
+          "label": "07-2",
+          "file": "media/07-2-fc943b82a6.mp4",
+          "sha256": "0947ae1288055d0736b7e879f9c406a45553519309a2c34d8953db197eabcb19"
+        },
+        {
+          "label": "07-3",
+          "file": "media/07-3-3be2d54f11.mp4",
+          "sha256": "abe7e501b4bb662ee1f106b2a73aa1d18284d185146e2e4150cfffbf8b744f94"
+        }
+      ]
+    },
+    {
+      "group": 8,
+      "title": "多参考三镜头连续动作",
+      "prompt": "subject_definitions:\n<Subject 1> is Naruto in <Picture 1>, the blond young adult ninja with blue eyes, whisker-like cheek marks, metal forehead protector and orange-and-black jacket.\n<Subject 2> is Sasuke in <Picture 2>, the dark-haired young adult ninja with pale skin and gray open-collar shirt.\n\nsummary:\nA fifteen-second live-action-style three-shot scene. Naruto gives Sasuke one small brass compass; Sasuke checks it, then both leave together.\n\nretention_analysis:\n[Shot 1] Retain both subjects' identities, hairstyles, clothing and realistic appearance. Set them on a quiet stone path in the village shown behind the references.\n[Shot 2] Retain the same subjects, positions and the single brass compass transferred in Shot 1.\n[Shot 3] Retain the same subjects and compass ownership established in Shot 2. Sasuke still holds it as both leave.\n\ndetailed_description:\n[Shot 1] At 00:00.000, eye-level medium two-shot. Naruto stands on the left facing Sasuke on the right. Naruto shows one small round brass compass in his open right palm, says, \"Take this,\" and passes it to Sasuke's left hand. Show contact, Naruto's release and Sasuke holding the same compass. Naruto's right palm is then empty.\n[Shot 2] At 00:05.000, cut to a closer view from the same side, showing Sasuke's face and the compass in his left hand, with Naruto visible at the left edge. Sasuke tilts the compass once; its glass face, dark needle and circular brass rim remain intact. He looks from the compass to Naruto, nods and says, \"I know the way.\"\n[Shot 3] At 00:10.000, cut back to a wider eye-level two-shot. Sasuke lowers his left hand while still holding the compass. He turns toward the path and begins walking away. Naruto turns and walks beside him. End with both distinct characters moving down the path, the compass still with Sasuke. Keep the scene free of subtitles or overlaid writing.\n\noverall_soundscape:\nConsistent quiet outdoor wind, subtle fabric movement, a small metallic touch at the transfer and footsteps as they leave. Naruto speaks the first English line; Sasuke answers with the second. The two young adult male voices are distinct and synchronized with the visible speaker.\n\nnon_diegetic_music:\nNone.\n",
+      "duration": 15,
+      "clips": [
+        {
+          "label": "08-1",
+          "file": "media/08-1-f2b105b37e.mp4",
+          "sha256": "d7e8d2414dafde0f684b9894e109f90b301aae7096421a65ff4d62a2bf78abc6"
+        },
+        {
+          "label": "08-2",
+          "file": "media/08-2-16234306f1.mp4",
+          "sha256": "ac0f03d3a2063fa3cf470073241eba7dcfcdcdf343640e9db49dbf35ca9f8405"
+        },
+        {
+          "label": "08-3",
+          "file": "media/08-3-32092ebf2b.mp4",
+          "sha256": "4bbf080b76309449e2445bbccc96d2b03293bdf4713ce674723cfe9ec7a46656"
+        }
+      ]
+    }
+  ]
+}
