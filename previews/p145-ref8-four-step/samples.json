@@ -22,24 +22,24 @@
   },
   "review": {
     "schema": "p145-public-review/v1",
-    "status": "paused_10_of_11_complete_validation_review_pending",
-    "public_decision": "Study paused after 10 of 11 planned videos completed. Calibration admits further validation, but validation quality review and the new-LoRA 15-second run remain pending. No product adoption.",
-    "authority": "pause-01.json",
+    "status": "complete_11_videos_no_default_adoption",
+    "authority": "validation-review-01.json",
+    "public_decision": "All 11 planned videos are complete. Ref8 v1.0 works at four NFE in the tested Mac VSA recipe and preserves the broad actions. A local framing benefit does not establish enough overall quality benefit for a default replacement; unrequested subtitles and shared prop-continuity defects remain. Keep the v0.6.0 default LoRA. Listening and SOL are unassessed.",
     "cases": {
       "cal-dandelion": {
         "public_note": "Both four-step clips retain the two characters, drifting dandelion seeds and the bear reaction in the reviewed temporal frames. N4 uses wider framing. The eight-step control retains the same broad action; no clear superiority is established by this single known scene. Listening has not been assessed."
       },
       "val-portrait": {
-        "public_note": "Both four-NFE runs completed with matching inputs and initial noise, no sparse-attention fallback, and fully decodable audio/video. Visual quality and listening review are pending; generation success is not a quality verdict."
+        "public_note": "Both versions turn toward the camera and smile; both crop the top of the head. The N4 turn is later and the background/framing differs. No clear quality advantage is established. Listening unassessed."
       },
       "val-02-running": {
-        "public_note": "Both four-NFE runs completed with matching inputs and initial noise, no sparse-attention fallback, and fully decodable audio/video. Visual quality and listening review are pending; generation success is not a quality verdict."
+        "public_note": "Both retain the two characters and alternating running strides. Consecutive frames show transient limb/shoe trails in both versions, not a persistent extra character. No clear N4 improvement is established."
       },
       "val-03-handoff": {
-        "public_note": "Both four-NFE runs completed with matching inputs and initial noise, no sparse-attention fallback, and fully decodable audio/video. Visual quality and listening review are pending; generation success is not a quality verdict."
+        "public_note": "Both transfer one bread to the bear and end with the rabbit empty-handed. N4 additionally renders Chinese dialogue subtitles; B4 does not in reviewed frames. Subtitles were not requested, but the frozen prompt did not explicitly ban them. Audible dialogue and synchronization are unassessed."
       },
       "val-weekend-long": {
-        "public_note": "Only the v0.6.0 four-NFE control is complete. The Ref8 four-NFE run was intentionally stopped before completion and will be retried in a new attempt. This is not yet a paired quality comparison; visual and listening review are pending."
+        "public_note": "Both complete the wake/stretch, run and picnic scene sequence. N4 keeps both characters more fully in frame during the bedroom stretch. Both have a prop-continuity defect near 13 seconds: the held orange changes into a cup without a clear put-down/pick-up action; cup count/appearance also changes. The local framing benefit is insufficient to recommend default replacement. The long pair spans a user pause; timings are single runs, not a speedup benchmark."
       }
     }
   },
@@ -616,6 +616,24 @@
           "decoded_hashes": {
             "video": "SHA256=71cd66934867f73794e74c730e8ad2223ec44f46245fd316a410c2d7021346fe",
             "audio": "SHA256=b0487452852ea297ddcb239a4b924b8ac63edcfbc87f6ac19ec1b1e4737909dc"
+          }
+        },
+        "N4": {
+          "file": "runs/val-weekend-long-N4.mp4",
+          "sha256": "0eedb5ded2d4fda5e52096dbe435f2dcf17fd2220f522cb9b2eab48036fc7d1c",
+          "bytes": 7891535,
+          "seconds": 1086.7087569998112,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 59.908337582834065,
+            "denoise": 927.6256830838975,
+            "video_decode": 93.42337787500583,
+            "audio_decode": 1.1832461250014603,
+            "mux": 1.3785681670997292
+          },
+          "decoded_hashes": {
+            "video": "SHA256=45792cab53932dc966e701d0fb90395d691c11fb6c8e4085b81159805b70ee61",
+            "audio": "SHA256=48aee4ead78b4db478b04eaf0e9b67b2b4b37360946d37414d46ee6e87a3603b"
           }
         }
       }
