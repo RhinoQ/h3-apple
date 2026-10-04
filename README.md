@@ -26,6 +26,16 @@ replace the v0.6.0 default. Exact prompts, model identities and single-run timin
 with diagnostic capture are included. Review uses non-blind temporal frames;
 listening and SOL are unassessed. No product adoption.
 
+The [harder Ref8 challenge](previews/p146-ref8-hard-cases/) adds fifteen originals:
+six paired four-step scenes covering people, live-action Naruto interpretations and
+motion graphics, plus three preselected eight-step controls. The new four-step
+LoRA has one local win among six scenes and loses the required behind-card
+occlusion in PLAY, below the registered replacement-candidate threshold. Eight
+steps restore that occlusion but do not consistently resolve the other scene
+limitations. All clips use VSA; review is non-blind and listening is unassessed.
+The v0.6.0 default remains unchanged. Exact recipes, identities and measurements
+are included in the page's `samples.json`.
+
 ## Earlier video studies
 
 An independently authored GitHub Pages gallery of local MiniMax H3 generations.

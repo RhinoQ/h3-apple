@@ -1,0 +1,684 @@
+{
+  "schema": "h3-apple-public-p146/v1",
+  "study": "P146",
+  "source_commit": "336a231c0da4c8e4e794c3fd7543243a4a3289e3",
+  "source_sha256": "08c6f2087589012dcc120080bbcc96d565554d158b2b2ff9f03e525b82581755",
+  "model_identities": {
+    "B4": "7d1902498bf42540dfb3f5becde5d7cebac8d7f41e3284474a122f6ff5a1d990",
+    "N4": "5ad9be7f221f92bee941d2dbfd2d39804e4fe0f7122f75015e31a30c416f0773",
+    "N8": "5ad9be7f221f92bee941d2dbfd2d39804e4fe0f7122f75015e31a30c416f0773"
+  },
+  "settings": {
+    "video_shift": 12,
+    "audio_shift": 3,
+    "lora_scale": 1,
+    "sampler": "Euler",
+    "cfg": 1,
+    "reference_resize": "match",
+    "face_enhancement": false
+  },
+  "runtime_options": {
+    "diagnostics": true
+  },
+  "review": {
+    "schema": "p146-public-review/v1",
+    "status": "complete_15_videos_no_default_adoption",
+    "authority": "challenge-review-01.json",
+    "public_decision": "All 15 planned videos are complete. Ref8 v1.0 at four steps has a local advantage in 1 of the six paired challenge scenes, below the registered three-scene / two-domain threshold. It also loses the required behind-card occlusion in PLAY. Keep the v0.6.0 default LoRA. The three preselected eight-step examples are explanatory, not four-step wins. VSA only; listening and SOL remain unassessed.",
+    "cases": {
+      "01-live-cup": {
+        "public_note": "At four steps, Ref8 v1.0 shows the face more fully and visibly releases the glass near the end; the original crops much of the face initially and the final release is off-screen. Both retain the sip, but neither clearly shows the glass base meeting the table. The new clip has a weaker camera arc and a late release. This is a local gain, not a complete prompt pass. Eight-step control: At eight steps, the man and glass remain coherent and most of the face stays visible, but the sip runs longer and the hand still holds the glass at the end. Table contact remains off-screen; the visible four-step release is not reproduced. No overall eight-step gain is established."
+      },
+      "02-live-fashion": {
+        "public_note": "Both retain the chosen black outfit, turn, cut at about 2.88 s and sweep a hand across the face to tuck the hair. No clear four-step Ref8 quality advantage is established. The original gives a clearer three-quarter-back glance, while Ref8 turns farther away. Both crop shoes during the approach and hair in the close-up."
+      },
+      "03-naruto-rasengan": {
+        "public_note": "Both form one swirling sphere, remove the left hand, thrust forward and keep the effect over the right palm. Ref8 frames the extended arm and final supporting fingers more fully, but both obscure much of the face with the sphere; the new clip does not solve this and reveals the face later in the arc. No clear net improvement in effect or action quality is established. Eight-step control: Eight steps retain the same palm-supported formation and thrust. The final swirl ridges look more separated, but the large effect still obscures the face during the thrust and the feet remain cropped. This limited appearance difference does not establish an overall task-quality improvement."
+      },
+      "04-naruto-sparring": {
+        "public_note": "Both keep Naruto and Sasuke distinct and separate again at the end, but both miss the requested choreography: two punches and upper-body contact replace one strike with a clear forearm deflection. Ref8 performs these events later and does not fix the core action. No four-step quality win is established."
+      },
+      "05-graphics-perspective": {
+        "public_note": "Both keep PLAY legible and rotate the card, but both overshoot the requested limited turn. The original hides the orange disk behind the card at 1.50–2.33 s; Ref8 v1.0 at four steps keeps it in front, even crossing the play icon. This is a clear layer-order regression in the new four-step clip, not a quality win. Eight-step control: Eight steps restore the fully hidden disk interval (at least 1.46–2.17 s) and right-side reappearance, which the new four-step clip misses. The original four-step clip already achieves this. The limited-turn instruction is still missed. This is a local eight-step recovery, not evidence for replacing the four-step default."
+      },
+      "06-graphics-reassembly": {
+        "public_note": "Both retain the five SHIFT letters, animate the tiles and letter wave, and restore a readable final layout. Both reveal the same letter shapes after the orange disk passes. Ref8 v1.0 at four steps covers the letters earlier but its disk stops short of T; the original travels farther right. No clear new-version quality advantage is established."
+      }
+    }
+  },
+  "scope": "VSA only. Six new challenge prompts and seeds frozen before generation; reused identity references and two newly authored graphic references. One seed per scene, non-blind temporal frame review. No listening assessment or quality claim for SOL.",
+  "cases": [
+    {
+      "id": "01-live-cup",
+      "split": "challenge",
+      "seed": 2026101601,
+      "prompt": "subject_definitions:\n<Subject 1> is the adult man in <Picture 1>. Preserve his short gray-brown hair, face shape, eyes, smile and red polo shirt. The photograph supplies identity and clothing; create the new cafe setting described below.\n\nsummary:\n[reference generation] A five-second photorealistic continuous shot of <Subject 1> lifting a clear glass, taking one sip, and setting the same glass down while a small camera arc changes the view of his face.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the same facial identity and red polo before, during and after the glass occludes the lower face.\n\ndetailed_description:\n[Shot 1] A real cafe in soft window light. <Subject 1> sits at a wooden table, framed from the middle of his chest to comfortably above his hair. One clear cylindrical drinking glass, half full of water, is on the table directly in front of his right hand. At the beginning his face is in three-quarter view. During the first second he closes the fingers of his right hand around the middle of the glass and lifts it. From about one to three seconds he brings its rim to his lips, tilts it slightly and takes one sip; the transparent glass overlaps his mouth and near cheek while his eyes and upper face remain visible. His fingers stay attached to the glass, and the water surface changes angle naturally. The camera makes a smooth small arc of about twenty degrees around the table during the action. From three to four seconds he lowers the same glass, returns its base to the tabletop, releases it and withdraws his hand. He finishes with both eyes visible, looking toward the camera with a small relaxed smile. The glass remains on the table for the final second. Preserve natural skin texture and distinct fingers through the grip, occlusion and release. Keep the complete head, working hand and glass visible. All motion is continuous; the camera arc does not substitute for the sip. The image contains the man, table, glass and cafe surroundings, with no overlaid text.\n\noverall_soundscape:\nQuiet cafe room tone, one subtle sip and one soft glass-on-wood tap when the base meets the table. No dialogue or vocals.\n\nnon_diegetic_music:\nNone; retain the quiet physical sounds.\n",
+      "references": [
+        {
+          "position": 1,
+          "bytes": 143173,
+          "sha256": "4d5deb4d969ed38d37bf4ef7ba9f111f1f5d6177cd9cb09b00af505175c3c012"
+        }
+      ],
+      "parameters": {
+        "B4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101601,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101601,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-4nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N8": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101601,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-8nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 8,
+          "mode": "VSA"
+        }
+      },
+      "runs": {
+        "B4": {
+          "file": "runs/01-live-cup-B4.mp4",
+          "sha256": "707ad2680e30bddc7ceb07076a1732e5cc5b3d40beae2589984fca3e563f1416",
+          "bytes": 3162864,
+          "seconds": 451.78203199990094,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 19.99986091721803,
+            "denoise": 366.88343683304265,
+            "video_decode": 61.35987862478942,
+            "audio_decode": 0.4496755830477923,
+            "mux": 0.8189635828603059
+          },
+          "decoded_hashes": {
+            "video": "SHA256=ef086d57f223a553cd9b1927e6d225e358019bd8e5724f2e8772e35de8042f64",
+            "audio": "SHA256=bc29c964d053059f0f617a1ac6122714cd2a7c920d66d763c9a33b55f4aa752b"
+          }
+        },
+        "N4": {
+          "file": "runs/01-live-cup-N4.mp4",
+          "sha256": "9412051355f42c11b37b46eafb63135ff3c9ce6cde2e98b89e33da680939428b",
+          "bytes": 2598590,
+          "seconds": 468.02636662498116,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 20.809957250021398,
+            "denoise": 383.7804308750201,
+            "video_decode": 59.99290733411908,
+            "audio_decode": 0.4632640420459211,
+            "mux": 0.7407092079520226
+          },
+          "decoded_hashes": {
+            "video": "SHA256=7b1aa7b5d77d03200c8c7b523783c4fdc39c1be998682da408f8ba19c8787a9c",
+            "audio": "SHA256=c5010049b89e672f4c4cddec4e8546571c434eacfba87c2de3bb290e83b6c706"
+          }
+        },
+        "N8": {
+          "file": "runs/01-live-cup-N8.mp4",
+          "sha256": "540ec7fcb669f56541f950934b09b2701e8223ddc52218c891ded2d973bd856d",
+          "bytes": 2530550,
+          "seconds": 865.9329922080506,
+          "actual_nfe": 8,
+          "timings_seconds": {
+            "conditioning": 20.494401790900156,
+            "denoise": 779.3763102081139,
+            "video_decode": 62.58318195817992,
+            "audio_decode": 0.4432536249514669,
+            "mux": 0.7845461249817163
+          },
+          "decoded_hashes": {
+            "video": "SHA256=8bcfdae8db5e6002fc91d129dc78c41c832199f9b5e485fb80e759052506f0d2",
+            "audio": "SHA256=f48de8208e3515be2abc0d16a8f804a33c108c09fb9e4f2e94fa1bf79c898c9f"
+          }
+        }
+      }
+    },
+    {
+      "id": "02-live-fashion",
+      "split": "challenge",
+      "seed": 2026101602,
+      "prompt": "subject_definitions:\n<Subject 1> is the single adult woman shown in the four fashion looks of <Picture 1>. Preserve her face, dark shoulder-length hair and slim proportions. Use only the upper-left LOOK 01 outfit: a black sleeveless high-neck top, a black belt with a round buckle and flowing black pinstriped wide-leg trousers. The four panels show one model, not four people; the poster layout and its lettering are not the target composition.\n\nsummary:\n[reference generation] A five-second photorealistic fashion film of <Subject 1>, combining a traveling half-turn with flowing fabric and a close view of her hand passing in front of her face to tuck back her hair.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - keep the same woman, hairstyle and complete black LOOK 01 outfit in both shots. The reference defines her identity and clothes, not a panel or text overlay.\n\ndetailed_description:\n[Shot 1] Full-body view in a spacious neutral gray photo studio, with the single <Subject 1> and a grounded soft shadow. Her complete head and shoes fit inside the frame. From zero to one second she takes two deliberate steps toward the camera. She plants her leading foot and makes one controlled half-turn from front-facing to facing away, then stops in a three-quarter back pose by about 2.5 seconds, glancing over her shoulder. Her hair and wide trouser legs continue moving and settle naturally after her body stops. The camera tracks backward a short distance to maintain full-body framing. Show foot contact, changing body orientation and fabric motion as one connected action.\n[Shot 2] At 00:03.000, cut to a chest-up three-quarter view of the same <Subject 1> in the same black top and studio. She raises her right hand, passes her fingers briefly in front of her nearer eye and cheek, and tucks one loose strand of hair behind that ear. The hand then moves away and lowers below her chin. End by five seconds on her unobscured complete face and a subtle confident smile, with her hair, eyes, neckline and identity matching the previous shot. Use natural skin detail and well-formed fingers. Present the two shots as full-screen film images, without the fashion poster's panels, lettering or alternate outfits.\n\noverall_soundscape:\nTwo footsteps, soft clothing movement and quiet studio room tone. No speech or vocals.\n\nnon_diegetic_music:\nA restrained original electronic pulse continues smoothly across the cut at a low volume.\n",
+      "references": [
+        {
+          "position": 1,
+          "bytes": 2226483,
+          "sha256": "ccbedeb16c9f6e9b55736e0014fcdbb2de5b661b8daa9c2cc3354d4c1d330362"
+        }
+      ],
+      "parameters": {
+        "B4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101602,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101602,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-4nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        }
+      },
+      "runs": {
+        "B4": {
+          "file": "runs/02-live-fashion-B4.mp4",
+          "sha256": "a2d21813ddcd21450bcef6776449ed57f9c8cd59eb35c3a02e07a18f1cb5e41c",
+          "bytes": 2227839,
+          "seconds": 490.09274450014345,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 23.976158749777824,
+            "denoise": 402.3420375001151,
+            "video_decode": 60.43266829196364,
+            "audio_decode": 0.4567334169987589,
+            "mux": 0.7547805840149522
+          },
+          "decoded_hashes": {
+            "video": "SHA256=8979298e3e12bcbae9228a031fe7e61360688fc1a69e38e5d804fa5d408da8c0",
+            "audio": "SHA256=8a2e67be509bde31d4c6297502319e1f2d9113240ee1c317e8f5978e7170e15d"
+          }
+        },
+        "N4": {
+          "file": "runs/02-live-fashion-N4.mp4",
+          "sha256": "5b7edc36fa0eb055f49a5eaedacc55a12f3c636263dd217f8a31f5a46f687131",
+          "bytes": 2388658,
+          "seconds": 489.18825054191984,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 23.816630916902795,
+            "denoise": 401.572937207995,
+            "video_decode": 60.42422350007109,
+            "audio_decode": 0.45067283301614225,
+            "mux": 0.7514458340592682
+          },
+          "decoded_hashes": {
+            "video": "SHA256=605b2fbed90c6ddc7a4e13932067c65b6f9451a0cd655c1a260fd4525e746c91",
+            "audio": "SHA256=aed8b81195594e2c047cab8f8435c8f2dbe63eb96f9526d250e6e99d83062b5b"
+          }
+        }
+      }
+    },
+    {
+      "id": "03-naruto-rasengan",
+      "split": "challenge",
+      "seed": 2026101603,
+      "prompt": "subject_definitions:\n<Subject 1> is the live-action adult portrayal of Naruto Uzumaki in <Picture 1>. Preserve the same face, blue eyes, spiky blond hair, three whisker marks on each cheek, metal Leaf forehead protector on black cloth and orange-and-black jacket.\n\nsummary:\n[reference generation] A five-second live-action Naruto effects shot: <Subject 1> forms one spinning blue Rasengan in his right palm, steps and thrusts it forward, then holds a balanced final pose while the light and swirling energy remain attached to his palm.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the referenced human face, hair, forehead protector and clothing through body rotation, fast arm motion and changing blue illumination.\n\ndetailed_description:\n[Shot 1] A sunlit stone training courtyard, shown in a continuous medium-wide view from above the knees to above the hair of the single <Subject 1>. His body begins three-quarter toward the camera. He opens his right palm at waist height and brings his left hand above it. During the first two seconds, luminous blue strands spiral between the hands and condense into one grapefruit-sized translucent blue sphere resting just over the right palm. The sphere has clearly circulating internal strands rather than a flat white disk. His left hand moves away, leaving the one sphere supported by his right hand. From two to 3.5 seconds he plants his front foot, turns his hips and shoulders and makes one decisive forward thrust with that right arm, bringing the sphere toward the camera without releasing it. His jacket follows the body rotation, the hair moves, and blue light falls consistently on the near fingers, cheek and sleeve as the sphere approaches. The camera makes a modest lateral arc while keeping his complete face, both arms and sphere in view. From 3.5 to five seconds he holds a balanced extended-arm pose with a determined expression; the sphere continues swirling on the same palm. The visible cast stays one Naruto, with one sphere and two arms, and the face is readable beyond the effect. No overlaid words or subtitles.\n\noverall_soundscape:\nQuiet outdoor wind, a rising energy swirl and one short whoosh on the forward thrust; the energy hum continues softly to the end. No speech or vocals.\n\nnon_diegetic_music:\nOriginal restrained percussion supports the action without quoting an existing anime theme.\n",
+      "references": [
+        {
+          "position": 1,
+          "bytes": 2280935,
+          "sha256": "9894f03f58263049a62ae2eb53a47ba139a998d5edae46ac0d7b3cfe5a890182"
+        }
+      ],
+      "parameters": {
+        "B4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101603,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101603,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-4nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N8": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101603,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-8nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 8,
+          "mode": "VSA"
+        }
+      },
+      "runs": {
+        "B4": {
+          "file": "runs/03-naruto-rasengan-B4.mp4",
+          "sha256": "e891c9d69db471f9204e34f9ba6d3535398eb89371ba3e26710f9898da60fac7",
+          "bytes": 4708522,
+          "seconds": 494.2767344999593,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 23.633156582945958,
+            "denoise": 406.0632260418497,
+            "video_decode": 60.802541541168466,
+            "audio_decode": 0.4571383751463145,
+            "mux": 0.8525752499699593
+          },
+          "decoded_hashes": {
+            "video": "SHA256=370afc63663b461801e5899721b32cec77025caac09c11edab230cf98ede8daa",
+            "audio": "SHA256=53721d2425e0ff3f1d89806f9b6d169a2c14c7deab0d7f6143df57ab59a9aa15"
+          }
+        },
+        "N4": {
+          "file": "runs/03-naruto-rasengan-N4.mp4",
+          "sha256": "723f1a5f1b8f704f438587ffc635a6776122d8dc6ed79864030399cbce6f5d92",
+          "bytes": 4447616,
+          "seconds": 494.1067009170074,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 23.890469749923795,
+            "denoise": 405.5096027920954,
+            "video_decode": 60.98163658310659,
+            "audio_decode": 0.4577865421306342,
+            "mux": 0.826701208949089
+          },
+          "decoded_hashes": {
+            "video": "SHA256=edb1c6ae62e8c2154bca79faa6d1555977e5ffe79c6a9796fdbbee117e105258",
+            "audio": "SHA256=e79342a5b7b31ef2b681a677aeade5bcd2ce59b277ce412ed133c099aa866544"
+          }
+        },
+        "N8": {
+          "file": "runs/03-naruto-rasengan-N8.mp4",
+          "sha256": "70d3168cb539916b67fff5907353cc8f2171687d8d1187deb1e84a59c2ab3a04",
+          "bytes": 4100005,
+          "seconds": 892.4200103750918,
+          "actual_nfe": 8,
+          "timings_seconds": {
+            "conditioning": 23.723404791904613,
+            "denoise": 804.4045076661278,
+            "video_decode": 60.62650654092431,
+            "audio_decode": 0.45023449999280274,
+            "mux": 0.8235686251427978
+          },
+          "decoded_hashes": {
+            "video": "SHA256=ab94a1f0f3c9e0411ecb343115067116aad5a2293673f1a636edadb25c572cb7",
+            "audio": "SHA256=6773e37a582a7cd8d65e6ce8b20bdbf5dafc083577a2cb0c5e3af460d06b5867"
+          }
+        }
+      }
+    },
+    {
+      "id": "04-naruto-sparring",
+      "split": "challenge",
+      "seed": 2026101604,
+      "prompt": "subject_definitions:\n<Subject 1> is the live-action adult Naruto Uzumaki in <Picture 1>: retain his face, blue eyes, blond spiky hair, whisker marks, Leaf forehead protector and orange-and-black jacket.\n<Subject 2> is the different live-action adult Sasuke Uchiha in <Picture 2>: retain his face, dark eyes, black swept fringe and spiky hair, and pale gray open-neck high-collared shirt.\n\nsummary:\n[reference generation] A five-second controlled sparring exchange between <Subject 1> and <Subject 2>, showing one forward strike, a forearm deflection, a brief overlap of the two bodies, and a clear separation into distinct final stances.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - Naruto keeps his own face, blond hair, headband and orange-black clothing throughout the exchange.\n<Subject 2> (appears in [Shot 1]): fully_preserved - Sasuke keeps his different face, dark hair and gray clothing during occlusion and reappearance.\n\ndetailed_description:\n[Shot 1] A continuous wide waist-up two-shot on a stone training ground in soft daylight. Naruto, <Subject 1>, starts at the left facing right; Sasuke, <Subject 2>, starts at the right facing left, about one arm's reach apart. Keep both complete heads and working arms within the frame. During the first second they settle into balanced ready stances and watch each other. From one to two seconds Naruto steps toward Sasuke and extends one straight right-handed training punch toward Sasuke's upper chest. Sasuke shifts his torso slightly aside and raises his left forearm to meet and redirect Naruto's right forearm outward, with one visibly readable forearm contact near the center of the image. From two to three seconds they rotate through that contact and briefly overlap in depth; Sasuke's gray sleeve crosses in front of Naruto's orange sleeve while both heads remain distinguishable. From three to four seconds they release contact and each takes one step back. By the final second they have separate arms and distinct complete faces again, Naruto at the left and Sasuke at the right, holding calm balanced stances with a hint of mutual respect. Preserve the contact-to-release chain, correct ownership of all four arms and the two identities through the overlap. Use one smooth camera view with a small sideways tracking move, clear natural motion blur and textured skin and fabric. This is a controlled exchange with no injury, explosion, duplicate fighter or text overlay.\n\noverall_soundscape:\nTwo short foot contacts, a soft sleeve-and-forearm impact, clothing movement and outdoor wind. No speech or vocals.\n\nnon_diegetic_music:\nQuiet original percussion with one accented beat at the deflection.\n",
+      "references": [
+        {
+          "position": 1,
+          "bytes": 2280935,
+          "sha256": "9894f03f58263049a62ae2eb53a47ba139a998d5edae46ac0d7b3cfe5a890182"
+        },
+        {
+          "position": 2,
+          "bytes": 2361053,
+          "sha256": "4643c58993d079fc55032dfaf6e6e7cc97ca8e30a7253b792555f301b649caa2"
+        }
+      ],
+      "parameters": {
+        "B4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101604,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101604,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-4nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        }
+      },
+      "runs": {
+        "B4": {
+          "file": "runs/04-naruto-sparring-B4.mp4",
+          "sha256": "410fb8266f0ca292b78762dafd5b31e83e1fdf53fd47b76630e870e70fc2fb50",
+          "bytes": 4087468,
+          "seconds": 569.0617727078497,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 38.878280207980424,
+            "denoise": 465.0925985421054,
+            "video_decode": 61.271759250201285,
+            "audio_decode": 0.44501604209654033,
+            "mux": 0.8284307499416173
+          },
+          "decoded_hashes": {
+            "video": "SHA256=351d8cc8d394de0543f7beab0856668d4d480637386756eb7212f53cb2dda1dc",
+            "audio": "SHA256=370f21b02720f36925296e9c1a6f0c0e19c8c8c7da8a17a7e0e8caeadf44b01d"
+          }
+        },
+        "N4": {
+          "file": "runs/04-naruto-sparring-N4.mp4",
+          "sha256": "5fa682d5ed668c3e430713b05a1c7c783ddce2e2e920c1565243a8b30f00acc5",
+          "bytes": 3849725,
+          "seconds": 575.8886634998489,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 38.75073262513615,
+            "denoise": 472.1862420840189,
+            "video_decode": 61.32475124998018,
+            "audio_decode": 0.45341362501494586,
+            "mux": 0.7973429581616074
+          },
+          "decoded_hashes": {
+            "video": "SHA256=2348c8d3661c90b66fc310c217ed5d73ce82d48960023c94ccecac5807acb478",
+            "audio": "SHA256=bda185dd5006920d16900726b5de94b32cc54f1a6f49d930f9909ba7d1e1b105"
+          }
+        }
+      }
+    },
+    {
+      "id": "05-graphics-perspective",
+      "split": "challenge",
+      "seed": 2026101605,
+      "prompt": "subject_definitions:\n<Subject 1> is the mint retro player card in <Picture 1>, with a dark navy outline, three small header dots, one orange play icon and the large navy word PLAY. Retain its proportions, palette, icon and lettering as a single coherent designed object.\n<Subject 2> is the separate solid orange circle outside the card near the lower-left of <Picture 1>. It is a movable flat graphic disk, distinct from the play icon inside the card.\n\nsummary:\n[reference generation] A five-second motion-graphics ident in which <Subject 1> rotates in perspective while <Subject 2> passes behind it, followed by a stable front-facing title hold with the word PLAY intact.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - the player card keeps the same edge geometry, mint/navy/orange/cream palette, play icon and exact four-letter word PLAY while its orientation changes.\n<Subject 2> (appears in [Shot 1]): fully_preserved - keep one solid orange circle of constant diameter; it disappears only while geometrically occluded by the card and then reappears.\n\ndetailed_description:\n[Shot 1] A clean cream 16:9 canvas with a single centered <Subject 1>, initially front-facing, and the one <Subject 2> near the lower-left. The card fills most of the image but has clear margins. During the first two seconds, the complete card rotates around a vertical axis into a pronounced oblique view, about sixty degrees from frontal, with coherent perspective on the border, icon, header dots and letters. At the same time the orange circle travels horizontally from the left toward the right at the height of the lower part of the card. It passes behind the card: its visible area narrows at the left edge, becomes fully hidden, then emerges at the right edge as the same circle. From two to 3.5 seconds the card reverses its rotation and returns smoothly to its original frontal rectangle while the circle finishes at the lower-right. The lettering stays attached to the card surface and reads exactly PLAY whenever the front is visible. From 3.5 to five seconds hold the full frontal card and orange circle in a crisp, stable final layout. Render smooth intentional graphic animation with solid fills and sharp edges. The card rotates as a whole object; letters, corners and the play icon do not independently melt or turn into other symbols. No cuts, invented extra windows or additional writing.\n\noverall_soundscape:\nOne clean electronic whoosh during rotation and one quiet click as the card settles. No voice.\n\nnon_diegetic_music:\nAn original short electronic beat, with the final held title supported by a sustained soft synth tone.\n",
+      "references": [
+        {
+          "position": 1,
+          "bytes": 13750,
+          "sha256": "16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45"
+        }
+      ],
+      "parameters": {
+        "B4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101605,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101605,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-4nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N8": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101605,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-8nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 8,
+          "mode": "VSA"
+        }
+      },
+      "runs": {
+        "B4": {
+          "file": "runs/05-graphics-perspective-B4.mp4",
+          "sha256": "c2c764861a620c2a241c1d2d3080b5663c393a478612b73d2a24fb3daa7df997",
+          "bytes": 1010386,
+          "seconds": 500.6614589591045,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 24.70437916694209,
+            "denoise": 411.4998152500484,
+            "video_decode": 61.32277129194699,
+            "audio_decode": 0.4542137091048062,
+            "mux": 0.5945821250788867
+          },
+          "decoded_hashes": {
+            "video": "SHA256=c2e501fe727dea3222b8532c17c61a88e97d5b38dd0b1bb62aa0efdb61e2f8e7",
+            "audio": "SHA256=b7d7838ca39f5fcaf0248acd2c410b8e3cd6d2436546bdb8172658b6079929c8"
+          }
+        },
+        "N4": {
+          "file": "runs/05-graphics-perspective-N4.mp4",
+          "sha256": "e225cc77f6a457df02d2ca3cec1dbf090211c846cb3bf9b8626ecd6fd7f65082",
+          "bytes": 967866,
+          "seconds": 499.21654912503436,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 24.720933709060773,
+            "denoise": 410.38008104194887,
+            "video_decode": 61.073673375183716,
+            "audio_decode": 0.45384699990972877,
+            "mux": 0.5838678339496255
+          },
+          "decoded_hashes": {
+            "video": "SHA256=87677f8dda284c2ab410ecbb3241d71dab7ce2a608a09135b5c8cad3754999ae",
+            "audio": "SHA256=2025e4817adcfa3f04ab9a9df228eca9b95e49a41d032e44b631845c8b2fc33d"
+          }
+        },
+        "N8": {
+          "file": "runs/05-graphics-perspective-N8.mp4",
+          "sha256": "eb77dd0bd70d3c9480e3842953eae470c4eaae5115ff2499ee60d5606bc6d110",
+          "bytes": 917451,
+          "seconds": 900.5219255411066,
+          "actual_nfe": 8,
+          "timings_seconds": {
+            "conditioning": 24.640978750074282,
+            "denoise": 812.3429055840243,
+            "video_decode": 60.48276841593906,
+            "audio_decode": 0.44720375002361834,
+            "mux": 0.5759042499121279
+          },
+          "decoded_hashes": {
+            "video": "SHA256=8b259d83eef552c08b585bfdd07109c19cbf295eaff6df27990e6ce3283d16c5",
+            "audio": "SHA256=2f141fdb118d97d64baf4ab0d0fd063a91a182359c8959fc55372162ea7a5306"
+          }
+        }
+      }
+    },
+    {
+      "id": "06-graphics-reassembly",
+      "split": "challenge",
+      "seed": 2026101606,
+      "prompt": "subject_definitions:\n<Subject 1> is the graphic lockup in <Picture 1>: three colored square tiles at the left and the five large navy capital letters SHIFT at the right, on a cream background. The tile colors are navy, mint and orange. Preserve the exact word, the five distinct letter shapes and the original color scheme.\n<Subject 2> is the single orange disk below the word in <Picture 1>, separate from the orange square tile.\n\nsummary:\n[reference generation] A five-second kinetic typography sequence in which the components of <Subject 1> separate, rotate and reassemble while <Subject 2> briefly masks the letters, ending on a stable and correctly spelled SHIFT lockup.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the same three tiles, five uppercase letter identities, colors and final reading order; only their planned positions and orientations animate.\n<Subject 2> (appears in [Shot 1]): fully_preserved - retain one solid orange disk throughout its passing foreground occlusion.\n\ndetailed_description:\n[Shot 1] A static-camera, flat 2D motion-graphics composition on a clean cream canvas. Begin with <Subject 1> clearly readable as SHIFT and with all three tiles in the referenced arrangement. From zero to 1.5 seconds, the three square tiles spread apart and rotate a quarter turn, while the letters S, H, I, F, T lift one after another into a shallow wave, each staying recognizable. From 1.5 to three seconds, <Subject 2> moves from below the left side of the word, diagonally upward across the foreground of the five letters, briefly covering parts of them. Each letter must reappear with the same stroke structure after the disk passes. From three to four seconds, all five letters descend onto one common baseline in their original reading order and the three squares return to their original positions. The disk settles below the right end of the word. Hold this finished layout from four to five seconds with exactly SHIFT, five distinct letters, three tiles and one disk, all sharp and stable. This is animated rearrangement of a consistent design, not a slideshow or a morph into new words. Use clean flat fills, deliberate spacing, smooth easing and crisp navy edges; maintain the cream background with no other writing.\n\noverall_soundscape:\nShort electronic ticks for the sequential letter lifts, a soft whoosh for the disk and a single low click on final alignment. No speech.\n\nnon_diegetic_music:\nAn original minimal electronic rhythm at low volume, resolving under the final title hold.\n",
+      "references": [
+        {
+          "position": 1,
+          "bytes": 10415,
+          "sha256": "cc2d6cbe5db4289b92df8cc0eb8ed7af16822f252df2b5c0faa3197167ffa857"
+        }
+      ],
+      "parameters": {
+        "B4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101606,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        },
+        "N4": {
+          "resolution": "768p",
+          "duration": 5.0,
+          "seed": 2026101606,
+          "width": 1366,
+          "height": 768,
+          "num_frames": 120,
+          "model_width": 1376,
+          "model_height": 768,
+          "model_num_frames": 124,
+          "recipe": "experimental-ref8-4nfe-vsa-v1",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "VSA"
+        }
+      },
+      "runs": {
+        "B4": {
+          "file": "runs/06-graphics-reassembly-B4.mp4",
+          "sha256": "52fb2d8ccc7eac2287e37500b637d0a10d12b23605bfb318b696ea355eb94b7b",
+          "bytes": 604330,
+          "seconds": 497.11667633312754,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 23.437956625130028,
+            "denoise": 409.7082387499977,
+            "video_decode": 60.95195291703567,
+            "audio_decode": 0.44959358288906515,
+            "mux": 0.577596666989848
+          },
+          "decoded_hashes": {
+            "video": "SHA256=d5469c68f4e26cd7e66713f078eb0cbed20cded825048bc2871f9323a258b9c0",
+            "audio": "SHA256=176ae25f165d89ee63b247d075d7bc4170cba9faea807062b42cc69266378826"
+          }
+        },
+        "N4": {
+          "file": "runs/06-graphics-reassembly-N4.mp4",
+          "sha256": "dd87abed55b7f557f83ce7a750d49dd5af969076caeb739143225ab0b59ca370",
+          "bytes": 615697,
+          "seconds": 496.09473929111846,
+          "actual_nfe": 4,
+          "timings_seconds": {
+            "conditioning": 24.4942742921412,
+            "denoise": 407.5231084579136,
+            "video_decode": 60.99783220817335,
+            "audio_decode": 0.44997745798900723,
+            "mux": 0.5634579171892256
+          },
+          "decoded_hashes": {
+            "video": "SHA256=a8977cb07e4c5c4bd1743967ea4926e4da5b23ae982a3dbb6bfcecd86a8d4426",
+            "audio": "SHA256=5b45837e4eee60f34d490b1e0863f89bf7564fc76fd2a6a0903fbb433648a72e"
+          }
+        }
+      }
+    }
+  ]
+}
