@@ -1,0 +1,185 @@
+{
+  "schema": "p148-original-review-media/v1",
+  "methods": {
+    "L": "Native standard VAE + Lanczos 2x",
+    "X": "Same native generated latent + X2 VAE; B32 off"
+  },
+  "clips": [
+    {
+      "file": "val-portrait-s1-L.mp4",
+      "sha256": "17f0504c5ac9704f95f9ffba46f58d400ff58766cbe3c4bebde988674804991f",
+      "bytes": 9120699,
+      "method": "L",
+      "case": "val-portrait-s1",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-portrait-s1-X.mp4",
+      "sha256": "2a350016194bed1abe9f67e77c619dab384f12e07a67268fe98d1f4badffe97c",
+      "bytes": 9522509,
+      "method": "X",
+      "case": "val-portrait-s1",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-portrait-s2-L.mp4",
+      "sha256": "52d42370625823dae4bf31d3ce9b37879972b8ff781ca6b93b9bf44092ba6fe2",
+      "bytes": 9451074,
+      "method": "L",
+      "case": "val-portrait-s2",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-portrait-s2-X.mp4",
+      "sha256": "5cb9eb118a9156bb2cf6f72f78028e9600a3681f0cd20e4051ddf48d937c64fb",
+      "bytes": 10473980,
+      "method": "X",
+      "case": "val-portrait-s2",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-handoff-s1-L.mp4",
+      "sha256": "b03ef7c903ebe69aa6f2e90628d56eb5f4fbb40ac21996181b95bb422d389e68",
+      "bytes": 5778530,
+      "method": "L",
+      "case": "val-handoff-s1",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-handoff-s1-X.mp4",
+      "sha256": "17b754cc10baac3a0bde12d1ea2471af9359770a7f44b0687dcb3958017881ce",
+      "bytes": 6949049,
+      "method": "X",
+      "case": "val-handoff-s1",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-handoff-s2-L.mp4",
+      "sha256": "00667b101c09546ee33b8b91bc687c1952d74f06f127e6555f67b2171a268a9e",
+      "bytes": 5672961,
+      "method": "L",
+      "case": "val-handoff-s2",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-handoff-s2-X.mp4",
+      "sha256": "c691253c8186364102425fbdf321efbfc53cc03098f03bf026da308ab5a9105f",
+      "bytes": 6892592,
+      "method": "X",
+      "case": "val-handoff-s2",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-graphics-s1-L.mp4",
+      "sha256": "e5b1091420e44c50075f528c5d06e26b7c46d1c89f29dd3d9740ff74fc4698e3",
+      "bytes": 2973818,
+      "method": "L",
+      "case": "val-graphics-s1",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-graphics-s1-X.mp4",
+      "sha256": "d1d03a4de1431a97ca9762cc02e0fc69a147ce8c4faeb7c756a28f8a2324bf10",
+      "bytes": 3209657,
+      "method": "X",
+      "case": "val-graphics-s1",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-graphics-s2-L.mp4",
+      "sha256": "057830464485e5825510c5e23cb0a2dbac201316720d70966f299847b6be1cff",
+      "bytes": 2245157,
+      "method": "L",
+      "case": "val-graphics-s2",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-graphics-s2-X.mp4",
+      "sha256": "cf89242fade4878591da50d55686a3d49502e26a07a63f2c99431b83cc43b6fc",
+      "bytes": 2466883,
+      "method": "X",
+      "case": "val-graphics-s2",
+      "scope": "native_768p_main",
+      "width": 2732,
+      "height": 1536,
+      "duration": 5.0
+    },
+    {
+      "file": "val-long-s1-L.mp4",
+      "sha256": "cdb8b0be02466b9b64bb280f0cf6f231b892a8ac4358f0e7ca6bfdbd0c601741",
+      "bytes": 23524512,
+      "method": "L",
+      "case": "val-long-s1",
+      "scope": "long_576p_boundary",
+      "width": 2048,
+      "height": 1152,
+      "duration": 15.0
+    },
+    {
+      "file": "val-long-s1-X.mp4",
+      "sha256": "cc717083b6470752749352b3dca7b81b23866f85c58ed8df8ec1ff9e4d4e9261",
+      "bytes": 31967727,
+      "method": "X",
+      "case": "val-long-s1",
+      "scope": "long_576p_boundary",
+      "width": 2048,
+      "height": 1152,
+      "duration": 15.0
+    },
+    {
+      "file": "val-long-s2-L.mp4",
+      "sha256": "a20d912aa1c4c0550db3e0bc7ea94af65390dd7595152727d2ca415ab5bfdbe2",
+      "bytes": 22492242,
+      "method": "L",
+      "case": "val-long-s2",
+      "scope": "long_576p_boundary",
+      "width": 2048,
+      "height": 1152,
+      "duration": 15.0
+    },
+    {
+      "file": "val-long-s2-X.mp4",
+      "sha256": "47f5de7920ac65cf828c320722c64a0d5a5165dae7c8db8a1f71efe6cab07499",
+      "bytes": 28734808,
+      "method": "X",
+      "case": "val-long-s2",
+      "scope": "long_576p_boundary",
+      "width": 2048,
+      "height": 1152,
+      "duration": 15.0
+    }
+  ]
+}
