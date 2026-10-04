@@ -36,11 +36,12 @@ limitations. All clips use VSA; review is non-blind and listening is unassessed.
 The v0.6.0 default remains unchanged. Exact recipes, identities and measurements
 are included in the page's `samples.json`.
 
-The [P147 anonymous review](previews/p147-anonymous-review/) provides 40 unchanged
+The [P147 method-labeled review](previews/p147-anonymous-review/) provides 40 unchanged
 original clips in separate calibration and validation sets. Mobile layouts, group
 playback, individual original audio and locally saved review forms support
-evaluation before the private method mapping is disclosed. Quality acceptance
-is pending; no method ranking or product adoption is claimed.
+non-blind evaluation with a method label on every clip. The original sample IDs
+and media remain unchanged. Quality acceptance is pending; no method ranking or
+product adoption is claimed.
 
 ## Earlier video studies
 

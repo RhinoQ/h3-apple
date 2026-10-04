@@ -1,0 +1,49 @@
+{
+  "schema": "p147-method-disclosure/v1",
+  "package_id": "75befe6e320f91a1",
+  "review_mode": "non_blind",
+  "methods": {
+    "A": {
+      "label": "A · Native resolution + standard VAE",
+      "description": "The unchanged v0.6.0 baseline: native-resolution generation and standard H3 video VAE decoding. Original prepared references."
+    },
+    "L": {
+      "label": "L · Low resolution + Lanczos",
+      "description": "Generate at approximately half width and height, decode with the standard H3 video VAE, then enlarge with fixed Lanczos. Original prepared references."
+    },
+    "X": {
+      "label": "X · Low resolution + X2 VAE",
+      "description": "Decode the same final low-resolution latent used by L with the floating-point X2 VAE. Original prepared references; no B32, decoder quantization or streaming optimization."
+    },
+    "E": {
+      "label": "E · E34 reference reconstruction + X2",
+      "description": "Reconstruct each prepared reference with E34, resize it back to its exact original prepared dimensions, then use the same RGB for Qwen and the standard reference VAE. Low-resolution generation and floating-point X2 output; no B32 residual."
+    },
+    "D": {
+      "label": "D · E34 + B32 detail enhancer + X2",
+      "description": "Add the B32 detail residual to E34 reference reconstruction at strength 1.0, resize back to the fixed prepared-reference dimensions, and pass the same enhanced RGB to Qwen and the standard reference VAE. Low-resolution generation and floating-point X2 output."
+    },
+    "A-prime": {
+      "label": "A′ · Wider native-canvas control",
+      "description": "Calibration-only standard-VAE control: generate at 1408 × 768 and center-crop to 1366 × 768, compared with A’s 1376 × 768 canvas. No X2 or B32."
+    }
+  },
+  "samples": {
+    "01-1": "X",
+    "01-2": "A",
+    "01-3": "A-prime",
+    "01-4": "D",
+    "01-5": "L",
+    "01-6": "E",
+    "02-1": "E",
+    "02-2": "A",
+    "02-3": "L",
+    "02-4": "X",
+    "02-5": "D",
+    "03-1": "A",
+    "03-2": "L",
+    "03-3": "X",
+    "03-4": "E",
+    "03-5": "D"
+  }
+}
