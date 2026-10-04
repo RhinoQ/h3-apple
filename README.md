@@ -50,8 +50,10 @@ Each pair compares standard VAE decoding plus Lanczos with X2 decoding of the
 same saved latent, with identical original audio and B32 disabled. The page
 offers synchronized playback, preselected lossless RGB details and non-blind
 review export. Original videos are pinned to a media-only Git commit to keep
-the Pages site within its size limit. Technical checks passed; quality acceptance
-is pending actual review, and the candidate has not been adopted.
+the Pages site within its size limit. Technical checks passed. Both 576p long-clip
+X2 candidates show severe new colored patterning in fixed RGB frames before
+encoding, so that boundary recipe failed. The six 768p pairs await full-video
+assessment. The candidate has not been adopted.
 
 ## Earlier video studies
 
