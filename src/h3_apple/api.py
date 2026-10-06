@@ -39,6 +39,7 @@ class GenerationRequest:
     audio_channels: int = 2
     num_steps: int = 4
     mode: str = "VSA"
+    x2: bool = False
 
     def to_dict(self):
         return asdict(self)
@@ -53,10 +54,14 @@ class GenerationResult:
 
 
 def resolve(prompt=None, *, prompt_file=None, reference_images=None,
-            resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="VSA"):
+            resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="VSA", x2=False):
     """Validate inputs and resolve geometry without loading model weights."""
     if mode not in ("SOL", "VSA"):
         raise ValueError("mode must be 'SOL' or 'VSA'.")
+    if type(x2) is not bool:
+        raise ValueError("x2 must be a boolean.")
+    if x2 and mode != "VSA":
+        raise ValueError("X2 requires mode='VSA'.")
     if (prompt is None) == (prompt_file is None):
         raise ValueError("Provide exactly one of prompt or prompt_file.")
     if prompt_file is not None:
@@ -77,9 +82,11 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
             reference_image_size(*ImageOps.exif_transpose(image).size, 1024 * 576)
         with Image.open(path) as image:
             image.verify()
-    canvases = {"576p": (1024, 576, 1024), "768p": (1366, 768, 1376)}
+    canvases = {"544p": (960, 544, 960), "576p": (1024, 576, 1024), "768p": (1366, 768, 1376)}
     if resolution not in canvases:
-        raise ValueError("resolution must be '576p' or '768p'.")
+        raise ValueError("resolution must be '544p', '576p' or '768p'.")
+    if resolution == "544p" and not x2:
+        raise ValueError("544p sampling requires x2=True (CLI: --x2).")
     if aspect_ratio not in ("16:9", "9:16"):
         raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     if isinstance(duration, bool):
@@ -102,14 +109,17 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
     model_height = height
     if aspect_ratio == "9:16":
         width, height, model_width, model_height = height, width, height, model_width
+    if x2:
+        width, height = width * 2, height * 2
     return GenerationRequest(prompt, references, resolution, count / 24, seed,
                              width, height, count, model_width, model_height,
-                             ((count - 5 + 16) // 17) * 17 + 5, mode=mode,
+                             ((count - 5 + 16) // 17) * 17 + 5, mode=mode, x2=x2,
                              recipe="ref2va-i8-sol-sage-v1" if mode == "SOL" else "ref2va-w8a8-vsa-int8qk-v1")
 
 
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
              resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="VSA",
+             x2=False, x2_model_dir=None,
              output=None, model_dir=None, on_progress=None, diagnostics=False,
              timeout=7200, allow_large_download=False):
     """Prepare H3 if needed, then generate an MP4 with stereo audio.
@@ -119,8 +129,8 @@ def generate(prompt=None, *, prompt_file=None, reference_images=None,
     """
     request = resolve(prompt, prompt_file=prompt_file, reference_images=reference_images,
                       resolution=resolution, duration=duration, seed=seed,
-                      aspect_ratio=aspect_ratio, mode=mode)
+                      aspect_ratio=aspect_ratio, mode=mode, x2=x2)
     from .process import run_generation
     return run_generation(request, output=output, model_dir=model_dir,
                           on_progress=on_progress, diagnostics=diagnostics, timeout=timeout,
-                          allow_large_download=allow_large_download)
+                          allow_large_download=allow_large_download, x2_model_dir=x2_model_dir)

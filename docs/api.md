@@ -22,7 +22,10 @@ be between 1:4 and 4:1. EXIF orientation is applied before processing.
 
 Optional delivery settings: `duration=15` (5–15 seconds in whole frames at
 24 fps), `resolution="576p"` or `"768p"`, `aspect_ratio="16:9"` or `"9:16"`,
-and `seed` (a 32-bit unsigned integer). Omit `seed` to choose one randomly;
+and `seed` (a 32-bit unsigned integer). `x2=True` enables the optional VSA X2
+decoder and also allows `resolution="544p"`; resolution is the sampling size,
+while delivered width and height are doubled. Both aspect ratios are supported.
+See [exact dimensions, setup and quality limits](x2.md). Omit `seed` to choose one randomly;
 it is always recorded. `mode="VSA"` (default) or `mode="SOL"` selects a fixed
 implementation of the original LightX2V four-step recipe. Mode values are
 uppercase. VSA requires the optional `VSA` dependencies and a VSA model bundle;
@@ -32,7 +35,7 @@ between modes. A request's `mode` and `recipe` are recorded in the run metadata.
 `resolve(...)` accepts these input and delivery settings and returns a
 `GenerationRequest` without loading models. `generate(...)` also accepts
 `model_dir`, `output`, `on_progress`, `diagnostics=False`, `timeout=7200`, and
-`allow_large_download=False`.
+`allow_large_download=False`, and `x2_model_dir=None` (requires `x2=True`).
 The callback receives small progress dictionaries in the caller process.
 Diagnostics retain intermediate media and native logs for debugging.
 

@@ -40,11 +40,13 @@ def _stop(process):
 
 
 def run_generation(request, *, output=None, model_dir=None, on_progress=None,
-                   diagnostics=False, timeout=7200, allow_large_download=False):
+                   diagnostics=False, timeout=7200, allow_large_download=False, x2_model_dir=None):
     if isinstance(timeout, bool) or not math.isfinite(timeout) or timeout <= 0:
         raise ValueError("timeout must be a positive finite number of seconds.")
     if type(diagnostics) is not bool:
         raise ValueError("diagnostics must be a boolean.")
+    if x2_model_dir is not None and not request.x2:
+        raise ValueError("x2_model_dir requires x2=True.")
     if output is None:
         stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
         directory = Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}"
@@ -59,14 +61,30 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
         raise FileExistsError(f"Output already exists: {video}")
     if os.path.lexists(metadata):
         raise FileExistsError(f"Run record already exists: {metadata}")
+    if request.x2:
+        # Check the combined first-run download before either package downloads.
+        from .api import DownloadApprovalRequired
+        from .vsa_preparation import plan as generation_plan
+        from .x2_assets import plan as x2_plan, prepare as prepare_x2
+        from .preparation import LIMIT
+        base_plan = generation_plan(model_dir, progress=on_progress)
+        extra_plan = x2_plan(x2_model_dir)
+        combined = {key: base_plan[key] + extra_plan[key]
+                    for key in ("download_bytes", "additional_disk_bytes")}
+        if combined["download_bytes"] > LIMIT and not allow_large_download:
+            raise DownloadApprovalRequired(combined)
     assets = ensure_ready(model_dir, allow_large_download=allow_large_download,
                           progress=on_progress, request=request.to_dict())
+    if request.x2:
+        assets = dict(assets, x2=prepare_x2(x2_model_dir, on_progress=on_progress))
     video.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     run = dict(status="starting", request=request.to_dict(), seed=request.seed,
                started_utc=datetime.now(timezone.utc).isoformat(),
                model_identity=assets["identity"], video_path=str(video),
                diagnostics_enabled=diagnostics)
+    if request.x2:
+        run["x2_model"] = assets["x2"]
     with metadata.open("x") as stream:
         json.dump(run, stream, ensure_ascii=False)
         stream.write("\n")

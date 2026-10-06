@@ -122,3 +122,15 @@ Optional local face enhancement (0.5.2)
   facexlib/RetinaFace: https://github.com/xinntao/facexlib
   Installed separately under its upstream terms; detector assets are fetched
   from the checksum-pinned v0.1.0 GitHub release. No detector weights are bundled.
+
+Optional H3 X2 decoder (0.7.0)
+  Model and reference design: speach1sdef178/MiniMax-H3-X2-Detail-VAE,
+  https://huggingface.co/speach1sdef178/MiniMax-H3-X2-Detail-VAE
+  Revision: af8c92d267c6849fec5032c35a65d5766737b338
+  Weights retain the MiniMax H3 Community License and the author's NOTICE;
+  both notices are fetched with the separately supplied weights.
+  The independently implemented MLX decoder uses the existing H3 VAE core,
+  lossless native key mappings and RGB PixelShuffle. The separate B32
+  source-image enhancement branch is not used by this feature.
+  ComfyUI-H3-X2-Stream was reviewed for architectural comparison; no CUDA,
+  ConvRot, NVENC or ComfyUI runtime code from that GPL-3.0 project is bundled.

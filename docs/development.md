@@ -5,7 +5,7 @@ modes. SOL uses the native INT8 GEMM, SOL attention and SageAttention engine.
 VSA uses the vendored MLX runtime with W8A8 projections, direct BF16 output,
 consecutive QKV activation reuse and INT8 QK inside VSA. Both use the original
 LightX2V four-step model recipe. Prompt and reference ordering are preserved.
-Image preprocessing uses the output canvas area and 32-pixel alignment. The
+Image preprocessing uses the sampling canvas area and 32-pixel alignment. The
 768p model canvas is center-cropped and extra frames trimmed with sample-accurate
 audio endpoints.
 
@@ -47,6 +47,15 @@ Tests use temporary files and synthetic media. A release also needs a normal
 wheel installation, an actual model preparation or verified local reuse,
 and a complete image-reference video through both public entry points. Keep execution,
 quality judgments and performance comparisons as separate claims.
+
+## Optional X2 decoder
+
+`runtime/x2_vae.py` replaces only the VSA video decoder when `x2=True`.
+The facade keeps sampling and delivery dimensions separate; reference budgets
+follow sampling. Tests cover both orientations, RGB packing and alignment crop.
+Run `H3_TEST_LARGE_ARRAYS=1 python -m pytest tests/test_vae_chunks.py` to include
+the 2.56 GB temporal-copy regression. New integration evidence must distinguish
+ordinary-path reproducibility from X2 quality and performance claims.
 
 ## Build the engine artifact
 

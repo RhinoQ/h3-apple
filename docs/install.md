@@ -4,6 +4,10 @@ The recommended installation uses a dedicated Conda environment on an Apple
 Silicon Mac. Use your existing Conda installation, or install the Apple Silicon
 version of [Miniforge](https://github.com/conda-forge/miniforge) first:
 
+The published release below is 0.6.0. X2 requires the 0.7.0 source checkout,
+installed with `python -m pip install ".[VSA]"` inside the same Conda environment.
+See [X2 model preparation](x2.md#model-preparation).
+
 Install the 0.6.0 GitHub release with both generation modes:
 
 ```bash

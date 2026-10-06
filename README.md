@@ -3,7 +3,8 @@
 **Reference images + a prompt → video with stereo audio, locally on Mac.**
 
 h3-apple generates MiniMax-H3 video from 1–9 images and a prompt describing the
-scene, movement and sound. Version **0.6.0** adds two selectable modes, both using
+scene, movement and sound. Version **0.7.0** adds optional [X2 decoding](docs/x2.md)
+for landscape and portrait video. Both generation modes use
 the original **LightX2V Ref2VA Turbo 4-step v0.1 LoRA**:
 
 | Mode | Generation implementation |
@@ -16,6 +17,12 @@ produce different images and sound with the same seed. See the
 [mode details and validation](docs/validation.md). The prior original-LightX2V
 [99/bobo comparison](https://rhinoq.github.io/h3-apple/previews/99-bobo-lora-v052/)
 remains available.
+
+Optional **X2 decoding** doubles output width and height. Use 544p sampling for
+lower denoising cost, or native 768p sampling for larger output. This feature is
+available in the 0.7.0 source checkout; the published release below remains 0.6.0.
+Install the checkout inside your Conda environment with `python -m pip install ".[VSA]"`.
+See [X2 examples, model setup and quality limits](docs/x2.md).
 
 Optional **small-face enhancement** is available for finished videos.
 It automatically selects small face tracks, enhances their local detail and

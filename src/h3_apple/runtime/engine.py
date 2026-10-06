@@ -15,12 +15,28 @@ from .vae import OptimizedVideoVAE
 
 class Pipeline(upstream.MiniMaxH3MLXPipeline):
     def _load_video_vae(self):
+        if getattr(self, "x2_checkpoint", None) is not None:
+            from .x2_vae import load_x2
+            return load_x2(self.x2_checkpoint, observer=self.observer)
         base = mlx_h3_video_vae_from_dir(self.model_root / "vae", include_encoder=False,
                                         storage_dtype="fp32")
         asset = files("h3_apple").joinpath("data/vae-calibration.npz")
         with asset.open("rb") as stream, np.load(stream) as data:
             calibration = {key: data[key].copy() for key in data.files}
         return OptimizedVideoVAE(base, calibration, self.observer)
+
+
+def delivery_frames(frames, request):
+    """Trim time and alignment padding; X2 pixels are never resized."""
+    scale = 2 if request.get("x2", False) else 1
+    height, width = request["model_height"] * scale, request["model_width"] * scale
+    if frames.shape != (request["model_num_frames"], height, width, 3):
+        raise ValueError("Unexpected decoded video geometry.")
+    left = (width - request["width"]) // 2
+    top = (height - request["height"]) // 2
+    if min(left, top) < 0:
+        raise ValueError("Delivery cannot exceed the decoded canvas.")
+    return frames[:request["num_frames"], top:top + request["height"], left:left + request["width"]]
 
 
 def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None):
@@ -33,6 +49,7 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
     pipeline = Pipeline(model_root=assets["components"], mlx_dit_checkpoint=assets["checkpoint"],
                         vae_dtype="fp32", metal_wired_limit_gib=80,
                         prompt_cache_dir=None, observer=observer)
+    pipeline.x2_checkpoint = assets["x2"]["checkpoint"] if request.get("x2", False) else None
 
     def phase(name, function):
         emit({"phase": name})
@@ -56,13 +73,8 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
         audio, num_frames=request["model_num_frames"]))
     if not np.isfinite(waveform).all() or waveform.shape[0] != 2:
         raise ValueError("Audio must be finite and stereo.")
-    if frames.shape != (request["model_num_frames"], request["model_height"],
-                        request["model_width"], 3):
-        raise ValueError("Unexpected decoded video geometry.")
     observer.capture("audio", lambda: {"waveform": waveform})
-    left = (request["model_width"] - request["width"]) // 2
-    top = (request["model_height"] - request["height"]) // 2
-    frames = frames[:request["num_frames"], top:top + request["height"], left:left + request["width"]]
+    frames = delivery_frames(frames, request)
     samples = (request["num_frames"] * request["audio_sample_rate"] + request["fps"] - 1) // request["fps"]
     if waveform.shape[-1] < samples:
         raise ValueError("Generated audio does not cover the delivery duration.")

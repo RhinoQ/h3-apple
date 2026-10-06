@@ -1,0 +1,25 @@
+{
+  "recipe": "h3-x2-detail-v1-fp16-linear-fp32-residual",
+  "repo": "speach1sdef178/MiniMax-H3-X2-Detail-VAE",
+  "revision": "af8c92d267c6849fec5032c35a65d5766737b338",
+  "files": [
+    {
+      "path": "MiniMax-H3-X2-Detail-v1.safetensors",
+      "bytes": 5246877148,
+      "sha256": "2296840f4acedcaa976688e7d7b97f7bf570b136e400385d3f46224011897aac",
+      "url": "https://huggingface.co/speach1sdef178/MiniMax-H3-X2-Detail-VAE/resolve/af8c92d267c6849fec5032c35a65d5766737b338/MiniMax-H3-X2-Detail-v1.safetensors"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 17603,
+      "sha256": "a017170627764c49e5890e1bbf0f7316e52db89e09b8b04ed92e4350178a1391",
+      "url": "https://huggingface.co/speach1sdef178/MiniMax-H3-X2-Detail-VAE/resolve/af8c92d267c6849fec5032c35a65d5766737b338/LICENSE"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 1046,
+      "sha256": "2989b72a4a1135c99c30f6b941af32f5f1c3d6379a30968c93b4c3614f01874b",
+      "url": "https://huggingface.co/speach1sdef178/MiniMax-H3-X2-Detail-VAE/resolve/af8c92d267c6849fec5032c35a65d5766737b338/NOTICE"
+    }
+  ]
+}

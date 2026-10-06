@@ -49,6 +49,15 @@ def _ct(x, *order):
     return mx.contiguous(x.transpose(*order))
 
 
+def _concat_video_chunks(chunks):
+    # MLX 0.32.0 Metal concatenate picks the copy kernel from each small slice's
+    # size, although its output channel stride spans the complete video. Beyond
+    # int32 offsets this silently drops tail channels (mlx issue #3836).
+    # Keep decoding on GPU; only this large final copy needs the CPU stream.
+    stream = mx.cpu if sum(chunk.size for chunk in chunks) > 2**31 - 1 else None
+    return mx.concatenate(chunks, axis=2, stream=stream)
+
+
 PIXEL_MEAN = (0.485, 0.456, 0.406)
 PIXEL_STD = (0.229, 0.224, 0.225)
 
@@ -641,7 +650,7 @@ class MLXMiniMaxH3VideoVAE:
                     mx.eval(overlap)
         if overlap is not None:
             decoded_chunks.append(overlap)
-        decoded = mx.concatenate(decoded_chunks, axis=2)
+        decoded = _concat_video_chunks(decoded_chunks)
 
         if pad_tokens > 0:
             intra_tail = cfg.clip_length % temporal_ratio

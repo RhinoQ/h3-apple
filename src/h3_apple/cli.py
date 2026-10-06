@@ -32,7 +32,9 @@ def parser():
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--duration", type=float, default=15, help="5–15 seconds (default: 15)")
-        command.add_argument("--resolution", choices=("576p", "768p"), default="576p")
+        command.add_argument("--resolution", choices=("544p", "576p", "768p"), default="576p",
+                             help="Sampling resolution; 544p requires --x2 (default: 576p)")
+        command.add_argument("--x2", action="store_true", help="Decode at twice the output width and height (VSA only)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         command.add_argument("--seed", type=int)
         command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
@@ -40,6 +42,7 @@ def parser():
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             command.add_argument("--model-dir")
+            command.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from VSA models)")
             command.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
             command.add_argument("--timeout", type=float, default=7200)
             command.add_argument("--no-progress", action="store_true")
@@ -66,6 +69,10 @@ def parser():
     prepare_faces.add_argument("--model-dir")
     prepare_faces.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
     prepare_faces.add_argument("--plan", action="store_true")
+    prepare_x2 = commands.add_parser("prepare-x2", help="Prepare the optional 5.25 GB X2 decoder")
+    prepare_x2.add_argument("--model-dir")
+    prepare_x2.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
+    prepare_x2.add_argument("--plan", action="store_true")
     return top
 
 
@@ -106,6 +113,10 @@ def main(argv=None):
             result = asdict(enhance_faces(**args, on_progress=progress))
         elif command == "prepare-faces":
             from .faces.assets import plan, prepare
+            show_plan = args.pop("plan")
+            result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
+        elif command == "prepare-x2":
+            from .x2_assets import plan, prepare
             show_plan = args.pop("plan")
             result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
         else:

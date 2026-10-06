@@ -134,3 +134,14 @@ creative quality. Distinguish inspected frames, listening and unverified claims.
 Return the actual absolute video path and run-record path, requested delivery
 settings and relevant limitations. Show the local MP4 inline when the host
 supports it. Report preparation and generation time separately when available.
+
+## Optional X2 in a 0.7.0 installation
+
+Check `h3 --version` before requesting this feature: the 0.6.0 release above does
+not have X2. In 0.7.0, use the public `--x2` / `x2=True` option with VSA.
+544p sampling produces 1920×1088 landscape or 1088×1920 portrait; 768p sampling
+produces 2732×1536 or 1536×2732. Pass `--aspect-ratio 9:16` for portrait.
+Use five seconds for the first check. Larger native sampling plus X2 increases
+decode cost; it does not accelerate native sampling. Inspect task fidelity,
+faces, texture and motion separately. The separate B32 reference enhancer is
+not selected by this option. See the checkout's `docs/x2.md` for setup and limits.
