@@ -1,0 +1,266 @@
+{
+  "schema": "h3-apple-x2-integration/v1",
+  "scope": "Local 0.7.0 integration, not a published release or general quality/speed qualification.",
+  "builds": {
+    "old": {
+      "wheel": {
+        "bytes": 1622089,
+        "sha256": "098db9dde1dbb2f51d8292eead398c3f12f0beaff8bbf27bd4fb3eb2cdef2dfd",
+        "filename": "h3_apple-0.6.0-py3-none-any.whl"
+      },
+      "source_sha256": "ce590f9d6b17c4b4f60aa26777b537da7cd412e1d79932f4f659763d4183417c",
+      "commit": "23f8ab61bccb9e031febb6e4ab3b0a785b59bd2e"
+    },
+    "new": {
+      "commit": "29567974fe9d8e021f2ae9ef4aaaa457e35e3046",
+      "wheel": {
+        "bytes": 1627593,
+        "sha256": "91fe7188094acea84bcd7f3d30099847d2025a3c46fd98f986d7d6ebdf528a68",
+        "filename": "h3_apple-0.7.0-py3-none-any.whl"
+      },
+      "source_sha256": "740bd5272dcfc604602751f5166c298cb5a592572595dee1f0d9202f88d1b8de"
+    }
+  },
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "gpu_cores": 40,
+  "environment_lock": "accelerate==1.1.0\nannotated-doc==0.0.5\nanyio==4.14.2\nav==18.1.0\nbackports.tarfile==1.2.0\nbuild==1.6.1\ncertifi==2026.7.22\ncharset-normalizer==3.5.1\nclick==8.4.2\ncmake==3.31.6\ncontourpy==1.3.3\ncycler==0.12.1\ndiffusers==0.35.0\ndocutils==0.23\neinops==0.8.0\nfacexlib==0.3.0\nfilelock==3.32.2\nfilterpy==1.4.5\nfonttools==4.66.0\nfsspec==2026.7.0\nh11==0.16.0\nh3-apple @ file:///Users/rhino/Projects/h3-apple/.local/distributions/release-v0.6.0-publication-01/dist/h3_apple-0.6.0-py3-none-any.whl#sha256=c492ab3ae856edf48499f89296658e7c3b2c1f83d36d692bfc092162da478bfe\nhf-xet==1.6.0\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface_hub==1.26.0\nid==1.6.1\nidna==3.18\nimageio-ffmpeg==0.6.0\nimportlib_metadata==9.0.1\niniconfig==2.3.0\njaraco.classes==3.4.0\njaraco.context==6.1.2\njaraco.functools==4.6.0\nJinja2==3.1.6\nkeyring==25.7.0\nkiwisolver==1.5.1\nllvmlite==0.49.0\nmarkdown-it-py==4.2.0\nMarkupSafe==3.0.3\nmatplotlib==3.11.2\nmdurl==0.1.2\nmlx==0.32.0\nmlx-metal @ https://files.pythonhosted.org/packages/dc/59/65d32520175379df33f107749193aa94ea9db069167a36a1a100ff689f62/mlx_metal-0.32.0-py3-none-macosx_26_0_arm64.whl#sha256=3af76a498d84804f66119800499f9d143d7dffb0878a0dd0d7c2846e58565fd7\nmore-itertools==11.1.0\nmpmath==1.3.0\nnetworkx==3.6.1\nnh3==0.3.7\nnumba==0.67.0\nnumpy==2.4.6\nopencv-python==5.0.0.93\npackaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work\npillow==12.3.0\npip @ file:///home/conda/feedstock_root/build_artifacts/pip_1785914405025/work\npluggy==1.6.0\npsutil==7.2.2\nPygments==2.20.0\npyparsing==3.3.3\npyproject_hooks==1.3.3\npytest==8.4.2\npython-dateutil==2.9.0.post0\nPyYAML==6.0.3\nreadme_renderer==46.0\nregex==2026.7.19\nrequests==2.34.2\nrequests-toolbelt==1.0.0\nrfc3986==2.0.0\nrich==15.0.0\nsafetensors==0.8.0\nscipy==1.17.1\nsetuptools==81.0.0\nshellingham==1.5.4\nsix==1.17.0\nsocksio==1.0.0\nsympy==1.14.0\ntimm==1.0.11\ntokenizers==0.22.2\ntorch==2.11.0\ntorchvision==0.26.0\ntqdm==4.70.0\ntransformers==5.14.1\ntwine==7.0.0\ntyper==0.27.1\ntyping_extensions==4.16.0\nurllib3==2.8.0\nwheel==0.47.0\nzipp==4.1.0\n",
+  "model_identity": "7d1902498bf42540dfb3f5becde5d7cebac8d7f41e3284474a122f6ff5a1d990",
+  "x2_weight": {
+    "bytes": 5246877148,
+    "sha256": "2296840f4acedcaa976688e7d7b97f7bf570b136e400385d3f46224011897aac"
+  },
+  "cases": [
+    {
+      "id": "landscape",
+      "prompt": "subject_definitions\n<Subject 1> is the celadon-column walkway, carved dark-teal roof and copper octagonal gate in <Picture 1>.\n\nsummary\n[reference generation] A five-second continuous forward dolly through <Subject 1>, with no people. A cinematic Chinese celestial palace in softly lit clouds, realistic materials and coherent carved architecture, a single continuous five-second shot.\n\nretention_analysis\n<Subject 1> (throughout [Shot 1]): fully_preserved - Retain the same straight aisle, column rows, octagonal gate, blue incense vessel at the left and reflecting pool at the right. No people or additional props.\n\ndetailed_description\n[Shot 1] Start from the composition in <Picture 1>. The camera slowly dollies straight forward a short distance, so nearer columns move outward faster than the far gate. Keep the same gate fully visible at the end. No cuts, no rotation, no lateral detour. No dialogue, no subtitles and no written text. Gentle wind is heard.\n\noverall_soundscape\nQuiet continuous airy wind, no speech and no abrupt impacts.\n\nnon_diegetic_music\nSoft sustained instrumental guqin music throughout, quiet beneath the ambience.\n",
+      "references": [
+        {
+          "filename": "landscape.png",
+          "bytes": 2523825,
+          "sha256": "d4d99009d956abae8f53842297f88e261612ba120c465c803c2ef69cc2e5cc39"
+        }
+      ],
+      "reference_creation_prompt": "Use case: stylized-concept. Asset type: brand-new reference still for a five-second cinematic fantasy video integration test. Generate entirely from this text, with no image references. A serene celestial Chinese palace walkway in the clouds at soft late-afternoon light, landscape 16:9. View down a straight roofed passage: eight pale celadon stone columns, four on each side, carved dark-teal ceiling beams, a warm copper octagonal moon gate centered at the far end, and a still narrow reflecting pool outside the RIGHT balustrade. Carefully drawn stable perspective and consistent architectural geometry. A small blue ceramic incense vessel stands on a square pedestal beside the left foreground column. Distinct large shapes with finely carved trim, pale blue clouds outside, realistic cinematic materials and no people. Camera at eye level, centered aisle and generous headroom, no shallow depth of field. One continuous scene, no panels, no text, logo or watermark.\n"
+    },
+    {
+      "id": "portrait",
+      "prompt": "subject_definitions\n<Subject 1> is the tall vermilion and ivory temple entrance with the round turquoise door in <Picture 1>.\n\nsummary\n[reference generation] A five-second continuous forward dolly through <Subject 1>, with no people. A cinematic Chinese celestial palace in softly lit clouds, realistic materials and coherent carved architecture, a single continuous five-second shot.\n\nretention_analysis\n<Subject 1> (throughout [Shot 1]): fully_preserved - Retain the round closed door, straight staircase, two ivory columns, bronze lantern at upper right and potted pine at lower left. No people or additional props.\n\ndetailed_description\n[Shot 1] Start from the composition in <Picture 1>. The camera slowly dollies straight forward toward the staircase, stopping before the first step; nearby columns drift outward while the distant round door stays fully visible at center. No cuts, no tilt, no sideways travel. The lantern remains attached to the same ceiling beam. No dialogue, no subtitles and no written text. Gentle wind is heard.\n\noverall_soundscape\nQuiet continuous airy wind, no speech and no abrupt impacts.\n\nnon_diegetic_music\nSoft sustained instrumental guqin music throughout, quiet beneath the ambience.\n",
+      "references": [
+        {
+          "filename": "portrait.png",
+          "bytes": 2640832,
+          "sha256": "c71f6eba5f6c52744afdeea7fd0f355f42b81941451a876bafeb748f1ab5f5e8"
+        }
+      ],
+      "reference_creation_prompt": "Use case: stylized-concept. Asset type: entirely new portrait 9:16 reference still for a cinematic Chinese celestial palace video. Generate solely from this text, without any image references. Eye-level view beneath a tall vermilion-and-ivory temple entrance on a floating mountain, straight short staircase leading toward a single round turquoise closed door at the far end. Two substantial carved ivory entrance columns frame the left and right edges, with the door and five stair treads clearly separated in depth. One large bronze-and-amber hanging lantern occupies the upper right inside the entrance; a compact emerald pine tree in a dark ceramic pot is on the left of the foot of the stairs. Soft distant clouds and cliffs seen through narrow side openings. Ornate but coherent architectural details, stable symmetry in the doorway, realistic stone and warm wood textures, gentle blue morning light with lantern glow. Keep the door fully visible and centered, all main objects inside frame. No people, no animals, no lettering or symbols resembling text, no logo, no watermark, no collage.\n"
+    }
+  ],
+  "runs": [
+    {
+      "id": "landscape-544p-x2",
+      "request": {
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 161001,
+        "width": 1920,
+        "height": 1088,
+        "num_frames": 120,
+        "model_width": 960,
+        "model_height": 544,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": true
+      },
+      "elapsed_seconds": 213.8504468749743,
+      "timings_seconds": {
+        "conditioning": 15.717333666980267,
+        "denoise": 153.81954854214564,
+        "video_decode": 38.735026290873066,
+        "audio_decode": 0.4723158748820424,
+        "mux": 1.774144500028342
+      },
+      "decoded_rgb_sha256": "7a281cc1a0f36b56a5fd2a9ad103b2188a03e7d49251ec56d6ff96b3cc4e423b",
+      "decoded_pcm": "SHA256=b0b315a21bd1cfad71083392d4e54919cd049a3d88e12e0faf16d6a4dae576ba"
+    },
+    {
+      "id": "portrait-544p-x2",
+      "request": {
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 161002,
+        "width": 1088,
+        "height": 1920,
+        "num_frames": 120,
+        "model_width": 544,
+        "model_height": 960,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": true
+      },
+      "elapsed_seconds": 232.0514591669198,
+      "timings_seconds": {
+        "conditioning": 16.80971558415331,
+        "denoise": 166.75908683310263,
+        "video_decode": 42.902278875000775,
+        "audio_decode": 0.46090641617774963,
+        "mux": 1.7154547499958426
+      },
+      "decoded_rgb_sha256": "a46edb49c3885118a819b03b1f69851a7e67d5b3c345dad91cfd873a1df332e2",
+      "decoded_pcm": "SHA256=d813e98c8a817ea31275918d5d2bf99a014e6abf00380bb5967f1ca227c79dcc"
+    },
+    {
+      "id": "landscape-768p-x2",
+      "request": {
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 161001,
+        "width": 2732,
+        "height": 1536,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": true
+      },
+      "elapsed_seconds": 506.01770716696046,
+      "timings_seconds": {
+        "conditioning": 22.898091749986634,
+        "denoise": 393.2211788750719,
+        "video_decode": 80.90897174994461,
+        "audio_decode": 0.4679725421592593,
+        "mux": 3.141415083082393
+      },
+      "decoded_rgb_sha256": "1b6d4c85a7c5f679e0535430ab9981130cdcb6073c8aa1eb2ecd725b27ac8529",
+      "decoded_pcm": "SHA256=fc6b1bf38bb60953ad1429adb0c9be8f42c945a5e0f0623397cfc9055ff3063b"
+    },
+    {
+      "id": "portrait-768p-x2",
+      "request": {
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 161002,
+        "width": 1536,
+        "height": 2732,
+        "num_frames": 120,
+        "model_width": 768,
+        "model_height": 1376,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": true
+      },
+      "elapsed_seconds": 508.0920638330281,
+      "timings_seconds": {
+        "conditioning": 22.996534917037934,
+        "denoise": 395.3195995001588,
+        "video_decode": 80.95139762479812,
+        "audio_decode": 0.48368520801886916,
+        "mux": 3.12685383297503
+      },
+      "decoded_rgb_sha256": "52ab0a240a12a244597504e69c8cadc5458ee640d107d34a38007385f22494b9",
+      "decoded_pcm": "SHA256=8404c9f36dba738ccdd0510fbe794dda27075ceaad1f99b0a34eed76b2661863"
+    },
+    {
+      "id": "landscape-768p-old-ordinary",
+      "request": {
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 161001,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA"
+      },
+      "elapsed_seconds": 483.89927758299746,
+      "timings_seconds": {
+        "conditioning": 23.201016874983907,
+        "denoise": 396.3008327919524,
+        "video_decode": 60.53031079098582,
+        "audio_decode": 0.49305749987252057,
+        "mux": 0.8934838329441845
+      },
+      "decoded_rgb_sha256": "2a786021cbc675c230a90d762c35f1db5a5565e731c40fd5b867446bb6e6fb59",
+      "decoded_pcm": "SHA256=fc6b1bf38bb60953ad1429adb0c9be8f42c945a5e0f0623397cfc9055ff3063b"
+    },
+    {
+      "id": "landscape-768p-new-ordinary",
+      "request": {
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 161001,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": false
+      },
+      "elapsed_seconds": 468.966899208026,
+      "timings_seconds": {
+        "conditioning": 22.652374916011468,
+        "denoise": 383.3342366248835,
+        "video_decode": 59.19786004209891,
+        "audio_decode": 0.4668268340174109,
+        "mux": 0.8784187501296401
+      },
+      "decoded_rgb_sha256": "2a786021cbc675c230a90d762c35f1db5a5565e731c40fd5b867446bb6e6fb59",
+      "decoded_pcm": "SHA256=fc6b1bf38bb60953ad1429adb0c9be8f42c945a5e0f0623397cfc9055ff3063b"
+    }
+  ],
+  "ordinary_complete_rgb_pcm_equal": true,
+  "native_x2_condition_and_audio_equal": true,
+  "resources": {
+    "samples": 487,
+    "peak_physical_bytes": 41574357192,
+    "max_swap_growth_bytes": 0,
+    "total_supervised_seconds_including_failed_preflight": 2451.998641833896,
+    "output_bytes": 266737648,
+    "thermal_states": [
+      "fair",
+      "nominal"
+    ],
+    "passed": true
+  },
+  "failure": "One launcher preflight stopped before any model execution because tuple reference_images were compared to a JSON list. Corrected only the launcher serialization; all six intended model executions completed.",
+  "review": "All 120 frames of each X2 output inspected in sequential sheets and frame 47 at original pixel size. No severe channel corruption or colored mesh found. Carved details remain soft; moving camera changes framing and crops some foreground props. No listening, normal-speed quality, held-out task success, repeated performance or long-768p quality qualification.",
+  "input_availability": "Two text-only generated references, no reused reference input. Original files and raw media retained in the local integration evidence; hashes below bind the measured inputs. They are not bundled in the package."
+}
