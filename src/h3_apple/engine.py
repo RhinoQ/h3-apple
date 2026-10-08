@@ -17,7 +17,16 @@ from .media import ffmpeg_libraries, finish_native
 from . import compute
 
 
-def build_graph(request, assets, prepared, output):
+def _attention_switches(diagnostic_attention):
+    # Internal causal controls; the public API keeps its fixed recipe.
+    if diagnostic_attention not in (None, "sage-only", "dense"):
+        raise ValueError("Unknown native attention diagnostic.")
+    return dict(sol_attn=diagnostic_attention is None,
+                sage_attn=diagnostic_attention != "dense")
+
+
+def build_graph(request, assets, prepared, output, *, diagnostic_attention=None):
+    attention = _attention_switches(diagnostic_attention)
     stages = []
     def add(name, kind=None, inputs=(), **config):
         stages.append(dict(id=name, type=kind or name,
@@ -34,7 +43,7 @@ def build_graph(request, assets, prepared, output):
     ports[0]=("video-ref-encoder",0); ports[7]=("video-ref-encoder",1); ports[8]=("video-ref-encoder",2)
     add("generate-video",inputs=ports,width=request["model_width"],height=request["model_height"],
         frames=request["model_num_frames"],fps=request["fps"],steps=recipe["graph_steps"],seed=request["seed"],
-        i8_gemm=True,sol_attn=True,sage_attn=True,sol_tau=1.0,sol_dense_layers=1,
+        i8_gemm=True,**attention,sol_tau=1.0,sol_dense_layers=1,
         sol_local_radius=1,sage_dense_layers=0,unload_when_idle="always")
     if request.get("x2"):
         add("audio-vae-decode",inputs=(("generate-video",1),("model-select",0)))
@@ -61,13 +70,16 @@ def prepare_inputs(request, references, directory):
 
 
 
-def audit_log(text):
+def audit_log(text, *, diagnostic_attention=None):
+    switches = _attention_switches(diagnostic_attention)
     if "baked AdaLN for 4 steps" not in text:
         raise RuntimeError("H3 engine did not confirm the expected four denoising steps; keep the native log.")
-    for label in ("Sol-Attn ON","SageAttention ON"):
-        if label not in text:
+    for key, label in (("sol_attn", "Sol-Attn ON"), ("sage_attn", "SageAttention ON")):
+        if switches[key] and label not in text:
             raise RuntimeError(f"H3 engine did not confirm the requested attention mode: {label}")
-    if "Sol-Attn kept" not in text or re.search(r"sage_attn.*(off at|no matrix cores|requested but)",text):
+        if not switches[key] and label in text:
+            raise RuntimeError(f"H3 engine enabled an excluded attention mode: {label}")
+    if switches["sol_attn"] != ("Sol-Attn kept" in text) or re.search(r"sage_attn.*(off at|no matrix cores|requested but)",text):
         raise RuntimeError("H3 attention acceleration fell back; the run was not completed.")
 
 
@@ -97,20 +109,25 @@ def runtime_environment(assets):
 
 
 def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
-        replay_plan=None):
+        replay_plan=None, diagnostic_attention=None):
+    _attention_switches(diagnostic_attention)
     if request["num_steps"]!=4: raise ValueError("H3 requires four denoising steps.")
     workspace=Path(workspace); native=workspace/("native.wav" if request.get("x2") else "native.mp4")
     prepared=prepare_inputs(request,references,workspace)
-    graph=build_graph(request,assets,prepared,native)
+    graph=build_graph(request,assets,prepared,native,diagnostic_attention=diagnostic_attention)
     graph_path=workspace/"input.vpipeline"; write_json(graph_path,graph)
     (workspace/"db").mkdir(); write_json(workspace/"session.json",dict(db=dict(path=str(workspace/"db"))))
     environment=runtime_environment(assets)
-    compute_plan, replay = compute.prepare(request, assets, prepared, workspace,
+    compute_request = request if diagnostic_attention is None else dict(
+        request, diagnostic_attention=diagnostic_attention)
+    compute_plan, replay = compute.prepare(compute_request, assets, prepared, workspace,
                                            environment, replay=replay_plan)
-    if request.get("x2"):
+    if request.get("x2") or diagnostics:
         # The checked native artifact exports normalized channel-first f32.
         # Only this run-owned path is supplied; user environment overrides are dropped.
         environment["VPIPE_H3_LATENT_DUMP"] = str(workspace / "video-latent.f32")
+    if diagnostics:
+        environment["VPIPE_H3_COND_DUMP"] = str(workspace / "text-conditioning.f32")
     command=[assets["binary"]["path"],"--config",str(workspace/"session.json"),"--launch",str(graph_path)]
     emit(dict(phase="native_generation",message="Generating with h3-apple"))
     start=time.monotonic(); process=None
@@ -133,7 +150,8 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
         if process is not None and process.stdout is not None:
             process.stdout.close()
     native_seconds=time.monotonic()-start
-    log=(workspace/"native.log").read_text(); audit_log(log)
+    log=(workspace/"native.log").read_text()
+    audit_log(log, diagnostic_attention=diagnostic_attention)
     compute_plan = compute.complete(compute_plan, replay, log, workspace)
     timings=dict(native_generation=native_seconds)
     bridge = {}
@@ -150,7 +168,8 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
     if diagnostics:
         directory=workspace/"diagnostics"; directory.mkdir(exist_ok=True)
         write_json(directory/"native-run.json",dict(graph=graph,command=command,delivery_command=delivery))
-    return dict(bridge, actual_nfe=4,acceleration="i8-sol-sage",
+    acceleration = {None: "i8-sol-sage", "sage-only": "i8-sage", "dense": "i8"}[diagnostic_attention]
+    return dict(bridge, actual_nfe=4,acceleration=acceleration,
         compute_plan=compute_plan,
         timings_seconds=timings,diagnostics_enabled=diagnostics,diagnostic_export_seconds=0,
         backend=dict(name="h3-apple",upstream="vpipe",binary=assets["binary"],library=assets["library"],tested_interface_commit=assets["tested_interface_commit"]),
