@@ -108,8 +108,38 @@ def runtime_environment(assets):
     return environment
 
 
+def prepare_video_noise(request, prepared, entry, workspace):
+    """Bind a diagnostic generated-only array before native RNG replacement.
+
+    Native reference rows overwrite the placeholder prefix after loading noise.
+    The native RNG still draws audio before reading this video override.
+    """
+    import numpy as np
+    from ._vendor.fastvideo_mlx.minimax_h3 import video_latent_num_frames
+    if not isinstance(entry, dict) or set(entry) != {"path", "sha256"}:
+        raise ValueError("Diagnostic video noise needs a path and SHA256.")
+    source = Path(entry["path"]).resolve(strict=True)
+    checksum = digest(source)
+    if checksum != entry["sha256"]:
+        raise ValueError("Diagnostic video noise checksum differs.")
+    shape = (video_latent_num_frames(request["model_num_frames"])
+             * (request["model_height"] // 32) * (request["model_width"] // 32), 96)
+    video = np.load(source, allow_pickle=False)
+    if (not isinstance(video, np.ndarray) or video.dtype != np.dtype("<f4")
+            or video.shape != shape or not np.isfinite(video).all()):
+        raise ValueError("Diagnostic video noise has invalid dtype, shape or values.")
+    prefix = sum((p["height"] // 32) * (p["width"] // 32) for p in prepared)
+    packed = np.concatenate((np.zeros((prefix, 96), dtype="<f4"), video), axis=0)
+    target = Path(workspace) / "diagnostic-video-noise.f32"
+    with target.open("xb") as stream:
+        packed.tofile(stream)
+    return dict(source=dict(path=str(source), sha256=checksum), shape=list(shape),
+                prefix_rows=prefix, native_floats=int(packed.size),
+                packed=dict(path=str(target), sha256=digest(target)))
+
+
 def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
-        replay_plan=None, diagnostic_attention=None):
+        replay_plan=None, diagnostic_attention=None, diagnostic_video_noise=None):
     _attention_switches(diagnostic_attention)
     if request["num_steps"]!=4: raise ValueError("H3 requires four denoising steps.")
     workspace=Path(workspace); native=workspace/("native.wav" if request.get("x2") else "native.mp4")
@@ -120,6 +150,12 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
     environment=runtime_environment(assets)
     compute_request = request if diagnostic_attention is None else dict(
         request, diagnostic_attention=diagnostic_attention)
+    noise = None
+    if diagnostic_video_noise is not None:
+        noise = prepare_video_noise(request, prepared, diagnostic_video_noise, workspace)
+        compute_request = dict(compute_request, diagnostic_video_noise=dict(
+            sha256=noise["source"]["sha256"], shape=noise["shape"], prefix_rows=noise["prefix_rows"]))
+        environment["VPIPE_H3_NOISE_VID"] = noise["packed"]["path"]
     compute_plan, replay = compute.prepare(compute_request, assets, prepared, workspace,
                                            environment, replay=replay_plan)
     if request.get("x2") or diagnostics:
@@ -152,13 +188,19 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
     native_seconds=time.monotonic()-start
     log=(workspace/"native.log").read_text()
     audit_log(log, diagnostic_attention=diagnostic_attention)
+    if noise is not None:
+        confirmation = f"loaded video initial noise ({noise['native_floats']} floats) from {noise['packed']['path']}"
+        if log.count(confirmation) != 1:
+            raise RuntimeError("Native diagnostic video noise was not confirmed.")
     compute_plan = compute.complete(compute_plan, replay, log, workspace)
     timings=dict(native_generation=native_seconds)
     bridge = {}
+    if noise is not None:
+        bridge["diagnostic_video_noise"] = noise
     if request.get("x2"):
         from .runtime.sol_x2 import finish
-        bridge = finish(request, assets, workspace, log, emit,
-                        diagnostics=diagnostics)
+        bridge.update(finish(request, assets, workspace, log, emit,
+                             diagnostics=diagnostics))
         timings.update(bridge.pop("timings_seconds"))
         delivery = dict(kind="normalized-sol-latent-to-mlx-x2", audio="native-float32-pcm")
     else:

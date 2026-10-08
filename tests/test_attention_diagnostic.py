@@ -39,3 +39,44 @@ def test_audit_binds_actual_attention_to_control(mode, text):
 def test_bad_diagnostic_fails_before_model_work(tmp_path):
     with pytest.raises(ValueError, match="diagnostic"):
         engine.run({}, {}, tmp_path, lambda e: None, diagnostic_attention="typo")
+
+
+def noise_fixture(tmp_path):
+    import numpy as np
+    from h3_apple.io import digest
+    value = np.arange(4 * 96, dtype=np.float32).reshape(4, 96)
+    path = tmp_path / "noise.npy"
+    np.save(path, value, allow_pickle=False)
+    return value, dict(path=str(path), sha256=digest(path)), dict(
+        model_num_frames=5, model_height=32, model_width=64)
+
+
+def test_noise_handoff_keeps_all_target_rows_and_is_bound(tmp_path):
+    import numpy as np
+    from h3_apple.io import digest
+    value, entry, request = noise_fixture(tmp_path)
+    result = engine.prepare_video_noise(request, [dict(height=32, width=64)], entry, tmp_path)
+    actual = np.fromfile(result["packed"]["path"], dtype="<f4").reshape(6, 96)
+    np.testing.assert_array_equal(actual[:2], 0)
+    np.testing.assert_array_equal(actual[2:], value)
+    assert result["source"] == entry
+    assert result["prefix_rows"] == 2 and result["native_floats"] == 576
+    assert result["packed"]["sha256"] == digest(result["packed"]["path"])
+
+
+@pytest.mark.parametrize("fault", ["checksum", "shape", "dtype", "nan"])
+def test_noise_rejects_bad_input_before_native_launch(tmp_path, fault):
+    import numpy as np
+    from h3_apple.io import digest
+    value, entry, request = noise_fixture(tmp_path)
+    if fault == "checksum":
+        entry["sha256"] = "0" * 64
+    else:
+        if fault == "shape": value = value[:3]
+        elif fault == "dtype": value = value.astype(np.float64)
+        else: value[0, 0] = np.nan
+        np.save(entry["path"], value, allow_pickle=False)
+        entry["sha256"] = digest(entry["path"])
+    with pytest.raises(ValueError):
+        engine.prepare_video_noise(request, [], entry, tmp_path)
+    assert not (tmp_path / "diagnostic-video-noise.f32").exists()
