@@ -35,8 +35,7 @@ def test_x2_resolves_both_orientations(reference, resolution, sample, output, as
     assert req.x2 and req.mode == "VSA"
 
 
-@pytest.mark.parametrize("options", [{"resolution": "544p"}, {"x2": 1}, {"x2": "yes"},
-                                    {"x2": True, "mode": "SOL"}])
+@pytest.mark.parametrize("options", [{"resolution": "544p"}, {"x2": 1}, {"x2": "yes"}])
 def test_invalid_combinations_fail_before_preparation(reference, monkeypatch, options):
     monkeypatch.setattr(process, "ensure_ready", lambda *a, **kw: pytest.fail("setup before validation"))
     with pytest.raises(ValueError):

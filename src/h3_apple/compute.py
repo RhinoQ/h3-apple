@@ -31,6 +31,10 @@ def prepare(request, assets, prepared, workspace, environment, *, replay=None):
     if "stable-compute-v1" not in assets.get("engine_capabilities", ()):
         raise RuntimeError("The installed engine does not support the required compute policy.")
     policy = data_file("compute-policy.json")
+    if request.get("x2"):
+        # The native process still encodes references, but X2 owns video decode.
+        policy = deepcopy(policy)
+        policy["environment"].pop("VPIPE_H3_VVAE_INT8", None)
     if (policy["environment"].get("VPIPE_H3_VVAE_INT8") == "1"
             and "vae-h256-int8-v1" not in assets.get("engine_capabilities", ())):
         raise RuntimeError("The installed engine does not support H256 INT8 VAE decoding.")
@@ -51,6 +55,8 @@ def prepare(request, assets, prepared, workspace, environment, *, replay=None):
                    policy_sha256=identity(policy), inputs=inputs)
     plan = deepcopy(dict(schema=SCHEMA, policy=policy["id"], context=context,
                          qmm=policy["qmm"], environment=policy["environment"]))
+    if request.get("x2"):
+        plan["video_decoder"] = "mlx-x2"
     if replay is not None:
         replay = json.loads(Path(replay).read_text()) if isinstance(replay, (str, Path)) else replay
         if (not isinstance(replay, dict) or replay.get("schema") != SCHEMA
@@ -72,7 +78,7 @@ def prepare(request, assets, prepared, workspace, environment, *, replay=None):
 def complete(plan, replay, log, workspace):
     routes = sorted(set(re.findall(r"\[h3-plan\] ([^\r\n]+)", log)))
     if (not any(r.startswith("dit ") for r in routes)
-            or not any(r.startswith("vae ") for r in routes)
+            or (plan.get("video_decoder") != "mlx-x2" and not any(r.startswith("vae ") for r in routes))
             or "replayed research qmm plan:" not in log):
         raise RuntimeError("The engine did not confirm the complete compute policy.")
     if (plan.get("environment", {}).get("VPIPE_H3_VVAE_INT8") == "1"

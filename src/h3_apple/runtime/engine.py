@@ -14,10 +14,18 @@ from .vae import OptimizedVideoVAE
 
 
 class Pipeline(upstream.MiniMaxH3MLXPipeline):
+    def decode_video(self, video_rows, *, height, width, num_frames, tiled=True):
+        if getattr(self, "x2_checkpoint", None) is None:
+            return super().decode_video(video_rows, height=height, width=width,
+                                        num_frames=num_frames, tiled=tiled)
+        from .x2_vae import decode_latents
+        geometry = self.resolve_geometry(height, width, num_frames, enforce_duration=False)
+        latents = upstream.unpatchify_video_tokens(video_rows, geometry["latent_frame_count"],
+            geometry["latent_height"], geometry["latent_width"], self._dit_in_channels, self._dit_patch_size)
+        return decode_latents(latents, self.x2_checkpoint, height=height, width=width,
+                              num_frames=num_frames, observer=self.observer, tiled=tiled)
+
     def _load_video_vae(self):
-        if getattr(self, "x2_checkpoint", None) is not None:
-            from .x2_vae import load_x2
-            return load_x2(self.x2_checkpoint, observer=self.observer)
         base = mlx_h3_video_vae_from_dir(self.model_root / "vae", include_encoder=False,
                                         storage_dtype="fp32")
         asset = files("h3_apple").joinpath("data/vae-calibration.npz")

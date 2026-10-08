@@ -34,7 +34,7 @@ def parser():
         command.add_argument("--duration", type=float, default=15, help="5–15 seconds (default: 15)")
         command.add_argument("--resolution", choices=("544p", "576p", "768p"), default="576p",
                              help="Sampling resolution; 544p requires --x2 (default: 576p)")
-        command.add_argument("--x2", action="store_true", help="Decode at twice the output width and height (VSA only)")
+        command.add_argument("--x2", action="store_true", help="Decode at twice the output width and height (requires VSA dependencies)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         command.add_argument("--seed", type=int)
         command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
@@ -42,7 +42,7 @@ def parser():
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             command.add_argument("--model-dir")
-            command.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from VSA models)")
+            command.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from generation models)")
             command.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
             command.add_argument("--timeout", type=float, default=7200)
             command.add_argument("--no-progress", action="store_true")

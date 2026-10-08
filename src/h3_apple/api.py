@@ -60,8 +60,6 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
         raise ValueError("mode must be 'SOL' or 'VSA'.")
     if type(x2) is not bool:
         raise ValueError("x2 must be a boolean.")
-    if x2 and mode != "VSA":
-        raise ValueError("X2 requires mode='VSA'.")
     if (prompt is None) == (prompt_file is None):
         raise ValueError("Provide exactly one of prompt or prompt_file.")
     if prompt_file is not None:

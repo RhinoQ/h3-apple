@@ -675,8 +675,8 @@ class MiniMaxH3MLXPipeline:
 
     # -- phase 4: mux --------------------------------------------------------
 
-    def mux(self,
-            frames: np.ndarray,
+    @staticmethod
+    def mux(frames: np.ndarray,
             waveform: np.ndarray,
             output_path: str | Path,
             fps: int = MINIMAX_H3_FPS,

@@ -24,6 +24,31 @@ def pixel_shuffle(packed):
     return mx.contiguous(packed.reshape(b, 3, 2, 2, t, h, w).transpose(0, 1, 4, 5, 2, 6, 3)).reshape(b, 3, t, h * 2, w * 2)
 
 
+def decode_latents(latents, checkpoint, *, height, width, num_frames, observer=None, tiled=True):
+    """Shared VSA/SOL entry: normalized NCTHW latents, exactly one unwhitening."""
+    from .._vendor.fastvideo_mlx.minimax_h3 import video_latent_num_frames
+    expected = (1, 24, video_latent_num_frames(num_frames), height // 16, width // 16)
+    if (height <= 0 or width <= 0 or height % 32 or width % 32
+            or latents.shape != expected or not np.isfinite(latents).all()):
+        raise ValueError("Invalid normalized X2 latent geometry or values.")
+    vae = load_x2(checkpoint, observer=observer)
+    z = vae.denormalize_latents(mx.array(latents))
+    decoded = vae.decode(z, tiled=tiled, tile_sample_min_height=min(height, 256),
+                         tile_sample_min_width=min(width, 256))
+    preclamp = vae.denormalize_pixels(decoded)
+    if not bool(mx.all(mx.isfinite(preclamp)).item()):
+        raise ValueError("Video decoder produced nonfinite pixels.")
+    if observer is not None:
+        observer.capture("video-preclamp", lambda: {"pixels": np.asarray(preclamp)})
+    pixels = np.clip(np.asarray(preclamp), 0.0, 1.0)
+    del vae, decoded, z
+    gc.collect(); mx.clear_cache()
+    frames = (pixels[0].transpose(1, 2, 3, 0) * 255.0).astype(np.uint8)
+    if frames.shape != (num_frames, height * 2, width * 2, 3):
+        raise ValueError("Unexpected X2 output geometry.")
+    return frames
+
+
 class X2VideoVAE(core.MLXMiniMaxH3VideoVAE):
     """Floating decoder: FP16 projections/SDPA with FP32 residuals and norms."""
     def __init__(self, weights, config, *, observer=None):

@@ -36,10 +36,15 @@ def build_graph(request, assets, prepared, output):
         frames=request["model_num_frames"],fps=request["fps"],steps=recipe["graph_steps"],seed=request["seed"],
         i8_gemm=True,sol_attn=True,sage_attn=True,sol_tau=1.0,sol_dense_layers=1,
         sol_local_radius=1,sage_dense_layers=0,unload_when_idle="always")
-    add("vae-decode",inputs=(("generate-video",0),("model-select",0)))
-    add("audio-vae-decode",inputs=(("generate-video",1),("model-select",0)))
-    add("rgb-to-video",inputs=(("vae-decode",0),),fps=request["fps"])
-    add("save-video",inputs=(("rgb-to-video",0),("audio-vae-decode",0)),output_url=str(output),enable_video=True,enable_audio=True)
+    if request.get("x2"):
+        add("audio-vae-decode",inputs=(("generate-video",1),("model-select",0)))
+        add("save-video", inputs=(("audio-vae-decode",0),), output_url=str(output),
+            enable_video=False, enable_audio=True, audio_codec="pcm_f32le", format="wav")
+    else:
+        add("vae-decode",inputs=(("generate-video",0),("model-select",0)))
+        add("audio-vae-decode",inputs=(("generate-video",1),("model-select",0)))
+        add("rgb-to-video",inputs=(("vae-decode",0),),fps=request["fps"])
+        add("save-video",inputs=(("rgb-to-video",0),("audio-vae-decode",0)),output_url=str(output),enable_video=True,enable_audio=True)
     return dict(id="h3-apple",stages=stages,subpipelines=[])
 
 
@@ -94,7 +99,7 @@ def runtime_environment(assets):
 def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
         replay_plan=None):
     if request["num_steps"]!=4: raise ValueError("H3 requires four denoising steps.")
-    workspace=Path(workspace); native=workspace/"native.mp4"
+    workspace=Path(workspace); native=workspace/("native.wav" if request.get("x2") else "native.mp4")
     prepared=prepare_inputs(request,references,workspace)
     graph=build_graph(request,assets,prepared,native)
     graph_path=workspace/"input.vpipeline"; write_json(graph_path,graph)
@@ -102,6 +107,10 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
     environment=runtime_environment(assets)
     compute_plan, replay = compute.prepare(request, assets, prepared, workspace,
                                            environment, replay=replay_plan)
+    if request.get("x2"):
+        # The checked native artifact exports normalized channel-first f32.
+        # Only this run-owned path is supplied; user environment overrides are dropped.
+        environment["VPIPE_H3_LATENT_DUMP"] = str(workspace / "video-latent.f32")
     command=[assets["binary"]["path"],"--config",str(workspace/"session.json"),"--launch",str(graph_path)]
     emit(dict(phase="native_generation",message="Generating with h3-apple"))
     start=time.monotonic(); process=None
@@ -126,13 +135,22 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
     native_seconds=time.monotonic()-start
     log=(workspace/"native.log").read_text(); audit_log(log)
     compute_plan = compute.complete(compute_plan, replay, log, workspace)
-    emit(dict(phase="delivery_adapter")); start=time.monotonic()
-    delivery=finish_native(native,workspace/"output.mp4",request)
-    timings=dict(native_generation=native_seconds,delivery_adapter=time.monotonic()-start)
+    timings=dict(native_generation=native_seconds)
+    bridge = {}
+    if request.get("x2"):
+        from .runtime.sol_x2 import finish
+        bridge = finish(request, assets, workspace, log, emit,
+                        diagnostics=diagnostics)
+        timings.update(bridge.pop("timings_seconds"))
+        delivery = dict(kind="normalized-sol-latent-to-mlx-x2", audio="native-float32-pcm")
+    else:
+        emit(dict(phase="delivery_adapter")); start=time.monotonic()
+        delivery=finish_native(native,workspace/"output.mp4",request)
+        timings["delivery_adapter"]=time.monotonic()-start
     if diagnostics:
-        directory=workspace/"diagnostics"; directory.mkdir()
+        directory=workspace/"diagnostics"; directory.mkdir(exist_ok=True)
         write_json(directory/"native-run.json",dict(graph=graph,command=command,delivery_command=delivery))
-    return dict(actual_nfe=4,acceleration="i8-sol-sage",
+    return dict(bridge, actual_nfe=4,acceleration="i8-sol-sage",
         compute_plan=compute_plan,
         timings_seconds=timings,diagnostics_enabled=diagnostics,diagnostic_export_seconds=0,
         backend=dict(name="h3-apple",upstream="vpipe",binary=assets["binary"],library=assets["library"],tested_interface_commit=assets["tested_interface_commit"]),

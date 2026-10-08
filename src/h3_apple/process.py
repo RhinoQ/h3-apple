@@ -64,7 +64,12 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     if request.x2:
         # Check the combined first-run download before either package downloads.
         from .api import DownloadApprovalRequired
-        from .vsa_preparation import plan as generation_plan
+        if request.mode == "VSA":
+            from .vsa_preparation import plan as generation_plan
+        else:
+            from .preparation import plan as generation_plan
+            from .runtime.backend import check_dependencies
+            check_dependencies()
         from .x2_assets import plan as x2_plan, prepare as prepare_x2
         from .preparation import LIMIT
         base_plan = generation_plan(model_dir, progress=on_progress)
@@ -94,7 +99,7 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     worker_result = None
     try:
         environment = dict(os.environ, HF_HUB_OFFLINE="1")
-        if request.mode == "VSA":
+        if request.mode == "VSA" or request.x2:
             environment.update(MLX_ENABLE_TF32="0", FASTVIDEO_MLX_DQ_GEMM="1",
                                MLX_METAL_GPU_ARCH="", TRANSFORMERS_OFFLINE="1",
                                TOKENIZERS_PARALLELISM="false")
