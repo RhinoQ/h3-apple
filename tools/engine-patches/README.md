@@ -1,5 +1,14 @@
 # Native compute policy and VAE
 
+`rope-precision.patch` is a candidate correction, not part of the pinned released
+engine. Apply it after the three patches below when building that candidate.
+It follows [vpipe's upstream correction](https://github.com/tgo-app-dev/vpipe/commit/8ffe228d54d7)
+and MiniMax/diffusers: compute rotary angles in FP32 and round the cosine/sine
+table to BF16. The table storage stays FP32; attention kernels are unchanged.
+`tests/native_rope_table.cc` calls the same production helper and accepts an
+independent golden fixture. Table agreement is separate from video quality;
+this patch does not by itself establish that duplicate-person failures are fixed.
+
 `stable-compute.patch` applies to the vpipe revision pinned before this change,
 `f34e2cc3a3adae759eea254419f436f5b7800057`. It adds checked H3 QMM replay,
 deterministic VAE shape selection, actual dispatch records and strict allocation

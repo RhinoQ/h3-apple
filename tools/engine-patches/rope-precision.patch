@@ -1,0 +1,52 @@
+--- a/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
++++ b/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
+@@ -1,4 +1,5 @@
+ #include "generative-models/minimax-h3/metal-minimax-h3-transformer.h"
++#include "generative-models/minimax-h3/minimax-h3-rope.h"
+ 
+ #include "common/flex-data.h"
+ #include "common/vpipe-format.h"
+@@ -3186,13 +3187,10 @@
+     const double* p = &L.position_ids[(std::size_t)s * 3];
+     for (int a = 0; a < 3; ++a) {
+       for (int i = 0; i < F; ++i) {
+-        // Evaluated in double: these are absolute positions scaled by 32
+-        // over sequences tens of thousands of rows long, so the angles
+-        // are large and a float accumulation would quantize the grid.
+-        const double ang = p[a] * (double)_inv_freq[(std::size_t)i];
++        const auto table = minimax_h3::rope_table_entry(p[a], _inv_freq[(std::size_t)i]);
+         const std::size_t o = (std::size_t)s * half + (std::size_t)(a * F + i);
+-        cb[o] = (float)std::cos(ang);
+-        sb[o] = (float)std::sin(ang);
++        cb[o] = table.first;
++        sb[o] = table.second;
+       }
+     }
+   }
+--- /dev/null
++++ b/generative-models/minimax-h3/minimax-h3-rope.h
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: Apache-2.0
++// Precision rule from tgo-app-dev/vpipe 8ffe228d54d7 and the MiniMax/diffusers
++// reference: FP32 angles and BF16 cosine/sine values before rotary application.
++#ifndef VPIPE_MINIMAX_H3_ROPE_H
++#define VPIPE_MINIMAX_H3_ROPE_H
++#include <cmath>
++#include <cstdint>
++#include <cstring>
++#include <utility>
++namespace vpipe::genai::minimax_h3 {
++inline std::pair<float, float> rope_table_entry(double position, float frequency) {
++  const float angle = static_cast<float>(position) * frequency;
++  auto round = [](float value) {
++    std::uint32_t bits;
++    std::memcpy(&bits, &value, sizeof bits);
++    bits += 0x7fffu + ((bits >> 16) & 1u);
++    bits &= 0xffff0000u;
++    std::memcpy(&value, &bits, sizeof value);
++    return value;
++  };
++  return {round(std::cos(angle)), round(std::sin(angle))};
++}
++}
++#endif
