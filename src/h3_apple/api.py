@@ -85,6 +85,8 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
         raise ValueError("resolution must be '544p', '576p' or '768p'.")
     if resolution == "544p" and not x2:
         raise ValueError("544p sampling requires x2=True (CLI: --x2).")
+    if resolution == "768p" and x2:
+        raise ValueError("X2 supports only 544p or 576p sampling. Use 768p without X2.")
     if aspect_ratio not in ("16:9", "9:16"):
         raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     if isinstance(duration, bool):

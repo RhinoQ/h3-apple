@@ -19,7 +19,8 @@ produce different images and sound with the same seed. See the
 remains available.
 
 Optional **X2 decoding** doubles output width and height. Use 544p sampling for
-lower denoising cost, or native 768p sampling for larger output. This feature is
+lower denoising cost; X2 supports 544p and 576p sampling. Ordinary 768p generation
+remains available without X2. This feature is
 available in the 0.7.0 source checkout; the published release below remains 0.6.0.
 Install the checkout inside your Conda environment with `python -m pip install ".[VSA]"`.
 See [X2 examples, model setup and quality limits](docs/x2.md).

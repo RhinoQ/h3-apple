@@ -21,18 +21,52 @@ def reference(tmp_path):
 @pytest.mark.parametrize("resolution,sample,output", [
     ("544p", (960, 544), (1920, 1088)),
     ("576p", (1024, 576), (2048, 1152)),
-    ("768p", (1376, 768), (2732, 1536)),
 ])
 @pytest.mark.parametrize("aspect", ["16:9", "9:16"])
-def test_x2_resolves_both_orientations(reference, resolution, sample, output, aspect):
+@pytest.mark.parametrize("mode", ["VSA", "SOL"])
+def test_x2_resolves_both_orientations(reference, resolution, sample, output, aspect, mode):
     req = resolve("Picture 1", reference_images=[reference], resolution=resolution,
-                  aspect_ratio=aspect, x2=True, duration=5, seed=0)
+                  aspect_ratio=aspect, mode=mode, x2=True, duration=5, seed=0)
     if aspect == "9:16":
         sample, output = sample[::-1], output[::-1]
     assert (req.model_width, req.model_height) == sample
     assert (req.width, req.height) == output
     assert (req.num_frames, req.model_num_frames, req.num_steps) == (120, 124, 4)
-    assert req.x2 and req.mode == "VSA"
+    assert req.x2 and req.mode == mode
+
+
+@pytest.mark.parametrize("entry_point", [resolve, generate])
+@pytest.mark.parametrize("mode", ["VSA", "SOL"])
+@pytest.mark.parametrize("aspect", ["16:9", "9:16"])
+def test_768p_x2_is_rejected_before_generation(reference, monkeypatch, entry_point, mode, aspect):
+    monkeypatch.setattr(process, "run_generation", lambda *a, **kw: pytest.fail("generation started"))
+    with pytest.raises(ValueError, match="X2 supports only 544p or 576p"):
+        entry_point("Scene", reference_images=[reference], resolution="768p",
+                    x2=True, mode=mode, aspect_ratio=aspect)
+
+
+@pytest.mark.parametrize("command", ["resolve", "generate"])
+@pytest.mark.parametrize("mode", ["VSA", "SOL"])
+@pytest.mark.parametrize("aspect", ["16:9", "9:16"])
+def test_cli_rejects_768p_x2(reference, monkeypatch, capsys, command, mode, aspect):
+    monkeypatch.setattr(process, "run_generation", lambda *a, **kw: pytest.fail("generation started"))
+    assert cli.main([command, "--image", str(reference), "--prompt", "Scene",
+                     "--resolution", "768p", "--x2", "--mode", mode,
+                     "--aspect-ratio", aspect]) == 1
+    assert "X2 supports only 544p or 576p" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("mode", ["VSA", "SOL"])
+@pytest.mark.parametrize("aspect,output,canvas", [
+    ("16:9", (1366, 768), (1376, 768)),
+    ("9:16", (768, 1366), (768, 1376)),
+])
+def test_ordinary_768p_remains_available(reference, mode, aspect, output, canvas):
+    req = resolve("Scene", reference_images=[reference], resolution="768p",
+                  mode=mode, aspect_ratio=aspect, duration=5, seed=0)
+    assert not req.x2 and req.mode == mode
+    assert (req.width, req.height) == output
+    assert (req.model_width, req.model_height) == canvas
 
 
 @pytest.mark.parametrize("options", [{"resolution": "544p"}, {"x2": 1}, {"x2": "yes"}])

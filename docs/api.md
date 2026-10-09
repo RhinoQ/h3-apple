@@ -22,9 +22,10 @@ be between 1:4 and 4:1. EXIF orientation is applied before processing.
 
 Optional delivery settings: `duration=15` (5–15 seconds in whole frames at
 24 fps), `resolution="576p"` or `"768p"`, `aspect_ratio="16:9"` or `"9:16"`,
-and `seed` (a 32-bit unsigned integer). `x2=True` enables the optional VSA X2
-decoder and also allows `resolution="544p"`; resolution is the sampling size,
-while delivered width and height are doubled. Both aspect ratios are supported.
+and `seed` (a 32-bit unsigned integer). `x2=True` enables the optional X2
+decoder with either VSA or SOL and accepts only `resolution="544p"` or `"576p"`;
+resolution is the sampling size, while delivered width and height are doubled.
+Both aspect ratios are supported. Use `"768p"` without X2.
 See [exact dimensions, setup and quality limits](x2.md). Omit `seed` to choose one randomly;
 it is always recorded. `mode="VSA"` (default) or `mode="SOL"` selects a fixed
 implementation of the original LightX2V four-step recipe. Mode values are

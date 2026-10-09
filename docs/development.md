@@ -56,7 +56,9 @@ quality judgments and performance comparisons as separate claims.
 `runtime/x2_vae.py` supplies the X2 decoder for both sampling modes when `x2=True`.
 SOL exports normalized latent data and original audio to an isolated X2 worker.
 The facade keeps sampling and delivery dimensions separate; reference budgets
-follow sampling. Tests cover both orientations, RGB packing and alignment crop.
+follow sampling. X2 accepts 544p and 576p; the shared public validator rejects
+768p + X2 before preparation. Tests cover both modes and orientations, RGB
+packing, and ordinary 768p alignment crop.
 Run `H3_TEST_LARGE_ARRAYS=1 python -m pytest tests/test_vae_chunks.py` to include
 the 2.56 GB temporal-copy regression. New integration evidence must distinguish
 ordinary-path reproducibility from X2 quality and performance claims.

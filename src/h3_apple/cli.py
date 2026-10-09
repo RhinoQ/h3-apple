@@ -33,8 +33,8 @@ def parser():
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--duration", type=float, default=15, help="5–15 seconds (default: 15)")
         command.add_argument("--resolution", choices=("544p", "576p", "768p"), default="576p",
-                             help="Sampling resolution; 544p requires --x2 (default: 576p)")
-        command.add_argument("--x2", action="store_true", help="Decode at twice the output width and height (requires VSA dependencies)")
+                             help="Sampling resolution; 544p requires --x2; 768p excludes --x2 (default: 576p)")
+        command.add_argument("--x2", action="store_true", help="Double output width and height for 544p or 576p sampling (requires VSA dependencies)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         command.add_argument("--seed", type=int)
         command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
