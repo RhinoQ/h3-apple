@@ -11,6 +11,11 @@ alpha/rank is an exact power-of-two factor; other adapter recipes are not
 qualified. `tests/native_bf16_premerge.cc` checks scalar results, BF16 ties,
 row-band tails and source preservation. Effective-weight and complete-video
 qualification are separate; this is not enabled by the public product wrapper.
+Temporary base tensors use uncached copies: the mapped reader retains whole-shard
+Metal buffers after a tensor view is released, which would keep the replaced base
+allocated beside the merged weights and exhaust the GPU allocation budget.
+`tests/native_premerge_residency.cc` verifies this lifetime distinction with a
+temporary 16 MiB synthetic checkpoint and the actual Metal allocation counter.
 
 `rope-precision.patch` is a candidate correction, not part of the pinned released
 engine. Apply it after the three patches below when building that candidate.

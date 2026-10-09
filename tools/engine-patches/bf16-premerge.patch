@@ -43,9 +43,9 @@
 +    const int n = int(ci->shape[0]), k = int(ci->shape[1]);
 +    if (f.a.byte_size() != std::size_t(f.rank)*k*2 ||
 +        f.b.byte_size() != std::size_t(n)*f.rank*2) { return {}; }
-+    // Uncached and read-only: neither this model nor the shared WeightSet
-+    // retains a second owned copy of each base projection.
-+    auto base = ws.read(nm + ".weight", _mc, WeightSet::Residency::Mapped);
++    // A temporary copy: Mapped reads retain whole-shard Metal wrappers
++    // even after this tensor dies, double-counting the replaced weights.
++    auto base = ws.read(nm + ".weight", _mc, WeightSet::Residency::Copied);
 +    l.w = _mc->make_shared_buffer(std::size_t(n)*k*2);
 +    if (base.byte_size() != l.w.byte_size() || l.w.empty()) { return {}; }
 +    try {
