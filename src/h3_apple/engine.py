@@ -25,7 +25,7 @@ def _attention_switches(diagnostic_attention):
                 sage_attn=diagnostic_attention != "dense")
 
 
-def build_graph(request, assets, prepared, output, *, diagnostic_attention=None):
+def build_graph(request, assets, prepared, output, *, diagnostic_attention=None, conditioning=None):
     attention = _attention_switches(diagnostic_attention)
     stages = []
     def add(name, kind=None, inputs=(), **config):
@@ -41,6 +41,10 @@ def build_graph(request, assets, prepared, output, *, diagnostic_attention=None)
         references=[p["path"] for p in prepared], frames=request["model_num_frames"],
         reference_image_short_edge=0, reference_image_max_pixels=0, unload_when_idle="auto")
     ports[0]=("video-ref-encoder",0); ports[7]=("video-ref-encoder",1); ports[8]=("video-ref-encoder",2)
+    for kind, value in (conditioning or {}).items():
+        name = "diagnostic-" + kind
+        add(name, "load-tensor", path=value["packed"]["path"], sideband=value["sideband"])
+        ports[{"text": 0, "video": 7}[kind]] = (name, 0)
     add("generate-video",inputs=ports,width=request["model_width"],height=request["model_height"],
         frames=request["model_num_frames"],fps=request["fps"],steps=recipe["graph_steps"],seed=request["seed"],
         i8_gemm=True,**attention,sol_tau=1.0,sol_dense_layers=1,
@@ -139,17 +143,27 @@ def prepare_video_noise(request, prepared, entry, workspace):
 
 
 def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
-        replay_plan=None, diagnostic_attention=None, diagnostic_video_noise=None):
+        replay_plan=None, diagnostic_attention=None, diagnostic_video_noise=None,
+        diagnostic_conditioning=None):
     _attention_switches(diagnostic_attention)
     if request["num_steps"]!=4: raise ValueError("H3 requires four denoising steps.")
     workspace=Path(workspace); native=workspace/("native.wav" if request.get("x2") else "native.mp4")
     prepared=prepare_inputs(request,references,workspace)
-    graph=build_graph(request,assets,prepared,native,diagnostic_attention=diagnostic_attention)
+    conditioning = None
+    if diagnostic_conditioning is not None:
+        from .conditioning_diagnostic import prepare
+        conditioning = prepare(diagnostic_conditioning, prepared, workspace)
+    graph=build_graph(request,assets,prepared,native,diagnostic_attention=diagnostic_attention,
+                      conditioning=conditioning)
     graph_path=workspace/"input.vpipeline"; write_json(graph_path,graph)
     (workspace/"db").mkdir(); write_json(workspace/"session.json",dict(db=dict(path=str(workspace/"db"))))
     environment=runtime_environment(assets)
     compute_request = request if diagnostic_attention is None else dict(
         request, diagnostic_attention=diagnostic_attention)
+    if conditioning is not None:
+        compute_request = dict(compute_request, diagnostic_conditioning={
+            k: dict(sha256=v["source"]["sha256"], shape=v["shape"], dtype=v["dtype"],
+                    sideband=v["sideband"]) for k, v in conditioning.items()})
     noise = None
     if diagnostic_video_noise is not None:
         noise = prepare_video_noise(request, prepared, diagnostic_video_noise, workspace)
@@ -195,6 +209,8 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
     compute_plan = compute.complete(compute_plan, replay, log, workspace)
     timings=dict(native_generation=native_seconds)
     bridge = {}
+    if conditioning is not None:
+        bridge["diagnostic_conditioning"] = conditioning
     if noise is not None:
         bridge["diagnostic_video_noise"] = noise
     if request.get("x2"):
