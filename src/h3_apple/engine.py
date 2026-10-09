@@ -44,6 +44,12 @@ def build_graph(request, assets, prepared, output, *, diagnostic_attention=None,
     for kind, value in (conditioning or {}).items():
         name = "diagnostic-" + kind
         add(name, "load-tensor", path=value["packed"]["path"], sideband=value["sideband"])
+        if kind == "text":
+            # load-tensor advertises latent-only ports although it transports
+            # arbitrary tensors. The validated BF16 text uses a typed-erased
+            # identity stage to reach the conditioning port, unchanged.
+            add(name + "-conditioning", "passthrough", inputs=((name, 0),))
+            name += "-conditioning"
         ports[{"text": 0, "video": 7}[kind]] = (name, 0)
     add("generate-video",inputs=ports,width=request["model_width"],height=request["model_height"],
         frames=request["model_num_frames"],fps=request["fps"],steps=recipe["graph_steps"],seed=request["seed"],

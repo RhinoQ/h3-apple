@@ -32,8 +32,11 @@ def test_text_roundtrip_and_only_conditioning_port_changes(tmp_path):
     graph = engine.build_graph(req, assets, prepared, tmp_path/'out.mp4', conditioning=result)
     diagnostic = graph['stages'].pop(4)
     assert diagnostic['id'] == 'diagnostic-text'
+    bridge = graph['stages'].pop(4)
+    assert bridge['type'] == 'passthrough'
+    assert bridge['iports'] == [dict(src='diagnostic-text', oport=0)]
     port = graph['stages'][4]['iports'][0]
-    assert port == dict(src='diagnostic-text', oport=0)
+    assert port == dict(src='diagnostic-text-conditioning', oport=0)
     graph['stages'][4]['iports'][0] = dict(src='video-ref-encoder', oport=0)
     assert graph == original
 
