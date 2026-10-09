@@ -1,0 +1,587 @@
+{
+  "schema": "h3-apple-sol-premerge-source/v1",
+  "utc": "2026-10-09T08:25:17.142705+00:00",
+  "status": "Locally qualified source checkout; not a published release.",
+  "candidate_commit": "ad4621d31b057dfe7af06ded9e0ce809c495b7bf",
+  "wheel": {
+    "name": "h3_apple-0.7.0-py3-none-any.whl",
+    "bytes": 1634122,
+    "sha256": "45c08005fc48737a5928d3e03f8d724c7076a93a389213ee2fbde40c716259cd"
+  },
+  "source_sha256": "3f7f048ea5d2ee1641e666ee76dfad1c63dca33198e31a91978e8f5295654e01",
+  "engine": {
+    "schema": "h3-apple-engine/v1",
+    "upstream": "https://github.com/tgo-app-dev/vpipe",
+    "commit": "f34e2cc3a3adae759eea254419f436f5b7800057",
+    "url": null,
+    "bytes": 6046164,
+    "sha256": "d209f718ab2940f8ee9e6d5cea601b8bf229c13574d133dce24918f1885250b7",
+    "files": [
+      {
+        "name": "LICENSE.txt",
+        "bytes": 11338,
+        "sha256": "da1a325757e207244cd589713ce51febe3859aab6034f34afbccd57eb96cb53a",
+        "mode": 420
+      },
+      {
+        "name": "NOTICE.txt",
+        "bytes": 672,
+        "sha256": "a58393c97bac82375a4e3acc982bc9497b5157e8b9ddf22f4f039490f1d7b09a",
+        "mode": 420
+      },
+      {
+        "name": "THIRD_PARTY_LICENSES.txt",
+        "bytes": 18653,
+        "sha256": "5e7c6318ee6ee46f05e02f4ed3286bfafe13b5fa97a0184d0ac63ef8878481ed",
+        "mode": 420
+      },
+      {
+        "name": "h3-engine",
+        "bytes": 86600,
+        "sha256": "bc28dd092486900ece7efe117e526fdf6d3afbaea55c80fdfda31d7569b955f8",
+        "mode": 493
+      },
+      {
+        "name": "libvpipe.0.dylib",
+        "bytes": 19452400,
+        "sha256": "5d3ea6466723c081392bba5c8a72a1ace65a6989bc55b5baf69e9c6848cb5599",
+        "mode": 493
+      }
+    ],
+    "capabilities": [
+      "stable-compute-v1",
+      "vae-h256-int8-v1",
+      "h3-premerge-quantize-v1"
+    ]
+  },
+  "model_sources_manifest": {
+    "name": "model-sources.json",
+    "bytes": 16904,
+    "sha256": "210dedadf8d4f28bf5a4c7e1b963b2130866b16243dc724c75bc10c7c5841a3d"
+  },
+  "prepared_model_manifest": {
+    "name": "prepared-model.json",
+    "bytes": 7859,
+    "sha256": "20ac2bc164606a03c031e5588585de7272cfd0df2792d691b152e665890ceb52"
+  },
+  "adapter": {
+    "repo": "lightx2v/Minimax-h3-Turbo",
+    "revision": "ec01fa4c86263832faa0bd1d6d8f36a281eaabb2",
+    "filename": "minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors",
+    "bytes": 1383677768,
+    "sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99"
+  },
+  "recipe": {
+    "steps": 4,
+    "graph_steps": 5,
+    "video_shift": 12.0,
+    "audio_shift": 3.0,
+    "lora_scale": 1.0,
+    "adapter_application": "premerge-bf16-before-w8g64"
+  },
+  "host": {
+    "chip": "Apple M5 Max",
+    "gpu_cores": 40,
+    "memory_gib": 128,
+    "macos": "26.6.1"
+  },
+  "quality_cases": [
+    {
+      "id": "original-regression",
+      "reference": {
+        "title": "Previously used calibration portrait",
+        "public_download": null,
+        "scope": "Debug/calibration only; pixels are not bundled.",
+        "name": "portrait.png",
+        "bytes": 2265306,
+        "sha256": "62d27e3ea87732dc21fd7415b690502701511c2246f14178b8c2c3249edb6323"
+      },
+      "request": {
+        "prompt": "subject_definitions\n<Subject 1> is the adult ceramic artist with short dark curly hair, trimmed beard and rust-colored linen shirt in <Picture 1>.\n\nsummary\n[reference generation] A five-second portrait of <Subject 1> forming a small friendly smile in his bright pottery studio.\n\nretention_analysis\n<Subject 1> (throughout [Shot 1]): fully_preserved - Retain his recognizable face, hairstyle, beard and linen shirt, with the softly lit pottery studio from the reference.\n\ndetailed_description\n[Shot 1] Begin with the relaxed mid-torso portrait composition in <Picture 1>. <Subject 1> looks at the camera with a neutral expression, gradually forms a small closed-mouth smile, and holds it for the last second. His head and shoulders stay relaxed and nearly still. The complete head, both shoulders and space above the hair remain visible. The camera stays fixed at eye level in one continuous shot. Soft daylight remains steady; quiet studio room tone is heard. No dialogue, writing, captions or cuts.\n\noverall_soundscape\nQuiet steady indoor room ambience with a faint breeze outside the window, no speech or sudden impacts.\n\nnon_diegetic_music\nNone.\n",
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 164001,
+        "width": 1088,
+        "height": 1920,
+        "num_frames": 120,
+        "model_width": 544,
+        "model_height": 960,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "outputs": [
+        {
+          "id": "native-public-runtime-turbo-02",
+          "method": "runtime-adapter",
+          "video": {
+            "bytes": 6960572,
+            "sha256": "4a71817d44f114504bc1912ce7cbd4dc92f6c79882057363e601e2b18e82521b"
+          },
+          "decoded_rgb_sha256": "a753357fd0c32cfe5445dcdc176fa33067e041527e09ab90e6c38775b9de86cf",
+          "decoded_pcm": "SHA256=a2e2ad6138278d87a82d5ad0aa735313c569187d27d60ce4a6fb39ce986a27c2",
+          "core_seconds": 163.10193791700294,
+          "visual_task_pass": false,
+          "observations_zh": "约第35帧（1.46秒）起第二张复制脸从第一人后方出现，随后形成两个同衣同貌的人，约3.3秒才恢复单人。人物和相机横向漂移；结尾露齿笑而非保持闭嘴微笑。旧正式运算配方仍复现复制。",
+          "source_sha256": "75052678c55c1ed8841f89637be0067e3f0f1e472affc9f979c6afc432b004fb"
+        },
+        {
+          "id": "native-public-premerged-turbo-02",
+          "method": "premerge-before-quantize",
+          "video": {
+            "bytes": 4899101,
+            "sha256": "2343f2891e44ed6359edfbcd37a6f5a2d046f4ef92348fc8bb2f9fe0ebb0412b"
+          },
+          "decoded_rgb_sha256": "e6928bbcf81bb06b3f9e60d0acdf49539f389db227e3b61f2e0086121a83351f",
+          "decoded_pcm": "SHA256=a1c5fb9815ec0600e016b976f8d12d9616f1d39cf2b45dbf5996cf653517e4f5",
+          "core_seconds": 171.91810441600683,
+          "visual_task_pass": true,
+          "observations_zh": "全部120帧保持单人；约1.6秒逐渐形成闭嘴微笑并维持到结尾。身份、锈红衬衣和窗边固定构图保留，没有原对照的复制人物或横向漂移。",
+          "source_sha256": "75052678c55c1ed8841f89637be0067e3f0f1e472affc9f979c6afc432b004fb"
+        }
+      ]
+    },
+    {
+      "id": "portrait",
+      "reference": {
+        "title": "Paris Coffee (Unsplash).jpg",
+        "author": "AO (yokoao)",
+        "source": "https://commons.wikimedia.org/wiki/File:Paris_Coffee_(Unsplash).jpg",
+        "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "name": "portrait-woman.jpg",
+        "bytes": 32704003,
+        "sha256": "7261afb5cf5a8598da41d64d72e1dd9ffb57d0b6fea6ee2b86f017d474d4bba7"
+      },
+      "request": {
+        "prompt": "subject_definitions\n<Subject 1> is the adult woman with a short black bob and the brown patterned high-neck dress in <Picture 1>.\n\nsummary\n[reference generation] A five-second quiet portrait of <Subject 1> beside the cafe wall.\n\nretention_analysis\n<Subject 1> (throughout [Shot 1]): fully_preserved - Retain her face, short black bob, patterned dress and relaxed clasped hands, with the cafe wall from the reference.\n\ndetailed_description\n[Shot 1] Begin with the portrait composition in <Picture 1>. <Subject 1> looks toward the camera, gradually forms a small closed-mouth smile, and holds it for the last second. Her tilted head, shoulders and clasped hands stay relaxed and nearly still. The camera remains fixed at eye level in one continuous shot. Warm daylight remains steady. The existing cafe sign stays in the background. Quiet outdoor ambience, no dialogue or cuts.\n\noverall_soundscape\nSoft steady outdoor ambience with faint distant street sounds, no intelligible speech.\n\nnon_diegetic_music\nNone.\n",
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 166021,
+        "width": 1088,
+        "height": 1920,
+        "num_frames": 120,
+        "model_width": 544,
+        "model_height": 960,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "outputs": [
+        {
+          "id": "fresh-portrait-runtime",
+          "method": "runtime-adapter",
+          "video": {
+            "bytes": 17743470,
+            "sha256": "e82cd2948d22498cfe28606fb1e7dfa9c58b808c1d006554af91f519831caed7"
+          },
+          "decoded_rgb_sha256": "88b87650c77823757590355cf3fd12de0b7a53385ebaed361494aa17eb86606c",
+          "decoded_pcm": "SHA256=df6365ac049ee5e2739e78cef0774269dbe7bab66114db45618b263416e1f790",
+          "core_seconds": 154.7438181250036,
+          "visual_task_pass": true,
+          "observations_zh": "全部120帧保持单人，棕色花纹高领裙、双手交握和闭嘴微笑保留。主体偏左、招牌部分出框，横向重构较明显。小脸相较原图柔化，短发轮廓更圆；不认定精细身份或皮肤纹理完全忠实。",
+          "source_sha256": "75052678c55c1ed8841f89637be0067e3f0f1e472affc9f979c6afc432b004fb"
+        },
+        {
+          "id": "fresh-portrait-premerged",
+          "method": "premerge-before-quantize",
+          "video": {
+            "bytes": 11389595,
+            "sha256": "48cd4ebf9f40695af9a7a3f7c3825e5c9a0c4aed78469d326c3c80deeb946a01"
+          },
+          "decoded_rgb_sha256": "61126052fecc30180d3fb96711dfcab770be22e652eeaf94c9ebf62ac11d0de6",
+          "decoded_pcm": "SHA256=3a5780abd20c18f45d1a8c6abc81591224bdec2444a1442bdef767d34ffad185",
+          "core_seconds": 151.02866895799525,
+          "visual_task_pass": true,
+          "observations_zh": "全部120帧保持单人，花纹高领裙、双手交握和倾斜头姿保留，约1.3秒出现闭嘴微笑并保持。主体居中，招牌完整，构图比对照稳定。小脸仍有柔化、发型轮廓更圆，细节身份保真有限；按本轮基本人物与动作门槛通过，不代表精确面部重建。",
+          "source_sha256": "75052678c55c1ed8841f89637be0067e3f0f1e472affc9f979c6afc432b004fb"
+        }
+      ]
+    },
+    {
+      "id": "landscape",
+      "reference": {
+        "title": "Two Friends (25307244379).jpg",
+        "author": "Nat Welch",
+        "source": "https://commons.wikimedia.org/wiki/File:Two_Friends_(25307244379).jpg",
+        "license": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "name": "two-friends.jpg",
+        "bytes": 14259828,
+        "sha256": "8abb77f4806aa98f46acfbebe0fe382e0cf0bbcb71bca6a0a4c276b98d7343d4"
+      },
+      "request": {
+        "prompt": "subject_definitions\n<Subject 1> is the curly dark-haired adult woman at the left of the foreground pair in <Picture 1>.\n<Subject 2> is the short-haired adult woman at the right of the foreground pair in <Picture 1>.\n\nsummary\n[reference generation] A five-second candid close-up of the two friends smiling together at an indoor event.\n\nretention_analysis\n<Subject 1> (throughout [Shot 1]): fully_preserved - Retain her face, curly hair, dark clothing and left position.\n<Subject 2> (throughout [Shot 1]): fully_preserved - Retain her face, short hair, dark clothing and right position, with her arm around her friend.\n\ndetailed_description\n[Shot 1] Begin with the two-person foreground composition in <Picture 1>. <Subject 1> and <Subject 2> keep their heads close together and hold their happy smiles toward the camera, with a brief natural blink and a slight relaxed head movement. Their embracing arm and hand stay in place. Both faces remain clearly visible and separate throughout. The camera stays fixed in a single landscape shot. Purple indoor light remains steady and the distant event crowd stays in the background. Quiet crowd ambience, no dialogue or cuts.\n\noverall_soundscape\nA soft distant indoor crowd murmur with no intelligible speech or sudden impacts.\n\nnon_diegetic_music\nNone.\n",
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 166022,
+        "width": 1920,
+        "height": 1088,
+        "num_frames": 120,
+        "model_width": 960,
+        "model_height": 544,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "outputs": [
+        {
+          "id": "fresh-landscape-runtime",
+          "method": "runtime-adapter",
+          "video": {
+            "bytes": 6910099,
+            "sha256": "5498466155ec1e17acd43b944ef63403d68884ff9842881ea170ccb4ac03edbc"
+          },
+          "decoded_rgb_sha256": "1ef58c0072f1606528168996c041ac6877ed9b47f5cf9b0d4f653b3edf08bb5f",
+          "decoded_pcm": "SHA256=08d81b5c014ecfafae47079fb841313b191b5f081eee65f6aaf7d99831f79345",
+          "core_seconds": 166.64589412498754,
+          "visual_task_pass": true,
+          "observations_zh": "全部120帧保持两位不同前景人物及拥抱关系，微笑、眨眼和轻微头部动作可见，无新增前景复制。人物偏左并逐渐变大，背景重构、右侧人群细节模糊和手部细节有限；未完全遵循固定机位。",
+          "source_sha256": "75052678c55c1ed8841f89637be0067e3f0f1e472affc9f979c6afc432b004fb"
+        },
+        {
+          "id": "fresh-landscape-premerged",
+          "method": "premerge-before-quantize",
+          "video": {
+            "bytes": 6049425,
+            "sha256": "8e1b645cb8e26869c01bcad344212b2bd12656be67b0e00e8fbdd31a8370253c"
+          },
+          "decoded_rgb_sha256": "46707e3d36b5da0a0ab431473b007ea0178db98433243ebe638f3d73aca03478",
+          "decoded_pcm": "SHA256=378df9cb67e525fd10e9c148279bbf71fcc727ae54bcb5cbe86167796df5d2f7",
+          "core_seconds": 166.03809920800268,
+          "visual_task_pass": true,
+          "observations_zh": "全部120帧保持两位不同前景人物及拥抱关系，左右身份可辨、微笑和眨眼保留，无新增前景复制。构图较居中但仍逐渐推近；背景人群模糊重构、手部细节有限。不把背景人数保真或严格固定机位视为已解决。",
+          "source_sha256": "75052678c55c1ed8841f89637be0067e3f0f1e472affc9f979c6afc432b004fb"
+        }
+      ]
+    }
+  ],
+  "installed_calls": [
+    {
+      "id": "installed2-portrait-runtime",
+      "entry_point": "Python API",
+      "request": {
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 166021,
+        "width": 1088,
+        "height": 1920,
+        "num_frames": 120,
+        "model_width": 544,
+        "model_height": 960,
+        "model_num_frames": 124,
+        "recipe": "ref2va-i8-sol-sage-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "source_sha256": "81340a2ac8abd355eeb73c76e5d02f552160bbb0b17df5bf385a397790c31f8b",
+      "complete_call_seconds": 158.37420125000062,
+      "decoded_rgb_sha256": "88b87650c77823757590355cf3fd12de0b7a53385ebaed361494aa17eb86606c",
+      "decoded_pcm": "SHA256=df6365ac049ee5e2739e78cef0774269dbe7bab66114db45618b263416e1f790",
+      "matched_preceding_qualified_video": true,
+      "matched_preceding_pcm": true,
+      "video": {
+        "bytes": 17743470,
+        "sha256": "e82cd2948d22498cfe28606fb1e7dfa9c58b808c1d006554af91f519831caed7"
+      },
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "actual_routes": [
+        "dit M=11 N=10752 K=2688 route=steel split=0",
+        "dit M=11 N=96768 K=2688 route=steel split=0",
+        "dit M=18870 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=18870 N=96 K=5376 route=i8-dense split=2",
+        "dit M=20525 N=21504 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20525 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20525 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=20525 N=5376 K=7168 route=u8-w8-cm1 split=0",
+        "dit M=414 N=32 K=5376 route=mma128 split=0",
+        "dit M=414 N=5376 K=32 route=dense-scalar split=0",
+        "dit M=504 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=504 N=96 K=5376 route=mma128 split=0",
+        "dit M=737 N=21504 K=5376 route=mma128-lora split=0",
+        "dit M=737 N=28672 K=5376 route=mma128-lora split=0",
+        "dit M=737 N=5376 K=14336 route=bf16-split split=7",
+        "dit M=737 N=5376 K=5120 route=mma128 split=0",
+        "dit M=737 N=5376 K=7168 route=mma128x256-lora split=0",
+        "vae M=1024 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1024 N=512 K=13824 route=bf16-split split=6",
+        "vae M=1024 N=512 K=256 route=bf16-n128 split=0",
+        "vae M=1024 N=512 K=6912 route=bf16-n256 split=0",
+        "vae M=16384 N=256 K=128 route=bf16-n128 split=0",
+        "vae M=1669 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1822 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=2427 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=13824 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=512 route=bf16-n128 split=0",
+        "vae M=256 N=48 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=48 K=48 route=bf16-n128 split=0",
+        "vae M=256 N=512 K=13824 route=bf16-n256 split=0",
+        "vae M=4096 N=128 K=3456 route=bf16-n128 split=0",
+        "vae M=4096 N=128 K=81 route=bf16-n128 split=0",
+        "vae M=4096 N=256 K=3456 route=bf16-n128 split=0"
+      ],
+      "diagnostics": false
+    },
+    {
+      "id": "installed2-portrait-premerged",
+      "entry_point": "Python API",
+      "request": {
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 166021,
+        "width": 1088,
+        "height": 1920,
+        "num_frames": 120,
+        "model_width": 544,
+        "model_height": 960,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "source_sha256": "3f7f048ea5d2ee1641e666ee76dfad1c63dca33198e31a91978e8f5295654e01",
+      "complete_call_seconds": 169.69955304200994,
+      "decoded_rgb_sha256": "61126052fecc30180d3fb96711dfcab770be22e652eeaf94c9ebf62ac11d0de6",
+      "decoded_pcm": "SHA256=3a5780abd20c18f45d1a8c6abc81591224bdec2444a1442bdef767d34ffad185",
+      "matched_preceding_qualified_video": true,
+      "matched_preceding_pcm": true,
+      "video": {
+        "bytes": 11389595,
+        "sha256": "48cd4ebf9f40695af9a7a3f7c3825e5c9a0c4aed78469d326c3c80deeb946a01"
+      },
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "actual_routes": [
+        "dit M=11 N=10752 K=2688 route=steel split=0",
+        "dit M=11 N=96768 K=2688 route=steel split=0",
+        "dit M=18870 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=18870 N=96 K=5376 route=i8-dense split=2",
+        "dit M=20525 N=21504 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20525 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20525 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=20525 N=5376 K=7168 route=u8-w8-cm1 split=0",
+        "dit M=414 N=32 K=5376 route=mma128 split=0",
+        "dit M=414 N=5376 K=32 route=dense-scalar split=0",
+        "dit M=504 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=504 N=96 K=5376 route=mma128 split=0",
+        "dit M=737 N=21504 K=5376 route=mma128 split=0",
+        "dit M=737 N=28672 K=5376 route=mma128 split=0",
+        "dit M=737 N=5376 K=14336 route=bf16-split split=7",
+        "dit M=737 N=5376 K=5120 route=mma128 split=0",
+        "dit M=737 N=5376 K=7168 route=mma128x256 split=0",
+        "vae M=1024 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1024 N=512 K=13824 route=bf16-split split=6",
+        "vae M=1024 N=512 K=256 route=bf16-n128 split=0",
+        "vae M=1024 N=512 K=6912 route=bf16-n256 split=0",
+        "vae M=16384 N=256 K=128 route=bf16-n128 split=0",
+        "vae M=1669 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1822 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=2427 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=13824 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=512 route=bf16-n128 split=0",
+        "vae M=256 N=48 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=48 K=48 route=bf16-n128 split=0",
+        "vae M=256 N=512 K=13824 route=bf16-n256 split=0",
+        "vae M=4096 N=128 K=3456 route=bf16-n128 split=0",
+        "vae M=4096 N=128 K=81 route=bf16-n128 split=0",
+        "vae M=4096 N=256 K=3456 route=bf16-n128 split=0"
+      ],
+      "diagnostics": false
+    },
+    {
+      "id": "installed2-landscape-premerged",
+      "entry_point": "CLI",
+      "request": {
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 166022,
+        "width": 1920,
+        "height": 1088,
+        "num_frames": 120,
+        "model_width": 960,
+        "model_height": 544,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "source_sha256": "3f7f048ea5d2ee1641e666ee76dfad1c63dca33198e31a91978e8f5295654e01",
+      "complete_call_seconds": 178.76878449998912,
+      "decoded_rgb_sha256": "46707e3d36b5da0a0ab431473b007ea0178db98433243ebe638f3d73aca03478",
+      "decoded_pcm": "SHA256=378df9cb67e525fd10e9c148279bbf71fcc727ae54bcb5cbe86167796df5d2f7",
+      "matched_preceding_qualified_video": true,
+      "matched_preceding_pcm": true,
+      "video": {
+        "bytes": 6049425,
+        "sha256": "8e1b645cb8e26869c01bcad344212b2bd12656be67b0e00e8fbdd31a8370253c"
+      },
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "actual_routes": [
+        "dit M=11 N=10752 K=2688 route=steel split=0",
+        "dit M=11 N=96768 K=2688 route=steel split=0",
+        "dit M=18870 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=18870 N=96 K=5376 route=i8-dense split=2",
+        "dit M=20620 N=21504 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20620 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20620 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=20620 N=5376 K=7168 route=u8-w8-cm1 split=0",
+        "dit M=414 N=32 K=5376 route=mma128 split=0",
+        "dit M=414 N=5376 K=32 route=dense-scalar split=0",
+        "dit M=520 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=520 N=96 K=5376 route=mma128 split=0",
+        "dit M=816 N=21504 K=5376 route=mma128 split=0",
+        "dit M=816 N=28672 K=5376 route=mma128 split=0",
+        "dit M=816 N=5376 K=14336 route=bf16-split split=7",
+        "dit M=816 N=5376 K=5120 route=mma128 split=0",
+        "dit M=816 N=5376 K=7168 route=mma128x256 split=0",
+        "vae M=1024 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1024 N=512 K=13824 route=bf16-split split=6",
+        "vae M=1024 N=512 K=256 route=bf16-n128 split=0",
+        "vae M=1024 N=512 K=6912 route=bf16-n256 split=0",
+        "vae M=16384 N=256 K=128 route=bf16-n128 split=0",
+        "vae M=1669 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1822 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=2427 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=13824 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=512 route=bf16-n128 split=0",
+        "vae M=256 N=48 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=48 K=48 route=bf16-n128 split=0",
+        "vae M=256 N=512 K=13824 route=bf16-n256 split=0",
+        "vae M=4096 N=128 K=3456 route=bf16-n128 split=0",
+        "vae M=4096 N=128 K=81 route=bf16-n128 split=0",
+        "vae M=4096 N=256 K=3456 route=bf16-n128 split=0"
+      ],
+      "diagnostics": false
+    },
+    {
+      "id": "installed2-ordinary-premerged",
+      "entry_point": "CLI",
+      "request": {
+        "resolution": "576p",
+        "duration": 5.0,
+        "seed": 166021,
+        "width": 576,
+        "height": 1024,
+        "num_frames": 120,
+        "model_width": 576,
+        "model_height": 1024,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      },
+      "source_sha256": "3f7f048ea5d2ee1641e666ee76dfad1c63dca33198e31a91978e8f5295654e01",
+      "complete_call_seconds": 169.50545399999828,
+      "decoded_rgb_sha256": "5b9705bbbc6791ef0e4617c428e6b3fff64df0bfbc93ab3b183dbf562117f530",
+      "decoded_pcm": "SHA256=17e9d42aee784e38ad2480c292c7ef6e5e806ebfeb6d802e92e680fe1c1e905a",
+      "matched_preceding_qualified_video": null,
+      "matched_preceding_pcm": null,
+      "video": {
+        "bytes": 2845284,
+        "sha256": "3c89abc60c698017c6498adb6942663d833c12c3f26cc6c3fbd57eb17f5fea66"
+      },
+      "actual_nfe": 4,
+      "compute_policy": "m5max-h256-int8-v1",
+      "actual_routes": [
+        "dit M=11 N=10752 K=2688 route=steel split=0",
+        "dit M=11 N=96768 K=2688 route=steel split=0",
+        "dit M=21312 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=21312 N=96 K=5376 route=i8-dense split=2",
+        "dit M=23119 N=21504 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=23119 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=23119 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=23119 N=5376 K=7168 route=u8-w8-cm1 split=0",
+        "dit M=414 N=32 K=5376 route=mma128 split=0",
+        "dit M=414 N=5376 K=32 route=dense-scalar split=0",
+        "dit M=580 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=580 N=96 K=5376 route=mma128 split=0",
+        "dit M=813 N=21504 K=5376 route=mma128 split=0",
+        "dit M=813 N=28672 K=5376 route=mma128 split=0",
+        "dit M=813 N=5376 K=14336 route=bf16-split split=7",
+        "dit M=813 N=5376 K=5120 route=mma128 split=0",
+        "dit M=813 N=5376 K=7168 route=mma128x256 split=0",
+        "vae M=1024 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1024 N=512 K=13824 route=bf16-split split=6",
+        "vae M=1024 N=512 K=256 route=bf16-n128 split=0",
+        "vae M=1024 N=512 K=6912 route=bf16-n256 split=0",
+        "vae M=16384 N=256 K=128 route=bf16-n128 split=0",
+        "vae M=1669 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1792 N=2048 K=24 route=bf16-n128-bias-v1 split=0",
+        "vae M=1792 N=24 K=24 route=bf16-n128-bias-v1 split=0",
+        "vae M=1792 N=3072 K=2048 route=bf16-n128-bias-v1 split=0",
+        "vae M=1797 N=16384 K=2048 route=h256-i8-v1-n128 split=0",
+        "vae M=1797 N=2048 K=2048 route=h256-i8-v1-n128 split=0",
+        "vae M=1797 N=2048 K=8192 route=h256-i8-v1-n256 split=0",
+        "vae M=1797 N=6144 K=2048 route=h256-i8-v1-n128 split=0",
+        "vae M=1822 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=2427 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=13824 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=512 route=bf16-n128 split=0",
+        "vae M=256 N=48 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=48 K=48 route=bf16-n128 split=0",
+        "vae M=256 N=512 K=13824 route=bf16-n256 split=0",
+        "vae M=4096 N=128 K=3456 route=bf16-n128 split=0",
+        "vae M=4096 N=128 K=81 route=bf16-n128 split=0",
+        "vae M=4096 N=256 K=3456 route=bf16-n128 split=0",
+        "vae-attention M=1797 route=strided-qk-rope-v1"
+      ],
+      "diagnostics": false
+    }
+  ],
+  "full_call_candidate_over_baseline": 1.0715100799411879,
+  "accepted_slowdown_upper_ratio": 1.1,
+  "tests": {
+    "non_hardware_passed": 209,
+    "hardware_deselected": 14,
+    "preparation": "Native scalar merge oracle and stored W8G64 codes/scales/biases matched on208projections x13rows; public verified local reuse passed.",
+    "model_download_bytes": 0
+  },
+  "review_scope": "Methods disclosed. Every120-frame sequence sheet and original frames23,71,119; no subjective listening or normal-speed playback qualification.",
+  "timing_scope": "Core pairs include native inputs, planning, sampling, X2 and mux. Installed calls additionally include ordinary setup and worker startup, excluding one-time preparation. One run per arm; not a sustained speedup estimate.",
+  "retained_failures": [
+    "Old calibration runtime-adapter output duplicates the subject; candidate removes that failure.",
+    "First installed baseline generated successfully; a validation-script KeyError on removed workspace metadata lost its external timer. Preserved media exactly replays the baseline; excluded from timing, rerun under the same frozen request.",
+    "First portrait core baseline overlapped2.09s of CPU unit tests; its2.4percent difference is not a speedup claim."
+  ],
+  "limitations": [
+    "Two new references, one seed each, five seconds. No universal duplicate-free or exact identity guarantee.",
+    "Small-face softness, background reconstruction and camera movement remain.",
+    "The causal intervention is adapter preparation order/rounding. No proven SOL attention-kernel or adapter-factor binding defect.",
+    "Earlier VSA/native768p speed studies use different recipes and cannot supply a new speedup claim for this candidate."
+  ]
+}

@@ -1,5 +1,47 @@
 # Validation
 
+## Source checkout: SOL Turbo preparation
+
+The source checkout merges Turbo into the original BF16 DiT, rounds to BF16,
+then prepares W8G64 weights. It removes runtime adapter application and rejects
+older incompatible bundles. The [reproducibility record](evidence/sol-premerge-source.json)
+contains complete prompts, reference sources and licenses, hashes, source and
+engine identities, compute routes, timings, failures and review scope.
+
+With the same native inputs and engine, the old calibration case duplicated a
+person with the runtime adapter and retained one person after premerge. Two
+previously unused five-second references passed the basic subject/action gates:
+a portrait with a small closed-mouth smile and a landscape pair keeping their
+embrace. All 120 consecutive thumbnails and full frames 23, 71 and 119 were
+inspected. Small-face softness, camera movement and reconstructed background
+details remain. Subjective audio and continuous-playback quality were not graded.
+The evidence identifies a preparation/rounding difference; it does not establish
+a SOL attention-kernel or adapter-binding arithmetic bug.
+
+| Matched recipe comparison | Runtime adapter | Premerged | Candidate / baseline |
+| --- | ---: | ---: | ---: |
+| Old calibration, core call | 163.102 s | 171.918 s | 1.0541 |
+| New portrait, core call | 154.744 s | 151.029 s | 0.9760 |
+| New landscape, core call | 166.646 s | 166.038 s | 0.9964 |
+| Portrait, complete installed Python call | 158.374 s | 169.700 s | 1.0715 |
+
+The complete-call pair includes setup, checks and worker startup, excluding
+one-time preparation. It passes the declared maximum ratio of 1.10, with a
+7.2% increase in that one pair; this is not an additional acceleration claim.
+Core timings exclude public setup and worker startup. The first portrait core
+baseline overlapped 2.09 seconds of CPU unit tests. Single measurements do not
+establish sustained performance or a comparison against VSA or native 768p.
+
+The installed Python portrait and CLI landscape calls reproduced all decoded
+RGB frames and PCM audio from their qualified X2 predecessors. A CLI 576p
+ordinary native-decode call also passed its single-person/expression regression
+and executed the H256 INT8 decoder. All calls used four forwards and the fixed
+INT8/SOL/Sage policy, with diagnostics off. The installed package passed 209
+non-hardware tests; native premerge numerical tests were run separately.
+Verified local model reuse downloaded zero model bytes. These checks qualify
+local integration on the tested 40-core M5 Max with 128 GiB; publication and
+other hardware or longer-video qualification remain separate.
+
 ## Version 0.6.0: VSA and SOL
 
 Both modes use the original LightX2V Ref2VA Turbo four-step v0.1 recipe. SOL
