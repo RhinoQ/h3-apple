@@ -1,0 +1,239 @@
+--- a/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
++++ b/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
+@@ -520,6 +520,8 @@
+   out.qkv_per_head = o.contains("qkv_per_head")
+                          ? o.at("qkv_per_head").as_bool(true)
+                          : !is_comfy;
++  out.lora_premerged = o.contains("_h3_lora_premerged") &&
++                       o.at("_h3_lora_premerged").as_bool(false);
+   auto gi = [&](const char* k, int d) {
+     return o.contains(k) ? (int)o.at(k).as_int(d) : d;
+   };
+@@ -1571,6 +1573,45 @@
+   return true;
+ }
+ 
++bool
++MetalMiniMaxH3Transformer::premerge_lora_factors(
++    const std::string& dit_dir, MetalCompute* mc, const std::string& adapter,
++    std::unordered_map<std::string, lora::Factors>& factors, std::string* err)
++{
++  auto fail = [&](const std::string& message) {
++    if (err) *err = "H3 premerge: " + message;
++    return false;
++  };
++  if (!mc || adapter.empty() || !factors.empty()) return fail("invalid arguments");
++  MetalMiniMaxH3Transformer binder;
++  binder._mc = mc;
++  if (!config_from_json(dit_dir, binder._cfg, err)) return false;
++  const auto& cfg = binder._cfg;
++  if (cfg.lora_premerged) return fail("source already has a merged adapter");
++  LoraSlot slot;
++  if (!binder.bind_lora_({adapter, 1.f}, slot, err)) return false;
++  if (slot.modules != 4 * (cfg.n_layers + cfg.n_refiner) ||
++      !slot.final_adaln.empty()) return fail("adapter must cover all four block projections only");
++  std::unordered_map<std::string, lora::Factors> result;
++  auto collect = [&](std::vector<BlockLora>& blocks, const std::string& prefix) {
++    for (std::size_t i = 0; i < blocks.size(); ++i) {
++      auto& b = blocks[i];
++      if (!b.adaln.empty() || b.qkv.empty() || b.out.empty() ||
++          b.fc1.empty() || b.fc2.empty()) return false;
++      const auto key = prefix + std::to_string(i) + ".";
++      result.emplace(key + "attn.qkv_proj.weight", std::move(b.qkv));
++      result.emplace(key + "attn.out_proj.weight", std::move(b.out));
++      result.emplace(key + "mlp.fc1.weight", std::move(b.fc1));
++      result.emplace(key + "mlp.fc2.weight", std::move(b.fc2));
++    }
++    return true;
++  };
++  if (!collect(slot.blocks, "blocks.") ||
++      !collect(slot.refiner, "token_refiner.blocks.")) return fail("incomplete adapter");
++  factors.swap(result);
++  return true;
++}
++
+ MetalMiniMaxH3Transformer::~MetalMiniMaxH3Transformer()
+ {
+   // GIVE THE POOL BACK. Freeing a wired buffer unwires it in the kernel,
+@@ -1603,6 +1644,11 @@
+                                 const std::vector<LoraSpec>& loras)
+ {
+   if (mc == nullptr || !ws_in) { return nullptr; }
++  if (cfg.lora_premerged && !loras.empty()) {
++    if (mc->session()) mc->session()->error(fmt(
++        "H3 premerged checkpoint rejects runtime adapters; would apply LoRA twice"));
++    return nullptr;
++  }
+   WeightSet& ws = *ws_in;
+   auto m = std::unique_ptr<MetalMiniMaxH3Transformer>(
+       new MetalMiniMaxH3Transformer());
+--- a/generative-models/minimax-h3/metal-minimax-h3-transformer.h
++++ b/generative-models/minimax-h3/metal-minimax-h3-transformer.h
+@@ -147,6 +147,7 @@
+     // checkpoint came from: config_from_json() leaves it true for a
+     // diffusers directory and clears it for a Comfy-Org component.
+     bool qkv_per_head = true;
++    bool lora_premerged = false;
+ 
+     // ACCELERATED MODE (lossy, opt-in): run the block GEMMs as dynamic
+     // int8 instead of bf16 -- quantize the activation and the (dequanted)
+@@ -280,6 +281,14 @@
+   static bool config_from_json(const std::string& dit_dir, Config& out,
+                                std::string* err = nullptr,
+                                const std::string& partition = {});
++
++  // Preparation reuses the inference binder (including QKV/FFN layout).
++  // Only factor buffers are loaded, never the base transformer weights.
++  static bool premerge_lora_factors(
++      const std::string& dit_dir, metal_compute::MetalCompute* mc,
++      const std::string& adapter,
++      std::unordered_map<std::string, lora::Factors>& factors,
++      std::string* err);
+ 
+   // `dit_dir` may be the transformer directory itself, the partition
+   // root that holds it (`.../FL2VA`), or the repository root -- the
+--- a/generative-models/quantize/model-quantizer.cc
++++ b/generative-models/quantize/model-quantizer.cc
+@@ -9,6 +9,7 @@
+ #include "generative-models/quantize/affine-quantizer.h"
+ #include "generative-models/quantize/safetensors-writer.h"
+ #include "generative-models/minimax-h3/metal-minimax-h3-transformer.h"
++#include "generative-models/minimax-h3/bf16-premerge.h"
+ #include "generative-models/minimax-h3/minimax-h3-text-encoder.h"
+ #include "generative-models/shared/comfy-checkpoint.h"
+ #include "generative-models/shared/comfy-output-config.h"
+@@ -313,6 +314,25 @@
+     return fail("model-quantize: cannot open source model: " + in_dir);
+   }
+ 
++  std::unordered_map<std::string, lora::Factors> h3_factors;
++  if (!opt.h3_premerge_lora.empty()) {
++    // Reject unsupported combinations before creating or modifying output.
++    if (opt.bits != 8 || opt.group != 64 || opt.clip != 1.f || opt.mixed ||
++        opt.smoothquant || opt.dit_awq || opt.norm_offset ||
++        fs::exists(out_dir)) return fail("H3 premerge requires plain W8G64 and a new output directory");
++    if (!MetalMiniMaxH3Transformer::premerge_lora_factors(
++            in_dir, _mc, opt.h3_premerge_lora, h3_factors, err)) return false;
++    for (const auto& [name, f] : h3_factors) {
++      const auto* ti = src->info(name);
++      if (!ti || ti->dtype != "BF16" || ti->shape.size() != 2 ||
++          f.a.byte_size() != std::size_t(f.rank) * ti->shape[1] * 2 ||
++          f.b.byte_size() != std::size_t(ti->shape[0]) * f.rank * 2) {
++        return fail("H3 premerge requires original BF16 projections: " + name);
++      }
++    }
++  }
++  const auto h3_expected = h3_factors.size();
++  std::size_t h3_merged = 0;
+   std::error_code ec;
+   fs::create_directories(out_dir, ec);
+   // Purge stale shards from a previous run. The shard COUNT depends on the
+@@ -1917,6 +1937,26 @@
+     SharedBuffer in = src->load(name, _mc);
+     if (in.empty()) { return fail("model-quantize: load failed: " + name); }
+ 
++    if (auto it = h3_factors.find(name); it != h3_factors.end()) {
++      if (!quant) return fail("H3 premerge projection excluded from quantization: " + name);
++      const auto& f = it->second;
++      auto merged = _mc->make_shared_buffer(in.byte_size());
++      if (merged.empty()) return fail("H3 premerge allocation failed");
++      try {
++        minimax_h3::premerge_bf16_weight(
++            static_cast<const std::uint16_t*>(in.contents()),
++            static_cast<const std::uint16_t*>(f.a.contents()),
++            static_cast<const std::uint16_t*>(f.b.contents()),
++            static_cast<std::uint16_t*>(merged.contents()),
++            int(ti->shape[0]), int(ti->shape[1]), f.rank);
++      } catch (const std::exception& e) {
++        return fail(std::string("H3 premerge: ") + e.what());
++      }
++      in = std::move(merged);
++      h3_factors.erase(it);
++      ++h3_merged;
++    }
++
+     if (!quant) {
+       if (!wr.add(name, ti->dtype, ti->shape, in.contents(), in.byte_size())) {
+         return fail("model-quantize: write (passthrough) failed: " + name);
+@@ -1953,6 +1993,10 @@
+     }
+     ++n_quant;
+   }
++  if (h3_merged != h3_expected || !h3_factors.empty())
++    return fail("H3 premerge did not consume every projection");
++  if (h3_merged && S) S->log_normal(fmt(
++      "H3 premerge quantization: {} BF16 projections merged before W8G64", h3_merged));
+   bar.finish();   // close the report before the summary
+ 
+   if (!wr.close()) { return fail("model-quantize: finalize shards failed"); }
+@@ -1995,6 +2039,8 @@
+       o.insert_or_assign("bits", FlexData::make_int(opt.bits));
+     }
+     cfg.as_object().insert_or_assign("quantization", std::move(qb));
++    if (h3_merged) cfg.as_object().insert_or_assign(
++        "_h3_lora_premerged", FlexData::make_bool(true));
+     if (!opt.component_tag.empty()) {
+       cfg.as_object().insert_or_assign(
+           "_vpipe_component", FlexData::make_string(opt.component_tag));
+--- a/generative-models/quantize/model-quantizer.h
++++ b/generative-models/quantize/model-quantizer.h
+@@ -13,6 +13,8 @@
+ namespace vpipe::genai {
+ 
+ struct QuantizeOptions {
++  // MiniMax-H3 only: FP32 merge -> BF16 rounding -> ordinary affine quantization.
++  std::string h3_premerge_lora;
+   int   bits  = 8;            // backbone affine bit-width (4 | 8)
+   int   group = 64;           // affine group size (32 | 64)
+   float clip  = 1.0f;         // 1.0 = plain min/max (AWQ/unsloth clip hook)
+--- a/stages/model-quantize-stage.cc
++++ b/stages/model-quantize-stage.cc
+@@ -56,6 +56,7 @@
+   // defaults live in kSpec.attrs; attr_* resolves the configured value else
+   // the default.
+   _src_model     = attr_str("src_model");
++  _h3_premerge_lora = attr_str("h3_premerge_lora");
+   _output_name   = attr_str("output_name");
+   _arch          = attr_str("arch");
+   _target        = attr_str("target");
+@@ -91,6 +92,11 @@
+     fail_config(fmt(
+         "ModelQuantizeStage('{}'): group_size must be 32 or 64 (got {})",
+         this->id(), _group_size));
++  }
++  if (!_h3_premerge_lora.empty() &&
++      (_target != "dit" || _bits != 8 || _group_size != 64 ||
++       _awq || _mixed || _skip_existing)) {
++    fail_config(fmt("H3 premerge requires target=dit, W8G64, no AWQ/mixed/skip_existing"));
+   }
+   if (_awq_clip && !_awq) {
+     fail_config(fmt(
+@@ -707,6 +713,9 @@
+           "MiniMax-H3 taps a Qwen3-VL backbone and never runs its tower, "
+           "so the ~1.5 GB it costs at bf16 is pure carry",
+    .def_bool = false},
++  {.key = "h3_premerge_lora", .type = ConfigType::String,
++   .doc = "H3 DiT adapter to merge in FP32 with BF16 storage before W8G64 quantization",
++   .def_str = ""},
+   {.key = "quant_modulation", .type = ConfigType::Bool,
+    .doc = "Qwen-Image-Edit, Boogu-Image, Wan and MiniMax-H3 DiTs: also "
+           "quantize the AdaLN modulation projections (QIE *_mod.1; Boogu "
+@@ -1294,6 +1303,8 @@
+   opt.quant_linears    = dit_quant_linears_(family);
+   const bool is_wan = (family == "wan");
+   const bool is_h3  = (family == "minimax-h3");
++  if (!_h3_premerge_lora.empty() && !is_h3) return false;
++  opt.h3_premerge_lora = _h3_premerge_lora;
+   if (_quant_modulation && is_h3) {
+     // H3's modulation is not a small side projection like the others': its
+     // per-block `adaln_proj.linear` is 2688 -> 96768 (6 modulation vectors x
+--- a/stages/model-quantize-stage.h
++++ b/stages/model-quantize-stage.h
+@@ -241,6 +241,7 @@
+   // Config attributes; defaults live in kSpec.attrs and are read in the
+   // constructor via attr_*. Declarations carry no non-zero default.
+   std::string _src_model;
++  std::string _h3_premerge_lora;
+   std::string _output_name;
+   std::string _arch;
+   std::string _target;   // krea2 component to quantize: dit|text_encoder|vae

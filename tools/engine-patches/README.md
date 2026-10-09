@@ -86,3 +86,18 @@ c++ -std=c++20 -O2 -mmacosx-version-min=26.0 \
   -Wl,-rpath,"$PWD/.local/native-build-01" -o .local/native-compute-plan-test
 .local/native-compute-plan-test
 ```
+
+`premerge-quantize.patch` is the candidate preparation path, applied after
+`bf16-premerge.patch`. The `model-quantize` stage accepts `h3_premerge_lora`
+only for a new H3 DiT W8G64 conversion. It reuses the transformer's adapter
+binder and the same FP32 merge/BF16 storage function, then runs the existing
+affine quantizer. Tensors are processed individually, without a full BF16
+intermediate checkpoint or an added Python ML dependency. The output marks
+its adapter as merged; the H3 loader rejects runtime adapters on this output
+to prevent double application. Original source tensors stay unchanged.
+`tests/native_premerge_quantize.cc` constructs temporary synthetic base and
+PEFT weights, compares all output tensors with independently scalar-merged
+weights passed through the unmodified quantizer, and checks rejection of
+already merged or quantized sources, in-place output and wrong precision.
+This path is not enabled by the public wrapper until real-weight, video,
+performance and installed-interface qualification is complete.
