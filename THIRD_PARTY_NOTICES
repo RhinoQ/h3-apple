@@ -10,7 +10,11 @@ Native inference engine: vpipe
   The release redistributes a modified engine built from this base and the
   patches in tools/engine-patches, with the CLI filename changed to h3-engine.
   Changes add fixed compute selection, VAE operation fusion and H256 W8A8
-  decoder projections; upstream ownership and notices are retained.
+  decoder projections. The 0.7.0 source checkout also includes the RoPE precision
+  correction following upstream and Turbo BF16 premerge before W8G64 preparation,
+  with mapped-tensor lifetime and double-application guards. Native SOL/Sage
+  attention remains upstream work. Upstream ownership and notices are retained.
+  See docs/releases/0.7.0.md for the code/idea contribution map and scoped evidence.
   The exact modified revision is pinned in src/h3_apple/data/engine.json.
   Full license: licenses/vpipe-APACHE-2.0.txt
   Required notice: licenses/vpipe-NOTICE.txt
@@ -43,7 +47,8 @@ MiniMax H3 model
   Copyright © 2026 MiniMax. All Rights Reserved.
   Full terms: licenses/MiniMax-H3.txt. Built with MiniMax H3.
   Models are downloaded separately. Local 8-bit quantization and runtime
-  adapter application are modifications of the model, not new model rights.
+  adapter application or BF16 premerge are modifications of the model, not new
+  model rights.
   The included Qwen3-VL encoder/tokenizer retain their Apache-2.0 terms.
 
 Ref2VA four-step adapter

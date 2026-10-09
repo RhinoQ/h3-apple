@@ -1,5 +1,13 @@
 # Validation
 
+## 0.7.0 source checkout: current mode comparison
+
+The [0.7.0 release notes](releases/0.7.0.md#descriptive-benchmark) report the fixed
+five-case, four-route comparison, including failures and separate quality, timing
+and physical-memory results. The [portable evidence](evidence/v0.7.0-benchmark.json)
+pins the complete primary cohort and its calculated scores. Historical recipe
+qualification below remains scoped to its original source and inputs.
+
 ## Source checkout: SOL Turbo preparation
 
 The source checkout merges Turbo into the original BF16 DiT, rounds to BF16,
@@ -18,7 +26,7 @@ details remain. Subjective audio and continuous-playback quality were not graded
 The evidence identifies a preparation/rounding difference; it does not establish
 a SOL attention-kernel or adapter-binding arithmetic bug.
 
-| Matched recipe comparison | Runtime adapter | Premerged | Candidate / baseline |
+| Matched recipe comparison | Runtime adapter | Premerged | Premerged / runtime adapter |
 | --- | ---: | ---: | ---: |
 | Old calibration, core call | 163.102 s | 171.918 s | 1.0541 |
 | New portrait, core call | 154.744 s | 151.029 s | 0.9760 |

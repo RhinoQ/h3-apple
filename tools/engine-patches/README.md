@@ -1,7 +1,12 @@
 # Native compute policy and VAE
 
-`bf16-premerge.patch` is an unadopted diagnostic candidate, applied after the
-RoPE patch below. Its private `VPIPE_H3_PREMERGE_BF16_LORA=1` path merges the
+The 0.7.0 source checkout includes the patches described here in its pinned local
+engine. Publication is separate; the published 0.6.0 engine has its earlier recipe.
+See [release status and contributions](../../docs/releases/0.7.0.md).
+
+`bf16-premerge.patch` is applied after the RoPE patch below. Its merge helper is
+reused by the adopted preparation path. The load-time experiment remains private:
+its `VPIPE_H3_PREMERGE_BF16_LORA=1` path merges the
 already validated native Turbo factors into fresh BF16 projection buffers at
 load, using FP32 accumulation. It rejects quantized or streamed bases, multiple
 adapters and non-unit request scale. It disables runtime adapters after all
@@ -17,8 +22,8 @@ allocated beside the merged weights and exhaust the GPU allocation budget.
 `tests/native_premerge_residency.cc` verifies this lifetime distinction with a
 temporary 16 MiB synthetic checkpoint and the actual Metal allocation counter.
 
-`rope-precision.patch` is a candidate correction, not part of the pinned released
-engine. Apply it after the three patches below when building that candidate.
+`rope-precision.patch` is included in the current 0.7.0 local engine. Apply it
+after the three patches below when rebuilding that engine.
 It follows [vpipe's upstream correction](https://github.com/tgo-app-dev/vpipe/commit/8ffe228d54d7)
 and MiniMax/diffusers: compute rotary angles in FP32 and round the cosine/sine
 table to BF16. The table storage stays FP32; attention kernels are unchanged.
@@ -87,7 +92,7 @@ c++ -std=c++20 -O2 -mmacosx-version-min=26.0 \
 .local/native-compute-plan-test
 ```
 
-`premerge-quantize.patch` is the candidate preparation path, applied after
+`premerge-quantize.patch` is the adopted 0.7.0 preparation path, applied after
 `bf16-premerge.patch`. The `model-quantize` stage accepts `h3_premerge_lora`
 only for a new H3 DiT W8G64 conversion. It reuses the transformer's adapter
 binder and the same FP32 merge/BF16 storage function, then runs the existing
@@ -99,7 +104,7 @@ to prevent double application. Original source tensors stay unchanged.
 PEFT weights, compares all output tensors with independently scalar-merged
 weights passed through the unmodified quantizer, and checks rejection of
 already merged or quantized sources, in-place output and wrong precision.
-The candidate public wrapper uses this preparation path and requires the exact
+The public source-checkout wrapper uses this preparation path and requires the exact
 premerged checkpoint hashes. Its engine capability is `h3-premerge-quantize-v1`.
 Older runtime-adapter model bundles require preparation in a new directory.
 Local integration and publication are separate from numerical and video qualification.

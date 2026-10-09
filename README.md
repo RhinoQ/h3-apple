@@ -4,7 +4,10 @@
 
 h3-apple generates MiniMax-H3 video from 1–9 images and a prompt describing the
 scene, movement and sound. Version **0.7.0** adds optional [X2 decoding](docs/x2.md)
-for landscape and portrait video. Both generation modes use
+for landscape and portrait video, and integrates the corrected SOL preparation recipe.
+VSA remains the default; SOL remains explicitly selectable. See the
+[0.7.0 release notes, benchmark scope and community credits](docs/releases/0.7.0.md).
+Both generation modes use
 the original **LightX2V Ref2VA Turbo 4-step v0.1 LoRA**:
 
 | Mode | Generation implementation |

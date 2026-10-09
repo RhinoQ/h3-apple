@@ -7,7 +7,8 @@ consecutive QKV activation reuse and INT8 QK inside VSA. Both use the original
 LightX2V four-step adapter. SOL prepares it by FP32 merging into original BF16
 weights, BF16 rounding, then W8G64 quantization. The prepared config and manifest
 record that identity; generation must not apply the adapter a second time.
-Prompt and reference ordering are preserved.
+Prompt and reference ordering are preserved. The [0.7.0 contribution map](releases/0.7.0.md#what-comes-from-the-community-and-what-we-contributed)
+distinguishes reused community code/ideas from local integration and fixes.
 Image preprocessing uses the sampling canvas area and 32-pixel alignment. The
 768p model canvas is center-cropped and extra frames trimmed with sample-accurate
 audio endpoints.
