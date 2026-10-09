@@ -23,6 +23,18 @@ from h3_apple.host import device_lock
 from h3_apple import process as runner
 
 
+def substitute_worker(monkeypatch, worker, children=None):
+    real_popen = subprocess.Popen
+    def launch(args, **kwargs):
+        if args == [sys.executable, "-m", "h3_apple.worker"]:
+            child = real_popen([sys.executable, str(worker)], **kwargs)
+            if children is not None:
+                children.append(child)
+            return child
+        return real_popen(args, **kwargs)
+    monkeypatch.setattr(runner.subprocess, "Popen", launch)
+
+
 def test_device_lock_is_shared_across_processes(tmp_path):
     path = tmp_path / "device.lock"
     script = "from h3_apple.host import device_lock; import sys\nwith device_lock(sys.argv[1]): pass\n"
@@ -47,10 +59,8 @@ def test_worker_failure_preserves_evidence(tmp_path, monkeypatch, request_image)
     worker.write_text("import json,sys\nspec=json.loads(sys.stdin.readline())\n"
                       "print(json.dumps({'kind':'error','error':'intentional test failure'}),flush=True)\n"
                       "sys.exit(7)\n")
-    real_popen = subprocess.Popen
     monkeypatch.setattr(runner, "ensure_ready", lambda *_, **kw: {"identity": "fixture"})
-    monkeypatch.setattr(runner.subprocess, "Popen", lambda args, **kwargs:
-                        real_popen([sys.executable, str(worker)], **kwargs))
+    substitute_worker(monkeypatch, worker)
     output = tmp_path / "failed.mp4"
     with pytest.raises(RuntimeError, match="intentional test failure"):
         runner.run_generation(resolve("Text", reference_images=[request_image]), output=output)
@@ -63,13 +73,9 @@ def test_worker_failure_preserves_evidence(tmp_path, monkeypatch, request_image)
 def test_timeout_reaps_the_worker(tmp_path, monkeypatch, request_image):
     worker = tmp_path / "worker.py"
     worker.write_text("import sys,time\nsys.stdin.readline()\ntime.sleep(60)\n")
-    real_popen, children = subprocess.Popen, []
-    def launch(args, **kwargs):
-        child = real_popen([sys.executable, str(worker)], **kwargs)
-        children.append(child)
-        return child
+    children = []
     monkeypatch.setattr(runner, "ensure_ready", lambda *_, **kw: {"identity": "fixture"})
-    monkeypatch.setattr(runner.subprocess, "Popen", launch)
+    substitute_worker(monkeypatch, worker, children)
     output = tmp_path / "timeout.mp4"
     with pytest.raises(TimeoutError):
         runner.run_generation(resolve("Text", reference_images=[request_image]), output=output, timeout=0.5)
@@ -90,10 +96,8 @@ def test_reference_inputs_are_snapshotted_in_order(tmp_path, monkeypatch):
                       "pathlib.Path(spec['workspace'],'received.json').write_text(json.dumps(spec))\n"
                       "print(json.dumps({'kind':'error','error':'captured specification'}),flush=True)\n"
                       "sys.exit(7)\n")
-    real_popen = subprocess.Popen
     monkeypatch.setattr(runner, "ensure_ready", lambda *_, **kw: dict(identity="fixture", task="ref2va", ref2va_native="native"))
-    monkeypatch.setattr(runner.subprocess, "Popen", lambda args, **kwargs:
-                        real_popen([sys.executable, str(worker)], **kwargs))
+    substitute_worker(monkeypatch, worker)
     output = tmp_path / "output.mp4"
     with pytest.raises(RuntimeError, match="captured specification"):
         runner.run_generation(request, output=output)
@@ -116,9 +120,8 @@ def test_cancellation_reaps_native_descendant(tmp_path,monkeypatch,mode,request_
         "p.stdout.readline()\n"
         "pathlib.Path(s['workspace'],'native.pid').write_text(str(p.pid))\n"
         "print(json.dumps({'phase':'native_generation'}),flush=True)\ntime.sleep(60)\n")
-    real_popen=subprocess.Popen
     monkeypatch.setattr(runner,"ensure_ready",lambda *_, **kw:dict(identity="fixture",tasks=["t2va"]))
-    monkeypatch.setattr(runner.subprocess,"Popen",lambda args,**kw:real_popen([sys.executable,str(worker)],**kw))
+    substitute_worker(monkeypatch, worker)
     def cancel(_event):raise KeyboardInterrupt()
     output=tmp_path/"out.mp4"
     with pytest.raises(TimeoutError if mode=="timeout" else KeyboardInterrupt):
@@ -133,3 +136,51 @@ def test_cancellation_reaps_native_descendant(tmp_path,monkeypatch,mode,request_
         if not status or status.startswith("Z"):break
         time.sleep(.05)
     assert not status or status.startswith("Z")
+
+
+@pytest.mark.parametrize('code,states,error,finished', [
+    (1, '', '', True),
+    (0, 'Z\nZ+\n', '', True),
+    (0, 'S\n', '', False),
+    (0, 'Z\nS\n', '', False),
+    (1, '', 'ps failed', False),
+])
+def test_macos_group_permission_error_requires_no_live_members(monkeypatch, code, states, error, finished):
+    def denied(*_):
+        raise PermissionError('signal denied')
+    monkeypatch.setattr(runner.sys, 'platform', 'darwin')
+    monkeypatch.setattr(runner.os, 'killpg', denied)
+    monkeypatch.setattr(runner.subprocess, 'run', lambda *_, **kw:
+                        subprocess.CompletedProcess([], code, states, error))
+    if finished:
+        runner._signal_group(12345, runner.signal.SIGKILL)
+    else:
+        with pytest.raises(PermissionError, match='signal denied'):
+            runner._signal_group(12345, runner.signal.SIGKILL)
+
+
+def test_other_platform_permission_error_is_not_suppressed(monkeypatch):
+    def denied(*_):
+        raise PermissionError('signal denied')
+    monkeypatch.setattr(runner.sys, 'platform', 'linux')
+    monkeypatch.setattr(runner.os, 'killpg', denied)
+    with pytest.raises(PermissionError):
+        runner._signal_group(12345, runner.signal.SIGKILL)
+
+
+@pytest.mark.skipif(sys.platform != 'darwin', reason='macOS process-group behavior')
+def test_signal_group_accepts_real_unreaped_zombie():
+    child = subprocess.Popen([sys.executable, '-c', 'pass'], start_new_session=True)
+    try:
+        # Do not poll/wait yet: keeping the exited leader unreaped makes the
+        # macOS zombie-only group observable without an orphan timing race.
+        for _ in range(100):
+            state = subprocess.run(['/bin/ps', '-g', str(child.pid), '-o', 'stat='],
+                                   capture_output=True, text=True).stdout.strip()
+            if state.startswith('Z'):
+                break
+            time.sleep(.01)
+        assert state.startswith('Z')
+        runner._signal_group(child.pid, runner.signal.SIGKILL)
+    finally:
+        child.wait(timeout=5)

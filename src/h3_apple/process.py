@@ -20,22 +20,33 @@ from .preparation import ensure_ready
 from .io import digest, write_json
 
 
+def _signal_group(pid, sig):
+    try:
+        os.killpg(pid, sig)
+    except ProcessLookupError:
+        pass
+    except PermissionError:
+        if sys.platform != "darwin":
+            raise
+        # XNU killpg1 can return EPERM for a group containing only zombies.
+        # Confirm that no live member remains; never ignore a real denial.
+        state = subprocess.run(["/bin/ps", "-g", str(pid), "-o", "stat="],
+                               capture_output=True, text=True, timeout=2)
+        if (state.returncode not in (0, 1) or state.stderr.strip()
+                or any(not item.startswith("Z") for item in state.stdout.split())):
+            raise
+
+
 def _stop(process):
     if process.poll() is None:
-        try:
-            os.killpg(process.pid, signal.SIGTERM)
-        except ProcessLookupError:
-            pass
+        _signal_group(process.pid, signal.SIGTERM)
         try:
             process.wait(timeout=5)
         except subprocess.TimeoutExpired:
             pass
     # A worker can exit before a native child that handles or ignores SIGTERM.
     # Reap the whole group even after the group leader has already exited.
-    try:
-        os.killpg(process.pid, signal.SIGKILL)
-    except ProcessLookupError:
-        pass
+    _signal_group(process.pid, signal.SIGKILL)
     process.wait(timeout=10)
 
 
