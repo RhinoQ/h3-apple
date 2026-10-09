@@ -1,13 +1,11 @@
-"""A new adapter must reuse pinned base weights without changing old receipts."""
+"""A prepared adapter is part of the checkpoint, never a runtime-only upgrade."""
 from contextlib import nullcontext
-import hashlib
 import json
 import os
 from pathlib import Path
 import shutil
 
 import pytest
-
 from h3_apple import assets, preparation as prep
 
 
@@ -20,32 +18,27 @@ def installation(tmp_path, monkeypatch):
         directory.mkdir(parents=True)
         (directory / 'model.safetensors').write_bytes(name.encode())
         (directory / 'config.json').write_text(json.dumps(dict(
-            quantization=dict(bits=8, group_size=64), _class_name='MiniMaxH3DiTModel', num_layers=50)))
+            quantization=dict(bits=8, group_size=64), _class_name='MiniMaxH3DiTModel',
+            num_layers=50, _h3_lora_premerged=name == 'transformer')))
     (model / 'model_index.json').write_text(json.dumps(dict(_minimax_h3=dict(partition='ref2va'))))
     files = [dict(path=str(p.relative_to(model)), bytes=p.stat().st_size, sha256=assets.digest(p))
              for p in sorted(model.rglob('*')) if p.is_file()]
-    (root / 'adapter.safetensors').write_bytes(b'old-adapter')
-    old_adapter = dict(sha256=assets.digest(root / 'adapter.safetensors'))
-    new_bytes = b'original-lightx2v-adapter'
-    new_adapter = dict(repo='fixture/lightx2v', revision='a' * 40, filename='turbo.safetensors',
-                       bytes=len(new_bytes), sha256=hashlib.sha256(new_bytes).hexdigest())
-    prepared = dict(files=files, adapter=old_adapter)
-    base_source = dict(repo='fixture/base', revision='b' * 40, filename='Ref2VA/model_index.json',
-                       bytes=(model / 'model_index.json').stat().st_size,
-                       sha256=assets.digest(model / 'model_index.json'))
-    sources = dict(sources=[base_source, new_adapter], converted_peak_bytes=1024, recipe=assets.RECIPE)
+    (root / 'adapter.safetensors').write_bytes(b'pinned-adapter')
+    adapter = dict(repo='fixture/adapter', revision='a' * 40, filename='turbo.safetensors',
+                   bytes=14, sha256=assets.digest(root / 'adapter.safetensors'))
+    base = dict(repo='fixture/base', revision='b' * 40, filename='Ref2VA/model_index.json',
+                bytes=(model / 'model_index.json').stat().st_size,
+                sha256=assets.digest(model / 'model_index.json'))
+    expected = dict(files=files, adapter=adapter)
+    sources = dict(sources=[base, adapter], converted_peak_bytes=1024, recipe=assets.RECIPE)
     original = assets.data_file
     def data(name):
-        return prepared if name == 'prepared-model.json' else sources if name == 'model-sources.json' else original(name)
+        return expected if name == 'prepared-model.json' else sources if name == 'model-sources.json' else original(name)
     monkeypatch.setattr(assets, 'data_file', data)
     monkeypatch.setattr(prep, 'data_file', data)
     assets.register_model(root, provenance=dict(kind='fixture'))
-    old_receipt = (root / 'model.json').read_bytes()
-    prepared['adapter'] = new_adapter
-    local = tmp_path / 'downloaded.safetensors'
-    local.write_bytes(new_bytes)
-    engine = tmp_path / 'engine'
-    engine.mkdir()
+    receipt = (root / 'model.json').read_bytes()
+    engine = tmp_path / 'engine';engine.mkdir()
     monkeypatch.setattr(prep, 'engine_paths', lambda: (dict(bytes=10), engine, tmp_path / 'engine.zip'))
     monkeypatch.setattr(prep, 'ensure_engine', lambda *_: {})
     monkeypatch.setattr(assets, 'load_engine', lambda: {})
@@ -54,139 +47,98 @@ def installation(tmp_path, monkeypatch):
     monkeypatch.setattr(prep, 'device_lock', nullcontext)
     monkeypatch.setattr(Path, 'home', lambda: tmp_path / 'home')
     monkeypatch.setenv('HF_HUB_CACHE', str(tmp_path / 'hub'))
-    monkeypatch.setattr(prep, 'quantize', lambda *_: pytest.fail('base weights must not be quantized again'))
-    return dict(root=root, local=local, prepared=prepared, adapter=new_adapter,
-                old_receipt=old_receipt, base_source=base_source)
+    monkeypatch.setattr(prep, 'quantize', lambda *_: pytest.fail('exact prepared weights must be reused'))
+    return dict(root=root, expected=expected, receipt=receipt, base=base)
 
 
-def test_upgrade_reuses_weights_and_keeps_old_installation(installation):
-    i = installation
-    with pytest.raises(assets.AdapterUpgradeRequired):
+def rewrite_receipt(root, **changes):
+    path = root / 'model.json';record = json.loads(path.read_text());record.update(changes)
+    record['identity'] = assets.identity({k: v for k, v in record.items() if k != 'identity'})
+    path.write_text(json.dumps(record))
+
+
+def test_legacy_recipe_requires_new_directory_and_leaves_old_receipt(installation):
+    i = installation;rewrite_receipt(i['root'], recipe=assets.LEGACY_RECIPE)
+    old = (i['root'] / 'model.json').read_bytes()
+    with pytest.raises(assets.ModelRecipeUpgradeRequired, match='NEW_DIRECTORY'):
+        prep.plan(i['root'])
+    assert (i['root'] / 'model.json').read_bytes() == old
+    assert not (i['root'] / 'adapters').exists()
+
+
+def test_legacy_quantized_model_is_not_reused_as_premerged(installation):
+    i = installation;rewrite_receipt(i['root'], recipe=assets.LEGACY_RECIPE)
+    assert prep.reusable_model([i['root']], lambda _: None) is None
+    # Fresh preparation still finds pinned raw assets in explicitly supplied sources.
+    spec = prep.plan(i['root'].parent / 'new', reuse_dirs=[i['root']])
+    assert spec['status'] == 'preparation_required'
+
+
+def test_premerged_adapter_change_requires_repreparation(installation):
+    i = installation;i['expected']['adapter'] = dict(i['expected']['adapter'], sha256='0' * 64)
+    with pytest.raises(assets.ModelRecipeUpgradeRequired):
         assets.load_manifest(i['root'])
-    spec = prep.plan(i['root'], reuse_dirs=[i['local']])
-    assert spec['status'] == 'upgrade_adapter' and spec['download_bytes'] == 0
-    result = prep.prepare(spec)
-    assert result['adapter']['sha256'] == i['adapter']['sha256']
-    assert result['native_model'] == str(i['root'] / 'model')
-    assert (i['root'] / 'model.json').read_bytes() == i['old_receipt']
-    assert (i['root'] / 'adapter.safetensors').read_bytes() == b'old-adapter'
-    assert assets.load_manifest(i['root'], verify=True)['identity'] == result['identity']
-    assert prep.plan(i['root'])['status'] == 'ready'
-    # Another caller may have planned the upgrade before the device lock was acquired.
-    assert prep.prepare(spec)['identity'] == result['identity']
+    assert prep.reusable_model([i['root']], lambda _: None) is None
+    assert (i['root'] / 'model.json').read_bytes() == i['receipt']
 
 
-def test_upgrade_downloads_only_missing_adapter_and_uses_pinned_source(installation, monkeypatch):
-    i = installation
-    spec = prep.plan(i['root'])
-    assert spec['download_bytes'] == i['adapter']['bytes']
-    assert len(spec['groups']) == 1
-    calls = []
-    def download(url, path, size, checksum):
-        calls.append((url, size, checksum))
-        path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(i['local'], path)
-        return path
-    monkeypatch.setattr(prep, 'download', download)
-    prep.prepare(spec)
-    assert calls == [(f"https://huggingface.co/fixture/lightx2v/resolve/{'a' * 40}/turbo.safetensors",
-                      i['adapter']['bytes'], i['adapter']['sha256'])]
-
-
-def test_upgrade_resumes_only_the_adapter_remainder(installation):
-    i = installation
-    path = prep.cache_path(i['root'].parent / '.sources', i['adapter'])
-    path.parent.mkdir(parents=True)
-    prep.partial_path(path, i['adapter']['sha256']).write_bytes(b'orig')
-    assert prep.plan(i['root'])['download_bytes'] == i['adapter']['bytes'] - 4
-
-
-def test_reuse_old_installation_into_new_directory(installation):
-    i = installation
-    target = i['root'].parent / 'new'
-    spec = prep.plan(target, reuse_dirs=[i['root'], i['local']])
+def test_exact_premerged_bundle_can_be_reused_without_requantization(installation):
+    i = installation;target = i['root'].parent / 'new'
+    spec = prep.plan(target, reuse_dirs=[i['root']])
     assert spec['status'] == 'reuse_prepared' and spec['download_bytes'] == 0
     result = prep.prepare(spec)
     assert result['native_model'] == str(target / 'model')
-    assert assets.load_manifest(target, verify=True)['adapter']['sha256'] == i['adapter']['sha256']
-    assert (i['root'] / 'model.json').read_bytes() == i['old_receipt']
-
-
-def test_legacy_vpipe_base_reuse_does_not_require_the_new_adapter(installation):
-    i = installation
-    legacy = i['root'].parent / 'legacy'
-    legacy.mkdir()
-    (legacy / 'vpipe.json').write_text(json.dumps(dict(
-        partition='ref2va', recipe=assets.RECIPE, native_model=str(i['root'] / 'model'),
-        adapter=dict(path=str(i['root'] / 'adapter.safetensors')))))
-    target = i['root'].parent / 'from-legacy'
-    spec = prep.plan(target, reuse_dirs=[legacy, i['local']])
-    assert spec['status'] == 'reuse_prepared' and spec['download_bytes'] == 0
-    assert prep.prepare(spec)['adapter']['sha256'] == i['adapter']['sha256']
+    assert result['recipe'] == assets.RECIPE
+    assert assets.load_manifest(target, verify=True)['identity'] == result['identity']
+    assert prep.prepare(spec)['identity'] == result['identity']
+    assert prep.plan(target)['status'] == 'ready'
+    assert (i['root'] / 'model.json').read_bytes() == i['receipt']
 
 
 @pytest.mark.parametrize('stage', ['before_plan', 'after_plan'])
-def test_upgrade_does_not_publish_after_model_mutation(installation, stage):
-    i = installation
-    if stage == 'after_plan':
-        spec = prep.plan(i['root'], reuse_dirs=[i['local']])
-    path = i['root'] / 'model/video_vae/model.safetensors'
-    stat = path.stat()
+def test_mutated_source_is_rejected_without_publishing(installation, stage):
+    i = installation;target = i['root'].parent / 'new'
+    if stage == 'after_plan':spec = prep.plan(target, reuse_dirs=[i['root']])
+    path = i['root'] / 'model/video_vae/model.safetensors';stat = path.stat()
     path.write_bytes(b'bad-model')
-    if stage == 'before_plan':
-        os.utime(path, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+    if stage == 'before_plan':os.utime(path, ns=(stat.st_atime_ns, stat.st_mtime_ns))
     with pytest.raises(ValueError):
-        prep.plan(i['root'], reuse_dirs=[i['local']]) if stage == 'before_plan' else prep.prepare(spec)
-    assert not (assets.adapter_directory(i['root']) / 'model.json').exists()
-    assert (i['root'] / 'model.json').read_bytes() == i['old_receipt']
+        prep.plan(target, reuse_dirs=[i['root']]) if stage == 'before_plan' else prep.prepare(spec)
+    assert not target.exists()
+    assert (i['root'] / 'model.json').read_bytes() == i['receipt']
 
 
-def test_rehashed_unpinned_weights_are_not_admitted_for_reuse(installation):
-    i = installation
-    path = i['root'] / 'model.json'
-    receipt = json.loads(path.read_text())
-    receipt['files'][0]['sha256'] = '0' * 64
-    receipt['identity'] = assets.identity({k: v for k, v in receipt.items() if k != 'identity'})
-    path.write_text(json.dumps(receipt))
+def test_rehashed_unpinned_weights_are_not_admitted(installation):
+    i = installation;record = json.loads(i['receipt']);record['files'][0]['sha256'] = '0' * 64
+    rewrite_receipt(i['root'], files=record['files'])
     with pytest.raises(ValueError, match='base weights'):
-        prep.plan(i['root'], reuse_dirs=[i['local']])
-
-
-def test_download_failure_leaves_old_manifest_usable_and_retryable(installation, monkeypatch):
-    i = installation
-    def fail(*_):
-        raise OSError('interrupted')
-    monkeypatch.setattr(prep, 'download', fail)
-    with pytest.raises(OSError, match='interrupted'):
-        prep.prepare(prep.plan(i['root']))
-    assert (i['root'] / 'model.json').read_bytes() == i['old_receipt']
-    assert not (assets.adapter_directory(i['root']) / 'model.json').exists()
-    assert prep.prepare(prep.plan(i['root'], reuse_dirs=[i['local']]))['adapter']['sha256'] == i['adapter']['sha256']
-
-
-def test_changed_upgrade_receipt_does_not_fall_back_to_old_adapter(installation):
-    i = installation
-    prep.prepare(prep.plan(i['root'], reuse_dirs=[i['local']]))
-    path = assets.adapter_directory(i['root']) / 'model.json'
-    receipt = json.loads(path.read_text())
-    receipt['recipe']['lora_scale'] = 0.5
-    path.write_text(json.dumps(receipt))
-    with pytest.raises(ValueError, match='manifest'):
         assets.load_manifest(i['root'])
+    with pytest.raises(ValueError, match='base weights'):
+        prep.plan(i['root'].parent / 'new', reuse_dirs=[i['root']])
 
 
-def test_fresh_preparation_uses_catalog_adapter_without_old_repo_assumption(installation, monkeypatch):
-    i = installation
-    target = i['root'].parent / 'fresh'
-    spec = prep.plan(target, reuse_dirs=[i['root'] / 'model/model_index.json', i['local']])
+def test_recipe_mutation_is_not_treated_as_supported_legacy(installation):
+    i = installation;recipe = dict(assets.RECIPE, lora_scale=0.5)
+    rewrite_receipt(i['root'], recipe=recipe)
+    with pytest.raises(ValueError, match='recipe'):
+        prep.plan(i['root'])
+
+
+def test_fresh_preparation_passes_verified_adapter_to_native_quantizer(installation, monkeypatch):
+    i = installation;target = i['root'].parent / 'fresh'
+    spec = prep.plan(target, reuse_dirs=[i['root'] / 'model/model_index.json', i['root'] / 'adapter.safetensors'])
     assert spec['status'] == 'preparation_required' and spec['download_bytes'] == 0
-    def quantize(source, work, engine, progress):
-        model = work / 'models/local/ref2va'
-        shutil.copytree(i['root'] / 'model', model)
-        (work / 'prepare.vpipeline').write_text('fixture')
-        (work / 'preparation.log').write_text('fixture')
+    def quantize(source, work, engine, progress, adapter):
+        assert adapter.read_bytes() == b'pinned-adapter'
+        model = work / 'models/local/ref2va';shutil.copytree(i['root'] / 'model', model)
+        (work / 'prepare.vpipeline').write_text('fixture');(work / 'preparation.log').write_text('fixture')
         return model
     monkeypatch.setattr(prep, 'quantize', quantize)
     result = prep.prepare(spec)
-    assert result['adapter']['sha256'] == i['adapter']['sha256']
     assert assets.load_manifest(target, verify=True)['identity'] == result['identity']
+
+
+def test_marking_manifest_premerged_cannot_enable_unmerged_checkpoint(installation):
+    i = installation;p = i['root'] / 'model/transformer/config.json'
+    c = json.loads(p.read_text());c.pop('_h3_lora_premerged');p.write_text(json.dumps(c))
+    with pytest.raises(ValueError):assets.register_model(i['root'], provenance=dict(kind='bad'))

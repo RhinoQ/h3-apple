@@ -34,8 +34,8 @@ def build_graph(request, assets, prepared, output, *, diagnostic_attention=None,
     add("model-select", hf_dir=assets["native_model"])
     add("text-prompt", text=request["prompt"])
     recipe=assets["recipe"]
-    add("minimax-h3-model-config", video_shift=recipe["video_shift"], audio_shift=recipe["audio_shift"],
-        lora=assets["adapter"]["path"], lora_scale=recipe["lora_scale"])
+    # Turbo is already merged before quantization; applying it again is invalid.
+    add("minimax-h3-model-config", video_shift=recipe["video_shift"], audio_shift=recipe["audio_shift"])
     ports=[("",0)]*10; ports[2]=("model-select",0); ports[9]=("minimax-h3-model-config",0)
     add("video-ref-encoder", inputs=(("text-prompt",0),("model-select",0)),
         references=[p["path"] for p in prepared], frames=request["model_num_frames"],

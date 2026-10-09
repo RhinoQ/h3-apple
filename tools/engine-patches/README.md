@@ -99,5 +99,7 @@ to prevent double application. Original source tensors stay unchanged.
 PEFT weights, compares all output tensors with independently scalar-merged
 weights passed through the unmodified quantizer, and checks rejection of
 already merged or quantized sources, in-place output and wrong precision.
-This path is not enabled by the public wrapper until real-weight, video,
-performance and installed-interface qualification is complete.
+The candidate public wrapper uses this preparation path and requires the exact
+premerged checkpoint hashes. Its engine capability is `h3-premerge-quantize-v1`.
+Older runtime-adapter model bundles require preparation in a new directory.
+Local integration and publication are separate from numerical and video qualification.

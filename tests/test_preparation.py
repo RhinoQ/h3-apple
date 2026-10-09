@@ -70,8 +70,10 @@ def test_source_plan_is_ref2va_only_and_pinned():
 
 
 def test_conversion_keeps_the_accepted_quantization_recipe(tmp_path):
-    graph=prep.quantization_graph(tmp_path/'source',tmp_path/'work')
+    graph=prep.quantization_graph(tmp_path/'source',tmp_path/'work',tmp_path/'adapter')
     assert [s['config']['target'] for s in graph['stages']]==['dit','text_encoder']
+    assert graph['stages'][0]['config']['h3_premerge_lora'] == str(tmp_path/'adapter')
+    assert 'h3_premerge_lora' not in graph['stages'][1]['config']
     for stage in graph['stages']:
         assert stage['config']['bits']==8 and stage['config']['group_size']==64
         assert stage['config']['quant_modulation'] is True
@@ -93,3 +95,9 @@ def test_materialize_owns_links_and_checks_each_source(tmp_path):
     cache=prep.materialize(spec,lambda _:None)
     result=prep.cache_path(cache,entry);source.unlink()
     assert result.read_bytes()==b'content'
+
+
+def test_premerge_requires_capable_engine_before_launch(tmp_path):
+    with pytest.raises(RuntimeError, match='premerge recipe'):
+        prep.quantize(tmp_path/'source',tmp_path/'work',{},lambda _:None,tmp_path/'adapter')
+    assert not (tmp_path/'work').exists()

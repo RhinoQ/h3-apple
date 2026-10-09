@@ -4,7 +4,10 @@ h3-apple exposes still-image Ref2VA with four denoising forwards through two
 modes. SOL uses the native INT8 GEMM, SOL attention and SageAttention engine.
 VSA uses the vendored MLX runtime with W8A8 projections, direct BF16 output,
 consecutive QKV activation reuse and INT8 QK inside VSA. Both use the original
-LightX2V four-step model recipe. Prompt and reference ordering are preserved.
+LightX2V four-step adapter. SOL prepares it by FP32 merging into original BF16
+weights, BF16 rounding, then W8G64 quantization. The prepared config and manifest
+record that identity; generation must not apply the adapter a second time.
+Prompt and reference ordering are preserved.
 Image preprocessing uses the sampling canvas area and 32-pixel alignment. The
 768p model canvas is center-cropped and extra frames trimmed with sample-accurate
 audio endpoints.
@@ -24,8 +27,8 @@ provenance. See [sources.json](sources.json) and the adjacent Metal notices.
 The engine builds on [vpipe at the pinned commit](https://github.com/tgo-app-dev/vpipe/tree/f34e2cc3a3adae759eea254419f436f5b7800057)
 with the [native patches](../tools/engine-patches/README.md).
 Its authors and dependencies are credited in [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES).
-The product downloads and manages that engine internally; users do not need
-another project or configuration interface.
+Published releases download and manage their pinned engine internally. The source
+checkout currently pins an unpublished local artifact, built as described below.
 
 ## Verify a change
 
@@ -50,7 +53,8 @@ quality judgments and performance comparisons as separate claims.
 
 ## Optional X2 decoder
 
-`runtime/x2_vae.py` replaces only the VSA video decoder when `x2=True`.
+`runtime/x2_vae.py` supplies the X2 decoder for both sampling modes when `x2=True`.
+SOL exports normalized latent data and original audio to an isolated X2 worker.
 The facade keeps sampling and delivery dimensions separate; reference budgets
 follow sampling. Tests cover both orientations, RGB packing and alignment crop.
 Run `H3_TEST_LARGE_ARRAYS=1 python -m pytest tests/test_vae_chunks.py` to include
@@ -61,8 +65,9 @@ ordinary-path reproducibility from X2 quality and performance claims.
 
 Check out the exact source revision above, including its submodules, and apply
 `tools/engine-patches/stable-compute.patch`, then
-`tools/engine-patches/vae-fusion.patch`, then `tools/engine-patches/vae-int8.patch`
-for SOL in versions 0.5.1–0.6.0 (the same engine artifact). Build
+`tools/engine-patches/vae-fusion.patch`, then `tools/engine-patches/vae-int8.patch`.
+For this checkout, additionally apply `rope-precision.patch`, `bf16-premerge.patch`
+and `premerge-quantize.patch` from that directory, in that order. Build
 against FFmpeg 8 headers in a separate build environment, in Release mode:
 
 ```bash
@@ -73,14 +78,18 @@ cmake -S /path/to/vpipe -B /path/to/build -DCMAKE_BUILD_TYPE=Release \
 cmake --build /path/to/build --target vpipe vpipe-cli -j 8
 .local/envs/h3/bin/python tools/package_engine.py \
   --source-dir /path/to/vpipe --build-dir /path/to/build \
-  --output /path/to/h3-apple-engine-macos-arm64.zip
+  --output /path/to/h3-apple-engine-macos-arm64.zip --local-only \
+  --capability stable-compute-v1 --capability vae-fusion-v1 \
+  --capability vae-h256-int8-v1 --capability h3-premerge-quantize-v1
 ```
 
 Follow upstream build requirements for CMake and platform tools. Metal sources
 are embedded in the library and compiled at runtime. The release CLI and library
 link only to system libraries; at runtime FFmpeg 8 is loaded from the running
 Python environment’s `lib` directory.
-The artifact carries upstream licenses and notices. `data/engine.json` pins the
+The local packager installs the archive in the download cache and updates the
+source manifest, so build the wheel after packaging. The artifact carries
+upstream licenses and notices. `data/engine.json` pins the
 archive and every member by size and SHA256. Build identity is recorded, but
 byte-identical compiler output across SDK versions is not promised.
 

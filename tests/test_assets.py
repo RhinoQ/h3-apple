@@ -14,11 +14,13 @@ def model_fixture(tmp_path, monkeypatch):
         p=root/'model'/name;p.mkdir(parents=True)
         (p/'model.safetensors').write_bytes(b'model')
         (p/'config.json').write_text(json.dumps(dict(quantization=dict(bits=8,group_size=64),
-            _class_name='MiniMaxH3DiTModel',num_layers=50)))
+            _class_name='MiniMaxH3DiTModel',num_layers=50,_h3_lora_premerged=name=='transformer')))
     (root/'model/model_index.json').write_text(json.dumps(dict(_minimax_h3=dict(partition='ref2va'))))
     adapter=root/'adapter.safetensors';adapter.write_bytes(b'adapter')
+    files=[dict(path=str(p.relative_to(root/'model')),bytes=p.stat().st_size,sha256=assets.digest(p))
+           for p in sorted((root/'model').rglob('*')) if p.is_file()]
     read=assets.data_file
-    monkeypatch.setattr(assets,'data_file',lambda name:dict(adapter=dict(sha256=assets.digest(adapter))) if name=='prepared-model.json' else read(name))
+    monkeypatch.setattr(assets,'data_file',lambda name:dict(files=files,adapter=dict(sha256=assets.digest(adapter))) if name=='prepared-model.json' else read(name))
     assets.register_model(root,provenance=dict(kind='synthetic-fixture'))
     return root
 
@@ -74,3 +76,9 @@ def test_explicit_model_directory_precedes_environment(tmp_path,monkeypatch):
     monkeypatch.setenv('H3_MODEL_DIR',str(tmp_path/'env'))
     assert assets.model_directory()==tmp_path/'env'
     assert assets.model_directory(tmp_path/'explicit')==tmp_path/'explicit'
+
+
+def test_unpublished_engine_never_tries_a_null_download(tmp_path,monkeypatch):
+    monkeypatch.setattr(assets,'engine_paths',lambda:(dict(url=None),tmp_path/'engine',tmp_path/'missing.zip'))
+    monkeypatch.setattr(assets,'download',lambda *_:pytest.fail('no unpublished download'))
+    with pytest.raises(ValueError,match='unpublished'):assets.ensure_engine()

@@ -105,9 +105,9 @@ h3 generate --image reference.jpg --prompt "Your scene"
 ```
 
 Keep the variable set for subsequent runs, or pass `--model-dir` / `model_dir`
-explicitly. Existing registered native Ref2VA installations from h3-apple 0.3
-are automatically detected under `~/Models`. Existing 0.4–0.5.2 prepared models
-are verified and reused when upgrading the adapter. Files are hard-linked on the same volume;
+explicitly. Compatible prepared installations are verified and reused. The source
+checkout's SOL recipe cannot reuse older quantized weights as premerged weights;
+see the migration instructions below. Files are hard-linked on the same volume;
 cross-volume reuse makes verified copies. Existing models are not deleted.
 
 For a custom source snapshot or another prepared model directory:
@@ -137,25 +137,34 @@ hashes are in [model-sources.json](../src/h3_apple/data/model-sources.json) and
 [VSA gate sources](../src/h3_apple/data/vsa-gates.json).
 Model license terms still apply.
 
-## Upgrading SOL models from before 0.5.3
+## Upgrading SOL models in the source checkout
 
-A SOL generation or `h3 prepare --mode SOL` upgrades an existing prepared installation
-to the original LightX2V Ref2VA Turbo 4-step v0.1 adapter. Only the **1.38 GB
-adapter** is downloaded when the base weights and engine are already present;
-the base weights are verified and are not downloaded or quantized again.
-To reuse an already downloaded adapter, pass its file or directory with
-`h3 prepare --mode SOL --reuse-dir /path/to/adapter.safetensors`.
+The source checkout merges the original LightX2V Turbo adapter into the original
+BF16 DiT, rounds the merged weights to BF16, and then prepares W8G64 weights.
+It does not apply the adapter again during generation. Older quantized SOL
+bundles are rejected with migration instructions; changing their manifest or
+swapping the adapter cannot produce the new weights.
 
-The new adapter and its receipt are stored under
-`<model-dir>/adapters/<adapter-sha256>/`. The original `model.json`, base weights
-and adapter remain intact, so an older installed h3-apple version can still use
-the same model directory. Interrupted adapter downloads are resumable. A failed
-upgrade leaves the old receipt intact and can be retried with `h3 prepare --mode SOL`.
+Choose a new directory. Reuse the original BF16 snapshot and pinned adapter if
+they are already cached, or reuse a verified bundle prepared with this recipe:
 
-The native engine, four denoising steps, video/audio shifts (12/3) and adapter
-scale (1.0) stay the same. The engine handles the adapter's alpha/rank metadata.
-No additional scale adjustment is needed. This change reduces ghosting in the
-tested scenes; it does not guarantee blur-free motion or exact prompt adherence.
+```bash
+h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged \
+  --reuse-dir /path/to/original-H3-snapshot --reuse-dir /path/to/adapter.safetensors --plan
+h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged \
+  --reuse-dir /path/to/original-H3-snapshot --reuse-dir /path/to/adapter.safetensors
+h3 verify --mode SOL --model-dir ~/Models/h3-apple-sol-premerged
+```
+
+Review the plan's download and disk requirements first. Cached raw sources can
+avoid downloads; an older quantized bundle alone cannot. Old models remain
+available to older releases. Select the new directory for subsequent SOL calls.
+Four denoising steps, video/audio shifts 12/3 and adapter scale 1.0 remain fixed.
+
+This checkout's native engine is currently a local artifact. Its URL is unset;
+build and package it with [the development instructions](development.md#build-the-engine-artifact)
+before using SOL from this checkout. The released 0.6.0 wheel and engine remain
+available separately. No new release or engine download is implied by a local merge.
 
 ## Troubleshooting
 

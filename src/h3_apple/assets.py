@@ -12,11 +12,20 @@ from .downloads import download
 from .io import digest, write_json
 
 SCHEMA = "h3-apple-model/v1"
-RECIPE = dict(steps=4, graph_steps=5, video_shift=12.0, audio_shift=3.0, lora_scale=1.0)
+LEGACY_RECIPE = dict(steps=4, graph_steps=5, video_shift=12.0, audio_shift=3.0, lora_scale=1.0)
+RECIPE = dict(LEGACY_RECIPE, adapter_application='premerge-bf16-before-w8g64')
 
 
-class AdapterUpgradeRequired(ValueError):
-    """The prepared base model needs the adapter pinned by this release."""
+class ModelRecipeUpgradeRequired(ValueError):
+    """Prepared SOL weights cannot be upgraded by swapping the runtime adapter."""
+
+
+def recipe_upgrade():
+    return ModelRecipeUpgradeRequired(
+        'SOL now merges Turbo into original BF16 weights before quantization. '
+        'Run h3 prepare --mode SOL --model-dir NEW_DIRECTORY --plan, then prepare '
+        'there. Old models remain unchanged; cached source files can be reused '
+        'with --reuse-dir. Downloads over 20 GB still require consent.')
 
 
 def data_file(name):
@@ -58,9 +67,10 @@ def check_model(root):
     meta = json.loads((root / 'model_index.json').read_text())
     if (config.get('_class_name') != 'MiniMaxH3DiTModel' or config.get('num_layers') != 50
             or config.get('quantization') != dict(bits=8, group_size=64)
+            or config.get('_h3_lora_premerged') is not True
             or text.get('quantization') != dict(bits=8, group_size=64)
             or meta.get('_minimax_h3', {}).get('partition') != 'ref2va'):
-        raise ValueError('Expected the pinned H3 Ref2VA 8-bit model. Run h3 prepare.')
+        raise ValueError('Expected the pinned premerged H3 Ref2VA 8-bit model. Run h3 prepare.')
     for name in ('transformer', 'text_encoder', 'video_vae', 'audio_vae'):
         if not list((root / name).rglob('*.safetensors')):
             raise ValueError(f'Missing model weights: {name}')
@@ -94,6 +104,9 @@ def ensure_engine(progress=None):
         if archive.stat().st_size != record['bytes'] or digest(archive) != record['sha256']:
             raise ValueError(f'Engine download cache changed: {archive}')
     else:
+        if not record.get('url'):
+            raise ValueError('This native engine is unpublished. Install its matching local archive '
+                             'in the engine download cache, or use a published h3-apple release.')
         if progress:
             progress(dict(phase='installing_engine'))
         download(record['url'], archive, record['bytes'], record['sha256'])
@@ -132,19 +145,22 @@ def load_manifest(model_dir=None, *, verify=False, for_reuse=False):
         raise ValueError('H3 models are not prepared. Run h3 prepare once.')
     data = json.loads(path.read_text())
     expected_adapter = data_file('prepared-model.json')['adapter']
-    if (data.get('schema') != SCHEMA or data.get('recipe') != RECIPE
+    if (data.get('schema') != SCHEMA
             or data.get('identity') != identity({k: v for k, v in data.items() if k != 'identity'})):
         raise ValueError('Model manifest changed or is unsupported. Run h3 prepare in a new model directory.')
-    if for_reuse:
-        # An old adapter is reusable only as a source of the exact pinned base weights.
-        model = Path(data['native_model'])
-        records = [{k: entry[k] for k in ('bytes', 'sha256')} |
-                   dict(path=str(Path(entry['path']).relative_to(model))) for entry in data['files']]
-        expected = data_file('prepared-model.json')['files']
-        if sorted(records, key=lambda e: e['path']) != sorted(expected, key=lambda e: e['path']):
-            raise ValueError('Prepared base weights differ from the pinned Ref2VA model.')
-    elif data.get('adapter', {}).get('sha256') != expected_adapter['sha256']:
-        raise AdapterUpgradeRequired('The Ref2VA adapter needs an upgrade. Run h3 prepare; base weights will be reused.')
+    if data.get('recipe') == LEGACY_RECIPE:
+        raise recipe_upgrade()
+    if data.get('recipe') != RECIPE:
+        raise ValueError('Model manifest recipe is unsupported. Run h3 prepare in a new model directory.')
+    if data.get('adapter', {}).get('sha256') != expected_adapter['sha256']:
+        raise recipe_upgrade()
+    # Only the exact premerged checkpoint and adapter can be reused together.
+    model = Path(data['native_model'])
+    records = [{k: entry[k] for k in ('bytes', 'sha256')} |
+               dict(path=str(Path(entry['path']).relative_to(model))) for entry in data['files']]
+    expected = data_file('prepared-model.json')['files']
+    if sorted(records, key=lambda e: e['path']) != sorted(expected, key=lambda e: e['path']):
+        raise ValueError('Prepared base weights differ from the pinned Ref2VA model.')
     for entry in [*data['files'], data['adapter']]:
         check_file(entry, verify=verify)
     check_model(data['native_model'])

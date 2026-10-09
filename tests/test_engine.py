@@ -15,6 +15,8 @@ def test_reference_order_and_fixed_acceleration(tmp_path):
     stages={s['id']:s for s in engine.build_graph(request,assets,prepared,tmp_path/'out.mp4')['stages']}
     assert stages['video-ref-encoder']['config']['references']==[p['path'] for p in prepared]
     assert [Image.open(p['path']).getpixel((0,0)) for p in prepared]==[(255,0,0),(0,0,255)]
+    assert 'lora' not in stages['minimax-h3-model-config']['config']
+    assert 'lora_scale' not in stages['minimax-h3-model-config']['config']
     config=stages['generate-video']['config']
     assert all(config[k] is True for k in ('i8_gemm','sol_attn','sage_attn'))
     assert config['steps']==5 and config['sol_tau']==1 and config['sol_dense_layers']==1

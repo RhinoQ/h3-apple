@@ -10,7 +10,7 @@ the original **LightX2V Ref2VA Turbo 4-step v0.1 LoRA**:
 | Mode | Generation implementation |
 | --- | --- |
 | **VSA** (default) | MLX W8A8 projections, shared QKV activation packing, VSA and INT8 QK attention |
-| **SOL** | Native INT8 GEMM, SOL attention and SageAttention; retains the 0.5.3 generation path |
+| **SOL** | Native INT8 GEMM, SOL attention and SageAttention; Turbo merged into BF16 weights before W8G64 preparation |
 
 Choose a mode explicitly when comparing results; the two implementations can
 produce different images and sound with the same seed. See the
@@ -23,6 +23,9 @@ lower denoising cost, or native 768p sampling for larger output. This feature is
 available in the 0.7.0 source checkout; the published release below remains 0.6.0.
 Install the checkout inside your Conda environment with `python -m pip install ".[VSA]"`.
 See [X2 examples, model setup and quality limits](docs/x2.md).
+The source checkout's SOL recipe requires a newly prepared model directory and
+its matching local engine archive. See [SOL migration](docs/install.md#upgrading-sol-models-in-the-source-checkout).
+The published 0.6.0 release retains its previous preparation recipe.
 
 Optional **small-face enhancement** is available for finished videos.
 It automatically selects small face tracks, enhances their local detail and

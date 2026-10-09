@@ -418,7 +418,8 @@
     "graph_steps": 5,
     "video_shift": 12.0,
     "audio_shift": 3.0,
-    "lora_scale": 1.0
+    "lora_scale": 1.0,
+    "adapter_application": "premerge-bf16-before-w8g64"
   },
   "converted_peak_bytes": 85000000000
 }

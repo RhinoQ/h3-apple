@@ -112,7 +112,7 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
     return GenerationRequest(prompt, references, resolution, count / 24, seed,
                              width, height, count, model_width, model_height,
                              ((count - 5 + 16) // 17) * 17 + 5, mode=mode, x2=x2,
-                             recipe="ref2va-i8-sol-sage-v1" if mode == "SOL" else "ref2va-w8a8-vsa-int8qk-v1")
+                             recipe="ref2va-premerged-i8-sol-sage-v2" if mode == "SOL" else "ref2va-w8a8-vsa-int8qk-v1")
 
 
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
