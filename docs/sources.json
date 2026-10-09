@@ -67,23 +67,8 @@
       "upstream_path": "fastvideo/mlx_runtime/fastwan.py",
       "upstream_sha256": "f8200e8e82c4f5eca3b922557a2ba94f7524dc4ee2372392678d65e7c2815afa",
       "changes": [
-        "package import paths; see git history for explicit runtime integration"
-      ]
-    },
-    {
-      "destination": "src/h3_apple/_vendor/fastvideo_mlx/checkpoint_compat.py",
-      "upstream_path": "fastvideo/mlx_runtime/checkpoint_compat.py",
-      "upstream_sha256": "56300cfce0adbcf48677577444f0c8700ea07af9480d9ee7de97f54d488973a2",
-      "changes": [
-        "package import paths; see git history for explicit runtime integration"
-      ]
-    },
-    {
-      "destination": "src/h3_apple/_vendor/fastvideo_mlx/windowed_attention.py",
-      "upstream_path": "fastvideo/mlx_runtime/windowed_attention.py",
-      "upstream_sha256": "4c19250bc9f6cb95e6a5508d8dc855e5436918ae991ada916085402cd6eaa0b9",
-      "changes": [
-        "package import paths; see git history for explicit runtime integration"
+        "package import paths; see git history for explicit runtime integration",
+        "Retain only H3-imported helpers and their dependencies; remove unused Wan model, checkpoint loading and standalone benchmarks. Retained function/class ASTs are unchanged."
       ]
     },
     {
@@ -261,7 +246,7 @@
       "changes": [
         "Image-only native presentation, integer three-axis position IDs, and lazy official Transformers CPU vision tower with streamed native weights.",
         "Encoder-only original H3 VAE loader; sampled keyframe latents use native tiling, CPU posterior seed 42, FP16 roundtrip and latent normalization.",
-        "Shared image encoding for public Ref2VA images and FL2VA first/last anchors; tested cases and limits are recorded in their task guides. The separate ref2va_multimodal module owns video preparation and its limited validation scope."
+        "Public Ref2VA still-image encoding only; historical video/audio reference and FL2VA task paths are excluded from this product."
       ]
     },
     {
@@ -283,7 +268,7 @@
       "changes": [
         "Independent MLX integration of Ref2VA LightX2V rank128/alpha8 updates plus only 50 FastH3 compression gates; 75% generated-video sparsity and ordered dense-exempt reference segments.",
         "Uses native MiniMax components and Ours quantization/decode; does not reproduce ComfyUI ConvRot or CUDA RNG.",
-        "Separate kablex route: round non-sink top-k, retain ties, force adjacent tiles and use a single-rounding coarse add; default FastH3 routing unchanged.",
+        "The product selects kablex routing: round non-sink top-k, retain ties, force adjacent tiles and use a single-rounding coarse add.",
         "Public VSA uses one fixed W8A8 / INT8 QK dispatch; experiment switches and alternate conditioned tasks are not included."
       ]
     },

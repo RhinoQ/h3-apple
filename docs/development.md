@@ -60,7 +60,7 @@ The facade keeps sampling and delivery dimensions separate; reference budgets
 follow sampling. X2 accepts 544p and 576p; the shared public validator rejects
 768p + X2 before preparation. Tests cover both modes and orientations, RGB
 packing, and ordinary 768p alignment crop.
-Run `H3_TEST_LARGE_ARRAYS=1 python -m pytest tests/test_vae_chunks.py` to include
+Run `H3_TEST_LARGE_ARRAYS=1 .local/envs/h3/bin/python -m pytest tests/test_vae_chunks.py` to include
 the 2.56 GB temporal-copy regression. New integration evidence must distinguish
 ordinary-path reproducibility from X2 quality and performance claims.
 
@@ -82,7 +82,7 @@ cmake --build /path/to/build --target vpipe vpipe-cli -j 8
 .local/envs/h3/bin/python tools/package_engine.py \
   --source-dir /path/to/vpipe --build-dir /path/to/build \
   --output /path/to/h3-apple-engine-macos-arm64.zip --local-only \
-  --capability stable-compute-v1 --capability vae-fusion-v1 \
+  --capability stable-compute-v1 \
   --capability vae-h256-int8-v1 --capability h3-premerge-quantize-v1
 ```
 
@@ -95,6 +95,9 @@ source manifest, so build the wheel after packaging. The artifact carries
 upstream licenses and notices. `data/engine.json` pins the
 archive and every member by size and SHA256. Build identity is recorded, but
 byte-identical compiler output across SDK versions is not promised.
+
+For a published artifact, replace `--local-only` with `--url` and the exact HTTPS
+download URL. Packaging requires one of these explicit choices; it does not publish.
 
 Release source and wheel must contain identical Python/data files. The pinned
 engine artifact is reused until its implementation changes. Do not bundle model

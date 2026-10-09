@@ -1,6 +1,8 @@
 # Generate locally with h3-apple
 
-Use the public h3-apple CLI/API for rendering. This guide targets **v0.6.0**;
+Use the public h3-apple CLI/API for rendering. The published-install commands
+below target **v0.6.0**; an existing **0.7.0** source installation also supports X2.
+For published 0.6.0,
 the [installation guide](https://github.com/RhinoQ/h3-apple/blob/v0.6.0/docs/install.md)
 and [API guide](https://github.com/RhinoQ/h3-apple/blob/v0.6.0/docs/api.md) define
 its supported interface. Honor a requested version; inspect that release's docs
@@ -138,7 +140,11 @@ supports it. Report preparation and generation time separately when available.
 ## Optional X2 in a 0.7.0 installation
 
 Check `h3 --version` before requesting this feature: the 0.6.0 release above does
-not have X2. In 0.7.0, use the public `--x2` / `x2=True` option with VSA or SOL.
+not have X2. In 0.7.0, use `--x2` / `x2=True` with VSA or SOL. Both require
+Python 3.11 and `[VSA]` dependencies for the shared decoder. SOL + X2 needs SOL
+models, not the VSA model bundle. The source checkout requires its matching local
+engine and newly premerged SOL weights; do not install the old published wheel
+or reuse old quantized SOL weights for this path. Follow `docs/install.md`.
 X2 accepts only 544p and 576p sampling: 544p produces 1920×1088 landscape or
 1088×1920 portrait; 576p produces 2048×1152 or 1152×2048.
 Pass `--aspect-ratio 9:16` for portrait. Use 768p without X2.

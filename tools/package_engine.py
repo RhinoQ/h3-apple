@@ -11,8 +11,15 @@ p.add_argument('--source-dir', type=Path, required=True)
 p.add_argument('--output', type=Path, required=True)
 p.add_argument('--commit', default='f34e2cc3a3adae759eea254419f436f5b7800057')
 p.add_argument('--capability', action='append', default=[])
-p.add_argument('--local-only', action='store_true', help='Unpublished build; install the archive in the local cache')
+publication = p.add_mutually_exclusive_group(required=True)
+publication.add_argument('--local-only', action='store_true', help='Unpublished build; install the archive in the local cache')
+publication.add_argument('--url', help='Exact HTTPS URL of the published archive')
 a = p.parse_args()
+if a.url:
+    from urllib.parse import urlparse
+    parsed = urlparse(a.url)
+    if parsed.scheme != 'https' or not parsed.netloc:
+        p.error('--url must be an absolute HTTPS URL')
 root = Path(__file__).resolve().parents[1]
 entries = {
     'h3-engine': (a.build_dir / 'apps/vpipe/vpipe', 0o755),
@@ -34,7 +41,7 @@ with zipfile.ZipFile(a.output, 'x', compression=zipfile.ZIP_DEFLATED, compressle
         files.append(dict(name=name, bytes=len(data), sha256=hashlib.sha256(data).hexdigest(), mode=mode))
 record = dict(schema='h3-apple-engine/v1', upstream='https://github.com/tgo-app-dev/vpipe',
     commit=a.commit,
-    url=None if a.local_only else 'https://github.com/RhinoQ/h3-apple/releases/download/v0.4.0/' + a.output.name,
+    url=a.url,
     bytes=a.output.stat().st_size, sha256=hashlib.sha256(a.output.read_bytes()).hexdigest(), files=files)
 if a.capability:
     record['capabilities'] = a.capability

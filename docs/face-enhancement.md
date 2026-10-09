@@ -13,11 +13,10 @@ the source; exact identity or temporal fidelity is not guaranteed.
 ## Setup
 
 Use the Python 3.11 Conda environment from [installation](install.md). The
-optional restoration stack is tested with Python 3.11. Install this release
-with VSA and face-enhancement dependencies:
+optional restoration stack is tested with Python 3.11. From the 0.7.0 checkout, install VSA and face-enhancement dependencies:
 
 ```bash
-python -m pip install 'h3-apple[VSA,faces] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl'
+python -m pip install ".[VSA,faces]"
 h3 prepare-faces --plan
 h3 prepare-faces
 ```

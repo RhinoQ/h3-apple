@@ -1,69 +1,73 @@
 # Python API
 
-Follow the [Conda installation steps](install.md), activate the `h3` environment,
-and use its Python for your script or notebook. Both the CLI and Python API use
-the same installed package and Conda FFmpeg installation:
+Use the Python interpreter from the [H3 Conda environment](install.md).
 
 ```python
 from h3_apple import generate
 
 result = generate(
-    prompt="Picture 1 and Picture 2 have a picnic at sunset. Wind and birds, no dialogue.",
-    reference_images=["99.jpg", "bobo.jpg"],
-    output="weekend.mp4",
-    mode="VSA",  # default; use "SOL" for the other mode
+    prompt_file="scene.txt",
+    reference_images=["character.jpg", "style.jpg"],
+    mode="VSA",
+    duration=5,
+    output="scene.mp4",
 )
-print(result.video_path)
+print(result.video_path, result.metadata_path)
 ```
 
-`prompt_file="story.txt"` can replace `prompt`. At least one still image is
-required, with at most nine; order is preserved. The image aspect ratio must
-be between 1:4 and 4:1. EXIF orientation is applied before processing.
+`prompt="..."` replaces `prompt_file`. Supply 1–9 still images in `Picture 1`,
+`Picture 2` order. Image ratios must lie between 1:4 and 4:1; EXIF orientation is
+applied. Prompt text and image order are preserved.
 
-Optional delivery settings: `duration=15` (5–15 seconds in whole frames at
-24 fps), `resolution="576p"` or `"768p"`, `aspect_ratio="16:9"` or `"9:16"`,
-and `seed` (a 32-bit unsigned integer). `x2=True` enables the optional X2
-decoder with either VSA or SOL and accepts only `resolution="544p"` or `"576p"`;
-resolution is the sampling size, while delivered width and height are doubled.
-Both aspect ratios are supported. Use `"768p"` without X2.
-See [exact dimensions, setup and quality limits](x2.md). Omit `seed` to choose one randomly;
-it is always recorded. `mode="VSA"` (default) or `mode="SOL"` selects a fixed
-implementation of the original LightX2V four-step recipe. Mode values are
-uppercase. VSA requires the optional `VSA` dependencies and a VSA model bundle;
-see [installation](install.md). The same seed can produce different output
-between modes. A request's `mode` and `recipe` are recorded in the run metadata.
+| Setting | Default | Accepted values |
+| --- | --- | --- |
+| `mode` | `"VSA"` | `"VSA"`, `"SOL"` |
+| `duration` | `15` | 5–15 seconds, whole frames at 24 fps |
+| `resolution` | `"576p"` | `"576p"`, `"768p"`; `"544p"` requires X2 |
+| `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |
+| `x2` | `False` | `True` only with 544p or 576p |
+| `seed` | Random, recorded | Unsigned 32-bit integer |
 
-`resolve(...)` accepts these input and delivery settings and returns a
-`GenerationRequest` without loading models. `generate(...)` also accepts
-`model_dir`, `output`, `on_progress`, `diagnostics=False`, `timeout=7200`, and
-`allow_large_download=False`, and `x2_model_dir=None` (requires `x2=True`).
-The callback receives small progress dictionaries in the caller process.
-Diagnostics retain intermediate media and native logs for debugging.
+`resolution` is the sampling size. X2 doubles delivered dimensions in either
+mode; see [dimensions, dependencies and limits](x2.md). Both modes use four
+forwards, but equal seeds do not imply equal output.
 
-`generate()` automatically prepares the engine and models on first use.
-It never prompts for terminal input. Downloads over 20 GB raise
-`h3_apple.DownloadApprovalRequired` before downloading; its `download_bytes`
-and `additional_disk_bytes` describe the plan. After reviewing the plan,
-call `generate(..., allow_large_download=True)` to authorize it. Compatible
-prepared models are reused without the flag. Installation, import and
-`resolve()` do not download models. Preparation progress also uses the callback;
-the generation timeout and `elapsed_seconds` exclude one-time preparation.
+`resolve(...)` accepts these settings and returns a `GenerationRequest` without
+loading models. `generate(...)` additionally accepts:
+
+| Argument | Purpose |
+| --- | --- |
+| `model_dir=None` | Selected mode's prepared model directory |
+| `x2_model_dir=None` | Separate decoder directory; requires `x2=True` |
+| `output=None` | New MP4 path; otherwise a unique folder under `runs/` |
+| `on_progress=None` | Callback receiving progress dictionaries in the caller |
+| `diagnostics=False` | Retain working files for inspection |
+| `timeout=7200` | Generation timeout in seconds |
+| `allow_large_download=False` | Explicit consent for downloads above 20 GB |
+
+First use prepares missing assets, subject to the [source engine requirement](install.md).
+The API never prompts. `DownloadApprovalRequired` exposes `download_bytes`
+and `additional_disk_bytes`; review them before authorizing the download.
+Import and `resolve()` do not download. Preparation time is excluded from
+generation's timeout and `elapsed_seconds`.
 
 The result contains `video_path`, `metadata_path`, `elapsed_seconds` and `seed`.
-Existing output files are never overwritten. Ctrl-C and timeouts stop the
-entire worker process group. Successful output is decoded and checked for
-frame count, dimensions, fps, two audio channels, sample rate and duration
-before publication. Model, engine and input identities accompany each run. VSA records its MLX
-binary identity and checks all 1,200 W8A8 projections, 800 activation packs,
-400 QKV reuses and 200 INT8 QK/VSA block calls for a four-step generation.
+Existing outputs are refused. Ctrl-C and timeout terminate the worker group.
+Before delivery, the complete media is decoded and checked for dimensions,
+frame count, fps, duration and stereo 32 kHz audio. Run records bind the request,
+inputs, model, source, backend and executed compute policy.
 
-The output always includes generated audio. Describe desired music, ambience,
-dialogue or silence in the prompt. Exact sounds and synchronization remain
-model capabilities, not deterministic editing controls.
+Audio is always generated. Describe dialogue, music, ambience or silence in
+the prompt; exact sound, timing, identity and continuity remain model limitations.
 
 ## Optional enhancement of an existing video
 
-After installing the `faces` extra and running `h3 prepare-faces`, call
-`enhance_faces("video.mp4", output="enhanced.mp4")`. It uses a separate worker,
-preserves input audio, skips large closeups and leaves ordinary generation unchanged.
-See [the complete optional API, input limits and quality boundary](face-enhancement.md).
+After installing `[faces]` and preparing its models:
+
+```python
+from h3_apple import enhance_faces
+result = enhance_faces("scene.mp4", output="scene-enhanced.mp4")
+```
+
+This separate worker preserves source audio and skips large closeups.
+See [the enhancement contract](face-enhancement.md).

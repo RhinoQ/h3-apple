@@ -1,154 +1,100 @@
 # Installation
 
-The recommended installation uses a dedicated Conda environment on an Apple
-Silicon Mac. Use your existing Conda installation, or install the Apple Silicon
-version of [Miniforge](https://github.com/conda-forge/miniforge) first:
+Use a dedicated Conda environment on a **40-core M5 Max with macOS 26.2+**.
+The memory guard permits 64 GiB; 768p beyond five seconds requires 96 GiB.
+Measurements used 128 GiB. Other GPU configurations and smaller-memory operation
+have not been qualified. Install [Miniforge](https://github.com/conda-forge/miniforge)
+if Conda is unavailable.
 
-The published release below is 0.6.0. X2 requires the 0.7.0 source checkout,
-installed with `python -m pip install ".[VSA]"` inside the same Conda environment.
-See [X2 model preparation](x2.md#model-preparation).
-
-Install the 0.6.0 GitHub release with both generation modes:
-
-```bash
+```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
+```
+
+## Choose a version
+
+**Current source: 0.7.0.** From this checkout:
+
+```sh
+python -m pip install ".[VSA]"
+```
+
+VSA needs no native engine. SOL requires the matching local engine archive or
+the [pinned-source build](development.md#build-the-engine-artifact). Its manifest
+URL is unset; source installation cannot download that unpublished archive.
+SOL also requires the new model recipe described below.
+
+**Published wheel: 0.6.0.** This older release has no X2 and retains the old SOL recipe:
+
+```sh
 python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
-h3 generate --image reference.jpg --prompt "Your scene, movement and sound."
 ```
 
-VSA is the default for generation, preparation and environment checks.
-For SOL only, omit `[VSA]` from the installation requirement and pass `--mode SOL`
-to each command (or `mode="SOL"` to the Python API). A source checkout can instead
-be installed with `python -m pip install ".[VSA]"`.
+Use that release's [versioned documentation](https://github.com/RhinoQ/h3-apple/tree/v0.6.0/docs).
+Repeat the chosen installation command with `--upgrade` to reinstall it.
 
-Conda isolates Python and the dependencies from your other projects. pip installs
-and upgrades h3-apple inside that environment. Activate it in each new terminal:
+| Workload | Python | Extra dependencies |
+| --- | --- | --- |
+| VSA, with or without X2 | 3.11 | `[VSA]` |
+| SOL + X2 | 3.11 | `[VSA]`, SOL models and engine; no VSA model bundle needed |
+| SOL without X2 | 3.11–3.14 | None; omit `[VSA]` |
+| Face enhancement | 3.11 | `[faces]`; see [setup](face-enhancement.md) |
 
-```bash
-conda activate h3
+Conda supplies FFmpeg 8, ffprobe and shared libraries; pip installs Python
+dependencies. The `[VSA]` extra pins MLX, PyTorch and Transformers. A SOL-only
+installation needs neither those packages nor a compiler when its matching
+engine is cached. `python -m h3_apple` is equivalent to `h3`.
+
+## Prepare and reuse models
+
+First generation prepares missing models automatically. To inspect costs first:
+
+```sh
+h3 prepare --mode VSA --plan
+h3 prepare --mode SOL --plan
 ```
 
-`python -m h3_apple` is equivalent to `h3` and works when the scripts directory
-is not on PATH. The package also exposes `import h3_apple`; both entry points
-share the same first-run preparation and generation code.
+| Mode | Fresh downloads | Conservative additional disk | Prepared footprint |
+| --- | ---: | ---: | ---: |
+| VSA | ~151 GB | ~343 GB | ~111 GB with hard links; 178 GB logical |
+| SOL | ~145 GB | ~233 GB | ~85 GB |
 
-SOL supports Python 3.11–3.14. VSA requires Python 3.11. Conda supplies Python, FFmpeg, ffprobe and the
-FFmpeg shared libraries in one environment; pip installs h3-apple and Pillow; the `VSA` extra adds pinned MLX 0.32.0,
-PyTorch 2.11.0, TorchVision 0.26.0, NumPy 2.4.6 and Transformers 5.14.1.
-H3 uses the environment belonging to the running Python interpreter, including
-in notebooks. It checks FFmpeg 8, the native library ABI, and H.264/AAC encoding
-before model downloads or generation. The documented FFmpeg 8.1.2 build has been
-validated with both public entry points.
+Source caches reduce downloads. Cross-volume copies may use the full logical
+size. These are disk estimates, not runtime memory. Actual plans are authoritative.
+The CLI asks before downloads above 20 GB. Noninteractive calls require
+`--allow-large-download`; Python raises `DownloadApprovalRequired` until
+`allow_large_download=True` is supplied. Interrupted downloads resume and are checked.
 
-To add FFmpeg to an existing H3 Conda environment:
+| Mode | Default directory | Environment override |
+| --- | --- | --- |
+| VSA | `~/Models/h3-apple/VSA` | `H3_VSA_MODEL_DIR` |
+| SOL | `~/Models/h3-apple/ref2va` | `H3_MODEL_DIR` |
 
-```bash
-conda activate h3
-conda install -c conda-forge ffmpeg=8.1.2 -y
-h3 doctor
-```
+`--model-dir` / `model_dir` overrides the selected mode's directory. Keep formats
+separate. Reuse compatible bundles or cached raw sources with repeatable
+`--reuse-dir` arguments:
 
-SOL execution does not need Homebrew, a compiler, Xcode, PyTorch, Transformers
-or the MLX Python package. VSA uses its optional Python dependencies. pip does not install Conda packages;
-create the environment above before installing h3-apple.
-The SOL inference engine is downloaded on first use, checked by SHA256 and cached
-under `~/.cache/h3-apple/engines`. Models are never bundled into the pip package
-or downloaded during installation or import.
-
-## First generation
-
-`h3 generate --mode SOL` or `h3 generate --mode VSA` checks the Mac, reuses or downloads model files,
-prepares them, then generates your video. There is no required setup command.
-
-For SOL, the pinned MiniMax Ref2VA model and original LightX2V Turbo adapter need approximately
-**145 GB of downloads and 233 GB of free disk** for a fresh preparation.
-Source files remain cached for reuse; their combined footprint with prepared
-models is approximately 218 GB. The prepared model alone is about 85 GB.
-The transformer and text encoder are converted to 8-bit group-64 weights.
-These are disk sizes, not peak runtime memory.
-
-VSA also uses the original LightX2V adapter, with 50 gate matrices from the
-pinned FastH3 source. It retains BF16 text-encoder and FP32 VAE weights. Fresh
-sources total approximately **151 GB**; the conservative setup plan reserves
-about **343 GB** of additional disk for downloads, conversion and publication.
-A prepared VSA bundle occupies about **111 GB** on one volume with hard links
-(178 GB logical file sizes, including repeated text-encoder files). Cross-volume
-copies may use the full logical size. Shared source caches reduce actual disk
-and download costs; `h3 prepare --mode VSA --plan` reports the current plan.
-
-
-The CLI asks before downloads over 20 GB. In scripts and the Python API,
-explicit consent is required instead of a terminal prompt:
-
-```bash
-h3 prepare --plan
-h3 generate --image reference.jpg --prompt "Your scene" --allow-large-download
-```
-
-In Python, review `DownloadApprovalRequired.download_bytes` and
-`additional_disk_bytes`, then pass `allow_large_download=True` to `generate()`.
-This is download consent, not a generation mode. Already prepared models need
-no confirmation. Interrupted downloads resume when you run the command again;
-checksums are verified before use.
-
-## Model location and reuse
-
-SOL models default to `~/Models/h3-apple/ref2va`; VSA defaults to
-`~/Models/h3-apple/VSA`. `H3_MODEL_DIR` selects the SOL directory and
-`H3_VSA_MODEL_DIR` selects the VSA directory. `--model-dir` / `model_dir` overrides
-the selected mode's default. Use separate directories for the two formats. To use another volume:
-
-```bash
-export H3_VSA_MODEL_DIR=/Volumes/Models/h3-apple/VSA
-h3 generate --image reference.jpg --prompt "Your scene"
-```
-
-Keep the variable set for subsequent runs, or pass `--model-dir` / `model_dir`
-explicitly. Compatible prepared installations are verified and reused. The source
-checkout's SOL recipe cannot reuse older quantized weights as premerged weights;
-see the migration instructions below. Files are hard-linked on the same volume;
-cross-volume reuse makes verified copies. Existing models are not deleted.
-
-For a custom source snapshot or another prepared model directory:
-
-```bash
-h3 prepare --reuse-dir /path/to/models
-```
-
-`h3 prepare` remains an optional way to prepare in advance. A verified original
-LightX2V VSA bundle from the earlier MLX implementation can be reused:
-
-```bash
-h3 prepare --mode VSA --reuse-dir /path/to/original-MLX-Ref2VA-bundle
+```sh
+h3 prepare --mode VSA --reuse-dir /path/to/existing-models
 h3 doctor --mode VSA
 h3 verify --mode VSA
 ```
 
-VSA verifies the adopted content hashes, including the original adapter's fused
-weights and cached modulation tables. DARE/TIES bundles are rejected. Without
-a prepared bundle, `--reuse-dir` can locate raw Ref2VA sources, the original
-LightX2V adapter and the FastH3 gate-source file. The gate source supplies only
-50 gates; its T2VA adapter deltas are excluded. Conversion runs with the same
-native M5 architecture and TF32 setting as the adopted Ref2VA model.
-
-VSA and SOL prepared bundles cannot substitute for each other. Sources, revisions and SHA256
-hashes are in [model-sources.json](../src/h3_apple/data/model-sources.json) and
-[VSA gate sources](../src/h3_apple/data/vsa-gates.json).
-Model license terms still apply.
+VSA accepts the pinned original LightX2V recipe, not DARE/TIES. It imports only
+50 FastH3 gates, excluding T2VA adapter deltas. Content identities are fixed in
+[model sources](../src/h3_apple/data/model-sources.json) and
+[gate sources](../src/h3_apple/data/vsa-gates.json). Model licenses apply.
 
 ## Upgrading SOL models in the source checkout
 
-The source checkout merges the original LightX2V Turbo adapter into the original
-BF16 DiT, rounds the merged weights to BF16, and then prepares W8G64 weights.
-It does not apply the adapter again during generation. Older quantized SOL
-bundles are rejected with migration instructions; changing their manifest or
-swapping the adapter cannot produce the new weights.
+0.7.0 merges Turbo into the original BF16 DiT in FP32, rounds to BF16, then
+prepares W8G64 weights. Generation rejects a second Turbo application and old
+quantized bundles. Editing a manifest cannot convert the old weights.
 
-Choose a new directory. Reuse the original BF16 snapshot and pinned adapter if
-they are already cached, or reuse a verified bundle prepared with this recipe:
+Prepare a new directory with the matching engine. Cached original sources can
+avoid downloads; an old quantized bundle alone cannot:
 
-```bash
+```sh
 h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged \
   --reuse-dir /path/to/original-H3-snapshot --reuse-dir /path/to/adapter.safetensors --plan
 h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged \
@@ -156,40 +102,16 @@ h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged \
 h3 verify --mode SOL --model-dir ~/Models/h3-apple-sol-premerged
 ```
 
-Review the plan's download and disk requirements first. Cached raw sources can
-avoid downloads; an older quantized bundle alone cannot. Old models remain
-available to older releases. Select the new directory for subsequent SOL calls.
-Four denoising steps, video/audio shifts 12/3 and adapter scale 1.0 remain fixed.
+Select the new directory on subsequent calls. Preparation preserves existing
+models. Four forwards, video/audio shifts 12/3 and adapter scale 1.0 remain fixed.
 
-This checkout's native engine is currently a local artifact. Its URL is unset;
-build and package it with [the development instructions](development.md#build-the-engine-artifact)
-before using SOL from this checkout. The released 0.6.0 wheel and engine remain
-available separately. No new release or engine download is implied by a local merge.
+## Checks and optional components
 
-## Troubleshooting
+`h3 doctor --mode VSA` or `--mode SOL` checks hardware, media tools, engine and
+model receipts. `h3 verify` performs full model checksums. Generation reserves
+20 GiB temporary disk and stops on swap growth above 2 GiB or serious thermal
+pressure. Failed jobs retain logs.
 
-`h3 doctor --mode SOL` / `h3 doctor --mode VSA` checks hardware, Conda media tools and libraries, the engine and model
-receipts. Before first generation it may report that models are not yet ready.
-`h3 verify --mode SOL` / `h3 verify --mode VSA` performs a full weight checksum pass.
-To upgrade the installed release:
-
-```bash
-python -m pip install --upgrade "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
-```
-
-A 40-core M5 Max with macOS 26.2+ and at least 64 GB unified memory is required.
-H3 checks this GPU configuration before preparing models; other GPU
-configurations are not supported by its fixed compute policy. Existing users of
-other M5 configurations should retain v0.5.0. Measurements used 128 GB; smaller
-memory configurations have not been validated. The memory guard permits 576p at
-64 GB; 768p beyond 5 seconds requires 96 GB. Generation stops if swap grows
-by more than 2 GiB or macOS reports serious thermal pressure. It reserves
-20 GiB of free disk for temporary media. Failed jobs retain their logs.
-
-## Optional restoration
-
-For separately installed small-face enhancement, including its additional 7.08 GB
-models and component terms, see [face enhancement](face-enhancement.md).
-Face enhancement is independent of the selected generation mode. Install
-the release with `[VSA,faces]` for both modes and face enhancement in one environment;
-the optional stacks share the tested Transformers 5.14.1 dependency.
+[X2](x2.md#model-preparation) adds a separate 5.25 GB decoder.
+[Face enhancement](face-enhancement.md) adds a separate 7.08 GB model set and
+component terms. Neither is downloaded for ordinary generation.

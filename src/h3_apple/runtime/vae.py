@@ -1,4 +1,4 @@
-"""P090 experimental VideoVAE SmoothQuant: weight256 / activation512.
+"""Adopted VideoVAE SmoothQuant: weight256 / activation512.
 
 Native integer primitives derive from the frozen MIT h3.c source in p087_NOTICE.txt.
 The block follows the frozen Apache-2.0 FastVideo VAE; FP32 residual math is retained.
