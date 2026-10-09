@@ -1,0 +1,248 @@
+--- a/generative-models/minimax-h3/metal-minimax-h3-transformer.h
++++ b/generative-models/minimax-h3/metal-minimax-h3-transformer.h
+@@ -20,6 +20,7 @@
+ #include <memory>
+ #include <string>
+ #include <vector>
++#include <unordered_map>
+ #include "generative-models/shared/metal-sage-attention.h"
+ #include "generative-models/shared/metal-sol-attention.h"
+ #include "generative-models/shared/runtime-lora.h"
+@@ -970,6 +971,12 @@
+   // agree about the layout, and two structs that merely look alike agree
+   // only until one of them moves.
+   using LoraFactors = lora::Factors;
++  // Private qualification path: resident original-BF16 + one pinned adapter.
++  // Once merged, these weights cannot be evicted and reloaded from the base.
++  bool _premerge_bf16_lora = false;
++  int _premerged_modules = 0;
++  std::unordered_map<std::string, const LoraFactors*> _premerge_factors;
++
+ 
+   // The adapters attached to ONE projection, in slot order. Shared with
+   // every other family that takes one (generative-models/shared/
+--- a/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
++++ b/generative-models/minimax-h3/metal-minimax-h3-transformer.cc
+@@ -1,5 +1,6 @@
+ #include "generative-models/minimax-h3/metal-minimax-h3-transformer.h"
+ #include "generative-models/minimax-h3/minimax-h3-rope.h"
++#include "generative-models/minimax-h3/bf16-premerge.h"
+ 
+ #include "common/flex-data.h"
+ #include "common/vpipe-format.h"
+@@ -745,6 +746,32 @@
+       return l;
+     }
+     l.codes = {}; l.scales = {}; l.qbias = {};
++  }
++  if (auto it = _premerge_factors.find(nm); it != _premerge_factors.end()) {
++    const auto& f = *it->second;
++    if (ci == nullptr || ci->dtype != "BF16" || ci->shape.size() != 2 || f.empty()) {
++      return {};
++    }
++    const int n = int(ci->shape[0]), k = int(ci->shape[1]);
++    if (f.a.byte_size() != std::size_t(f.rank)*k*2 ||
++        f.b.byte_size() != std::size_t(n)*f.rank*2) { return {}; }
++    // Uncached and read-only: neither this model nor the shared WeightSet
++    // retains a second owned copy of each base projection.
++    auto base = ws.read(nm + ".weight", _mc, WeightSet::Residency::Mapped);
++    l.w = _mc->make_shared_buffer(std::size_t(n)*k*2);
++    if (base.byte_size() != l.w.byte_size() || l.w.empty()) { return {}; }
++    try {
++      h3::premerge_bf16_weight(
++          static_cast<const std::uint16_t*>(base.contents()),
++          static_cast<const std::uint16_t*>(f.a.contents()),
++          static_cast<const std::uint16_t*>(f.b.contents()),
++          static_cast<std::uint16_t*>(l.w.contents()), n, k, f.rank);
++    } catch (const std::exception& e) {
++      if (_mc->session()) _mc->session()->error(fmt("{}", e.what()));
++      return {};
++    }
++    ++_premerged_modules;
++    return l;
+   }
+   l.w = weight_(ws, nm + ".weight", r);
+   return l;
+@@ -1947,6 +1974,63 @@
+   // place that can see the conflict.
+   if (m->_use_mma2) { m->_fuse_ff = false; }
+ 
++  // Opt-in diagnostic only; unchanged loading order for the default path.
++  auto bind_loras = [&]() -> bool {
++    // Slots bind in the order given and keep it: `lora_scale(0)` is the
++    // first adapter the caller named, whatever it turned out to be.
++    for (const LoraSpec& sp : loras) {
++      if (sp.path.empty()) { continue; }
++      if ((int)m->_lora.size() >= kMaxLoraSlots) {
++        if (mc->session() != nullptr) {
++          mc->session()->warn(fmt(
++              "MetalMiniMaxH3Transformer: {} adapters given, {} slots -- "
++              "'{}' is IGNORED", loras.size(), kMaxLoraSlots, sp.path));
++        }
++        break;
++      }
++      LoraSlot slot;
++      std::string lerr;
++      if (!m->bind_lora_(sp, slot, &lerr)) {
++        if (mc->session() != nullptr) { mc->session()->error(fmt("{}", lerr)); }
++        return false;
++      }
++      // Each slot owns its own rows of the [seq, rank] scratch, so two
++      // adapters' first GEMMs do not have to be ordered against each
++      // other's second.
++      slot.rank_prefix = m->_lora_rank_total;
++      m->_lora_rank_total += slot.max_rank;
++      m->_lora.push_back(std::move(slot));
++    }
++    return true;
++  };
++  if (const char* value = std::getenv("VPIPE_H3_PREMERGE_BF16_LORA")) {
++    if (std::string(value) != "1" || stream_blocks || m->_quant_bits != 0 ||
++        loras.size() != 1 || loras[0].scale != 1.f || m->_fuse_ff) {
++      if (mc->session()) mc->session()->error(fmt(
++          "H3 BF16 premerge requires original BF16, resident blocks, one unit-scale adapter and unfused FF"));
++      return nullptr;
++    }
++    m->_premerge_bf16_lora = true;
++    if (!bind_loras() || m->_lora.size() != 1) { return nullptr; }
++    const auto& slot = m->_lora[0];
++    if (slot.modules != 4*(cfg.n_layers+cfg.n_refiner) ||
++        !slot.final_adaln.empty()) { return nullptr; }
++    auto collect = [&](const std::vector<BlockLora>& blocks, const std::string& prefix) {
++      for (std::size_t i=0; i<blocks.size(); ++i) {
++        const auto& b = blocks[i];
++        if (!b.adaln.empty()) return false;
++        const auto root = prefix + std::to_string(i) + ".";
++        m->_premerge_factors.emplace(root+"attn.qkv_proj", &b.qkv);
++        m->_premerge_factors.emplace(root+"attn.out_proj", &b.out);
++        m->_premerge_factors.emplace(root+"mlp.fc1", &b.fc1);
++        m->_premerge_factors.emplace(root+"mlp.fc2", &b.fc2);
++      }
++      return true;
++    };
++    if (!collect(slot.blocks, "blocks.") ||
++        !collect(slot.refiner, "token_refiner.blocks.")) { return nullptr; }
++  }
++
+   m->_video_patch = m->linear_(ws, "video_patch_proj", true, r);
+   m->_audio_patch = m->linear_(ws, "audio_patch_proj", true, r);
+   m->_cond_proj   = m->linear_(ws, "condition_proj", true, r);
+@@ -2034,30 +2118,16 @@
+     // see the machine, and BlockResidency measures instead.
+     m->_blocks.resize((std::size_t)cfg.n_layers);
+   }
+-  // Slots bind in the order given and keep it: `lora_scale(0)` is the
+-  // first adapter the caller named, whatever it turned out to be.
+-  for (const LoraSpec& sp : loras) {
+-    if (sp.path.empty()) { continue; }
+-    if ((int)m->_lora.size() >= kMaxLoraSlots) {
+-      if (mc->session() != nullptr) {
+-        mc->session()->warn(fmt(
+-            "MetalMiniMaxH3Transformer: {} adapters given, {} slots -- "
+-            "'{}' is IGNORED", loras.size(), kMaxLoraSlots, sp.path));
+-      }
+-      break;
+-    }
+-    LoraSlot slot;
+-    std::string lerr;
+-    if (!m->bind_lora_(sp, slot, &lerr)) {
+-      if (mc->session() != nullptr) { mc->session()->error(fmt("{}", lerr)); }
+-      return nullptr;
+-    }
+-    // Each slot owns its own rows of the [seq, rank] scratch, so two
+-    // adapters' first GEMMs do not have to be ordered against each
+-    // other's second.
+-    slot.rank_prefix = m->_lora_rank_total;
+-    m->_lora_rank_total += slot.max_rank;
+-    m->_lora.push_back(std::move(slot));
++  if (!m->_premerge_bf16_lora && !bind_loras()) { return nullptr; }
++  if (m->_premerge_bf16_lora) {
++    if (m->_premerged_modules != m->_lora[0].modules) { return nullptr; }
++    if (mc->session()) {
++      mc->session()->log_normal(fmt("H3 BF16 premerge: {} modules, runtime adapters disabled",
++                             m->_premerged_modules));
++    }
++    m->_premerge_factors.clear();
++    m->_lora.clear();
++    m->_lora_rank_total = 0;
+   }
+   // The ff scratch can only shrink when NOTHING can present an unfused
+   // fc1: streaming can, at any step, and so can a block whose interleave
+@@ -3958,6 +4028,8 @@
+ std::size_t
+ MetalMiniMaxH3Transformer::evict_tail_block_()
+ {
++  // Reloading the unmerged checkpoint would silently lose the adapter.
++  if (_premerge_bf16_lora) { return 0; }
+   const int floor = 0;
+   for (int i = (int)_blocks.size() - 1; i >= floor; --i) {
+     Block& b = _blocks[(std::size_t)i];
+--- /dev/null
++++ b/generative-models/minimax-h3/bf16-premerge.h
+@@ -0,0 +1,66 @@
++#ifndef H3_BF16_PREMERGE_H
++#define H3_BF16_PREMERGE_H
++
++#define ACCELERATE_NEW_LAPACK
++#include <Accelerate/Accelerate.h>
++#include <algorithm>
++#include <bit>
++#include <cmath>
++#include <cstdint>
++#include <stdexcept>
++#include <vector>
++
++namespace vpipe::genai::minimax_h3 {
++
++inline float premerge_f32(std::uint16_t value)
++{
++  return std::bit_cast<float>(std::uint32_t(value) << 16);
++}
++
++inline std::uint16_t premerge_bf16(float value)
++{
++  if (!std::isfinite(value)) {
++    throw std::invalid_argument("H3 premerge: nonfinite weight");
++  }
++  std::uint32_t bits = std::bit_cast<std::uint32_t>(value);
++  bits += 0x7fff + ((bits >> 16) & 1);
++  return std::uint16_t(bits >> 16);
++}
++
++// Bound A already includes alpha/rank. For the pinned Turbo adapter this
++// is exactly 8/128, so scaling the BF16 factor loses no nonzero bits.
++// Compute B@A in FP32, add the base separately, then store BF16 once.
++// The destination must be a fresh buffer; input checkpoint bytes stay read-only.
++inline void premerge_bf16_weight(const std::uint16_t* base,
++                                 const std::uint16_t* a,
++                                 const std::uint16_t* b,
++                                 std::uint16_t* output,
++                                 int n, int k, int rank)
++{
++  if (!base || !a || !b || !output || output == base ||
++      output == a || output == b || n <= 0 || k <= 0 || rank <= 0) {
++    throw std::invalid_argument("H3 premerge: invalid buffers or shape");
++  }
++  std::vector<float> a32(std::size_t(rank) * k);
++  std::transform(a, a + a32.size(), a32.begin(), premerge_f32);
++  constexpr int band = 256;
++  std::vector<float> b32(std::size_t(band) * rank);
++  std::vector<float> delta(std::size_t(band) * k);
++  for (int row = 0; row < n; row += band) {
++    const int count = std::min(band, n - row);
++    const auto* source = b + std::size_t(row) * rank;
++    std::transform(source, source + std::size_t(count) * rank,
++                   b32.begin(), premerge_f32);
++    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
++                count, k, rank, 1.f, b32.data(), rank, a32.data(), k,
++                0.f, delta.data(), k);
++    const auto offset = std::size_t(row) * k;
++    for (std::size_t i = 0; i < std::size_t(count) * k; ++i) {
++      output[offset + i] = premerge_bf16(
++          premerge_f32(base[offset + i]) + delta[i]);
++    }
++  }
++}
++
++}  // namespace vpipe::genai::minimax_h3
++#endif

@@ -1,5 +1,17 @@
 # Native compute policy and VAE
 
+`bf16-premerge.patch` is an unadopted diagnostic candidate, applied after the
+RoPE patch below. Its private `VPIPE_H3_PREMERGE_BF16_LORA=1` path merges the
+already validated native Turbo factors into fresh BF16 projection buffers at
+load, using FP32 accumulation. It rejects quantized or streamed bases, multiple
+adapters and non-unit request scale. It disables runtime adapters after all
+projections have merged, and refuses eviction that would reload unmerged weights.
+Source checkpoints and the default path remain unchanged. The pinned Turbo
+alpha/rank is an exact power-of-two factor; other adapter recipes are not
+qualified. `tests/native_bf16_premerge.cc` checks scalar results, BF16 ties,
+row-band tails and source preservation. Effective-weight and complete-video
+qualification are separate; this is not enabled by the public product wrapper.
+
 `rope-precision.patch` is a candidate correction, not part of the pinned released
 engine. Apply it after the three patches below when building that candidate.
 It follows [vpipe's upstream correction](https://github.com/tgo-app-dev/vpipe/commit/8ffe228d54d7)
