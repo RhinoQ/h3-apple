@@ -148,9 +148,32 @@ def prepare_video_noise(request, prepared, entry, workspace):
                 packed=dict(path=str(target), sha256=digest(target)))
 
 
+def prepare_audio_noise(request, entry, workspace):
+    """Bind stereo noise for the image-only Ref2VA diagnostic interface."""
+    import numpy as np
+    from ._vendor.fastvideo_mlx.minimax_h3 import audio_latent_num_frames
+    if not isinstance(entry, dict) or set(entry) != {"path", "sha256"}:
+        raise ValueError("Diagnostic audio noise needs a path and SHA256.")
+    source = Path(entry["path"]).resolve(strict=True)
+    checksum = digest(source)
+    if checksum != entry["sha256"]:
+        raise ValueError("Diagnostic audio noise checksum differs.")
+    shape = (2 * audio_latent_num_frames(request["model_num_frames"]), 32)
+    audio = np.load(source, allow_pickle=False)
+    if (not isinstance(audio, np.ndarray) or audio.dtype != np.dtype("<f4")
+            or audio.shape != shape or not np.isfinite(audio).all()):
+        raise ValueError("Diagnostic audio noise has invalid dtype, shape or values.")
+    target = Path(workspace) / "diagnostic-audio-noise.f32"
+    with target.open("xb") as stream:
+        audio.tofile(stream)
+    return dict(source=dict(path=str(source), sha256=checksum), shape=list(shape),
+                native_floats=int(audio.size),
+                packed=dict(path=str(target), sha256=digest(target)))
+
+
 def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
         replay_plan=None, diagnostic_attention=None, diagnostic_video_noise=None,
-        diagnostic_conditioning=None):
+        diagnostic_conditioning=None, diagnostic_audio_noise=None):
     _attention_switches(diagnostic_attention)
     if request["num_steps"]!=4: raise ValueError("H3 requires four denoising steps.")
     workspace=Path(workspace); native=workspace/("native.wav" if request.get("x2") else "native.mp4")
@@ -176,6 +199,12 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
         compute_request = dict(compute_request, diagnostic_video_noise=dict(
             sha256=noise["source"]["sha256"], shape=noise["shape"], prefix_rows=noise["prefix_rows"]))
         environment["VPIPE_H3_NOISE_VID"] = noise["packed"]["path"]
+    audio_noise = None
+    if diagnostic_audio_noise is not None:
+        audio_noise = prepare_audio_noise(request, diagnostic_audio_noise, workspace)
+        compute_request = dict(compute_request, diagnostic_audio_noise=dict(
+            sha256=audio_noise["source"]["sha256"], shape=audio_noise["shape"]))
+        environment["VPIPE_H3_NOISE_AUD"] = audio_noise["packed"]["path"]
     compute_plan, replay = compute.prepare(compute_request, assets, prepared, workspace,
                                            environment, replay=replay_plan)
     if request.get("x2") or diagnostics:
@@ -212,6 +241,10 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
         confirmation = f"loaded video initial noise ({noise['native_floats']} floats) from {noise['packed']['path']}"
         if log.count(confirmation) != 1:
             raise RuntimeError("Native diagnostic video noise was not confirmed.")
+    if audio_noise is not None:
+        confirmation = f"loaded audio initial noise ({audio_noise['native_floats']} floats) from {audio_noise['packed']['path']}"
+        if log.count(confirmation) != 1:
+            raise RuntimeError("Native diagnostic audio noise was not confirmed.")
     compute_plan = compute.complete(compute_plan, replay, log, workspace)
     timings=dict(native_generation=native_seconds)
     bridge = {}
@@ -219,6 +252,8 @@ def run(request, assets, workspace, emit, *, references=None, diagnostics=False,
         bridge["diagnostic_conditioning"] = conditioning
     if noise is not None:
         bridge["diagnostic_video_noise"] = noise
+    if audio_noise is not None:
+        bridge["diagnostic_audio_noise"] = audio_noise
     if request.get("x2"):
         from .runtime.sol_x2 import finish
         bridge.update(finish(request, assets, workspace, log, emit,

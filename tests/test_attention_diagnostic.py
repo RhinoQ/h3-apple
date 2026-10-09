@@ -80,3 +80,25 @@ def test_noise_rejects_bad_input_before_native_launch(tmp_path, fault):
     with pytest.raises(ValueError):
         engine.prepare_video_noise(request, [], entry, tmp_path)
     assert not (tmp_path / "diagnostic-video-noise.f32").exists()
+
+
+@pytest.mark.parametrize("fault", [None, "checksum", "shape", "dtype", "nan"])
+def test_audio_noise_transport_or_early_rejection(tmp_path, fault):
+    import numpy as np
+    from h3_apple.io import digest
+    from h3_apple._vendor.fastvideo_mlx.minimax_h3 import audio_latent_num_frames
+    request = dict(model_num_frames=5)
+    value = np.arange(2 * audio_latent_num_frames(5) * 32, dtype='<f4').reshape(-1, 32)
+    if fault == 'shape': value = value[:1]
+    if fault == 'dtype': value = value.astype(np.float64)
+    if fault == 'nan': value[0, 0] = np.nan
+    source = tmp_path / 'audio.npy'; np.save(source, value, allow_pickle=False)
+    entry = dict(path=str(source), sha256='0'*64 if fault == 'checksum' else digest(source))
+    if fault:
+        with pytest.raises(ValueError):
+            engine.prepare_audio_noise(request, entry, tmp_path)
+        assert not (tmp_path / 'diagnostic-audio-noise.f32').exists()
+    else:
+        result = engine.prepare_audio_noise(request, entry, tmp_path)
+        assert result['source'] == entry and result['native_floats'] == value.size
+        np.testing.assert_array_equal(np.fromfile(result['packed']['path'], '<f4').reshape(value.shape), value)
