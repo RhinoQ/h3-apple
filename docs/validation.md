@@ -2,59 +2,53 @@
 
 ## 0.7.0 release
 
-The [release checks](evidence/v0.7.0-release-check.json) cover normal wheel
-installation, a direct 0.6.0/0.7.0 VSA profile comparison, both public entry points
-and orientations, and 236 passing tests including the large-array regression.
-New VSA landscape and SOL portrait outputs reproduce the frozen benchmark's
-corresponding complete RGB frames and audio PCM. Only the packaged engine URL
-changed from that build. See [speed and attribution](releases/0.7.0.md).
+[Release checks](evidence/v0.7.0-release-check.json): wheel installation, model reuse,
+CLI/API generation in both orientations, and **236 passing tests**, including the
+large-array regression. Fresh VSA landscape and SOL portrait runs matched the
+benchmark's decoded RGB and audio PCM. Packaging changed the engine URL, not its bytes.
+
+[Release notes](releases/0.7.0.md) contain speed measurements and source credits.
 
 ## Fresh cinematic benchmark
 
-[Edition 0.3.0](https://rhinoq.github.io/h3-apple/) contains twelve scenes across
-VSA/SOL and standard 768p/fast 544p + X2 on one frozen 0.7.0 build. Only newly
-generated videos qualify. All 48 outputs have explicit criterion judgments;
-historical videos and scores are excluded.
+[Benchmark 0.3.0](https://rhinoq.github.io/h3-apple/) compares **12 scenes × 4 configurations**:
+VSA/SOL at native 768p and 544p + X2. All 48 videos were generated on one frozen
+0.7.0 build. Prompts, references, settings, failures and replay files are public.
 
-Complete visual-task success, quality severity, full API time and sampled peak
-memory are separate. The site retains prompts, original references, model/source
-identities, failures and replay. Review covers all sequential frames and selected
-originals; subjective audio is unscored. This small, exposed regression suite has
-one measurement per slot and does not establish a universal ranking.
+Task success, quality, full API time and sampled memory are scored separately.
+Agent review covers every sequential frame and selected originals, with methods
+disclosed. Audio quality is unscored. One seed and one run per configuration make
+this an exposed regression suite, not a general ranking.
 
 ## SOL Turbo preparation
 
-The [controlled recipe comparison](evidence/sol-premerge-source.json) reproduced
-an old duplicate-person failure with runtime Turbo and retained one person after
-FP32 premerge → BF16 rounding → W8G64 preparation. Two fresh five-second cases
-passed their basic subject/action gates. Small-face softness and camera movement
-remain. This supports a preparation/rounding explanation for those cases, not
-a universal fix or proof of a SOL attention-kernel arithmetic bug.
+[Controlled comparison](evidence/sol-premerge-source.json): runtime Turbo reproduced
+a duplicate-person failure; **FP32 merge → BF16 rounding → W8G64** retained one
+person. Two fresh five-second portrait/landscape cases passed their subject/action
+criteria. Small-face softness and camera errors remained.
 
-Installed CLI/API replays matched their selected X2 predecessors in decoded RGB
-and PCM. An ordinary 576p native-decode regression also passed. The complete
-portrait API pair took 158.374 s before and 169.700 s after premerge; this was an
-integration check within its 1.10 ratio limit, not an acceleration claim.
-The record contains all core timings, initial failures, source/model identities
-and review limits.
+Installed CLI/API replays matched the selected X2 outputs in RGB and PCM; ordinary
+576p decoding also passed. The portrait API pair took **158.374 s → 169.700 s**,
+within its 1.10 ratio limit. This was a correctness check, not a speedup.
+
+The evidence supports a preparation/rounding explanation for these cases.
+It does not establish a universal fix or a SOL attention-kernel defect.
 
 ## Historical evidence
 
-These results retain their original recipes, inputs and qualification scope.
-They are not pooled with the current comparison.
+These records retain their original builds and review scope; they are excluded
+from the current benchmark.
 
-| Version | Evidence and scope |
+| Version | Evidence |
 | --- | --- |
-| 0.7.0 earlier mode comparison | [Five-case frozen comparison](evidence/v0.7.0-benchmark.json); distinct source and cohort from benchmark 0.3.0 |
-| 0.7.0 X2 integration | [Landscape/portrait integration](evidence/v0.7.0-x2-integration.json), including the later removed 768p + X2 route |
-| 0.6.0 | [VSA performance](evidence/v0.6.0-VSA-performance.json): 1.0235× paired median, below the 1.03× incremental target; [installed CLI/API and model conversion](evidence/v0.6.0-release.json) |
-| 0.5.3 | [Original-LightX2V adoption and replay](evidence/v0.5.3-release.json); non-blind frame review |
-| 0.5.2 | [Generation and optional restoration checks](evidence/v0.5.2-release.json); [component provenance](evidence/v0.5.2-source-components.json) |
-| 0.5.1 | [H256 decoder performance/quality](evidence/v0.5.1-performance.json): whole-generation performance gate failed; [installation](evidence/v0.5.1-release.json) |
-| 0.5.0 | [Conda CLI/API integration](evidence/v0.5.0-conda.json); [native integration](evidence/v0.5.0.json) |
-| 0.4.0 | [Preparation and complete Ref2VA generation](evidence/v0.4.0.json) |
-| 0.3.0 and earlier | [Versioned multi-task history](https://github.com/RhinoQ/h3-apple/tree/v0.3.0/docs/validation.md) |
+| 0.7.0 | [Earlier five-case comparison](evidence/v0.7.0-benchmark.json); [X2 integration](evidence/v0.7.0-x2-integration.json), including the removed 768p + X2 route |
+| 0.6.0 | [Performance](evidence/v0.6.0-VSA-performance.json): 1.0235× paired median, below the 1.03× target; [CLI/API and conversion](evidence/v0.6.0-release.json) |
+| 0.5.3 | [LightX2V adoption and replay](evidence/v0.5.3-release.json); non-blind frame review |
+| 0.5.2 | [Generation/restoration](evidence/v0.5.2-release.json); [component origins](evidence/v0.5.2-source-components.json) |
+| 0.5.1 | [Decoder checks](evidence/v0.5.1-performance.json): whole-generation speed gate failed; [installation](evidence/v0.5.1-release.json) |
+| 0.5.0 | [Conda CLI/API](evidence/v0.5.0-conda.json); [native integration](evidence/v0.5.0.json) |
+| 0.4.0 | [Preparation and generation](evidence/v0.4.0.json) |
+| ≤0.3.0 | [Versioned history](https://github.com/RhinoQ/h3-apple/tree/v0.3.0/docs/validation.md) |
 
-Synthetic numerical tests, installed-package execution, task quality, blind
-review and repeated performance are distinct claims. Equal seeds alone do not
-promise equal pixels across modes, builds or hardware.
+Numerical correctness, execution, visual quality and performance require separate
+evidence. Equal seeds do not guarantee equal pixels across modes, builds or hardware.

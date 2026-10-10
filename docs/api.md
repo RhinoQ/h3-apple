@@ -1,74 +1,66 @@
 # Python API
 
-Use the Python interpreter from the [H3 Conda environment](install.md).
+Use the [H3 Conda environment](install.md).
 
 ```python
 from h3_apple import generate
 
 result = generate(
-    prompt_file="scene.txt",
-    reference_images=["character.jpg", "style.jpg"],
-    mode="VSA",
-    duration=5,
-    output="scene.mp4",
+    prompt="A slow push-in on Picture 1. Soft ambient music.",
+    reference_images=["reference.jpg"],
+    duration=5, output="scene.mp4",
 )
 print(result.video_path, result.metadata_path)
 ```
 
-`prompt="..."` replaces `prompt_file`. Supply 1–9 still images in `Picture 1`,
-`Picture 2` order. Image ratios must lie between 1:4 and 4:1; EXIF orientation is
-applied. Prompt text and image order are preserved.
+Use `prompt_file="scene.txt"` instead of `prompt` for UTF-8 files.
+Supply 1–9 still images in Picture order, with aspect ratios from 1:4 to 4:1.
+EXIF orientation is applied; prompt text and image order are preserved.
 
-| Setting | Default | Accepted values |
+## Settings
+
+| Argument | Default | Accepted values |
 | --- | --- | --- |
 | `mode` | `"VSA"` | `"VSA"`, `"SOL"` |
 | `duration` | `15` | 5–15 seconds, whole frames at 24 fps |
 | `resolution` | `"576p"` | `"576p"`, `"768p"`; `"544p"` requires X2 |
 | `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |
-| `x2` | `False` | `True` only with 544p or 576p |
+| `x2` | `False` | `True` with 544p or 576p only |
 | `seed` | Random, recorded | Unsigned 32-bit integer |
 
-`resolution` is the sampling size. X2 doubles delivered dimensions in either
-mode; see [dimensions, dependencies and limits](x2.md). Both modes use four
-forwards, but equal seeds do not imply equal output.
+`resolution` sets sampling size; [X2](x2.md) doubles output dimensions.
+Both modes use four forwards. Equal seeds do not guarantee equal outputs across modes.
 
-`resolve(...)` accepts these settings and returns a `GenerationRequest` without
-loading models. `generate(...)` additionally accepts:
+`resolve(...)` validates these inputs and returns a `GenerationRequest` without
+loading or downloading models. `generate(...)` also accepts:
 
 | Argument | Purpose |
 | --- | --- |
-| `model_dir=None` | Selected mode's prepared model directory |
-| `x2_model_dir=None` | Separate decoder directory; requires `x2=True` |
-| `output=None` | New MP4 path; otherwise a unique folder under `runs/` |
-| `on_progress=None` | Callback receiving progress dictionaries in the caller |
-| `diagnostics=False` | Retain working files for inspection |
-| `timeout=7200` | Generation timeout in seconds |
-| `allow_large_download=False` | Explicit consent for downloads above 20 GB |
+| `model_dir=None` | Prepared models for the selected mode |
+| `x2_model_dir=None` | X2 decoder directory; requires `x2=True` |
+| `output=None` | New MP4 path; otherwise a unique folder in `runs/` |
+| `on_progress=None` | Progress callback in the caller |
+| `diagnostics=False` | Keep working files |
+| `timeout=7200` | Generation timeout, seconds |
+| `allow_large_download=False` | Consent to downloads over 20 GB |
 
-First use prepares missing models and the selected mode's runtime automatically;
-see [installation requirements](install.md#before-you-start).
-The API never prompts. `DownloadApprovalRequired` exposes `download_bytes`
-and `additional_disk_bytes`; review them before authorizing the download.
-Import and `resolve()` do not download. Preparation time is excluded from
-generation's timeout and `elapsed_seconds`.
+## First use
 
-The result contains `video_path`, `metadata_path`, `elapsed_seconds` and `seed`.
-Existing outputs are refused. Ctrl-C and timeout terminate the worker group.
-Before delivery, the complete media is decoded and checked for dimensions,
-frame count, fps, duration and stereo 32 kHz audio. Run records bind the request,
-inputs, model, source, backend and executed compute policy.
+Missing models and runtimes are prepared automatically. The API never prompts:
+`DownloadApprovalRequired` reports `download_bytes` and `additional_disk_bytes`.
+Review these before retrying with `allow_large_download=True`.
+Importing the package does not download anything.
 
-Audio is always generated. Describe dialogue, music, ambience or silence in
-the prompt; exact sound, timing, identity and continuity remain model limitations.
+## Results
 
-## Optional enhancement of an existing video
+`GenerationResult` contains `video_path`, `metadata_path`, `elapsed_seconds` and
+`seed`. Setup time is excluded from both the timeout and `elapsed_seconds`.
 
-After installing `[faces]` and preparing its models:
+Existing outputs are refused. Ctrl-C and timeout stop the worker group.
+Delivery checks decode the full video and verify dimensions, frame count, timing
+and stereo 32 kHz audio. Run records identify inputs, settings, models and runtime.
 
-```python
-from h3_apple import enhance_faces
-result = enhance_faces("scene.mp4", output="scene-enhanced.mp4")
-```
+Audio is always generated. Describe speech, music, ambience or silence in the
+prompt. Exact speech, timing, identity and continuity remain model limitations.
 
-This separate worker preserves source audio and skips large closeups.
-See [the enhancement contract](face-enhancement.md).
+[Enhance faces in an existing video](face-enhancement.md).

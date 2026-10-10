@@ -5,87 +5,71 @@ description: Generate and review reference-image videos with h3-apple on Mac, in
 
 # H3 Apple Ref2VA
 
-This locally authored skill supplements MiniMax's official `h3-prompt-writing`
-guide. Preserve the requested creative intent, subjects, motion, timing, audio
-and reference roles. Keep project preferences, production budgets and experiment
-history in the project's records; consult them when continuing existing work.
-They are context for that production, not universal requirements of this skill.
+This local skill supplements MiniMax's official prompting guide. Preserve the
+brief's subjects, reference roles, motion, timing and audio. Consult project
+records for budgets, preferences and prior work; those are project context,
+not universal prompt rules.
 
-## Follow the requested deliverable
+## Deliver the requested work
 
-When the user asks to make or render a video, use the installed **h3-apple** CLI
-or Python API and carry the task through setup, generation and delivery. Read
-[local-generation.md](references/local-generation.md) to find or install a
-compatible Conda environment, check readiness and download requirements, run the
-generation and locate the finished MP4. Reuse a working installation; install
-missing components within the authorized task instead of handing the user
-installation commands. Do not stop after writing a prompt when a video was
-requested.
+- **Generate a video:** use the public h3-apple CLI/API through setup, rendering,
+  review and delivery. Read [local generation](references/local-generation.md).
+  Reuse working installations; install missing components within authorization.
+  A prompt or readiness check is not a finished video.
+- **Write a prompt or plan:** deliver the text without installing or running models.
+- **Review a video:** inspect the existing output; generation setup is unnecessary.
 
-For prompt writing, story ideas or shot plans alone, deliver that artifact without
-installing h3-apple or running models. Reviewing an existing video also does not
-require generation setup. Preserve an explicitly requested product version and
-delivery settings. A generation request authorizes the necessary local workflow;
-large-download consent and publication remain separate boundaries.
+Honor explicit versions and delivery settings. Large downloads and publication
+require their own authorization. Do not expand the task into engine changes.
 
-## Prepare the actual input
+## Prepare inputs
 
-Inspect supplied references when their role or contents matter. Read
-[input-scope.md](references/input-scope.md) when selecting assets or mapping
-references and subjects to shots; it also links the pinned official syntax.
-Use only the reference roles and composition constraints relevant to each shot,
-without dropping requested content to avoid a generation failure. Prefer a
-concrete account of what is visible and happening over accumulating prohibitions.
+Inspect relevant references. Read [input scope](references/input-scope.md) when
+selecting assets or mapping subjects to shots. Preserve requested subjects;
+do not remove them to avoid model failures. Assign incidental characters in a
+style image to its intended role, not automatically to the cast. Crop or edit
+references only within the user's scope.
 
-Style references with incidental characters should be assigned the intended
-style role; they do not automatically define additional cast. Do not crop or
-edit a supplied reference unless that is within the user's requested work.
+For sequences and review, read [continuity](references/story-continuity.md).
+Derive criteria from the brief and creative form. Judge the output, not the
+plausibility of its prompt.
 
-For sequence planning or delivery review, read
-[story-continuity.md](references/story-continuity.md). Derive continuity and
-performance criteria from the brief and creative form. Judge the actual output;
-a plausible prompt or successful technical check does not establish that the
-output fulfills the brief.
-
-## Official Ref2VA output
+## Write a Ref2VA prompt
 
 For a new complete prompt, use these fields in order:
-`subject_definitions`, `summary`, `retention_analysis`, `detailed_description`,
-`overall_soundscape`, `non_diegetic_music`. Explain to the user in their language;
-write the prompt sections in English while preserving requested dialogue,
-lyrics and visible text in their original language. Explicit user instructions
-take precedence over this default.
 
-Define reusable identity/style content as `<Subject N>` and cite its source
-`<Picture N>`. A standalone picture definition is for a frame or storyboard
-anchor. Reuse each label consistently. Use `retention_analysis` to map each
-subject to its shots and state what is retained; use the official retention
-markers according to the declared role. Start with `[Shot 1]`; later cuts use
-`[Shot N] At MM:SS.mmm, ...`. Write concrete visible actions, framing and sound
-in each shot, not just a list of references. Timing must fit the requested
-duration. Consult the pinned official guide for detailed syntax and examples.
+`subject_definitions`, `summary`, `retention_analysis`,
+`detailed_description`, `overall_soundscape`, `non_diegetic_music`.
 
-h3-apple's current task is image-reference generation with generated audio.
-Do not invent video/audio reference inputs or `<Audio N>` assets from requests
-for background music. Keep voices, sound effects and score consistent across
-the shot descriptions and the two audio fields.
+Explain in the user's language; write prompt sections in English. Preserve
+requested dialogue, lyrics and visible text in their original language.
+Explicit user instructions override this default.
 
-Treat spoken content and visible text as separate requirements. A requested
-dialogue language does not imply subtitles. Specify captions, overlays and
-in-scene writing according to the brief. When caption-free delivery is requested,
-state that dialogue is spoken without overlaid subtitles; preserve any requested
-signs or other scene text. Verify these requirements in the resulting output.
+Define reusable identity/style as `<Subject N>`, citing `<Picture N>`.
+Use standalone picture definitions for frame/storyboard anchors.
+Keep labels consistent. In `retention_analysis`, map subjects to shots and use
+the official retention markers for each role.
 
-## Keep evidence and changes separate
+Begin with `[Shot 1]`; later cuts use `[Shot N] At MM:SS.mmm, ...`.
+Describe visible actions, framing and sound. Fit timing to the requested duration.
+Prefer concrete descriptions over accumulated prohibitions; consult the pinned
+guide for exact syntax.
 
-For an input audit, show the actual reference selection/renumbering and the precise
-text edits. Preserve requested beats; avoid opportunistic style or framing
-rewrites. If comparing a frozen experiment, keep it immutable and register any
-new prompt/schema change as a separate intervention before generation.
+h3-apple accepts image references and generates audio. Do not invent video/audio
+inputs or `<Audio N>` assets for background music. Keep voices, effects and score
+consistent across visual and audio fields.
 
-When comparing renders or diagnosing a quality change, read
-[output-comparison.md](references/output-comparison.md). Separate prompt changes
-from generation settings, editing and postprocessing when attributing a result.
-A proposed correction is not a tested fix; report what was actually inspected
-and what remains uncertain. Do not expand a prompt-only or review request into
-generation, or a generation request into publication or engine changes.
+Treat speech and visible text separately. Dialogue language does not imply
+subtitles. For caption-free delivery, specify spoken dialogue without overlays
+while preserving requested signs or other scene text. Verify the actual result.
+
+## Review and revise
+
+For input audits, show the reference selection/renumbering and exact text edits.
+Preserve requested beats; avoid unrelated style or framing changes.
+Keep frozen experiments immutable and register prompt changes before generation.
+
+Read [output comparison](references/output-comparison.md) when comparing renders
+or diagnosing quality. Separate prompt, runtime and postprocessing changes when
+attributing results. Report inspected evidence and uncertainty; a proposed
+correction is not a tested fix.

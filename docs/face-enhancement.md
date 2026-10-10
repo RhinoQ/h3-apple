@@ -1,48 +1,39 @@
-# Optional small-face enhancement
+# Face enhancement
 
-h3-apple can enhance selected small faces in an existing H3 video. This is
-an additional postprocessing operation, available since 0.5.2. Ordinary
-generation in either VSA or SOL does not import or load the restoration stack.
-
-Watch the [original/restored comparison](https://rhinoq.github.io/h3-apple/previews/delegation-local-vosr/).
-It demonstrates local detail, not an accepted narrative film: the source has
-repeated gestures and an incorrectly directed farewell. Enhancement does not
-repair those actions. Fine facial detail is reconstructed and can differ from
-the source; exact identity or temporal fidelity is not guaranteed.
+Restore selected small faces in an existing H3 video. This optional pass adds
+processing time and may change identity or flicker; it cannot repair failed actions.
 
 ## Setup
 
-Use the Python 3.11 Conda environment from [installation](install.md). The
-optional restoration stack is tested with Python 3.11. From the 0.7.0 checkout, install VSA and face-enhancement dependencies:
+In the [Python 3.11 H3 environment](install.md), install the optional dependencies:
 
-```bash
-python -m pip install ".[VSA,faces]"
+```sh
+python -m pip install "h3-apple[VSA,faces] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 h3 prepare-faces --plan
 h3 prepare-faces
 ```
 
-The separate package contains **7.08 GB** of VOSR2, Qwen 2D VAE, DINOv2-L and
-RetinaFace assets. Models default to `~/Models/h3-apple/faces`; they are not
-bundled in the wheel or fetched on import. Every file has a pinned size and
-SHA256. Downloads resume through the same verified downloader as H3. Review
-[component terms](#component-terms) before use.
+The **7.08 GB** model set downloads to `~/Models/h3-apple/faces`.
+Ordinary generation does not load it. Review [component terms](#component-terms).
 
-For an existing VOSR snapshot and RetinaFace cache, avoid duplicate downloads:
+<details>
+<summary>Reuse models or change their location</summary>
 
-```bash
+```sh
 h3 prepare-faces --reuse-dir /path/to/vosr-weights --reuse-dir /path/to/retinaface-cache
 ```
 
-The VOSR directory must retain the upstream `VOSR2/`, `Qwen-Image-vae-2d/` and
-`torch_cache/checkpoints/` layout. The detector cache contains
-`detection_Resnet50_Final.pth`. Same-volume reuse makes verified hard links;
-cross-volume reuse copies the files. Use `--model-dir` on both preparation and
-enhancement to keep these optional models on another volume. This directory
-is separate from `h3 generate --model-dir`.
+Keep the upstream `VOSR2/`, `Qwen-Image-vae-2d/` and `torch_cache/checkpoints/`
+layout. RetinaFace needs `detection_Resnet50_Final.pth`.
+Reuse verifies hashes, hard-links on one volume and copies across volumes.
+Pass `--model-dir` to both preparation and enhancement for a custom location,
+separate from generation models. Downloads resume and verify pinned checksums.
+
+</details>
 
 ## Enhance
 
-```bash
+```sh
 h3 enhance-faces --input video.mp4 --output enhanced.mp4
 ```
 
@@ -53,69 +44,66 @@ result = enhance_faces("video.mp4", output="enhanced.mp4")
 print(result.video_path, result.enhanced_frames, result.face_passes)
 ```
 
-The operation accepts H3 576p/768p landscape or portrait MP4s: 24 fps, 8-bit
-video, at most ten minutes, and zero or one AAC audio stream starting at zero.
-Edited H3 sequences are supported. Original audio duration is preserved even
-when an edit leaves an audio tail. Other dimensions, HDR, rotation metadata,
-variable frame timing and multiple audio streams are rejected before inference.
+**Input:** H3 native 576p/768p landscape or portrait MP4, 24 fps, 8-bit,
+up to ten minutes, with zero or one AAC stream starting at zero. Edited H3
+sequences are supported. X2 dimensions, HDR, rotation metadata, variable frame
+timing and multiple audio streams are rejected.
 
-The first pass finds and tracks faces. Eligible tracks have at least five
-consecutive frames with a 32–160 pixel face box; large closeups and very small
-or uncertain faces are skipped. A shot cut starts a new track. A single missed
-frame is bridged only between unambiguous overlapping single-face detections.
-No faces selected means a byte-identical copy of the source, without loading
-VOSR. Multiple selected faces are processed sequentially.
+Faces qualify at **32–160 pixels for at least five consecutive frames**.
+Cuts reset tracking; only unambiguous single-frame gaps are bridged.
+Large closeups, tiny and uncertain faces are skipped. No selected faces produces
+a byte-identical copy without loading VOSR.
 
-The fixed recipe uses a stabilized 256-pixel source crop, a 512-pixel FP32 MPS
-restoration canvas, one VOSR2 step and source-derived feathering. Users do not
-need to choose crop size, denoise or seed. Pixels outside the masks are exact
-before final H.264 encoding; the lossy delivery encode can change them. The
-audio stream is copied and its decoded samples are checked for equality.
+Audio is copied, including any edit tail, and decoded samples are verified.
+Pixels outside restoration masks are unchanged before lossy H.264 encoding.
 
-The API also accepts `model_dir`, `on_progress`, `diagnostics=False` and
-`timeout=7200`. It returns an `EnhancementResult` with `video_path`,
-`metadata_path`, `elapsed_seconds`, `enhanced_frames` and `face_passes`.
-The `.faces.json` record identifies the source, recipe, models and environment.
-Existing inputs and outputs are never overwritten. Ctrl-C/timeouts terminate
-the worker process group; failed work retains diagnostics. Successful jobs
-remove temporary frames unless `--diagnostics` is requested.
+<details>
+<summary>Recipe, API and resource limits</summary>
 
-Enhancement shares the generation device lock: run one GPU job at a time.
-The existing 40-core M5 Max/macOS 26.2+/64 GB product requirement remains;
-measurements used 128 GB, not a smaller-memory machine. Connect AC power,
-disable Low Power Mode and leave 20 GiB free disk. Serious thermal pressure or
-more than 2 GiB additional swap stops the job. No 32 GB support is claimed.
+The fixed recipe uses a stabilized 256-pixel crop, 512-pixel FP32 MPS canvas,
+one VOSR2 step and source-derived feathering. Multiple faces run sequentially.
+
+The API accepts `model_dir`, `on_progress`, `diagnostics=False` and `timeout=7200`.
+Results contain `video_path`, `metadata_path`, `elapsed_seconds`,
+`enhanced_frames` and `face_passes`. The `.faces.json` record identifies
+source, recipe, models and environment.
+
+Existing files are never overwritten. Cancellation stops the worker group.
+Failed jobs retain diagnostics; successful runs remove frames unless requested.
+One GPU job runs at a time. Use AC power, disable Low Power Mode and allow
+20 GiB temporary disk. Serious thermal pressure or over 2 GiB extra swap stops
+the job. Standard product hardware requirements apply.
+
+</details>
 
 ## Cost and quality evidence
 
-The accepted research recipe took **417.18 seconds** to process a 17.75-second
-1024×576 film, with a **10.05 GiB** one-second sampled process-tree physical
-footprint peak. It enhanced 234 of 426 frames, making 352 face passes across
-four tracks. The 192 closeup frames received no restoration. Timing includes
-loading, verification, tracking, restoration, diagnostics, export and validation;
-it excludes one-time dependency/model setup. This is extra processing cost,
-not a generator speedup or a typical cost for every clip.
+One **17.75-second, 1024×576** clip on M5 Max / 128 GiB, macOS 26.6.1,
+PyTorch 2.11.0 FP32 MPS:
 
-The environment was a 40-core M5 Max, 128 GiB, macOS 26.6.1 and PyTorch 2.11.0
-FP32 MPS. Non-blind review covered small-face motion, a profile, another
-character/scene and sampled full-film crops. Sharper outlines can contrast with
-motion-blurred surroundings. There is no sharp ground truth, universal identity
-guarantee, or temporally conditioned restoration. The earlier 10% added-time
-target was not met; the user accepted this measured cost for an optional pass.
+| Run | Total processing | Sampled peak memory |
+| --- | ---: | ---: |
+| Accepted research recipe | 417.18 s | 10.05 GiB |
+| Installed-wheel replay | 370.79 s | 9.55 GiB |
 
-Installed-package release checks are recorded in
-[v0.5.2 release evidence](evidence/v0.5.2-release.json).
-The final installed-wheel replay took **370.79 seconds**, with a **9.55 GiB**
-sampled process-tree peak (one individual process reading used RSS fallback).
-All 426 pre-encode RGB frames, selection geometry and the complete MP4 bytes
-match the accepted comparison. The export scope differs from the earlier
-research run, so these timings are not a controlled speedup comparison.
+The recipe restored 234 of 426 frames, with 352 passes across four tracks;
+192 closeup frames were skipped. Costs include loading through validation,
+excluding dependency/model setup. The export scopes differ, so the times
+do not establish a speedup. The original 10% added-time target was not met.
+
+[Release evidence](evidence/v0.5.2-release.json) records matching pre-encode RGB,
+selection geometry and complete MP4 bytes in the replay. Memory was sampled
+every second across the process tree; one replay reading used RSS fallback.
+
+Non-blind review covered small faces, profile motion, another character/scene
+and sampled film crops. There is no sharp ground truth or temporal conditioning.
+Sharper faces may contrast with motion blur. Narrative errors in the source
+remained; local detail improvement did not qualify the full film.
 
 ## Component terms
 
-Models and upstream source retain their own terms. Source identities and local
-modifications are recorded in [the component manifest](evidence/v0.5.2-source-components.json);
-full notices and license texts ship with both the wheel and source distribution.
+[Component identities and modifications](evidence/v0.5.2-source-components.json)
+and full notices ship with source and wheel.
 
 | Component | Upstream terms and scope |
 | --- | --- |
@@ -126,7 +114,7 @@ full notices and license texts ship with both the wheel and source distribution.
 | RMSNorm source retained from VOSR | Llama 2 Community License and its required notice; no Llama language model or weights are bundled |
 | RetinaFace/facexlib | Separate installed facexlib package and its upstream notices; detector weights downloaded from its pinned release |
 
-The combined source package conservatively declares these component terms.
-The optional restoration path is not represented as cleared for unrestricted
-commercial use. These source terms are distinct from the separately downloaded
-MiniMax generation model terms. See [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES).
+
+The combined package is not cleared for unrestricted commercial use.
+These source terms are separate from MiniMax generation-model terms.
+See [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES).

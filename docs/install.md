@@ -1,20 +1,13 @@
 # Installation
 
-Two steps: install, then generate. Models are prepared automatically on first use.
-
 ## Before you start
 
-- **Mac:** 40-core M5 Max, macOS 26.2+, at least 64 GiB unified memory.
-  Measurements used 128 GiB; smaller-memory operation is unverified.
-  Other GPU configurations are unsupported. Native 768p beyond five seconds needs 96 GiB.
-- **Storage:** fresh VSA setup needs about **151 GB of downloads and
-  343 GB of free disk**. Existing caches can reduce this.
-- **Conda:** use your existing installation, or install
-  [Miniforge for Apple Silicon](https://github.com/conda-forge/miniforge#miniforge3).
+- **Mac:** 40-core M5 Max, macOS 26.2+, 64 GiB minimum. Tested with 128 GiB;
+  smaller-memory operation is unverified. Other GPUs are unsupported.
+- **Disk:** fresh VSA setup needs about **151 GB of downloads / 343 GB free**.
+- **Conda:** use your installation or [Miniforge for Apple Silicon](https://github.com/conda-forge/miniforge#miniforge3).
 
 ## 1. Install
-
-Open Terminal and run:
 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
@@ -22,12 +15,11 @@ conda activate h3
 python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
-This supports **VSA, SOL and X2**. Models download only when needed;
-no compiler or manual model download is required.
+One environment supports VSA, SOL and X2. No compiler is needed.
 
-## 2. Generate your first video
+## 2. Generate
 
-Replace `reference.jpg` with the path to one of your images, and run:
+Replace `reference.jpg` with your image path:
 
 ```sh
 h3 generate --image reference.jpg \
@@ -35,23 +27,28 @@ h3 generate --image reference.jpg \
   --duration 5 --output first-video.mp4
 ```
 
-H3 shows download and disk requirements and asks before downloading more than
-20 GB. Review the estimate, then enter `y`. Initial setup takes extra time;
-later runs reuse the models.
+First use prepares the models. Review the download estimate and enter `y` to
+approve transfers over 20 GB. Later runs reuse the models.
 
-Open **`first-video.mp4`**: a five-second 576p video with stereo audio.
-Use a new output filename each time. In a new terminal, run `conda activate h3` first.
+Open `first-video.mp4`. Choose a new filename for each run.
+In a new terminal, run `conda activate h3` first.
 
-**Ready to go further?** [Faster SOL + X2 generation](../README.md#faster-generation) ·
-[Portrait and other options](../README.md#generate) · [Python API](api.md).
-You can start directly with SOL + X2 after step 1; it does not need VSA models.
+[Fast SOL + X2](x2.md) · [Python API](api.md)
 
 ## Optional setup
 
 <details>
-<summary>Check download and disk costs before generating</summary>
+<summary>Download and disk costs</summary>
 
-Preview costs without downloading models:
+| Mode | Fresh downloads | Free disk for setup |
+| --- | ---: | ---: |
+| VSA | ~151 GB | ~343 GB |
+| SOL | ~145 GB | ~233 GB |
+
+These conservative estimates exclude X2's 5.25 GB decoder. Caches reduce costs.
+SOL's 6.05 MB engine downloads automatically. SOL + X2 does not need VSA models.
+
+Preview your actual costs without downloading:
 
 ```sh
 h3 prepare --plan
@@ -59,80 +56,67 @@ h3 prepare --mode SOL --plan
 h3 prepare-x2 --plan
 ```
 
-| Mode | Fresh downloads | Additional free disk for setup | Prepared models |
-| --- | ---: | ---: | ---: |
-| VSA | ~151 GB | ~343 GB | ~111 GB with hard links; 178 GB logical |
-| SOL | ~145 GB | ~233 GB | ~85 GB |
+Prepared bundles occupy about 111 GB for VSA with hard links (178 GB logical)
+or 85 GB for SOL. Cross-volume copies may use the logical size.
 
-Conservative estimates exclude X2's **5.25 GB** decoder. Caches reduce costs; cross-volume
-copies may use the full logical size. Your local plan is authoritative.
-SOL's matching 6.05 MB engine downloads automatically.
-
-Unattended downloads above 20 GB need `--allow-large-download` after reviewing the plan;
-see [Python consent](api.md) for the API. Interrupted downloads resume on retry.
+Unattended transfers over 20 GB require `--allow-large-download` after plan review.
+[Python consent](api.md) is separate. Interrupted downloads resume on retry.
 
 </details>
 
 <details>
-<summary>Reuse models or put them on another drive</summary>
+<summary>Model locations and reuse</summary>
 
-| Mode | Default directory | Environment override |
+| Mode | Default directory | Override |
 | --- | --- | --- |
 | VSA | `~/Models/h3-apple/VSA` | `H3_VSA_MODEL_DIR` |
 | SOL | `~/Models/h3-apple/ref2va` | `H3_MODEL_DIR` |
 
-Set the variable in each session, or pass `--model-dir /path/to/models` each time.
-Keep VSA and SOL directories separate. Reuse compatible models or raw sources with:
+Set the variable in each session or pass `--model-dir`. Keep formats separate.
+[X2 has its own directory](x2.md#model-preparation).
 
 ```sh
 h3 prepare --reuse-dir /path/to/existing-models
 ```
 
-Add `--mode SOL` for SOL; repeat `--reuse-dir` for multiple sources.
-Accepted recipes: [model sources](../src/h3_apple/data/model-sources.json),
-[VSA gates](../src/h3_apple/data/vsa-gates.json), [implementation](development.md).
-Model licenses apply. [X2 uses a separate directory](x2.md#model-preparation).
+Add `--mode SOL` for SOL. Repeat `--reuse-dir` for multiple compatible sources.
+[Model recipes](development.md) and licenses still apply.
 
 </details>
 
 <a name="upgrading-sol-models"></a>
 
 <details>
-<summary>Upgrade an existing installation</summary>
+<summary>Upgrade h3-apple or older SOL models</summary>
 
-Activate `h3` and rerun the pip command with `--upgrade`. For an earlier 0.7.0
-source/benchmark wheel, use `--force-reinstall` to refresh the engine manifest.
+Activate `h3` and rerun the pip command with `--upgrade`.
+Use `--force-reinstall` when replacing an earlier 0.7.0 source/benchmark wheel.
 Compatible VSA models are reusable.
 
-### SOL model migration
-
-0.7.0 rejects old quantized SOL weights; editing their manifest cannot upgrade
-them. Prepare an empty directory:
+**0.7.0 rejects old quantized SOL weights.** Prepare a new directory:
 
 ```sh
 h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged --plan
 h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged
 ```
 
-To reuse original H3 weights and the Turbo adapter, add
-`--reuse-dir /path/to/original-sources` to both commands. Old quantized weights alone are insufficient.
-Use `--model-dir ~/Models/h3-apple-sol-premerged` on subsequent SOL calls.
-Existing models are preserved. [Why the recipe changed](releases/0.7.0.md#fixes-and-lessons-that-affected-adoption).
+To reuse original H3 weights and Turbo, add `--reuse-dir /path/to/sources` to both
+commands. Old quantized weights alone are insufficient. Pass the new `--model-dir`
+on later SOL calls. Existing models are preserved.
+[Recipe change](releases/0.7.0.md#fixes-and-lessons-that-affected-adoption).
 
 </details>
 
 <details>
-<summary>Check an installation or troubleshoot a failed run</summary>
+<summary>Troubleshooting</summary>
 
-`h3 doctor` checks installation readiness; `h3 verify` checks all model-file
-checksums. Add `--mode SOL` for SOL. **Missing models before first use are expected**;
-generation prepares them.
-
-If `h3` is not found, activate the environment or use `python -m h3_apple`.
-Failed jobs retain logs. Generation reserves 20 GiB temporary disk and stops
-on swap growth above 2 GiB or serious thermal pressure.
+- `h3` not found: activate the environment or use `python -m h3_apple`.
+- `h3 doctor` checks readiness; missing models before first use are expected.
+- `h3 verify` checks all model checksums. Both commands accept `--mode SOL`.
+- Generation reserves 20 GiB temporary disk and stops on serious thermal pressure
+  or swap growth above 2 GiB. Failed jobs retain logs.
+- Native 768p over five seconds needs 96 GiB memory.
 
 </details>
 
-[Source installation and development](development.md#verify-a-change) ·
-[Optional face enhancement](face-enhancement.md)
+[Source installation](development.md#verify-a-change) · [Face enhancement](face-enhancement.md)

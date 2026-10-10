@@ -1,42 +1,24 @@
-# Generate locally with h3-apple
+# Generate locally
 
-Use the public h3-apple CLI/API for rendering. The published-install commands
-below target **v0.7.0**, including optional X2.
-the [installation guide](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/install.md)
-and [API guide](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/api.md) define
-its supported interface. Honor a requested version; inspect that release's docs
-and `--help` before adapting these commands. Do not silently upgrade an existing
-installation or change the model recipe to make a command work.
+Use the public h3-apple CLI/API. These examples target **0.7.0**;
+[release installation](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/install.md)
+and [API](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/api.md) define its contract.
+Honor requested versions and settings. Check that version's docs and `--help`;
+do not silently upgrade software or change model recipes.
 
-## VSA and SOL
+## Environment
 
-Version 0.7.0 supports `--mode VSA` (default) and `--mode SOL`, also `mode="VSA"` /
-`mode="SOL"` in Python. Honor an explicitly requested mode and carry it through
-`resolve`, `prepare`, `doctor`, `verify` and `generate`. Both modes use original
-LightX2V. VSA needs its optional dependencies in Python 3.11 and a separate
-verified model bundle. `H3_MODEL_DIR` applies to SOL, `H3_VSA_MODEL_DIR` to VSA.
-Older releases such as 0.5.3 do not expose these mode flags.
+Find the project's interpreter in its docs and run records; use `command -v h3`
+and `conda env list --json` if needed. A missing PATH entry does not prove absence.
+Confirm the selected Conda Python with `-m h3_apple --version`. Use its absolute
+path for H3, pip and checks. Avoid system Python, Conda base, `pip --user` and
+unrelated environments.
 
-## Find or install the environment
+Before installing or downloading, inspect hardware: **40-core M5 Max, macOS 26.2+,
+64 GiB minimum**; native 768p beyond five seconds needs 96 GiB.
+Unsupported hardware is a blocker; do not bypass guards or alter the request.
 
-Look first at the project's documented interpreter and prior run records, then
-`command -v h3` and `conda env list --json` as needed. A missing `h3` on PATH does
-not prove the package is absent. Select the existing project Conda Python that
-has `h3_apple`, confirm its version with `-m h3_apple --version`, and use that
-absolute interpreter for every H3, pip and verification command. Do not use
-system Python, Conda base, `pip --user` or an unrelated project's environment.
-
-Before installing dependencies or downloading weights, check the host against
-the selected release's requirements. v0.7.0 requires an Apple Silicon Mac with
-a **40-core M5 Max**, macOS **26.2+**, and **64 GiB** unified memory; 768p beyond
-5 seconds requires **96 GiB**. Read macOS and hardware information rather than
-assuming that any Apple Silicon Mac is supported. Unsupported hardware is a
-blocker, not a reason to bypass product checks or silently change the request.
-
-If a compatible environment is missing, create an isolated project prefix and
-install the released wheel. Choose an unused prefix if the example already
-belongs to another environment. These are shell examples, not paths to assume
-exist on the user's machine:
+If needed, create an unused project prefix:
 
 ```bash
 H3_ENV_PREFIX="$PWD/.local/envs/h3"
@@ -46,66 +28,54 @@ H3_PYTHON="$H3_ENV_PREFIX/bin/python"
 "$H3_PYTHON" -m h3_apple --version
 ```
 
-If Conda itself is missing, install the macOS arm64 installer from the official
-[Miniforge project](https://github.com/conda-forge/miniforge), verifying its
-published SHA-256 first. Use an unused user-owned prefix and its absolute Conda
-executable; no `sudo`, shell startup edits or `conda init` are needed. Apply the
-user's download budget to dependency installation too. h3-apple is distributed
-as GitHub release wheels; do not substitute an unverified PyPI package. Ordinary
-generation does not need the optional face-enhancement dependencies.
+If Conda is missing, use the official [Miniforge](https://github.com/conda-forge/miniforge)
+macOS arm64 installer and verify its published SHA256. Use an unused user-owned
+prefix and absolute Conda path; no sudo, shell startup edits or `conda init`.
+Apply the user's download budget to dependencies. Use verified GitHub wheels,
+not an unverified PyPI substitute. Face dependencies are optional.
 
-## Check readiness and preparation cost
+## Mode and models
 
-For an existing environment, set `H3_PYTHON` to the absolute Python found above.
-Run `"$H3_PYTHON" -m h3_apple doctor` and inspect its JSON `ready` and `errors`,
-not just whether the executable exists. It checks hardware, the environment's
-FFmpeg tools/libraries, engine and model receipts. A fresh installation can be
-valid while `doctor` reports missing engine/models. Repair a missing or
-incompatible FFmpeg installation with Conda in this same prefix, using the
-release's documented version, then recheck; reinstalling the wheel alone will
-not fix a Conda media-library error.
+0.7.0 supports `VSA` (default) and `SOL`. Carry the requested mode through
+`resolve`, `prepare`, `doctor`, `verify` and `generate`, or Python's `mode`.
+Older releases such as 0.5.3 lack these flags.
 
-When preparation is needed, inspect the actual plan first:
+Both use original LightX2V. VSA requires Python 3.11, `[VSA]` dependencies and
+its own verified bundle. Model variables are `H3_VSA_MODEL_DIR` for VSA and
+`H3_MODEL_DIR` for SOL. Carry the selected directory through every command.
+
+Set `H3_PYTHON` to the verified interpreter. Inspect `doctor`'s `ready` and
+`errors` fields; missing models on a fresh install are expected. Repair FFmpeg
+with the documented Conda version in the same prefix, not by reinstalling the wheel.
 
 ```bash
+"$H3_PYTHON" -m h3_apple doctor
 "$H3_PYTHON" -m h3_apple prepare --plan
 ```
 
-Carry an existing `--model-dir` or the selected mode's model environment variable through `doctor`,
-`prepare` and `generate`. The plan reports `download_bytes` and
-`additional_disk_bytes`; compare the latter with free space on the destination
-volume. `--plan` does not download weights or generate a video. Prefer verified
-existing models and caches; `--reuse-dir` can point to known compatible sources.
-Do not delete or redownload a working model installation to simplify setup.
+The plan does not download weights or generate video. Compare `download_bytes`
+with the budget and `additional_disk_bytes` with destination free space.
+Fresh VSA needs about 151 GB / 343 GB; SOL 145 GB / 233 GB. The actual plan governs.
+Reuse verified models/caches with `--reuse-dir`; do not delete working installations.
 
-Respect any tighter user budget. The product requires explicit consent for
-downloads **over 20 GB**: show the planned transfer and disk requirement and ask
-only if that transfer has not already been authorized. A request to make a video
-or install the package does not by itself approve a large model download. Never
-pipe `yes` into the CLI or add `--allow-large-download` to suppress this boundary.
-Use that flag (or API `allow_large_download=True`) only after applicable consent.
-A noninteractive run may raise `DownloadApprovalRequired`; report its plan,
-obtain the missing consent, then resume. A fresh VSA preparation needs about
-151 GB of downloads and 343 GB of free disk; SOL needs about 145 GB / 233 GB.
-The actual mode-specific plan governs reuse.
+**Downloads over 20 GB need explicit consent**, subject to tighter user limits.
+Show transfer and disk costs; ask only when consent is missing. A video/install
+request alone does not authorize a large model download. Never pipe `yes` or use
+`--allow-large-download` to bypass consent. After approval, use that flag or API
+`allow_large_download=True`. If `DownloadApprovalRequired` occurs, obtain the
+missing consent and resume.
 
-Within the approved budget, continue automatically. `generate` prepares missing
-engine/models before rendering; `prepare` is optional for advance preparation
-or explicit reuse, not a substitute for the requested video. Never treat
-`doctor`, `prepare` or `resolve` success as a completed generation.
+Within the approved budget, proceed. `generate` prepares missing models/engine.
+`prepare` is optional; readiness, preparation and input validation are not delivery.
 
 ## Render and deliver
 
-Save the complete prompt in a UTF-8 file and preserve the supplied image order.
-Use the requested duration, resolution, aspect ratio and seed. For omitted
-settings, v0.7.0 defaults to VSA, 15 seconds, 576p, 16:9 and a recorded random seed.
-Supported durations are 5–15 seconds at whole 24 fps frames; resolutions are
-576p and 768p, and aspect ratios are 16:9 and 9:16. Do not quietly replace a
-requested production with a shorter or lower-resolution test.
+Save the full UTF-8 prompt and preserve image order. Honor duration, resolution,
+orientation and seed. Defaults are VSA, 15 seconds, 576p, 16:9 and a recorded random
+seed. Supported duration is 5–15 seconds in whole 24 fps frames. Do not replace a
+requested production with a shorter/lower-resolution test.
 
-Use `resolve` to check the real inputs without loading models, then `generate`
-with the same input/settings and a new output path. For example, after setting
-`H3_PYTHON` and replacing these illustrative absolute paths with the actual files:
+Validate actual inputs, then generate to a new path:
 
 ```bash
 "$H3_PYTHON" -m h3_apple resolve \
@@ -117,36 +87,32 @@ with the same input/settings and a new output path. For example, after setting
   --output /absolute/path/new-video.mp4
 ```
 
-Repeat `--image` for multiple references. The Python API is equivalent when an
-existing workflow already uses it; invoke it with the same fixed interpreter.
-Use public entry points instead of calling the native engine directly or
-introducing a second renderer. Postprocessing is a separate requested operation.
+Repeat `--image` for multiple references. Python is equivalent when used with
+the same interpreter. Use public entry points, not a second renderer or direct
+native calls. Postprocessing requires its own scope.
 
-Keep the process alive and monitor its progress until completion or a concrete
-failure. Preserve failed run records, diagnose the cause before retrying, and
-use a new output path. Do not launch an unrequested seed sweep or keep repeating
-a failed command without a change that addresses its cause.
+Keep the process alive and monitor it to completion or concrete failure. Preserve
+failed records, diagnose before retrying and use a new output path. Avoid
+unrequested seed sweeps or unchanged retries.
 
-Read `video_path` and `metadata_path` from the successful result, confirm the MP4
-exists and its run record says `complete`, then review the output against the
-brief using [story-continuity.md](story-continuity.md). The product validates
-streams, dimensions, frame count and timing; those checks do not establish
-creative quality. Distinguish inspected frames, listening and unverified claims.
-Return the actual absolute video path and run-record path, requested delivery
-settings and relevant limitations. Show the local MP4 inline when the host
-supports it. Report preparation and generation time separately when available.
+Confirm the returned MP4 exists and its run record says `complete`.
+[Review against the brief](story-continuity.md): stream/timing checks do not prove
+creative quality. Distinguish frame inspection, listening and unverified claims.
+Deliver absolute video and record paths, settings and limitations; show the MP4
+inline where supported. Report setup and generation time separately.
 
-## Optional X2 in a 0.7.0 installation
+## X2
 
-Check `h3 --version` before requesting this feature; releases before 0.7.0 lack
-X2. Use `--x2` / `x2=True` with VSA or SOL. Both require
-Python 3.11 and `[VSA]` dependencies for the shared decoder. SOL + X2 needs SOL
-models and newly premerged SOL weights; it does not need the VSA model bundle.
-The matching native engine is downloaded automatically. Old quantized SOL weights
-are incompatible; follow the model migration in `docs/install.md`.
-X2 accepts only 544p and 576p sampling: 544p produces 1920×1088 landscape or
-1088×1920 portrait; 576p produces 2048×1152 or 1152×2048.
-Pass `--aspect-ratio 9:16` for portrait. Use 768p without X2.
-Use five seconds for the first check. Inspect task fidelity,
-faces, texture and motion separately. The separate B32 reference enhancer is
-not selected by this option. See the checkout's `docs/x2.md` for setup and limits.
+Check the version; X2 requires 0.7.0+. Both modes need Python 3.11 and `[VSA]`
+dependencies. SOL + X2 uses corrected premerged SOL weights and its automatically
+downloaded engine, not a VSA bundle. Old quantized SOL weights need migration.
+
+| Sampling | Landscape output | Portrait output |
+| --- | --- | --- |
+| 544p | 1920×1088 | 1088×1920 |
+| 576p | 2048×1152 | 1152×2048 |
+
+Use `--x2` / `x2=True`; portrait uses `--aspect-ratio 9:16`.
+768p excludes X2. For an authorized initial check, use five seconds and inspect
+task fidelity, faces, texture and motion. B32 reference enhancement is separate.
+See the checkout's `docs/x2.md`.
