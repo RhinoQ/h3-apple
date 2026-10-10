@@ -40,7 +40,6 @@ conda activate h3
 python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
-Already on 0.7.0? Add `--force-reinstall --no-cache-dir` to refresh the package.
 First use prepares models and asks before downloads over 20 GB.
 [Model storage and upgrades](docs/install.md).
 
