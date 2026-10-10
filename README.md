@@ -1,22 +1,41 @@
 # h3-apple
 
-**Reference images + a prompt → video with stereo audio, locally on Mac.**
+**Create a 5-second video with sound in about 3 minutes. On your Mac.**
 
-Generate 5–15 second MiniMax-H3 videos from 1–9 ordered images. Both modes use
-the original LightX2V Ref2VA Turbo four-step v0.1 adapter.
+**3m 14s median** on a 40-core M5 Max / 128 GiB, using SOL at **544p + X2**
+across twelve scenes. Full generation calls with prepared models; first-time
+downloads and setup are excluded. Native 768p takes longer; see the comparison below.
 
-| Mode | Implementation |
-| --- | --- |
-| **VSA**, default | MLX W8A8 projections, shared QKV activation packing, VSA and INT8 QK |
-| **SOL** | Native INT8 GEMM, SOL and SageAttention; Turbo merged before W8G64 preparation |
+[**Watch the videos →**](https://rhinoq.github.io/h3-apple/#library) ·
+[**Install →**](#install) ·
+[**Get 0.7.0 →**](https://github.com/RhinoQ/h3-apple/releases/tag/v0.7.0)
 
-**[Version 0.7.0](https://github.com/RhinoQ/h3-apple/releases/tag/v0.7.0)** adds
-544p/576p + X2 in both orientations and corrects SOL's Turbo preparation.
-In the twelve-case [benchmark](https://rhinoq.github.io/h3-apple/), 544p + X2
-takes about half the native-768p time: 2.07× for VSA and 1.91× for SOL.
-These are paired single-run ratios, with scene-dependent quality tradeoffs.
-See [installation](docs/install.md) and [release notes](docs/releases/0.7.0.md)
-for setup, evidence and community credits.
+Give MiniMax-H3 1–9 reference images and a prompt. Get 5–15 seconds of video with
+stereo audio, in landscape or portrait. Generation runs locally through a CLI or
+Python API, with two modes to trade speed, memory and scene quality.
+
+[![Cloud-palace video preview: a blue-and-gold palace above the clouds](https://rhinoq.github.io/h3-apple/assets/posters/060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd.jpg)](https://rhinoq.github.io/h3-apple/#case=cloud-palace)
+
+*Watch the five-second cloud-palace example. The benchmark includes all 48 outputs,
+exact prompts, reference images and replay instructions.*
+
+## Speed you can check
+
+Median time per **5-second video**, on the same M5 Max / 128 GiB:
+
+| Mode | Standard · native 768p | Fast · 544p + X2 | Why choose it? |
+| --- | ---: | ---: | --- |
+| **VSA**, default | 8m 49s | **4m 19s** | Lower memory use; fewer clear geometry defects in this set |
+| **SOL** | 6m 04s | **3m 14s** | Faster generation; better framing in this set |
+
+**X2 roughly halves generation time:** 2.07× for VSA and 1.91× for SOL, using
+the median of within-scene speed ratios. Twelve scenes, one run per route;
+quality varies by scene. [Compare speed, memory and quality →](https://rhinoq.github.io/h3-apple/#results)
+
+Fast mode samples at 544p and decodes to 1920×1088 landscape or 1088×1920 portrait.
+Standard mode delivers 1366×768 or 768×1366. X2 adds pixels; it cannot repair a
+failed action or composition. [0.7.0 release notes](docs/releases/0.7.0.md) explain
+the acceleration over 0.6.0, SOL fixes and community contributions.
 
 ## Install
 
@@ -51,14 +70,15 @@ are preserved. Defaults are VSA, 15 seconds, 576p, landscape, 24 fps and stereo
 ordinary larger output, or `--seed 42` for a recorded seed. The same seed can
 produce different results across modes.
 
-For lower sampling cost, use [X2](docs/x2.md):
+Use the **3m 14s benchmark configuration** after [preparing SOL and X2](docs/install.md):
 
 ```sh
-h3 generate --image reference.jpg --prompt-file scene.txt --duration 5 \
-  --resolution 544p --x2 --aspect-ratio 9:16 --output portrait-x2.mp4
+h3 generate --mode SOL --image reference.jpg --prompt-file scene.txt \
+  --duration 5 --resolution 544p --x2 --output scene-fast.mp4
 ```
 
-X2 accepts 544p or 576p in either orientation and doubles decoded dimensions.
+Switch to `--mode VSA` for lower memory use, or add `--aspect-ratio 9:16` for
+portrait. [X2](docs/x2.md) accepts 544p or 576p in either orientation and doubles decoded dimensions.
 768p + X2 is unsupported. Inspect motion, small faces, text and geometry: extra
 pixels do not repair an incorrect sampled scene. [Optional face enhancement](docs/face-enhancement.md)
 is a separate operation on finished videos.
