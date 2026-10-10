@@ -10,9 +10,11 @@ the original LightX2V Ref2VA Turbo four-step v0.1 adapter.
 | **VSA**, default | MLX W8A8 projections, shared QKV activation packing, VSA and INT8 QK |
 | **SOL** | Native INT8 GEMM, SOL and SageAttention; Turbo merged before W8G64 preparation |
 
-This checkout is **0.7.0**. The latest product release is **0.6.0**. The checkout adds
-optional X2 and the corrected SOL preparation recipe; its matching native engine
-and wheel are available with the [fresh benchmark](https://rhinoq.github.io/h3-apple/).
+**[Version 0.7.0](https://github.com/RhinoQ/h3-apple/releases/tag/v0.7.0)** adds
+544p/576p + X2 in both orientations and corrects SOL's Turbo preparation.
+In the twelve-case [benchmark](https://rhinoq.github.io/h3-apple/), 544p + X2
+takes about half the native-768p time: 2.07× for VSA and 1.91× for SOL.
+These are paired single-run ratios, with scene-dependent quality tradeoffs.
 See [installation](docs/install.md) and [release notes](docs/releases/0.7.0.md)
 for setup, evidence and community credits.
 
@@ -22,12 +24,12 @@ Requirements: **40-core M5 Max, macOS 26.2+, 64 GiB memory**, with a dedicated
 Conda environment. Measurements used 128 GiB; smaller configurations are unverified.
 768p beyond five seconds requires 96 GiB.
 
-From this checkout, install VSA and the shared X2 dependencies:
+Install VSA and the shared X2 dependencies:
 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install ".[VSA]"
+python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 h3 doctor --mode VSA
 ```
 

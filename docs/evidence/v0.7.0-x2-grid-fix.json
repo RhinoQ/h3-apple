@@ -1,0 +1,132 @@
+{
+  "schema": "h3-x2-grid-fix/v1",
+  "scope": "Historical diagnostic evidence, not media added to benchmark 0.3.0. The release adds its own synthetic large-array regression.",
+  "root_cause": {
+    "mlx_version": "0.32.0",
+    "packed_shape": [
+      1,
+      12,
+      362,
+      576,
+      1024
+    ],
+    "elements": 2562195456,
+    "channel_12_offset": 2348679168,
+    "failure": "Small temporal copy views selected int32 indexing although their reachable output channel offsets exceeded signed int32. Color values were lost before RGB unpacking.",
+    "upstream_source": "https://github.com/ml-explore/mlx/blob/v0.32.0/mlx/backend/metal/copy.cpp"
+  },
+  "released_fix": "Use CPU stream for final temporal concatenation above 2**31-1 elements; keep model decode on GPU.",
+  "tile_checks": [
+    {
+      "case": "val-long-s1",
+      "passed": true,
+      "frames": 28,
+      "min_psnr_db": 77.76877581959343,
+      "min_ssim": 0.9999943490649381
+    },
+    {
+      "case": "val-portrait-s1",
+      "passed": true,
+      "frames": 28,
+      "min_psnr_db": 77.03884627244702,
+      "min_ssim": 0.9999897362041423
+    }
+  ],
+  "long_clip_checks": [
+    {
+      "case": "val-long-s1",
+      "passed": true,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 71,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 143,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 215,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 287,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 359,
+          "max_abs_error": 0,
+          "different_values": 0
+        }
+      ]
+    },
+    {
+      "case": "val-long-s2",
+      "passed": true,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 71,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 143,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 215,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 287,
+          "max_abs_error": 0,
+          "different_values": 0
+        },
+        {
+          "frame": 359,
+          "max_abs_error": 0,
+          "different_values": 0
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "record": "benchmarks/p149-x2-root-cause/tile-result-01.json",
+      "sha256": "968eba3de6507bf29dbbd44a0f0eacd97d978f9755f86db70403e61cdeebe386"
+    },
+    {
+      "record": "benchmarks/p149-x2-root-cause/bounded-frames-result-01.json",
+      "sha256": "8a789f47737fc02f13bc22f515803f37b307292d6b553ebdefafad0218774e75"
+    },
+    {
+      "record": "benchmarks/p149-x2-root-cause/concat-result-01.json",
+      "sha256": "702a2243514113fa035d7e4638f8ab9f2a8bb248277557d0f7c946b49f139f3b"
+    },
+    {
+      "record": "benchmarks/p149-x2-root-cause/stage-comparison-01.json",
+      "sha256": "e757d622c5136473d45edd8e0e80e48f8046c79677ac268459b4d2233c451034"
+    }
+  ],
+  "limits": [
+    "Independent decoder tiles and twelve selected frames of two complete long-clip replays; not subjective full-playback qualification.",
+    "Does not imply lossless detail or correct scene geometry at lower sampling resolution.",
+    "Earlier review-page green margins were CSS object-fit background, not this encoded color-grid defect."
+  ]
+}

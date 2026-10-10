@@ -28,8 +28,8 @@ provenance. See [sources.json](sources.json) and the adjacent Metal notices.
 The engine builds on [vpipe at the pinned commit](https://github.com/tgo-app-dev/vpipe/tree/f34e2cc3a3adae759eea254419f436f5b7800057)
 with the [native patches](../tools/engine-patches/README.md).
 Its authors and dependencies are credited in [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES).
-Published releases download and manage their pinned engine internally. The source
-checkout currently pins an unpublished local artifact, built as described below.
+Published releases download and manage their pinned engine internally. Version
+0.7.0 reuses the engine qualified by benchmark 0.3.0, with unchanged archive bytes.
 
 ## Verify a change
 
@@ -127,7 +127,10 @@ Build an sdist and wheel with `python -m build`, then check them with
 Conda environment containing Python and FFmpeg, and test the documented CLI and
 Python calls against real models before publishing a release.
 
-The `publish.yml` workflow builds and checks the package on a version tag.
+The `publish.yml` workflow builds and checks the package on a version tag, verifies
+the pinned engine, and publishes the GitHub Release with checksums, a source-bound
+manifest, the wheel, sdist, native engine and installable Ref2VA skill. Release notes
+come from `docs/releases/<version>.md`; relative links resolve against the release tag.
 PyPI publication uses [Trusted Publishing](https://docs.pypi.org/trusted-publishers/):
 run the workflow manually against that tag with `publish_to_pypi` enabled after
 registering the publisher. Until then, users install the GitHub release wheel.

@@ -10,7 +10,7 @@ Native inference engine: vpipe
   The release redistributes a modified engine built from this base and the
   patches in tools/engine-patches, with the CLI filename changed to h3-engine.
   Changes add fixed compute selection, VAE operation fusion and H256 W8A8
-  decoder projections. The 0.7.0 source checkout also includes the RoPE precision
+  decoder projections. Version 0.7.0 also includes the RoPE precision
   correction following upstream and Turbo BF16 premerge before W8G64 preparation,
   with mapped-tensor lifetime and double-application guards. Native SOL/Sage
   attention remains upstream work. Upstream ownership and notices are retained.

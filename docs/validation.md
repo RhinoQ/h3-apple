@@ -1,5 +1,14 @@
 # Validation
 
+## 0.7.0 release
+
+The [release checks](evidence/v0.7.0-release-check.json) cover normal wheel
+installation, a direct 0.6.0/0.7.0 VSA profile comparison, both public entry points
+and orientations, and 236 passing tests including the large-array regression.
+New VSA landscape and SOL portrait outputs reproduce the frozen benchmark's
+corresponding complete RGB frames and audio PCM. Only the packaged engine URL
+changed from that build. See [speed and attribution](releases/0.7.0.md).
+
 ## Fresh cinematic benchmark
 
 [Edition 0.3.0](https://rhinoq.github.io/h3-apple/) contains twelve scenes across
@@ -13,7 +22,7 @@ identities, failures and replay. Review covers all sequential frames and selecte
 originals; subjective audio is unscored. This small, exposed regression suite has
 one measurement per slot and does not establish a universal ranking.
 
-## Source checkout: SOL Turbo preparation
+## SOL Turbo preparation
 
 The [controlled recipe comparison](evidence/sol-premerge-source.json) reproduced
 an old duplicate-person failure with runtime Turbo and retained one person after

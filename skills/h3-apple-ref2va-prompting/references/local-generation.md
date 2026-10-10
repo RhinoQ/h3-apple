@@ -1,17 +1,16 @@
 # Generate locally with h3-apple
 
 Use the public h3-apple CLI/API for rendering. The published-install commands
-below target **v0.6.0**; an existing **0.7.0** source installation also supports X2.
-For published 0.6.0,
-the [installation guide](https://github.com/RhinoQ/h3-apple/blob/v0.6.0/docs/install.md)
-and [API guide](https://github.com/RhinoQ/h3-apple/blob/v0.6.0/docs/api.md) define
+below target **v0.7.0**, including optional X2.
+the [installation guide](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/install.md)
+and [API guide](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/api.md) define
 its supported interface. Honor a requested version; inspect that release's docs
 and `--help` before adapting these commands. Do not silently upgrade an existing
 installation or change the model recipe to make a command work.
 
 ## VSA and SOL
 
-Version 0.6.0 supports `--mode VSA` (default) and `--mode SOL`, also `mode="VSA"` /
+Version 0.7.0 supports `--mode VSA` (default) and `--mode SOL`, also `mode="VSA"` /
 `mode="SOL"` in Python. Honor an explicitly requested mode and carry it through
 `resolve`, `prepare`, `doctor`, `verify` and `generate`. Both modes use original
 LightX2V. VSA needs its optional dependencies in Python 3.11 and a separate
@@ -28,7 +27,7 @@ absolute interpreter for every H3, pip and verification command. Do not use
 system Python, Conda base, `pip --user` or an unrelated project's environment.
 
 Before installing dependencies or downloading weights, check the host against
-the selected release's requirements. v0.6.0 requires an Apple Silicon Mac with
+the selected release's requirements. v0.7.0 requires an Apple Silicon Mac with
 a **40-core M5 Max**, macOS **26.2+**, and **64 GiB** unified memory; 768p beyond
 5 seconds requires **96 GiB**. Read macOS and hardware information rather than
 assuming that any Apple Silicon Mac is supported. Unsupported hardware is a
@@ -43,7 +42,7 @@ exist on the user's machine:
 H3_ENV_PREFIX="$PWD/.local/envs/h3"
 conda create --prefix "$H3_ENV_PREFIX" -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 H3_PYTHON="$H3_ENV_PREFIX/bin/python"
-"$H3_PYTHON" -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
+"$H3_PYTHON" -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 "$H3_PYTHON" -m h3_apple --version
 ```
 
@@ -99,7 +98,7 @@ or explicit reuse, not a substitute for the requested video. Never treat
 
 Save the complete prompt in a UTF-8 file and preserve the supplied image order.
 Use the requested duration, resolution, aspect ratio and seed. For omitted
-settings, v0.6.0 defaults to VSA, 15 seconds, 576p, 16:9 and a recorded random seed.
+settings, v0.7.0 defaults to VSA, 15 seconds, 576p, 16:9 and a recorded random seed.
 Supported durations are 5–15 seconds at whole 24 fps frames; resolutions are
 576p and 768p, and aspect ratios are 16:9 and 9:16. Do not quietly replace a
 requested production with a shorter or lower-resolution test.
@@ -139,12 +138,12 @@ supports it. Report preparation and generation time separately when available.
 
 ## Optional X2 in a 0.7.0 installation
 
-Check `h3 --version` before requesting this feature: the 0.6.0 release above does
-not have X2. In 0.7.0, use `--x2` / `x2=True` with VSA or SOL. Both require
+Check `h3 --version` before requesting this feature; releases before 0.7.0 lack
+X2. Use `--x2` / `x2=True` with VSA or SOL. Both require
 Python 3.11 and `[VSA]` dependencies for the shared decoder. SOL + X2 needs SOL
-models, not the VSA model bundle. The source checkout requires its matching local
-engine and newly premerged SOL weights; do not install the old published wheel
-or reuse old quantized SOL weights for this path. Follow `docs/install.md`.
+models and newly premerged SOL weights; it does not need the VSA model bundle.
+The matching native engine is downloaded automatically. Old quantized SOL weights
+are incompatible; follow the model migration in `docs/install.md`.
 X2 accepts only 544p and 576p sampling: 544p produces 1920×1088 landscape or
 1088×1920 portrait; 576p produces 2048×1152 or 1152×2048.
 Pass `--aspect-ratio 9:16` for portrait. Use 768p without X2.

@@ -11,29 +11,19 @@ conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
 ```
 
-## Choose a version
-
-**Current source: 0.7.0.** From this checkout:
+## Install 0.7.0
 
 ```sh
-python -m pip install ".[VSA]"
+python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
-VSA needs no native engine. SOL requires the matching archive or the
-[pinned-source build](development.md#build-the-engine-artifact). The
-[benchmark setup](https://rhinoq.github.io/h3-apple/README.md#reproduce) supplies
-the exact 0.7.0 wheel, engine archive and verified-cache instructions. The source
-manifest URL remains unset, so automatic engine download is unavailable.
-SOL also requires the new model recipe described below.
-
-**Latest product release: 0.6.0.** This older wheel has no X2 and retains the old SOL recipe:
-
-```sh
-python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
-```
-
-Use that release's [versioned documentation](https://github.com/RhinoQ/h3-apple/tree/v0.6.0/docs).
-Repeat the chosen installation command with `--upgrade` to reinstall it.
+Add `--upgrade` when updating an existing installation. Replacing an earlier
+0.7.0 source/benchmark wheel requires `--force-reinstall` to refresh its engine
+manifest. From the source checkout,
+use `python -m pip install ".[VSA]"`. VSA needs no native engine; SOL automatically
+fetches the checksum-pinned 6.05 MB engine from the same release and needs the
+new model recipe below. A compiler is unnecessary. Historical benchmark replay
+uses its frozen artifacts and source identity, as documented on the benchmark site.
 
 | Workload | Python | Extra dependencies |
 | --- | --- | --- |
@@ -87,7 +77,7 @@ VSA accepts the pinned original LightX2V recipe, not DARE/TIES. It imports only
 [model sources](../src/h3_apple/data/model-sources.json) and
 [gate sources](../src/h3_apple/data/vsa-gates.json). Model licenses apply.
 
-## Upgrading SOL models in the source checkout
+## Upgrading SOL models
 
 0.7.0 merges Turbo into the original BF16 DiT in FP32, rounds to BF16, then
 prepares W8G64 weights. Generation rejects a second Turbo application and old
