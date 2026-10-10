@@ -2,7 +2,7 @@
 
 Original reference files are copied unchanged. Video outputs and JPEG posters are generated/reduced derivatives; the input license is not a blanket license for the whole bundle. Generated media remain subject to MiniMax H3 terms and any applicable source-image terms. CC BY-SA inputs and adaptations retain their stated ShareAlike obligations. Software LICENSE covers independently authored benchmark code only.
 
-AI-generated project fixtures are identified as such, not assigned a third-party CC0 license. Publication does not establish redistribution rights for references with unresolved terms. `--documented-only` excludes those cases without altering the scored cohort.
+AI-generated project fixtures are identified as such, not assigned a third-party CC0 license. Publication does not establish redistribution rights for references with unresolved terms. `--documented-only` removes unscored cases with unresolved terms and refuses an export that would omit a required scored case.
 
 ## cal-TG01-cloud-palace.png
 
@@ -26,79 +26,87 @@ AI-generated project fixtures are identified as such, not assigned a third-party
 
 ## ref2va_test_1_1.jpg
 
-- Author: See original study records
+- Author: ModelTC Ref2VA test set; original image creators uncredited
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
-- License URL: See source/terms above
+- Source: https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_1_1.jpg
+- Source note: The repository carries Apache-2.0; this record does not establish separate image rights.
+- License URL: https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE
 - Original bytes: [assets/references/1665c52d9e20ace593cbc30d1e17b5cf996ad25a59c7f1890d636711da93dbd3.jpg](assets/references/1665c52d9e20ace593cbc30d1e17b5cf996ad25a59c7f1890d636711da93dbd3.jpg)
 - SHA256: `1665c52d9e20ace593cbc30d1e17b5cf996ad25a59c7f1890d636711da93dbd3`
 - Redistribution record: review_required
 
 ## ref2va_test_1_2.jpg
 
-- Author: See original study records
+- Author: ModelTC Ref2VA test set; original image creators uncredited
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
-- License URL: See source/terms above
+- Source: https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_1_2.jpg
+- Source note: The repository carries Apache-2.0; this record does not establish separate image rights.
+- License URL: https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE
 - Original bytes: [assets/references/df77cc201252e90cb828132863d4126c4d62d512f79299ec2651bcc9be8c5b1f.jpg](assets/references/df77cc201252e90cb828132863d4126c4d62d512f79299ec2651bcc9be8c5b1f.jpg)
 - SHA256: `df77cc201252e90cb828132863d4126c4d62d512f79299ec2651bcc9be8c5b1f`
 - Redistribution record: review_required
 
 ## ref2va_test_1_3.jpg
 
-- Author: See original study records
+- Author: ModelTC Ref2VA test set; original image creators uncredited
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
-- License URL: See source/terms above
+- Source: https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_1_3.jpg
+- Source note: The repository carries Apache-2.0; this record does not establish separate image rights.
+- License URL: https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE
 - Original bytes: [assets/references/82cdb7a20d6ec0d7c6c396cc8e99d3f5fe49a2f67f7c3e5e75d45102f4a91062.jpg](assets/references/82cdb7a20d6ec0d7c6c396cc8e99d3f5fe49a2f67f7c3e5e75d45102f4a91062.jpg)
 - SHA256: `82cdb7a20d6ec0d7c6c396cc8e99d3f5fe49a2f67f7c3e5e75d45102f4a91062`
 - Redistribution record: review_required
 
 ## ref2va_test_5_1.jpg
 
-- Author: See original study records
+- Author: ModelTC Ref2VA test set; original image creators uncredited
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
-- License URL: See source/terms above
+- Source: https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_1.jpg
+- Source note: The repository carries Apache-2.0; this record does not establish separate image rights.
+- License URL: https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE
 - Original bytes: [assets/references/df46f5f157b0bcddb603646532e9746f709d663cb4787332603c90373691a8d7.jpg](assets/references/df46f5f157b0bcddb603646532e9746f709d663cb4787332603c90373691a8d7.jpg)
 - SHA256: `df46f5f157b0bcddb603646532e9746f709d663cb4787332603c90373691a8d7`
 - Redistribution record: review_required
 
 ## ref2va_test_5_2.jpg
 
-- Author: See original study records
+- Author: ModelTC Ref2VA test set; original image creators uncredited
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
-- License URL: See source/terms above
+- Source: https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_2.jpg
+- Source note: The repository carries Apache-2.0; this record does not establish separate image rights.
+- License URL: https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE
 - Original bytes: [assets/references/afda45ed8f06a176c19fa9b224cb6c07467dd0d0ab2564a14c3014cc7ae34ca4.jpg](assets/references/afda45ed8f06a176c19fa9b224cb6c07467dd0d0ab2564a14c3014cc7ae34ca4.jpg)
 - SHA256: `afda45ed8f06a176c19fa9b224cb6c07467dd0d0ab2564a14c3014cc7ae34ca4`
 - Redistribution record: review_required
 
 ## ref2va_test_5_3.jpg
 
-- Author: See original study records
+- Author: ModelTC Ref2VA test set; original image creators uncredited
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
-- License URL: See source/terms above
+- Source: https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_3.jpg
+- Source note: The repository carries Apache-2.0; this record does not establish separate image rights.
+- License URL: https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE
 - Original bytes: [assets/references/97e0835a1bf64ee4c4ae0ca0d94e3262bc6bfaff79a77ec2c7155ccb26110b8c.jpg](assets/references/97e0835a1bf64ee4c4ae0ca0d94e3262bc6bfaff79a77ec2c7155ccb26110b8c.jpg)
 - SHA256: `97e0835a1bf64ee4c4ae0ca0d94e3262bc6bfaff79a77ec2c7155ccb26110b8c`
 - Redistribution record: review_required
 
 ## ref2va_test_5_4.jpg
 
-- Author: See original study records
+- Author: ModelTC Ref2VA test set; original image creators uncredited
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
-- License URL: See source/terms above
+- Source: https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_4.jpg
+- Source note: The repository carries Apache-2.0; this record does not establish separate image rights.
+- License URL: https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE
 - Original bytes: [assets/references/939856c9964d33c9ddecac30b145b82993c5d6ba9ce6a2afcf169233ecc177e6.jpg](assets/references/939856c9964d33c9ddecac30b145b82993c5d6ba9ce6a2afcf169233ecc177e6.jpg)
 - SHA256: `939856c9964d33c9ddecac30b145b82993c5d6ba9ce6a2afcf169233ecc177e6`
 - Redistribution record: review_required
 
 ## reference.png
 
-- Author: See original study records
+- Author: H3 Apple research fixture; image_gen
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
+- Source: Project-created original superhero identity reference
+- Source note: Generated with the built-in image_gen tool; original face, costume and style reference.
 - License URL: See source/terms above
 - Original bytes: [assets/references/b5e57681d9aa832ca0ef194838e4a5194e8720bbe3cdc0546ff79afc754afd53.png](assets/references/b5e57681d9aa832ca0ef194838e4a5194e8720bbe3cdc0546ff79afc754afd53.png)
 - SHA256: `b5e57681d9aa832ca0ef194838e4a5194e8720bbe3cdc0546ff79afc754afd53`
@@ -186,9 +194,10 @@ AI-generated project fixtures are identified as such, not assigned a third-party
 
 ## ref-01.png
 
-- Author: See original study records
+- Author: H3 Apple research fixture; Pillow
 - Terms: Permission not established for redistribution
-- Source: Project fixture; see original source records
+- Source: Project-authored PLAY graphic
+- Source note: Geometric primitives and rasterized Arial Black lettering; no font file is redistributed.
 - License URL: See source/terms above
 - Original bytes: [assets/references/16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45.png](assets/references/16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45.png)
 - SHA256: `16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45`

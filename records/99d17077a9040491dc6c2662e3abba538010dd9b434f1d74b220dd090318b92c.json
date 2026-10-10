@@ -1,0 +1,57 @@
+{
+  "original_sha256": "99d17077a9040491dc6c2662e3abba538010dd9b434f1d74b220dd090318b92c",
+  "original_name": "firefly-duo-VX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "firefly-duo-VX-r1",
+    "video_sha256": "a5dd00f526b105be080c90ccbc500bebc1c54eda9abf4e9926a7d0de568ef1bb",
+    "status": "borderline",
+    "criteria_pass": [
+      true,
+      true,
+      null,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "The two friends retain their identities, positions and complete heads. Bobo releases one distinct glowing insect and both follow it. It ends above the bear crown but beside the rabbit ears, leaving the required position above both heads uncertain.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Bobo stays left in green with a yellow pocket; 99 stays right in her yellow pinafore, pink pocket and white sleeves. Complete heads and ears remain visible. Bobo separates his cupped paws and one glowing winged insect appears."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The single insect lifts from the paws, which are visibly empty below it, and travels upward in front of the bear cheek toward the gap between the friends. Both characters follow its motion with small head turns; no extra characters or insects appear."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "Both friends tilt their faces upward and smile. The insect ends above the bear crown but below the rabbit ear tips, beside the ears rather than clearly above both complete heads. No interface badges, captions or incidental style-reference characters appear."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 36, 60 and 119 inspected against all three original references. No listening or normal-speed playback judgment."
+  }
+}

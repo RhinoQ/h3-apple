@@ -1,1 +1,680 @@
-null
+{
+  "schema": "h3-ref2va-score/v1",
+  "benchmark_version": "0.3.0",
+  "measure": "Confirmed complete visual task success, 0–100; audio not assessed",
+  "evaluation": "Twelve exposed scenes at two profiles per mode. Fresh, method-disclosed Agent visual review; all 120 sequential frames and original keyframes. Subjective audio is unscored. Borderline results are not confirmed passes. One seed per case; descriptive results, not a universal ranking.",
+  "coverage": {
+    "cases": 12,
+    "profiles": 4,
+    "completed": 48,
+    "expected": 48
+  },
+  "quality_definition": "Per-dimension severity: 0 none, 1 minor, 2 clear, 3 severe. Display fraction with severity <=1, plus all counts; do not combine with task score.",
+  "paired_time_definition": "Baseline/candidate full-call seconds within each case; values above 1 favor the candidate. Median of paired ratios, not ratio of route medians. One run per slot.",
+  "paired_time": {
+    "V768/VX": {
+      "baseline": "V768",
+      "candidate": "VX",
+      "cases": 12,
+      "median_speedup": 2.074204669720827,
+      "range": [
+        1.9149865909258463,
+        2.2949378045341735
+      ],
+      "case_speedups": {
+        "cloud-palace": 2.117694650872624,
+        "celestial-gate": 2.082199435153455,
+        "neon-duel": 2.251018285760577,
+        "underwater-parry": 2.2949378045341735,
+        "energy-shield": 2.051686712025837,
+        "energy-orb": 2.0662099042881996,
+        "space-coffee": 1.9957629269106496,
+        "paper-rain": 1.9149865909258463,
+        "star-mage": 1.9382182427422592,
+        "firefly-duo": 2.1587443079379405,
+        "fashion-turn": 2.08259681093207,
+        "play-card": 2.0391060989215166
+      }
+    },
+    "S768/SX": {
+      "baseline": "S768",
+      "candidate": "SX",
+      "cases": 12,
+      "median_speedup": 1.9125013692053296,
+      "range": [
+        1.5862661470231827,
+        2.1903066833765443
+      ],
+      "case_speedups": {
+        "cloud-palace": 1.5862661470231827,
+        "celestial-gate": 1.8919249897808392,
+        "neon-duel": 2.109494221204098,
+        "underwater-parry": 2.1903066833765443,
+        "energy-shield": 1.9290171252638912,
+        "energy-orb": 1.9276425035735174,
+        "space-coffee": 1.8015526987747654,
+        "paper-rain": 1.869233840030166,
+        "star-mage": 1.7777082788761311,
+        "firefly-duo": 2.004916489119655,
+        "fashion-turn": 1.8973602348371421,
+        "play-card": 1.9629212793035988
+      }
+    },
+    "V768/S768": {
+      "baseline": "V768",
+      "candidate": "S768",
+      "cases": 12,
+      "median_speedup": 1.4633358756417774,
+      "range": [
+        1.4348316361633384,
+        1.696189542769603
+      ],
+      "case_speedups": {
+        "cloud-palace": 1.696189542769603,
+        "celestial-gate": 1.4491933827203876,
+        "neon-duel": 1.5000123264251644,
+        "underwater-parry": 1.4903875004077691,
+        "energy-shield": 1.449581658300404,
+        "energy-orb": 1.4348316361633384,
+        "space-coffee": 1.4817202422654694,
+        "paper-rain": 1.4365872788259222,
+        "star-mage": 1.4536123260254168,
+        "firefly-duo": 1.5088653348358205,
+        "fashion-turn": 1.4573808576801506,
+        "play-card": 1.4692908936034041
+      }
+    },
+    "VX/SX": {
+      "baseline": "VX",
+      "candidate": "SX",
+      "cases": 12,
+      "median_speedup": 1.3507592108319368,
+      "range": [
+        1.27053635873399,
+        1.4224375477690159
+      ],
+      "case_speedups": {
+        "cloud-palace": 1.27053635873399,
+        "celestial-gate": 1.3167639609851614,
+        "neon-duel": 1.4057048555958984,
+        "underwater-parry": 1.4224375477690159,
+        "energy-shield": 1.3629117091511853,
+        "energy-orb": 1.3386067125126884,
+        "space-coffee": 1.3375321614048923,
+        "paper-rain": 1.402264417130975,
+        "star-mage": 1.3332341060806958,
+        "firefly-duo": 1.401346596977502,
+        "fashion-turn": 1.3277541153717631,
+        "play-card": 1.4143954363466051
+      }
+    }
+  },
+  "routes": {
+    "V768": {
+      "confirmed_passes": 1,
+      "total": 12,
+      "score": 8.333333333333334,
+      "counts": {
+        "pass": 1,
+        "fail": 9,
+        "borderline": 2
+      },
+      "median_seconds": 529.2797961665055,
+      "physical_gib_range": [
+        36.62686739116907,
+        39.968695320189
+      ],
+      "quality": {
+        "action": {
+          "evaluated": 12,
+          "none_or_minor": 7,
+          "no_major_defect_percent": 58.333333333333336,
+          "counts": {
+            "0": 0,
+            "1": 7,
+            "2": 5,
+            "3": 0
+          }
+        },
+        "count": {
+          "evaluated": 12,
+          "none_or_minor": 11,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 11,
+            "1": 0,
+            "2": 0,
+            "3": 1
+          }
+        },
+        "detail": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 0,
+            "1": 12,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "framing": {
+          "evaluated": 12,
+          "none_or_minor": 3,
+          "no_major_defect_percent": 25.0,
+          "counts": {
+            "0": 2,
+            "1": 1,
+            "2": 9,
+            "3": 0
+          }
+        },
+        "geometry": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 0,
+            "1": 12,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "identity": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 2,
+            "1": 10,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "temporal": {
+          "evaluated": 12,
+          "none_or_minor": 11,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 0,
+            "1": 11,
+            "2": 1,
+            "3": 0
+          }
+        }
+      }
+    },
+    "S768": {
+      "confirmed_passes": 4,
+      "total": 12,
+      "score": 33.333333333333336,
+      "counts": {
+        "pass": 4,
+        "fail": 5,
+        "borderline": 3
+      },
+      "median_seconds": 363.5756252294959,
+      "physical_gib_range": [
+        58.46530640870333,
+        61.1062837690115
+      ],
+      "quality": {
+        "action": {
+          "evaluated": 12,
+          "none_or_minor": 8,
+          "no_major_defect_percent": 66.66666666666667,
+          "counts": {
+            "0": 1,
+            "1": 7,
+            "2": 4,
+            "3": 0
+          }
+        },
+        "count": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 11,
+            "1": 1,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "detail": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 0,
+            "1": 12,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "framing": {
+          "evaluated": 12,
+          "none_or_minor": 9,
+          "no_major_defect_percent": 75.0,
+          "counts": {
+            "0": 7,
+            "1": 2,
+            "2": 3,
+            "3": 0
+          }
+        },
+        "geometry": {
+          "evaluated": 12,
+          "none_or_minor": 11,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 0,
+            "1": 11,
+            "2": 1,
+            "3": 0
+          }
+        },
+        "identity": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 1,
+            "1": 11,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "temporal": {
+          "evaluated": 12,
+          "none_or_minor": 10,
+          "no_major_defect_percent": 83.33333333333333,
+          "counts": {
+            "0": 0,
+            "1": 10,
+            "2": 2,
+            "3": 0
+          }
+        }
+      }
+    },
+    "VX": {
+      "confirmed_passes": 2,
+      "total": 12,
+      "score": 16.666666666666668,
+      "counts": {
+        "pass": 2,
+        "fail": 8,
+        "borderline": 2
+      },
+      "median_seconds": 259.13879875000566,
+      "physical_gib_range": [
+        32.08609592914581,
+        34.44110698252916
+      ],
+      "quality": {
+        "action": {
+          "evaluated": 12,
+          "none_or_minor": 7,
+          "no_major_defect_percent": 58.333333333333336,
+          "counts": {
+            "0": 0,
+            "1": 7,
+            "2": 5,
+            "3": 0
+          }
+        },
+        "count": {
+          "evaluated": 12,
+          "none_or_minor": 11,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 11,
+            "1": 0,
+            "2": 0,
+            "3": 1
+          }
+        },
+        "detail": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 0,
+            "1": 12,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "framing": {
+          "evaluated": 12,
+          "none_or_minor": 3,
+          "no_major_defect_percent": 25.0,
+          "counts": {
+            "0": 2,
+            "1": 1,
+            "2": 8,
+            "3": 1
+          }
+        },
+        "geometry": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 0,
+            "1": 12,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "identity": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 2,
+            "1": 10,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "temporal": {
+          "evaluated": 12,
+          "none_or_minor": 11,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 0,
+            "1": 11,
+            "2": 1,
+            "3": 0
+          }
+        }
+      }
+    },
+    "SX": {
+      "confirmed_passes": 3,
+      "total": 12,
+      "score": 25.0,
+      "counts": {
+        "pass": 3,
+        "fail": 7,
+        "borderline": 2
+      },
+      "median_seconds": 193.86964925051143,
+      "physical_gib_range": [
+        57.42227724939585,
+        58.35552058368921
+      ],
+      "quality": {
+        "action": {
+          "evaluated": 12,
+          "none_or_minor": 7,
+          "no_major_defect_percent": 58.333333333333336,
+          "counts": {
+            "0": 1,
+            "1": 6,
+            "2": 5,
+            "3": 0
+          }
+        },
+        "count": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 11,
+            "1": 1,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "detail": {
+          "evaluated": 12,
+          "none_or_minor": 11,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 0,
+            "1": 11,
+            "2": 1,
+            "3": 0
+          }
+        },
+        "framing": {
+          "evaluated": 12,
+          "none_or_minor": 8,
+          "no_major_defect_percent": 66.66666666666667,
+          "counts": {
+            "0": 6,
+            "1": 2,
+            "2": 4,
+            "3": 0
+          }
+        },
+        "geometry": {
+          "evaluated": 12,
+          "none_or_minor": 10,
+          "no_major_defect_percent": 83.33333333333333,
+          "counts": {
+            "0": 0,
+            "1": 10,
+            "2": 2,
+            "3": 0
+          }
+        },
+        "identity": {
+          "evaluated": 12,
+          "none_or_minor": 12,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 1,
+            "1": 11,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "temporal": {
+          "evaluated": 12,
+          "none_or_minor": 11,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 0,
+            "1": 11,
+            "2": 1,
+            "3": 0
+          }
+        }
+      }
+    }
+  },
+  "modes": {
+    "VSA": {
+      "confirmed_passes": 3,
+      "total": 24,
+      "score": 12.5,
+      "counts": {
+        "pass": 3,
+        "fail": 17,
+        "borderline": 4
+      },
+      "median_seconds": 418.6491794584872,
+      "physical_gib_range": [
+        32.08609592914581,
+        39.968695320189
+      ],
+      "quality": {
+        "action": {
+          "evaluated": 24,
+          "none_or_minor": 14,
+          "no_major_defect_percent": 58.333333333333336,
+          "counts": {
+            "0": 0,
+            "1": 14,
+            "2": 10,
+            "3": 0
+          }
+        },
+        "count": {
+          "evaluated": 24,
+          "none_or_minor": 22,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 22,
+            "1": 0,
+            "2": 0,
+            "3": 2
+          }
+        },
+        "detail": {
+          "evaluated": 24,
+          "none_or_minor": 24,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 0,
+            "1": 24,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "framing": {
+          "evaluated": 24,
+          "none_or_minor": 6,
+          "no_major_defect_percent": 25.0,
+          "counts": {
+            "0": 4,
+            "1": 2,
+            "2": 17,
+            "3": 1
+          }
+        },
+        "geometry": {
+          "evaluated": 24,
+          "none_or_minor": 24,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 0,
+            "1": 24,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "identity": {
+          "evaluated": 24,
+          "none_or_minor": 24,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 4,
+            "1": 20,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "temporal": {
+          "evaluated": 24,
+          "none_or_minor": 22,
+          "no_major_defect_percent": 91.66666666666667,
+          "counts": {
+            "0": 0,
+            "1": 22,
+            "2": 2,
+            "3": 0
+          }
+        }
+      }
+    },
+    "SOL": {
+      "confirmed_passes": 7,
+      "total": 24,
+      "score": 29.166666666666668,
+      "counts": {
+        "pass": 7,
+        "fail": 12,
+        "borderline": 5
+      },
+      "median_seconds": 273.3670287085115,
+      "physical_gib_range": [
+        57.42227724939585,
+        61.1062837690115
+      ],
+      "quality": {
+        "action": {
+          "evaluated": 24,
+          "none_or_minor": 15,
+          "no_major_defect_percent": 62.5,
+          "counts": {
+            "0": 2,
+            "1": 13,
+            "2": 9,
+            "3": 0
+          }
+        },
+        "count": {
+          "evaluated": 24,
+          "none_or_minor": 24,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 22,
+            "1": 2,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "detail": {
+          "evaluated": 24,
+          "none_or_minor": 23,
+          "no_major_defect_percent": 95.83333333333333,
+          "counts": {
+            "0": 0,
+            "1": 23,
+            "2": 1,
+            "3": 0
+          }
+        },
+        "framing": {
+          "evaluated": 24,
+          "none_or_minor": 17,
+          "no_major_defect_percent": 70.83333333333333,
+          "counts": {
+            "0": 13,
+            "1": 4,
+            "2": 7,
+            "3": 0
+          }
+        },
+        "geometry": {
+          "evaluated": 24,
+          "none_or_minor": 21,
+          "no_major_defect_percent": 87.5,
+          "counts": {
+            "0": 0,
+            "1": 21,
+            "2": 3,
+            "3": 0
+          }
+        },
+        "identity": {
+          "evaluated": 24,
+          "none_or_minor": 24,
+          "no_major_defect_percent": 100.0,
+          "counts": {
+            "0": 2,
+            "1": 22,
+            "2": 0,
+            "3": 0
+          }
+        },
+        "temporal": {
+          "evaluated": 24,
+          "none_or_minor": 21,
+          "no_major_defect_percent": 87.5,
+          "counts": {
+            "0": 0,
+            "1": 21,
+            "2": 3,
+            "3": 0
+          }
+        }
+      }
+    }
+  }
+}

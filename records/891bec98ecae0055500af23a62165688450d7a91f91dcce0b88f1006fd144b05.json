@@ -1,0 +1,57 @@
+{
+  "original_sha256": "891bec98ecae0055500af23a62165688450d7a91f91dcce0b88f1006fd144b05",
+  "original_name": "underwater-parry-V768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "underwater-parry-V768-r1",
+    "video_sha256": "0e9ae434dedc3a720fa2f457203d348f03b6a788d6b4338b20181516ef1c84cd",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "Two identifiable women remain underwater and perform a readable empty-hand wrist deflection, though the reach is high near the face. The sword points upward across the opening before lowering, and no clear drift-apart finish is established. A push-in leaves the sword outside the final composition while the women remain adjacent.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Two women and their water-surface reflections occupy a tiled pool. The first woman keeps the sword, but it initially points diagonally upward before lowering."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The black-clad woman extends an open hand high toward the other woman. The white-clad woman redirects the wrist with her empty hand, retaining the sword separately in her other hand."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "Hands lower after the deflection, but the bodies remain adjacent as the camera pushes in. The final view retains both identifiable faces and water effects, while the sword and much of the hands leave the frame; a clear drift-apart hold is absent."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 0, 47 and 119 inspected against the four original references. No listening or normal-speed playback judgment."
+  }
+}

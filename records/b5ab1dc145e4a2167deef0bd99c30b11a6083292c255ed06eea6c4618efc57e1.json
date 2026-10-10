@@ -1,0 +1,56 @@
+{
+  "original_sha256": "b5ab1dc145e4a2167deef0bd99c30b11a6083292c255ed06eea6c4618efc57e1",
+  "original_name": "neon-duel-SX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "neon-duel-SX-r1",
+    "video_sha256": "d603ecfa1714096fd3b92d9d490248adde0b0a45b4544167ec0c3827f781171c",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 2,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "Two distinct full-body fighters approach and end with crossed weapons clear of their faces. They exchange several swings and blocks instead of the requested single swing and single block. The blue blade also develops a persistent forked contour in the final hold.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Exactly two identifiable fighters approach in the neon street; their complete bodies remain visible."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "Weapons meet around 1.7 s, separate, meet again around 2.6 s, separate again and begin another exchange. This is more than the single registered swing/block."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The fighters hold crossed weapons between their faces while the cloak moves. Native frames 84, 108 and 119 show an extra fork in the blue blade; the two people and their weapon ownership remain distinguishable."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 47, 84, 108 and 119 inspected against the three original references. No listening or normal-speed playback judgment."
+  }
+}

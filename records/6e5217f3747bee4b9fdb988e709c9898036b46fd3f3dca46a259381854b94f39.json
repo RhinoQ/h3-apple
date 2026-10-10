@@ -1,0 +1,61 @@
+{
+  "original_sha256": "6e5217f3747bee4b9fdb988e709c9898036b46fd3f3dca46a259381854b94f39",
+  "original_name": "neon-duel-V768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "neon-duel-V768-r1",
+    "video_sha256": "d711ad0431af3e25f86b08cda6ac9de6a962509f408371e32c16e7e3fae10a6c",
+    "status": "fail",
+    "criteria_pass": [
+      false,
+      null,
+      false
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 3,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 2,
+      "framing": 2
+    },
+    "summary": "The first multi-view character sheet appears before a dissolve into the street. Both fighters later approach and end with readable blades, but the camera crops away their lower bodies. Dense action frames show an empty-hand interception before the blue-blade clash, making the requested single blue-dagger block uncertain.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.333
+        ],
+        "text": "The character sheet occupies the opening and dissolves into the street with ghosted extra views of the first woman."
+      },
+      {
+        "interval_seconds": [
+          1.375,
+          3.292
+        ],
+        "text": "The fighters approach. At frames 68–73 the masked woman meets the attack with her free arm while her blue weapon is behind her head; the blue blade then sweeps forward into contact at frames 78–79. This is not an unambiguous single blue-dagger block."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "A progressive push-in ends on heads and upper torsos. The two blades are distinct and clear of faces, but the required full-body continuous lateral shot is lost."
+      }
+    ],
+    "extra_frame_record": {
+      "path": "research/output/p173-fresh-benchmark-01/inspection-extra-01/neon-duel-V768-r1/evidence.json",
+      "bytes": 791,
+      "sha256": "07274fcdb6ba2a8f9d9b3d77cafb2e69565085a52cbc7fcb01079d8e5580f672"
+    },
+    "review_scope": "All 120 sequential thumbnails, original frames 0 and 119, and enlarged original-frame crops 64–79 inspected against the three original references. No listening or normal-speed playback judgment."
+  }
+}

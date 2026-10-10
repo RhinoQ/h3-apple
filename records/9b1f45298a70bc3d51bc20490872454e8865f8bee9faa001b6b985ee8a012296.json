@@ -1,0 +1,57 @@
+{
+  "original_sha256": "9b1f45298a70bc3d51bc20490872454e8865f8bee9faa001b6b985ee8a012296",
+  "original_name": "energy-orb-S768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "energy-orb-S768-r1",
+    "video_sha256": "139275c9291a956e0b2c7d15354f7c152278f4f34a43efde848cfa693bed43b2",
+    "status": "pass",
+    "criteria_pass": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "One recognizable Naruto forms a swirling sphere over his right palm, moves the left hand aside and turns into one forward right-arm thrust. The final hold retains the sphere, both complete arms and a readable face.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Blue strands gather into a single sphere above the right palm while the left hand circles above it. The referenced headband, whiskers, hair and costume remain identifiable."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The left hand clears the sphere, the torso/hips turn and the right arm extends forward once. The sphere remains supported on the same palm; minor finger changes occur during motion."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "A steady extended-arm ending keeps both arms and hands in frame, with the face readable next to one swirling sphere. No duplicate character or sphere appears."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 36 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}

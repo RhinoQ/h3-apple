@@ -1,0 +1,69 @@
+{
+  "original_sha256": "5bee6b131dac7dd561e0864be905d40251f7b111a136ace2ec17607e7063cc7f",
+  "original_name": "neon-duel-SX-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "neon-duel-SX-r1",
+      "case": "neon-duel",
+      "arm": "SX",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-01.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-02.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-03.jpg"
+        ],
+        "duration": 5,
+        "seed": 173003,
+        "resolution": "544p",
+        "x2": true,
+        "aspect_ratio": "16:9",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the long-haired adult woman in black combat clothing and a cloak in <Picture 1>. <Subject 2> is the short-haired adult woman with a white fox mask and cyan-trimmed coat in <Picture 2>. Each character sheet supplies exactly one person. <Picture 3> supplies the rainy neon street and reflective road.\n\nsummary:\n[reference generation] A five-second landscape 16:9 Ref2VA shot.\n\nretention_analysis:\nRetain each explicitly assigned reference identity, object and design. Character-sheet panels describe one subject, not multiple copies.\n\ndetailed_description:\n[Shot 1] A continuous wide lateral shot. From 0 to 1 second both women face each other three meters apart. From 1 to 3 seconds they approach, and the first woman makes one diagonal swing with one short silver blade; the second blocks once with one blue energy dagger. From 3 to 5 seconds they hold the crossed blades apart from their faces. Keep both complete bodies, distinct identities and separate weapons visible. Rain, coats and reflections continue moving. No injury or blood.\n\noverall_soundscape:\nRain and wet footfalls; one metal impact and brief electrical crackle. No speech or music.\n\nnon_diegetic_music:\nNone.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-01.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-02.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-03.jpg"
+        ],
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 173003,
+        "width": 1920,
+        "height": 1088,
+        "num_frames": 120,
+        "model_width": 960,
+        "model_height": 544,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 216.72658716602018,
+    "worker_lifetime_seconds": 212.85394908301532,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/neon-duel-SX-r1.run.json",
+      "bytes": 43183,
+      "sha256": "bd99306605faf2bf3c5a11edfdd10564ad0108eb911db3267c2e4e6ece1212df"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/neon-duel-SX-r1.mp4",
+      "bytes": 4871021,
+      "sha256": "d603ecfa1714096fd3b92d9d490248adde0b0a45b4544167ec0c3827f781171c"
+    }
+  }
+}

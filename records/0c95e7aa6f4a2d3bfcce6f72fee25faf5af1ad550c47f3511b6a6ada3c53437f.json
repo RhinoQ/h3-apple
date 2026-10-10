@@ -1,0 +1,65 @@
+{
+  "original_sha256": "0c95e7aa6f4a2d3bfcce6f72fee25faf5af1ad550c47f3511b6a6ada3c53437f",
+  "original_name": "play-card-V768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "play-card-V768-r1",
+      "case": "play-card",
+      "arm": "V768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/play-card/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/play-card/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173012,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "16:9",
+        "mode": "VSA"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the mint retro player card in <Picture 1>, with a dark navy outline, three small header dots, one orange play icon and the large navy word PLAY. Retain its proportions, palette, icon and lettering as a single coherent designed object.\n<Subject 2> is the separate solid orange circle outside the card near the lower-left of <Picture 1>. It is a movable flat graphic disk, distinct from the play icon inside the card.\n\nsummary:\n[reference generation] A five-second motion-graphics ident in which <Subject 1> rotates in perspective while <Subject 2> passes behind it, followed by a stable front-facing title hold with the word PLAY intact.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - the player card keeps the same edge geometry, mint/navy/orange/cream palette, play icon and exact four-letter word PLAY while its orientation changes.\n<Subject 2> (appears in [Shot 1]): fully_preserved - keep one solid orange circle of constant diameter; it disappears only while geometrically occluded by the card and then reappears.\n\ndetailed_description:\n[Shot 1] A clean cream 16:9 canvas with a single centered <Subject 1>, initially front-facing, and the one <Subject 2> near the lower-left. The card fills most of the image but has clear margins. During the first two seconds, the complete card rotates around a vertical axis into a pronounced oblique view, about sixty degrees from frontal, with coherent perspective on the border, icon, header dots and letters. At the same time the orange circle travels horizontally from the left toward the right at the height of the lower part of the card. It passes behind the card: its visible area narrows at the left edge, becomes fully hidden, then emerges at the right edge as the same circle. From two to 3.5 seconds the card reverses its rotation and returns smoothly to its original frontal rectangle while the circle finishes at the lower-right. The lettering stays attached to the card surface and reads exactly PLAY whenever the front is visible. From 3.5 to five seconds hold the full frontal card and orange circle in a crisp, stable final layout. Render smooth intentional graphic animation with solid fills and sharp edges. The card rotates as a whole object; letters, corners and the play icon do not independently melt or turn into other symbols. No cuts, invented extra windows or additional writing.\n\noverall_soundscape:\nOne clean electronic whoosh during rotation and one quiet click as the card settles. No voice.\n\nnon_diegetic_music:\nAn original short electronic beat, with the final held title supported by a sustained soft synth tone.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/play-card/reference-01.png"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173012,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 528.861420250003,
+    "worker_lifetime_seconds": 528.2244029580033,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/play-card-V768-r1.run.json",
+      "bytes": 53372,
+      "sha256": "c78b188776e2939aefe29059f93702c1f82bd4930e3800460e7b492f3dcb6580"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/play-card-V768-r1.mp4",
+      "bytes": 968293,
+      "sha256": "3e3c1f6373194963010b8c01ea431a7effb2905ffd6620d89b5dec5dd2756328"
+    }
+  }
+}

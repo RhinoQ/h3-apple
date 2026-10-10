@@ -69,13 +69,20 @@ def score(data):
             physical_gib_range=[min(memory),max(memory)] if memory else None,quality=quality)
     routes={arm:summarize(rows) for arm,rows in selected.items()}
     modes={mode:summarize([r for rows in selected.values() for r in rows if r['mode']==mode]) for mode in ('VSA','SOL')}
+    paired_time={}
+    for baseline,candidate in [('V768','VX'),('S768','SX'),('V768','S768'),('VX','SX')]:
+        ratios=[a['seconds']/b['seconds'] for a,b in zip(selected[baseline],selected[candidate])]
+        paired_time[f'{baseline}/{candidate}']=dict(baseline=baseline,candidate=candidate,
+            cases=len(ratios),median_speedup=statistics.median(ratios),range=[min(ratios),max(ratios)],
+            case_speedups=dict(zip(required,ratios)))
     return dict(schema='h3-ref2va-score/v1',benchmark_version=data['version'],
         measure='Confirmed complete visual task success, 0–100; audio not assessed',
         evaluation=data.get('method',{}).get('score_evaluation',
             'Method-disclosed Agent visual judgments on exposed cases, two profiles per mode. Descriptive, not a blind/generalization result.'),
         coverage=dict(cases=len(required),profiles=len(arms),completed=sum(len(r) for r in selected.values()),expected=len(required)*len(arms)),
-        quality_definition='Existing per-dimension severity: 0 none, 1 minor, 2 clear, 3 severe. Display fraction with severity <=1, plus all counts; do not combine with task score.',
-        routes=routes,modes=modes)
+        quality_definition='Per-dimension severity: 0 none, 1 minor, 2 clear, 3 severe. Display fraction with severity <=1, plus all counts; do not combine with task score.',
+        paired_time_definition='Baseline/candidate full-call seconds within each case; values above 1 favor the candidate. Median of paired ratios, not ratio of route medians. One run per slot.',
+        paired_time=paired_time,routes=routes,modes=modes)
 
 
 if __name__=='__main__':

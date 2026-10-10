@@ -1,0 +1,65 @@
+{
+  "original_sha256": "c85fa75c359638dbe0413b3361e3bc32bda278128cf518e3b5211c776c9d5be2",
+  "original_name": "fashion-turn-SX-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "fashion-turn-SX-r1",
+      "case": "fashion-turn",
+      "arm": "SX",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/fashion-turn/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/fashion-turn/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173011,
+        "resolution": "544p",
+        "x2": true,
+        "aspect_ratio": "16:9",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the single adult woman shown in the four fashion looks of <Picture 1>. Preserve her face, dark shoulder-length hair and slim proportions. Use only the upper-left LOOK 01 outfit: a black sleeveless high-neck top, a black belt with a round buckle and flowing black pinstriped wide-leg trousers. The four panels show one model, not four people; the poster layout and its lettering are not the target composition.\n\nsummary:\n[reference generation] A five-second photorealistic fashion film of <Subject 1>, combining a traveling half-turn with flowing fabric and a close view of her hand passing in front of her face to tuck back her hair.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - keep the same woman, hairstyle and complete black LOOK 01 outfit in both shots. The reference defines her identity and clothes, not a panel or text overlay.\n\ndetailed_description:\n[Shot 1] Full-body view in a spacious neutral gray photo studio, with the single <Subject 1> and a grounded soft shadow. Her complete head and shoes fit inside the frame. From zero to one second she takes two deliberate steps toward the camera. She plants her leading foot and makes one controlled half-turn from front-facing to facing away, then stops in a three-quarter back pose by about 2.5 seconds, glancing over her shoulder. Her hair and wide trouser legs continue moving and settle naturally after her body stops. The camera tracks backward a short distance to maintain full-body framing. Show foot contact, changing body orientation and fabric motion as one connected action.\n[Shot 2] At 00:03.000, cut to a chest-up three-quarter view of the same <Subject 1> in the same black top and studio. She raises her right hand, passes her fingers briefly in front of her nearer eye and cheek, and tucks one loose strand of hair behind that ear. The hand then moves away and lowers below her chin. End by five seconds on her unobscured complete face and a subtle confident smile, with her hair, eyes, neckline and identity matching the previous shot. Use natural skin detail and well-formed fingers. Present the two shots as full-screen film images, without the fashion poster's panels, lettering or alternate outfits.\n\noverall_soundscape:\nTwo footsteps, soft clothing movement and quiet studio room tone. No speech or vocals.\n\nnon_diegetic_music:\nA restrained original electronic pulse continues smoothly across the cut at a low volume.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/fashion-turn/reference-01.png"
+        ],
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 173011,
+        "width": 1920,
+        "height": 1088,
+        "num_frames": 120,
+        "model_width": 960,
+        "model_height": 544,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 193.5362292920181,
+    "worker_lifetime_seconds": 189.6363088329963,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/fashion-turn-SX-r1.run.json",
+      "bytes": 43027,
+      "sha256": "da5daa5130579e640b0965213e101f17fb7df77bb7c0c6642d3e909dcb862d32"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/fashion-turn-SX-r1.mp4",
+      "bytes": 3710635,
+      "sha256": "26df58bb02ee4f885878417091df65ec0ba4f3f22028c3ecb0d3a0bbe8617e68"
+    }
+  }
+}

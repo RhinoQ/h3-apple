@@ -1,0 +1,56 @@
+{
+  "original_sha256": "b8e53295299c4a2b6789d5c54370ac0a4527087b3e748428b7c9f248e97e5596",
+  "original_name": "neon-duel-S768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "neon-duel-S768-r1",
+    "video_sha256": "3dc78cb4b5fae4f93bb53192ed83a66b593edd3ecfd8787bf7b93fd2773b7681",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "Two distinct full-body fighters and a coherent neon street are maintained. After an initial swing/block they separate and exchange again, violating the single-action requirement. The final held silver and blue blades are clear of both faces, without the persistent fork seen in SX.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "The two fighters face each other and begin approaching; no character sheet or extra person appears."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "A swing and block complete around 2.2 s, then the weapons separate and the fighters wind up again."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "A second exchange occurs around 3.4–3.7 s before a stable crossed-blade hold. Both whole bodies stay in view, and the two weapons remain distinct while the cloak moves."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 60, 84 and 119 inspected against the three original references. No listening or normal-speed playback judgment."
+  }
+}

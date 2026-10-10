@@ -1,0 +1,71 @@
+{
+  "original_sha256": "2621d190209b0e926b310d3d51935aa826ee6b829541a4df21b098156cb2ff19",
+  "original_name": "underwater-parry-S768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "underwater-parry-S768-r1",
+      "case": "underwater-parry",
+      "arm": "S768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-01.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-02.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-03.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-04.jpg"
+        ],
+        "duration": 5,
+        "seed": 173004,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "9:16",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the adult woman with tied-up dark hair and a light martial-arts jacket in <Picture 1>. <Subject 2> is the short-haired adult woman in black leather in <Picture 2>; omit its motorcycle. <Pictures 3 and 4> define the same outdoor pool, lane colors, tiled floor and underwater blue light.\n\nsummary:\n[reference generation] A five-second portrait 9:16 Ref2VA shot.\n\nretention_analysis:\nRetain each explicitly assigned reference identity, object and design. Character-sheet panels describe one subject, not multiple copies.\n\ndetailed_description:\n[Shot 1] A single underwater medium two-shot, with the tiled floor beneath the women and surface above. The first woman holds one short training sword pointed down and away. The second woman moves one open hand toward her shoulder during seconds 1 to 3; the first deflects the wrist with her empty hand. Both drift apart and hold by 5 seconds. Keep their faces distinct through bubbles, moving hair and water caustics. No cut, duplicated limbs, blood or injury.\n\noverall_soundscape:\nMuffled underwater movement and bubbles, with no dialogue or music.\n\nnon_diegetic_music:\nNone.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-01.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-02.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-03.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-04.jpg"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173004,
+        "width": 768,
+        "height": 1366,
+        "num_frames": 120,
+        "model_width": 768,
+        "model_height": 1376,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 516.5477549170027,
+    "worker_lifetime_seconds": 516.0718928749848,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/underwater-parry-S768-r1.run.json",
+      "bytes": 70412,
+      "sha256": "dfe262ec9698c603b4e03a8e39c95cc9903012a7e1ff9c99aeaf64da7885462e"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/underwater-parry-S768-r1.mp4",
+      "bytes": 5298443,
+      "sha256": "52d911e470d234af9b6a80a04e35249a0490b503b2107918f95d315180ff04e0"
+    }
+  }
+}

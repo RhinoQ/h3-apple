@@ -1,0 +1,57 @@
+{
+  "original_sha256": "2f8362d0fd67b6eaa69d8110794dbfae150cc6bc155171dd4ac6352c402e5cf6",
+  "original_name": "space-coffee-V768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "space-coffee-V768-r1",
+    "video_sha256": "d828a0abf8448cfe48af182ccf35d65700c677ee4fc27809674d4e72499e888d",
+    "status": "fail",
+    "criteria_pass": [
+      false,
+      false,
+      true,
+      null
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "One floating coffee blob reaches the visor and leaves a localized stain, with the character still recognizable. The cup contains coffee rather than being empty. The close push-in eventually excludes both hands and most of the cup; two distinct failed scoops and the complete shrug are not established.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "A recognizable courier holds one white cup in the spaceship, with a dark sphere rising above it. The left hand joins the cup. Brown coffee remains visible in the cup throughout the approach."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The blob travels upward toward the forehead while both hands lift and hold the cup beneath it. The gradual gesture and camera motion do not clearly separate two failed scooping attempts."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The blob splats on the visor beside one eye at about 3.8 s. He pauses and smiles toward camera, briefly moving the free hand. By the ending the hands, most of the cup and part of the helmet are cropped. The full shrug and weightless scarf motion are uncertain."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 47, 95 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}

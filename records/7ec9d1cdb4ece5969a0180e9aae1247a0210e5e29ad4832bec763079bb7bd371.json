@@ -1,0 +1,57 @@
+{
+  "original_sha256": "7ec9d1cdb4ece5969a0180e9aae1247a0210e5e29ad4832bec763079bb7bd371",
+  "original_name": "fashion-turn-SX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "fashion-turn-SX-r1",
+    "video_sha256": "26df58bb02ee4f885878417091df65ec0ba4f3f22028c3ecb0d3a0bbe8617e68",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "The single black-outfit model steps forward, turns to a held back pose and clears her face after the hair gesture. The cut is late and the second shot is a tight face close-up, not the registered chest-up framing.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Two forward step phases lead into the turn. The complete body remains inside the first-shot frame, with shoe tips and a grounded shadow visible beneath the wide trousers."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.5
+        ],
+        "text": "She turns to the back and holds while the fabric settles, then starts turning toward a side view again before the cut."
+      },
+      {
+        "interval_seconds": [
+          3.542,
+          4.958
+        ],
+        "text": "One cut reveals the same model with her right hand already over the near eye. The hand sweeps toward the ear and drops clear; the face ends unobscured with a slight smile. The top of the hair and chest are outside this tight close-up."
+      }
+    ],
+    "review_scope": "All 120 frames in three sequence sheets; original frames 0, 23, 60, 95, 108 and 119; original outfit reference. No listening or normal-speed playback judgment."
+  }
+}

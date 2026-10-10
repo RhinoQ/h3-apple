@@ -1,0 +1,57 @@
+{
+  "original_sha256": "60bb7b442a0084c7535a19610c181c8bd3296096389777d92a303b2f8e98fe80",
+  "original_name": "underwater-parry-SX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "underwater-parry-SX-r1",
+    "video_sha256": "d4c7a22ea2a5fd8e0a0515741ca0ce5873e9904b12ec231a9cf66be78ca4984f",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      null,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 2,
+      "detail": 2,
+      "temporal": 2,
+      "framing": 1
+    },
+    "summary": "The two identities, underwater setting and eventual separation are readable. During contact, strong repeated hand contours and the raised sword obscure which hand performs the deflection. The weapon swings across the bodies and enters the hand interaction instead of remaining separate, downward and away.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Both women are visible below the reflecting surface. The white-clad woman moves a dark weapon from beside her body into a horizontal sweep; its blade and grip are poorly separated from repeated contours around the hands."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The women meet their hands between their upper bodies. The weapon rises into this contact, with conspicuous striped finger and sleeve outlines. An empty-hand-only wrist redirection cannot be confirmed from the overlapping grips. Bubbles rise through the gap between faces."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The hands release and the women drift apart, facing one another. The weapon passes horizontally across the waist and leaves the final crop; it is not held consistently downward and away. No additional person, motorcycle or cut appears."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 0, 47, 71 and 119 inspected against the four original references. No listening or normal-speed playback judgment."
+  }
+}

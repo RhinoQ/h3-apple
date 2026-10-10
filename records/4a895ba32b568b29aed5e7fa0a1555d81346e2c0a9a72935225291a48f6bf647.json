@@ -1,0 +1,65 @@
+{
+  "original_sha256": "4a895ba32b568b29aed5e7fa0a1555d81346e2c0a9a72935225291a48f6bf647",
+  "original_name": "energy-orb-S768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "energy-orb-S768-r1",
+      "case": "energy-orb",
+      "arm": "S768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/energy-orb/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/energy-orb/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173006,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "16:9",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the live-action adult portrayal of Naruto Uzumaki in <Picture 1>. Preserve the same face, blue eyes, spiky blond hair, three whisker marks on each cheek, metal Leaf forehead protector on black cloth and orange-and-black jacket.\n\nsummary:\n[reference generation] A five-second live-action Naruto effects shot: <Subject 1> forms one spinning blue Rasengan in his right palm, steps and thrusts it forward, then holds a balanced final pose while the light and swirling energy remain attached to his palm.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the referenced human face, hair, forehead protector and clothing through body rotation, fast arm motion and changing blue illumination.\n\ndetailed_description:\n[Shot 1] A sunlit stone training courtyard, shown in a continuous medium-wide view from above the knees to above the hair of the single <Subject 1>. His body begins three-quarter toward the camera. He opens his right palm at waist height and brings his left hand above it. During the first two seconds, luminous blue strands spiral between the hands and condense into one grapefruit-sized translucent blue sphere resting just over the right palm. The sphere has clearly circulating internal strands rather than a flat white disk. His left hand moves away, leaving the one sphere supported by his right hand. From two to 3.5 seconds he plants his front foot, turns his hips and shoulders and makes one decisive forward thrust with that right arm, bringing the sphere toward the camera without releasing it. His jacket follows the body rotation, the hair moves, and blue light falls consistently on the near fingers, cheek and sleeve as the sphere approaches. The camera makes a modest lateral arc while keeping his complete face, both arms and sphere in view. From 3.5 to five seconds he holds a balanced extended-arm pose with a determined expression; the sphere continues swirling on the same palm. The visible cast stays one Naruto, with one sphere and two arms, and the face is readable beyond the effect. No overlaid words or subtitles.\n\noverall_soundscape:\nQuiet outdoor wind, a rising energy swirl and one short whoosh on the forward thrust; the energy hum continues softly to the end. No speech or vocals.\n\nnon_diegetic_music:\nOriginal restrained percussion supports the action without quoting an existing anime theme.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/energy-orb/reference-01.png"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173006,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 369.17095966701163,
+    "worker_lifetime_seconds": 368.6544334999926,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/energy-orb-S768-r1.run.json",
+      "bytes": 58416,
+      "sha256": "7609ab2d51cbb075418bbd55367fa7856e6f4c190347ef340e2645254ea53662"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/energy-orb-S768-r1.mp4",
+      "bytes": 3194746,
+      "sha256": "139275c9291a956e0b2c7d15354f7c152278f4f34a43efde848cfa693bed43b2"
+    }
+  }
+}

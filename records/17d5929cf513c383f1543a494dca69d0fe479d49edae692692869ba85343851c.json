@@ -1,0 +1,56 @@
+{
+  "original_sha256": "17d5929cf513c383f1543a494dca69d0fe479d49edae692692869ba85343851c",
+  "original_name": "cloud-palace-V768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "cloud-palace-V768-r1",
+    "video_sha256": "1b3b76c1a8e26e211e6204041922ede5694c8c243c02c538e9a04a7bc9c1363c",
+    "status": "pass",
+    "criteria_pass": [
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 1
+    },
+    "summary": "The viewpoint glides around the palace corner with clear foreground parallax; all three roof tiers stay connected and visible. Mist moves out of the foreground and the stairs emerge. The camera also advances noticeably, ending with tighter framing and some lower terrace cropped; fine carvings change slightly.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "The reference palace moves from the right toward center as terrace posts shift relative to the roof. Foreground cloud cover recedes."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "Side stairs become clear and the corner viewpoint changes continuously, with the three-tier structure intact."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "Combined lateral travel and push-in tighten the composition. The roof silhouette remains within the frame; lower terrace is partly below its bottom edge."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 60 and 119 inspected, against the original reference. No listening or normal-speed playback judgment."
+  }
+}

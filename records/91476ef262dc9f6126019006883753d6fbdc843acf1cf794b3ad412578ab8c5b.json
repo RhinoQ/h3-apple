@@ -1,0 +1,38 @@
+{
+  "original_sha256": "91476ef262dc9f6126019006883753d6fbdc843acf1cf794b3ad412578ab8c5b",
+  "original_name": "result.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "schema": "p149-task/v1",
+    "utc": "2026-10-10T05:00:02.314774+00:00",
+    "command": [
+      "product/.local/envs/h3/bin/python",
+      "-u",
+      "research/scripts/p173_experiment.py",
+      "child",
+      "star-mage-S768-r1"
+    ],
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "initial_host": {
+      "system": "Darwin",
+      "machine": "arm64",
+      "macos": "26.6.1",
+      "chip": "Apple M5 Max",
+      "memory_bytes": 137438953472,
+      "swap_bytes": 330951557,
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+      "thermal": {
+        "state": "fair",
+        "low_power_mode": false
+      }
+    },
+    "status": "complete",
+    "peak_physical_bytes": 62980887232,
+    "wall_seconds": 348.9960127910017,
+    "finished_utc": "2026-10-10T05:05:51.658051+00:00"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "original_sha256": "e036ff755608862c57e5a91816851d10ea400c95f3550a0e01899f8d56022570",
+  "original_name": "paper-rain-S768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "paper-rain-S768-r1",
+      "case": "paper-rain",
+      "arm": "S768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/paper-rain/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/paper-rain/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173008,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "9:16",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the paper-crafted young adult woman in <Picture 1>, with warm brown skin, two dark braided pigtails, an olive jacket, cream blouse, layered rust-red skirt, teal boots and a cape of folded cream and terracotta paper leaves. Preserve her identity and tactile cut-paper construction. The reference defines the character; the scene provides a new miniature setting.\n\nsummary:\n[reference generation] A five-second vertical handmade paper-animation scene: <Subject 1> opens a tiny paper umbrella as colorful folded-paper raindrops bounce off it like confetti.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the character's face, braids, layered clothing, warm colors and fibrous folded-paper texture.\n\ndetailed_description:\n[Shot 1] A continuous medium shot of <Subject 1> standing alone on a miniature paper garden path. Vertical framing shows her entire head, both hands, and the layered skirt to her knees, leaving open space above her head. Cream and terracotta folded flowers frame the path at the sides. Everything is physically constructed from matte colored paper, with fibers, folded edges and small contact shadows visible in warm studio light. At the beginning she holds a small closed teal paper umbrella in her right hand beside her shoulder. Three tiny blue teardrop-shaped folded paper pieces drift down from the top of the frame. She glances up at them with delighted surprise. During the second second she uses her left hand to slide the umbrella runner upward, and the teal canopy opens into a clean faceted circle above her head. Keep the umbrella clearly distinct from the leaf-shaped cape on her shoulders. By the middle of the clip more blue and turquoise paper raindrops are gently falling. Several drops bounce off the angled teal canopy and tumble in little arcs to either side, behaving like lightweight craft-paper confetti. She watches one bouncing drop with a warm smile, then tilts the umbrella slightly to shelter a small cream-colored flower growing beside her. The flower rocks gently as a paper drop lands near its stem. During the final second she looks back toward the camera while the paper rain continues falling, holding the umbrella steadily over herself and the flower. The cape's attached leaves flutter subtly, and her braids keep their recognizable shape. Camera movement is a restrained, smooth push-in that leaves the umbrella fully visible throughout. Use charming handmade animation timing, tactile paper folds and soft warm shadows; the falling pieces retain their simple origami teardrop forms. The scene is cozy and playful, with movement still continuing naturally at the end. No dialogue or written captions.\n\noverall_soundscape:\nLight dry paper ticks as folded drops touch the umbrella, a soft umbrella-opening rustle, and a gentle breeze through paper leaves.\n\nnon_diegetic_music:\nA few cozy celesta notes and light brushed percussion with space for the delicate paper sounds.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/paper-rain/reference-01.png"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173008,
+        "width": 768,
+        "height": 1366,
+        "num_frames": 120,
+        "model_width": 768,
+        "model_height": 1376,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 351.6774020830053,
+    "worker_lifetime_seconds": 351.2199787920108,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/paper-rain-S768-r1.run.json",
+      "bytes": 58451,
+      "sha256": "cd84143abe1d07f179672f0dab0db485999f463a18fa4344532613d6a5954e60"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/paper-rain-S768-r1.mp4",
+      "bytes": 3161585,
+      "sha256": "88972da934ee056b96fff4cceff1431c2728b52d62d51df2c01a14bc3af82f3e"
+    }
+  }
+}

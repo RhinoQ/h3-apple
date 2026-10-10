@@ -1,0 +1,57 @@
+{
+  "original_sha256": "93827c993a6a26db17176478cf3803e781af3e9a78314ee4b65b6f5135402437",
+  "original_name": "paper-rain-V768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "paper-rain-V768-r1",
+    "video_sha256": "c9b43f22080310142b26df262294a2ee5093fe175987afc359078e841cf03101",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      false,
+      false,
+      false
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "The paper woman opens a distinct teal umbrella and folded raindrops visibly bounce from its canopy. The canopy is cropped as the camera closes in, and she never clearly tilts it to shelter the nearby cream flower. Drops continue reaching that flower at the ending.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "One recognizable braided paper woman stands in a folded garden with a closed teal umbrella. Blue folded drops enter from above; both hands reach along the umbrella shaft before it rises."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The canopy opens into a faceted umbrella. Drops land and tumble off it, but the left canopy edge moves outside the picture as the camera pushes in. The large cream flower on the right remains outside its covered area."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "She holds the umbrella above herself and turns her gaze toward camera. The flower is not brought under the canopy; a blue folded drop reaches its center in the final frame. Umbrella, cape and hands stay distinct, but the required flower-sheltering ending and complete canopy framing fail."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 36, 71 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}

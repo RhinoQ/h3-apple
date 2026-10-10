@@ -1,0 +1,1125 @@
+{
+  "original_sha256": "60b6fd82ab7706169ad979be070550d7f01219e1b8eb842694b7fea8a0c54a33",
+  "original_name": "energy-orb-SX-r1.run.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "status": "complete",
+    "request": {
+      "prompt": "subject_definitions:\n<Subject 1> is the live-action adult portrayal of Naruto Uzumaki in <Picture 1>. Preserve the same face, blue eyes, spiky blond hair, three whisker marks on each cheek, metal Leaf forehead protector on black cloth and orange-and-black jacket.\n\nsummary:\n[reference generation] A five-second live-action Naruto effects shot: <Subject 1> forms one spinning blue Rasengan in his right palm, steps and thrusts it forward, then holds a balanced final pose while the light and swirling energy remain attached to his palm.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the referenced human face, hair, forehead protector and clothing through body rotation, fast arm motion and changing blue illumination.\n\ndetailed_description:\n[Shot 1] A sunlit stone training courtyard, shown in a continuous medium-wide view from above the knees to above the hair of the single <Subject 1>. His body begins three-quarter toward the camera. He opens his right palm at waist height and brings his left hand above it. During the first two seconds, luminous blue strands spiral between the hands and condense into one grapefruit-sized translucent blue sphere resting just over the right palm. The sphere has clearly circulating internal strands rather than a flat white disk. His left hand moves away, leaving the one sphere supported by his right hand. From two to 3.5 seconds he plants his front foot, turns his hips and shoulders and makes one decisive forward thrust with that right arm, bringing the sphere toward the camera without releasing it. His jacket follows the body rotation, the hair moves, and blue light falls consistently on the near fingers, cheek and sleeve as the sphere approaches. The camera makes a modest lateral arc while keeping his complete face, both arms and sphere in view. From 3.5 to five seconds he holds a balanced extended-arm pose with a determined expression; the sphere continues swirling on the same palm. The visible cast stays one Naruto, with one sphere and two arms, and the face is readable beyond the effect. No overlaid words or subtitles.\n\noverall_soundscape:\nQuiet outdoor wind, a rising energy swirl and one short whoosh on the forward thrust; the energy hum continues softly to the end. No speech or vocals.\n\nnon_diegetic_music:\nOriginal restrained percussion supports the action without quoting an existing anime theme.\n",
+      "reference_images": [
+        "research/output/p173-fresh-benchmark-01/inputs-01/energy-orb/reference-01.png"
+      ],
+      "resolution": "544p",
+      "duration": 5.0,
+      "seed": 173006,
+      "width": 1920,
+      "height": 1088,
+      "num_frames": 120,
+      "model_width": 960,
+      "model_height": 544,
+      "model_num_frames": 124,
+      "recipe": "ref2va-premerged-i8-sol-sage-v2",
+      "fps": 24,
+      "audio_sample_rate": 32000,
+      "audio_channels": 2,
+      "num_steps": 4,
+      "mode": "SOL",
+      "x2": true
+    },
+    "seed": 173006,
+    "started_utc": "2026-10-10T04:05:37.154263+00:00",
+    "model_identity": "3f53a3811e2a5540941379374f7de6aa54582815dc2b0222aba6d7921565557f",
+    "video_path": "research/output/p173-fresh-benchmark-01/generation-01/energy-orb-SX-r1.mp4",
+    "diagnostics_enabled": false,
+    "x2_model": {
+      "status": "ready",
+      "checkpoint": "<local-path>",
+      "sha256": "2296840f4acedcaa976688e7d7b97f7bf570b136e400385d3f46224011897aac",
+      "bytes": 5246877148,
+      "recipe": "h3-x2-detail-v1-fp16-linear-fp32-residual",
+      "revision": "af8c92d267c6849fec5032c35a65d5766737b338",
+      "download_bytes": 0
+    },
+    "reference_inputs": [
+      {
+        "index": 1,
+        "source": "research/output/p173-fresh-benchmark-01/inputs-01/energy-orb/reference-01.png",
+        "sha256": "9894f03f58263049a62ae2eb53a47ba139a998d5edae46ac0d7b3cfe5a890182",
+        "size": 2280935
+      }
+    ],
+    "worker_pid": 64453,
+    "x2_backend": {
+      "device": {
+        "device_name": "Apple M5 Max",
+        "max_recommended_working_set_size": 115448725504,
+        "memory_size": 137438953472,
+        "architecture": "applegpu_g17s",
+        "max_buffer_length": 86586540032,
+        "resource_limit": 499000
+      },
+      "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+      "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+      "versions": {
+        "mlx": "0.32.0",
+        "mlx-metal": "0.32.0",
+        "numpy": "2.4.6",
+        "transformers": "5.14.1"
+      }
+    },
+    "video_tiles": 105,
+    "audio_rms": 0.05318316810098348,
+    "video_std": 66.42107448935378,
+    "sol_x2": {
+      "normalized_latent_shape": [
+        1,
+        24,
+        37,
+        34,
+        60
+      ],
+      "dtype": "little-endian-float32",
+      "layout": "NCTHW",
+      "video_latent_sha256": "4b88f45a789af3e9a9e8f676e67f9d23355fd2f465241eca7399eed7ef2ef434",
+      "delivered_pcm_sha256": "81c20df8323d39a0019fc42583da4a113ab64141cbaafef21e616aa27b4d7744",
+      "native_video_decode_skipped": true,
+      "native_audio_codec": "pcm_f32le"
+    },
+    "actual_nfe": 4,
+    "acceleration": "i8-sol-sage",
+    "compute_plan": {
+      "schema": "h3-apple-compute/v1",
+      "policy": "m5max-h256-int8-v1",
+      "context": {
+        "hardware": {
+          "native": {
+            "cpu": "Apple M5 Max",
+            "macos": "26.6.1",
+            "metal_valid": true,
+            "matrix_cores": true,
+            "matrix_cores_gate": {
+              "device_family_apple10": true,
+              "macos_26_2_or_newer": true,
+              "env_VPIPE_NO_MATRIX_CORES": false,
+              "env_VPIPE_FORCE_MATRIX_CORES": false
+            }
+          },
+          "gpus": [
+            {
+              "model": "Apple M5 Max",
+              "cores": "40",
+              "metal": "spdisplays_metal4"
+            }
+          ],
+          "machine": "arm64",
+          "kernel": "25.6.0"
+        },
+        "model": "3f53a3811e2a5540941379374f7de6aa54582815dc2b0222aba6d7921565557f",
+        "adapter": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99",
+        "recipe": {
+          "steps": 4,
+          "graph_steps": 5,
+          "video_shift": 12.0,
+          "audio_shift": 3.0,
+          "lora_scale": 1.0,
+          "adapter_application": "premerge-bf16-before-w8g64"
+        },
+        "package_source_sha256": "a6a5e8d49bc03e452c9cd02c7edd7c7ab174db3d24791d97335d2da7685b3306",
+        "engine": {
+          "binary": "bc28dd092486900ece7efe117e526fdf6d3afbaea55c80fdfda31d7569b955f8",
+          "library": "5d3ea6466723c081392bba5c8a72a1ace65a6989bc55b5baf69e9c6848cb5599"
+        },
+        "policy_sha256": "61db9a50f23b343c7e13c7d64c11d8729499c7c2a8253d06030657febabc33d5",
+        "inputs": {
+          "prompt": "subject_definitions:\n<Subject 1> is the live-action adult portrayal of Naruto Uzumaki in <Picture 1>. Preserve the same face, blue eyes, spiky blond hair, three whisker marks on each cheek, metal Leaf forehead protector on black cloth and orange-and-black jacket.\n\nsummary:\n[reference generation] A five-second live-action Naruto effects shot: <Subject 1> forms one spinning blue Rasengan in his right palm, steps and thrusts it forward, then holds a balanced final pose while the light and swirling energy remain attached to his palm.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the referenced human face, hair, forehead protector and clothing through body rotation, fast arm motion and changing blue illumination.\n\ndetailed_description:\n[Shot 1] A sunlit stone training courtyard, shown in a continuous medium-wide view from above the knees to above the hair of the single <Subject 1>. His body begins three-quarter toward the camera. He opens his right palm at waist height and brings his left hand above it. During the first two seconds, luminous blue strands spiral between the hands and condense into one grapefruit-sized translucent blue sphere resting just over the right palm. The sphere has clearly circulating internal strands rather than a flat white disk. His left hand moves away, leaving the one sphere supported by his right hand. From two to 3.5 seconds he plants his front foot, turns his hips and shoulders and makes one decisive forward thrust with that right arm, bringing the sphere toward the camera without releasing it. His jacket follows the body rotation, the hair moves, and blue light falls consistently on the near fingers, cheek and sleeve as the sphere approaches. The camera makes a modest lateral arc while keeping his complete face, both arms and sphere in view. From 3.5 to five seconds he holds a balanced extended-arm pose with a determined expression; the sphere continues swirling on the same palm. The visible cast stays one Naruto, with one sphere and two arms, and the face is readable beyond the effect. No overlaid words or subtitles.\n\noverall_soundscape:\nQuiet outdoor wind, a rising energy swirl and one short whoosh on the forward thrust; the energy hum continues softly to the end. No speech or vocals.\n\nnon_diegetic_music:\nOriginal restrained percussion supports the action without quoting an existing anime theme.\n",
+          "resolution": "544p",
+          "duration": 5.0,
+          "seed": 173006,
+          "width": 1920,
+          "height": 1088,
+          "num_frames": 120,
+          "model_width": 960,
+          "model_height": 544,
+          "model_num_frames": 124,
+          "recipe": "ref2va-premerged-i8-sol-sage-v2",
+          "fps": 24,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "num_steps": 4,
+          "mode": "SOL",
+          "x2": true,
+          "references": [
+            {
+              "index": 1,
+              "width": 736,
+              "height": 736,
+              "sha256": "fee70a01181c2f78ca03be05e2e8261bcf746d9717b6baf90407a496d186e64b"
+            }
+          ]
+        }
+      },
+      "qmm": {
+        "schema": 1,
+        "row_key": 4096,
+        "quant_bits": 8,
+        "quant_group": 64,
+        "i8_group": 64,
+        "i8_cmode": 1,
+        "shapes": [
+          {
+            "N": 21504,
+            "K": 5376,
+            "route": 5,
+            "i8_splits": 0
+          },
+          {
+            "N": 5376,
+            "K": 7168,
+            "route": 5,
+            "i8_splits": 0
+          },
+          {
+            "N": 28672,
+            "K": 5376,
+            "route": 5,
+            "i8_splits": 0
+          },
+          {
+            "N": 5376,
+            "K": 14336,
+            "route": 5,
+            "i8_splits": 2
+          }
+        ]
+      },
+      "environment": {
+        "VPIPE_H3_COMPUTE_POLICY": "m5max-v1",
+        "VPIPE_H3_NO_ATTN_TILE_AUTOTUNE": "1",
+        "VPIPE_QMV_AUTOTUNE": "0",
+        "VPIPE_QWEN_PREFILL_AUTOTUNE": "0",
+        "VPIPE_QWEN_GQA_AUTOTUNE": "0"
+      },
+      "video_decoder": "mlx-x2",
+      "actual_routes": [
+        "dit M=1029 N=21504 K=5376 route=u8-w8-cm1 split=2",
+        "dit M=1029 N=28672 K=5376 route=u8-w8-cm1 split=2",
+        "dit M=1029 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=1029 N=5376 K=5120 route=i8-dense split=2",
+        "dit M=1029 N=5376 K=7168 route=u8-w8-cm1 split=2",
+        "dit M=11 N=10752 K=2688 route=steel split=0",
+        "dit M=11 N=96768 K=2688 route=steel split=0",
+        "dit M=18870 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=18870 N=96 K=5376 route=i8-dense split=2",
+        "dit M=20842 N=21504 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20842 N=28672 K=5376 route=u8-w8-cm1 split=0",
+        "dit M=20842 N=5376 K=14336 route=u8-w8-cm1 split=2",
+        "dit M=20842 N=5376 K=7168 route=u8-w8-cm1 split=0",
+        "dit M=414 N=32 K=5376 route=mma128 split=0",
+        "dit M=414 N=5376 K=32 route=dense-scalar split=0",
+        "dit M=529 N=5376 K=96 route=dense-scalar split=0",
+        "dit M=529 N=96 K=5376 route=mma128 split=0",
+        "vae M=1024 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1024 N=512 K=13824 route=bf16-split split=6",
+        "vae M=1024 N=512 K=256 route=bf16-n128 split=0",
+        "vae M=1024 N=512 K=6912 route=bf16-n256 split=0",
+        "vae M=16384 N=256 K=128 route=bf16-n128 split=0",
+        "vae M=1669 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=1822 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=2427 N=256 K=6912 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=13824 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=1024 K=512 route=bf16-n128 split=0",
+        "vae M=256 N=48 K=27648 route=bf16-n256 split=0",
+        "vae M=256 N=48 K=48 route=bf16-n128 split=0",
+        "vae M=256 N=512 K=13824 route=bf16-n256 split=0",
+        "vae M=4096 N=128 K=3456 route=bf16-n128 split=0",
+        "vae M=4096 N=128 K=81 route=bf16-n128 split=0",
+        "vae M=4096 N=256 K=3456 route=bf16-n128 split=0"
+      ],
+      "sha256": "2391f53775b535634bf79b0245567801693e81d946351c8746ffd6ca1544ee9f"
+    },
+    "timings_seconds": {
+      "native_generation": 137.39572383399354,
+      "latent_handoff": 0.0009174169972538948,
+      "video_decode": 45.704449665994616,
+      "audio_handoff": 0.05399783299071714,
+      "mux": 1.6404537500056904
+    },
+    "diagnostic_export_seconds": 0,
+    "native": {
+      "graph": {
+        "id": "h3-apple",
+        "stages": [
+          {
+            "id": "model-select",
+            "type": "model-select",
+            "iports": [],
+            "config": {
+              "hf_dir": "<local-path>"
+            }
+          },
+          {
+            "id": "text-prompt",
+            "type": "text-prompt",
+            "iports": [],
+            "config": {
+              "text": "subject_definitions:\n<Subject 1> is the live-action adult portrayal of Naruto Uzumaki in <Picture 1>. Preserve the same face, blue eyes, spiky blond hair, three whisker marks on each cheek, metal Leaf forehead protector on black cloth and orange-and-black jacket.\n\nsummary:\n[reference generation] A five-second live-action Naruto effects shot: <Subject 1> forms one spinning blue Rasengan in his right palm, steps and thrusts it forward, then holds a balanced final pose while the light and swirling energy remain attached to his palm.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the referenced human face, hair, forehead protector and clothing through body rotation, fast arm motion and changing blue illumination.\n\ndetailed_description:\n[Shot 1] A sunlit stone training courtyard, shown in a continuous medium-wide view from above the knees to above the hair of the single <Subject 1>. His body begins three-quarter toward the camera. He opens his right palm at waist height and brings his left hand above it. During the first two seconds, luminous blue strands spiral between the hands and condense into one grapefruit-sized translucent blue sphere resting just over the right palm. The sphere has clearly circulating internal strands rather than a flat white disk. His left hand moves away, leaving the one sphere supported by his right hand. From two to 3.5 seconds he plants his front foot, turns his hips and shoulders and makes one decisive forward thrust with that right arm, bringing the sphere toward the camera without releasing it. His jacket follows the body rotation, the hair moves, and blue light falls consistently on the near fingers, cheek and sleeve as the sphere approaches. The camera makes a modest lateral arc while keeping his complete face, both arms and sphere in view. From 3.5 to five seconds he holds a balanced extended-arm pose with a determined expression; the sphere continues swirling on the same palm. The visible cast stays one Naruto, with one sphere and two arms, and the face is readable beyond the effect. No overlaid words or subtitles.\n\noverall_soundscape:\nQuiet outdoor wind, a rising energy swirl and one short whoosh on the forward thrust; the energy hum continues softly to the end. No speech or vocals.\n\nnon_diegetic_music:\nOriginal restrained percussion supports the action without quoting an existing anime theme.\n"
+            }
+          },
+          {
+            "id": "minimax-h3-model-config",
+            "type": "minimax-h3-model-config",
+            "iports": [],
+            "config": {
+              "video_shift": 12.0,
+              "audio_shift": 3.0
+            }
+          },
+          {
+            "id": "video-ref-encoder",
+            "type": "video-ref-encoder",
+            "iports": [
+              {
+                "src": "text-prompt",
+                "oport": 0
+              },
+              {
+                "src": "model-select",
+                "oport": 0
+              }
+            ],
+            "config": {
+              "references": [
+                "research/output/p173-fresh-benchmark-01/generation-01/.h3-jl8s6rqh/prepared-1.png"
+              ],
+              "frames": 124,
+              "reference_image_short_edge": 0,
+              "reference_image_max_pixels": 0,
+              "unload_when_idle": "auto"
+            }
+          },
+          {
+            "id": "generate-video",
+            "type": "generate-video",
+            "iports": [
+              {
+                "src": "video-ref-encoder",
+                "oport": 0
+              },
+              {
+                "src": "",
+                "oport": 0
+              },
+              {
+                "src": "model-select",
+                "oport": 0
+              },
+              {
+                "src": "",
+                "oport": 0
+              },
+              {
+                "src": "",
+                "oport": 0
+              },
+              {
+                "src": "",
+                "oport": 0
+              },
+              {
+                "src": "",
+                "oport": 0
+              },
+              {
+                "src": "video-ref-encoder",
+                "oport": 1
+              },
+              {
+                "src": "video-ref-encoder",
+                "oport": 2
+              },
+              {
+                "src": "minimax-h3-model-config",
+                "oport": 0
+              }
+            ],
+            "config": {
+              "width": 960,
+              "height": 544,
+              "frames": 124,
+              "fps": 24,
+              "steps": 5,
+              "seed": 173006,
+              "i8_gemm": true,
+              "sol_attn": true,
+              "sage_attn": true,
+              "sol_tau": 1.0,
+              "sol_dense_layers": 1,
+              "sol_local_radius": 1,
+              "sage_dense_layers": 0,
+              "unload_when_idle": "always"
+            }
+          },
+          {
+            "id": "audio-vae-decode",
+            "type": "audio-vae-decode",
+            "iports": [
+              {
+                "src": "generate-video",
+                "oport": 1
+              },
+              {
+                "src": "model-select",
+                "oport": 0
+              }
+            ],
+            "config": {}
+          },
+          {
+            "id": "save-video",
+            "type": "save-video",
+            "iports": [
+              {
+                "src": "audio-vae-decode",
+                "oport": 0
+              }
+            ],
+            "config": {
+              "output_url": "research/output/p173-fresh-benchmark-01/generation-01/.h3-jl8s6rqh/native.wav",
+              "enable_video": false,
+              "enable_audio": true,
+              "audio_codec": "pcm_f32le",
+              "format": "wav"
+            }
+          }
+        ],
+        "subpipelines": []
+      },
+      "graph_sha256": "2f800c212a04010d241e01b1c868f358683e9c7ffa7bed38f2ac98612895fa22",
+      "log_sha256": "d385686471d2d84a6408c9f1d56c177a88ded13f8c9a7bb2aba3f264023097e7",
+      "prepared_inputs": [
+        {
+          "index": 1,
+          "path": "research/output/p173-fresh-benchmark-01/generation-01/.h3-jl8s6rqh/prepared-1.png",
+          "width": 736,
+          "height": 736,
+          "sha256": "fee70a01181c2f78ca03be05e2e8261bcf746d9717b6baf90407a496d186e64b"
+        }
+      ],
+      "recipe": {
+        "steps": 4,
+        "graph_steps": 5,
+        "video_shift": 12.0,
+        "audio_shift": 3.0,
+        "lora_scale": 1.0,
+        "adapter_application": "premerge-bf16-before-w8g64"
+      },
+      "adapter": {
+        "path": "<local-path>",
+        "bytes": 1383677768,
+        "mtime_ns": 1790576009205563119,
+        "sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99"
+      },
+      "switches": {
+        "width": 960,
+        "height": 544,
+        "frames": 124,
+        "fps": 24,
+        "steps": 5,
+        "seed": 173006,
+        "i8_gemm": true,
+        "sol_attn": true,
+        "sage_attn": true,
+        "sol_tau": 1.0,
+        "sol_dense_layers": 1,
+        "sol_local_radius": 1,
+        "sage_dense_layers": 0,
+        "unload_when_idle": "always"
+      },
+      "runtime_confirmation": [
+        "[INFO] memory-plan (declared): peak 1712 MB at 'generate-video' streaming, 79301 MB at 'generate-video' preloaded, over 7 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1712 MB, audio-vae-decode 577 MB, save-video 0 MB)",
+        "[NORMAL] MetalMiniMaxH3Transformer: Sol-Attn ON -- tau 1.00, diag threshold, layers 1+, local radius 1",
+        "[NORMAL] MetalMiniMaxH3Transformer: SageAttention ON -- INT8 QK^T, layers 0+, key smoothing on",
+        "[INFO] memory-plan (generate-video): peak 1712 MB at 'generate-video' streaming, 47370 MB at 'generate-video' preloaded, over 7 stages in running order (minimax-h3-model-config 0 MB, text-prompt 0 MB, model-select 0 MB, video-ref-encoder 0 MB, generate-video 1712 MB, audio-vae-decode 577 MB, save-video 0 MB)",
+        "[NORMAL] MetalMiniMaxH3Transformer: baked AdaLN for 4 steps (11 rows) -- 51 projections (13216 MB of weights) replaced by 101 MB of tables, and no longer streamed per step",
+        "[NORMAL] [h3-dit] replayed research qmm plan: 4096 rows: qkv=mma128x256 o=mma128x256 fc1=mma128x256 fc2=mma128x256+i8split2",
+        "[NORMAL] [h3-plan] dit M=1029 N=5376 K=5120 route=i8-dense split=2",
+        "[NORMAL] [h3-plan] dit M=18870 N=96 K=5376 route=i8-dense split=2",
+        "[NORMAL] [h3-dit] Sol-Attn kept 161329810 of 583242688 key blocks exact (27.7%) over 49 routed layers of the PREVIOUS forward",
+        "[NORMAL] [h3-dit] Sol-Attn kept 169587382 of 583242688 key blocks exact (29.1%) over 49 routed layers of the PREVIOUS forward",
+        "[NORMAL] [h3-dit] Sol-Attn kept 171009672 of 583242688 key blocks exact (29.3%) over 49 routed layers of the PREVIOUS forward"
+      ],
+      "rng": "Native engine RNG; strict replay also binds the recorded compute plan, inputs and execution environment.",
+      "delivery_command": {
+        "kind": "normalized-sol-latent-to-mlx-x2",
+        "audio": "native-float32-pcm"
+      }
+    },
+    "backend": {
+      "name": "h3-apple",
+      "upstream": "vpipe",
+      "binary": {
+        "path": "<local-path>",
+        "bytes": 86600,
+        "mtime_ns": 1791533188899151583,
+        "sha256": "bc28dd092486900ece7efe117e526fdf6d3afbaea55c80fdfda31d7569b955f8"
+      },
+      "library": {
+        "path": "<local-path>",
+        "bytes": 19452400,
+        "mtime_ns": 1791533188941925530,
+        "sha256": "5d3ea6466723c081392bba5c8a72a1ace65a6989bc55b5baf69e9c6848cb5599"
+      },
+      "tested_interface_commit": "f34e2cc3a3adae759eea254419f436f5b7800057"
+    },
+    "initial_host": {
+      "system": "Darwin",
+      "machine": "arm64",
+      "macos": "26.6.1",
+      "chip": "Apple M5 Max",
+      "memory_bytes": 137438953472,
+      "swap_bytes": 330951557,
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+      "thermal": {
+        "state": "fair",
+        "low_power_mode": false
+      }
+    },
+    "final_host": {
+      "system": "Darwin",
+      "machine": "arm64",
+      "macos": "26.6.1",
+      "chip": "Apple M5 Max",
+      "memory_bytes": 137438953472,
+      "swap_bytes": 330951557,
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+      "thermal": {
+        "state": "fair",
+        "low_power_mode": false
+      }
+    },
+    "resource_samples": [
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      }
+    ],
+    "media": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "mime_codec_string": "avc1.640028",
+          "width": 1920,
+          "height": 1088,
+          "coded_width": 1920,
+          "coded_height": 1088,
+          "has_b_frames": 2,
+          "pix_fmt": "yuv420p",
+          "level": 40,
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "24/1",
+          "avg_frame_rate": "24/1",
+          "time_base": "1/12288",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 61440,
+          "duration": "5.000000",
+          "bit_rate": "12776353",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "120",
+          "nb_read_frames": "120",
+          "extradata_size": 46,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "encoder": "Lavc62.28.102 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "mime_codec_string": "mp4a.40.2",
+          "sample_fmt": "fltp",
+          "sample_rate": "32000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/32000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 160000,
+          "duration": "5.000000",
+          "bit_rate": "192071",
+          "nb_frames": "158",
+          "nb_read_frames": "157",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler"
+          }
+        }
+      ],
+      "format": {
+        "filename": "research/output/p173-fresh-benchmark-01/generation-01/.h3-jl8s6rqh/output.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "5.000000",
+        "size": "8111370",
+        "bit_rate": "12978192",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf62.12.102"
+        }
+      }
+    },
+    "video_sha256": "b27e33713699eb34da90ba462eba4582a7e36d0b5c188d91257588737f4a01fe",
+    "package_source_sha256": "a6a5e8d49bc03e452c9cd02c7edd7c7ab174db3d24791d97335d2da7685b3306",
+    "elapsed_seconds": 187.49044641698129
+  }
+}

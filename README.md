@@ -23,7 +23,10 @@ profiles of those same twelve cases, not twenty-four independent tasks.
 Quality is separate: action, count, identity, geometry, detail, temporal consistency
 and framing, severity 0 none / 1 minor / 2 clear / 3 severe. Report the fraction at
 0–1 and every count. Speed is the complete public API call with prepared models;
-memory is peak process-tree physical footprint. No weighted overall quality score.
+memory is maximum observed process-tree physical footprint in a five-second
+polling loop; short peaks may be missed. No weighted overall quality score.
+Speed comparisons use the median of within-case time ratios; they are not ratios
+of route medians or repeated-run confidence estimates.
 
 Method-disclosed Agent review uses all 120 sequential frames, original keyframes
 and dense intervals around critical actions. Audio is generated and decoded but
@@ -61,8 +64,8 @@ download(
 ```
 
 Prepare models separately with `h3 prepare --mode VSA --plan`, the equivalent SOL
-plan and `h3 prepare-x2`. Use the corrected premerged SOL recipe. Downloads above
-20 GB require consent; models are not bundled. The frozen product documentation
+plan and `h3 prepare-x2`. Use the corrected premerged SOL recipe. Model downloads
+can exceed 20 GB and are not bundled. The frozen product documentation
 retains upstream sources, component notices and preparation requirements.
 
 Copy the complete benchmark folder, then validate and serve it locally:

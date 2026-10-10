@@ -1,0 +1,57 @@
+{
+  "original_sha256": "e80f25590482bd9edbf6d8a9c638ea65a9d3522ecb11e1df1d4de12f55c1c3ee",
+  "original_name": "energy-orb-VX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "energy-orb-VX-r1",
+    "video_sha256": "f2bcdbfc794bd4c1ffac51806fd07a690013d4cad5a6506657d7eaf3599f8389",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      true,
+      true,
+      false
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "One recognizable Naruto forms a swirling blue sphere over his right palm, withdraws the left hand and thrusts the attached sphere forward. The final push-in crops the supporting hand and portions of the arms at the bottom edge; the sphere briefly covers most of the face during approach. The required complete-arm final framing fails.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "The referenced character lifts both hands and blue strands condense into one sphere over the right palm. Hair, forehead protector, whisker marks and orange/black clothing stay identifiable."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The left hand moves away before a single forward body/shoulder shift and right-arm thrust. The sphere remains above the right palm and grows in perspective, temporarily covering the face. Feet are outside this medium view; the visible upper-body thrust is clear."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The extended arm and swirling sphere are held while the camera closes in and shifts sideways. The face becomes readable beside the sphere, but the near hand/fingers and lower arm portions are cut by the bottom boundary. There is one sphere and no duplicate character."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 23 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}

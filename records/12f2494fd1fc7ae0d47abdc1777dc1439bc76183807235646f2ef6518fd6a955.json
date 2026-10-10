@@ -1,0 +1,56 @@
+{
+  "original_sha256": "12f2494fd1fc7ae0d47abdc1777dc1439bc76183807235646f2ef6518fd6a955",
+  "original_name": "celestial-gate-S768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "celestial-gate-S768-r1",
+    "video_sha256": "68e9f13cd119556d06a4f5744b969e44cd39bd1777b1f346cf7d91daf1e39631",
+    "status": "borderline",
+    "criteria_pass": [
+      true,
+      null,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 0,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "The coherent entrance and centered, fully visible door survive a straight forward approach. Floor remains visible before the stairs at the end, unlike the faster approach of SX. However, continuing scale change in the final sequence does not establish the requested stop, so the complete task remains uncertain.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "The camera approaches along the door centerline; nearby columns move outward and architectural elements stay connected."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The forward dolly continues, with readable stairs, attached lantern and coherent pine. Carved details change slightly."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The door remains centered and entirely visible; the floor in front of the first stair is still present. The continuing approach does not show an unambiguous final stop."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 60 and 119 inspected, against the original reference. No listening or normal-speed playback judgment."
+  }
+}

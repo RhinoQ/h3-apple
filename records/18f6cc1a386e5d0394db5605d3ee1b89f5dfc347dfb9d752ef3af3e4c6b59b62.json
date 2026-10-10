@@ -1,0 +1,62 @@
+{
+  "original_sha256": "18f6cc1a386e5d0394db5605d3ee1b89f5dfc347dfb9d752ef3af3e4c6b59b62",
+  "original_name": "play-card-V768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "play-card-V768-r1",
+    "video_sha256": "3e3c1f6373194963010b8c01ea431a7effb2905ffd6620d89b5dec5dd2756328",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      true,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 0,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "The PLAY design survives a pronounced perspective rotation and a clean frontal ending. The orange disk travels left to right but remains partly visible throughout the crossing, failing the required complete occlusion.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          2.125
+        ],
+        "text": "One mint card retains its navy border, three dots, orange play icon and readable PLAY lettering as its oblique angle increases. The separate disk moves rightward."
+      },
+      {
+        "interval_seconds": [
+          2.167,
+          2.708
+        ],
+        "text": "Dense frames 52–65 show the disk continuously protruding at the card edge, switching from left to right around frames 59–60. There is no fully hidden disk frame. The card goes almost edge-on, beyond the requested approximate sixty-degree pose."
+      },
+      {
+        "interval_seconds": [
+          2.75,
+          4.958
+        ],
+        "text": "The card widens back to a frontal layout with the disk at lower right. The frontal hold arrives late, but the final design is stable and readable without extra windows or writing."
+      }
+    ],
+    "extra_frame_record": {
+      "path": "research/output/p173-fresh-benchmark-01/inspection-extra-01/play-card-V768-r1/evidence.json",
+      "bytes": 774,
+      "sha256": "c5bd94342b3856c8766ca62345dd8ff9bbcc35f9a4f18b3da81c3e8d70bb565c"
+    },
+    "review_scope": "All 120 frames in three sequence sheets; original frames 47, 60 and 119; enlarged sequential crops 52–65; original graphic reference. No listening or normal-speed playback judgment."
+  }
+}

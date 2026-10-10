@@ -1,0 +1,57 @@
+{
+  "original_sha256": "1321d98a0896afdc01720277080abd15063f7e4dc5b722d6f626e3269830a844",
+  "original_name": "paper-rain-S768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "paper-rain-S768-r1",
+    "video_sha256": "88972da934ee056b96fff4cceff1431c2728b52d62d51df2c01a14bc3af82f3e",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      false,
+      false,
+      false
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "The paper woman opens a separate teal umbrella and folded drops bounce from it. The canopy stays upright above her rather than tilting toward a flower, and drops continue striking the uncovered cream flowers. The final push-in also clips the left canopy edge.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "One recognizable woman in folded-paper clothing looks up at blue paper rain, slides a hand along the umbrella shaft and opens the teal canopy. Her braids, skirt and leaf cape remain recognizable."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The umbrella is held over her head as rain contacts and tumbles off its facets. She looks toward the right-side flowers, but the umbrella does not move to shelter them; several drops continue onto flower heads."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "She returns her gaze toward camera while holding the shaft with two distinct hands. The flower remains uncovered, including a drop on a cream flower at the ending. The closer view cuts the canopy at the left boundary; canopy and leaf cape do not merge."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 36, 71 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}

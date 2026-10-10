@@ -1,0 +1,65 @@
+{
+  "original_sha256": "2cf90ce49b0df4f41c6eb4806940b3afe130f3826a0e006c30a0bf6a33bc4f0e",
+  "original_name": "celestial-gate-S768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "celestial-gate-S768-r1",
+      "case": "celestial-gate",
+      "arm": "S768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/celestial-gate/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/celestial-gate/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173002,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "9:16",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions\n<Subject 1> is the tall vermilion and ivory temple entrance with the round turquoise door in <Picture 1>.\n\nsummary\n[reference generation] A five-second continuous forward dolly through <Subject 1>, with no people. A cinematic Chinese celestial palace in softly lit clouds, realistic materials and coherent carved architecture, a single continuous five-second shot.\n\nretention_analysis\n<Subject 1> (throughout [Shot 1]): fully_preserved - Retain the round closed door, straight staircase, two ivory columns, bronze lantern at upper right and potted pine at lower left. No people or additional props.\n\ndetailed_description\n[Shot 1] Start from the composition in <Picture 1>. The camera slowly dollies straight forward toward the staircase, stopping before the first step; nearby columns drift outward while the distant round door stays fully visible at center. No cuts, no tilt, no sideways travel. The lantern remains attached to the same ceiling beam. No dialogue, no subtitles and no written text. Gentle wind is heard.\n\noverall_soundscape\nQuiet continuous airy wind, no speech and no abrupt impacts.\n\nnon_diegetic_music\nSoft sustained instrumental guqin music throughout, quiet beneath the ambience.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/celestial-gate/reference-01.png"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173002,
+        "width": 768,
+        "height": 1366,
+        "num_frames": 120,
+        "model_width": 768,
+        "model_height": 1376,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 355.09633279099944,
+    "worker_lifetime_seconds": 354.47891649999656,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/celestial-gate-S768-r1.run.json",
+      "bytes": 53699,
+      "sha256": "101e67e026b8fb86984ee33e3a922a2c0fb50ed645b5c9b6fd7028b50cb96eb4"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/celestial-gate-S768-r1.mp4",
+      "bytes": 3451696,
+      "sha256": "68e9f13cd119556d06a4f5744b969e44cd39bd1777b1f346cf7d91daf1e39631"
+    }
+  }
+}

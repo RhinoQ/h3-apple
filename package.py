@@ -60,7 +60,7 @@ def export(catalog,destination,documented_only=False,*,registration_only=False):
     (destination/'scores.js').write_text('window.SCORES = '+json.dumps(result,ensure_ascii=False)+';\n')
     credits=['# Asset attribution','',
         'Original reference files are copied unchanged. Video outputs and JPEG posters are generated/reduced derivatives; the input license is not a blanket license for the whole bundle. Generated media remain subject to MiniMax H3 terms and any applicable source-image terms. CC BY-SA inputs and adaptations retain their stated ShareAlike obligations. Software LICENSE covers independently authored benchmark code only.',
-        '', 'AI-generated project fixtures are identified as such, not assigned a third-party CC0 license. Publication does not establish redistribution rights for references with unresolved terms. `--documented-only` excludes those cases without altering the scored cohort.','']
+        '', 'AI-generated project fixtures are identified as such, not assigned a third-party CC0 license. Publication does not establish redistribution rights for references with unresolved terms. `--documented-only` removes unscored cases with unresolved terms and refuses an export that would omit a required scored case.','']
     seen=set()
     for c in data['cases']:
         for ref in c['references']:
@@ -69,6 +69,7 @@ def export(catalog,destination,documented_only=False,*,registration_only=False):
             credits.extend([f"## {a.get('title',ref['sha256'])}",'',
                 f"- Author: {a.get('author','Not recorded')}",f"- Terms: {a.get('license','Unresolved')}",
                 f"- Source: {a.get('page') or a.get('source') or a.get('url') or 'Project fixture; see original source records'}",
+                *([f"- Source note: {a['source_note']}"] if a.get('source_note') else []),
                 f"- License URL: {a.get('license_url','See source/terms above')}",
                 f"- Original bytes: [{ref['path']}]({ref['path']})",f"- SHA256: `{ref['sha256']}`",
                 f"- Redistribution record: {ref['redistribution']}",''])

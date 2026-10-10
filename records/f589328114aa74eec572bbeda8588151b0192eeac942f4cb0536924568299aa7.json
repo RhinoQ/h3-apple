@@ -1,0 +1,57 @@
+{
+  "original_sha256": "f589328114aa74eec572bbeda8588151b0192eeac942f4cb0536924568299aa7",
+  "original_name": "play-card-SX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "play-card-SX-r1",
+    "video_sha256": "97c56abefc53c8854047d8c1382b7743db8fc3a97604d0f91a810a490dc5ab78",
+    "status": "pass",
+    "criteria_pass": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 1,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "The PLAY design completes the turn, full disk occlusion and right-side reappearance, followed by a frontal hold. The turn runs early, with slight outline and small-dot instability, but the action and design remain intact.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.292
+        ],
+        "text": "The card makes a pronounced perspective turn while the separate disk travels rightward. PLAY remains attached to the surface; one header dot is briefly indistinct near the steepest view, and thin edges soften."
+      },
+      {
+        "interval_seconds": [
+          1.333,
+          2.417
+        ],
+        "text": "The disk is fully hidden behind the card for a sustained interval, then begins emerging at the right edge near 1.96 seconds. Original frames 36 and 47 show the hidden and reappearing states. Its small circular identity and approximate size are retained."
+      },
+      {
+        "interval_seconds": [
+          2.458,
+          4.958
+        ],
+        "text": "The card makes a small extra orientation adjustment before reaching a stable frontal ending with three dots, the play icon, PLAY and one orange disk at lower right. No extra window or writing appears."
+      }
+    ],
+    "review_scope": "All 120 frames in three sequence sheets; original frames 23, 36, 47 and 119; original graphic reference. No listening or normal-speed playback judgment."
+  }
+}

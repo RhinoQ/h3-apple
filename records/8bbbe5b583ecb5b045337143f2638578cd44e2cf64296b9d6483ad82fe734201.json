@@ -1,0 +1,65 @@
+{
+  "original_sha256": "8bbbe5b583ecb5b045337143f2638578cd44e2cf64296b9d6483ad82fe734201",
+  "original_name": "energy-shield-S768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "energy-shield-S768-r1",
+      "case": "energy-shield",
+      "arm": "S768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/energy-shield/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/energy-shield/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173005,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "16:9",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the original adult male superhero in <Picture 1>, with light olive skin, expressive brown eyes, short swept-back dark brown hair, light stubble, a fitted navy blue textured suit with copper seams and a small copper double-slash chest badge, belt, and short burgundy cape. Preserve his face, costume and live-action appearance. The image is an identity and style reference, not a mandatory starting frame.\n\nsummary:\n[reference generation] A five-second daylight superhero action shot: <Subject 1> stops a runaway city bus with an amber energy shield, then gives the camera a proud little smile.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the same face, hair, navy suit, copper double-slash badge and burgundy cape. The office background in the image is not retained when the scene moves outside.\n\ndetailed_description:\nThe target video is cinematic live-action superhero comedy with restrained natural acting, realistic skin, tactile costume fabric, soft daylight and warm practical light.\n[Shot 1] A low three-quarter medium-wide cinematic view of an empty downtown street in clear afternoon light. <Subject 1> stands firmly in the foreground at the left, his face and chest seen in three-quarter profile, wearing the exact navy suit, copper double-slash badge, belt and burgundy cape from the reference. Behind and to his right, a large plain silver-and-blue city bus rolls toward him along the road. The bus has no readable branding. Keep the hero's whole head, torso, raised arm and stable legs visible. At the beginning he thrusts his right palm toward the bus. A broad curved translucent amber energy shield flashes into existence between his palm and the front of the bus. Its clean geometric arcs and tiny bright particles reflect on the blue bus paint. As the bus reaches the shield, its forward motion visibly decelerates; the tires scrape the road and kick up a low cloud of pale dust. A brief circular ripple crosses the glowing shield on impact. The hero leans a few inches into the force with both feet planted, his cape pulling backward in the displaced air, but he remains controlled and powerful. The bus stops completely before reaching him. There is no collision with a person, no injury and no explosion. The environment stays legible: road lines, glass buildings and a few parked cars far behind. The camera makes a restrained short sideways tracking movement to reveal the bus coming to rest while keeping the hero's face recognizable. During the last second the amber glow fades to a few sparks, he lowers his hand slightly and looks over his shoulder toward the lens with a satisfied smile. He knows the rescue was caught on camera. Hold the stopped bus large in the background so the scale of his power is clear. He is the only visible person; no crowd, duplicate hero or frightened close-up appears. The result should look like a convincing brief superhero movie moment, not a motionless poster. Show the moving bus, shield impact, cape movement and final facial reaction as one continuous physical sequence. No dialogue, captions or writing.\n\noverall_soundscape:\nBus engine and approaching tire noise, a resonant energy-shield impact, tire scrape and a brief dust whoosh, followed by a receding metallic hum. No voices.\n\nnon_diegetic_music:\nA short restrained heroic brass swell under the action, resolving as the bus stops; no lyrics.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/energy-shield/reference-01.png"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173005,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 375.3124654169951,
+    "worker_lifetime_seconds": 374.84308933399734,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/energy-shield-S768-r1.run.json",
+      "bytes": 62609,
+      "sha256": "02a4616a9dbb1409cf89b604bd714add8e8ef445a41ad1e7be7e9afd34569f3a"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/energy-shield-S768-r1.mp4",
+      "bytes": 3260261,
+      "sha256": "8cd13703594d837d3797cf8a6215f55e16dbae08ab8802ee0a40ab93836b6f4c"
+    }
+  }
+}

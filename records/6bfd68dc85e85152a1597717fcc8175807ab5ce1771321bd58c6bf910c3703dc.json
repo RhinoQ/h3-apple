@@ -1,0 +1,57 @@
+{
+  "original_sha256": "6bfd68dc85e85152a1597717fcc8175807ab5ce1771321bd58c6bf910c3703dc",
+  "original_name": "star-mage-VX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "star-mage-VX-r1",
+    "video_sha256": "b283edbcd167ac241e39da87fbaa945141fb48791a63af367cbaf001fccc38d2",
+    "status": "fail",
+    "criteria_pass": [
+      false,
+      true,
+      true,
+      false
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "The circle, glowing orb, single duck and final smile are readable. The right hand leaves early, and the ending push-in crops the supporting left palm and duck feet, failing the requested retained-hand framing.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "The referenced mage forms a gold circle above his open left palm with his right hand. The right hand moves out through the left boundary near the end of this interval."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The orb brightens and flashes into one yellow duck around 2.5 seconds. The duck settles on the same palm and keeps its identity, including orange feet. The mage looks downward."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The duck briefly opens its beak while staying on the palm. The mage turns his gaze toward camera and smiles. A strong push-in clips the lower supporting palm and duck feet; the right hand is still absent."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 71 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}

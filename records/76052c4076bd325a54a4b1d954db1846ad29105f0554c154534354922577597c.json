@@ -1,0 +1,56 @@
+{
+  "original_sha256": "76052c4076bd325a54a4b1d954db1846ad29105f0554c154534354922577597c",
+  "original_name": "celestial-gate-SX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "celestial-gate-SX-r1",
+    "video_sha256": "8aba3f73ccf883e92cd8a6f7e71cc0b153c31e1abf5db2cf6ba290f271da7874",
+    "status": "fail",
+    "criteria_pass": [
+      true,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 0,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "The centered closed door, outward-moving columns and coherent entrance are retained. The camera continues approaching through the final frames: the floor and lower steps leave the frame instead of a stop before the first step. This misses the required stopping action despite otherwise convincing architecture.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "A straight approach creates outward parallax of the near columns. The door stays centered and the lantern remains attached while visible."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The camera keeps advancing; the pine and foreground columns leave the sides naturally, while the door and stairs remain connected."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The door keeps enlarging, the front floor disappears and lower stair treads are progressively cropped. There is no requested pre-step stop; the closed door remains fully visible and centered."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 60 and 119 inspected, against the original reference. No listening or normal-speed playback judgment."
+  }
+}

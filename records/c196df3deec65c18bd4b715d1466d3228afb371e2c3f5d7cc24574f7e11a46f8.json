@@ -1,0 +1,1633 @@
+{
+  "original_sha256": "c196df3deec65c18bd4b715d1466d3228afb371e2c3f5d7cc24574f7e11a46f8",
+  "original_name": "space-coffee-V768-r1.run.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "status": "complete",
+    "request": {
+      "prompt": "subject_definitions:\n<Subject 1> is the young adult space courier in <Picture 1>, with short dark wavy hair, a cobalt blue helmet with small blue wing-shaped attachments, a clear visor, an orange scarf, a cream cropped flight jacket, dark blue trousers and a round brass chest compass. Preserve the character's face, clothing colors and softly painted cinematic animation style. The reference defines his identity and costume, while the new scene supplies the setting and action.\n\nsummary:\n[reference generation] A five-second vertical animated comedy: <Subject 1> tries to catch a floating blob of coffee in a cup inside a cozy weightless spaceship, but it gently splats against his clear visor.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the face, dark curls, blue helmet, transparent visor, orange scarf, cream jacket, brass compass and painted animation style.\n\ndetailed_description:\n[Shot 1] A continuous vertical medium close-up of <Subject 1> alone in a warm retro-futurist spaceship kitchenette. His entire helmet, face, shoulders and both hands stay in frame. Behind him, an oval window reveals a softly glowing blue planet and a few stars. The room has rounded ivory walls, brass fittings and warm amber practical lighting. His clear curved visor is lowered over his face, which remains easy to see through the glass. In his right hand he holds one small white ceramic espresso cup, upright and empty. A single round dark-brown blob of coffee, about the size of a walnut, floats slowly upward directly above the cup, catching a caramel-colored highlight. He watches it with exaggerated concentration. During the first two seconds he gently raises the cup to scoop the floating coffee from below, but the blob glides just beyond the rim. His left hand steadies the cup for one careful second attempt. His scarf floats lightly beside his neck, reinforcing the low-gravity setting. He leans forward a few inches to follow the coffee, eyebrows lifted in stubborn determination. During the fourth second the blob drifts gently into the outside of his transparent visor and spreads into one small round coffee stain just beside his nose. His hands stop. In the final second he turns his eyes toward the camera and gives a tiny resigned shrug while still holding the cup. His expression delivers the joke; his face remains clearly visible around the small stain. The cup, hands and coffee follow one readable action throughout the shot. The camera stays steady with a subtle cinematic push-in, leaving enough space above the blue helmet and keeping the cup visible in the lower foreground. Soft painted surfaces, clear silhouettes, warm reflected light and a playful animated short-film feeling. No dialogue or written captions.\n\noverall_soundscape:\nA gentle spaceship ventilation hum, a delicate ceramic cup clink, a small soft wet plop as the coffee touches the visor, and a tiny fabric rustle during the shrug.\n\nnon_diegetic_music:\nA light pizzicato comedy phrase that pauses for the coffee plop, then ends with two playful marimba notes.\n",
+      "reference_images": [
+        "research/output/p173-fresh-benchmark-01/inputs-01/space-coffee/reference-01.png"
+      ],
+      "resolution": "768p",
+      "duration": 5.0,
+      "seed": 173007,
+      "width": 768,
+      "height": 1366,
+      "num_frames": 120,
+      "model_width": 768,
+      "model_height": 1376,
+      "model_num_frames": 124,
+      "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+      "fps": 24,
+      "audio_sample_rate": 32000,
+      "audio_channels": 2,
+      "num_steps": 4,
+      "mode": "VSA",
+      "x2": false
+    },
+    "seed": 173007,
+    "started_utc": "2026-10-10T04:28:59.260958+00:00",
+    "model_identity": "7d1902498bf42540dfb3f5becde5d7cebac8d7f41e3284474a122f6ff5a1d990",
+    "video_path": "research/output/p173-fresh-benchmark-01/generation-01/space-coffee-V768-r1.mp4",
+    "diagnostics_enabled": false,
+    "reference_inputs": [
+      {
+        "index": 1,
+        "source": "research/output/p173-fresh-benchmark-01/inputs-01/space-coffee/reference-01.png",
+        "sha256": "00ef15a472553f52cbc9a8683d1361b6e5ccbbb39ee97f23df068b736a09b1f4",
+        "size": 546404
+      }
+    ],
+    "worker_pid": 67778,
+    "timings_seconds": {
+      "conditioning": 17.331597165990388,
+      "denoise": 426.8494716670248,
+      "video_decode": 66.46989979199134,
+      "audio_decode": 0.4968242500035558,
+      "mux": 0.8246249580115546
+    },
+    "peak_memory_gib": {
+      "conditioning": 3.02907470241189,
+      "denoise": 34.14336207695305,
+      "video_decode": 15.552236951887608,
+      "audio_decode": 2.4840816147625446,
+      "mux": 0.0
+    },
+    "actual_nfe": 4,
+    "video_tiles": 196,
+    "vsa": {
+      "configured_sparsity": 0.75,
+      "layer_sparsity": 0.75,
+      "tile_size": 64,
+      "prefix_mode": "exempt",
+      "impl": "simd",
+      "num_prefix_tiles": 31,
+      "num_video_tiles": 660,
+      "video_keep": 165.5558010864257,
+      "achieved_sparsity": 0.7491578771417794,
+      "dense_fallback_reason": null,
+      "attention_calls": 200,
+      "sparse_calls": 200,
+      "impl_counts": {
+        "simd": 200
+      },
+      "fallback_reasons": [],
+      "routing_mode": "kablex"
+    },
+    "sparse_implementation": "direct_nax",
+    "diagnostic_export_seconds": 0.0,
+    "audio_rms": 0.18488597234596837,
+    "video_std": 58.12848210896911,
+    "ref2va": {
+      "task": "ref2va",
+      "precision": "int8_group64_bf16",
+      "attention": "vsa",
+      "reference_resize": "match",
+      "pixel_budget": 1056768,
+      "reference_images": [
+        {
+          "index": 1,
+          "width_height": [
+            416,
+            1024
+          ],
+          "pixels_sha256": "64ebb06893f50828202779dbd073d841fe740e736329bb9a8e4f340e166800ac"
+        }
+      ],
+      "noise_convention": "NumPy SeedSequence(seed).spawn(3): reference, video, audio; PCG64 FP32",
+      "image_width_height": [
+        416,
+        1024
+      ],
+      "image_pixels_sha256": "64ebb06893f50828202779dbd073d841fe740e736329bb9a8e4f340e166800ac",
+      "prompt_tokens": 1062,
+      "reference_rows": 416,
+      "reference_segment_rows": [
+        416
+      ],
+      "text_sha256": "1776520155233b0c3d7066610c04806dc8e24a775d8db2bb06af555bc5d2e434",
+      "reference_sha256": "dfcf7b8d302673f4ccdcf4a5d7e340b6f799506fbf17cf19fbc87f7096299f60",
+      "sequence_length": 40076,
+      "prefix_segments": [
+        1062,
+        416,
+        414
+      ],
+      "condition_sha256": "841204517f4f461c1d05d80449b7a85a40d08d509e1283f9a52f41f0337f6882",
+      "initial_video_sha256": "72ec70b93d021bb3d69f78f5454af75058a3a914432b02b365f1c80fa14a80a7",
+      "initial_audio_sha256": "f17405430a78138f34e0a09adb708be5ab94ca1b3fca030a938c23a2d0ead974",
+      "target_video_rows": 38184,
+      "target_audio_rows": 414,
+      "acceleration": {
+        "mode": "VSA",
+        "projection_calls": 1200,
+        "int8_fine_calls": 200,
+        "preparation_seconds": 1.6376509580004495,
+        "activation_pack_calls": 800,
+        "qkv_pack_reuses": 400,
+        "native_output_dtype": "bfloat16",
+        "precision_contract": "Original affine weights, approximate INT8 arithmetic; no BF16 dequantization residual"
+      }
+    },
+    "backend": {
+      "device": {
+        "device_name": "Apple M5 Max",
+        "max_recommended_working_set_size": 115448725504,
+        "memory_size": 137438953472,
+        "architecture": "applegpu_g17s",
+        "max_buffer_length": 86586540032,
+        "resource_limit": 499000
+      },
+      "libmlx_sha256": "1876795e05b3434925e745fbf6e9f0c8c0446b666224c9d881609ab353e94e51",
+      "metallib_sha256": "1518c08860738b08dc4563ddcf380a08dec4e6ad146c0d54888790e80656e9e3",
+      "versions": {
+        "mlx": "0.32.0",
+        "mlx-metal": "0.32.0",
+        "numpy": "2.4.6",
+        "transformers": "5.14.1"
+      }
+    },
+    "initial_host": {
+      "system": "Darwin",
+      "machine": "arm64",
+      "macos": "26.6.1",
+      "chip": "Apple M5 Max",
+      "memory_bytes": 137438953472,
+      "swap_bytes": 330951557,
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+      "thermal": {
+        "state": "fair",
+        "low_power_mode": false
+      }
+    },
+    "final_host": {
+      "system": "Darwin",
+      "machine": "arm64",
+      "macos": "26.6.1",
+      "chip": "Apple M5 Max",
+      "memory_bytes": 137438953472,
+      "swap_bytes": 330951557,
+      "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+      "thermal": {
+        "state": "fair",
+        "low_power_mode": false
+      }
+    },
+    "resource_samples": [
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      },
+      {
+        "system": "Darwin",
+        "machine": "arm64",
+        "macos": "26.6.1",
+        "chip": "Apple M5 Max",
+        "memory_bytes": 137438953472,
+        "swap_bytes": 330951557,
+        "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+        "thermal": {
+          "state": "fair",
+          "low_power_mode": false
+        }
+      }
+    ],
+    "media": {
+      "streams": [
+        {
+          "index": 0,
+          "codec_name": "h264",
+          "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+          "profile": "High",
+          "codec_type": "video",
+          "codec_tag_string": "avc1",
+          "codec_tag": "0x31637661",
+          "mime_codec_string": "avc1.640020",
+          "width": 768,
+          "height": 1366,
+          "coded_width": 768,
+          "coded_height": 1376,
+          "has_b_frames": 2,
+          "pix_fmt": "yuv420p",
+          "level": 32,
+          "chroma_location": "left",
+          "field_order": "progressive",
+          "refs": 4,
+          "is_avc": "true",
+          "nal_length_size": "4",
+          "id": "0x1",
+          "r_frame_rate": "24/1",
+          "avg_frame_rate": "24/1",
+          "time_base": "1/12288",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 61440,
+          "duration": "5.000000",
+          "bit_rate": "6302211",
+          "bits_per_raw_sample": "8",
+          "nb_frames": "120",
+          "nb_read_frames": "120",
+          "extradata_size": 47,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "VideoHandler",
+            "encoder": "Lavc62.28.102 libx264"
+          }
+        },
+        {
+          "index": 1,
+          "codec_name": "aac",
+          "codec_long_name": "AAC (Advanced Audio Coding)",
+          "profile": "LC",
+          "codec_type": "audio",
+          "codec_tag_string": "mp4a",
+          "codec_tag": "0x6134706d",
+          "mime_codec_string": "mp4a.40.2",
+          "sample_fmt": "fltp",
+          "sample_rate": "32000",
+          "channels": 2,
+          "channel_layout": "stereo",
+          "bits_per_sample": 0,
+          "initial_padding": 0,
+          "id": "0x2",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "time_base": "1/32000",
+          "start_pts": 0,
+          "start_time": "0.000000",
+          "duration_ts": 160000,
+          "duration": "5.000000",
+          "bit_rate": "189093",
+          "nb_frames": "158",
+          "nb_read_frames": "157",
+          "extradata_size": 5,
+          "disposition": {
+            "default": 1,
+            "dub": 0,
+            "original": 0,
+            "comment": 0,
+            "lyrics": 0,
+            "karaoke": 0,
+            "forced": 0,
+            "hearing_impaired": 0,
+            "visual_impaired": 0,
+            "clean_effects": 0,
+            "attached_pic": 0,
+            "timed_thumbnails": 0,
+            "non_diegetic": 0,
+            "captions": 0,
+            "descriptions": 0,
+            "metadata": 0,
+            "dependent": 0,
+            "still_image": 0,
+            "multilayer": 0
+          },
+          "tags": {
+            "language": "und",
+            "handler_name": "SoundHandler"
+          }
+        }
+      ],
+      "format": {
+        "filename": "research/output/p173-fresh-benchmark-01/generation-01/.h3-m81geqrx/output.mp4",
+        "nb_streams": 2,
+        "nb_programs": 0,
+        "nb_stream_groups": 0,
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "format_long_name": "QuickTime / MOV",
+        "start_time": "0.000000",
+        "duration": "5.000000",
+        "size": "4063147",
+        "bit_rate": "6501035",
+        "probe_score": 100,
+        "tags": {
+          "major_brand": "isom",
+          "minor_version": "512",
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf62.12.102"
+        }
+      }
+    },
+    "video_sha256": "d828a0abf8448cfe48af182ccf35d65700c677ee4fc27809674d4e72499e888d",
+    "package_source_sha256": "a6a5e8d49bc03e452c9cd02c7edd7c7ab174db3d24791d97335d2da7685b3306",
+    "elapsed_seconds": 514.3590837499942
+  }
+}

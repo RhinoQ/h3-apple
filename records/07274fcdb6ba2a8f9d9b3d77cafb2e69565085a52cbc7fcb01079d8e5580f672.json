@@ -1,0 +1,42 @@
+{
+  "original_sha256": "07274fcdb6ba2a8f9d9b3d77cafb2e69565085a52cbc7fcb01079d8e5580f672",
+  "original_name": "evidence.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "source": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/neon-duel-V768-r1.mp4",
+      "bytes": 4006745,
+      "sha256": "d711ad0431af3e25f86b08cda6ac9de6a962509f408371e32c16e7e3fae10a6c"
+    },
+    "frames": [
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79
+    ],
+    "crop_xyxy": [
+      300,
+      92,
+      1065,
+      729
+    ],
+    "image": {
+      "path": "research/output/p173-fresh-benchmark-01/inspection-extra-01/neon-duel-V768-r1/dense-064-079.jpg",
+      "bytes": 1110003,
+      "sha256": "69c6d9d4c57629756c9e6c355592e6463185c3ed032eec52e4049ae02207e168"
+    },
+    "scope": "Dense original-frame crops for visual review; resizing is display only."
+  }
+}

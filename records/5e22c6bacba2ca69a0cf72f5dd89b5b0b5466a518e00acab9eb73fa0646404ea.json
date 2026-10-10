@@ -1,0 +1,171 @@
+{
+  "original_sha256": "5e22c6bacba2ca69a0cf72f5dd89b5b0b5466a518e00acab9eb73fa0646404ea",
+  "original_name": "reference-provenance-01.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "schema": "p173-reference-provenance/v1",
+    "utc": "2026-10-10T04:04:36.328531+00:00",
+    "scope": "Attribution enrichment after registration. No input bytes, prompts, criteria, requests or results changed; unresolved redistribution terms are retained.",
+    "references": {
+      "1665c52d9e20ace593cbc30d1e17b5cf996ad25a59c7f1890d636711da93dbd3": {
+        "credit": {
+          "author": "ModelTC Ref2VA test set; original image creators uncredited",
+          "source": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_1_1.jpg",
+          "license_url": "https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE",
+          "source_note": "The repository carries Apache-2.0; this record does not establish separate image rights."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p152-x2-544-native-output/sources-01.json",
+            "bytes": 22085,
+            "sha256": "ece5a6289d09b8ee7a074fd6f78672c5c86af1b04b0cf2508a4ee77b52b3ffec"
+          },
+          "source_path": "examples/ref2va_testset/ref2va_test_1_1.jpg",
+          "bytes": 344933
+        }
+      },
+      "df77cc201252e90cb828132863d4126c4d62d512f79299ec2651bcc9be8c5b1f": {
+        "credit": {
+          "author": "ModelTC Ref2VA test set; original image creators uncredited",
+          "source": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_1_2.jpg",
+          "license_url": "https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE",
+          "source_note": "The repository carries Apache-2.0; this record does not establish separate image rights."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p152-x2-544-native-output/sources-01.json",
+            "bytes": 22085,
+            "sha256": "ece5a6289d09b8ee7a074fd6f78672c5c86af1b04b0cf2508a4ee77b52b3ffec"
+          },
+          "source_path": "examples/ref2va_testset/ref2va_test_1_2.jpg",
+          "bytes": 396459
+        }
+      },
+      "82cdb7a20d6ec0d7c6c396cc8e99d3f5fe49a2f67f7c3e5e75d45102f4a91062": {
+        "credit": {
+          "author": "ModelTC Ref2VA test set; original image creators uncredited",
+          "source": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_1_3.jpg",
+          "license_url": "https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE",
+          "source_note": "The repository carries Apache-2.0; this record does not establish separate image rights."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p152-x2-544-native-output/sources-01.json",
+            "bytes": 22085,
+            "sha256": "ece5a6289d09b8ee7a074fd6f78672c5c86af1b04b0cf2508a4ee77b52b3ffec"
+          },
+          "source_path": "examples/ref2va_testset/ref2va_test_1_3.jpg",
+          "bytes": 390923
+        }
+      },
+      "df46f5f157b0bcddb603646532e9746f709d663cb4787332603c90373691a8d7": {
+        "credit": {
+          "author": "ModelTC Ref2VA test set; original image creators uncredited",
+          "source": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_1.jpg",
+          "license_url": "https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE",
+          "source_note": "The repository carries Apache-2.0; this record does not establish separate image rights."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p152-x2-544-native-output/sources-01.json",
+            "bytes": 22085,
+            "sha256": "ece5a6289d09b8ee7a074fd6f78672c5c86af1b04b0cf2508a4ee77b52b3ffec"
+          },
+          "source_path": "examples/ref2va_testset/ref2va_test_5_1.jpg",
+          "bytes": 71856
+        }
+      },
+      "afda45ed8f06a176c19fa9b224cb6c07467dd0d0ab2564a14c3014cc7ae34ca4": {
+        "credit": {
+          "author": "ModelTC Ref2VA test set; original image creators uncredited",
+          "source": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_2.jpg",
+          "license_url": "https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE",
+          "source_note": "The repository carries Apache-2.0; this record does not establish separate image rights."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p152-x2-544-native-output/sources-01.json",
+            "bytes": 22085,
+            "sha256": "ece5a6289d09b8ee7a074fd6f78672c5c86af1b04b0cf2508a4ee77b52b3ffec"
+          },
+          "source_path": "examples/ref2va_testset/ref2va_test_5_2.jpg",
+          "bytes": 378035
+        }
+      },
+      "97e0835a1bf64ee4c4ae0ca0d94e3262bc6bfaff79a77ec2c7155ccb26110b8c": {
+        "credit": {
+          "author": "ModelTC Ref2VA test set; original image creators uncredited",
+          "source": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_3.jpg",
+          "license_url": "https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE",
+          "source_note": "The repository carries Apache-2.0; this record does not establish separate image rights."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p152-x2-544-native-output/sources-01.json",
+            "bytes": 22085,
+            "sha256": "ece5a6289d09b8ee7a074fd6f78672c5c86af1b04b0cf2508a4ee77b52b3ffec"
+          },
+          "source_path": "examples/ref2va_testset/ref2va_test_5_3.jpg",
+          "bytes": 341214
+        }
+      },
+      "939856c9964d33c9ddecac30b145b82993c5d6ba9ce6a2afcf169233ecc177e6": {
+        "credit": {
+          "author": "ModelTC Ref2VA test set; original image creators uncredited",
+          "source": "https://raw.githubusercontent.com/ModelTC/Minimax-H3-Turbo/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/examples/ref2va_testset/ref2va_test_5_4.jpg",
+          "license_url": "https://github.com/ModelTC/Minimax-H3-Turbo/blob/02e26d591f7a04d5d1a074c9566d5dd4f22f6225/LICENSE",
+          "source_note": "The repository carries Apache-2.0; this record does not establish separate image rights."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p152-x2-544-native-output/sources-01.json",
+            "bytes": 22085,
+            "sha256": "ece5a6289d09b8ee7a074fd6f78672c5c86af1b04b0cf2508a4ee77b52b3ffec"
+          },
+          "source_path": "examples/ref2va_testset/ref2va_test_5_4.jpg",
+          "bytes": 189393
+        }
+      },
+      "b5e57681d9aa832ca0ef194838e4a5194e8720bbe3cdc0546ff79afc754afd53": {
+        "credit": {
+          "author": "H3 Apple research fixture; image_gen",
+          "source": "Project-created original superhero identity reference",
+          "source_note": "Generated with the built-in image_gen tool; original face, costume and style reference."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/output/rhinoquant-week-20260926-01/production-03-superhero-stories/references/provenance.json",
+            "bytes": 509,
+            "sha256": "1a6b3a92258994f2be2dd29732e093c642ab0d96e4ce8f3b135bb3dc99460c77"
+          },
+          "tool": "built-in image_gen",
+          "role": "original face/costume/style identity reference; office decor is contextual, not a mandatory first frame"
+        }
+      },
+      "16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45": {
+        "credit": {
+          "author": "H3 Apple research fixture; Pillow",
+          "source": "Project-authored PLAY graphic",
+          "source_note": "Geometric primitives and rasterized Arial Black lettering; no font file is redistributed."
+        },
+        "evidence": {
+          "source_record": {
+            "path": "research/benchmarks/p146-ref8-hard-cases/inputs-02.json",
+            "bytes": 13620,
+            "sha256": "b67ea0a7041605b328e8ad814ec8887c10b8953a3b5a864c78a86e4f005760d0"
+          },
+          "script": {
+            "path": "research/scripts/p146_inputs.py",
+            "bytes": 5700,
+            "sha256": "f6548bcd5610af04a80c3edec11b712effbe0132c0a58c380346e3cf49d23128"
+          },
+          "font": {
+            "path": "/System/Library/Fonts/Supplemental/Arial Black.ttf",
+            "bytes": 122556,
+            "sha256": "7d7db3ad96a31373c1437c6ab14266f6605495544c8e663558b047521174c42e"
+          }
+        }
+      }
+    }
+  }
+}

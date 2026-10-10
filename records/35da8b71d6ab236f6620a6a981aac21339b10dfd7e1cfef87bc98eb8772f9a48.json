@@ -1,0 +1,62 @@
+{
+  "original_sha256": "35da8b71d6ab236f6620a6a981aac21339b10dfd7e1cfef87bc98eb8772f9a48",
+  "original_name": "play-card-VX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "play-card-VX-r1",
+    "video_sha256": "19d709173b801303f5d0f3b1c6fc9cfe6c56d7fdf2728731932ae1c33927f479",
+    "status": "pass",
+    "criteria_pass": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 0,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "The attached PLAY design rotates to a strong oblique view, the disk becomes fully hidden and then appears at the right, and the frontal layout holds. Edge softness and slight contour/size variation are minor.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          2.292
+        ],
+        "text": "One mint card retains the border, three dots, play icon and exact PLAY design during a continuous perspective turn. The separate orange disk moves rightward; its scale varies slightly but it remains the same small circular object."
+      },
+      {
+        "interval_seconds": [
+          2.333,
+          2.708
+        ],
+        "text": "Dense frames 52–65 show the disk entering behind the card, fully hidden at frames 57–61, and emerging at the right around frames 62–63. The card goes almost edge-on, beyond the requested approximate sixty-degree pose, while the intended occlusion remains clear."
+      },
+      {
+        "interval_seconds": [
+          2.75,
+          4.958
+        ],
+        "text": "The card returns to a frontal rectangle and holds with the single disk at lower right. PLAY stays readable and no extra window or writing appears. Slight edge halos and outline variation remain visible in the original frames."
+      }
+    ],
+    "extra_frame_record": {
+      "path": "research/output/p173-fresh-benchmark-01/inspection-extra-01/play-card-VX-r1/evidence.json",
+      "bytes": 771,
+      "sha256": "fc58b6c282a2971ae6601bbb2e92c35c2b668a8eb0b8c07651355d979dafc324"
+    },
+    "review_scope": "All 120 frames in three sequence sheets; original frames 47, 60 and 119; enlarged sequential crops 52–65; original graphic reference. No listening or normal-speed playback judgment."
+  }
+}

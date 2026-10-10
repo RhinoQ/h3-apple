@@ -1,0 +1,56 @@
+{
+  "original_sha256": "af67fffb57ea59f3dee39ff3a1e49e06051539793afe583ce49021ca37f2dd00",
+  "original_name": "cloud-palace-SX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "cloud-palace-SX-r1",
+    "video_sha256": "060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd",
+    "status": "pass",
+    "criteria_pass": [
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 0,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 0
+    },
+    "summary": "A continuous lateral reveal retains the three-tier palace and exposes the right terrace and stairs through moving mist. Near railing and trees shift against the roofline. The roof silhouette remains fully visible; fine roof and railing patterns simplify slightly.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Reference composition transitions into a clear sideways camera move; three connected roof tiers and terrace remain identifiable."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "Changing corner perspective and near-tree motion provide parallax. Mist briefly veils the lower facade without hiding the roof silhouette."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "More of the right stairs and connected lower railing are revealed. Final palace stays coherent and in frame; decorative microgeometry is simplified."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 0, 60 and 119 inspected, against the original reference. No listening or normal-speed playback judgment."
+  }
+}

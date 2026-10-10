@@ -1,0 +1,57 @@
+{
+  "original_sha256": "9b3b940a86c73a805685506b82699c576d07735860fadb9eb5c023705bc1c511",
+  "original_name": "underwater-parry-VX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "underwater-parry-VX-r1",
+    "video_sha256": "2d56afa7a79823868f57f63bca3db0edf31e408058119faf4f417202950027a2",
+    "status": "fail",
+    "criteria_pass": [
+      false,
+      null,
+      false,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 2,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 3
+    },
+    "summary": "The pool and two women remain coherent, but the opening waterline hides their faces. A shoulder reach and raised empty palm are visible; a definite wrist deflection is not established. The sword points across the bodies instead of down and away. A persistent push-in ends with adjacent women and the sword outside the frame.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.292
+        ],
+        "text": "The camera initially frames legs and torsos below a reflective waterline that obscures both faces. Faces emerge as the women sink farther underwater. The held blade points upward and then across the other woman."
+      },
+      {
+        "interval_seconds": [
+          1.333,
+          3.292
+        ],
+        "text": "The black-clad woman reaches toward the other shoulder. The white-clad woman raises an empty open palm as the arm withdraws, but the inspected frames do not establish a clear wrist redirection. The sword remains separately held across the lower composition."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "Both hands lower and the women remain near one another. The continuing push-in crops the sword and much of the first woman; a clear drift-apart hold is absent. Bubbles, floating hair and tiled surroundings remain readable, with no motorcycle or extra person."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 0, 36, 71 and 119 inspected against the four original references. No listening or normal-speed playback judgment."
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "original_sha256": "043189effb6e8aa6512592f95e19858481966337acd54033e15dffe5d61886c6",
+  "original_name": "cloud-palace-S768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "cloud-palace-S768-r1",
+      "case": "cloud-palace",
+      "arm": "S768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/cloud-palace/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/cloud-palace/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173001,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "16:9",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the white-jade celestial palace and cloud landscape in <Picture 1>, with three blue-and-gold roof tiers, a continuous carved terrace railing, pale sky and realistic materials.\n\nsummary:\n[reference generation] A five-second cinematic sideways glide reveals the cloud palace through drifting mist.\n\nretention_analysis:\n<Subject 1> (throughout [Shot 1]): fully_preserved - retain the palace silhouette, connected roof tiers, carved terrace, railing, light and colors while the viewpoint changes.\n\ndetailed_description:\n[Shot 1] A continuous wide view starts near the reference composition, with the palace on the right and open pale-blue sky on the left. The camera glides slowly to screen right across the front of the palace for five seconds. Nearby terrace posts shift against the distant roof tiers, producing a gentle, readable parallax reveal. All visible buildings remain rigid and connected, with the whole main roof silhouette comfortably inside frame. Thin luminous foreground mist drifts right below the roofs and exposes more of the lower stone terrace. Golden morning light grazes the blue roof tiles, carved ivory balustrade and cloud edges. End still gliding, with the same three-tier palace clearly visible. No cut, people or written text.\n\noverall_soundscape:\nSoft high-altitude wind with a faint distant bell, no speech.\n\nnon_diegetic_music:\nA quiet sustained guqin phrase beneath the wind.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/cloud-palace/reference-01.png"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173001,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 310.90052833300433,
+    "worker_lifetime_seconds": 310.3543699999864,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/cloud-palace-S768-r1.run.json",
+      "bytes": 50836,
+      "sha256": "0f7106a604e76eb14b20416c6c294c889c810d3111362fddb3f2deaa2daa7f9c"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/cloud-palace-S768-r1.mp4",
+      "bytes": 2801002,
+      "sha256": "8ab0ac2e873b0497b2c2059fcdeac4391b0ab482cc410ded3e419a4761bbb7b3"
+    }
+  }
+}

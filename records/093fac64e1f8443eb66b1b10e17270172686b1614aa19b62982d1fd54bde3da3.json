@@ -1,0 +1,65 @@
+{
+  "original_sha256": "093fac64e1f8443eb66b1b10e17270172686b1614aa19b62982d1fd54bde3da3",
+  "original_name": "space-coffee-S768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "space-coffee-S768-r1",
+      "case": "space-coffee",
+      "arm": "S768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/space-coffee/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/space-coffee/reference-01.png"
+        ],
+        "duration": 5,
+        "seed": 173007,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "9:16",
+        "mode": "SOL"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the young adult space courier in <Picture 1>, with short dark wavy hair, a cobalt blue helmet with small blue wing-shaped attachments, a clear visor, an orange scarf, a cream cropped flight jacket, dark blue trousers and a round brass chest compass. Preserve the character's face, clothing colors and softly painted cinematic animation style. The reference defines his identity and costume, while the new scene supplies the setting and action.\n\nsummary:\n[reference generation] A five-second vertical animated comedy: <Subject 1> tries to catch a floating blob of coffee in a cup inside a cozy weightless spaceship, but it gently splats against his clear visor.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the face, dark curls, blue helmet, transparent visor, orange scarf, cream jacket, brass compass and painted animation style.\n\ndetailed_description:\n[Shot 1] A continuous vertical medium close-up of <Subject 1> alone in a warm retro-futurist spaceship kitchenette. His entire helmet, face, shoulders and both hands stay in frame. Behind him, an oval window reveals a softly glowing blue planet and a few stars. The room has rounded ivory walls, brass fittings and warm amber practical lighting. His clear curved visor is lowered over his face, which remains easy to see through the glass. In his right hand he holds one small white ceramic espresso cup, upright and empty. A single round dark-brown blob of coffee, about the size of a walnut, floats slowly upward directly above the cup, catching a caramel-colored highlight. He watches it with exaggerated concentration. During the first two seconds he gently raises the cup to scoop the floating coffee from below, but the blob glides just beyond the rim. His left hand steadies the cup for one careful second attempt. His scarf floats lightly beside his neck, reinforcing the low-gravity setting. He leans forward a few inches to follow the coffee, eyebrows lifted in stubborn determination. During the fourth second the blob drifts gently into the outside of his transparent visor and spreads into one small round coffee stain just beside his nose. His hands stop. In the final second he turns his eyes toward the camera and gives a tiny resigned shrug while still holding the cup. His expression delivers the joke; his face remains clearly visible around the small stain. The cup, hands and coffee follow one readable action throughout the shot. The camera stays steady with a subtle cinematic push-in, leaving enough space above the blue helmet and keeping the cup visible in the lower foreground. Soft painted surfaces, clear silhouettes, warm reflected light and a playful animated short-film feeling. No dialogue or written captions.\n\noverall_soundscape:\nA gentle spaceship ventilation hum, a delicate ceramic cup clink, a small soft wet plop as the coffee touches the visor, and a tiny fabric rustle during the shrug.\n\nnon_diegetic_music:\nA light pizzicato comedy phrase that pauses for the coffee plop, then ends with two playful marimba notes.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/space-coffee/reference-01.png"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173007,
+        "width": 768,
+        "height": 1366,
+        "num_frames": 120,
+        "model_width": 768,
+        "model_height": 1376,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 347.46897408299264,
+    "worker_lifetime_seconds": 346.93403708399273,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/space-coffee-S768-r1.run.json",
+      "bytes": 58802,
+      "sha256": "32c7674a2d1a5ac54a234f93db2ae2fbcc2fb2cf5fc447010836ed41ef89f156"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/space-coffee-S768-r1.mp4",
+      "bytes": 2490895,
+      "sha256": "7e9f9dba89bf0b17f8c72f5acc5aa0aa7eb23f6d0c477b83709062fc0334d135"
+    }
+  }
+}

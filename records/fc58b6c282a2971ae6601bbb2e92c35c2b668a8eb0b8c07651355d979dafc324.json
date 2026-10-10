@@ -1,0 +1,40 @@
+{
+  "original_sha256": "fc58b6c282a2971ae6601bbb2e92c35c2b668a8eb0b8c07651355d979dafc324",
+  "original_name": "evidence.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "source": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/play-card-VX-r1.mp4",
+      "bytes": 2131678,
+      "sha256": "19d709173b801303f5d0f3b1c6fc9cfe6c56d7fdf2728731932ae1c33927f479"
+    },
+    "frames": [
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65
+    ],
+    "crop_xyxy": [
+      281,
+      493,
+      1546,
+      881
+    ],
+    "image": {
+      "path": "research/output/p173-fresh-benchmark-01/inspection-extra-01/play-card-VX-r1/dense-052-065.jpg",
+      "bytes": 107756,
+      "sha256": "2c9b336ea6dbfee53957cab2767a74e5b767f3fab223ba76b434ba1b963b1cf0"
+    },
+    "scope": "Dense original-frame crops for visual review; resizing is display only."
+  }
+}

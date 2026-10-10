@@ -1,0 +1,57 @@
+{
+  "original_sha256": "3ac978f626b2c974b3d5665a63f84a56fdf55ce7d3d160d85b210e566c5cc540",
+  "original_name": "fashion-turn-S768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "fashion-turn-S768-r1",
+    "video_sha256": "e68af6eea7217ef12b3791aef55eb12bc5211ab58be4d7aa4ae56e6822ebf588",
+    "status": "pass",
+    "criteria_pass": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 1
+    },
+    "summary": "The single black-outfit model completes the forward steps, held half-turn and hair-tuck sequence. One cut near three seconds preserves her identity and reaches an upper-chest view; the hand clears for the final smile.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "Two forward step phases lead into the turn, with the complete body and shoe contact retained. Wide trouser fabric moves around the legs without a second person or costume."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          2.833
+        ],
+        "text": "The model reaches a back/three-quarter hold, glances over her shoulder and lets the loose fabric settle."
+      },
+      {
+        "interval_seconds": [
+          2.875,
+          4.958
+        ],
+        "text": "One cut preserves the gray studio, black neckline, face and bob hairstyle. The right hand crosses the near eye, brushes hair behind the ear and lowers clear of the face. The shot loosens to an upper-chest view and ends with a subtle smile; initial hair-top cropping is a minor framing defect."
+      }
+    ],
+    "review_scope": "All 120 frames in three sequence sheets; original frames 23, 60, 71 and 119; original outfit reference. No listening or normal-speed playback judgment."
+  }
+}

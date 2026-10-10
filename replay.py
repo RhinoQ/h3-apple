@@ -42,7 +42,7 @@ def main():
     kw=options(root,case,mode=args.mode,profile=args.profile,seed=seed,output=args.output)
     if not args.execute:
         print(json.dumps(dict(action='validated_plan_only',kwargs=kw,
-            notice='Use a dedicated Conda interpreter and --execute to run. Historical gallery tasks use current standard/fast profiles; old diagnostic pixels are not promised.'),indent=2));return
+            notice='Use a dedicated Conda interpreter and --execute to generate. A new run requires a new visual judgment.'),indent=2));return
     if not args.model_dir:parser.error('--model-dir is required with --execute')
     if args.profile=='fast' and not args.x2_model_dir:parser.error('--x2-model-dir is required for fast execution')
     from h3_apple import generate

@@ -1,0 +1,57 @@
+{
+  "original_sha256": "42e66c289fe89e92e76baae28e9c24413df33cd8135637d1147a7b110fee0301",
+  "original_name": "star-mage-V768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "star-mage-V768-r1",
+    "video_sha256": "3bca90b26040547b3ac9b1bad97a72b44d677c3c8d56bf2ff76e633b23396cb2",
+    "status": "fail",
+    "criteria_pass": [
+      false,
+      true,
+      true,
+      false
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "The mage circles his right hand, creates the orb and reveals one duck with a clear burst of sparks. The right hand exits early; the strong ending push-in also truncates the supporting left palm and lower duck at the bottom edge.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "One recognizable silver-haired mage circles the right hand over the open left palm, building gold rings and an orb. The right hand moves outside the left edge around 1.5 seconds."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The orb brightens and bursts around 2.7 seconds into sparks and one yellow duck on the same left palm. The downward gaze and continuing camera push-in are visible."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The duck remains one recognizable toy, briefly opening its beak. The mage faces camera with a slight smile, but the push-in cuts the base of the left palm and lower duck at the bottom edge. The right hand stays outside the frame, failing the required retained-hand composition."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 71 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}

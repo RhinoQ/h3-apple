@@ -1,0 +1,69 @@
+{
+  "original_sha256": "9e80344541b272718b58dea23332616dd67ccf4ad01d37a24b52482369b75196",
+  "original_name": "firefly-duo-V768-r1.measurement.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": {
+      "id": "firefly-duo-V768-r1",
+      "case": "firefly-duo",
+      "arm": "V768",
+      "split": "main",
+      "kwargs": {
+        "prompt_file": "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/prompt.txt",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-01.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-02.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-03.jpg"
+        ],
+        "duration": 5,
+        "seed": 173010,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "16:9",
+        "mode": "VSA"
+      },
+      "expected_request": {
+        "prompt": "subject_definitions:\n<Subject 1> is 99, the single pastel-pink rabbit whose front, side and back identity views appear in <Picture 1>. She has long upright ears with darker pink centers, rounded cheeks, black dot eyes, a tiny dark nose, a yellow pinafore with one pink square front pocket over a white short-sleeved shirt, and white shoes. The views show one character.\n<Subject 2> is bobo, the single caramel-brown bear whose front, side and back identity views appear in <Picture 2>. He has round ears with cream centers, a cream oval muzzle, dark dot eyes and black nose, pink cheeks, a sage-green short-sleeved T-shirt with one yellow chest pocket, cream shorts, and white shoes. The views show one character.\n<Subject 3> is the hand-painted 2D storybook rendering style of <Picture 3>: warm dark-brown outlines, rounded simple characters, softly painted foliage, rolling hills and gentle natural light. This picture supplies drawing style and scenery texture; the cast of the new story consists of 99 <Subject 1> and bobo <Subject 2>. Its interface badges and incidental characters are not scene elements.\n\nsummary:\n[reference generation] In five seconds at dusk, bobo opens his cupped paws to release one firefly; it rises between the two friends, who look up together in wonder. Preserve the identities of <Subject 1> and <Subject 2> with the drawing style of <Subject 3>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - retain the single rabbit's pink identity, long ears, yellow pinafore, pink pocket, white sleeves and shoes throughout the new action.\n<Subject 2> (appears in [Shot 1]): fully_preserved - retain the single bear's brown identity, cream muzzle and ears, green shirt, yellow pocket, cream shorts and white shoes throughout the new action.\n<Subject 3> (appears in [Shot 1]): fully_preserved - transfer its soft painted 2D illustration and warm outlines into the newly described scene, with the stated time-of-day lighting. Character sheets supply identity rather than multi-view staging.\n\ndetailed_description:\n[Shot 1] A hand-painted 2D storybook scene using the warm brown outlines and soft foliage textures of <Subject 3>, now under blue-purple twilight. A static medium two-shot frames bobo <Subject 2> on the left and 99 <Subject 1> on the right from the waist up, including both complete heads and the rabbit's ears, with generous empty space above their faces. A quiet meadow and dark leafy silhouettes sit behind them. Bobo gently cups both paws together at chest height between the pair, with a small yellow-green light visible through the gap. 99 leans slightly closer and watches his paws with a curious smile. From 0.5 to 2.0 seconds bobo slowly separates and opens his paws, palms upward, revealing one tiny glowing firefly. The firefly lifts off from his palms and flies upward through the clear space between their faces, tracing a short gentle curve. Bobo keeps his now open empty paws below it. Both friends raise their chins and track the same light with their eyes, smiling in quiet wonder. As it rises around 2.7 to 4.0 seconds, 99, with a bright medium-high youthful feminine Mandarin voice softened to a tender whisper (S1), says <d>[Chinese] 晚安，小星星。</d> The firefly reaches the space above their heads by the end, glowing softly against the violet sky; both look up toward it and hold their smiles. The firefly stays visibly separate from their faces and hands. The short dialogue is spoken without subtitles.\n\noverall_soundscape:\nQuiet dusk crickets, a slight leaf rustle, and the rabbit's tender Mandarin whisper. Keep the bear silent and the atmosphere calm.\n\nnon_diegetic_music:\nA very soft two-note celesta phrase as the firefly rises, below the whisper and crickets.\n",
+        "reference_images": [
+          "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-01.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-02.jpg",
+          "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-03.jpg"
+        ],
+        "resolution": "768p",
+        "duration": 5.0,
+        "seed": 173010,
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "model_width": 1376,
+        "model_height": 768,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": false
+      }
+    },
+    "kind": "full_generation",
+    "seconds": 698.2849275000044,
+    "worker_lifetime_seconds": 697.7214091249916,
+    "metadata": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/firefly-duo-V768-r1.run.json",
+      "bytes": 68595,
+      "sha256": "6dc82ebc2a608c95850a5449911457dd8e632be0c01a1b1cf7cd8198ab9337ec"
+    },
+    "output": {
+      "path": "research/output/p173-fresh-benchmark-01/generation-01/firefly-duo-V768-r1.mp4",
+      "bytes": 1964301,
+      "sha256": "55d5964db113ded99e434a01a19feaffdfb7544815d78a060eee1af7626340fc"
+    }
+  }
+}

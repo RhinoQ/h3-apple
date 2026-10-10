@@ -1,0 +1,62 @@
+{
+  "original_sha256": "590b31a117c8b951785e581ba68c019c7a539a5f14a91ec5ee84d900bad6fd75",
+  "original_name": "play-card-S768-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "play-card-S768-r1",
+    "video_sha256": "c222570b2a183af7a9d9ba12c226d85a81078dadaf8552f85fef39653c6d5e54",
+    "status": "pass",
+    "criteria_pass": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 1,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 2,
+      "framing": 0
+    },
+    "summary": "The PLAY card rotates, the disk disappears fully behind it and emerges on the right, and the frontal ending holds. A sudden flip near two seconds creates a clear timing defect and brief small-detail distortion, without changing the completed action or design identity.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.792
+        ],
+        "text": "The mint card, navy border, header dots, orange play icon and PLAY design remain recognizable as one object. The separate disk travels horizontally toward the left edge of the rotating card."
+      },
+      {
+        "interval_seconds": [
+          1.833,
+          2.667
+        ],
+        "text": "The disk becomes fully hidden, then reappears at the right edge around 2.38 seconds. Dense frames 40–63 show a sudden narrow flip around frames 47–49: a header dot briefly disappears and the edge/icon smear, then the three dots and attached design recover. These brief detail defects do not replace the intended card or occlusion action."
+      },
+      {
+        "interval_seconds": [
+          2.708,
+          4.958
+        ],
+        "text": "The view returns to a frontal rectangle and holds with one disk at lower right and legible PLAY. No additional window or invented text appears."
+      }
+    ],
+    "extra_frame_record": {
+      "path": "research/output/p173-fresh-benchmark-01/inspection-extra-01/play-card-S768-r1/evidence.json",
+      "bytes": 853,
+      "sha256": "2def7f75e3eaabca44b5f80530c4ba529bfa5330b8bc99cea5a612e1efb4a358"
+    },
+    "review_scope": "All 120 frames in three sequence sheets; original frames 47, 60 and 119; enlarged sequential crops 40–63; original graphic reference. No listening or normal-speed playback judgment."
+  }
+}

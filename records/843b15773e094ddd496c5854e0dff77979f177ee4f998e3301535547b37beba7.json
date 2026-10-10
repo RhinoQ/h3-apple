@@ -1,0 +1,57 @@
+{
+  "original_sha256": "843b15773e094ddd496c5854e0dff77979f177ee4f998e3301535547b37beba7",
+  "original_name": "energy-shield-SX-r1.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "protocol": {
+      "path": "research/benchmarks/p173-fresh-benchmark/protocol-01.json",
+      "bytes": 202893,
+      "sha256": "cdfbfde8e7ed019a221c01287567371133592a67913f11c6c0ebad8ea16c2b24"
+    },
+    "run": "energy-shield-SX-r1",
+    "video_sha256": "5d6b0cda11f7b76317d075c3993beafa7cab24f5e537dd0dcf1b058d428f4060",
+    "status": "borderline",
+    "criteria_pass": [
+      null,
+      true,
+      true,
+      true
+    ],
+    "rating_scope": "Complete visual task",
+    "audio": "unreviewed",
+    "severity": {
+      "action": 1,
+      "count": 0,
+      "identity": 1,
+      "geometry": 1,
+      "detail": 1,
+      "temporal": 1,
+      "framing": 2
+    },
+    "summary": "The bus approaches, slows against a glowing amber shield and remains behind the recognizable hero as he turns and smiles. Cape, dust and impact rings support the sequence. The medium framing excludes the feet and lower legs throughout, preventing confirmation of the planted-leg requirement.",
+    "observations": [
+      {
+        "interval_seconds": [
+          0,
+          1.625
+        ],
+        "text": "The hero initially faces the lens briefly, then watches the approaching bus with his palm raised. The amber shield grows between them; the visible costume and face remain consistent with the reference."
+      },
+      {
+        "interval_seconds": [
+          1.667,
+          3.292
+        ],
+        "text": "The bus slows at the shield as rings pulse, dust rises and the cape pulls backward. The hero braces with his upper body; no view of the feet establishes ground contact. He then begins turning back toward the camera."
+      },
+      {
+        "interval_seconds": [
+          3.333,
+          4.958
+        ],
+        "text": "The shield contracts and fades while the hero smiles and lowers his arm. The bus holds in the background without a person being struck or a second hero appearing. Fine bus/suit patterns simplify slightly; framing remains above the lower legs."
+      }
+    ],
+    "review_scope": "All 120 sequential thumbnails and original frames 60 and 119 inspected against the original reference. No listening or normal-speed playback judgment."
+  }
+}
