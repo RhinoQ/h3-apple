@@ -3,6 +3,7 @@ const data = window.BENCHMARK, scores = window.SCORES;
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const dimensions = {action:'Action', count:'Subject / object count', detail:'Detail', framing:'Framing', geometry:'Geometry', identity:'Identity', temporal:'Temporal'};
+const qualityNotes = {action:'Requested motion and interactions', count:'Correct number of subjects and objects', detail:'Fine visual detail', framing:'Requested composition and visible body parts', geometry:'Stable shapes and anatomy', identity:'Consistent character appearance', temporal:'Consistency from frame to frame'};
 const routes = {V768:'VSA · Standard 768p', S768:'SOL · Standard 768p', VX:'VSA · Fast 544p + X2', SX:'SOL · Fast 544p + X2'};
 const statusNames = {pass:'Pass', fail:'Fail', borderline:'Borderline', unrated:'Awaiting review', pending:'Awaiting generation'};
 let selected = location.hash.startsWith('#case=') ? decodeURIComponent(location.hash.slice(6)) : data.cases[0]?.id;
@@ -18,6 +19,38 @@ async function copy(value) {
   try { await navigator.clipboard.writeText(value); notice('Copied'); }
   catch { notice('Clipboard unavailable. Select and copy the text.'); }
 }
+const percent = value => value.toFixed(1).replace(/\.0$/, '') + '%';
+function barRow(mode, value, maximum, label, note = '', low = null) {
+  const width = 100 * value / maximum;
+  const fill = low === null ? `<span class="bar-fill" style="width:${width}%"></span>`
+    : `<span class="bar-fill range-base" style="width:${width}%"></span><span class="bar-fill range-end" style="left:${100 * low / maximum}%;width:${100 * (value-low) / maximum}%"></span>`;
+  return `<div class="bar-row ${mode.toLowerCase()}"><strong class="bar-mode">${mode}</strong><div class="bar-track" aria-hidden="true">${fill}</div><span class="bar-value">${esc(label)}${note ? `<small>${esc(note)}</small>` : ''}</span></div>`;
+}
+function axis(middle, end) {
+  return `<div class="bar-axis" aria-hidden="true"><span>0</span><span>${esc(middle)}</span><span>${esc(end)}</span></div>`;
+}
+function renderComparisons() {
+  $('scores').innerHTML = `<section class="chart-card task-chart" aria-labelledby="task-title"><div class="chart-heading"><h3 id="task-title">Complete task success</h3><span>↑ Higher is better</span></div>
+    <p class="chart-note">A pass meets every visual requirement, including action and framing. 12 scenes × 2 profiles = 24 videos per mode.</p>
+    ${axis('50%', '100%')}${Object.entries(scores.modes).map(([mode,s]) => barRow(mode, s.score, 100, `${percent(s.score)} · ${s.confirmed_passes}/${s.total} passed`, `${s.counts.fail} failed · ${s.counts.borderline} borderline`)).join('')}
+    <p class="chart-note">Borderline results stay in the denominator and do not count as passes. This is a task pass rate, not an image-quality rating.</p></section>`;
+  const profiles = [['Standard · 768p', 'V768', 'S768'], ['Fast · 544p + X2', 'VX', 'SX']];
+  const timeMax = Math.ceil(Math.max(...Object.values(scores.routes).map(s => s.median_seconds)) / 120) * 120;
+  const memoryMax = Math.ceil(Math.max(...Object.values(scores.routes).map(s => s.physical_gib_range?.[1] ?? 0)) / 10) * 10;
+  $('time-chart').innerHTML = profiles.map(([name,...arms]) => `<div class="profile-chart"><h4>${name}</h4>${axis(`${timeMax/120} min`, `${timeMax/60} min`)}${arms.map(arm => {
+    const s = scores.routes[arm], seconds = Math.round(s.median_seconds);
+    return barRow(arm.startsWith('V') ? 'VSA' : 'SOL', s.median_seconds, timeMax, `${Math.floor(seconds/60)}m ${String(seconds%60).padStart(2,'0')}s`);
+  }).join('')}</div>`).join('');
+  $('memory-chart').innerHTML = profiles.map(([name,...arms]) => `<div class="profile-chart"><h4>${name}</h4>${axis(`${memoryMax/2} GiB`, `${memoryMax} GiB`)}${arms.map(arm => {
+    const mode = arm.startsWith('V') ? 'VSA' : 'SOL', range = scores.routes[arm].physical_gib_range;
+    return range ? barRow(mode, range[1], memoryMax, `${range.map(v => v.toFixed(1)).join('–')} GiB`, '', range[0]) : `<p>${mode}: memory not recorded</p>`;
+  }).join('')}</div>`).join('');
+  $('time-summary').textContent = `SOL speedup over VSA: ${scores.paired_time['V768/S768'].median_speedup.toFixed(2)}× standard · ${scores.paired_time['VX/SX'].median_speedup.toFixed(2)}× fast. Median of within-scene ratios; one run per route per scene.`;
+  $('quality').innerHTML = Object.entries(dimensions).map(([key,name]) => `<section class="quality-chart" aria-labelledby="quality-${key}"><h4 id="quality-${key}">${name}</h4><p class="chart-note">${qualityNotes[key]}</p>${axis('50%', '100%')}${['VSA','SOL'].map(mode => {
+    const q = scores.modes[mode].quality[key];
+    return q ? barRow(mode, q.no_major_defect_percent, 100, `${percent(q.no_major_defect_percent)} · ${q.none_or_minor}/${q.evaluated}`) : `<p>${mode}: unrated</p>`;
+  }).join('')}</section>`).join('');
+}
 function renderScores() {
   $('version').textContent = 'v' + data.version;
   const rows = data.cases.flatMap(c => c.runs), complete = rows.filter(r => r.video).length;
@@ -32,9 +65,8 @@ function renderScores() {
     $('score-download').hidden = true;
     return;
   }
-  $('scores').innerHTML = Object.entries(scores.modes).map(([mode,s]) => `<div class="score-card"><h3>${mode}</h3><div class="value">${s.score.toFixed(0)}<small> / 100</small></div><p>${s.confirmed_passes} / ${s.total} confirmed passes · ${scores.coverage.cases} cases at two profiles</p></div>`).join('');
-  $('routes').innerHTML = Object.entries(scores.routes).map(([arm,s]) => `<tr><td>${routes[arm]}</td><td><strong>${s.score.toFixed(0)}%</strong></td><td>${s.confirmed_passes} / ${s.total}${s.counts.borderline ? ` (${s.counts.borderline} borderline)` : ''}</td><td>${s.median_seconds.toFixed(1)} s</td><td>${s.physical_gib_range ? s.physical_gib_range.map(n => n.toFixed(1)).join('–') + ' GiB' : 'Not recorded'}</td></tr>`).join('');
-  $('quality').innerHTML = Object.entries(dimensions).map(([key,name]) => `<tr><td>${name}</td>${['VSA','SOL'].map(mode => { const q = scores.modes[mode].quality[key]; return `<td>${q ? q.no_major_defect_percent.toFixed(0) + '% · ' + q.none_or_minor + '/' + q.evaluated : 'Unrated'}</td>`; }).join('')}</tr>`).join('');
+  renderComparisons();
+  $('routes').innerHTML = Object.entries(scores.routes).map(([arm,s]) => `<tr><td>${routes[arm]}</td><td><strong>${percent(s.score)}</strong></td><td>${s.confirmed_passes} / ${s.total}${s.counts.borderline ? ` (${s.counts.borderline} borderline)` : ''}</td><td>${s.median_seconds.toFixed(1)} s</td><td>${s.physical_gib_range ? s.physical_gib_range.map(n => n.toFixed(1)).join('–') + ' GiB' : 'Not recorded'}</td></tr>`).join('');
   $('paired-time').textContent = 'Paired median time ratios (baseline / candidate, >1 means faster): ' + Object.values(scores.paired_time).map(p => `${p.baseline} / ${p.candidate}: ${p.median_speedup.toFixed(2)}×`).join(' · ') + '. One run per slot.';
 }
 function filtered() {

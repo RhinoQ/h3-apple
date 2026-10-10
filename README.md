@@ -20,6 +20,10 @@ All frozen visual criteria must pass. Borderline results remain in the denominat
 but are not confirmed passes. Each route has twelve cases; each mode has two
 profiles of those same twelve cases, not twenty-four independent tasks.
 
+The viewer shows horizontal comparisons with percentages and counts. Time and
+memory remain split by profile; all quality dimensions stay visible. Bar axes
+start at zero. Memory bars show the observed min–max range, not an average.
+
 Quality is separate: action, count, identity, geometry, detail, temporal consistency
 and framing, severity 0 none / 1 minor / 2 clear / 3 severe. Report the fraction at
 0–1 and every count. Speed is the complete public API call with prepared models;

@@ -9,7 +9,7 @@
 <body>
 <a class="skip" href="#library">Skip to cases</a>
 <header><a class="brand" href="./">H3 <span>APPLE / REF2VA BENCHMARK</span></a>
-<nav aria-label="Page navigation"><a href="#library">Watch</a><a href="#results">Scores</a><a href="README.md">Reproduce ↗</a></nav></header>
+<nav aria-label="Page navigation"><a href="#library">Watch</a><a href="#results">Compare</a><a href="README.md">Reproduce ↗</a></nav></header>
 <main>
 <section class="intro"><div><p class="eyebrow">CURRENT PRODUCT · FRESH GENERATIONS · <span id="version"></span></p>
 <h1>Cinematic tasks.<br>Unfiltered results.</h1>
@@ -17,14 +17,21 @@
 <a class="hero-link" href="#library">Explore the scenes ↓</a> <a id="download-bundle" class="hero-link" hidden>Download complete dataset ↓</a></div>
 <div class="inventory"><strong id="inventory">—</strong><span>cases / planned outputs</span><span id="unique-videos"></span></div></section>
 <section id="results" aria-labelledby="results-title">
-<div class="section-title"><h2 id="results-title">01 / Complete visual task success</h2><a id="score-download" href="scores.json" download>Score JSON ↓</a></div>
-<p class="scope" id="scope"></p><div class="score-cards" id="scores"></div>
-<div id="scored-tables"><div class="table-wrap"><table><caption>5-second videos · Apple M5 Max / 128 GiB · Complete API calls, prepared models</caption>
+<div class="section-title"><h2 id="results-title">01 / VSA vs SOL</h2><a id="score-download" href="scores.json" download>Score JSON ↓</a></div>
+<p class="scope" id="scope"></p>
+<div id="scores"></div>
+<div id="scored-tables">
+<div class="takeaways"><p><strong class="vsa-text">VSA</strong> Lower memory use; fewer geometry and temporal defects in this set.</p><p><strong class="sol-text">SOL</strong> Faster generation; more complete tasks and better framing in this set.</p></div>
+<div class="resource-charts"><section class="chart-card" aria-labelledby="time-title"><div class="chart-heading"><h3 id="time-title">Generation time</h3><span>↓ Lower is better</span></div><p class="chart-note">Median time to generate a 5-second video. Same scale for both profiles.</p><div id="time-chart"></div><p id="time-summary" class="chart-note"></p></section>
+<section class="chart-card" aria-labelledby="memory-title"><div class="chart-heading"><h3 id="memory-title">Peak memory</h3><span>↓ Lower is better</span></div><p class="chart-note">Range across 12 videos per profile. The solid segment marks min–max.</p><div id="memory-chart"></div><p class="chart-note">Sampled process-tree memory, every 5 seconds; short peaks may be missed.</p></section></div>
+<section class="quality-section" aria-labelledby="quality-title"><div class="chart-heading"><h3 id="quality-title">Quality by dimension</h3><span>↑ Higher is better</span></div>
+<p class="chart-note">Videos with no or only minor defects in each dimension (severity 0–1). Each bar shows a share of 24 videos, across both profiles. A video can look good yet fail a required action or framing constraint.</p>
+<div id="quality" class="quality-charts"></div></section>
+<details class="score-details"><summary>Exact results by profile and measurement notes</summary>
+<div class="table-wrap"><table><caption>5-second videos · Apple M5 Max / 128 GiB · Complete API calls, prepared models</caption>
 <thead><tr><th>Mode / route</th><th>Task success</th><th>Passed / required</th><th>Median time</th><th>Sampled peak memory</th></tr></thead><tbody id="routes"></tbody></table></div>
 <p id="paired-time" class="small"></p>
-<details class="quality"><summary>Quality dimensions</summary>
-<p>Fraction with no or minor defects: severity 0–1. Severity 2 means clear and 3 severe. These scores and speed remain separate from complete task success.</p>
-<div class="table-wrap"><table><thead><tr><th>Dimension</th><th>VSA</th><th>SOL</th></tr></thead><tbody id="quality"></tbody></table></div></details></div>
+<p class="small">Quality severity: 0 none · 1 minor · 2 clear · 3 severe. Task success, quality, time and memory are separate measures. These exposed, single-seed results do not establish a universal winner.</p></details></div>
 </section>
 <section id="library" aria-labelledby="library-title">
 <div class="section-title"><h2 id="library-title">02 / The scenes</h2><a href="catalog.json" download>Catalog JSON ↓</a></div>
