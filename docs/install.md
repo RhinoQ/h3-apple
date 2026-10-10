@@ -95,6 +95,8 @@ Model licenses apply. [X2 uses a separate directory](x2.md#model-preparation).
 
 </details>
 
+<a name="upgrading-sol-models"></a>
+
 <details>
 <summary>Upgrade an existing installation</summary>
 
@@ -102,7 +104,7 @@ Activate `h3` and rerun the pip command with `--upgrade`. For an earlier 0.7.0
 source/benchmark wheel, use `--force-reinstall` to refresh the engine manifest.
 Compatible VSA models are reusable.
 
-### Upgrading SOL models
+### SOL model migration
 
 0.7.0 rejects old quantized SOL weights; editing their manifest cannot upgrade
 them. Prepare an empty directory:
