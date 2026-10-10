@@ -1,0 +1,110 @@
+{
+  "schema": "h3-apple-release-refresh/v1",
+  "date": "2026-10-10",
+  "version": "0.7.0",
+  "changes": [
+    "SOL + 544p/X2 defaults in CLI and Python; explicit --no-x2 for native output",
+    "Both modes and X2 installed by the base package; Python 3.11",
+    "Face runtime, CLI/API, optional dependencies, models manifest and exclusive notices removed"
+  ],
+  "qualified_source": "dcc87e9ca465ec2386b6c1ebbd4e46d207d5c38e",
+  "runtime_sha256": "744929da943cdcade20a463cf001fe80026dbf3a8f4a15049b7403797496ee60",
+  "engine_sha256": "d209f718ab2940f8ee9e6d5cea601b8bf229c13574d133dce24918f1885250b7",
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "tests": {
+    "passed": 219,
+    "failed": 0,
+    "skipped": 0,
+    "large_array_regression": true
+  },
+  "installation": {
+    "fresh_conda": true,
+    "plain_wheel_without_extras": true,
+    "pip_check": "passed",
+    "face_module_present": false,
+    "face_dependencies_present": false,
+    "source_wheel_sdist_match": true
+  },
+  "rows": [
+    {
+      "id": "default-landscape",
+      "api": "CLI",
+      "mode": "SOL",
+      "resolution": "544p",
+      "x2": true,
+      "duration": 5.0,
+      "width": 1920,
+      "height": 1088,
+      "frames": 120,
+      "seconds": 187.60402533400338,
+      "peak_physical_gib": 57.61588125675917,
+      "decoded_video": {
+        "bytes": 752025600,
+        "sha256": "b0d88b6e26f98ba49ca0543c25b8d491d7a6539acf97a1ece480dd6a1aa3acab"
+      },
+      "decoded_audio": {
+        "bytes": 1286144,
+        "sha256": "4f394cf0d633e7c22308d4224a42308021d8397efd5cf7abf45b3c3e5190a956"
+      },
+      "exact_rgb_match": true,
+      "exact_pcm_match": true,
+      "baseline_mp4_sha256": "060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd"
+    },
+    {
+      "id": "default-portrait",
+      "api": "Python",
+      "mode": "SOL",
+      "resolution": "544p",
+      "x2": true,
+      "duration": 5.0,
+      "width": 1088,
+      "height": 1920,
+      "frames": 120,
+      "seconds": 196.93965787501656,
+      "peak_physical_gib": 57.59117577970028,
+      "decoded_video": {
+        "bytes": 752025600,
+        "sha256": "2e09b41522861d866b0cb3fdcfe7a8b1bc868e65489f0897158e42cefe8a6524"
+      },
+      "decoded_audio": {
+        "bytes": 1286144,
+        "sha256": "f4baebd831d934175371996c1643b404a467c79868e49b4a03c979016878a8e4"
+      },
+      "exact_rgb_match": true,
+      "exact_pcm_match": true,
+      "baseline_mp4_sha256": "208e296206d3bc95fc160363447f138e66906b569ab558f23a707b82a9b6dcb8"
+    },
+    {
+      "id": "explicit-vsa",
+      "api": "CLI",
+      "mode": "VSA",
+      "resolution": "544p",
+      "x2": true,
+      "duration": 5.0,
+      "width": 1920,
+      "height": 1088,
+      "frames": 120,
+      "seconds": 232.14953970798524,
+      "peak_physical_gib": 32.42081317305565,
+      "decoded_video": {
+        "bytes": 752025600,
+        "sha256": "297149bd2292a67a75702715a57f0532e9895e1629186bd624bfcb3ebbf14d6c"
+      },
+      "decoded_audio": {
+        "bytes": 1286144,
+        "sha256": "6aa2a3620293c489b74a8b8c09b8ac1d617d1c175678d44ebdfd96144b2547a1"
+      },
+      "exact_rgb_match": true,
+      "exact_pcm_match": true,
+      "baseline_mp4_sha256": "b23532898b67e50c1d8d0c49337743066e217b0dea8c9ba5962f8e13fccfda3a"
+    }
+  ],
+  "scope": "Three fixed-input five-second regression calls in a fresh Conda installation. Full decoded RGB and PCM match the corresponding frozen outputs; this is not a new visual/audio quality score or controlled speed comparison.",
+  "benchmark": "Edition 0.3.0 retains its original wheel, sources, scores and media. Regenerated release-check videos are not added to the benchmark.",
+  "upgrade": "Earlier 0.7.0 installs require --force-reinstall --no-cache-dir. Native calls must set resolution=576p/768p and x2=False (CLI: --no-x2).",
+  "history": "The original commit remains in Git history. Original release assets and the annotated tag were retained locally before replacement."
+}

@@ -42,8 +42,8 @@ In a new terminal, run `conda activate h3` first.
 
 | Mode | Fresh downloads | Free disk for setup |
 | --- | ---: | ---: |
-| SOL + X2, default | ~150 GB | ~239 GB |
-| VSA + X2 | ~156 GB | ~349 GB |
+| SOL + X2, default | ~150 GB | ~241 GB |
+| VSA + X2 | ~156 GB | ~351 GB |
 
 These conservative estimates include X2's 5.25 GB decoder. Caches reduce costs.
 SOL's 6.05 MB engine downloads automatically. SOL + X2 does not need VSA models.

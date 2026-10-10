@@ -30,7 +30,7 @@ One run per configuration; quality varies by scene.
 
 **40-core M5 Max · macOS 26.2+ · 64 GiB minimum.** Tested with 128 GiB;
 smaller-memory operation is unverified. Fresh SOL + X2 setup needs about
-**150 GB of downloads and 239 GB of free disk**.
+**150 GB of downloads and 241 GB of free disk**.
 
 Install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you need Conda, then run:
 
@@ -40,8 +40,9 @@ conda activate h3
 python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
-This supports VSA, SOL and X2. First use prepares the selected models and asks
-before downloads over 20 GB. [Model storage and upgrades](docs/install.md).
+Already on 0.7.0? Add `--force-reinstall --no-cache-dir` to refresh the package.
+First use prepares models and asks before downloads over 20 GB.
+[Model storage and upgrades](docs/install.md).
 
 ## Generate
 

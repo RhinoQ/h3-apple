@@ -1,6 +1,14 @@
 # Validation
 
-## 0.7.0 release
+## Refreshed 0.7.0
+
+[Refresh checks](evidence/v0.7.0-refresh.json): **219 passing tests**, including the
+large-array regression; a fresh Conda install without extras; default SOL + X2
+through landscape CLI and portrait Python calls; explicit VSA + X2. All three
+five-second outputs match the original configurations in complete decoded RGB
+and audio PCM. Face enhancement is absent from the runtime and dependencies.
+
+## Initial 0.7.0 release
 
 [Release checks](evidence/v0.7.0-release-check.json): wheel installation, model reuse,
 CLI/API generation in both orientations, and **236 passing tests**, including the

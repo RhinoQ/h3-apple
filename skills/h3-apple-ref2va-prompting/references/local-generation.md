@@ -55,7 +55,7 @@ with the documented Conda version in the same prefix, not by reinstalling the wh
 
 The plan does not download weights or generate video. Compare `download_bytes`
 with the budget and `additional_disk_bytes` with destination free space.
-Fresh SOL + X2 needs about 150 GB / 239 GB; VSA + X2 about 156 GB / 349 GB.
+Fresh SOL + X2 needs about 150 GB / 241 GB; VSA + X2 about 156 GB / 351 GB.
 Use `prepare-x2 --plan` for the separate decoder. The actual plans govern.
 Reuse verified models/caches with `--reuse-dir`; do not delete working installations.
 
