@@ -4,16 +4,16 @@
 
 | Mode | Entry | Implementation |
 | --- | --- | --- |
-| VSA, default | `runtime/engine.py` | Vendored MLX; W8A8 projections, shared QKV activation packing, INT8 QK |
-| SOL | `engine.py` | Native vpipe; INT8 GEMM, SOL and Sage attention |
+| VSA | `runtime/engine.py` | Vendored MLX; W8A8 projections, shared QKV activation packing, INT8 QK |
+| SOL, default | `engine.py` | Native vpipe; INT8 GEMM, SOL and Sage attention |
 
 Both use the original LightX2V four-step adapter. SOL merges it into BF16 weights
 in FP32, rounds to BF16, then quantizes to W8G64. Manifests bind this recipe;
 runtime reapplication is rejected. The formats are separate, with no silent fallback.
 
 The Python facade owns validation, preparation, resource limits, progress,
-cancellation, media checks and run records. Workers isolate optional dependencies.
-VSA conversion runs separately; SOL without X2 needs no MLX or PyTorch.
+cancellation, media checks and run records. Workers isolate inference dependencies.
+VSA conversion runs separately. Installation includes both modes and X2.
 
 `runtime/dispatch.py` fixes VSA arithmetic. Reference preprocessing uses sampling
 area and 32-pixel alignment. Native 768p is center-cropped; extra frames are
@@ -28,18 +28,17 @@ trimmed with sample-accurate audio endpoints.
 ```bash
 conda create --prefix .local/envs/h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 .local/envs/h3/bin/python -m pip install -r environments/dev.lock
-.local/envs/h3/bin/python -m pip install --no-build-isolation ".[VSA,faces]"
+.local/envs/h3/bin/python -m pip install --no-build-isolation "."
 .local/envs/h3/bin/python -I -m pytest tests -q
 ```
 
-SOL-only environments can use `-m "not hardware"`; optional tests skip when their
-dependencies are absent. Hardware tests compare real M5 kernels with independent
+Use `-m "not hardware"` to skip GPU tests. Hardware tests compare real M5 kernels with independent
 numerical oracles. Tests use temporary inputs, not previous experiments.
 
 Release checks also require a clean wheel install, model preparation or verified
 reuse, and complete CLI/API videos. Execution, quality and speed are separate claims.
 
-## Optional X2 decoder
+## X2 decoder
 
 `runtime/x2_vae.py` serves both modes. SOL supplies normalized latents and original
 audio to an isolated MLX worker. Sampling and delivery dimensions stay separate;
@@ -86,17 +85,6 @@ Packaging caches the archive and updates `data/engine.json`, which pins every
 member by size and SHA256. Build the wheel afterward. Use `--url HTTPS_URL`
 instead of `--local-only` for a published artifact; packaging itself does not publish.
 Build identities are recorded; byte-identical output across SDKs is not promised.
-
-## Optional restoration
-
-`faces/` uses a separate worker and the shared GPU lock. Keep its pinned manifests,
-component notices and vendored inference subset. Avoid dynamic Torch Hub downloads,
-training dependencies and research-directory imports.
-
-Two decode passes bound frame memory; temporary PNGs support exact pre-encode
-comparison. Release checks cover both entry points, audio preservation, no-face
-copying, cancellation, cuts, timing and existing-file protection.
-See [restoration behavior and terms](face-enhancement.md).
 
 ## Publish the Python package
 

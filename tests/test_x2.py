@@ -63,13 +63,13 @@ def test_cli_rejects_768p_x2(reference, monkeypatch, capsys, command, mode, aspe
 ])
 def test_ordinary_768p_remains_available(reference, mode, aspect, output, canvas):
     req = resolve("Scene", reference_images=[reference], resolution="768p",
-                  mode=mode, aspect_ratio=aspect, duration=5, seed=0)
+                  mode=mode, aspect_ratio=aspect, duration=5, seed=0, x2=False)
     assert not req.x2 and req.mode == mode
     assert (req.width, req.height) == output
     assert (req.model_width, req.model_height) == canvas
 
 
-@pytest.mark.parametrize("options", [{"resolution": "544p"}, {"x2": 1}, {"x2": "yes"}])
+@pytest.mark.parametrize("options", [{"resolution": "544p", "x2": False}, {"x2": 1}, {"x2": "yes"}])
 def test_invalid_combinations_fail_before_preparation(reference, monkeypatch, options):
     monkeypatch.setattr(process, "ensure_ready", lambda *a, **kw: pytest.fail("setup before validation"))
     with pytest.raises(ValueError):
@@ -78,7 +78,8 @@ def test_invalid_combinations_fail_before_preparation(reference, monkeypatch, op
 
 def test_model_override_cannot_be_silently_ignored(reference):
     with pytest.raises(ValueError, match="requires x2"):
-        generate("Scene", reference_images=[reference], x2_model_dir="/models/x2")
+        generate("Scene", reference_images=[reference], resolution="576p", x2=False,
+                 x2_model_dir="/models/x2")
 
 
 def test_cli_passes_x2_and_portrait_to_public_api(monkeypatch, tmp_path):
@@ -101,7 +102,7 @@ def test_combined_download_is_approved_before_either_setup(reference, monkeypatc
     monkeypatch.setattr(x2_assets, "prepare", lambda *a, **kw: pytest.fail("X2 downloaded"))
     output = tmp_path / "outputs" / "out.mp4"
     with pytest.raises(DownloadApprovalRequired) as caught:
-        generate("Scene", reference_images=[reference], x2=True, output=output)
+        generate("Scene", reference_images=[reference], mode="VSA", x2=True, output=output)
     assert caught.value.download_bytes == 23_000_000_000
     assert caught.value.additional_disk_bytes == 197_000_000_000
     assert not output.parent.exists()

@@ -39,7 +39,7 @@ def test_sol_combined_download_uses_sol_bundle_before_preparing(monkeypatch,tmp_
     monkeypatch.setattr(x2_assets,'plan',lambda *a,**kw:dict(download_bytes=5_000_000_000,additional_disk_bytes=40))
     monkeypatch.setattr(process,'ensure_ready',lambda *a,**kw:pytest.fail('download before approval'))
     with pytest.raises(DownloadApprovalRequired) as caught:
-        generate('Picture 1',reference_images=[image],mode='SOL',x2=True,output=tmp_path/'o.mp4')
+        generate('Picture 1',reference_images=[image],output=tmp_path/'o.mp4')
     assert caught.value.download_bytes==23_000_000_000
 
 

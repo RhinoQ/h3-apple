@@ -88,8 +88,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" --verify-tag --draft \
-            --title "${GITHUB_REF_NAME} — Faster X2 generation and corrected SOL models" \
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" release/assets/* --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" --verify-tag --draft \
+              --title "${GITHUB_REF_NAME} — SOL + X2 by default" \
+              --notes-file release/release-notes.md
+            gh release upload "$GITHUB_REF_NAME" release/assets/*
+          fi
+          gh release edit "$GITHUB_REF_NAME" --draft=false --latest \
+            --title "${GITHUB_REF_NAME} — SOL + X2 by default" \
             --notes-file release/release-notes.md
-          gh release upload "$GITHUB_REF_NAME" release/assets/*
-          gh release edit "$GITHUB_REF_NAME" --draft=false --latest

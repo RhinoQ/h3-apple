@@ -21,11 +21,11 @@ EXIF orientation is applied; prompt text and image order are preserved.
 
 | Argument | Default | Accepted values |
 | --- | --- | --- |
-| `mode` | `"VSA"` | `"VSA"`, `"SOL"` |
+| `mode` | `"SOL"` | `"VSA"`, `"SOL"` |
 | `duration` | `15` | 5–15 seconds, whole frames at 24 fps |
-| `resolution` | `"576p"` | `"576p"`, `"768p"`; `"544p"` requires X2 |
+| `resolution` | `"544p"` | `"576p"`, `"768p"`; `"544p"` requires X2 |
 | `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |
-| `x2` | `False` | `True` with 544p or 576p only |
+| `x2` | `True` | `True` with 544p or 576p only |
 | `seed` | Random, recorded | Unsigned 32-bit integer |
 
 `resolution` sets sampling size; [X2](x2.md) doubles output dimensions.
@@ -63,4 +63,4 @@ and stereo 32 kHz audio. Run records identify inputs, settings, models and runti
 Audio is always generated. Describe speech, music, ambience or silence in the
 prompt. Exact speech, timing, identity and continuity remain model limitations.
 
-[Enhance faces in an existing video](face-enhancement.md).
+Native output requires `x2=False` and `resolution="576p"` or `"768p"`.

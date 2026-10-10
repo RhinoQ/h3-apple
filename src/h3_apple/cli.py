@@ -32,13 +32,14 @@ def parser():
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--duration", type=float, default=15, help="5–15 seconds (default: 15)")
-        command.add_argument("--resolution", choices=("544p", "576p", "768p"), default="576p",
-                             help="Sampling resolution; 544p requires --x2; 768p excludes --x2 (default: 576p)")
-        command.add_argument("--x2", action="store_true", help="Double output width and height for 544p or 576p sampling (requires VSA dependencies)")
+        command.add_argument("--resolution", choices=("544p", "576p", "768p"), default="544p",
+                             help="Sampling resolution; use --no-x2 for native 576p/768p (default: 544p)")
+        command.add_argument("--x2", action=argparse.BooleanOptionalAction, default=True,
+                             help="Double output dimensions at 544p or 576p (default: enabled)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         command.add_argument("--seed", type=int)
-        command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
-                             help="Generation mode (default: VSA)")
+        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL",
+                             help="Generation mode (default: SOL)")
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             command.add_argument("--model-dir")
@@ -50,7 +51,7 @@ def parser():
                                  help="Confirm first-run model downloads exceeding 20 GB")
     prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
-    prepare.add_argument("--mode", choices=("VSA", "SOL"), default="VSA")
+    prepare.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
                          help="Reuse a source snapshot or an existing H3 model installation")
     prepare.add_argument("--plan", action="store_true", help="Check download and disk requirements only")
@@ -58,18 +59,8 @@ def parser():
     for name in ("doctor", "verify"):
         command = commands.add_parser(name, help="Check installation" if name == "doctor" else "Verify all model checksums")
         command.add_argument("--model-dir")
-        command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA")
-    faces = commands.add_parser("enhance-faces", help="Optionally enhance small faces in an existing H3 video")
-    faces.add_argument("--input", required=True, dest="video")
-    faces.add_argument("--output")
-    faces.add_argument("--model-dir", help="Optional face model directory (separate from H3 generation models)")
-    faces.add_argument("--diagnostics", action="store_true")
-    faces.add_argument("--timeout", type=float, default=7200)
-    prepare_faces = commands.add_parser("prepare-faces", help="Prepare the optional 7.08 GB face models")
-    prepare_faces.add_argument("--model-dir")
-    prepare_faces.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
-    prepare_faces.add_argument("--plan", action="store_true")
-    prepare_x2 = commands.add_parser("prepare-x2", help="Prepare the optional 5.25 GB X2 decoder")
+        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
+    prepare_x2 = commands.add_parser("prepare-x2", help="Prepare the 5.25 GB X2 decoder")
     prepare_x2.add_argument("--model-dir")
     prepare_x2.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
     prepare_x2.add_argument("--plan", action="store_true")
@@ -108,13 +99,6 @@ def main(argv=None):
                 from .assets import load_assets
             data = load_assets(args["model_dir"], verify=True)
             result = dict(status="verified", directory=data["directory"], identity=data["identity"])
-        elif command == "enhance-faces":
-            from .faces.api import enhance_faces
-            result = asdict(enhance_faces(**args, on_progress=progress))
-        elif command == "prepare-faces":
-            from .faces.assets import plan, prepare
-            show_plan = args.pop("plan")
-            result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
         elif command == "prepare-x2":
             from .x2_assets import plan, prepare
             show_plan = args.pop("plan")

@@ -19,7 +19,7 @@ def image(tmp_path):
 
 def test_modes_keep_geometry_and_distinct_recipe(image):
     sol = resolve('Scene', reference_images=[image], seed=1, mode='SOL')
-    vsa = resolve('Scene', reference_images=[image], seed=1)
+    vsa = resolve('Scene', reference_images=[image], seed=1, mode='VSA')
     assert sol.mode == 'SOL' and vsa.mode == 'VSA'
     assert sol.recipe != vsa.recipe
     assert {k: v for k, v in sol.to_dict().items() if k not in ('mode', 'recipe')} == {
@@ -32,8 +32,8 @@ def test_modes_keep_geometry_and_distinct_recipe(image):
 @pytest.mark.parametrize('command', ('generate', 'resolve', 'prepare', 'doctor', 'verify'))
 def test_cli_selects_mode_consistently(command):
     inputs = ['--image', 'ref.png', '--prompt', 'Scene'] if command in ('generate', 'resolve') else []
-    assert parser().parse_args([command, *inputs, '--mode', 'SOL']).mode == 'SOL'
-    assert parser().parse_args([command, *inputs]).mode == 'VSA'
+    assert parser().parse_args([command, *inputs, '--mode', 'VSA']).mode == 'VSA'
+    assert parser().parse_args([command, *inputs]).mode == 'SOL'
 
 
 def test_vsa_consent_precedes_model_work_and_output(image, monkeypatch, tmp_path):
@@ -47,7 +47,8 @@ def test_vsa_consent_precedes_model_work_and_output(image, monkeypatch, tmp_path
     monkeypatch.setattr(vsa_preparation, 'prepare', lambda *a, **kw: pytest.fail('unapproved download'))
     output = tmp_path / 'out' / 'video.mp4'
     with pytest.raises(DownloadApprovalRequired):
-        generate('Scene', reference_images=[image], output=output)
+        generate('Scene', reference_images=[image], output=output, mode='VSA',
+                 resolution='576p', x2=False)
     assert not output.parent.exists()
 
 

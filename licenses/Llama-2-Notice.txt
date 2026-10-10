@@ -1,5 +1,0 @@
-Llama 2 is licensed under the LLAMA 2 Community License,
-Copyright (c) Meta Platforms, Inc. All Rights Reserved.
-
-This distribution retains only the upstream RMSNorm source component.
-No Llama language model or Llama weights are included.

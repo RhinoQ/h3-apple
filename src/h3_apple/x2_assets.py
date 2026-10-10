@@ -1,4 +1,4 @@
-"""Pinned optional X2 weights and notices; never downloaded at import or resolve."""
+"""Pinned X2 weights and notices; never downloaded at import or resolve."""
 
 import errno
 import json
@@ -58,7 +58,7 @@ def plan(model_dir=None, reuse_dirs=()):
 def prepare(model_dir=None, reuse_dirs=(), *, on_progress=None):
     with device_lock():
         spec = plan(model_dir, reuse_dirs)
-        # The fixed optional package is below 20 GB; generate checks its combined
+        # The fixed decoder package is below 20 GB; generate checks its combined
         # download with the selected generation models before preparing either package.
         if spec["download_bytes"] > 20_000_000_000:
             raise ValueError("Unexpected X2 download above 20 GB; inspect the package manifest.")

@@ -18,7 +18,7 @@ def request_image(tmp_path):
 
 
 def resolve(prompt, **kwargs):
-    return resolve_request(prompt, **kwargs)
+    return resolve_request(prompt, resolution='576p', x2=False, **kwargs)
 from h3_apple.host import device_lock
 from h3_apple import process as runner
 

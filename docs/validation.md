@@ -44,7 +44,7 @@ from the current benchmark.
 | 0.7.0 | [Earlier five-case comparison](evidence/v0.7.0-benchmark.json); [X2 integration](evidence/v0.7.0-x2-integration.json), including the removed 768p + X2 route |
 | 0.6.0 | [Performance](evidence/v0.6.0-VSA-performance.json): 1.0235× paired median, below the 1.03× target; [CLI/API and conversion](evidence/v0.6.0-release.json) |
 | 0.5.3 | [LightX2V adoption and replay](evidence/v0.5.3-release.json); non-blind frame review |
-| 0.5.2 | [Generation/restoration](evidence/v0.5.2-release.json); [component origins](evidence/v0.5.2-source-components.json) |
+| 0.5.2 | [Archived generation/restoration checks](https://github.com/RhinoQ/h3-apple/blob/v0.5.2/docs/validation.md) |
 | 0.5.1 | [Decoder checks](evidence/v0.5.1-performance.json): whole-generation speed gate failed; [installation](evidence/v0.5.1-release.json) |
 | 0.5.0 | [Conda CLI/API](evidence/v0.5.0-conda.json); [native integration](evidence/v0.5.0.json) |
 | 0.4.0 | [Preparation and generation](evidence/v0.4.0.json) |

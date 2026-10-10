@@ -33,13 +33,13 @@ class GenerationRequest:
     model_width: int
     model_height: int
     model_num_frames: int
-    recipe: str = "ref2va-w8a8-vsa-int8qk-v1"
+    recipe: str = "ref2va-premerged-i8-sol-sage-v2"
     fps: int = 24
     audio_sample_rate: int = 32000
     audio_channels: int = 2
     num_steps: int = 4
-    mode: str = "VSA"
-    x2: bool = False
+    mode: str = "SOL"
+    x2: bool = True
 
     def to_dict(self):
         return asdict(self)
@@ -54,7 +54,7 @@ class GenerationResult:
 
 
 def resolve(prompt=None, *, prompt_file=None, reference_images=None,
-            resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="VSA", x2=False):
+            resolution="544p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL", x2=True):
     """Validate inputs and resolve geometry without loading model weights."""
     if mode not in ("SOL", "VSA"):
         raise ValueError("mode must be 'SOL' or 'VSA'.")
@@ -86,7 +86,7 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
     if resolution == "544p" and not x2:
         raise ValueError("544p sampling requires x2=True (CLI: --x2).")
     if resolution == "768p" and x2:
-        raise ValueError("X2 supports only 544p or 576p sampling. Use 768p without X2.")
+        raise ValueError("X2 supports only 544p or 576p sampling. For 768p, set x2=False (CLI: --no-x2).")
     if aspect_ratio not in ("16:9", "9:16"):
         raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
     if isinstance(duration, bool):
@@ -118,8 +118,8 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
 
 
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
-             resolution="576p", duration=15, seed=None, aspect_ratio="16:9", mode="VSA",
-             x2=False, x2_model_dir=None,
+             resolution="544p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL",
+             x2=True, x2_model_dir=None,
              output=None, model_dir=None, on_progress=None, diagnostics=False,
              timeout=7200, allow_large_download=False):
     """Prepare H3 if needed, then generate an MP4 with stereo audio.

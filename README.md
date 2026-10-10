@@ -19,8 +19,8 @@ Median time per five-second video on the Mac above:
 
 | Mode | Native 768p | 544p + X2 | Tradeoff in this test |
 | --- | ---: | ---: | --- |
-| **VSA**, default | 8m 49s | **4m 19s** | Less memory; fewer geometry defects |
-| **SOL** | 6m 04s | **3m 14s** | Faster; better framing |
+| **VSA** | 8m 49s | **4m 19s** | Less memory; fewer geometry defects |
+| **SOL**, default | 6m 04s | **3m 14s** | Faster; better framing |
 
 X2 delivers **2.07× VSA / 1.91× SOL** median speedups within matched scenes.
 One run per configuration; quality varies by scene.
@@ -29,15 +29,15 @@ One run per configuration; quality varies by scene.
 ## Install
 
 **40-core M5 Max · macOS 26.2+ · 64 GiB minimum.** Tested with 128 GiB;
-smaller-memory operation is unverified. Fresh VSA setup needs about
-**151 GB of downloads and 343 GB of free disk**.
+smaller-memory operation is unverified. Fresh SOL + X2 setup needs about
+**150 GB of downloads and 239 GB of free disk**.
 
 Install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you need Conda, then run:
 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
 This supports VSA, SOL and X2. First use prepares the selected models and asks
@@ -45,7 +45,7 @@ before downloads over 20 GB. [Model storage and upgrades](docs/install.md).
 
 ## Generate
 
-Replace `reference.jpg` with your image path:
+Default: **SOL + 544p/X2**. Replace `reference.jpg` with your image path:
 
 ```sh
 h3 generate --image reference.jpg \
@@ -59,14 +59,14 @@ Run `conda activate h3` in each new terminal.
 | Option | Flag |
 | --- | --- |
 | Portrait | `--aspect-ratio 9:16` |
-| Native 768p | `--resolution 768p`; over five seconds needs 96 GiB |
+| Native 768p | `--resolution 768p --no-x2`; over five seconds needs 96 GiB |
+| VSA mode | `--mode VSA` |
 | Prompt file | `--prompt-file scene.txt` instead of `--prompt` |
 | More references | Repeat `--image` in Picture order |
 
-### Faster generation
+### Output
 
-Add `--mode SOL --resolution 544p --x2` for the fast benchmark configuration.
-X2 delivers 1920×1088 landscape or 1088×1920 portrait. It can soften detail or
+The default X2 route delivers 1920×1088 landscape or 1088×1920 portrait. It can soften detail or
 change motion; it cannot fix a failed scene. [Examples and setup](docs/x2.md).
 
 ### Python
@@ -81,8 +81,7 @@ result = generate(
 print(result.video_path)
 ```
 
-[API settings and first-download consent](docs/api.md) ·
-[Optional face enhancement](docs/face-enhancement.md)
+[API settings and first-download consent](docs/api.md)
 
 ## Use with Codex
 
@@ -102,5 +101,3 @@ Attach images and invoke `$h3-apple-ref2va-prompting` with your brief.
 Independent community project. Original code: [Apache-2.0](LICENSE).
 Models: [MiniMax H3 Community License](licenses/MiniMax-H3.txt).
 Third-party code keeps its [own terms](THIRD_PARTY_NOTICES).
-[Face restoration](docs/face-enhancement.md#component-terms) includes Llama 2 and
-CC BY-NC source lineage; the combined package has no Apache-only commercial-use grant.

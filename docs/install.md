@@ -12,14 +12,14 @@
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
 One environment supports VSA, SOL and X2. No compiler is needed.
 
 ## 2. Generate
 
-Replace `reference.jpg` with your image path:
+SOL + 544p/X2 is the default. Replace `reference.jpg` with your image path:
 
 ```sh
 h3 generate --image reference.jpg \
@@ -33,7 +33,7 @@ approve transfers over 20 GB. Later runs reuse the models.
 Open `first-video.mp4`. Choose a new filename for each run.
 In a new terminal, run `conda activate h3` first.
 
-[Fast SOL + X2](x2.md) · [Python API](api.md)
+[Output options](x2.md) · [Python API](api.md)
 
 ## Optional setup
 
@@ -42,17 +42,17 @@ In a new terminal, run `conda activate h3` first.
 
 | Mode | Fresh downloads | Free disk for setup |
 | --- | ---: | ---: |
-| VSA | ~151 GB | ~343 GB |
-| SOL | ~145 GB | ~233 GB |
+| SOL + X2, default | ~150 GB | ~239 GB |
+| VSA + X2 | ~156 GB | ~349 GB |
 
-These conservative estimates exclude X2's 5.25 GB decoder. Caches reduce costs.
+These conservative estimates include X2's 5.25 GB decoder. Caches reduce costs.
 SOL's 6.05 MB engine downloads automatically. SOL + X2 does not need VSA models.
 
 Preview your actual costs without downloading:
 
 ```sh
 h3 prepare --plan
-h3 prepare --mode SOL --plan
+h3 prepare --mode VSA --plan
 h3 prepare-x2 --plan
 ```
 
@@ -79,7 +79,7 @@ Set the variable in each session or pass `--model-dir`. Keep formats separate.
 h3 prepare --reuse-dir /path/to/existing-models
 ```
 
-Add `--mode SOL` for SOL. Repeat `--reuse-dir` for multiple compatible sources.
+Add `--mode VSA` for VSA. Repeat `--reuse-dir` for multiple compatible sources.
 [Model recipes](development.md) and licenses still apply.
 
 </details>
@@ -90,7 +90,9 @@ Add `--mode SOL` for SOL. Repeat `--reuse-dir` for multiple compatible sources.
 <summary>Upgrade h3-apple or older SOL models</summary>
 
 Activate `h3` and rerun the pip command with `--upgrade`.
-Use `--force-reinstall` when replacing an earlier 0.7.0 source/benchmark wheel.
+For an earlier 0.7.0 install, add `--force-reinstall --no-cache-dir`: the refreshed
+release changes defaults and removes face enhancement. For native output, specify
+`--resolution 576p --no-x2` or `--resolution 768p --no-x2`.
 Compatible VSA models are reusable.
 
 **0.7.0 rejects old quantized SOL weights.** Prepare a new directory:
@@ -112,11 +114,11 @@ on later SOL calls. Existing models are preserved.
 
 - `h3` not found: activate the environment or use `python -m h3_apple`.
 - `h3 doctor` checks readiness; missing models before first use are expected.
-- `h3 verify` checks all model checksums. Both commands accept `--mode SOL`.
+- `h3 verify` checks all model checksums. Both default to SOL; use `--mode VSA` for VSA.
 - Generation reserves 20 GiB temporary disk and stops on serious thermal pressure
   or swap growth above 2 GiB. Failed jobs retain logs.
 - Native 768p over five seconds needs 96 GiB memory.
 
 </details>
 
-[Source installation](development.md#verify-a-change) · [Face enhancement](face-enhancement.md)
+[Source installation](development.md#verify-a-change)
