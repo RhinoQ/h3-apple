@@ -39,49 +39,65 @@ the acceleration over 0.6.0, SOL fixes and community contributions.
 
 ## Install
 
-Requirements: **40-core M5 Max, macOS 26.2+, 64 GiB memory**, with a dedicated
-Conda environment. Measurements used 128 GiB; smaller configurations are unverified.
-768p beyond five seconds requires 96 GiB.
+Requires a **40-core M5 Max, macOS 26.2+ and at least 64 GiB memory**.
+Measurements used 128 GiB; smaller-memory operation is unverified.
+Fresh VSA setup needs about **151 GB of downloads and 343 GB of free disk**.
+Use Conda, or install [Miniforge for Apple Silicon](https://github.com/conda-forge/miniforge#miniforge3) first.
 
-Install VSA and the shared X2 dependencies:
+One installation supports **VSA, SOL and X2**:
 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
 python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
-h3 doctor --mode VSA
 ```
 
-SOL additionally needs the [matching native engine and prepared models](docs/install.md).
-Fresh generation-model downloads are approximately 151 GB for VSA or 145 GB for
-SOL. Check `h3 prepare --mode VSA --plan` first. Downloads above 20 GB require
-consent. Installation and import do not download models.
+First use prepares the selected mode's models and asks before large downloads.
+In a new terminal, run `conda activate h3`. [Setup details and upgrades →](docs/install.md)
 
 ## Generate
 
-```sh
-h3 generate --image reference.jpg --prompt-file scene.txt --duration 5 --output scene.mp4
-h3 generate --mode SOL --image reference.jpg --prompt-file scene.txt --duration 5 --output scene-sol.mp4
-```
-
-Repeat `--image` to supply `Picture 1`, `Picture 2`, etc. Order and prompt text
-are preserved. Defaults are VSA, 15 seconds, 576p, landscape, 24 fps and stereo
-32 kHz audio. Use `--aspect-ratio 9:16` for portrait, `--resolution 768p` for
-ordinary larger output, or `--seed 42` for a recorded seed. The same seed can
-produce different results across modes.
-
-Use the **3m 14s benchmark configuration** after [preparing SOL and X2](docs/install.md):
+Replace `reference.jpg` with your image path. This makes a **five-second video
+with sound** using the default VSA mode:
 
 ```sh
-h3 generate --mode SOL --image reference.jpg --prompt-file scene.txt \
-  --duration 5 --resolution 544p --x2 --output scene-fast.mp4
+h3 generate --image reference.jpg \
+  --prompt "A slow cinematic push-in on the scene in Picture 1. Soft ambient music." \
+  --duration 5 --output first-video.mp4
 ```
 
-Switch to `--mode VSA` for lower memory use, or add `--aspect-ratio 9:16` for
-portrait. [X2](docs/x2.md) accepts 544p or 576p in either orientation and doubles decoded dimensions.
-768p + X2 is unsupported. Inspect motion, small faces, text and geometry: extra
-pixels do not repair an incorrect sampled scene. [Optional face enhancement](docs/face-enhancement.md)
-is a separate operation on finished videos.
+Open `first-video.mp4` when it finishes. Initial setup takes extra time;
+later runs reuse the models. Use a new output filename each time.
+
+| To change… | Use… |
+| --- | --- |
+| Portrait | `--aspect-ratio 9:16` |
+| Native 768p | `--resolution 768p`; beyond five seconds requires 96 GiB |
+| Prompt from a file | `--prompt-file scene.txt` instead of `--prompt` |
+
+Repeat `--image` for up to nine references in `Picture 1`, `Picture 2` order.
+Defaults: VSA, 15 seconds, 576p, landscape, 24 fps, stereo 32 kHz.
+[All settings and seeds →](docs/api.md)
+
+### Faster generation
+
+Use the **SOL + 544p/X2 benchmark configuration** (3m 14s median on M5 Max / 128 GiB):
+
+```sh
+h3 generate --mode SOL --image reference.jpg \
+  --prompt "A slow cinematic push-in on the scene in Picture 1. Soft ambient music." \
+  --duration 5 --resolution 544p --x2 --output fast-video.mp4
+```
+
+Run this directly after installation: SOL + X2 prepares its own models automatically.
+VSA models are not required. [Check download and disk costs →](docs/install.md#optional-setup)
+
+Use `--mode VSA` for lower memory use; `--aspect-ratio 9:16` for portrait.
+[X2](docs/x2.md) accepts 544p or 576p; 768p + X2 is unsupported.
+Inspect motion, small faces, text and geometry. [Face enhancement](docs/face-enhancement.md)
+is a separate optional step.
+
+### Python
 
 ```python
 from h3_apple import generate

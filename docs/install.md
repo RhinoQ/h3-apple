@@ -1,109 +1,136 @@
 # Installation
 
-Use a dedicated Conda environment on a **40-core M5 Max with macOS 26.2+**.
-The memory guard permits 64 GiB; 768p beyond five seconds requires 96 GiB.
-Measurements used 128 GiB. Other GPU configurations and smaller-memory operation
-have not been qualified. Install [Miniforge](https://github.com/conda-forge/miniforge)
-if Conda is unavailable.
+Two steps: install, then generate. Models are prepared automatically on first use.
+
+## Before you start
+
+- **Mac:** 40-core M5 Max, macOS 26.2+, at least 64 GiB unified memory.
+  Measurements used 128 GiB; smaller-memory operation is unverified.
+  Other GPU configurations are unsupported. Native 768p beyond five seconds needs 96 GiB.
+- **Storage:** fresh VSA setup needs about **151 GB of downloads and
+  343 GB of free disk**. Existing caches can reduce this.
+- **Conda:** use your existing installation, or install
+  [Miniforge for Apple Silicon](https://github.com/conda-forge/miniforge#miniforge3).
+
+## 1. Install
+
+Open Terminal and run:
 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-```
-
-## Install 0.7.0
-
-```sh
 python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
-Add `--upgrade` when updating an existing installation. Replacing an earlier
-0.7.0 source/benchmark wheel requires `--force-reinstall` to refresh its engine
-manifest. From the source checkout,
-use `python -m pip install ".[VSA]"`. VSA needs no native engine; SOL automatically
-fetches the checksum-pinned 6.05 MB engine from the same release and needs the
-new model recipe below. A compiler is unnecessary. Historical benchmark replay
-uses its frozen artifacts and source identity, as documented on the benchmark site.
+This supports **VSA, SOL and X2**. Models download only when needed;
+no compiler or manual model download is required.
 
-| Workload | Python | Extra dependencies |
-| --- | --- | --- |
-| VSA, with or without X2 | 3.11 | `[VSA]` |
-| SOL + X2 | 3.11 | `[VSA]`, SOL models and engine; no VSA model bundle needed |
-| SOL without X2 | 3.11–3.14 | None; omit `[VSA]` |
-| Face enhancement | 3.11 | `[faces]`; see [setup](face-enhancement.md) |
+## 2. Generate your first video
 
-Conda supplies FFmpeg 8, ffprobe and shared libraries; pip installs Python
-dependencies. The `[VSA]` extra pins MLX, PyTorch and Transformers. A SOL-only
-installation needs neither those packages nor a compiler when its matching
-engine is cached. `python -m h3_apple` is equivalent to `h3`.
-
-## Prepare and reuse models
-
-First generation prepares missing models automatically. To inspect costs first:
+Replace `reference.jpg` with the path to one of your images, and run:
 
 ```sh
-h3 prepare --mode VSA --plan
-h3 prepare --mode SOL --plan
+h3 generate --image reference.jpg \
+  --prompt "A slow cinematic push-in on the scene in Picture 1. Soft ambient music." \
+  --duration 5 --output first-video.mp4
 ```
 
-| Mode | Fresh downloads | Conservative additional disk | Prepared footprint |
+H3 shows download and disk requirements and asks before downloading more than
+20 GB. Review the estimate, then enter `y`. Initial setup takes extra time;
+later runs reuse the models.
+
+Open **`first-video.mp4`**: a five-second 576p video with stereo audio.
+Use a new output filename each time. In a new terminal, run `conda activate h3` first.
+
+**Ready to go further?** [Faster SOL + X2 generation](../README.md#faster-generation) ·
+[Portrait and other options](../README.md#generate) · [Python API](api.md).
+You can start directly with SOL + X2 after step 1; it does not need VSA models.
+
+## Optional setup
+
+<details>
+<summary>Check download and disk costs before generating</summary>
+
+Preview costs without downloading models:
+
+```sh
+h3 prepare --plan
+h3 prepare --mode SOL --plan
+h3 prepare-x2 --plan
+```
+
+| Mode | Fresh downloads | Additional free disk for setup | Prepared models |
 | --- | ---: | ---: | ---: |
 | VSA | ~151 GB | ~343 GB | ~111 GB with hard links; 178 GB logical |
 | SOL | ~145 GB | ~233 GB | ~85 GB |
 
-Source caches reduce downloads. Cross-volume copies may use the full logical
-size. These are disk estimates, not runtime memory. Actual plans are authoritative.
-The CLI asks before downloads above 20 GB. Noninteractive calls require
-`--allow-large-download`; Python raises `DownloadApprovalRequired` until
-`allow_large_download=True` is supplied. Interrupted downloads resume and are checked.
+Conservative estimates exclude X2's **5.25 GB** decoder. Caches reduce costs; cross-volume
+copies may use the full logical size. Your local plan is authoritative.
+SOL's matching 6.05 MB engine downloads automatically.
+
+Unattended downloads above 20 GB need `--allow-large-download` after reviewing the plan;
+see [Python consent](api.md) for the API. Interrupted downloads resume on retry.
+
+</details>
+
+<details>
+<summary>Reuse models or put them on another drive</summary>
 
 | Mode | Default directory | Environment override |
 | --- | --- | --- |
 | VSA | `~/Models/h3-apple/VSA` | `H3_VSA_MODEL_DIR` |
 | SOL | `~/Models/h3-apple/ref2va` | `H3_MODEL_DIR` |
 
-`--model-dir` / `model_dir` overrides the selected mode's directory. Keep formats
-separate. Reuse compatible bundles or cached raw sources with repeatable
-`--reuse-dir` arguments:
+Set the variable in each session, or pass `--model-dir /path/to/models` each time.
+Keep VSA and SOL directories separate. Reuse compatible models or raw sources with:
 
 ```sh
-h3 prepare --mode VSA --reuse-dir /path/to/existing-models
-h3 doctor --mode VSA
-h3 verify --mode VSA
+h3 prepare --reuse-dir /path/to/existing-models
 ```
 
-VSA accepts the pinned original LightX2V recipe, not DARE/TIES. It imports only
-50 FastH3 gates, excluding T2VA adapter deltas. Content identities are fixed in
-[model sources](../src/h3_apple/data/model-sources.json) and
-[gate sources](../src/h3_apple/data/vsa-gates.json). Model licenses apply.
+Add `--mode SOL` for SOL; repeat `--reuse-dir` for multiple sources.
+Accepted recipes: [model sources](../src/h3_apple/data/model-sources.json),
+[VSA gates](../src/h3_apple/data/vsa-gates.json), [implementation](development.md).
+Model licenses apply. [X2 uses a separate directory](x2.md#model-preparation).
 
-## Upgrading SOL models
+</details>
 
-0.7.0 merges Turbo into the original BF16 DiT in FP32, rounds to BF16, then
-prepares W8G64 weights. Generation rejects a second Turbo application and old
-quantized bundles. Editing a manifest cannot convert the old weights.
+<details>
+<summary>Upgrade an existing installation</summary>
 
-Prepare a new directory with the matching engine. Cached original sources can
-avoid downloads; an old quantized bundle alone cannot:
+Activate `h3` and rerun the pip command with `--upgrade`. For an earlier 0.7.0
+source/benchmark wheel, use `--force-reinstall` to refresh the engine manifest.
+Compatible VSA models are reusable.
+
+### Upgrading SOL models
+
+0.7.0 rejects old quantized SOL weights; editing their manifest cannot upgrade
+them. Prepare an empty directory:
 
 ```sh
-h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged \
-  --reuse-dir /path/to/original-H3-snapshot --reuse-dir /path/to/adapter.safetensors --plan
-h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged \
-  --reuse-dir /path/to/original-H3-snapshot --reuse-dir /path/to/adapter.safetensors
-h3 verify --mode SOL --model-dir ~/Models/h3-apple-sol-premerged
+h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged --plan
+h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged
 ```
 
-Select the new directory on subsequent calls. Preparation preserves existing
-models. Four forwards, video/audio shifts 12/3 and adapter scale 1.0 remain fixed.
+To reuse original H3 weights and the Turbo adapter, add
+`--reuse-dir /path/to/original-sources` to both commands. Old quantized weights alone are insufficient.
+Use `--model-dir ~/Models/h3-apple-sol-premerged` on subsequent SOL calls.
+Existing models are preserved. [Why the recipe changed](releases/0.7.0.md#fixes-and-lessons-that-affected-adoption).
 
-## Checks and optional components
+</details>
 
-`h3 doctor --mode VSA` or `--mode SOL` checks hardware, media tools, engine and
-model receipts. `h3 verify` performs full model checksums. Generation reserves
-20 GiB temporary disk and stops on swap growth above 2 GiB or serious thermal
-pressure. Failed jobs retain logs.
+<details>
+<summary>Check an installation or troubleshoot a failed run</summary>
 
-[X2](x2.md#model-preparation) adds a separate 5.25 GB decoder.
-[Face enhancement](face-enhancement.md) adds a separate 7.08 GB model set and
-component terms. Neither is downloaded for ordinary generation.
+`h3 doctor` checks installation readiness; `h3 verify` checks all model-file
+checksums. Add `--mode SOL` for SOL. **Missing models before first use are expected**;
+generation prepares them.
+
+If `h3` is not found, activate the environment or use `python -m h3_apple`.
+Failed jobs retain logs. Generation reserves 20 GiB temporary disk and stops
+on swap growth above 2 GiB or serious thermal pressure.
+
+</details>
+
+[Source installation and development](development.md#verify-a-change) ·
+[Optional face enhancement](face-enhancement.md)

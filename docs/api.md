@@ -45,7 +45,8 @@ loading models. `generate(...)` additionally accepts:
 | `timeout=7200` | Generation timeout in seconds |
 | `allow_large_download=False` | Explicit consent for downloads above 20 GB |
 
-First use prepares missing assets, subject to the [source engine requirement](install.md).
+First use prepares missing models and the selected mode's runtime automatically;
+see [installation requirements](install.md#before-you-start).
 The API never prompts. `DownloadApprovalRequired` exposes `download_bytes`
 and `additional_disk_bytes`; review them before authorizing the download.
 Import and `resolve()` do not download. Preparation time is excluded from
