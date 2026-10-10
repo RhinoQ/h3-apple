@@ -2,7 +2,7 @@
 
 The 0.7.0 engine uses [vpipe `f34e2cc`](https://github.com/tgo-app-dev/vpipe/tree/f34e2cc3a3adae759eea254419f436f5b7800057)
 with the patches below, in order. See [build instructions](../../docs/development.md#build-the-engine-artifact)
-and [source credits](../../docs/releases/0.7.0.md#what-comes-from-the-community-and-what-we-contributed).
+and [source credits](../../docs/development.md#implementation-and-credits).
 
 | Patch | Purpose |
 | --- | --- |

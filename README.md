@@ -5,8 +5,11 @@
 Turn 1–9 images and a prompt into 5–15 seconds of video with stereo audio.
 Powered by MiniMax-H3. Landscape or portrait, CLI or Python.
 
+We bring SOL and VSA acceleration, X2 decoding on Apple GPUs, and automatic model
+preparation into one Mac workflow. [What we built](docs/releases/0.7.0.md#community-and-our-contribution).
+
 **3m 14s median** with SOL + 544p/X2 on a 40-core M5 Max / 128 GiB:
-12 scenes, prepared models, full API calls. Initial setup is excluded.
+12 scenes, full API calls after model setup.
 
 [**Watch the benchmark →**](https://rhinoq.github.io/h3-apple/) ·
 [**Install →**](#install) · [**0.7.0 release →**](docs/releases/0.7.0.md)
@@ -66,8 +69,9 @@ Run `conda activate h3` in each new terminal.
 
 ### Output
 
-The default X2 route delivers 1920×1088 landscape or 1088×1920 portrait. It can soften detail or
-change motion; it cannot fix a failed scene. [Examples and setup](docs/x2.md).
+X2 delivers **1920×1088 landscape or 1088×1920 portrait** while generating at 544p
+for speed. Detail and motion can vary; use the [benchmark](https://rhinoq.github.io/h3-apple/)
+to compare output quality. [Settings and examples](docs/x2.md).
 
 ### Python
 
@@ -94,7 +98,7 @@ $skill-installer install from https://github.com/RhinoQ/h3-apple/tree/main/skill
 Attach images and invoke `$h3-apple-ref2va-prompting` with your brief.
 
 [Development](docs/development.md) · [Validation](docs/validation.md) ·
-[Community credits](docs/releases/0.7.0.md#what-comes-from-the-community-and-what-we-contributed)
+[Community credits](docs/releases/0.7.0.md#community-and-our-contribution)
 
 ## License
 
