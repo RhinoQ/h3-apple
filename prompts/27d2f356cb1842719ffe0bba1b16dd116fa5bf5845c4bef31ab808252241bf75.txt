@@ -1,0 +1,19 @@
+subject_definitions:
+<Subject 1> is the mint retro player card in <Picture 1>, with a dark navy outline, three small header dots, one orange play icon and the large navy word PLAY. Retain its proportions, palette, icon and lettering as a single coherent designed object.
+<Subject 2> is the separate solid orange circle outside the card near the lower-left of <Picture 1>. It is a movable flat graphic disk, distinct from the play icon inside the card.
+
+summary:
+[reference generation] A five-second motion-graphics ident in which <Subject 1> rotates in perspective while <Subject 2> passes behind it, followed by a stable front-facing title hold with the word PLAY intact.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - the player card keeps the same edge geometry, mint/navy/orange/cream palette, play icon and exact four-letter word PLAY while its orientation changes.
+<Subject 2> (appears in [Shot 1]): fully_preserved - keep one solid orange circle of constant diameter; it disappears only while geometrically occluded by the card and then reappears.
+
+detailed_description:
+[Shot 1] A clean cream 16:9 canvas with a single centered <Subject 1>, initially front-facing, and the one <Subject 2> near the lower-left. The card fills most of the image but has clear margins. During the first two seconds, the complete card rotates around a vertical axis into a pronounced oblique view, about sixty degrees from frontal, with coherent perspective on the border, icon, header dots and letters. At the same time the orange circle travels horizontally from the left toward the right at the height of the lower part of the card. It passes behind the card: its visible area narrows at the left edge, becomes fully hidden, then emerges at the right edge as the same circle. From two to 3.5 seconds the card reverses its rotation and returns smoothly to its original frontal rectangle while the circle finishes at the lower-right. The lettering stays attached to the card surface and reads exactly PLAY whenever the front is visible. From 3.5 to five seconds hold the full frontal card and orange circle in a crisp, stable final layout. Render smooth intentional graphic animation with solid fills and sharp edges. The card rotates as a whole object; letters, corners and the play icon do not independently melt or turn into other symbols. No cuts, invented extra windows or additional writing.
+
+overall_soundscape:
+One clean electronic whoosh during rotation and one quiet click as the card settles. No voice.
+
+non_diegetic_music:
+An original short electronic beat, with the final held title supported by a sustained soft synth tone.

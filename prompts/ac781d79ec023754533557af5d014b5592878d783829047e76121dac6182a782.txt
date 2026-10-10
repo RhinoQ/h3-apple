@@ -1,0 +1,17 @@
+subject_definitions:
+<Subject 1> is the long-haired adult woman in black combat clothing and a cloak in <Picture 1>. <Subject 2> is the short-haired adult woman with a white fox mask and cyan-trimmed coat in <Picture 2>. Each character sheet supplies exactly one person. <Picture 3> supplies the rainy neon street and reflective road.
+
+summary:
+[reference generation] A five-second landscape 16:9 Ref2VA shot.
+
+retention_analysis:
+Retain each explicitly assigned reference identity, object and design. Character-sheet panels describe one subject, not multiple copies.
+
+detailed_description:
+[Shot 1] A continuous wide lateral shot. From 0 to 1 second both women face each other three meters apart. From 1 to 3 seconds they approach, and the first woman makes one diagonal swing with one short silver blade; the second blocks once with one blue energy dagger. From 3 to 5 seconds they hold the crossed blades apart from their faces. Keep both complete bodies, distinct identities and separate weapons visible. Rain, coats and reflections continue moving. No injury or blood.
+
+overall_soundscape:
+Rain and wet footfalls; one metal impact and brief electrical crackle. No speech or music.
+
+non_diegetic_music:
+None.

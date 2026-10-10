@@ -1,0 +1,18 @@
+subject_definitions:
+<Subject 1> is the single adult woman shown in the four fashion looks of <Picture 1>. Preserve her face, dark shoulder-length hair and slim proportions. Use only the upper-left LOOK 01 outfit: a black sleeveless high-neck top, a black belt with a round buckle and flowing black pinstriped wide-leg trousers. The four panels show one model, not four people; the poster layout and its lettering are not the target composition.
+
+summary:
+[reference generation] A five-second photorealistic fashion film of <Subject 1>, combining a traveling half-turn with flowing fabric and a close view of her hand passing in front of her face to tuck back her hair.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1], [Shot 2]): fully_preserved - keep the same woman, hairstyle and complete black LOOK 01 outfit in both shots. The reference defines her identity and clothes, not a panel or text overlay.
+
+detailed_description:
+[Shot 1] Full-body view in a spacious neutral gray photo studio, with the single <Subject 1> and a grounded soft shadow. Her complete head and shoes fit inside the frame. From zero to one second she takes two deliberate steps toward the camera. She plants her leading foot and makes one controlled half-turn from front-facing to facing away, then stops in a three-quarter back pose by about 2.5 seconds, glancing over her shoulder. Her hair and wide trouser legs continue moving and settle naturally after her body stops. The camera tracks backward a short distance to maintain full-body framing. Show foot contact, changing body orientation and fabric motion as one connected action.
+[Shot 2] At 00:03.000, cut to a chest-up three-quarter view of the same <Subject 1> in the same black top and studio. She raises her right hand, passes her fingers briefly in front of her nearer eye and cheek, and tucks one loose strand of hair behind that ear. The hand then moves away and lowers below her chin. End by five seconds on her unobscured complete face and a subtle confident smile, with her hair, eyes, neckline and identity matching the previous shot. Use natural skin detail and well-formed fingers. Present the two shots as full-screen film images, without the fashion poster's panels, lettering or alternate outfits.
+
+overall_soundscape:
+Two footsteps, soft clothing movement and quiet studio room tone. No speech or vocals.
+
+non_diegetic_music:
+A restrained original electronic pulse continues smoothly across the cut at a low volume.

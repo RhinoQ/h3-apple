@@ -1,0 +1,17 @@
+subject_definitions
+<Subject 1> is the tall vermilion and ivory temple entrance with the round turquoise door in <Picture 1>.
+
+summary
+[reference generation] A five-second continuous forward dolly through <Subject 1>, with no people. A cinematic Chinese celestial palace in softly lit clouds, realistic materials and coherent carved architecture, a single continuous five-second shot.
+
+retention_analysis
+<Subject 1> (throughout [Shot 1]): fully_preserved - Retain the round closed door, straight staircase, two ivory columns, bronze lantern at upper right and potted pine at lower left. No people or additional props.
+
+detailed_description
+[Shot 1] Start from the composition in <Picture 1>. The camera slowly dollies straight forward toward the staircase, stopping before the first step; nearby columns drift outward while the distant round door stays fully visible at center. No cuts, no tilt, no sideways travel. The lantern remains attached to the same ceiling beam. No dialogue, no subtitles and no written text. Gentle wind is heard.
+
+overall_soundscape
+Quiet continuous airy wind, no speech and no abrupt impacts.
+
+non_diegetic_music
+Soft sustained instrumental guqin music throughout, quiet beneath the ambience.

@@ -1,1 +1,43 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>H3 Apple · Ref2VA Benchmark</title><style>*{box-sizing:border-box}body{margin:0;background:#10141b;color:#edf1f6;font:17px/1.7 system-ui,sans-serif}main{max-width:920px;margin:12vh auto;padding:32px}small{color:#8ce5d3;letter-spacing:.12em}h1{font-size:clamp(38px,7vw,70px);line-height:1.08;letter-spacing:-.05em;font-weight:650}p{max-width:660px;color:#b8c3d3}section{margin-top:46px;padding:26px;border:1px solid #334251;border-radius:14px;background:#161e29}h2{margin:0;font-size:22px}a{color:#8ce5d3}table{width:100%;text-align:left;border-collapse:collapse;font-size:15px}td,th{padding:12px 4px;border-bottom:1px solid #334251}footer{margin-top:45px;color:#92a1b5;font-size:14px}</style><main><small>H3 APPLE / REF2VA</small><h1>A fresh benchmark.<br>Every result visible.</h1><p>A curated set of challenging, cinematic reference-to-video tasks is being prepared on the current product build. Historical generated videos have been removed from this site.</p><section><h2>Evaluation in preparation</h2><p>Prompts, reference images, seeds and visual success criteria will be frozen before new generation. All planned outputs, including failures, will be published.</p><table><tr><th>Mode</th><th>Standard</th><th>Fast</th></tr><tr><td>VSA</td><td>768p</td><td>544p + X2</td></tr><tr><td>SOL</td><td>768p</td><td>544p + X2</td></tr></table><p>Primary score: complete visual task success. Quality and speed are reported separately. No scores are available for this new round yet.</p></section><footer><a href="https://github.com/RhinoQ/h3-apple">Product source</a> · This is the only active GitHub Pages site content.</footer></main></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark"><meta name="description" content="Fresh five-second cinematic Ref2VA tasks. Compare VSA and SOL, standard and X2 fast profiles, with exact prompts, references and reproducible scores.">
+<title>H3 Apple · Ref2VA Benchmark</title><link rel="stylesheet" href="style.css">
+<script src="data.js" defer></script><script src="scores.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#library">Skip to cases</a>
+<header><a class="brand" href="./">H3 <span>APPLE / REF2VA BENCHMARK</span></a>
+<nav aria-label="Page navigation"><a href="#library">Watch</a><a href="#results">Scores</a><a href="README.md">Reproduce ↗</a></nav></header>
+<main>
+<section class="intro"><div><p class="eyebrow">CURRENT PRODUCT · FRESH GENERATIONS · <span id="version"></span></p>
+<h1>Cinematic tasks.<br>Unfiltered results.</h1>
+<p>Cloud palaces, neon duels, tiny miracles. The same ambitious five-second scenes across VSA and SOL, at standard and fast settings. Every registered result stays visible.</p>
+<a class="hero-link" href="#library">Explore the scenes ↓</a></div>
+<div class="inventory"><strong id="inventory">—</strong><span>cases / planned outputs</span><span id="unique-videos"></span></div></section>
+<section id="results" aria-labelledby="results-title">
+<div class="section-title"><h2 id="results-title">01 / Complete task success</h2><a id="score-download" href="scores.json" download>Score JSON ↓</a></div>
+<p class="scope" id="scope"></p><div class="score-cards" id="scores"></div>
+<div id="scored-tables"><div class="table-wrap"><table><caption>5-second videos · Apple M5 Max / 128 GiB · Complete API calls, prepared models</caption>
+<thead><tr><th>Mode / route</th><th>Task success</th><th>Passed / required</th><th>Median time</th><th>Peak physical memory</th></tr></thead><tbody id="routes"></tbody></table></div>
+<details class="quality"><summary>Quality dimensions</summary>
+<p>Fraction with no or minor defects: severity 0–1. Severity 2 means clear and 3 severe. These scores and speed remain separate from complete task success.</p>
+<div class="table-wrap"><table><thead><tr><th>Dimension</th><th>VSA</th><th>SOL</th></tr></thead><tbody id="quality"></tbody></table></div></details></div>
+</section>
+<section id="library" aria-labelledby="library-title">
+<div class="section-title"><h2 id="library-title">02 / The scenes</h2><a href="catalog.json" download>Catalog JSON ↓</a></div>
+<div class="filters">
+<label>Find a scene<input id="search" type="search" placeholder="Palace, firefly, neon…"></label>
+<label>Category<select id="category"><option value="">All categories</option></select></label>
+<label>Orientation<select id="orientation"><option value="">Both orientations</option><option value="16:9">Landscape</option><option value="9:16">Portrait</option></select></label>
+<label>Includes result<select id="status"><option value="">All results</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="borderline">Borderline</option><option value="unrated">Awaiting review</option><option value="pending">Awaiting generation</option></select></label>
+</div><p class="small" id="match-count" aria-live="polite"></p>
+<div class="workspace"><aside aria-label="Choose a case"><div id="case-list"></div></aside><article id="case" aria-live="polite"></article></div>
+</section>
+<footer><p>Fresh videos, reused curated inputs · One seed per case · Method-disclosed Agent visual review · Not a blind or generalization test</p>
+<p><a href="README.md">Method and setup</a> · <a href="ATTRIBUTION.md">Attribution</a> · <a href="checksums.json">Checksums</a> · <a href="replay.py" download>Replay script</a> · <a href="score.py" download>Score script</a></p>
+<p>Same seeds do not imply identical cross-backend noise. Native output dimensions are preserved. Subjective sound and lip sync are unscored.</p><p id="source" class="small"></p></footer>
+</main><div id="notice" role="status" aria-live="polite"></div>
+<noscript>This viewer needs JavaScript. Download <a href="catalog.json">the catalog</a> directly.</noscript>
+</body></html>

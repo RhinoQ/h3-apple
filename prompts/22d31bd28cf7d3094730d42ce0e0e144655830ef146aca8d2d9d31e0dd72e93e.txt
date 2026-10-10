@@ -1,0 +1,17 @@
+subject_definitions:
+<Subject 1> is the adult woman with tied-up dark hair and a light martial-arts jacket in <Picture 1>. <Subject 2> is the short-haired adult woman in black leather in <Picture 2>; omit its motorcycle. <Pictures 3 and 4> define the same outdoor pool, lane colors, tiled floor and underwater blue light.
+
+summary:
+[reference generation] A five-second portrait 9:16 Ref2VA shot.
+
+retention_analysis:
+Retain each explicitly assigned reference identity, object and design. Character-sheet panels describe one subject, not multiple copies.
+
+detailed_description:
+[Shot 1] A single underwater medium two-shot, with the tiled floor beneath the women and surface above. The first woman holds one short training sword pointed down and away. The second woman moves one open hand toward her shoulder during seconds 1 to 3; the first deflects the wrist with her empty hand. Both drift apart and hold by 5 seconds. Keep their faces distinct through bubbles, moving hair and water caustics. No cut, duplicated limbs, blood or injury.
+
+overall_soundscape:
+Muffled underwater movement and bubbles, with no dialogue or music.
+
+non_diegetic_music:
+None.

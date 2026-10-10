@@ -1,0 +1,17 @@
+subject_definitions:
+<Subject 1> is the white-jade celestial palace and cloud landscape in <Picture 1>, with three blue-and-gold roof tiers, a continuous carved terrace railing, pale sky and realistic materials.
+
+summary:
+[reference generation] A five-second cinematic sideways glide reveals the cloud palace through drifting mist.
+
+retention_analysis:
+<Subject 1> (throughout [Shot 1]): fully_preserved - retain the palace silhouette, connected roof tiers, carved terrace, railing, light and colors while the viewpoint changes.
+
+detailed_description:
+[Shot 1] A continuous wide view starts near the reference composition, with the palace on the right and open pale-blue sky on the left. The camera glides slowly to screen right across the front of the palace for five seconds. Nearby terrace posts shift against the distant roof tiers, producing a gentle, readable parallax reveal. All visible buildings remain rigid and connected, with the whole main roof silhouette comfortably inside frame. Thin luminous foreground mist drifts right below the roofs and exposes more of the lower stone terrace. Golden morning light grazes the blue roof tiles, carved ivory balustrade and cloud edges. End still gliding, with the same three-tier palace clearly visible. No cut, people or written text.
+
+overall_soundscape:
+Soft high-altitude wind with a faint distant bell, no speech.
+
+non_diegetic_music:
+A quiet sustained guqin phrase beneath the wind.

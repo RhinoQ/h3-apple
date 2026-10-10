@@ -1,0 +1,17 @@
+subject_definitions:
+<Subject 1> is the silver-haired young adult male star mage in <Picture 1>. Preserve his face, short layered silver hair, navy high-collared coat with fine gold constellation lines, white porcelain shoulder armor, crescent brooch and elegant animated fantasy design. The reference provides character identity and costume only.
+
+summary:
+[reference generation] A five-second vertical fantasy comedy: <Subject 1> performs a magnificent spell, but a tiny yellow rubber duck appears in his open palm and squeaks.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - preserve the face, silver hair, navy-and-gold costume, porcelain shoulder armor, brooch and refined animation style.
+
+detailed_description:
+[Shot 1] One continuous medium shot of <Subject 1> alone on a quiet observatory balcony at blue hour. Frame him from the waist up in a vertical composition, with his complete head, both shoulders, elbows and hands clearly visible. A deep violet night sky with small gold stars and the softly blurred silhouette of a brass telescope fills the background. The mage looks dignified and utterly serious. He holds his left palm open and horizontal at chest level in the lower middle of the frame. During the first second his right hand draws a small circle above his open left palm. Fine threads of golden light spiral around the circle, reflecting across the white porcelain shoulder pieces and the crescent on his chest. Over the second second, these light threads gather into a brilliant walnut-sized orb floating just above his palm. His expression is confident, as if he is about to summon something of cosmic importance. At the middle of the clip the orb pops in a small harmless shower of gold sparkles, revealing one very ordinary bright yellow rubber duck with an orange beak, sitting securely on his open palm. The duck is a small bath toy, with a simple rounded body and a clearly readable beak. It stays the same size, position and shape after appearing. The mage lowers his right hand and slowly looks down at the duck, one eyebrow lifting. At the fourth second the little duck tilts slightly and gives one short rubber squeak. During the final second the mage looks toward the camera with a restrained, awkward smile, while the last two gold sparks drift upward behind him. His left palm remains steady, displaying the yellow duck. The camera makes a slow, shallow move closer while retaining the head and hands. The visual contrast between grand magical lighting and a mundane bath toy is the joke. Render polished hand-painted fantasy animation, delicate gold costume lines and soft cinematic shadows. No dialogue or visible writing.
+
+overall_soundscape:
+Soft evening wind, a rising delicate magical shimmer, a small bright pop, then a single unmistakable rubber-duck squeak.
+
+non_diegetic_music:
+A brief majestic harp and string rise that stops when the duck appears, followed by one playful pizzicato note after the squeak.

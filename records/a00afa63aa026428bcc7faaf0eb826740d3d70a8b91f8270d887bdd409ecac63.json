@@ -1,0 +1,662 @@
+{
+  "original_sha256": "a00afa63aa026428bcc7faaf0eb826740d3d70a8b91f8270d887bdd409ecac63",
+  "original_name": "cases-01.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "schema": "p173-inputs/v1",
+    "utc": "2026-10-10T01:21:31.216974+00:00",
+    "script": {
+      "path": "research/scripts/p173_curate.py",
+      "bytes": 11235,
+      "sha256": "79e6a0bb8e6f729d3549edd962da70fc901801de1400d92c4c4785f0c4112e67"
+    },
+    "selection": "Visual reference inspection and task diversity, before any new output. Exposed reused inputs; no generalization claim.",
+    "cases": [
+      {
+        "id": "calibration",
+        "title": "Celestial portrait · calibration",
+        "category": "Portrait",
+        "split": "calibration",
+        "aspect_ratio": "9:16",
+        "seed": 173000,
+        "duration": 5,
+        "criteria": [
+          "One recognizable celestial woman with the referenced hairpin and robe.",
+          "Visible gentle head turn toward screen right, ending in a held three-quarter view.",
+          "Complete face stays visible; camera and background remain steady."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/calibration/prompt.txt",
+          "bytes": 1348,
+          "sha256": "64d8e684bcb4752b05ecd1991a9ba24516a12e3d2385cb1c95ea4f71054bfa8e"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/calibration/reference-01.png",
+            "bytes": 2156547,
+            "sha256": "3bfccfa4255936bc4ac4c810fefe117928477460b543bb7c7a4ce40374472516",
+            "credit": {
+              "title": "cal-TG03-fairy-closeup.png",
+              "author": "H3 Apple research fixture",
+              "license": "AI-generated project asset; no blanket third-party license granted"
+            },
+            "redistribution": "documented"
+          }
+        ],
+        "provenance": {
+          "parent_case": "p160-cal-TG03-fairy-closeup",
+          "old_prompt_sha256": "64d8e684bcb4752b05ecd1991a9ba24516a12e3d2385cb1c95ea4f71054bfa8e",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "cloud-palace",
+        "title": "Cloud palace · parallax reveal",
+        "category": "Architecture",
+        "split": "main",
+        "aspect_ratio": "16:9",
+        "seed": 173001,
+        "duration": 5,
+        "criteria": [
+          "One coherent referenced blue-and-gold, three-tier white-jade palace with connected terrace and railing.",
+          "A continuous slow sideways camera move shows parallax; palace remains rigid and in view.",
+          "Foreground mist drifts and exposes more lower terrace; roof silhouette and final structure remain legible."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/cloud-palace/prompt.txt",
+          "bytes": 1442,
+          "sha256": "e841c7ca6d88dffc80110d05bbd8bfaa7c4fad8fd86f792cf3a7533ba5b81681"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/cloud-palace/reference-01.png",
+            "bytes": 2012353,
+            "sha256": "ab14615ca308d02f3ae323e9439a5b7aa7e6e953adb10b01cbdb637ad6989c0e",
+            "credit": {
+              "title": "cal-TG01-cloud-palace.png",
+              "author": "H3 Apple research fixture",
+              "license": "AI-generated project asset; no blanket third-party license granted"
+            },
+            "redistribution": "documented"
+          }
+        ],
+        "provenance": {
+          "parent_case": "p160-cal-TG01-cloud-palace",
+          "old_prompt_sha256": "be8ef337ffeb097a6c7d08d120926893f51bfaf2969875cf0072acb4514451b4",
+          "changes": "New cinematic parallax task replaces the old locked-camera cloud-drift calibration; reference bytes unchanged.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "celestial-gate",
+        "title": "Celestial gate · forward dolly",
+        "category": "Architecture",
+        "split": "main",
+        "aspect_ratio": "9:16",
+        "seed": 173002,
+        "duration": 5,
+        "criteria": [
+          "Referenced vermilion/ivory entrance, closed turquoise circular door, staircase, lantern and pine remain coherent.",
+          "One forward dolly toward the stairs, stopping before the first step; nearby columns move outward in perspective.",
+          "Door remains centered and fully visible; lantern remains attached; no people, cuts or extra props."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/celestial-gate/prompt.txt",
+          "bytes": 1222,
+          "sha256": "1a8251fef286cca93222749633da1cedb796571b9ec12ec6a5f719a31d4f24b1"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/celestial-gate/reference-01.png",
+            "bytes": 2640832,
+            "sha256": "c71f6eba5f6c52744afdeea7fd0f355f42b81941451a876bafeb748f1ab5f5e8",
+            "credit": {
+              "title": "portrait.png",
+              "author": "H3 Apple research fixture",
+              "license": "AI-generated project asset; no blanket third-party license granted"
+            },
+            "redistribution": "documented"
+          }
+        ],
+        "provenance": {
+          "parent_case": "p161-portrait",
+          "old_prompt_sha256": "1a8251fef286cca93222749633da1cedb796571b9ec12ec6a5f719a31d4f24b1",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "neon-duel",
+        "title": "Neon rain · crossed blades",
+        "category": "Action",
+        "split": "main",
+        "aspect_ratio": "16:9",
+        "seed": 173003,
+        "duration": 5,
+        "criteria": [
+          "Exactly two distinct referenced women, with full bodies and separate silver/blue weapons visible.",
+          "They approach, the first swings once diagonally and the second blocks once.",
+          "Final crossed blades remain away from faces; rain, coats and wet reflections move in one continuous lateral shot."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/prompt.txt",
+          "bytes": 1213,
+          "sha256": "ac781d79ec023754533557af5d014b5592878d783829047e76121dac6182a782"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-01.jpg",
+            "bytes": 344933,
+            "sha256": "1665c52d9e20ace593cbc30d1e17b5cf996ad25a59c7f1890d636711da93dbd3",
+            "credit": {
+              "title": "ref2va_test_1_1.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          },
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-02.jpg",
+            "bytes": 396459,
+            "sha256": "df77cc201252e90cb828132863d4126c4d62d512f79299ec2651bcc9be8c5b1f",
+            "credit": {
+              "title": "ref2va_test_1_2.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          },
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/neon-duel/reference-03.jpg",
+            "bytes": 390923,
+            "sha256": "82cdb7a20d6ec0d7c6c396cc8e99d3f5fe49a2f67f7c3e5e75d45102f4a91062",
+            "credit": {
+              "title": "ref2va_test_1_3.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "p157-val-cyber-duel",
+          "old_prompt_sha256": "26c1a71de643521059f744cb2113f22c11cd3eb69038ab2e91d46df512ec421a",
+          "changes": "Added the missing [Shot 1] marker only; reference order and all creative content unchanged.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "underwater-parry",
+        "title": "Underwater · deflect and separate",
+        "category": "Action",
+        "split": "main",
+        "aspect_ratio": "9:16",
+        "seed": 173004,
+        "duration": 5,
+        "criteria": [
+          "Two distinct referenced women underwater, with surface above and tiled pool below; faces remain identifiable.",
+          "The second woman reaches toward the first shoulder; the first visibly deflects that wrist with her empty hand.",
+          "The first retains a separate downward-pointing training sword; both drift apart and hold at the end.",
+          "Bubbles, hair and caustics convey water; no motorcycle, additional people, cuts or persistent extra limbs."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/prompt.txt",
+          "bytes": 1155,
+          "sha256": "22d31bd28cf7d3094730d42ce0e0e144655830ef146aca8d2d9d31e0dd72e93e"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-01.jpg",
+            "bytes": 71856,
+            "sha256": "df46f5f157b0bcddb603646532e9746f709d663cb4787332603c90373691a8d7",
+            "credit": {
+              "title": "ref2va_test_5_1.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          },
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-02.jpg",
+            "bytes": 378035,
+            "sha256": "afda45ed8f06a176c19fa9b224cb6c07467dd0d0ab2564a14c3014cc7ae34ca4",
+            "credit": {
+              "title": "ref2va_test_5_2.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          },
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-03.jpg",
+            "bytes": 341214,
+            "sha256": "97e0835a1bf64ee4c4ae0ca0d94e3262bc6bfaff79a77ec2c7155ccb26110b8c",
+            "credit": {
+              "title": "ref2va_test_5_3.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          },
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/underwater-parry/reference-04.jpg",
+            "bytes": 189393,
+            "sha256": "939856c9964d33c9ddecac30b145b82993c5d6ba9ce6a2afcf169233ecc177e6",
+            "credit": {
+              "title": "ref2va_test_5_4.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "p157-val-pool-parry",
+          "old_prompt_sha256": "0d75ca6dd76c0c429e33d3a2db5deff69893281d0292fcd1645b5ccdad0d63b6",
+          "changes": "Added the missing [Shot 1] marker only; reference order and all creative content unchanged.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "energy-shield",
+        "title": "Runaway bus · amber shield",
+        "category": "Effects",
+        "split": "main",
+        "aspect_ratio": "16:9",
+        "seed": 173005,
+        "duration": 5,
+        "criteria": [
+          "One recognizable referenced hero in navy/copper and burgundy, with planted legs and a moving city bus.",
+          "Raised palm produces an amber shield between hero and bus; bus visibly slows and stops before reaching him.",
+          "Readable shield impact, cape/dust response and final over-shoulder satisfied smile occur in one continuous shot.",
+          "Bus remains stopped at the end; no second hero, injury or collision with a person."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/energy-shield/prompt.txt",
+          "bytes": 3436,
+          "sha256": "d6684d0b85dce2218baa4f61c0c70353ff4067b93412b99295132e50cfa0fa7b"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/energy-shield/reference-01.png",
+            "bytes": 1883737,
+            "sha256": "b5e57681d9aa832ca0ef194838e4a5194e8720bbe3cdc0546ff79afc754afd53",
+            "credit": {
+              "title": "reference.png",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-bbcde81fb8e7",
+          "old_prompt_sha256": "d6684d0b85dce2218baa4f61c0c70353ff4067b93412b99295132e50cfa0fa7b",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "energy-orb",
+        "title": "Blue energy · form and thrust",
+        "category": "Effects",
+        "split": "main",
+        "aspect_ratio": "16:9",
+        "seed": 173006,
+        "duration": 5,
+        "criteria": [
+          "One recognizable referenced adult Naruto with consistent face, costume and two arms.",
+          "Blue strands form one swirling sphere over the right palm; left hand withdraws before the thrust.",
+          "One step/body turn and decisive forward right-arm thrust, with the sphere retained on that palm.",
+          "Final balanced extended-arm hold retains a readable face, complete arms and a swirling sphere; no duplicate sphere or character."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/energy-orb/prompt.txt",
+          "bytes": 2402,
+          "sha256": "d11268f01356b560b8027d61b9b020438eff8c18f48c6eae3d4bdb4f5c513c69"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/energy-orb/reference-01.png",
+            "bytes": 2280935,
+            "sha256": "9894f03f58263049a62ae2eb53a47ba139a998d5edae46ac0d7b3cfe5a890182",
+            "credit": {
+              "title": "ref-01.png",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-e2b582212249",
+          "old_prompt_sha256": "d11268f01356b560b8027d61b9b020438eff8c18f48c6eae3d4bdb4f5c513c69",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "space-coffee",
+        "title": "Zero gravity · coffee mishap",
+        "category": "Stylized animation",
+        "split": "main",
+        "aspect_ratio": "9:16",
+        "seed": 173007,
+        "duration": 5,
+        "criteria": [
+          "One recognizable courier with blue helmet, clear visor, orange scarf and cream jacket; face, hands and cup in frame.",
+          "One coffee blob floats above an empty white cup; two readable scooping attempts fail to catch it.",
+          "Coffee contacts the outside of the visor and becomes a small stain, without obscuring the whole face.",
+          "Courier stops, looks toward the camera and gives a small shrug while keeping the cup; weightless scarf and spacecraft remain coherent."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/space-coffee/prompt.txt",
+          "bytes": 3083,
+          "sha256": "3d42166d51b4518d877be95cb7bed6c3b9d627d74a227533a0793a48d7fd54e2"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/space-coffee/reference-01.png",
+            "bytes": 546404,
+            "sha256": "00ef15a472553f52cbc9a8683d1361b6e5ccbbb39ee97f23df068b736a09b1f4",
+            "credit": {
+              "title": "reference.png",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-9bba1c668cec",
+          "old_prompt_sha256": "3d42166d51b4518d877be95cb7bed6c3b9d627d74a227533a0793a48d7fd54e2",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "paper-rain",
+        "title": "Paper garden · origami rain",
+        "category": "Stylized animation",
+        "split": "main",
+        "aspect_ratio": "9:16",
+        "seed": 173008,
+        "duration": 5,
+        "criteria": [
+          "One recognizable paper woman with braids, layered clothing and visibly tactile folded-paper styling.",
+          "She opens a distinct teal umbrella using its runner; the complete canopy stays visible.",
+          "Folded blue drops visibly fall and bounce off the canopy; umbrella tilts to shelter the nearby cream flower.",
+          "Final held umbrella shelters woman and flower as rain continues and she looks toward camera; no merging of canopy, cape and hands."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/paper-rain/prompt.txt",
+          "bytes": 2996,
+          "sha256": "3f1682a053e1ef1d716457d30a2b6e6c4d15f107e77a3e75bde124a0c9de715e"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/paper-rain/reference-01.png",
+            "bytes": 737833,
+            "sha256": "d3944439e03e49cef0a40568a2cab02fd8c63b5d1eb147f1cb39b22627cbae06",
+            "credit": {
+              "title": "reference.png",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-8442e3cae7c3",
+          "old_prompt_sha256": "3f1682a053e1ef1d716457d30a2b6e6c4d15f107e77a3e75bde124a0c9de715e",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "star-mage",
+        "title": "Grand spell · tiny duck",
+        "category": "Stylized animation",
+        "split": "main",
+        "aspect_ratio": "9:16",
+        "seed": 173009,
+        "duration": 5,
+        "criteria": [
+          "One referenced silver-haired mage in navy/gold and white armor, with face and both hands visible.",
+          "Right hand draws a circle above open left palm; golden light gathers into an orb.",
+          "Orb pops into sparks revealing exactly one yellow duck resting on the same palm, with persistent size and shape.",
+          "Mage looks down then toward camera with an awkward smile; left palm and duck remain visible at the end."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/star-mage/prompt.txt",
+          "bytes": 2981,
+          "sha256": "03c03dd2b20634509f6c2f800fd975c5486ccd42e0705ba0270c02b05f6ac1c3"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/star-mage/reference-01.png",
+            "bytes": 576669,
+            "sha256": "9168d16e15ae8f49b87fdd059dc5ab92a3c38dd0393f32718e358b0693263bf6",
+            "credit": {
+              "title": "reference.png",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-716cce057464",
+          "old_prompt_sha256": "03c03dd2b20634509f6c2f800fd975c5486ccd42e0705ba0270c02b05f6ac1c3",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "firefly-duo",
+        "title": "99 & bobo · release a firefly",
+        "category": "Character interaction",
+        "split": "main",
+        "aspect_ratio": "16:9",
+        "seed": 173010,
+        "duration": 5,
+        "criteria": [
+          "Exactly bobo on the left and 99 on the right, with referenced identities/outfits and storybook style; complete heads and ears visible.",
+          "Bobo opens cupped paws to release one distinct glowing firefly; empty paws remain below it.",
+          "Firefly rises between faces to above both heads; both follow it upward and smile in the final state.",
+          "No incidental style-reference characters, interface badges, captions or extra insects."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/prompt.txt",
+          "bytes": 3759,
+          "sha256": "c9479462e5c3558a70d738037126650085861b0f1f73e69cb5b0bd93277dd628"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-01.jpg",
+            "bytes": 1525001,
+            "sha256": "28ddae5599acd8aeafc53d5d953f2616c2236e8c2fac84c94497078c5804324f",
+            "credit": {
+              "title": "99.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          },
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-02.jpg",
+            "bytes": 1240093,
+            "sha256": "84cae0ae3ec997d2714e1b1133734619208efc7236a70ee928941f14987ef7e2",
+            "credit": {
+              "title": "bobo.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          },
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/firefly-duo/reference-03.jpg",
+            "bytes": 220640,
+            "sha256": "c71cc6ea0c0f13bf4dfaca12856fedefdebd6a3cb4edd36cffab61bce3de56b4",
+            "credit": {
+              "title": "IMG_2304.jpg",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-19e7dc9a86cf",
+          "old_prompt_sha256": "c9479462e5c3558a70d738037126650085861b0f1f73e69cb5b0bd93277dd628",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "fashion-turn",
+        "title": "Fashion · turn, cut, hair tuck",
+        "category": "Fashion",
+        "split": "main",
+        "aspect_ratio": "16:9",
+        "seed": 173011,
+        "duration": 5,
+        "criteria": [
+          "One consistent referenced woman in the black LOOK 01 outfit; no alternate costumes, panels or poster lettering.",
+          "Full-body first shot: two forward steps, one controlled half-turn to a held back/three-quarter pose, with grounded feet and settling fabric.",
+          "One cut around three seconds to a chest-up view of the same face, hair, outfit and studio.",
+          "Right hand passes in front of the near eye/cheek, tucks hair behind that ear, then clears the face; final unobscured face and subtle smile."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/fashion-turn/prompt.txt",
+          "bytes": 2473,
+          "sha256": "db3d0d549ed956888b576acfebd88178cbb5c4472b33b2cf55489d3c62becb4a"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/fashion-turn/reference-01.png",
+            "bytes": 2226483,
+            "sha256": "ccbedeb16c9f6e9b55736e0014fcdbb2de5b661b8daa9c2cc3354d4c1d330362",
+            "credit": {
+              "title": "ref-01.png",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-c21cf3c2bd9c",
+          "old_prompt_sha256": "db3d0d549ed956888b576acfebd88178cbb5c4472b33b2cf55489d3c62becb4a",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      },
+      {
+        "id": "play-card",
+        "title": "PLAY · perspective and occlusion",
+        "category": "Motion graphics",
+        "split": "main",
+        "aspect_ratio": "16:9",
+        "seed": 173012,
+        "duration": 5,
+        "criteria": [
+          "One referenced mint player card, navy border, three dots, play icon and exact word PLAY remain attached as one design.",
+          "Card rotates into a pronounced oblique view and returns to frontal, with coherent perspective.",
+          "One constant-size orange disk travels left to right behind the card, becomes fully hidden and reappears at the right.",
+          "Final stable frontal PLAY card and disk hold; no melting letters, extra windows or invented writing."
+        ],
+        "prompt": {
+          "path": "research/output/p173-fresh-benchmark-01/inputs-01/play-card/prompt.txt",
+          "bytes": 2653,
+          "sha256": "27d2f356cb1842719ffe0bba1b16dd116fa5bf5845c4bef31ab808252241bf75"
+        },
+        "references": [
+          {
+            "path": "research/output/p173-fresh-benchmark-01/inputs-01/play-card/reference-01.png",
+            "bytes": 13750,
+            "sha256": "16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45",
+            "credit": {
+              "title": "ref-01.png",
+              "author": "See original study records",
+              "license": "Permission not established for redistribution"
+            },
+            "redistribution": "review_required"
+          }
+        ],
+        "provenance": {
+          "parent_case": "archive-fe9815b66bf5",
+          "old_prompt_sha256": "27d2f356cb1842719ffe0bba1b16dd116fa5bf5845c4bef31ab808252241bf75",
+          "changes": "None. Exact historical prompt and ordered reference bytes reused; outputs and judgments are new.",
+          "old_catalog": {
+            "path": "research/output/p172-benchmark-expansion-01/release-02/catalog.json",
+            "bytes": 1999377,
+            "sha256": "f5bd7bb961be7544a9b5d211e04a4562748b97011dfcedc675a8ed41c6e7b0bb"
+          },
+          "historical_output_reused": false
+        }
+      }
+    ]
+  }
+}

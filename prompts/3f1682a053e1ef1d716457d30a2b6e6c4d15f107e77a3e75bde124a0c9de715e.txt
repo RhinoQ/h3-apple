@@ -1,0 +1,17 @@
+subject_definitions:
+<Subject 1> is the paper-crafted young adult woman in <Picture 1>, with warm brown skin, two dark braided pigtails, an olive jacket, cream blouse, layered rust-red skirt, teal boots and a cape of folded cream and terracotta paper leaves. Preserve her identity and tactile cut-paper construction. The reference defines the character; the scene provides a new miniature setting.
+
+summary:
+[reference generation] A five-second vertical handmade paper-animation scene: <Subject 1> opens a tiny paper umbrella as colorful folded-paper raindrops bounce off it like confetti.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - retain the character's face, braids, layered clothing, warm colors and fibrous folded-paper texture.
+
+detailed_description:
+[Shot 1] A continuous medium shot of <Subject 1> standing alone on a miniature paper garden path. Vertical framing shows her entire head, both hands, and the layered skirt to her knees, leaving open space above her head. Cream and terracotta folded flowers frame the path at the sides. Everything is physically constructed from matte colored paper, with fibers, folded edges and small contact shadows visible in warm studio light. At the beginning she holds a small closed teal paper umbrella in her right hand beside her shoulder. Three tiny blue teardrop-shaped folded paper pieces drift down from the top of the frame. She glances up at them with delighted surprise. During the second second she uses her left hand to slide the umbrella runner upward, and the teal canopy opens into a clean faceted circle above her head. Keep the umbrella clearly distinct from the leaf-shaped cape on her shoulders. By the middle of the clip more blue and turquoise paper raindrops are gently falling. Several drops bounce off the angled teal canopy and tumble in little arcs to either side, behaving like lightweight craft-paper confetti. She watches one bouncing drop with a warm smile, then tilts the umbrella slightly to shelter a small cream-colored flower growing beside her. The flower rocks gently as a paper drop lands near its stem. During the final second she looks back toward the camera while the paper rain continues falling, holding the umbrella steadily over herself and the flower. The cape's attached leaves flutter subtly, and her braids keep their recognizable shape. Camera movement is a restrained, smooth push-in that leaves the umbrella fully visible throughout. Use charming handmade animation timing, tactile paper folds and soft warm shadows; the falling pieces retain their simple origami teardrop forms. The scene is cozy and playful, with movement still continuing naturally at the end. No dialogue or written captions.
+
+overall_soundscape:
+Light dry paper ticks as folded drops touch the umbrella, a soft umbrella-opening rustle, and a gentle breeze through paper leaves.
+
+non_diegetic_music:
+A few cozy celesta notes and light brushed percussion with space for the delicate paper sounds.

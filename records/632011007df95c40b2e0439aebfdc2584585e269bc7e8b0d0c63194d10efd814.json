@@ -1,0 +1,295 @@
+{
+  "original_sha256": "632011007df95c40b2e0439aebfdc2584585e269bc7e8b0d0c63194d10efd814",
+  "original_name": "model.json",
+  "transformation": "Host-specific paths replaced; the original checksum identifies the unmodified local record.",
+  "data": {
+    "schema": "h3-apple-model/v1",
+    "native_model": "<local-path>",
+    "files": [
+      {
+        "path": "<local-path>",
+        "bytes": 1973,
+        "mtime_ns": 1789912097985361540,
+        "sha256": "d8f3bcc62e23c7e9806970fa63cca6139c06faa3797cf9c94034f60db8512771"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 440,
+        "mtime_ns": 1789912097985596365,
+        "sha256": "755d0529d43b2b5c83590f6f44ca659bc68e6a21b01d5669c93e8b2965749bff"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 605429308,
+        "mtime_ns": 1786225504402542403,
+        "sha256": "37dddc2f3e6d5d5139d823d5ea283bbf304dadcb885b1ccda818aa13dade5ea2"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 707,
+        "mtime_ns": 1789912097985839566,
+        "sha256": "b160b13700bf08aea7fce1bc3dd0d3a49ea15036298c50082ec107f87843b90c"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5499,
+        "mtime_ns": 1789912097974738019,
+        "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 1671839,
+        "mtime_ns": 1789912097978663721,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 390,
+        "mtime_ns": 1789912097982990327,
+        "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 7032403,
+        "mtime_ns": 1789912097976985027,
+        "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 11003,
+        "mtime_ns": 1789912097973520726,
+        "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 385,
+        "mtime_ns": 1789912097981910863,
+        "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 2776833,
+        "mtime_ns": 1789912097981675371,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5499,
+        "mtime_ns": 1789912097956087181,
+        "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 1532,
+        "mtime_ns": 1789912097956345214,
+        "sha256": "0ed03708f2ac326008f7dc93a60fdd1235bbdcc305d85f86a93fe2eef7c000f7"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 1671839,
+        "mtime_ns": 1789912097960154171,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5323269440,
+        "mtime_ns": 1789905517449418906,
+        "sha256": "7f559994c5bdc0d455bcda5f0b81d2cfc87a7226e4716195add9b8ae99a033b9"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5320127376,
+        "mtime_ns": 1789905518655834430,
+        "sha256": "16bf0b0851567c6d96be4741d29b9c52eb41a2cfdffb0893553fd9e6da03e9f5"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5367652256,
+        "mtime_ns": 1789905519877228736,
+        "sha256": "841a8f6bcb70d782e9a9f491350827889cac803713956e1ba081b5e9e5af52ad"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5364703360,
+        "mtime_ns": 1789905521076011323,
+        "sha256": "4d96badf7ed928bb950498155f9723baa23f9ed510d162a70450c6aaa70b1e4a"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5328319632,
+        "mtime_ns": 1789905522271086880,
+        "sha256": "cb296fd2dc4bd06606a59ca686b9eff75d7ad76d3f65c69a06085aec24324fa8"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5367652256,
+        "mtime_ns": 1789905523458330621,
+        "sha256": "7686d7ee59ea7738158923d17b3fe049ea18e609dcfff2974f6e3eb27aa792b0"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5331991296,
+        "mtime_ns": 1789905524670297227,
+        "sha256": "6e1bc42807330a3b40c11dbcbe1bc5f692f237a66b94eef916ff1b3002e95e98"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 56040832,
+        "mtime_ns": 1789905524730688372,
+        "sha256": "93688e518be440fb0f1e3a83594d5fb73e54ad417f9e0189722817e3acbea9ff"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 172335,
+        "mtime_ns": 1789912097964300366,
+        "sha256": "53933357a309969d054acc5b6f73634bc55b96b612d63d49a02662ee9e81f937"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 390,
+        "mtime_ns": 1789912097965674778,
+        "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 7032403,
+        "mtime_ns": 1789912097957446136,
+        "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 11003,
+        "mtime_ns": 1789912097955829023,
+        "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 385,
+        "mtime_ns": 1789912097965402454,
+        "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 2776833,
+        "mtime_ns": 1789912097963001992,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 1671839,
+        "mtime_ns": 1789912097970376039,
+        "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 7032403,
+        "mtime_ns": 1789912097967650004,
+        "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 11003,
+        "mtime_ns": 1789912097966008851,
+        "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 2776833,
+        "mtime_ns": 1789912097972211894,
+        "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 694,
+        "mtime_ns": 1791529649010596014,
+        "sha256": "2fcc08e99425a26b6f0c79a6b9ed8a6e9e20eb39924f69e03c4e3aef16420dda"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5243211392,
+        "mtime_ns": 1791529646342198783,
+        "sha256": "e0a04b5f9e6f910d1b7b360a3409ba65c3fd698576aff9ab831fec2e3caaec9e"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5365354432,
+        "mtime_ns": 1791529646817844307,
+        "sha256": "ab9e17b79f99569bdfa08f122a0fefc68bfbb1c71a9a8c2feccb6c52ea182fe4"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5170871232,
+        "mtime_ns": 1791529647267064691,
+        "sha256": "1719bbd59d309c2d6f0acbb800072de75fe3a3caaf0c0e6ef3b2deec82facbfb"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5242307968,
+        "mtime_ns": 1791529647722157052,
+        "sha256": "4028d845d28c2288ee37def10abbd55a97068fbac0456a1e550c7f9cc4ae464a"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5365354432,
+        "mtime_ns": 1791529648186617939,
+        "sha256": "046d6550480ebc72df0c6570d1151a62d68c21cc696d4edda30010b6fd33f7a7"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 5170871216,
+        "mtime_ns": 1791529648637239612,
+        "sha256": "da57ac03744981e634f04b7b392c59d486118d2e29c26a5b79081be3e95c5e84"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 3716811792,
+        "mtime_ns": 1791529648974638853,
+        "sha256": "1a11f481ec3f2fe39840545102083c94b41acf6f43958ed50c13e359a65c9544"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 69577,
+        "mtime_ns": 1791529649009968367,
+        "sha256": "f7292d240d40adf50511a7a3c80b8d1f51ea52319c4715b51ce1d39b5bdc5402"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 1807,
+        "mtime_ns": 1789912097984161705,
+        "sha256": "3edd2cdd1ebc823c868be55ef917e1b3b8a398fde4d3150dae44a3bf05d9f627"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 1164,
+        "mtime_ns": 1789912097984718853,
+        "sha256": "66c68f541e6578ce613ce7a0fc985eb59097038829e49f7535e6d08e6d95ab12"
+      },
+      {
+        "path": "<local-path>",
+        "bytes": 10415548320,
+        "mtime_ns": 1786607885073077596,
+        "sha256": "5f0c2e161d895a9fee7645ca32d4a7e3a22b90cacfcbeba62ec999cdbbefe0d3"
+      }
+    ],
+    "adapter": {
+      "path": "<local-path>",
+      "bytes": 1383677768,
+      "mtime_ns": 1790576009205563119,
+      "sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99"
+    },
+    "recipe": {
+      "steps": 4,
+      "graph_steps": 5,
+      "video_shift": 12.0,
+      "audio_shift": 3.0,
+      "lora_scale": 1.0,
+      "adapter_application": "premerge-bf16-before-w8g64"
+    },
+    "provenance": {
+      "kind": "verified_local_reuse",
+      "model": "product/.local/worktrees/x2-product/.local/p166-premerge-reuse-01/model",
+      "download_bytes": 0
+    },
+    "identity": "3f53a3811e2a5540941379374f7de6aa54582815dc2b0222aba6d7921565557f"
+  }
+}

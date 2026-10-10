@@ -1,0 +1,17 @@
+subject_definitions:
+<Subject 1> is the live-action adult portrayal of Naruto Uzumaki in <Picture 1>. Preserve the same face, blue eyes, spiky blond hair, three whisker marks on each cheek, metal Leaf forehead protector on black cloth and orange-and-black jacket.
+
+summary:
+[reference generation] A five-second live-action Naruto effects shot: <Subject 1> forms one spinning blue Rasengan in his right palm, steps and thrusts it forward, then holds a balanced final pose while the light and swirling energy remain attached to his palm.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - retain the referenced human face, hair, forehead protector and clothing through body rotation, fast arm motion and changing blue illumination.
+
+detailed_description:
+[Shot 1] A sunlit stone training courtyard, shown in a continuous medium-wide view from above the knees to above the hair of the single <Subject 1>. His body begins three-quarter toward the camera. He opens his right palm at waist height and brings his left hand above it. During the first two seconds, luminous blue strands spiral between the hands and condense into one grapefruit-sized translucent blue sphere resting just over the right palm. The sphere has clearly circulating internal strands rather than a flat white disk. His left hand moves away, leaving the one sphere supported by his right hand. From two to 3.5 seconds he plants his front foot, turns his hips and shoulders and makes one decisive forward thrust with that right arm, bringing the sphere toward the camera without releasing it. His jacket follows the body rotation, the hair moves, and blue light falls consistently on the near fingers, cheek and sleeve as the sphere approaches. The camera makes a modest lateral arc while keeping his complete face, both arms and sphere in view. From 3.5 to five seconds he holds a balanced extended-arm pose with a determined expression; the sphere continues swirling on the same palm. The visible cast stays one Naruto, with one sphere and two arms, and the face is readable beyond the effect. No overlaid words or subtitles.
+
+overall_soundscape:
+Quiet outdoor wind, a rising energy swirl and one short whoosh on the forward thrust; the energy hum continues softly to the end. No speech or vocals.
+
+non_diegetic_music:
+Original restrained percussion supports the action without quoting an existing anime theme.
