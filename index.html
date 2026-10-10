@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark"><meta name="description" content="Fresh five-second cinematic Ref2VA tasks. Compare VSA and SOL, standard and X2 fast profiles, with exact prompts, references and reproducible scores.">
+<meta name="color-scheme" content="dark"><meta name="description" content="Compare VSA and SOL across 48 five-second videos. See quality, speed, memory, prompts and reference images.">
 <title>H3 Apple · Ref2VA Benchmark</title><link rel="stylesheet" href="style.css">
 <script src="data.js" defer></script><script src="scores.js" defer></script><script src="app.js" defer></script>
 </head>
@@ -11,28 +11,28 @@
 <header><a class="brand" href="./">H3 <span>APPLE / REF2VA BENCHMARK</span></a>
 <nav aria-label="Page navigation"><a href="#library">Watch</a><a href="#results">Compare</a><a href="README.md">Reproduce ↗</a><a class="github-link" href="https://github.com/RhinoQ/h3-apple">GitHub ↗</a></nav></header>
 <main>
-<section class="intro"><div><p class="eyebrow">CURRENT PRODUCT · FRESH GENERATIONS · <span id="version"></span></p>
-<h1>Cinematic tasks.<br>Unfiltered results.</h1>
-<p>Cloud palaces, neon duels, tiny miracles. The same ambitious five-second scenes across VSA and SOL, at standard and fast settings. Every registered result stays visible.</p>
-<a class="github-link hero-github" href="https://github.com/RhinoQ/h3-apple">Get h3-apple on GitHub ↗</a><br>
-<a class="hero-link" href="#library">Explore the scenes ↓</a> <a id="download-bundle" class="hero-link" hidden>Download complete dataset ↓</a></div>
-<div class="inventory"><strong id="inventory">—</strong><span>cases / planned outputs</span><span id="unique-videos"></span></div></section>
+<section class="intro"><div><p class="eyebrow">H3-APPLE 0.7.0 · BENCHMARK <span id="version"></span></p>
+<h1>Compare VSA and SOL.</h1>
+<p>Five-second scenes at native 768p and fast 544p + X2. Every output, including failures, with prompts and reference images.</p>
+<a class="github-link hero-github" href="https://github.com/RhinoQ/h3-apple">Get h3-apple ↗</a><br>
+<a class="hero-link" href="#library">Watch the videos ↓</a> <a id="download-bundle" class="hero-link" hidden>Download frozen dataset ↓</a></div>
+<div class="inventory"><strong id="inventory">—</strong><span id="output-count"></span><span id="unique-videos"></span></div></section>
 <section id="results" aria-labelledby="results-title">
 <div class="section-title"><h2 id="results-title">01 / VSA vs SOL</h2><a id="score-download" href="scores.json" download>Score JSON ↓</a></div>
-<p class="scope" id="scope"></p>
+<p class="scope">Agent frame review; methods disclosed, audio unscored. One seed per scene. <a href="README.md#scores">Scoring method ↗</a></p>
 <div id="scores"></div>
 <div id="scored-tables">
-<div class="takeaways"><p><strong class="vsa-text">VSA</strong> Lower memory use; fewer geometry and temporal defects in this set.</p><p><strong class="sol-text">SOL</strong> Faster generation; more complete tasks and better framing in this set.</p></div>
+<div class="takeaways"><p><strong class="vsa-text">VSA</strong> Less memory; fewer geometry and temporal defects here.</p><p><strong class="sol-text">SOL</strong> Faster; more tasks completed and better framing here.</p></div>
 <div class="resource-charts"><section class="chart-card" aria-labelledby="time-title"><div class="chart-heading"><h3 id="time-title">Generation time</h3><span>↓ Lower is better</span></div><p class="chart-note">Median time to generate a 5-second video. Same scale for both profiles.</p><div id="time-chart"></div><p id="time-summary" class="chart-note"></p></section>
 <section class="chart-card" aria-labelledby="memory-title"><div class="chart-heading"><h3 id="memory-title">Peak memory</h3><span>↓ Lower is better</span></div><p class="chart-note">Range across 12 videos per profile. The solid segment marks min–max.</p><div id="memory-chart"></div><p class="chart-note">Sampled process-tree memory, every 5 seconds; short peaks may be missed.</p></section></div>
 <section class="quality-section" aria-labelledby="quality-title"><div class="chart-heading"><h3 id="quality-title">Quality by dimension</h3><span>↑ Higher is better</span></div>
-<p class="chart-note">Videos with no or only minor defects in each dimension (severity 0–1). Each bar shows a share of 24 videos, across both profiles. A video can look good yet fail a required action or framing constraint.</p>
+<p class="chart-note">Share of 24 videos per mode with no or minor defects (severity 0–1), across both profiles. Visual quality and task completion are scored separately.</p>
 <div id="quality" class="quality-charts"></div></section>
-<details class="score-details"><summary>Exact results by profile and measurement notes</summary>
+<details class="score-details"><summary>Method and exact results</summary>
 <div class="table-wrap"><table><caption>5-second videos · Apple M5 Max / 128 GiB · Complete API calls, prepared models</caption>
-<thead><tr><th>Mode / route</th><th>Task success</th><th>Passed / required</th><th>Median time</th><th>Sampled peak memory</th></tr></thead><tbody id="routes"></tbody></table></div>
+<thead><tr><th>Configuration</th><th>Task success</th><th>Passed / total</th><th>Median time</th><th>Sampled peak memory</th></tr></thead><tbody id="routes"></tbody></table></div>
 <p id="paired-time" class="small"></p>
-<p class="small">Quality severity: 0 none · 1 minor · 2 clear · 3 severe. Task success, quality, time and memory are separate measures. These exposed, single-seed results do not establish a universal winner.</p></details></div>
+<p class="small" id="scope"></p><p class="small">Severity: 0 none · 1 minor · 2 clear · 3 severe. These results do not establish a universal winner.</p></details></div>
 </section>
 <section id="library" aria-labelledby="library-title">
 <div class="section-title"><h2 id="library-title">02 / The scenes</h2><a href="catalog.json" download>Catalog JSON ↓</a></div>
@@ -44,9 +44,9 @@
 </div><p class="small" id="match-count" aria-live="polite"></p>
 <div class="workspace"><aside aria-label="Choose a case"><div id="case-list"></div></aside><article id="case" aria-live="polite"></article></div>
 </section>
-<footer><p>Fresh videos, reused curated inputs · One seed per case · Method-disclosed Agent visual review · Not a blind or generalization test</p>
+<footer>
 <p><a href="https://github.com/RhinoQ/h3-apple">GitHub project</a> · <a href="README.md">Method and setup</a> · <a href="ATTRIBUTION.md">Attribution</a> · <a href="checksums.json">Checksums</a> · <a href="replay.py" download>Replay script</a> · <a href="score.py" download>Score script</a></p>
-<p>Same seeds do not imply identical cross-backend noise. Native output dimensions are preserved. Subjective sound and lip sync are unscored.</p><p id="source" class="small"></p></footer>
+<details><summary>Build identity</summary><p id="source" class="small"></p></details></footer>
 </main><div id="notice" role="status" aria-live="polite"></div>
 <noscript>This viewer needs JavaScript. Download <a href="catalog.json">the catalog</a> directly.</noscript>
 </body></html>

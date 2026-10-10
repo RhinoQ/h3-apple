@@ -1,19 +1,19 @@
 {
   "ATTRIBUTION.md": {
-    "bytes": 13026,
-    "sha256": "01831866ea50b7e9d548623e4059445cc5b4580ad0d9223f3073cba3efa0c60c"
+    "bytes": 12828,
+    "sha256": "b0cf34e049a8f60513e491cc3a278f0fd00adefc0e4c2ec26341994814a74a49"
   },
   "LICENSE": {
     "bytes": 10757,
     "sha256": "5c7f173199fd7fb3cc83d86d24f3541e8ae0cb8c16e912ca519ed6a1435bd8f3"
   },
   "README.md": {
-    "bytes": 5446,
-    "sha256": "5df32727e67e25a84669f7a0e77c1e8540c34cb68642241afcfee17dfef96ef0"
+    "bytes": 4576,
+    "sha256": "31f794fa42282543a81b726d3ff814a7a1dfeee24c02ed12f54c6e88808dbd9e"
   },
   "app.js": {
-    "bytes": 16802,
-    "sha256": "69a37d60a291ebf35fb479b70036e04df6b6f24fe755a31a94453877c6fe9f5c"
+    "bytes": 16245,
+    "sha256": "26234021fd0dc95a3c43ff20c98f0cd6892b838964b66c11fde2b93ba46a4088"
   },
   "assets/build/h3-engine-macos-arm64.zip": {
     "bytes": 6046164,
@@ -1088,12 +1088,12 @@
     "sha256": "12147e681548dd7536c790497259623fea6fcd924a0ab34296d8759ad89e58a1"
   },
   "index.html": {
-    "bytes": 6092,
-    "sha256": "9a5e579a84369c3597881f700a4b373de0892b0416ec350ee4cf04d96e8f723d"
+    "bytes": 5667,
+    "sha256": "f86e4433983d393e6f32706cdee704f283bb339d3155407eca30b482c181a9c7"
   },
   "package.py": {
-    "bytes": 5659,
-    "sha256": "fd8aed22502beaf3748578bc74c621cee066faaaf816fbe7558a41eecee797e2"
+    "bytes": 5461,
+    "sha256": "dddb46d52af5cc2ed72f8ec3fd931f8f6672c810bb78dd0830693af3fecfcff0"
   },
   "prompts/03c03dd2b20634509f6c2f800fd975c5486ccd42e0705ba0270c02b05f6ac1c3.txt": {
     "bytes": 2981,

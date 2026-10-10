@@ -1,65 +1,61 @@
 # H3 Ref2VA Benchmark 0.3.0
 
-[Watch](https://rhinoq.github.io/h3-apple/) ·
+[Watch the videos](https://rhinoq.github.io/h3-apple/) ·
 [Frozen product source](https://github.com/RhinoQ/h3-apple/tree/2d8f40255b1409a19437e19987d0dd8e583bf14e)
 
-Twelve cinematic five-second tasks, generated afresh with h3-apple 0.7.0.
-Every case compares VSA and SOL at **standard 768p** and **fast 544p + X2**:
-48 registered outputs, one seed per case. Prompts and unmodified references are
-curated from exposed historical inputs. Historical videos and grades are excluded.
-One separate portrait calibration is excluded from the score.
-
-`catalog.json.status` identifies a registration or completed edition. A registration
-contains inputs and planned requests, no videos or scores. Final scores require
-all registered outputs and explicit judgments; the page never substitutes old media.
+**12 scenes × 4 configurations = 48 five-second videos.**
+VSA and SOL, each at native 768p and fast 544p + X2, on one frozen h3-apple 0.7.0 build.
+Every output is newly generated. Curated historical prompts/references are reused;
+historical videos, grades and the separate portrait calibration are excluded.
 
 ## Scores
 
-Primary: **100 × confirmed complete visual-task passes / required slots**.
-All frozen visual criteria must pass. Borderline results remain in the denominator
-but are not confirmed passes. Each route has twelve cases; each mode has two
-profiles of those same twelve cases, not twenty-four independent tasks.
+**Task success = 100 × confirmed passes / required outputs.**
+Every visual criterion must pass. Borderline results remain in the denominator.
+Each mode has two versions of the same 12 scenes, not 24 independent tasks.
 
-The viewer shows horizontal comparisons with percentages and counts. Time and
-memory remain split by profile; all quality dimensions stay visible. Bar axes
-start at zero. Memory bars show the observed min–max range, not an average.
+| Measure | Definition |
+| --- | --- |
+| Quality | Seven dimensions; share with no/minor defects (severity 0–1) |
+| Time | Full API call with prepared models; setup excluded |
+| Speedup | Median of within-scene time ratios |
+| Memory | Peak process-tree physical footprint, sampled every 5 s; short peaks may be missed |
 
-Quality is separate: action, count, identity, geometry, detail, temporal consistency
-and framing, severity 0 none / 1 minor / 2 clear / 3 severe. Report the fraction at
-0–1 and every count. Speed is the complete public API call with prepared models;
-memory is maximum observed process-tree physical footprint in a five-second
-polling loop; short peaks may be missed. No weighted overall quality score.
-Speed comparisons use the median of within-case time ratios; they are not ratios
-of route medians or repeated-run confidence estimates.
+Severity: **0 none · 1 minor · 2 clear · 3 severe**. Dimensions: action, count,
+identity, geometry, detail, temporal consistency and framing. No weighted total.
+Bars start at zero; memory shows observed min–max ranges. Time and memory stay
+separate by profile.
 
-Method-disclosed Agent review uses all 120 sequential frames, original keyframes
-and dense intervals around critical actions. Audio is generated and decoded but
-subjective sound, speech and lip sync are unscored. This is not blind review,
-normal-speed audiovisual assessment or a generalization claim. No seed search,
-outcome-based omission or prompt repair occurs within the frozen edition.
+**Review:** methods disclosed to the Agent; all 120 sequential frames, selected
+originals and dense critical intervals. Audio is decoded but sound, speech and lip
+sync are unscored. No blind or normal-speed audiovisual review. This exposed,
+single-seed suite describes these results; it is not a general ranking.
 
-Runs use a 40-core M5 Max, 128 GiB, one GPU task at a time. Operating-system caches
-are not flushed. Four forwards per route; equal seeds do not imply equal noise
-across backends. Complete routes differ in model recipes and kernels. Output
-geometry is preserved: 1366×768 / 768×1366 standard; 1920×1088 / 1088×1920 fast.
-No additional resizing or enhancement is applied.
+**Conditions:** 40-core M5 Max / 128 GiB, one GPU task at a time, caches not flushed,
+four forwards, one run per configuration. Recipes and kernels differ across modes;
+equal seeds do not imply equal noise. No seed search, prompt repair or result omission.
+
+Standard outputs: 1366×768 / 768×1366. Fast: 1920×1088 / 1088×1920.
+No extra resizing or enhancement.
 
 ## Reproduce
 
-Use the product's supported Conda environment, Python 3.11 and FFmpeg 8.1.2.
-The site's `assets/build/` directory contains the exact wheel and native engine;
-`catalog.json.primary` pins their checksums, model identities and environment.
-The published product 0.6.0 is not this build.
+Use a fresh Conda environment with Python 3.11 and FFmpeg 8.1.2.
+The exact wheel/engine are in `assets/build/`; `catalog.json.primary` binds
+checksums, models and environment.
 
 ```sh
+conda create -n h3-benchmark -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
+conda activate h3-benchmark
 python -m pip install "h3-apple[VSA] @ https://rhinoq.github.io/h3-apple/assets/build/h3_apple-0.7.0-py3-none-any.whl"
 ```
 
-The frozen engine has no automatic URL. Populate its verified cache once:
+The frozen engine has no automatic URL. Cache it once:
 
 ```python
 from h3_apple.assets import engine_paths
 from h3_apple.downloads import download
+
 spec, _, archive = engine_paths()
 download(
     "https://rhinoq.github.io/h3-apple/assets/build/h3-engine-macos-arm64.zip",
@@ -67,43 +63,45 @@ download(
 )
 ```
 
-Prepare models separately with `h3 prepare --mode VSA --plan`, the equivalent SOL
-plan and `h3 prepare-x2`. Use the corrected premerged SOL recipe. Model downloads
-can exceed 20 GB and are not bundled. The frozen product documentation
-retains upstream sources, component notices and preparation requirements.
+Review `h3 prepare --mode VSA --plan`, the SOL equivalent and `h3 prepare-x2 --plan`,
+then prepare the models. Use the premerged SOL recipe. Model downloads may exceed
+20 GB and require consent; weights are not bundled.
 
-Copy the complete benchmark folder, then validate and serve it locally:
+Download the complete folder from
+[`gh-pages`](https://github.com/RhinoQ/h3-apple/archive/refs/heads/gh-pages.zip),
+activate the environment, then run from that folder:
 
 ```sh
 python verify.py .
-python -m http.server 8781 --bind 127.0.0.1
 python replay.py --case cloud-palace --mode VSA --profile standard \
   --model-dir /path/to/VSA --output runs/cloud-palace-VSA.mp4
 ```
 
-Replay validates inputs only until `--execute` is added. Fast execution also needs
-`--x2-model-dir /path/to/x2`. Input order, duration, orientation and recorded seed
-are preserved. It checks source and model identities. `--allow-different-source`
-explicitly starts a new evaluation, not a claim to reproduce these pixels.
+Replay validates inputs; add **`--execute`** to generate.
+Fast replay also needs `--x2-model-dir /path/to/x2`.
+Input order, seed, duration and orientation are preserved; source/model identities
+are checked. `--allow-different-source` starts a new evaluation, not an exact replay.
+
+To view locally: `python -m http.server 8781 --bind 127.0.0.1`.
+
+## Score or package
 
 ```sh
 python score.py catalog.json
 python package.py --catalog catalog.json --destination ../portable-benchmark
 ```
 
-Scoring and normal packaging refuse incomplete or inconsistent cohorts. Replay
-success is not a visual pass. Retain failures and record new judgments explicitly.
+Both reject incomplete or inconsistent scored cohorts. Registrations contain
+planned inputs only; final scores require all outputs and explicit judgments.
+Successful execution is not a visual pass. Retain failures and record new reviews.
 
 ## Evidence and terms
 
-The catalog links exact prompts, ordered references, resolved requests, run records,
-criterion-level judgments, timestamps, environment, source and model identities.
-Checksums bind exported bytes. Public record snapshots remove host-specific paths;
-`original_sha256` identifies the unmodified local record. Original reference bytes
-and prompt text are unchanged during packaging; declared prompt edits precede
-registration and appear in each case's provenance.
+The catalog retains prompts, ordered references, requests, judgments, timestamps,
+environment and build/model identities. Checksums bind exported bytes.
+Public records redact host paths; `original_sha256` identifies the original record.
+Packaging preserves prompt/reference bytes. Pre-registration edits are documented.
 
-See `ATTRIBUTION.md` for source-specific terms. Independently authored benchmark
-software is Apache-2.0; that license does not relicense input images, model weights
-or generated media. Reference terms with incomplete evidence remain marked unresolved.
-The product source retains the MiniMax H3 license and upstream notices.
+See [ATTRIBUTION.md](ATTRIBUTION.md) for input terms, including unresolved rights.
+Apache-2.0 covers original benchmark code, not images, models or videos.
+MiniMax terms and upstream notices still apply.

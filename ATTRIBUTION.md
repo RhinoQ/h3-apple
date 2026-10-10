@@ -1,8 +1,8 @@
 # Asset attribution
 
-Original reference files are copied unchanged. Video outputs and JPEG posters are generated/reduced derivatives; the input license is not a blanket license for the whole bundle. Generated media remain subject to MiniMax H3 terms and any applicable source-image terms. CC BY-SA inputs and adaptations retain their stated ShareAlike obligations. Software LICENSE covers independently authored benchmark code only.
+References retain their original bytes and terms. Videos and JPEG posters are derivatives subject to MiniMax H3 and applicable image terms, including CC BY-SA ShareAlike obligations. The software LICENSE covers original benchmark code only; it does not license the whole bundle.
 
-AI-generated project fixtures are identified as such, not assigned a third-party CC0 license. Publication does not establish redistribution rights for references with unresolved terms. `--documented-only` removes unscored cases with unresolved terms and refuses an export that would omit a required scored case.
+AI-generated fixtures are labeled, not assigned third-party CC0 rights. Publication does not resolve missing redistribution rights. `--documented-only` excludes unresolved unscored cases and rejects exports that would omit a required scored case.
 
 ## cal-TG01-cloud-palace.png
 

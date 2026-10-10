@@ -59,8 +59,8 @@ def export(catalog,destination,documented_only=False,*,registration_only=False):
     (destination/'scores.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     (destination/'scores.js').write_text('window.SCORES = '+json.dumps(result,ensure_ascii=False)+';\n')
     credits=['# Asset attribution','',
-        'Original reference files are copied unchanged. Video outputs and JPEG posters are generated/reduced derivatives; the input license is not a blanket license for the whole bundle. Generated media remain subject to MiniMax H3 terms and any applicable source-image terms. CC BY-SA inputs and adaptations retain their stated ShareAlike obligations. Software LICENSE covers independently authored benchmark code only.',
-        '', 'AI-generated project fixtures are identified as such, not assigned a third-party CC0 license. Publication does not establish redistribution rights for references with unresolved terms. `--documented-only` removes unscored cases with unresolved terms and refuses an export that would omit a required scored case.','']
+        'References retain their original bytes and terms. Videos and JPEG posters are derivatives subject to MiniMax H3 and applicable image terms, including CC BY-SA ShareAlike obligations. The software LICENSE covers original benchmark code only; it does not license the whole bundle.',
+        '', 'AI-generated fixtures are labeled, not assigned third-party CC0 rights. Publication does not resolve missing redistribution rights. `--documented-only` excludes unresolved unscored cases and rejects exports that would omit a required scored case.','']
     seen=set()
     for c in data['cases']:
         for ref in c['references']:
