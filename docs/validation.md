@@ -1,18 +1,17 @@
 # Validation
 
-## 0.7.0 source checkout: current mode comparison
+## Fresh cinematic benchmark
 
-The [release comparison](releases/0.7.0.md#descriptive-benchmark) uses five frozen
-validation scenes at four routes: VSA/SOL, ordinary 768p/544p + X2. It reports
-complete visual task success, quality severity, full API time and peak physical
-memory separately. The [evidence](evidence/v0.7.0-benchmark.json) preserves every
-input, result, judgment and build identity.
+[Edition 0.3.0](https://rhinoq.github.io/h3-apple/) contains twelve scenes across
+VSA/SOL and standard 768p/fast 544p + X2 on one frozen 0.7.0 build. Only newly
+generated videos qualify. All 48 outputs have explicit criterion judgments;
+historical videos and scores are excluded.
 
-Reviews cover sequential thumbnails and selected original frames. They do not
-grade continuous playback or subjective audio. This small, exposed regression
-set does not establish a universal ranking. Timing has one measurement per slot.
-Scores belong to the recorded build; maintenance changes do not create new
-video-quality or performance evidence.
+Complete visual-task success, quality severity, full API time and sampled peak
+memory are separate. The site retains prompts, original references, model/source
+identities, failures and replay. Review covers all sequential frames and selected
+originals; subjective audio is unscored. This small, exposed regression suite has
+one measurement per slot and does not establish a universal ranking.
 
 ## Source checkout: SOL Turbo preparation
 
@@ -37,6 +36,7 @@ They are not pooled with the current comparison.
 
 | Version | Evidence and scope |
 | --- | --- |
+| 0.7.0 earlier mode comparison | [Five-case frozen comparison](evidence/v0.7.0-benchmark.json); distinct source and cohort from benchmark 0.3.0 |
 | 0.7.0 X2 integration | [Landscape/portrait integration](evidence/v0.7.0-x2-integration.json), including the later removed 768p + X2 route |
 | 0.6.0 | [VSA performance](evidence/v0.6.0-VSA-performance.json): 1.0235× paired median, below the 1.03× incremental target; [installed CLI/API and model conversion](evidence/v0.6.0-release.json) |
 | 0.5.3 | [Original-LightX2V adoption and replay](evidence/v0.5.3-release.json); non-blind frame review |

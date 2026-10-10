@@ -10,10 +10,11 @@ the original LightX2V Ref2VA Turbo four-step v0.1 adapter.
 | **VSA**, default | MLX W8A8 projections, shared QKV activation packing, VSA and INT8 QK |
 | **SOL** | Native INT8 GEMM, SOL and SageAttention; Turbo merged before W8G64 preparation |
 
-This checkout is **0.7.0**. The published wheel is **0.6.0**. The checkout adds
+This checkout is **0.7.0**. The latest product release is **0.6.0**. The checkout adds
 optional X2 and the corrected SOL preparation recipe; its matching native engine
-is currently a local artifact. See [installation](docs/install.md) before using it
-on another machine, and [release notes](docs/releases/0.7.0.md) for evidence and credits.
+and wheel are available with the [fresh benchmark](https://rhinoq.github.io/h3-apple/).
+See [installation](docs/install.md) and [release notes](docs/releases/0.7.0.md)
+for setup, evidence and community credits.
 
 ## Install
 

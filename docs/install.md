@@ -19,12 +19,14 @@ conda activate h3
 python -m pip install ".[VSA]"
 ```
 
-VSA needs no native engine. SOL requires the matching local engine archive or
-the [pinned-source build](development.md#build-the-engine-artifact). Its manifest
-URL is unset; source installation cannot download that unpublished archive.
+VSA needs no native engine. SOL requires the matching archive or the
+[pinned-source build](development.md#build-the-engine-artifact). The
+[benchmark setup](https://rhinoq.github.io/h3-apple/README.md#reproduce) supplies
+the exact 0.7.0 wheel, engine archive and verified-cache instructions. The source
+manifest URL remains unset, so automatic engine download is unavailable.
 SOL also requires the new model recipe described below.
 
-**Published wheel: 0.6.0.** This older release has no X2 and retains the old SOL recipe:
+**Latest product release: 0.6.0.** This older wheel has no X2 and retains the old SOL recipe:
 
 ```sh
 python -m pip install "h3-apple[VSA] @ https://github.com/RhinoQ/h3-apple/releases/download/v0.6.0/h3_apple-0.6.0-py3-none-any.whl"
