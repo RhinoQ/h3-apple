@@ -31,3 +31,7 @@ Update both copies together.
   Put mode choices, decoder settings and model directories in advanced documentation.
 - Concision must preserve reproducible inputs, configuration, source identities,
   measurements, failures, review scope, upstream attribution and licenses.
+- Before delivery, keep affected documentation, examples and CLI/API help
+  consistent with actual behavior and defaults. Remove stale guidance and code
+  confirmed to have no remaining callers or entry points. Preserve required
+  compatibility guards and versioned historical evidence.
