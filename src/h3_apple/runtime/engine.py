@@ -96,9 +96,5 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
                 video_tiles=observer.tiles, vsa=stats, sparse_implementation="direct_nax",
                 diagnostic_export_seconds=observer.export_seconds,
                 diagnostics_enabled=diagnostics_dir is not None,
-                audio_rms=audio_rms, video_std=video_std)
-    if reference_metadata is not None:
-        result["ref2va"] = reference_metadata
-        if reference_metadata["attention"] == "dense":
-            result["sparse_implementation"] = None
+                audio_rms=audio_rms, video_std=video_std, ref2va=reference_metadata)
     return result

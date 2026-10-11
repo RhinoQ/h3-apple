@@ -1,4 +1,4 @@
-"""Fixed direct selected-route NAX kernel for the optional P085 runner.
+"""Selected-route NAX attention for the VSA runtime.
 
 The source and license notices are in metal/p085_NOTICE.txt. This preserves
 the research prototype's arithmetic, including MPP relaxed_precision=true.

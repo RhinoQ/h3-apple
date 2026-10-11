@@ -18,9 +18,9 @@ Execution backends:
 
 - **reference** (``auto`` default) — grouped gather plus batched
   ``mx.fast.scaled_dot_product_attention``. Correctness baseline.
-- **simd** — opt-in SIMD-group 8x8 matrix operations over the reference tile
-  map for tile size 64 and head dimension 128. Unsupported shapes and kernel
-  failures fall back to the reference backend.
+- **simd** — the ``h3_apple.runtime.sparse`` dispatch over the selected tile map
+  for tile size 64 and head dimension 128. The product selects this path with
+  Kablex routing and rejects fallback after generation.
 
 Dense fused SDPA remains the default when VSA is disabled, the geometry is
 unsupported, or a dense-only checkpoint is loaded.
@@ -48,7 +48,7 @@ VSA_GATE_KEY_SUFFIX = "attn.to_gate_compress.weight"
 VSA_PREFIX_MODES = ("exempt", "compete")
 PUBLIC_VSA_IMPLS = ("auto", "reference", "simd")
 VSA_IMPLS = PUBLIC_VSA_IMPLS
-# SIMD is opt-in until its dynamically routed output is accepted as the default.
+# Preserve upstream auto behavior; the product explicitly selects "simd".
 _AUTO_PREFERS_SIMD = False
 _REFERENCE_FULL_MASK_TILE_LIMIT = 24
 _REFERENCE_FULL_MASK_MAX_ELEMENTS = 256 * 1024**2

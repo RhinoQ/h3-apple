@@ -28,7 +28,7 @@ EXIF orientation is applied; prompt text and image order are preserved.
 | `duration` | `5` | 5–15 seconds, whole frames at 24 fps |
 | `resolution` | Automatic | `"544p"` normally, `"768p"` with `upscale=True`; explicit `"576p"` also supported |
 | `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |
-| `x2` | Automatic | On normally; off with `upscale=True`. Explicit `True` requires 544p/576p and conflicts with super-resolution |
+| `x2` | Automatic | On normally; off with `upscale=True`. Explicit `True` requires 544p/576p; restore its output with the separate `upscale()` call |
 | `seed` | Random, recorded | Unsigned 32-bit integer |
 
 `resolution` sets sampling size; [X2](x2.md) doubles output dimensions.

@@ -11,7 +11,6 @@ from dataclasses import dataclass
 import math
 
 import numpy as np
-from PIL import Image, ImageOps
 
 from .._vendor.fastvideo_mlx.minimax_h3 import (
     MiniMaxH3PackedLayout,
@@ -37,9 +36,6 @@ class Ref2VALayout(MiniMaxH3PackedLayout):
     """Keep every ordered reference segment separate for sparse attention."""
 
     reference_prefix_segments: tuple[int, ...] = ()
-
-
-from ..image_inputs import reference_image_size, prepare_reference_image
 
 
 def _frame_grid(height, width):
@@ -155,7 +151,7 @@ def build_ref2va_timesteps(layout, video_timestep, audio_timestep):
 
 
 def generated_rows(video_rows, audio_rows, layout):
-    """Remove all reference rows from modality arrays before decode or LTX transfer."""
+    """Remove all reference rows from modality arrays before decoding."""
     target_video = _visual_rows(layout.num_video_latent_frames, layout.latent_height, layout.latent_width)
     target_audio = layout.num_audio_latents * 2
     if (video_rows.shape != (layout.num_condition_video_rows + target_video, 96)

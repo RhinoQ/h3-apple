@@ -136,7 +136,8 @@ def generate(prompt=None, *, prompt_file=None, reference_images=None,
     if x2 is None:
         x2 = not upscale
     if upscale and (x2 or resolution not in ("576p", "768p")):
-        raise ValueError("upscale requires native 576p or 768p. Omit resolution and x2 for automatic settings.")
+        raise ValueError("generate(upscale=True) uses native 576p or 768p. Omit resolution and x2 "
+                         "for automatic settings, or generate X2 video first and call upscale() separately.")
     if upscale and x2_model_dir is not None:
         raise ValueError("x2_model_dir cannot be used with upscale.")
     if not upscale and upscale_model_dir is not None:

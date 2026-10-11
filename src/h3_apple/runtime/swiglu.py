@@ -29,16 +29,3 @@ def bounded_swiglu(hidden):
         mx.eval(part)
         parts.append(part)
     return mx.concatenate(parts, axis=0)
-
-
-def make_bounded_feed_forward(model, receipt):
-    """Build a scoped FFN replacement with an explicit affected-call count."""
-    receipt.update(bounded_swiglu_calls=0, ordinary_swiglu_calls=0)
-
-    def feed_forward(weights, x):
-        hidden = model.linear(x, weights["ff.net.0.proj.weight"])
-        key = "bounded_swiglu_calls" if hidden.size > INT32_MAX else "ordinary_swiglu_calls"
-        receipt[key] += 1
-        return model.linear(bounded_swiglu(hidden), weights["ff.net.2.weight"])
-
-    return feed_forward

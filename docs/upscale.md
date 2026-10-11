@@ -38,8 +38,6 @@ the original is saved as `detailed.native.mp4`. If restoration fails, retry with
 | 2048×1152 · 576p X2 | 4096×2304 |
 | 1152×2048 · portrait 576p X2 | 2304×4096 |
 
-The combined command selects native 768p automatically. For separate steps,
-generate with `--resolution 768p --no-x2` or `--resolution 576p --no-x2`.
 Inputs must be 24 fps, up to 15 seconds, with AAC audio or no audio. X2 videos
 are processed at their full delivered size, without shrinking or cropping.
 

@@ -34,10 +34,15 @@ In a new terminal, run `conda activate h3` first.
 
 ## 3. Optional super-resolution
 
-Add `--upscale` to the generation command. It chooses compatible settings,
-generates the video, then doubles its dimensions while preserving audio.
-Requires **128 GiB memory**, **6.97 GB** of additional models and about
-**20 extra minutes per five-second clip** on the tested M5 Max.
+Add detail to the saved video, including default X2 output:
+
+```sh
+h3 upscale --input video.mp4
+```
+
+This doubles its dimensions and preserves audio. Requires **128 GiB memory**
+and **6.97 GB** of additional models. Restoration takes tens of minutes per
+five-second clip, depending on input size, beyond generation time.
 [Details and noncommercial terms](upscale.md).
 
 [Advanced settings](advanced.md) · [Python API](api.md)
@@ -97,8 +102,6 @@ Add `--mode VSA` for VSA. Repeat `--reuse-dir` for multiple compatible sources.
 <summary>Upgrade h3-apple or older SOL models</summary>
 
 Activate `h3` and rerun the pip command with `--upgrade`.
-For native output, specify
-`--resolution 576p --no-x2` or `--resolution 768p --no-x2`.
 Compatible VSA models are reusable.
 
 **Old quantized SOL weights need fresh preparation.** Prepare a new directory:

@@ -169,7 +169,7 @@ def ref2va_gate_plan(gate_header) -> dict:
 def video_key_plan(key: str) -> list[tuple[str, str]]:
     """Native video decoder -> the published Diffusers names; no approximation."""
     if key == "decoder.mask_token" or not key.startswith(("decoder.", "post_quant_conv.")):
-        return []  # T2VA decode only; no image encoder is required.
+        return []  # Ref2VA loads its original image encoder separately.
     if ".attn.to_qkv." in key:
         prefix, suffix = key.split(".attn.to_qkv.")
         return [(f"{prefix}.attn.to_{c}.{suffix}", c) for c in "qkv"]

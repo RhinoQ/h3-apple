@@ -68,7 +68,7 @@ def main():
                 torch.set_grad_enabled(False)
                 from .runtime.engine import run
                 references = dict(spec["ref2va"], native_root=spec["assets"]["ref2va_native"],
-                                  attention="vsa", reference_resize="match")
+                                  attention="vsa")
                 result = run(spec["request"], spec["assets"], workspace / "output.mp4", emit,
                              diagnostics_dir=workspace / "diagnostics" if spec["diagnostics"] else None,
                              ref2va=references)

@@ -11,25 +11,20 @@ import numpy as np
 from PIL import Image
 
 from .._vendor.fastvideo_mlx.minimax_h3 import (
-    patchify_video_latents, audio_latent_num_frames, load_mlx_h3_checkpoint,
+    audio_latent_num_frames, load_mlx_h3_checkpoint,
 )
-from .._vendor.fastvideo_mlx.minimax_h3_conditioner import StreamedMiniMaxH3TextConditioner
 from .._vendor.fastvideo_mlx.minimax_h3_pipeline import MiniMaxH3MLXPipeline
 from .._vendor.fastvideo_mlx.minimax_h3_vsa import MiniMaxH3VSAConfig
-from .ref2va import prepare_reference_image, ReferenceGeometry, build_ref2va_layout
-from .ref2va_conditioning import (
-    qwen_image_inputs, qwen_vision_features, image_presentation, load_native_image_vae,
-    encode_image_latents, encode_images,
-)
+from ..image_inputs import prepare_reference_image
+from .ref2va import ReferenceGeometry, build_ref2va_layout
+from .ref2va_conditioning import encode_images
 from .ref2va_sampling import image_noise, sample_image
 from .sparse import sparse_calls
 
 
 def prepare_images(options):
-    """Load one legacy image or an explicitly ordered list of 1–9 images."""
-    if ("image_path" in options) == ("image_paths" in options):
-        raise ValueError("Provide exactly one of image_path and image_paths.")
-    paths = [options["image_path"]] if "image_path" in options else options["image_paths"]
+    """Load the worker's ordered list of 1–9 images."""
+    paths = options.get("image_paths")
     if (not isinstance(paths, (list, tuple)) or not 1 <= len(paths) <= 9
             or any(not isinstance(path, (str, Path)) or not str(path) for path in paths)):
         raise ValueError("Reference images must be an ordered list of 1–9 file paths.")
@@ -59,7 +54,7 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     native = Path(options["native_root"])
     prepared = prepare_images(options)
     metadata = dict(task="ref2va", precision="int8_group64_bf16", attention=attention,
-        reference_resize=options.get("reference_resize", "legacy"), pixel_budget=options["pixel_budget"],
+        reference_resize="match", pixel_budget=options["pixel_budget"],
         reference_images=[dict(index=index + 1, width_height=list(image.size),
             pixels_sha256=hashlib.sha256(np.asarray(image).tobytes()).hexdigest())
             for index, image in enumerate(prepared)],
@@ -90,7 +85,7 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
         dit = load_mlx_h3_checkpoint(checkpoint)
         if not dit.vsa_capable or len(dit.blocks) != 50:
             raise ValueError("Expected the dedicated Ref2VA checkpoint with all 50 transplanted gates.")
-        dit.configure_vsa(MiniMaxH3VSAConfig(enabled=attention == "vsa", sparsity=.75,
+        dit.configure_vsa(MiniMaxH3VSAConfig(enabled=True, sparsity=.75,
                                             prefix_mode="exempt", impl="simd", routing_mode="kablex"))
         before = sparse_calls()
         from .dispatch import Dispatch
@@ -106,11 +101,8 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
         calls = sparse_calls() - before
         if (observer.nfe, observer.blocks) != (4, 200):
             raise ValueError("Expected exactly four complete Ref2VA forwards.")
-        if attention == "vsa":
-            if calls != 200 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200:
-                raise ValueError("Expected 200 native VSA block calls without fallback.")
-        elif calls:
-            raise ValueError("Dense Ref2VA unexpectedly called sparse attention.")
+        if calls != 200 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200:
+            raise ValueError("Expected 200 native VSA block calls without fallback.")
         return video, audio, stats
 
     video, audio, stats = phase("denoise", denoise)

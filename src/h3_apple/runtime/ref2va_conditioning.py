@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: Apache-2.0
-"""Image-only Ref2VA conditioning primitives; no generation API qualification.
+"""Shared still-image conditioning for VSA Ref2VA generation.
 
 The caller prepares each RGB image once with ``prepare_reference_image`` and
 passes those same pixels to Qwen and the H3 VAE. PyTorch is loaded lazily for
