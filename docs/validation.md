@@ -1,6 +1,6 @@
 # Validation
 
-## 0.8.1 candidate
+## 0.8.1
 
 [X2 restoration checks](evidence/v0.8.1-x2-vosr.json): **278 tests passed**, with
 one optional large-array test skipped. The installed wheel restores all eight
