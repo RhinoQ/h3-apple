@@ -1,0 +1,18 @@
+subject_definitions:
+<Subject 1> is the celestial stairway landscape in <Picture 1>: a broad pale-gold staircase crossing a luminous cloud sea toward one monumental vermilion-and-gold gate, repeating red lamp columns and carved ivory railings, green floating rock islands with thin waterfalls, and scattered small robed travelers. The image supplies the scene design, materials, colors, spatial relationships and atmosphere.
+
+summary:
+[reference generation] A fifteen-second continuous ascent through <Subject 1>, following the golden stairs toward the sky gate as a floating island and its waterfall are gradually revealed.
+
+retention_analysis:
+<Subject 1> (throughout [Shot 1]): fully_preserved - retain the single gate, connected stairs and railings, lamp columns, floating islands, waterfalls, small travelers and sunset colors. The panoramic image supplies the scene; compose a full-height landscape view with additional sky and cloud depth above and below it.
+
+detailed_description:
+A bright, cinematic Chinese celestial realm with golden sunlight, vermilion architecture, turquoise sky and green pine-covered islands.
+[Shot 1] A continuous wide 16:9 view begins beside the lower part of the staircase. The stairs lead from the lower-left foreground toward the enormous open gate in the upper-right distance. Keep the full gate roof and a generous cloud vista visible. The camera glides steadily forward and gently upward along the stairs for the full fifteen seconds, rising with their slope. During the first five seconds, a nearby red lamp column passes slowly along the left edge, creating strong foreground parallax. Through the middle five seconds, the changing viewpoint reveals more of the nearest floating island beyond the left railing and the thin waterfall dropping from its cliff into the clouds. During the final five seconds, continue toward the gate at the same measured pace; the gate grows larger but remains fully framed, with the path still extending ahead. The distant travelers take slow uphill steps with their backs toward the camera, their robes moving lightly in the breeze. Waterfalls flow downward, and sunlit clouds drift slowly below the rigid stairway. Railings, lamp columns and gate beams remain connected as the viewpoint changes. End still approaching the same gate in one uninterrupted shot. High-altitude wind and distant falling water accompany the scene; no dialogue or overlaid text.
+
+overall_soundscape:
+Steady, soft high-altitude wind and a distant waterfall, continuous throughout the shot. No voices.
+
+non_diegetic_music:
+A restrained guqin and bamboo-flute melody that builds gently during the ascent and resolves softly near the end.

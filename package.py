@@ -16,7 +16,7 @@ def digest(path):
 def local_paths(value):
     if isinstance(value,dict):
         for key,child in value.items():
-            if key in ('path','poster') and isinstance(child,str) and (child.startswith(('assets/','prompts/','records/')) or child=='environment.txt'):
+            if key in ('path','poster','prompt_file','record') and isinstance(child,str) and (child.startswith(('assets/','prompts/','records/')) or child=='environment.txt'):
                 yield child
             else:yield from local_paths(child)
     elif isinstance(value,list):
@@ -73,6 +73,13 @@ def export(catalog,destination,documented_only=False,*,registration_only=False):
                 f"- License URL: {a.get('license_url','See source/terms above')}",
                 f"- Original bytes: [{ref['path']}]({ref['path']})",f"- SHA256: `{ref['sha256']}`",
                 f"- Redistribution record: {ref['redistribution']}",''])
+    for showcase in data.get('showcase', []):
+        ref = showcase['reference']
+        credits.extend([f"## Showcase {showcase['id']}: {showcase['title']}", '',
+            f"- Reference credit: {ref['credit']}", f"- Source and terms: {ref['source']}",
+            f"- Original reference: {ref['url']} (linked, not redistributed)",
+            f"- Reference SHA256: `{ref['sha256']}`",
+            '- Selected videos and posters are derivatives, outside the scored cohort. Original image, MiniMax H3 and VOSR terms apply; VOSR includes noncommercial components.', ''])
     (destination/'ATTRIBUTION.md').write_text('\n'.join(credits))
     checks={str(p.relative_to(destination)):dict(bytes=p.stat().st_size,sha256=digest(p)) for p in sorted(destination.rglob('*')) if p.is_file()}
     (destination/'checksums.json').write_text(json.dumps(checks,indent=2)+'\n')

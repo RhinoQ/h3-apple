@@ -202,3 +202,19 @@ AI-generated fixtures are labeled, not assigned third-party CC0 rights. Publicat
 - Original bytes: [assets/references/16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45.png](assets/references/16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45.png)
 - SHA256: `16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45`
 - Redistribution record: review_required
+
+## Showcase N8: The Celestial Hall
+
+- Reference credit: Splitshire, image 2056173251
+- Source and terms: https://www.splitshire.com/images/luxurious-eastern-temple-aesthetic
+- Original reference: https://images.splitshire.com/full/Ancient-Temple-Interior-Scene_974230.png (linked, not redistributed)
+- Reference SHA256: `32f41ccad54c035f78aaaac851f2f1881e168352e5084b8454757b19d5c80f27`
+- Selected videos and posters are derivatives, outside the scored cohort. Original image, MiniMax H3 and VOSR terms apply; VOSR includes noncommercial components.
+
+## Showcase N6: Stairway Above the Clouds
+
+- Reference credit: 李岳, as credited by PicX; original X post unavailable during review
+- Source and terms: https://picxstudio.com/templates/42993-oriental-fantasy-celestial-realm
+- Original reference: https://cms-assets.youmind.com/media/1786178638448_7nec0s_HPGRfLVa4AAsfwd.jpg (linked, not redistributed)
+- Reference SHA256: `af8148144ef823278ba8ccb74d55aaf6ae14ab767a707703380ab5281f00c863`
+- Selected videos and posters are derivatives, outside the scored cohort. Original image, MiniMax H3 and VOSR terms apply; VOSR includes noncommercial components.

@@ -1,0 +1,18 @@
+subject_definitions:
+<Subject 1> is the unoccupied celestial hall in <Picture 1>: deep vermilion columns with gold ornament, translucent ivory silk curtains on both sides, dark polished floor tiles, bronze lamps, and a raised platform with an ink-painted landscape screen. The image supplies the hall's architecture, materials, lighting and spatial layout.
+
+summary:
+[reference generation] A five-second cinematic approach through <Subject 1>, with gently moving silk and sunlight reflected across the floor.
+
+retention_analysis:
+<Subject 1> (throughout [Shot 1]): fully_preserved - retain the hall's columns, connected beams, curtains, lamps, central platform, painted screen and warm side light while the camera approaches.
+
+detailed_description:
+A photorealistic Chinese fantasy interior with rich dark wood, warm gold accents and luminous silk.
+[Shot 1] One continuous wide landscape shot begins between the two hanging curtains, facing the raised platform across the polished floor. The camera makes a slow, smooth forward dolly along the central aisle for five seconds. Nearby curtain edges move outward in the frame through parallax while the distant screen grows slightly larger. A gentle breeze lifts the lower silk edges and lets them settle naturally; the central view stays open. Window lattice shadows remain attached to the floor tiles, and the reflections of columns shift coherently with the viewpoint. Small candle flames flicker on the bronze lamps. The central stairs, screen and paired columns remain clear and structurally connected through the ending. The hall stays empty. Soft air and silk rustle accompany the movement, with no speech or overlaid text.
+
+overall_soundscape:
+Quiet indoor air, delicate silk rustling and faint reverberation in the large hall. No voices.
+
+non_diegetic_music:
+A sparse, soft guqin phrase with two clear plucked notes and a gentle natural decay.

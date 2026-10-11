@@ -20,6 +20,30 @@ async function copy(value) {
   catch { notice('Clipboard unavailable. Select and copy the text.'); }
 }
 const percent = value => value.toFixed(1).replace(/\.0$/, '') + '%';
+function renderShowcase() {
+  const entries = data.showcase || [];
+  $('showcase').hidden = !entries.length;
+  $('showcase-cards').innerHTML = entries.map(s => {
+    const seconds = Math.round(s.restoration_seconds), key = s.id.toLowerCase();
+    return `<article class="showcase-card" id="showcase-${esc(s.id)}">
+      <video controls playsinline preload="none" poster="${esc(s.poster)}" src="${esc(s.video.path)}" aria-label="${esc(s.title)} — five-second super-resolution showcase"></video>
+      <div class="showcase-info"><p class="eyebrow">${esc(s.id)} / 5 SECONDS</p><h3>${esc(s.title)}</h3>
+      <p class="small">SOL · native 768p → VOSR 2× · ${Math.floor(seconds/60)}m ${String(seconds%60).padStart(2,'0')}s restoration${s.excerpt ? '<br>First five seconds of a 15-second generation.' : ''}</p>
+      <details><summary>Prompt, reference & settings</summary>
+      <p><a href="${esc(s.prompt_file)}" download>Prompt TXT ↓</a> · <a href="${esc(s.reference.url)}">Original reference ↗</a> · <a href="${esc(s.record)}">Run record ↗</a></p>
+      <p class="small">Reference: <a href="${esc(s.reference.source)}">${esc(s.reference.credit)}</a> · ${s.reference.dimensions.join('×')}</p>
+      <pre class="prompt">${esc(s.prompt)}</pre>
+      <p class="small">Download the reference and prompt, then use h3-apple 0.8.0:</p>
+      <pre class="code">h3 generate --image reference.${s.id === 'N8' ? 'png' : 'jpg'} --prompt-file showcase-${key}.txt \\\n  --mode SOL --resolution 768p --no-x2 --aspect-ratio 16:9 \\\n  --duration ${s.generation.duration} --seed ${s.generation.seed} --output ${s.id}-native.mp4
+h3 upscale --input ${s.id}-native.mp4 --duration 5 --output ${s.id}-detailed.mp4</pre>
+      <p class="small">Native sources were generated with 0.7.0; restoration uses the recipe adopted in 0.8.0. Complete human playback found no new issues versus FP32; fine-texture differences remain. <a href="README.md#showcases">Builds, review and reproduction ↗</a></p>
+      </details></div></article>`;
+  }).join('');
+  for (const video of $('showcase-cards').querySelectorAll('video')) {
+    video.onerror = () => notice('Showcase unavailable. Reload or download the video.');
+  }
+  if (location.hash.startsWith('#showcase-')) requestAnimationFrame(() => document.getElementById(location.hash.slice(1))?.scrollIntoView());
+}
 function barRow(mode, value, maximum, label, note = '', low = null) {
   const width = 100 * value / maximum;
   const fill = low === null ? `<span class="bar-fill" style="width:${width}%"></span>`
@@ -145,4 +169,4 @@ function renderCase() {
 }
 for (const category of [...new Set(data.cases.map(c => c.category))]) { const option = document.createElement('option'); option.value = category; option.textContent = category; $('category').append(option); }
 for (const id of ['search','category','status','orientation']) $(id).addEventListener(id === 'search' ? 'input' : 'change',filters);
-renderScores(); filters();
+renderShowcase(); renderScores(); filters();

@@ -1,12 +1,32 @@
-# H3 Ref2VA Benchmark 0.3.0
+# H3 Apple videos and benchmark
 
 [Watch the videos](https://rhinoq.github.io/h3-apple/) ·
 [Frozen product source](https://github.com/RhinoQ/h3-apple/tree/2d8f40255b1409a19437e19987d0dd8e583bf14e)
 
 **12 scenes × 4 configurations = 48 five-second videos.**
 VSA and SOL, each at native 768p and fast 544p + X2, on one frozen h3-apple 0.7.0 build.
-Every output is newly generated. Curated historical prompts/references are reused;
-historical videos, grades and the separate portrait calibration are excluded.
+The benchmark retains all outputs and failures from its frozen 0.7.0 build.
+
+## Showcases
+
+**N8 — The Celestial Hall** and **N6 — Stairway Above the Clouds** use native 768p
+generation followed by VOSR 2× restoration: 2732×1536, 24 fps, original audio.
+These selected clips sit outside the scored benchmark.
+
+Restoration took **20m 11s / 20m 03s**, additional to generation. The **3m 14s**
+headline measures SOL + 544p/X2 generation across the 12 benchmark scenes.
+All measurements use a 40-core M5 Max / 128 GiB.
+
+Expand either video for its prompt, original reference link and 0.8.0 commands.
+The native sources were generated with 0.7.0; N6 shows the first five seconds of
+its 15-second source. Records bind source builds, models and input/output hashes.
+References retain their creators' terms and are linked at their original hosts.
+
+The selected restoration recipe was adopted in 0.8.0. A complete, method-disclosed
+human playback comparison found no new issues in either clip; frame checks retain
+local fine-texture differences. [Measurements and scope](https://github.com/RhinoQ/h3-apple/blob/main/docs/evidence/v0.8.0-vosr.json).
+Use the [0.8.0 installation](https://github.com/RhinoQ/h3-apple/blob/main/docs/install.md)
+for super-resolution; the frozen benchmark environment below is for its 48 scored outputs.
 
 ## Scores
 

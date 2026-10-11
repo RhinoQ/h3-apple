@@ -1,0 +1,100 @@
+{
+  "case": "N8",
+  "generation": {
+    "product_version": "0.7.0",
+    "duration": 5,
+    "resolution": "768p",
+    "x2": false,
+    "aspect_ratio": "16:9",
+    "mode": "SOL",
+    "seed": 101008,
+    "prompt": "prompts/showcase-n8.txt",
+    "reference": {
+      "url": "https://images.splitshire.com/full/Ancient-Temple-Interior-Scene_974230.png",
+      "source": "https://www.splitshire.com/images/luxurious-eastern-temple-aesthetic",
+      "credit": "Splitshire, image 2056173251",
+      "sha256": "32f41ccad54c035f78aaaac851f2f1881e168352e5084b8454757b19d5c80f27",
+      "dimensions": [
+        1792,
+        1024
+      ]
+    },
+    "product_commit": "f21b85652c5abd4027794f44200308c167391eca",
+    "package_source_sha256": "744929da943cdcade20a463cf001fe80026dbf3a8f4a15049b7403797496ee60",
+    "model_identity": "3f53a3811e2a5540941379374f7de6aa54582815dc2b0222aba6d7921565557f",
+    "source_video_sha256": "3a414ef8aa493331a1342d2a19831cbac09339000df67950b20806a6dfec6b62",
+    "engine": {
+      "binary": {
+        "bytes": 86600,
+        "sha256": "bc28dd092486900ece7efe117e526fdf6d3afbaea55c80fdfda31d7569b955f8"
+      },
+      "library": {
+        "bytes": 19452400,
+        "sha256": "5d3ea6466723c081392bba5c8a72a1ace65a6989bc55b5baf69e9c6848cb5599"
+      }
+    }
+  },
+  "restoration": {
+    "recipe": "vosr2-native-fp16-v1",
+    "scale": 2,
+    "duration": 5,
+    "frames": 120,
+    "fps": 24,
+    "seed": 42,
+    "source_generation_duration": 5,
+    "noise_asset_sha256": "9848c16bd7745c9faff6017b36fa0f52ba445f2444cbf7a71e9db52cd704b69f",
+    "scope": "Qualified optimized recipe, before public API integration. Installed-package replay is checked separately in the 0.8.0 release evidence.",
+    "frozen_recipe_sha256": "22f42bc4e918acc1da686f0293bd1ecf96fc65b0feeef242df44005ba47b07df",
+    "models": {
+      "recipe": "vosr2-native-fp16-v1",
+      "model_revision": "f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3",
+      "files": [
+        {
+          "path": "Qwen-Image-vae-2d/config.json",
+          "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/Qwen-Image-vae-2d/config.json",
+          "bytes": 811,
+          "sha256": "1e294faf15188e06fcb72ce09652e8fb7368bd77b8dd794b5b39fe77d610681b"
+        },
+        {
+          "path": "VOSR2/args.json",
+          "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/VOSR2/args.json",
+          "bytes": 816,
+          "sha256": "63b2f423eafae1f684ca860eb8fd0e81aa5fac858397f783d8f337871241c281"
+        },
+        {
+          "path": "Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+          "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+          "bytes": 178418892,
+          "sha256": "1dd2c67f3f29734d48709513ed181d4f351966d76ba95f77a5cff8e1daf547fa"
+        },
+        {
+          "path": "VOSR2/checkpoints/ema_model.safetensors",
+          "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/VOSR2/checkpoints/ema_model.safetensors",
+          "bytes": 5576385424,
+          "sha256": "bdcaa81e4c675b6074de643e27daafe73eb8125d4d0264d1bf30a004e9644b71"
+        },
+        {
+          "path": "torch_cache/checkpoints/dinov2_vitl14_pretrain.pth",
+          "url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitl14/dinov2_vitl14_pretrain.pth",
+          "bytes": 1217586395,
+          "sha256": "d5383ea8f4877b2472eb973e0fd72d557c7da5d3611bd527ceeb1d7162cbf428"
+        }
+      ],
+      "noise": {
+        "path": "vosr-noise.npz",
+        "sha256": "9848c16bd7745c9faff6017b36fa0f52ba445f2444cbf7a71e9db52cd704b69f",
+        "bytes": 12156552,
+        "origin": "Fixed standard-normal tensors from PyTorch 2.11.0 MPS, manual_seed(42), float32 randn_like; replayed unchanged for every frame. No learned weights.",
+        "n8_n6_reference_noise_sha256": "31dfbf14ba1e09e0f695a75b0d8be01f33ccf3e6610b7586457893ac2ce6e387"
+      }
+    }
+  },
+  "output": {
+    "path": "assets/showcase/n8.mp4",
+    "sha256": "9d76c9159cc93a6d149c18f7141dca406dea3c858050584afe599f10c24c82ea",
+    "width": 2732,
+    "height": 1536
+  },
+  "review": "Complete method-disclosed human playback: no new problems reported for either optimized/reference pair on 2026-10-11.",
+  "scope": "Selected showcase, outside the scored 48-video cohort. Reference image is linked at its source; no standalone reference image is redistributed here."
+}

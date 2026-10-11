@@ -7400,5 +7400,75 @@
     "documented_inputs_only": false,
     "excluded_cases": [],
     "notice": "Documented reference terms are retained. This export does not grant new model, image or personality rights, and performs no publication."
-  }
+  },
+  "showcase": [
+    {
+      "id": "N8",
+      "title": "The Celestial Hall",
+      "video": {
+        "path": "assets/showcase/n8.mp4",
+        "sha256": "9d76c9159cc93a6d149c18f7141dca406dea3c858050584afe599f10c24c82ea",
+        "width": 2732,
+        "height": 1536
+      },
+      "poster": "assets/showcase/n8.jpg",
+      "prompt": "subject_definitions:\n<Subject 1> is the unoccupied celestial hall in <Picture 1>: deep vermilion columns with gold ornament, translucent ivory silk curtains on both sides, dark polished floor tiles, bronze lamps, and a raised platform with an ink-painted landscape screen. The image supplies the hall's architecture, materials, lighting and spatial layout.\n\nsummary:\n[reference generation] A five-second cinematic approach through <Subject 1>, with gently moving silk and sunlight reflected across the floor.\n\nretention_analysis:\n<Subject 1> (throughout [Shot 1]): fully_preserved - retain the hall's columns, connected beams, curtains, lamps, central platform, painted screen and warm side light while the camera approaches.\n\ndetailed_description:\nA photorealistic Chinese fantasy interior with rich dark wood, warm gold accents and luminous silk.\n[Shot 1] One continuous wide landscape shot begins between the two hanging curtains, facing the raised platform across the polished floor. The camera makes a slow, smooth forward dolly along the central aisle for five seconds. Nearby curtain edges move outward in the frame through parallax while the distant screen grows slightly larger. A gentle breeze lifts the lower silk edges and lets them settle naturally; the central view stays open. Window lattice shadows remain attached to the floor tiles, and the reflections of columns shift coherently with the viewpoint. Small candle flames flicker on the bronze lamps. The central stairs, screen and paired columns remain clear and structurally connected through the ending. The hall stays empty. Soft air and silk rustle accompany the movement, with no speech or overlaid text.\n\noverall_soundscape:\nQuiet indoor air, delicate silk rustling and faint reverberation in the large hall. No voices.\n\nnon_diegetic_music:\nA sparse, soft guqin phrase with two clear plucked notes and a gentle natural decay.\n",
+      "prompt_file": "prompts/showcase-n8.txt",
+      "record": "records/showcase/n8.json",
+      "reference": {
+        "url": "https://images.splitshire.com/full/Ancient-Temple-Interior-Scene_974230.png",
+        "source": "https://www.splitshire.com/images/luxurious-eastern-temple-aesthetic",
+        "credit": "Splitshire, image 2056173251",
+        "sha256": "32f41ccad54c035f78aaaac851f2f1881e168352e5084b8454757b19d5c80f27",
+        "dimensions": [
+          1792,
+          1024
+        ]
+      },
+      "generation": {
+        "duration": 5,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "16:9",
+        "mode": "SOL",
+        "seed": 101008
+      },
+      "restoration_seconds": 1210.8708503340022,
+      "excerpt": false
+    },
+    {
+      "id": "N6",
+      "title": "Stairway Above the Clouds",
+      "video": {
+        "path": "assets/showcase/n6.mp4",
+        "sha256": "127476b9b83a1324105c619f9007312c92cda182dd0040ff4ebf3c0847be7e89",
+        "width": 2732,
+        "height": 1536
+      },
+      "poster": "assets/showcase/n6.jpg",
+      "prompt": "subject_definitions:\n<Subject 1> is the celestial stairway landscape in <Picture 1>: a broad pale-gold staircase crossing a luminous cloud sea toward one monumental vermilion-and-gold gate, repeating red lamp columns and carved ivory railings, green floating rock islands with thin waterfalls, and scattered small robed travelers. The image supplies the scene design, materials, colors, spatial relationships and atmosphere.\n\nsummary:\n[reference generation] A fifteen-second continuous ascent through <Subject 1>, following the golden stairs toward the sky gate as a floating island and its waterfall are gradually revealed.\n\nretention_analysis:\n<Subject 1> (throughout [Shot 1]): fully_preserved - retain the single gate, connected stairs and railings, lamp columns, floating islands, waterfalls, small travelers and sunset colors. The panoramic image supplies the scene; compose a full-height landscape view with additional sky and cloud depth above and below it.\n\ndetailed_description:\nA bright, cinematic Chinese celestial realm with golden sunlight, vermilion architecture, turquoise sky and green pine-covered islands.\n[Shot 1] A continuous wide 16:9 view begins beside the lower part of the staircase. The stairs lead from the lower-left foreground toward the enormous open gate in the upper-right distance. Keep the full gate roof and a generous cloud vista visible. The camera glides steadily forward and gently upward along the stairs for the full fifteen seconds, rising with their slope. During the first five seconds, a nearby red lamp column passes slowly along the left edge, creating strong foreground parallax. Through the middle five seconds, the changing viewpoint reveals more of the nearest floating island beyond the left railing and the thin waterfall dropping from its cliff into the clouds. During the final five seconds, continue toward the gate at the same measured pace; the gate grows larger but remains fully framed, with the path still extending ahead. The distant travelers take slow uphill steps with their backs toward the camera, their robes moving lightly in the breeze. Waterfalls flow downward, and sunlit clouds drift slowly below the rigid stairway. Railings, lamp columns and gate beams remain connected as the viewpoint changes. End still approaching the same gate in one uninterrupted shot. High-altitude wind and distant falling water accompany the scene; no dialogue or overlaid text.\n\noverall_soundscape:\nSteady, soft high-altitude wind and a distant waterfall, continuous throughout the shot. No voices.\n\nnon_diegetic_music:\nA restrained guqin and bamboo-flute melody that builds gently during the ascent and resolves softly near the end.\n",
+      "prompt_file": "prompts/showcase-n6.txt",
+      "record": "records/showcase/n6.json",
+      "reference": {
+        "url": "https://cms-assets.youmind.com/media/1786178638448_7nec0s_HPGRfLVa4AAsfwd.jpg",
+        "source": "https://picxstudio.com/templates/42993-oriental-fantasy-celestial-realm",
+        "credit": "李岳, as credited by PicX; original X post unavailable during review",
+        "sha256": "af8148144ef823278ba8ccb74d55aaf6ae14ab767a707703380ab5281f00c863",
+        "dimensions": [
+          1200,
+          514
+        ]
+      },
+      "generation": {
+        "duration": 15,
+        "resolution": "768p",
+        "x2": false,
+        "aspect_ratio": "16:9",
+        "mode": "SOL",
+        "seed": 101006
+      },
+      "restoration_seconds": 1202.826072750002,
+      "excerpt": true
+    }
+  ]
 }
