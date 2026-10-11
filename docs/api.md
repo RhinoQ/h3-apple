@@ -8,10 +8,13 @@ from h3_apple import generate
 result = generate(
     prompt="A slow push-in on Picture 1. Soft ambient music.",
     reference_images=["reference.jpg"],
-    duration=5, output="scene.mp4",
 )
 print(result.video_path, result.metadata_path)
 ```
+
+This generates five seconds and chooses a new output directory. Add `upscale=True`
+to generate native 768p and restore it at twice the dimensions. See
+[requirements and terms](upscale.md).
 
 Use `prompt_file="scene.txt"` instead of `prompt` for UTF-8 files.
 Supply 1–9 still images in Picture order, with aspect ratios from 1:4 to 4:1.
@@ -22,22 +25,26 @@ EXIF orientation is applied; prompt text and image order are preserved.
 | Argument | Default | Accepted values |
 | --- | --- | --- |
 | `mode` | `"SOL"` | `"VSA"`, `"SOL"` |
-| `duration` | `15` | 5–15 seconds, whole frames at 24 fps |
-| `resolution` | `"544p"` | `"576p"`, `"768p"`; `"544p"` requires X2 |
+| `duration` | `5` | 5–15 seconds, whole frames at 24 fps |
+| `resolution` | Automatic | `"544p"` normally, `"768p"` with `upscale=True`; explicit `"576p"` also supported |
 | `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |
-| `x2` | `True` | `True` with 544p or 576p only |
+| `x2` | Automatic | On normally; off with `upscale=True`. Explicit `True` requires 544p/576p and conflicts with super-resolution |
 | `seed` | Random, recorded | Unsigned 32-bit integer |
 
 `resolution` sets sampling size; [X2](x2.md) doubles output dimensions.
 Both modes use four forwards. Equal seeds do not guarantee equal outputs across modes.
 
-`resolve(...)` validates these inputs and returns a `GenerationRequest` without
-loading or downloading models. `generate(...)` also accepts:
+`resolve(...)` validates generation inputs and returns a `GenerationRequest`
+without loading or downloading models. Its defaults are explicitly 544p and X2;
+the restoration workflow is selected through `generate(...)`, which also accepts:
 
 | Argument | Purpose |
 | --- | --- |
 | `model_dir=None` | Prepared models for the selected mode |
 | `x2_model_dir=None` | X2 decoder directory; requires `x2=True` |
+| `upscale=False` | Generate native video, then restore it with VOSR; saves both videos |
+| `upscale_model_dir=None` | Restoration model directory; requires `upscale=True` |
+| `upscale_timeout=14400` | Restoration timeout, seconds; separate from generation |
 | `output=None` | New MP4 path; otherwise a unique folder in `runs/` |
 | `on_progress=None` | Progress callback in the caller |
 | `diagnostics=False` | Keep working files |
@@ -54,7 +61,10 @@ Importing the package does not download anything.
 ## Results
 
 `GenerationResult` contains `video_path`, `metadata_path`, `elapsed_seconds` and
-`seed`. Setup time is excluded from both the timeout and `elapsed_seconds`.
+`seed`, plus `native_video_path` when super-resolution is enabled (`None` otherwise).
+Setup time is excluded from both the timeout and `elapsed_seconds`. With
+super-resolution, elapsed time sums the two stages; each retains its own timer
+and run record. The final record links the native video and its generation record.
 
 Existing outputs are refused. Ctrl-C and timeout stop the worker group.
 Delivery checks decode the full video and verify dimensions, frame count, timing
@@ -67,5 +77,7 @@ Native output requires `x2=False` and `resolution="576p"` or `"768p"`.
 
 ## Super-resolution
 
-`upscale("native.mp4", output="detailed.mp4")` doubles a native video's dimensions
-and preserves audio. [Input formats, options and results](upscale.md).
+Use `generate(..., upscale=True)` for the complete workflow, or
+`upscale("native.mp4")` for an existing native video. Both choose a fresh output
+path unless you supply `output`. Restoration failures preserve the native video
+and report a retry command. [Input formats, options and results](upscale.md).

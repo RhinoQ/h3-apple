@@ -13,11 +13,10 @@ import sys
 import tempfile
 import threading
 import time
-import uuid
 
 from .api import GenerationResult
 from .preparation import ensure_ready
-from .io import digest, write_json
+from .io import automatic_output, digest, write_json
 
 
 def _signal_group(pid, sig):
@@ -59,10 +58,8 @@ def run_generation(request, *, output=None, model_dir=None, on_progress=None,
     if x2_model_dir is not None and not request.x2:
         raise ValueError("x2_model_dir requires x2=True.")
     if output is None:
-        stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-        directory = Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}"
-        video = directory / "output.mp4"
-        metadata = directory / "run.json"
+        video = automatic_output()
+        metadata = video.parent / "run.json"
     else:
         video = Path(output).expanduser().absolute()
         if video.suffix.lower() != ".mp4":

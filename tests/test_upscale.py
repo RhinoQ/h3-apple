@@ -76,6 +76,33 @@ def test_existing_output_rejected_before_model_setup(media, tmp_path, monkeypatc
         api.upscale(path, output=output)
 
 
+def test_automatic_outputs_are_unique_and_keep_input(media, tmp_path, monkeypatch):
+    import subprocess
+    import sys
+    from h3_apple.super_resolution import assets
+    source, _ = media
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(api, 'check_environment', lambda _: None)
+    monkeypatch.setattr(assets, 'prepare', lambda *a, **kw: dict(recipe='test'))
+    worker = tmp_path / 'worker.py'
+    worker.write_text("import json,pathlib,sys\ns=json.loads(sys.stdin.readline())\n"
+        "pathlib.Path(s['workspace'],'output.mp4').write_bytes(b'restored')\n"
+        "print(json.dumps({'kind':'result','result':{'frames':120}}),flush=True)\n")
+    real_popen = subprocess.Popen
+    def launch(args, **kwargs):
+        if args == [sys.executable, '-m', 'h3_apple.super_resolution.worker']:
+            return real_popen([sys.executable, str(worker)], **kwargs)
+        return real_popen(args, **kwargs)
+    monkeypatch.setattr(api.subprocess, 'Popen', launch)
+    results = [api.upscale(source), api.upscale(source)]
+    assert results[0].video_path != results[1].video_path
+    assert source.read_bytes() == b'fixture'
+    for result in results:
+        assert result.video_path.read_bytes() == b'restored'
+        record = json.loads(result.metadata_path.read_text())
+        assert record['status'] == 'complete' and record['request']['input'] == str(source)
+
+
 def test_model_reuse_and_corruption(tmp_path, monkeypatch):
     from h3_apple.super_resolution import assets
     from h3_apple.io import digest

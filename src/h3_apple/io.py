@@ -3,8 +3,16 @@
 import hashlib
 import json
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 import tempfile
+import uuid
+
+
+def automatic_output(filename="output.mp4"):
+    """Choose a fresh run directory without creating it or reserving files."""
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+    return Path.cwd() / "runs" / f"{stamp}-{uuid.uuid4().hex[:8]}" / filename
 
 
 def digest(path):

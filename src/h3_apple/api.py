@@ -51,10 +51,11 @@ class GenerationResult:
     metadata_path: Path
     elapsed_seconds: float
     seed: int
+    native_video_path: Path | None = None
 
 
 def resolve(prompt=None, *, prompt_file=None, reference_images=None,
-            resolution="544p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL", x2=True):
+            resolution="544p", duration=5, seed=None, aspect_ratio="16:9", mode="SOL", x2=True):
     """Validate inputs and resolve geometry without loading model weights."""
     if mode not in ("SOL", "VSA"):
         raise ValueError("mode must be 'SOL' or 'VSA'.")
@@ -118,8 +119,9 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
 
 
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
-             resolution="544p", duration=15, seed=None, aspect_ratio="16:9", mode="SOL",
-             x2=True, x2_model_dir=None,
+             resolution=None, duration=5, seed=None, aspect_ratio="16:9", mode="SOL",
+             x2=None, x2_model_dir=None, upscale=False, upscale_model_dir=None,
+             upscale_timeout=14400,
              output=None, model_dir=None, on_progress=None, diagnostics=False,
              timeout=7200, allow_large_download=False):
     """Prepare H3 if needed, then generate an MP4 with stereo audio.
@@ -127,9 +129,27 @@ def generate(prompt=None, *, prompt_file=None, reference_images=None,
     Model downloads over 20 GB raise DownloadApprovalRequired unless explicitly
     allowed. Importing this module and resolving inputs never download anything.
     """
+    if type(upscale) is not bool:
+        raise ValueError("upscale must be a boolean.")
+    if resolution is None:
+        resolution = "768p" if upscale else "544p"
+    if x2 is None:
+        x2 = not upscale
+    if upscale and (x2 or resolution not in ("576p", "768p")):
+        raise ValueError("upscale requires native 576p or 768p. Omit resolution and x2 for automatic settings.")
+    if upscale and x2_model_dir is not None:
+        raise ValueError("x2_model_dir cannot be used with upscale.")
+    if not upscale and upscale_model_dir is not None:
+        raise ValueError("upscale_model_dir requires upscale=True.")
     request = resolve(prompt, prompt_file=prompt_file, reference_images=reference_images,
                       resolution=resolution, duration=duration, seed=seed,
                       aspect_ratio=aspect_ratio, mode=mode, x2=x2)
+    if upscale:
+        from .workflow import generate_upscaled
+        return generate_upscaled(request, output=output, model_dir=model_dir,
+            on_progress=on_progress, diagnostics=diagnostics, timeout=timeout,
+            allow_large_download=allow_large_download, upscale_model_dir=upscale_model_dir,
+            upscale_timeout=upscale_timeout)
     from .process import run_generation
     return run_generation(request, output=output, model_dir=model_dir,
                           on_progress=on_progress, diagnostics=diagnostics, timeout=timeout,

@@ -21,7 +21,7 @@ def images(tmp_path):
 def test_default_request_is_one_ref2va_recipe(images):
     r = resolve('Picture 1 and Picture 2', reference_images=images, seed=0)
     assert r.reference_images == tuple(map(str, images))
-    assert (r.width,r.height,r.num_frames,r.model_num_frames,r.num_steps) == (1920,1088,360,362,4)
+    assert (r.width,r.height,r.num_frames,r.model_num_frames,r.num_steps) == (1920,1088,120,124,4)
     assert (r.mode, r.resolution, r.x2, r.model_width, r.model_height) == ('SOL','544p',True,960,544)
     assert r.audio_channels == 2 and r.audio_sample_rate == 32000
     for function in (resolve,generate):

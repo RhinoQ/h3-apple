@@ -31,23 +31,33 @@ def parser():
         prompts.add_argument("--prompt-file")
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
-        command.add_argument("--duration", type=float, default=15, help="5–15 seconds (default: 15)")
-        command.add_argument("--resolution", choices=("544p", "576p", "768p"), default="544p",
-                             help="Sampling resolution; use --no-x2 for native 576p/768p (default: 544p)")
-        command.add_argument("--x2", action=argparse.BooleanOptionalAction, default=True,
-                             help="Double output dimensions at 544p or 576p (default: enabled)")
+        command.add_argument("--duration", type=float, default=5, help="5–15 seconds (default: 5)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
-        command.add_argument("--seed", type=int)
-        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL",
+        advanced = command.add_argument_group("Advanced settings")
+        advanced.add_argument("--resolution", choices=("544p", "576p", "768p"),
+                             default=None if name == "generate" else "544p",
+                             help=("Sampling size (default: 544p; 768p with --upscale)" if name == "generate"
+                                   else "Sampling size (default: 544p)"))
+        advanced.add_argument("--x2", action=argparse.BooleanOptionalAction,
+                             default=None if name == "generate" else True,
+                             help=("Double decoded dimensions (default: on; off with --upscale)" if name == "generate"
+                                   else "Double decoded dimensions (default: on)"))
+        advanced.add_argument("--seed", type=int)
+        advanced.add_argument("--mode", choices=("SOL", "VSA"), default="SOL",
                              help="Generation mode (default: SOL)")
         if name == "generate":
+            command.add_argument("--upscale", action="store_true",
+                                 help="Generate native video and upscale 2x (128 GiB; about 20 min extra per 5 s)")
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
-            command.add_argument("--model-dir")
-            command.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from generation models)")
-            command.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
-            command.add_argument("--timeout", type=float, default=7200)
-            command.add_argument("--no-progress", action="store_true")
-            command.add_argument("--allow-large-download", action="store_true",
+            advanced.add_argument("--model-dir")
+            advanced.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from generation models)")
+            advanced.add_argument("--upscale-model-dir", help="Optional restoration model directory; requires --upscale")
+            advanced.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
+            advanced.add_argument("--timeout", type=float, default=7200, help="Generation timeout in seconds")
+            advanced.add_argument("--upscale-timeout", type=float, default=14400, help="Restoration timeout in seconds")
+            advanced.add_argument("--no-progress", action="store_true")
+            advanced.add_argument("--json", action="store_true", help="Print result JSON (automatic when stdout is redirected)")
+            advanced.add_argument("--allow-large-download", action="store_true",
                                  help="Confirm first-run model downloads exceeding 20 GB")
     prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
@@ -66,12 +76,13 @@ def parser():
     prepare_x2.add_argument("--plan", action="store_true")
     upscale = commands.add_parser("upscale", help="Double native video dimensions with VOSR2")
     upscale.add_argument("--input", required=True)
-    upscale.add_argument("--output", required=True)
+    upscale.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
     upscale.add_argument("--duration", type=float, help="Upscale only the first N seconds")
     upscale.add_argument("--model-dir")
     upscale.add_argument("--diagnostics", action="store_true")
     upscale.add_argument("--timeout", type=float, default=14400)
     upscale.add_argument("--no-progress", action="store_true")
+    upscale.add_argument("--json", action="store_true", help="Print result JSON (automatic when stdout is redirected)")
     prepare_vosr = commands.add_parser("prepare-vosr", help="Prepare the 6.97 GB VOSR2 models")
     prepare_vosr.add_argument("--model-dir")
     prepare_vosr.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
@@ -82,6 +93,7 @@ def parser():
 def main(argv=None):
     args = vars(parser().parse_args(argv))
     command = args.pop("command")
+    json_output = args.pop("json", False)
     try:
         if command == "upscale":
             from .upscale import upscale
@@ -140,10 +152,17 @@ def main(argv=None):
                     allowed = input("Download these model files? [y/N] ").strip().lower() in ("y", "yes")
                 data = prepare(spec, allow_large_download=allowed, progress=progress)
                 result = dict(status="ready", directory=data["directory"], identity=data["identity"])
-        print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
+        if command in ("generate", "upscale") and sys.stdout.isatty() and not json_output:
+            print(f"Saved video: {result['video_path']}")
+            if result.get("native_video_path"):
+                print(f"Native video: {result['native_video_path']}")
+        else:
+            print(json.dumps(result, indent=2, ensure_ascii=False, default=str))
         return 0
-    except KeyboardInterrupt:
+    except KeyboardInterrupt as error:
         print("Cancelled. Working files were preserved.", file=sys.stderr)
+        if str(error):
+            print(str(error), file=sys.stderr)
         return 130
     except (OSError, ValueError, RuntimeError, TimeoutError) as error:
         print(f"h3: {error}", file=sys.stderr)

@@ -14,7 +14,7 @@ import tempfile
 import threading
 import time
 
-from .io import digest, source_identity, write_json
+from .io import automatic_output, digest, source_identity, write_json
 from .media import probe, check_runtime
 
 
@@ -59,26 +59,43 @@ def resolve_video(path, duration=None):
                 source_frames=count, duration=selected / 24, audio=bool(audio))
 
 
-def upscale(input, *, output, duration=None, model_dir=None, on_progress=None, diagnostics=False, timeout=14400):
-    """Double a native 576p/768p H3 video's dimensions with VOSR2; keep its audio."""
-    if isinstance(timeout, bool) or not math.isfinite(timeout) or timeout <= 0:
-        raise ValueError('timeout must be positive and finite.')
-    if type(diagnostics) is not bool:
-        raise ValueError('diagnostics must be a boolean.')
-    request = resolve_video(input, duration)
-    video = Path(output).expanduser().absolute()
+def output_paths(output=None):
+    video = automatic_output('upscaled.mp4') if output is None else Path(output).expanduser().absolute()
     metadata = video.with_suffix('.run.json')
     if video.suffix.lower() != '.mp4':
         raise ValueError('output must be an .mp4 path.')
     for path in (video, metadata):
         if os.path.lexists(path):
             raise FileExistsError(f'Output already exists: {path}')
+    return video, metadata
+
+
+def check_environment(video):
+    """Check restoration requirements before generation or model downloads."""
     from .host import snapshot, check_machine
     host = snapshot()
     check_machine(host)
     if host['memory_bytes'] < 128 * 1024**3:
         raise RuntimeError('VOSR upscaling requires 128 GiB unified memory.')
     check_runtime()
+    parent = video.parent
+    while not parent.exists():
+        parent = parent.parent
+    if not parent.is_dir():
+        raise NotADirectoryError(f'Output parent is not a directory: {parent}')
+    if shutil.disk_usage(parent).free < 20 * 1024**3:
+        raise OSError('VOSR requires at least 20 GiB free disk space.')
+
+
+def upscale(input, *, output=None, duration=None, model_dir=None, on_progress=None, diagnostics=False, timeout=14400):
+    """Double a native 576p/768p H3 video's dimensions with VOSR2; keep its audio."""
+    if isinstance(timeout, bool) or not math.isfinite(timeout) or timeout <= 0:
+        raise ValueError('timeout must be positive and finite.')
+    if type(diagnostics) is not bool:
+        raise ValueError('diagnostics must be a boolean.')
+    request = resolve_video(input, duration)
+    video, metadata = output_paths(output)
+    check_environment(video)
     from .super_resolution.assets import prepare
     assets = prepare(model_dir, on_progress=on_progress)
     video.parent.mkdir(parents=True, exist_ok=True)

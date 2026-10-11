@@ -12,28 +12,35 @@
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.0/h3_apple-0.8.0-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.1/h3_apple-0.8.1-py3-none-any.whl"
 ```
 
-One environment supports VSA, SOL, X2 and VOSR. No compiler is needed.
+One environment supports generation and super-resolution. No compiler is needed.
 
 ## 2. Generate
 
-SOL + 544p/X2 is the default. Replace `reference.jpg` with your image path:
+Replace `reference.jpg` with your image path:
 
 ```sh
 h3 generate --image reference.jpg \
-  --prompt "A slow cinematic push-in on the scene in Picture 1. Soft ambient music." \
-  --duration 5 --output first-video.mp4
+  --prompt "A slow cinematic push-in on the scene in Picture 1. Soft ambient music."
 ```
 
 First use prepares the models. Review the download estimate and enter `y` to
 approve transfers over 20 GB. Later runs reuse the models.
 
-Open `first-video.mp4`. Choose a new filename for each run.
+Each run creates a five-second video in a new `runs/` folder and prints its path.
 In a new terminal, run `conda activate h3` first.
 
-[Output options](x2.md) · [Super-resolution](upscale.md) · [Python API](api.md)
+## 3. Optional super-resolution
+
+Add `--upscale` to the generation command. It chooses compatible settings,
+generates the video, then doubles its dimensions while preserving audio.
+Requires **128 GiB memory**, **6.97 GB** of additional models and about
+**20 extra minutes per five-second clip** on the tested M5 Max.
+[Details and noncommercial terms](upscale.md).
+
+[Advanced settings](advanced.md) · [Python API](api.md)
 
 ## Optional setup
 

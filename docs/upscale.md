@@ -1,14 +1,29 @@
 # Add detail with VOSR
 
-Double a native H3 video's width and height, with its original audio.
+Add `--upscale` when generating. H3 chooses native 768p, generates the video,
+then doubles its width and height while preserving audio.
 
 ```sh
-h3 upscale --input native.mp4 --output detailed.mp4
+h3 generate --image reference.jpg \
+  --prompt "A slow cinematic push-in on Picture 1. Soft ambient music." --upscale
 ```
 
 Requires the [standard installation](install.md), **128 GiB memory**, and at least
 20 GiB free working space. First use downloads **6.97 GB** of models; later runs
 reuse them.
+
+Both videos are saved in a new `runs/` folder. To choose the final filename, add
+`--output detailed.mp4`; the original is saved as `detailed.native.mp4`.
+
+## Existing video or retry
+
+```sh
+h3 upscale --input native.mp4
+```
+
+The result goes into a new `runs/` folder. Use this command to retry restoration
+after a failure without generating again. Add `--output detailed.mp4` for a specific
+filename or `--duration 5` to process the first five seconds of a longer clip.
 
 ## Input and output
 
@@ -19,7 +34,8 @@ reuse them.
 | 1024×576 | 2048×1152 |
 | 576×1024 | 1152×2048 |
 
-Use `--resolution 768p --no-x2` or `--resolution 576p --no-x2` when generating.
+The combined command selects native 768p automatically. For separate steps,
+generate with `--resolution 768p --no-x2` or `--resolution 576p --no-x2`.
 Inputs must be 24 fps, up to 15 seconds, with AAC audio or no audio. X2 output
 is already larger and is outside this restoration profile.
 
@@ -38,13 +54,13 @@ The restored video uses H.264; audio is copied without re-encoding.
 ```python
 from h3_apple import upscale
 
-result = upscale("native.mp4", output="detailed.mp4")
+result = upscale("native.mp4")
 print(result.video_path)
 ```
 
-Add `--duration 5` to process only the first five seconds of a longer input.
+For generation and restoration in one call, use `generate(..., upscale=True)`.
 
-Optional arguments: `duration=None`, `model_dir`, `on_progress`, `diagnostics=False`,
+Optional arguments: `output=None`, `duration=None`, `model_dir`, `on_progress`, `diagnostics=False`,
 `timeout=14400` seconds. `UpscaleResult` contains `video_path`, `metadata_path`
 and `elapsed_seconds`; model preparation is outside that timer. Existing outputs
 are refused; failures retain logs. The fixed recipe replays seed-42 noise across
@@ -61,6 +77,8 @@ h3 prepare-vosr --reuse-dir /path/to/existing-vosr-models
 Default directory: `~/Models/h3-apple/vosr`. Set `H3_VOSR_MODEL_DIR` or pass
 `--model-dir` to both preparation and upscaling. Reused files must match the
 pinned checksums. Downloads resume on retry.
+For `h3 generate --upscale`, use `--upscale-model-dir` instead; `--model-dir`
+continues to select the generation models.
 
 </details>
 
