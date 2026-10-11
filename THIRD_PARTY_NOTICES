@@ -97,7 +97,7 @@ H3 X2 decoder (0.7.0)
   ComfyUI-H3-X2-Stream was reviewed for architectural comparison; no CUDA,
   ConvRot, NVENC or ComfyUI runtime code from that GPL-3.0 project is bundled.
 
-VOSR video super-resolution (0.8.0)
+VOSR video super-resolution
   VOSR: https://github.com/cswry/VOSR
   Commit: 516f292b99cf23c76fdc33351e86dc4f97711fe8. Apache-2.0.
   Retained model definitions, conditioning and Gaussian tile blending are
@@ -108,7 +108,7 @@ VOSR video super-resolution (0.8.0)
 
   Qwen 2D VAE: Copyright 2025 The Qwen-Image Team, Wan Team and The HuggingFace
   Team. Apache-2.0; retained from VOSR, with FP16 attention and FP32 output.
-  H3 Apple adds query batching against complete keys/values for larger X2 inputs.
+  In 0.8.1, H3 Apple adds query batching against complete keys/values for larger X2 inputs.
   DINOv2: Copyright (c) Meta Platforms, Inc. and affiliates. Apache-2.0.
   https://github.com/facebookresearch/dinov2
   Model-specific source snapshot: CSWRY/VOSR f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3.

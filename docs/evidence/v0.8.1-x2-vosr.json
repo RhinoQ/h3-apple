@@ -1,0 +1,450 @@
+{
+  "status": "passed",
+  "version": "0.8.1 candidate",
+  "published": false,
+  "scope": "Installed-package compatibility and native regression; short exposed clips, no new quality score or speedup claim.",
+  "runtime_commit": "6b5fe55",
+  "recipe": "vosr2-native-fp16-v2",
+  "model_revision": "f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3",
+  "model_files": [
+    {
+      "path": "Qwen-Image-vae-2d/config.json",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/Qwen-Image-vae-2d/config.json",
+      "bytes": 811,
+      "sha256": "1e294faf15188e06fcb72ce09652e8fb7368bd77b8dd794b5b39fe77d610681b"
+    },
+    {
+      "path": "VOSR2/args.json",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/VOSR2/args.json",
+      "bytes": 816,
+      "sha256": "63b2f423eafae1f684ca860eb8fd0e81aa5fac858397f783d8f337871241c281"
+    },
+    {
+      "path": "Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+      "bytes": 178418892,
+      "sha256": "1dd2c67f3f29734d48709513ed181d4f351966d76ba95f77a5cff8e1daf547fa"
+    },
+    {
+      "path": "VOSR2/checkpoints/ema_model.safetensors",
+      "url": "https://huggingface.co/CSWRY/VOSR/resolve/f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3/VOSR2/checkpoints/ema_model.safetensors",
+      "bytes": 5576385424,
+      "sha256": "bdcaa81e4c675b6074de643e27daafe73eb8125d4d0264d1bf30a004e9644b71"
+    },
+    {
+      "path": "torch_cache/checkpoints/dinov2_vitl14_pretrain.pth",
+      "url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitl14/dinov2_vitl14_pretrain.pth",
+      "bytes": 1217586395,
+      "sha256": "d5383ea8f4877b2472eb973e0fd72d557c7da5d3611bd527ceeb1d7162cbf428"
+    }
+  ],
+  "root_cause": [
+    "The previous API admitted four native frame sizes only.",
+    "Packaged fixed noise covered native sizes only.",
+    "Admitting X2 without changing attention hit the 96 GiB process guard during full-frame VAE attention."
+  ],
+  "implementation": "For X2 sizes only, evaluate 2048 attention queries per call against full K/V; fixed CPU seed-42 noise. Native arithmetic/noise and all weights stay unchanged.",
+  "initial_failure": {
+    "record": "output/x2-vosr-compatibility-01/full-frame-01/output.run.json",
+    "sha256": "81a695a287f6d030636294d92f14f8d823370b025ec8bfd53941704d8797ad32",
+    "status": "failed",
+    "reason": "VOSR process memory exceeded 96 GiB before the first frame completed."
+  },
+  "harness_correction": "The first checker required audio even for a silent native portrait fixture. Corrected analysis reused six complete outputs and ran the remaining two cases in installed-02. Original logs and protocols are preserved.",
+  "preliminary_and_installed_first_two_pngs_identical": true,
+  "checks": [
+    {
+      "case": "x2-default-landscape",
+      "input_sha256": "060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd",
+      "input_dimensions": [
+        1920,
+        1088
+      ],
+      "output_dimensions": [
+        3840,
+        2176
+      ],
+      "frames": 24,
+      "has_audio": true,
+      "audio_preserved": true,
+      "video_sha256": "8ee2ac97f25f0d1f0bf534e6c7db0bcfca21f0f9df711c0d1a09c626fffd4763",
+      "audio_pcm_sha256": "8dd51194807e625b55fbc7655854c65a18423000a5e36f7073fd65cfd85611f8",
+      "restoration": {
+        "query_chunk_size": 2048,
+        "noise_source": "torch-2.14.1-cpu-seed-42",
+        "noise_sha256": "dcafa673155b6ff63dc0dbb74116ae6a5379e9e1da626ac9f50adc4ed23d71d9"
+      },
+      "peak_physical_gib": 48.821185760200024,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "nominal",
+        "fair"
+      ],
+      "elapsed_seconds": 573.7720572500257,
+      "frame_seconds": [
+        17.468065415974706,
+        18.548078708001412,
+        19.037930958962534,
+        19.38909033301752,
+        19.64063920895569,
+        19.515414834022522,
+        19.284259125008248,
+        19.744180083973333,
+        21.293069375038613,
+        23.227818458981346,
+        25.071972124977037,
+        24.2511153750238,
+        24.050721709034406,
+        24.05922533402918,
+        23.606153375003487,
+        23.314046124985907,
+        23.074067374982405,
+        22.898343625012785,
+        22.551738250011113,
+        22.351024792005774,
+        22.28217662498355,
+        22.06366500002332,
+        21.973487875016872,
+        21.828327708004508
+      ],
+      "native_png_replay_identical": null,
+      "record_path": "output/x2-vosr-compatibility-01/installed-01/x2-default-landscape/output.run.json",
+      "record_sha256": "a043883e967f6ae3ec7c6bae4381fda666e28809cb17ea525b83671f08bb8ade",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "existing generated video"
+    },
+    {
+      "case": "x2-default-portrait",
+      "input_sha256": "208e296206d3bc95fc160363447f138e66906b569ab558f23a707b82a9b6dcb8",
+      "input_dimensions": [
+        1088,
+        1920
+      ],
+      "output_dimensions": [
+        2176,
+        3840
+      ],
+      "frames": 8,
+      "has_audio": true,
+      "audio_preserved": true,
+      "video_sha256": "9afd05aa9c391167be97f2fa98be0731de8f7f9bbfe6d46d1419fa1c043885b1",
+      "audio_pcm_sha256": "4fceaa01d9ee2653ddafe815299c324e2a4d76cab7225c147e5812a06bbb2d3b",
+      "restoration": {
+        "query_chunk_size": 2048,
+        "noise_source": "torch-2.14.1-cpu-seed-42",
+        "noise_sha256": "dcafa673155b6ff63dc0dbb74116ae6a5379e9e1da626ac9f50adc4ed23d71d9"
+      },
+      "peak_physical_gib": 48.62700252234936,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "fair"
+      ],
+      "elapsed_seconds": 179.799736667017,
+      "frame_seconds": [
+        21.59766395902261,
+        21.095068167021964,
+        20.89477029099362,
+        21.063922000001185,
+        20.824653375020716,
+        20.78097224998055,
+        20.938395916949958,
+        21.130207749956753
+      ],
+      "native_png_replay_identical": null,
+      "record_path": "output/x2-vosr-compatibility-01/installed-01/x2-default-portrait/output.run.json",
+      "record_sha256": "6191d70119c332b888561337f5c8409e8473471fe7a8a5e2e6b15dc3a0278446",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "existing generated video"
+    },
+    {
+      "case": "x2-576-landscape",
+      "input_sha256": "f161d99b00f83e2028084a0861577113929300eab27e3e7b0e9c69200e5dede6",
+      "input_dimensions": [
+        2048,
+        1152
+      ],
+      "output_dimensions": [
+        4096,
+        2304
+      ],
+      "frames": 2,
+      "has_audio": true,
+      "audio_preserved": true,
+      "video_sha256": "2a4ac72774b3c271694cbb083819752ff821ab974dc413e0f9fa51032978d216",
+      "audio_pcm_sha256": "feaedb7187a5f247f6cfec0c5ac577ee9bf3df890f1411d60d7fa96ff53a8db0",
+      "restoration": {
+        "query_chunk_size": 2048,
+        "noise_source": "torch-2.14.1-cpu-seed-42",
+        "noise_sha256": "2993f1d078e021b9888cd1a9051395a3daa81b9d87abb87dea34e46c3fbd866f"
+      },
+      "peak_physical_gib": 55.943103574216366,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "fair"
+      ],
+      "elapsed_seconds": 57.255025000020396,
+      "frame_seconds": [
+        23.62631112500094,
+        23.163957790995482
+      ],
+      "native_png_replay_identical": null,
+      "record_path": "output/x2-vosr-compatibility-01/installed-01/x2-576-landscape/output.run.json",
+      "record_sha256": "972de24c43fa9e2db579b6aebae66e8078e4556826361ef8f30d55c0e8d3b8e9",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "resized format fixture"
+    },
+    {
+      "case": "x2-576-portrait",
+      "input_sha256": "f29c1a15809cd99c99bbd1f8df4feccebd634dc5f849df17c8cb963c5d223eb2",
+      "input_dimensions": [
+        1152,
+        2048
+      ],
+      "output_dimensions": [
+        2304,
+        4096
+      ],
+      "frames": 2,
+      "has_audio": true,
+      "audio_preserved": true,
+      "video_sha256": "fe02a4e7102b635a8f43abea20e4e511d1a3f3bf3457310be15ce99a5bb71307",
+      "audio_pcm_sha256": "e2d63fbf233b091c9bf252eb39be5ea2548e6a7cc613fda4b1d70c0e39eee6b9",
+      "restoration": {
+        "query_chunk_size": 2048,
+        "noise_source": "torch-2.14.1-cpu-seed-42",
+        "noise_sha256": "2993f1d078e021b9888cd1a9051395a3daa81b9d87abb87dea34e46c3fbd866f"
+      },
+      "peak_physical_gib": 55.83217220008373,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "fair"
+      ],
+      "elapsed_seconds": 55.70283608301543,
+      "frame_seconds": [
+        22.964367749984376,
+        22.466672875045333
+      ],
+      "native_png_replay_identical": null,
+      "record_path": "output/x2-vosr-compatibility-01/installed-01/x2-576-portrait/output.run.json",
+      "record_sha256": "18b2e8568629035179ac2e72380c7c1e30f9792e7d9cfa6c6efc27fbf1a48f99",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "resized format fixture"
+    },
+    {
+      "case": "native-768-landscape",
+      "input_sha256": "8ab0ac2e873b0497b2c2059fcdeac4391b0ab482cc410ded3e419a4761bbb7b3",
+      "input_dimensions": [
+        1366,
+        768
+      ],
+      "output_dimensions": [
+        2732,
+        1536
+      ],
+      "frames": 2,
+      "has_audio": true,
+      "audio_preserved": true,
+      "video_sha256": "98dc34d457fd0ae4f2a2b161b915b4a8d044b01326bd13b537ad36af78b4dd63",
+      "audio_pcm_sha256": "5d49e64d136e9fdafa5833c8eeb620e7fe8f941ce5fb30436f4da2b78a02176d",
+      "restoration": {
+        "query_chunk_size": null,
+        "noise_source": "packaged-native",
+        "noise_sha256": "27cb64fee5d2f42c4d2fba88aea89867668bee6e2412edff1fd9689cd708b6d6"
+      },
+      "peak_physical_gib": 70.67528036981821,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "fair"
+      ],
+      "elapsed_seconds": 27.497846958984155,
+      "frame_seconds": [
+        9.15476708294591,
+        8.879378082987387
+      ],
+      "native_png_replay_identical": true,
+      "record_path": "output/x2-vosr-compatibility-01/installed-01/native-768-landscape/output.run.json",
+      "record_sha256": "f1c61a8356d4a1de78223b9787be23b15a061edb71d18ff60a2e1f60ca04050b",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "native replay fixture"
+    },
+    {
+      "case": "upscale-portrait",
+      "input_sha256": "6287b1be91c80afe9c8a81045c9982be3713adb5aac6a4a1ac16aa0d7c650e2a",
+      "input_dimensions": [
+        768,
+        1366
+      ],
+      "output_dimensions": [
+        1536,
+        2732
+      ],
+      "frames": 2,
+      "has_audio": false,
+      "audio_preserved": true,
+      "video_sha256": "753b9cf45711f8dfdf1d446044ad18c37ed981acfdb3a43d8b9b52a3b8a7348a",
+      "audio_pcm_sha256": null,
+      "restoration": {
+        "query_chunk_size": null,
+        "noise_source": "packaged-native",
+        "noise_sha256": "27cb64fee5d2f42c4d2fba88aea89867668bee6e2412edff1fd9689cd708b6d6"
+      },
+      "peak_physical_gib": 69.66360744088888,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "fair"
+      ],
+      "elapsed_seconds": 27.379608958028257,
+      "frame_seconds": [
+        9.019449166022241,
+        8.786689791013487
+      ],
+      "native_png_replay_identical": true,
+      "record_path": "output/x2-vosr-compatibility-01/installed-01/upscale-portrait/output.run.json",
+      "record_sha256": "42d5fb0a49e9d4988b9d8c7f97a2ce3a78a90a8dadabb12439c9057b4bec6423",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "native replay fixture"
+    },
+    {
+      "case": "upscale-576",
+      "input_sha256": "7d9293e55fe2abaef46b853b4b9559fcea9bfa11b5944bd80bde566d280195a2",
+      "input_dimensions": [
+        1024,
+        576
+      ],
+      "output_dimensions": [
+        2048,
+        1152
+      ],
+      "frames": 2,
+      "has_audio": false,
+      "audio_preserved": true,
+      "video_sha256": "e1061725b28509a5aab8648dec85d6c4d688206fb18a983d3773f15b1948533e",
+      "audio_pcm_sha256": null,
+      "restoration": {
+        "query_chunk_size": null,
+        "noise_source": "packaged-native",
+        "noise_sha256": "7741bf70804a8fa3bb8d7b2c3f2ffab08343b61959aa78445f6bd03cc59d1dfe"
+      },
+      "peak_physical_gib": 32.66582014411688,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "nominal"
+      ],
+      "elapsed_seconds": 17.166162082983647,
+      "frame_seconds": [
+        4.073212584014982,
+        4.048080999986269
+      ],
+      "native_png_replay_identical": true,
+      "record_path": "output/x2-vosr-compatibility-01/installed-02/upscale-576/output.run.json",
+      "record_sha256": "bccf2c985ebc719a2f08b538c8e298f03a3277e8c4835dd63858449b08a17158",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "native replay fixture"
+    },
+    {
+      "case": "upscale-576-portrait",
+      "input_sha256": "db1d6528ff30ffcd69ab0f85fc097fdbeb3cf7d422e9e7e21c847e0f9d8dce02",
+      "input_dimensions": [
+        576,
+        1024
+      ],
+      "output_dimensions": [
+        1152,
+        2048
+      ],
+      "frames": 2,
+      "has_audio": false,
+      "audio_preserved": true,
+      "video_sha256": "f874ed2956a5a13185a6a741e88a3792fed1a31fc7c3c7f7981881508629f275",
+      "audio_pcm_sha256": null,
+      "restoration": {
+        "query_chunk_size": null,
+        "noise_source": "packaged-native",
+        "noise_sha256": "7741bf70804a8fa3bb8d7b2c3f2ffab08343b61959aa78445f6bd03cc59d1dfe"
+      },
+      "peak_physical_gib": 32.66966540366411,
+      "added_swap_bytes": 0,
+      "thermal_states": [
+        "nominal"
+      ],
+      "elapsed_seconds": 17.52203787502367,
+      "frame_seconds": [
+        4.089327624998987,
+        4.14452666696161
+      ],
+      "native_png_replay_identical": true,
+      "record_path": "output/x2-vosr-compatibility-01/installed-02/upscale-576-portrait/output.run.json",
+      "record_sha256": "e652fd9def684fbc8eec545699e42fe62f0fb9b7bc22c5c15b6353912e26e1ac",
+      "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+      "fixture_kind": "native replay fixture"
+    }
+  ],
+  "timing_scope": "Per-call snapshot, worker startup, model load, ordered restoration and export; initial model verification excluded. Retained caches; unit tests overlapped early integration work. Descriptive timings, not paired performance results.",
+  "limits": [
+    "Default X2 landscape: 24 frames (one second); portrait: eight frames.",
+    "576p X2 sizes: two-frame resized fixtures, not fresh model generations or quality cases.",
+    "Four native sizes: two restored PNGs per size compared byte-for-byte with frozen records.",
+    "No new complete five- or fifteen-second X2 restoration, human motion review or universal quality qualification."
+  ],
+  "hardware": "Apple M5 Max, 40 GPU cores, 128 GiB unified memory",
+  "tests": {
+    "passed": 278,
+    "skipped": 1,
+    "reason": "Optional 2.56 GB synthetic large-array test",
+    "log_sha256": "6beee662d1aba65754025afde2a998a1943914aeb0967eef279211eec9b50f7e"
+  },
+  "geometry_test_build": {
+    "package_source_sha256": "b8661bbc052d970010d9ca39bf9857f0e862dc812c91790c837d53d323a9b62c",
+    "wheel_sha256": "fea836531c55711731abd3b95d21fd93a250a48370cbdebf71f612ca88bcdca3",
+    "scope": "Eight geometry checks used an installed wheel with 26 unused files from a local build cache. All 99 current source files were byte-identical to the final clean wheel."
+  },
+  "delivery_build": {
+    "source_files": 99,
+    "active_files_byte_identical": true,
+    "wheel_matches_source": true,
+    "sdist_matches_source": true,
+    "removed_cached_files": [
+      "h3_apple/data/face-model-sources.json",
+      "h3_apple/faces/__init__.py",
+      "h3_apple/faces/_vendor/__init__.py",
+      "h3_apple/faces/_vendor/dinov2/__init__.py",
+      "h3_apple/faces/_vendor/dinov2/layers/__init__.py",
+      "h3_apple/faces/_vendor/dinov2/layers/attention.py",
+      "h3_apple/faces/_vendor/dinov2/layers/block.py",
+      "h3_apple/faces/_vendor/dinov2/layers/drop_path.py",
+      "h3_apple/faces/_vendor/dinov2/layers/layer_scale.py",
+      "h3_apple/faces/_vendor/dinov2/layers/mlp.py",
+      "h3_apple/faces/_vendor/dinov2/layers/patch_embed.py",
+      "h3_apple/faces/_vendor/dinov2/layers/swiglu_ffn.py",
+      "h3_apple/faces/_vendor/dinov2/vision_transformer.py",
+      "h3_apple/faces/_vendor/vosr/__init__.py",
+      "h3_apple/faces/_vendor/vosr/conditioning.py",
+      "h3_apple/faces/_vendor/vosr/lightningdit.py",
+      "h3_apple/faces/_vendor/vosr/pos_embed.py",
+      "h3_apple/faces/_vendor/vosr/qwenimage_vae2d.py",
+      "h3_apple/faces/_vendor/vosr/rmsnorm.py",
+      "h3_apple/faces/_vendor/vosr/swiglu_ffn.py",
+      "h3_apple/faces/api.py",
+      "h3_apple/faces/assets.py",
+      "h3_apple/faces/geometry.py",
+      "h3_apple/faces/model.py",
+      "h3_apple/faces/pipeline.py",
+      "h3_apple/faces/worker.py"
+    ],
+    "clean_wheel_sha256": "19e8acd27d1f6adbfdc2d696cbefb9409505ccb6fa49800280ef34b07338fc09",
+    "installed_matches_source": true,
+    "package_source_sha256": "f97a211ebf60f1dd39b47802c2091175e1657a1ca0102a96f156052f00ddf567",
+    "clean_cli_replay": {
+      "frames": 2,
+      "dimensions": [
+        3840,
+        2176
+      ],
+      "png_replay_identical": true,
+      "audio_preserved": true,
+      "record": "output/x2-vosr-compatibility-01/clean-wheel-01/output.run.json",
+      "record_sha256": "02e308f0042621d13a9b8dfb6b67b5de32baa448cd0c87651f33166dc3b027a4"
+    }
+  },
+  "packaging_correction": "Built the wheel from a fresh source distribution to discard orphaned build-cache files. The final wheel/sdist and installed package exactly match the 99 current source files. Clean-wheel tests and a two-frame X2 CLI replay pass. The earlier eight-shape evidence is retained with its own package identity."
+}

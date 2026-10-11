@@ -49,6 +49,11 @@ fell from **46m 30s to 20m 11s: 56.6% less time** than the FP32 reference.
 [Measurements and limits](evidence/v0.8.0-vosr.json) ·
 [Watch N8 and N6](https://rhinoq.github.io/h3-apple/#showcase).
 
+X2 input has more pixels and takes longer. Short landscape/portrait checks used
+about 49–56 GiB process memory on the same Mac. These are compatibility checks;
+complete five-second X2 restoration and motion quality remain unmeasured.
+[X2 validation](evidence/v0.8.1-x2-vosr.json).
+
 VOSR can add plausible detail; it cannot repair a failed action or guarantee
 faithful text, faces or architecture. Review motion and fine patterns in the result.
 The restored video uses H.264; audio is copied without re-encoding.

@@ -1,5 +1,19 @@
 # Validation
 
+## 0.8.1 candidate
+
+[X2 restoration checks](evidence/v0.8.1-x2-vosr.json): **278 tests passed**, with
+one optional large-array test skipped. The installed wheel restores all eight
+supported input sizes. Default X2 uses a 24-frame landscape clip and an eight-frame
+portrait clip; the larger 576p X2 sizes use two-frame resized fixtures. Four native
+sizes reproduce their two frozen restored PNGs exactly. Audio and silence are preserved.
+Final packaging matches the source tree exactly and repeats the X2 CLI pixel/audio
+check. The record distinguishes the geometry-test and clean delivery builds.
+
+These checks establish compatibility and native regression, not complete X2 motion
+quality or a new speed ranking. The separate
+[five-second workflow check](evidence/v0.8.1-workflow.json) uses native 768p.
+
 ## 0.8.0
 
 [Release checks](evidence/v0.8.0-release.json): **241 tests passed** in a clean

@@ -166,11 +166,12 @@ def test_x2_noise_is_repeatable_and_does_not_change_global_rng(size):
     import torch
     from h3_apple.super_resolution.engine import frame_noise
     width, height = size
-    before = torch.get_rng_state().clone()
-    first = frame_noise(width, height)
-    assert torch.equal(before, torch.get_rng_state())
-    torch.rand(17)
-    second = frame_noise(width, height)
+    with torch.random.fork_rng(devices=[]):
+        before = torch.get_rng_state().clone()
+        first = frame_noise(width, height)
+        assert torch.equal(before, torch.get_rng_state())
+        torch.rand(17)
+        second = frame_noise(width, height)
     assert torch.equal(first, second)
     assert first.shape == (1, 16, height // 4, width // 4)
     assert first.dtype == torch.float32 and torch.isfinite(first).all()
@@ -188,6 +189,20 @@ def test_query_chunks_preserve_full_attention_and_query_order(chunk):
     v = torch.randn(1, 2, 29, 64, generator=generator)
     expected = scaled_dot_product_attention(q, k, v)
     torch.testing.assert_close(query_chunk_attention(q, k, v, chunk), expected, atol=1e-6, rtol=1e-5)
+
+
+@pytest.mark.hardware
+def test_query_chunks_match_fp16_mps_attention_with_a_tail():
+    import torch
+    from torch.nn.functional import scaled_dot_product_attention
+    from h3_apple.super_resolution._vendor.vosr.qwenimage_vae2d import query_chunk_attention
+    if not torch.backends.mps.is_available():
+        pytest.skip('MPS is unavailable')
+    generator = torch.Generator().manual_seed(71)
+    q, k, v = [torch.randn(1, 1, 4099, 384, generator=generator).half().to('mps') for _ in range(3)]
+    expected = scaled_dot_product_attention(q, k, v)
+    actual = query_chunk_attention(q, k, v, 2048)
+    torch.testing.assert_close(actual, expected, atol=5e-4, rtol=2e-3)
 
 
 @pytest.mark.parametrize('stop', ['timeout', 'callback'])

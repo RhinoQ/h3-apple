@@ -17,7 +17,8 @@ The default generates five seconds with SOL + 544p/X2. Use the
 | Machine-readable result | `--json`; automatic when stdout is redirected |
 
 Native 768p over five seconds requires 96 GiB memory. Super-resolution requires
-128 GiB and accepts native 576p/768p; explicit X2 settings conflict with `--upscale`.
+128 GiB. Use `h3 upscale --input video.mp4` for existing native or X2 output;
+the `generate --upscale` shortcut selects native 768p for the combined workflow.
 
 Outputs go into a fresh `runs/` directory unless you name a file. With `--upscale`,
 `scene.mp4` is the final video and `scene.native.mp4` is its saved input. If
