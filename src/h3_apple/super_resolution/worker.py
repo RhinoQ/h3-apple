@@ -135,7 +135,7 @@ def main():
     except Exception as error:
         import traceback
         traceback.print_exc(file=sys.stderr)
-        emit(dict(kind='error', error=str(error)))
+        emit(dict(kind='error', error=str(error), resources=resources))
         return 1
     finally:
         done.set()

@@ -72,6 +72,10 @@ class Upscaler:
         args.tile_size, args.tile_overlap = 512, 32
         args.posterior_mode, args.infer_steps = True, 1
         configure(self.restorer)
+        if max(self.size) > 1366:
+            for module in self.restorer.vae.modules():
+                if module.__class__.__name__ == 'AttentionBlock2D':
+                    module.query_chunk_size = 2048
         # Only this worker's namespaced tiling function uses the submission wrapper.
         self.features = tiling.get_venc_features
         tiling.get_venc_features = submit_after(self.features)

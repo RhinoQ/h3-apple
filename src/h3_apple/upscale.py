@@ -153,6 +153,7 @@ def upscale(input, *, output=None, duration=None, model_dir=None, on_progress=No
                     result = event['result']
                 elif event.get('kind') == 'error':
                     run['worker_error'] = event['error']
+                    run['resources'] = event.get('resources', {})
                 elif on_progress:
                     on_progress(event)
             process.wait(timeout=max(.1, timeout - (time.monotonic() - started)))

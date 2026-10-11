@@ -80,12 +80,25 @@ class AttentionBlock2D(nn.Module):
         # flash/mem-efficient kernels on some accelerators (falls back to O(N^2)
         # math -> OOM on large inputs). The 4D (b, 1, N, c) form is mathematically
         # identical but selects the fast, O(N)-memory kernel.
-        x_attn = F.scaled_dot_product_attention(q[:, None].half().contiguous(), k[:, None].half().contiguous(), v[:, None].half().contiguous()).float()
+        q, k, v = (value[:, None].half().contiguous() for value in (q, k, v))
+        chunk = getattr(self, 'query_chunk_size', None)
+        if chunk is None:
+            x_attn = F.scaled_dot_product_attention(q, k, v).float()
+        else:
+            x_attn = query_chunk_attention(q, k, v, chunk).float()
         x_attn = x_attn.squeeze(1)
 
         x_attn = x_attn.permute(0, 2, 1).reshape(b, c, h, w)
         x_attn = self.proj(x_attn)
         return x_attn + identity
+
+
+def query_chunk_attention(q, k, v, chunk):
+    """Bound temporary attention memory while retaining every key/value pixel."""
+    if type(chunk) is not int or chunk < 1:
+        raise ValueError('Query chunk size must be a positive integer.')
+    return torch.cat([F.scaled_dot_product_attention(q[..., start:start + chunk, :], k, v)
+                      for start in range(0, q.shape[-2], chunk)], dim=-2)
 
 
 class Resample2D(nn.Module):

@@ -177,6 +177,19 @@ def test_x2_noise_is_repeatable_and_does_not_change_global_rng(size):
     assert abs(first.mean().item()) < .01 and .99 < first.std().item() < 1.01
 
 
+@pytest.mark.parametrize('chunk', [1, 7, 23])
+def test_query_chunks_preserve_full_attention_and_query_order(chunk):
+    import torch
+    from torch.nn.functional import scaled_dot_product_attention
+    from h3_apple.super_resolution._vendor.vosr.qwenimage_vae2d import query_chunk_attention
+    generator = torch.Generator().manual_seed(73)
+    q = torch.randn(1, 2, 19, 64, generator=generator)
+    k = torch.randn(1, 2, 29, 64, generator=generator)
+    v = torch.randn(1, 2, 29, 64, generator=generator)
+    expected = scaled_dot_product_attention(q, k, v)
+    torch.testing.assert_close(query_chunk_attention(q, k, v, chunk), expected, atol=1e-6, rtol=1e-5)
+
+
 @pytest.mark.parametrize('stop', ['timeout', 'callback'])
 def test_upscale_interruption_reaps_worker_and_keeps_logs(media, tmp_path, monkeypatch, stop):
     import subprocess
