@@ -1,0 +1,294 @@
+{
+  "version": "0.8.0",
+  "status": "passed",
+  "tested_source_commit": "96b27bf",
+  "package_source_sha256": "772a46cd7272d780cd56ac061ca2aa7ffa32d167ac6ea8946e1ff1322d8af404",
+  "tested_wheel_sha256": "eac83ff45fb603e1d4ee9141e5897ffe6eba92e336e0515dbcf56400f3f4f9e1",
+  "restoration_package_source_sha256": "78115ebc0538099a247b288b40c5f006ce44cc45612db2fbbd0e8281bb9a5cd4",
+  "integration_revision": {
+    "runtime_files_changed": [
+      "h3_apple/runtime/backend.py"
+    ],
+    "reason": "Candidate 02 retained Torch 2.11 dependency guards and rejected the clean 2.14 environment before generation. Candidate 03 derives pins from installed distribution metadata.",
+    "restoration": "All restoration code, data and dependencies are byte-identical to candidate 02."
+  },
+  "host": "Apple M5 Max, 40 GPU cores, 128 GiB, macOS 26.6.1",
+  "installation": "Fresh Conda Python 3.11 / FFmpeg 8.1.2 environment, declared wheel dependencies only; pip check passed. pytest added for validation.",
+  "tests": {
+    "passed": 241,
+    "hardware": true,
+    "large_array_regression": true,
+    "report_sha256": "240fb916c0e146af0c95f7b3c86525afdca12b0874a09a064ba0e22638d4e3b9",
+    "scope": "Full installed-package suite after dependency-guard correction."
+  },
+  "integration": [
+    {
+      "name": "upscale-n8",
+      "request": {
+        "width": 1366,
+        "height": 768,
+        "fps": 24,
+        "num_frames": 120,
+        "source_frames": 120,
+        "duration": 5.0,
+        "audio": true
+      },
+      "package_source_sha256": "78115ebc0538099a247b288b40c5f006ce44cc45612db2fbbd0e8281bb9a5cd4",
+      "video_sha256": "9d76c9159cc93a6d149c18f7141dca406dea3c858050584afe599f10c24c82ea",
+      "elapsed_seconds": 1251.9782012920186,
+      "width": 2732,
+      "height": 1536,
+      "frames": 120,
+      "fps": "24/1",
+      "resources": {
+        "peak_physical_bytes": 74831596736,
+        "max_added_swap_bytes": 0,
+        "thermal_states": [
+          "nominal",
+          "fair"
+        ]
+      },
+      "input_sha256": "3a414ef8aa493331a1342d2a19831cbac09339000df67950b20806a6dfec6b62",
+      "audio_pcm_sha256": "538dbb8e255448b3e88ca3f2bb18549a76621bcf84c7dec6904b01977c51a303",
+      "exact_approved_png_matches": 120,
+      "complete_mp4_identical_to_approved_video": true
+    },
+    {
+      "name": "upscale-n6-excerpt",
+      "request": {
+        "width": 1366,
+        "height": 768,
+        "fps": 24,
+        "num_frames": 2,
+        "source_frames": 360,
+        "duration": 0.08333333333333333,
+        "audio": true
+      },
+      "package_source_sha256": "78115ebc0538099a247b288b40c5f006ce44cc45612db2fbbd0e8281bb9a5cd4",
+      "video_sha256": "a840a73ac2e3e2d06612cd2e2c28e0ba8fe006a357e8306996fc924b9f09866d",
+      "elapsed_seconds": 28.907389917003457,
+      "width": 2732,
+      "height": 1536,
+      "frames": 2,
+      "fps": "24/1",
+      "resources": {
+        "peak_physical_bytes": 74810706752,
+        "max_added_swap_bytes": 0,
+        "thermal_states": [
+          "fair"
+        ]
+      },
+      "input_sha256": "c9ccd2a4940f11d7fd08d945bd6db0b39c5c8055eee88c0bceda7c8336036b27",
+      "audio_pcm_sha256": "5de51f2ab71e2c5a80e1cc517d2b326cff12fe72cd723910ccb09c4ad9e4cc00",
+      "exact_approved_png_matches": 2
+    },
+    {
+      "name": "upscale-portrait",
+      "request": {
+        "width": 768,
+        "height": 1366,
+        "fps": 24,
+        "num_frames": 2,
+        "source_frames": 2,
+        "duration": 0.08333333333333333,
+        "audio": false
+      },
+      "package_source_sha256": "78115ebc0538099a247b288b40c5f006ce44cc45612db2fbbd0e8281bb9a5cd4",
+      "video_sha256": "753b9cf45711f8dfdf1d446044ad18c37ed981acfdb3a43d8b9b52a3b8a7348a",
+      "elapsed_seconds": 28.42629695800133,
+      "width": 1536,
+      "height": 2732,
+      "frames": 2,
+      "fps": "24/1",
+      "resources": {
+        "peak_physical_bytes": 74797304544,
+        "max_added_swap_bytes": 0,
+        "thermal_states": [
+          "fair"
+        ]
+      },
+      "input_sha256": "6287b1be91c80afe9c8a81045c9982be3713adb5aac6a4a1ac16aa0d7c650e2a",
+      "audio_pcm_sha256": null,
+      "scope": "Two-frame geometry/silent-media smoke; no general quality qualification."
+    },
+    {
+      "name": "upscale-576",
+      "request": {
+        "width": 1024,
+        "height": 576,
+        "fps": 24,
+        "num_frames": 2,
+        "source_frames": 2,
+        "duration": 0.08333333333333333,
+        "audio": false
+      },
+      "package_source_sha256": "78115ebc0538099a247b288b40c5f006ce44cc45612db2fbbd0e8281bb9a5cd4",
+      "video_sha256": "e1061725b28509a5aab8648dec85d6c4d688206fb18a983d3773f15b1948533e",
+      "elapsed_seconds": 19.328920333995484,
+      "width": 2048,
+      "height": 1152,
+      "frames": 2,
+      "fps": "24/1",
+      "resources": {
+        "peak_physical_bytes": 36169271912,
+        "max_added_swap_bytes": 0,
+        "thermal_states": [
+          "fair"
+        ]
+      },
+      "input_sha256": "7d9293e55fe2abaef46b853b4b9559fcea9bfa11b5944bd80bde566d280195a2",
+      "audio_pcm_sha256": null,
+      "scope": "Two-frame geometry/silent-media smoke; no general quality qualification."
+    },
+    {
+      "name": "upscale-576-portrait",
+      "request": {
+        "width": 576,
+        "height": 1024,
+        "fps": 24,
+        "num_frames": 2,
+        "source_frames": 2,
+        "duration": 0.08333333333333333,
+        "audio": false
+      },
+      "package_source_sha256": "78115ebc0538099a247b288b40c5f006ce44cc45612db2fbbd0e8281bb9a5cd4",
+      "video_sha256": "f874ed2956a5a13185a6a741e88a3792fed1a31fc7c3c7f7981881508629f275",
+      "elapsed_seconds": 18.48691508299089,
+      "width": 1152,
+      "height": 2048,
+      "frames": 2,
+      "fps": "24/1",
+      "resources": {
+        "peak_physical_bytes": 35102952328,
+        "max_added_swap_bytes": 0,
+        "thermal_states": [
+          "fair",
+          "nominal"
+        ]
+      },
+      "input_sha256": "db1d6528ff30ffcd69ab0f85fc097fdbeb3cf7d422e9e7e21c847e0f9d8dce02",
+      "audio_pcm_sha256": null,
+      "scope": "Two-frame geometry/silent-media smoke; no general quality qualification."
+    },
+    {
+      "name": "default-landscape",
+      "request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the white-jade celestial palace and cloud landscape in <Picture 1>, with three blue-and-gold roof tiers, a continuous carved terrace railing, pale sky and realistic materials.\n\nsummary:\n[reference generation] A five-second cinematic sideways glide reveals the cloud palace through drifting mist.\n\nretention_analysis:\n<Subject 1> (throughout [Shot 1]): fully_preserved - retain the palace silhouette, connected roof tiers, carved terrace, railing, light and colors while the viewpoint changes.\n\ndetailed_description:\n[Shot 1] A continuous wide view starts near the reference composition, with the palace on the right and open pale-blue sky on the left. The camera glides slowly to screen right across the front of the palace for five seconds. Nearby terrace posts shift against the distant roof tiers, producing a gentle, readable parallax reveal. All visible buildings remain rigid and connected, with the whole main roof silhouette comfortably inside frame. Thin luminous foreground mist drifts right below the roofs and exposes more of the lower stone terrace. Golden morning light grazes the blue roof tiles, carved ivory balustrade and cloud edges. End still gliding, with the same three-tier palace clearly visible. No cut, people or written text.\n\noverall_soundscape:\nSoft high-altitude wind with a faint distant bell, no speech.\n\nnon_diegetic_music:\nA quiet sustained guqin phrase beneath the wind.\n",
+        "reference_images": [
+          "sha256:ab14615ca308d02f3ae323e9439a5b7aa7e6e953adb10b01cbdb637ad6989c0e"
+        ],
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 173001,
+        "width": 1920,
+        "height": 1088,
+        "num_frames": 120,
+        "model_width": 960,
+        "model_height": 544,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "package_source_sha256": "772a46cd7272d780cd56ac061ca2aa7ffa32d167ac6ea8946e1ff1322d8af404",
+      "video_sha256": "060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd",
+      "elapsed_seconds": 153.3254854999832,
+      "width": 1920,
+      "height": 1088,
+      "frames": 120,
+      "fps": "24/1",
+      "baseline_video_sha256": "060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd",
+      "decoded": {
+        "rgb_sha256": "b0d88b6e26f98ba49ca0543c25b8d491d7a6539acf97a1ece480dd6a1aa3acab",
+        "pcm_sha256": "5a4cdd28ec821c30fa4bc8d8b53c8411189b4e95ea390c2cd4a6424c1f3fb37a"
+      },
+      "scope": "Full five-second generation regression; every decoded RGB frame and PCM sample equal the frozen 0.7.0 result."
+    },
+    {
+      "name": "default-portrait",
+      "request": {
+        "prompt": "subject_definitions\n<Subject 1> is the adult celestial woman in <Picture 1>, with dark hair, a simple jade hairpin, a white robe collar and natural skin texture. The image supplies her identity, hair, clothing and visual style.\n\nsummary\n[reference generation] A five-second single close shot of <Subject 1> turning her head gently toward screen right and holding a three-quarter view.\n\nretention_analysis\n<Subject 1> (throughout [Shot 1]): fully_preserved - Retain the referenced face, hairstyle, hairpin and robe. Only head orientation changes; the subject remains the same person.\n\ndetailed_description\n[Shot 1] A centered shoulder-up portrait of <Subject 1>, with the entire face, chin and hairline comfortably inside the frame and clear space on both sides of the head. A softly blurred pale-cyan palace remains in the background. The camera and soft lighting stay fixed. She faces the camera during the first second, then slowly turns her head toward screen right until a clear three-quarter face is visible. She holds that orientation for the final second. Both shoulders remain relaxed, and the hairpin stays attached in the same place. Keep the whole face outline visible throughout the turn. Quiet outdoor air is audible, with no speech or overlaid text.\n\noverall_soundscape\nSoft, steady air ambience. No speech.\n\nnon_diegetic_music\nNone.\n",
+        "reference_images": [
+          "sha256:3bfccfa4255936bc4ac4c810fefe117928477460b543bb7c7a4ce40374472516"
+        ],
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 173000,
+        "width": 1088,
+        "height": 1920,
+        "num_frames": 120,
+        "model_width": 544,
+        "model_height": 960,
+        "model_num_frames": 124,
+        "recipe": "ref2va-premerged-i8-sol-sage-v2",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "SOL",
+        "x2": true
+      },
+      "package_source_sha256": "772a46cd7272d780cd56ac061ca2aa7ffa32d167ac6ea8946e1ff1322d8af404",
+      "video_sha256": "208e296206d3bc95fc160363447f138e66906b569ab558f23a707b82a9b6dcb8",
+      "elapsed_seconds": 158.83030291699106,
+      "width": 1088,
+      "height": 1920,
+      "frames": 120,
+      "fps": "24/1",
+      "baseline_video_sha256": "208e296206d3bc95fc160363447f138e66906b569ab558f23a707b82a9b6dcb8",
+      "decoded": {
+        "rgb_sha256": "2e09b41522861d866b0cb3fdcfe7a8b1bc868e65489f0897158e42cefe8a6524",
+        "pcm_sha256": "10ceb897aafa6fddefc6931da8765c0e54195780e6bfadc9db42ea442152ee11"
+      },
+      "scope": "Full five-second generation regression; every decoded RGB frame and PCM sample equal the frozen 0.7.0 result."
+    },
+    {
+      "name": "explicit-vsa",
+      "request": {
+        "prompt": "subject_definitions:\n<Subject 1> is the white-jade celestial palace and cloud landscape in <Picture 1>, with three blue-and-gold roof tiers, a continuous carved terrace railing, pale sky and realistic materials.\n\nsummary:\n[reference generation] A five-second cinematic sideways glide reveals the cloud palace through drifting mist.\n\nretention_analysis:\n<Subject 1> (throughout [Shot 1]): fully_preserved - retain the palace silhouette, connected roof tiers, carved terrace, railing, light and colors while the viewpoint changes.\n\ndetailed_description:\n[Shot 1] A continuous wide view starts near the reference composition, with the palace on the right and open pale-blue sky on the left. The camera glides slowly to screen right across the front of the palace for five seconds. Nearby terrace posts shift against the distant roof tiers, producing a gentle, readable parallax reveal. All visible buildings remain rigid and connected, with the whole main roof silhouette comfortably inside frame. Thin luminous foreground mist drifts right below the roofs and exposes more of the lower stone terrace. Golden morning light grazes the blue roof tiles, carved ivory balustrade and cloud edges. End still gliding, with the same three-tier palace clearly visible. No cut, people or written text.\n\noverall_soundscape:\nSoft high-altitude wind with a faint distant bell, no speech.\n\nnon_diegetic_music:\nA quiet sustained guqin phrase beneath the wind.\n",
+        "reference_images": [
+          "sha256:ab14615ca308d02f3ae323e9439a5b7aa7e6e953adb10b01cbdb637ad6989c0e"
+        ],
+        "resolution": "544p",
+        "duration": 5.0,
+        "seed": 173001,
+        "width": 1920,
+        "height": 1088,
+        "num_frames": 120,
+        "model_width": 960,
+        "model_height": 544,
+        "model_num_frames": 124,
+        "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2,
+        "num_steps": 4,
+        "mode": "VSA",
+        "x2": true
+      },
+      "package_source_sha256": "772a46cd7272d780cd56ac061ca2aa7ffa32d167ac6ea8946e1ff1322d8af404",
+      "video_sha256": "b23532898b67e50c1d8d0c49337743066e217b0dea8c9ba5962f8e13fccfda3a",
+      "elapsed_seconds": 240.06600875000004,
+      "width": 1920,
+      "height": 1088,
+      "frames": 120,
+      "fps": "24/1",
+      "baseline_video_sha256": "b23532898b67e50c1d8d0c49337743066e217b0dea8c9ba5962f8e13fccfda3a",
+      "decoded": {
+        "rgb_sha256": "297149bd2292a67a75702715a57f0532e9895e1629186bd624bfcb3ebbf14d6c",
+        "pcm_sha256": "e1a9f268749f6b3b1a3dc3f19d15cca40426b9e62f81f99725354911e069404e"
+      },
+      "scope": "Full five-second generation regression; every decoded RGB frame and PCM sample equal the frozen 0.7.0 result."
+    }
+  ],
+  "limits": [
+    "Integration and regression checks, not a fresh performance benchmark.",
+    "No N6 FP32 rerun. N6 public API replay covers its first two frames; full accepted five-second recipe evidence is separate.",
+    "Portrait and 576p checks use two-frame fixtures; their scene quality and complete-clip performance remain unqualified.",
+    "Showcases remain outside the 48-video frozen 0.7.0 scored cohort."
+  ]
+}

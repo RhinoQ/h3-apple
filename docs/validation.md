@@ -1,12 +1,28 @@
 # Validation
 
+## 0.8.0
+
+[Release checks](evidence/v0.8.0-release.json): **241 tests passed** in a clean
+Conda installation, including GPU, large-array, dependency and cancellation checks.
+Full five-second SOL landscape/portrait and VSA runs match the frozen 0.7.0
+outputs in every decoded RGB frame and PCM sample.
+
+The installed VOSR CLI reproduced the complete **120-frame N8 MP4 byte for byte**,
+including audio. Python checks cover the N6 excerpt, portrait and
+both native 576p orientations. These short geometry checks use two frames each;
+they do not qualify general scene quality or long-clip performance.
+
+[Restoration measurements](evidence/v0.8.0-vosr.json) retain the separate N8
+FP32 comparison, N6 historical reference and complete human playback review.
+The final dependency-guard correction leaves restoration code and data unchanged.
+
 ## Refreshed 0.7.0
 
 [Refresh checks](evidence/v0.7.0-refresh.json): **219 passing tests**, including the
 large-array regression; a fresh Conda install without extras; default SOL + X2
 through landscape CLI and portrait Python calls; explicit VSA + X2. All three
 five-second outputs match the original configurations in complete decoded RGB
-and audio PCM. Face enhancement is absent from the runtime and dependencies.
+and audio PCM.
 
 ## Initial 0.7.0 release
 
