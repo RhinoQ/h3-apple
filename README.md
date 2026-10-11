@@ -15,7 +15,7 @@ One Mac workflow, from reference images to finished video.
 [**Watch the videos →**](https://rhinoq.github.io/h3-apple/#showcase) ·
 [**Install →**](#install) · [**0.8.0 release →**](docs/releases/0.8.0.md)
 
-| Celestial hall · N8 | Stairway above the clouds · N6 |
+| Celestial Hall | Stairway Above the Clouds |
 | --- | --- |
 | [![Sunlight and silk in a celestial hall](https://rhinoq.github.io/h3-apple/assets/showcase/n8.jpg)](https://rhinoq.github.io/h3-apple/#showcase-N8) | [![A golden stairway rising through a sea of clouds](https://rhinoq.github.io/h3-apple/assets/showcase/n6.jpg)](https://rhinoq.github.io/h3-apple/#showcase-N6) |
 

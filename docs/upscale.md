@@ -24,10 +24,10 @@ Inputs must be 24 fps, up to 15 seconds, with AAC audio or no audio. X2 output
 is already larger and is outside this restoration profile.
 
 The two five-second 768p showcases took about **20 minutes each** to upscale
-on a 40-core M5 Max / 128 GiB. That is additional to generation. N8 restoration
-fell from **46m 30s to 20m 11s: 56.6% less time** than the FP32 reference.
+on a 40-core M5 Max / 128 GiB. That is additional to generation. For **Celestial Hall**,
+restoration fell from **46m 30s to 20m 11s: 56.6% less time** than the FP32 reference.
 [Measurements and limits](evidence/v0.8.0-vosr.json) ·
-[Watch N8 and N6](https://rhinoq.github.io/h3-apple/#showcase).
+[Watch the videos](https://rhinoq.github.io/h3-apple/#showcase).
 
 VOSR can add plausible detail; it cannot repair a failed action or guarantee
 faithful text, faces or architecture. Review motion and fine patterns in the result.
