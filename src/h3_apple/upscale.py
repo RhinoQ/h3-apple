@@ -25,7 +25,7 @@ class UpscaleResult:
     elapsed_seconds: float
 
 
-def resolve_video(path):
+def resolve_video(path, duration=None):
     source = Path(path).expanduser().resolve(strict=True)
     if not source.is_file():
         raise ValueError('Input must be a video file.')
@@ -47,17 +47,25 @@ def resolve_video(path):
         raise ValueError('Rotate the video pixels before upscaling; rotation metadata is unsupported.')
     if audio and audio[0]['codec_name'] != 'aac':
         raise ValueError('Use AAC audio, or a silent video, to preserve audio without re-encoding.')
-    return dict(input=str(source), width=width, height=height, fps=24, num_frames=count,
-                duration=count / 24, audio=bool(audio))
+    selected = count
+    if duration is not None:
+        if (isinstance(duration, bool) or not isinstance(duration, (int, float))
+                or not math.isfinite(duration) or not 0 < duration <= count / 24):
+            raise ValueError('duration must be positive and no longer than the input video.')
+        selected = round(duration * 24)
+        if selected < 1 or abs(duration * 24 - selected) > 1e-6:
+            raise ValueError('duration must correspond to a whole frame at 24 fps.')
+    return dict(input=str(source), width=width, height=height, fps=24, num_frames=selected,
+                source_frames=count, duration=selected / 24, audio=bool(audio))
 
 
-def upscale(input, *, output, model_dir=None, on_progress=None, diagnostics=False, timeout=14400):
+def upscale(input, *, output, duration=None, model_dir=None, on_progress=None, diagnostics=False, timeout=14400):
     """Double a native 576p/768p H3 video's dimensions with VOSR2; keep its audio."""
     if isinstance(timeout, bool) or not math.isfinite(timeout) or timeout <= 0:
         raise ValueError('timeout must be positive and finite.')
     if type(diagnostics) is not bool:
         raise ValueError('diagnostics must be a boolean.')
-    request = resolve_video(input)
+    request = resolve_video(input, duration)
     video = Path(output).expanduser().absolute()
     metadata = video.with_suffix('.run.json')
     if video.suffix.lower() != '.mp4':

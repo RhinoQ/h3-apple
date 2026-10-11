@@ -42,7 +42,9 @@ result = upscale("native.mp4", output="detailed.mp4")
 print(result.video_path)
 ```
 
-Optional arguments: `model_dir`, `on_progress`, `diagnostics=False`,
+Add `--duration 5` to process only the first five seconds of a longer input.
+
+Optional arguments: `duration=None`, `model_dir`, `on_progress`, `diagnostics=False`,
 `timeout=14400` seconds. `UpscaleResult` contains `video_path`, `metadata_path`
 and `elapsed_seconds`; model preparation is outside that timer. Existing outputs
 are refused; failures retain logs. The fixed recipe replays seed-42 noise across

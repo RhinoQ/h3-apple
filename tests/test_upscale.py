@@ -51,6 +51,16 @@ def test_unsupported_audio_and_multiple_streams(media):
         api.resolve_video(path)
 
 
+def test_short_excerpt_keeps_source_frame_count(media):
+    path, _ = media
+    result = api.resolve_video(path, duration=2)
+    assert result['num_frames'] == 48 and result['source_frames'] == 120
+    assert result['duration'] == 2
+    for invalid in (True, 0, -1, 6, .01, float('nan')):
+        with pytest.raises(ValueError):
+            api.resolve_video(path, duration=invalid)
+
+
 def test_existing_output_rejected_before_model_setup(media, tmp_path, monkeypatch):
     path, _ = media
     from h3_apple.super_resolution import assets

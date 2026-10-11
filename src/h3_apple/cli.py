@@ -67,6 +67,7 @@ def parser():
     upscale = commands.add_parser("upscale", help="Double native video dimensions with VOSR2")
     upscale.add_argument("--input", required=True)
     upscale.add_argument("--output", required=True)
+    upscale.add_argument("--duration", type=float, help="Upscale only the first N seconds")
     upscale.add_argument("--model-dir")
     upscale.add_argument("--diagnostics", action="store_true")
     upscale.add_argument("--timeout", type=float, default=14400)

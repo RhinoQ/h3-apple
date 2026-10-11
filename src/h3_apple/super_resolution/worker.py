@@ -96,7 +96,7 @@ def main():
                     rows.append(dict(frame=index, seconds=time.monotonic() - started, sha256=digest(path)))
                     write_json(workspace / 'frames.json', rows)
                     emit(dict(phase='upscale', message=f"Restored {index + 1}/{request['num_frames']} frames"))
-                if capture.read()[0]:
+                if request['num_frames'] == request['source_frames'] and capture.read()[0]:
                     raise RuntimeError('Input contains more frames than declared.')
             finally:
                 capture.release()
