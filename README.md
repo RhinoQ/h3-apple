@@ -55,17 +55,16 @@ Add `--aspect-ratio 9:16` for portrait or `--duration 15` for a longer clip.
 
 ## 3. Optional super-resolution
 
-Add `--upscale` to generate a native 768p video and double its dimensions:
+Add detail to a video you have already generated. Use its saved path:
 
 ```sh
-h3 generate --image reference.jpg \
-  --prompt "A slow cinematic push-in on the scene in Picture 1. Soft ambient music." \
-  --upscale
+h3 upscale --input video.mp4
 ```
 
-Requires **128 GiB memory**, a separate **6.97 GB** model download, and about
-**20 extra minutes per five-second clip** on the Mac above. Both the original
-and detailed videos are saved. Audio is preserved.
+Works with default output, doubles its dimensions, and preserves the original
+video and audio. Requires **128 GiB memory** and a separate **6.97 GB** model
+download. Restoration takes tens of minutes per five-second clip, depending on
+input size; it is separate from the generation time above.
 
 [Super-resolution guide and noncommercial terms](docs/upscale.md)
 

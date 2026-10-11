@@ -125,9 +125,10 @@ For an authorized detailed finish, use `h3 generate ... --upscale` or
 then doubles its dimensions. Both videos and their records are saved. For
 input validation with `resolve`, use `resolution="768p", x2=False`.
 
-For an existing native 576p/768p video or a failed restoration, use
-`h3 upscale --input native.mp4`. Output names are optional; omitted names use
+For an existing native 576p/768p or X2 video, use
+`h3 upscale --input video.mp4`. X2 output is restored at its full size and takes
+longer than native 768p. Output names are optional; omitted names use
 fresh `runs/` directories. Super-resolution keeps audio, requires 128 GiB memory
-and downloads separate 6.97 GB models. It rejects explicit X2 settings.
+and downloads separate 6.97 GB models.
 Restoration adds about 20 minutes per five-second 768p clip; this is separate
 from SOL + X2 generation time. See the [guide and component terms](https://github.com/RhinoQ/h3-apple/blob/v0.8.1/docs/upscale.md).

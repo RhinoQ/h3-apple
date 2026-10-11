@@ -130,7 +130,7 @@ def main():
                 audio_hash = hashlib.sha256(restored).hexdigest()
             emit(dict(kind='result', result=dict(frames=rows, video_sha256=digest(destination),
                 media=data, audio_pcm_sha256=audio_hash, export_command=command,
-                resources=resources, final_host=snapshot())))
+                restoration=model.settings, resources=resources, final_host=snapshot())))
         return 0
     except Exception as error:
         import traceback

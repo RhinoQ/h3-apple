@@ -1,43 +1,47 @@
 # Add detail with VOSR
 
-Add `--upscale` when generating. H3 chooses native 768p, generates the video,
-then doubles its width and height while preserving audio.
+Restore an existing H3 video at twice its dimensions, including default X2 output:
 
 ```sh
-h3 generate --image reference.jpg \
-  --prompt "A slow cinematic push-in on Picture 1. Soft ambient music." --upscale
+h3 upscale --input video.mp4
 ```
 
 Requires the [standard installation](install.md), **128 GiB memory**, and at least
 20 GiB free working space. First use downloads **6.97 GB** of models; later runs
 reuse them.
 
-Both videos are saved in a new `runs/` folder. To choose the final filename, add
-`--output detailed.mp4`; the original is saved as `detailed.native.mp4`.
+The result goes into a new `runs/` folder; the input is preserved. Add
+`--output detailed.mp4` for a specific filename or `--duration 5` to process
+the first five seconds.
 
-## Existing video or retry
+## Generate and restore in one command
 
 ```sh
-h3 upscale --input native.mp4
+h3 generate --image reference.jpg \
+  --prompt "A slow cinematic push-in on Picture 1. Soft ambient music." --upscale
 ```
 
-The result goes into a new `runs/` folder. Use this command to retry restoration
-after a failure without generating again. Add `--output detailed.mp4` for a specific
-filename or `--duration 5` to process the first five seconds of a longer clip.
+This selects native 768p and saves both videos. With `--output detailed.mp4`,
+the original is saved as `detailed.native.mp4`. If restoration fails, retry with
+`h3 upscale --input detailed.native.mp4` without generating again.
 
 ## Input and output
 
-| Native input | Upscaled output |
+| Input | Upscaled output |
 | --- | --- |
 | 1366×768 | 2732×1536 |
 | 768×1366 | 1536×2732 |
 | 1024×576 | 2048×1152 |
 | 576×1024 | 1152×2048 |
+| 1920×1088 · default X2 | 3840×2176 |
+| 1088×1920 · portrait X2 | 2176×3840 |
+| 2048×1152 · 576p X2 | 4096×2304 |
+| 1152×2048 · portrait 576p X2 | 2304×4096 |
 
 The combined command selects native 768p automatically. For separate steps,
 generate with `--resolution 768p --no-x2` or `--resolution 576p --no-x2`.
-Inputs must be 24 fps, up to 15 seconds, with AAC audio or no audio. X2 output
-is already larger and is outside this restoration profile.
+Inputs must be 24 fps, up to 15 seconds, with AAC audio or no audio. X2 videos
+are processed at their full delivered size, without shrinking or cropping.
 
 The two five-second 768p showcases took about **20 minutes each** to upscale
 on a 40-core M5 Max / 128 GiB. That is additional to generation. N8 restoration
@@ -54,7 +58,7 @@ The restored video uses H.264; audio is copied without re-encoding.
 ```python
 from h3_apple import upscale
 
-result = upscale("native.mp4")
+result = upscale("video.mp4")
 print(result.video_path)
 ```
 

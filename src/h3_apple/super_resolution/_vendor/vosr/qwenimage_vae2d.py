@@ -1,4 +1,4 @@
-# H3 Apple modification: scoped FP16 attention, FP32 output; eager-only inference; torch.compile decorators removed.
+# H3 Apple: scoped FP16 attention, FP32 output; optional query chunks with full K/V; eager inference.
 # Copyright 2025
 # The Qwen-Image Team, Wan Team and The HuggingFace Team. All rights reserved.
 #

@@ -74,7 +74,7 @@ def parser():
     prepare_x2.add_argument("--model-dir")
     prepare_x2.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
     prepare_x2.add_argument("--plan", action="store_true")
-    upscale = commands.add_parser("upscale", help="Double native video dimensions with VOSR2")
+    upscale = commands.add_parser("upscale", help="Double H3 video dimensions with VOSR2, including X2 output")
     upscale.add_argument("--input", required=True)
     upscale.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
     upscale.add_argument("--duration", type=float, help="Upscale only the first N seconds")

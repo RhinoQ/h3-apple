@@ -108,6 +108,7 @@ VOSR video super-resolution (0.8.0)
 
   Qwen 2D VAE: Copyright 2025 The Qwen-Image Team, Wan Team and The HuggingFace
   Team. Apache-2.0; retained from VOSR, with FP16 attention and FP32 output.
+  H3 Apple adds query batching against complete keys/values for larger X2 inputs.
   DINOv2: Copyright (c) Meta Platforms, Inc. and affiliates. Apache-2.0.
   https://github.com/facebookresearch/dinov2
   Model-specific source snapshot: CSWRY/VOSR f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3.

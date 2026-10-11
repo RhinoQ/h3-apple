@@ -1,6 +1,7 @@
 """The qualified VOSR2 recipe, with native PyTorch kernels on MPS."""
 
 from pathlib import Path
+import hashlib
 
 import numpy as np
 import torch
@@ -72,14 +73,19 @@ class Upscaler:
         args.tile_size, args.tile_overlap = 512, 32
         args.posterior_mode, args.infer_steps = True, 1
         configure(self.restorer)
-        if max(self.size) > 1366:
+        query_chunk_size = 2048 if max(self.size) > 1366 else None
+        if query_chunk_size is not None:
             for module in self.restorer.vae.modules():
                 if module.__class__.__name__ == 'AttentionBlock2D':
-                    module.query_chunk_size = 2048
+                    module.query_chunk_size = query_chunk_size
         # Only this worker's namespaced tiling function uses the submission wrapper.
         self.features = tiling.get_venc_features
         tiling.get_venc_features = submit_after(self.features)
-        self.noise = frame_noise(width, height).to('mps')
+        noise = frame_noise(width, height)
+        self.settings = dict(query_chunk_size=query_chunk_size,
+            noise_source='torch-2.14.1-cpu-seed-42' if query_chunk_size else 'packaged-native',
+            noise_sha256=hashlib.sha256(noise.numpy().tobytes()).hexdigest())
+        self.noise = noise.to('mps')
         self.finite = []
         for module in (self.restorer.vae.decoder, self.restorer.vae.quant_conv, self.restorer.model):
             module.register_forward_hook(self.check_finite)

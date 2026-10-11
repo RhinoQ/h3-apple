@@ -78,6 +78,6 @@ Native output requires `x2=False` and `resolution="576p"` or `"768p"`.
 ## Super-resolution
 
 Use `generate(..., upscale=True)` for the complete workflow, or
-`upscale("native.mp4")` for an existing native video. Both choose a fresh output
+`upscale("video.mp4")` for an existing native or X2 video. Both choose a fresh output
 path unless you supply `output`. Restoration failures preserve the native video
 and report a retry command. [Input formats, options and results](upscale.md).

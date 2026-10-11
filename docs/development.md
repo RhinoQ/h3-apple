@@ -53,6 +53,12 @@ H3_TEST_LARGE_ARRAYS=1 .local/envs/h3/bin/python -m pytest tests/test_vae_chunks
 
 ## Implementation and credits
 
+**New in 0.8.1:** VOSR accepts H3 X2 output in either orientation. For these larger
+inputs, VAE attention processes 2,048 queries at a time against the complete key
+and value tensors. This bounds temporary memory without spatial VAE tiles.
+Native inputs retain their existing execution and fixed noise. New sizes use
+deterministic CPU noise, with its checksum recorded for replay.
+
 **New in 0.8.0:** full-video VOSR restoration through `upscale()` and `h3 upscale`.
 The worker uses PyTorch 2.14.1 native FP16 attention, fused RMSNorm and resident
 FP16 DINO/DiT projections; VAE precision is scoped and tile submission is

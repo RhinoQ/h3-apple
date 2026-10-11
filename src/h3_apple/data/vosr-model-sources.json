@@ -1,5 +1,5 @@
 {
-  "recipe": "vosr2-native-fp16-v1",
+  "recipe": "vosr2-native-fp16-v2",
   "model_revision": "f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3",
   "files": [
     {
@@ -38,6 +38,7 @@
     "sha256": "9848c16bd7745c9faff6017b36fa0f52ba445f2444cbf7a71e9db52cd704b69f",
     "bytes": 12156552,
     "origin": "Fixed standard-normal tensors from PyTorch 2.11.0 MPS, manual_seed(42), float32 randn_like; replayed unchanged for every frame. No learned weights.",
-    "n8_n6_reference_noise_sha256": "31dfbf14ba1e09e0f695a75b0d8be01f33ccf3e6610b7586457893ac2ce6e387"
+    "n8_n6_reference_noise_sha256": "31dfbf14ba1e09e0f695a75b0d8be01f33ccf3e6610b7586457893ac2ce6e387",
+    "x2_origin": "PyTorch 2.14.1 CPU float32 randn with a local Generator seeded to 42 per shape; reused unchanged across frames and hashed in the run record. Native tensors remain unchanged."
   }
 }
