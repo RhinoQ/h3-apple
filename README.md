@@ -26,8 +26,9 @@ References retain their creators' terms and are linked at their original hosts.
 The selected restoration recipe was adopted in 0.8.0. A complete, method-disclosed
 human playback comparison found no new issues in either clip; frame checks retain
 local fine-texture differences. [Measurements and scope](https://github.com/RhinoQ/h3-apple/blob/main/docs/evidence/v0.8.0-vosr.json).
-Use the [0.8.0 installation](https://github.com/RhinoQ/h3-apple/blob/main/docs/install.md)
-for super-resolution; the frozen benchmark environment below is for its 48 scored outputs.
+Use the [current installation](https://github.com/RhinoQ/h3-apple/blob/main/docs/install.md)
+for new work. Exact showcase replay uses [0.8.0](https://github.com/RhinoQ/h3-apple/blob/v0.8.0/docs/install.md);
+the frozen benchmark environment below is for its 48 scored outputs.
 
 ## Scores
 
