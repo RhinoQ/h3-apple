@@ -1,134 +1,118 @@
 # Generate locally
 
-Use the public h3-apple CLI/API. These examples target **0.8.1**;
-[release installation](https://github.com/RhinoQ/h3-apple/blob/v0.8.1/docs/install.md)
-and [API](https://github.com/RhinoQ/h3-apple/blob/v0.8.1/docs/api.md) define its contract.
-Honor requested versions and settings. Check that version's docs and `--help`;
-do not silently upgrade software or change model recipes.
+Use the public h3-apple CLI/API. Handle setup for the user and use product defaults
+unless the brief requires a change. Keep version and model choices out of routine
+creative questions.
 
-## Environment
+## Check the release
 
-Find the project's interpreter in its docs and run records; use `command -v h3`
-and `conda env list --json` if needed. A missing PATH entry does not prove absence.
-Confirm the selected Conda Python with `-m h3_apple --version`. Use its absolute
-path for H3, pip and checks. Avoid system Python, Conda base, `pip --user` and
-unrelated environments.
+At the start of a generation or setup task, check the
+[latest stable Release](https://api.github.com/repos/RhinoQ/h3-apple/releases/latest)
+and the installed version. Check once per task, not before every shot.
+Read `tag_name`, release notes and `assets`; exclude drafts and prereleases.
+For a requested version, fetch its release by tag for matching notes and assets.
+Do not infer the latest version from this skill, a branch name or an old example.
 
-Before installing or downloading, inspect hardware: **40-core M5 Max, macOS 26.2+,
-64 GiB minimum**; native 768p beyond five seconds needs 96 GiB.
-Unsupported hardware is a blocker; do not bypass guards or alter the request.
+- **New work:** prefer the latest stable release. Reuse a current environment;
+  apply a compatible update when needed, with a brief notice rather than a version
+  selection question. Preserve existing model directories and verified caches.
+- **Requested version or frozen experiment:** keep that version, environment,
+  weights and recipe. Check for updates without changing the pinned run.
+- **Breaking changes or material cost:** explain the concrete impact and ask only
+  for the missing decision or download consent. Reuse compatible setup meanwhile.
 
-If needed, create an unused project prefix:
+If the release check fails, say so and use a verified compatible installation;
+never call it the latest. A new installation or an explicit latest-version request
+requires a verified release before proceeding.
+
+Read `docs/install.md` and `docs/api.md` at the selected tag for requirements,
+defaults and supported options. Inspect installed `--help` when adapting commands.
+Select the release wheel from `assets[].browser_download_url`, download it and
+verify its SHA256 against that release's `SHA256SUMS`. Do not guess a wheel URL or
+substitute an unverified PyPI package. Record the release tag and installed version.
+
+## Use one environment
+
+Find the project's documented Conda interpreter first; use `command -v h3` and
+`conda env list --json` if needed. A missing PATH entry does not prove absence.
+Check the host against the selected release's requirements before installing.
+Use an isolated project environment, never system Python, base or `pip --user`.
+Create one only if no suitable environment exists, using the Python and FFmpeg
+versions in that release's installation guide.
+
+Set `H3_PYTHON` to its absolute interpreter and `H3_WHEEL` to the verified local
+wheel. For authorized setup or a compatible update:
 
 ```bash
-H3_ENV_PREFIX="$PWD/.local/envs/h3"
-conda create --prefix "$H3_ENV_PREFIX" -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
-H3_PYTHON="$H3_ENV_PREFIX/bin/python"
-"$H3_PYTHON" -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.1/h3_apple-0.8.1-py3-none-any.whl"
+"$H3_PYTHON" -m pip install --upgrade "$H3_WHEEL"
+"$H3_PYTHON" -m pip check
 "$H3_PYTHON" -m h3_apple --version
 ```
 
-If Conda is missing, use the official [Miniforge](https://github.com/conda-forge/miniforge)
-macOS arm64 installer and verify its published SHA256. Use an unused user-owned
-prefix and absolute Conda path; no sudo, shell startup edits or `conda init`.
-Apply the user's download budget to dependencies. Use verified GitHub wheels,
-not an unverified PyPI substitute.
+Use that interpreter for every H3, pip and verification command. If Conda is
+missing, use the official [Miniforge](https://github.com/conda-forge/miniforge)
+macOS arm64 installer and verify its published SHA256. No sudo or shell startup
+changes are needed. Do not bypass hardware or compatibility guards.
 
-## Mode and models
+## Reuse models and check cost
 
-The product defaults to `SOL` + 544p/X2; `VSA` is optional. Carry the requested mode through
-`resolve`, `prepare`, `doctor`, `verify` and `generate`, or Python's `mode`.
-Older releases such as 0.5.3 lack these flags.
-
-Both use original LightX2V. Python 3.11 installation includes both runtimes;
-VSA needs its own verified model bundle. Model variables are `H3_VSA_MODEL_DIR` for VSA and
-`H3_MODEL_DIR` for SOL. Carry the selected directory through every command.
-
-Set `H3_PYTHON` to the verified interpreter. Inspect `doctor`'s `ready` and
-`errors` fields; missing models on a fresh install are expected. Repair FFmpeg
-with the documented Conda version in the same prefix, not by reinstalling the wheel.
+Inspect `doctor`'s `ready` and `errors`, not just command success. Missing models
+on a fresh install are expected. Repair FFmpeg in the same environment using the
+selected release's version.
 
 ```bash
 "$H3_PYTHON" -m h3_apple doctor
 "$H3_PYTHON" -m h3_apple prepare --plan
 ```
 
-The plan does not download weights or generate video. Compare `download_bytes`
-with the budget and `additional_disk_bytes` with destination free space.
-Fresh SOL + X2 needs about 150 GB / 241 GB; VSA + X2 about 156 GB / 351 GB.
-Use `prepare-x2 --plan` for the separate decoder. The actual plans govern.
-Reuse verified models/caches with `--reuse-dir`; do not delete working installations.
+Carry the selected mode and model directories through every command. Reuse verified
+models with `--reuse-dir`; consult the selected release's installation guide for
+mode-specific directories. Do not delete or redownload working models for convenience.
+Include any X2 or super-resolution preparation in the complete download estimate.
+Compare planned `download_bytes` with the budget and `additional_disk_bytes` with
+free space. A plan does not download or render.
 
 **Downloads over 20 GB need explicit consent**, subject to tighter user limits.
-Show transfer and disk costs; ask only when consent is missing. A video/install
-request alone does not authorize a large model download. Never pipe `yes` or use
-`--allow-large-download` to bypass consent. After approval, use that flag or API
-`allow_large_download=True`. If `DownloadApprovalRequired` occurs, obtain the
-missing consent and resume.
+Show the combined transfer and disk costs; ask only if consent is missing.
+Use `--allow-large-download` or `allow_large_download=True` only after consent;
+never pipe `yes` to bypass it. Within the approved budget, continue automatically.
+`generate` prepares missing components; separate `prepare` is optional.
 
-Within the approved budget, proceed. `generate` prepares missing models/engine.
-`prepare` is optional; readiness, preparation and input validation are not delivery.
+## Generate and deliver
 
-## Render and deliver
-
-Save the full UTF-8 prompt and preserve image order. Honor duration, resolution,
-orientation and seed. Defaults are SOL, 5 seconds, 544p + X2, 16:9 and a recorded random
-seed. Supported duration is 5–15 seconds in whole 24 fps frames. Do not replace a
-requested production with a shorter/lower-resolution test.
-
-Validate actual inputs, then generate to a new path:
+Save the full UTF-8 prompt and preserve image order. Honor requested duration,
+orientation, resolution and seed. Otherwise use the selected release's defaults
+and automatic output names:
 
 ```bash
-"$H3_PYTHON" -m h3_apple resolve \
-  --image /absolute/path/reference.jpg --prompt-file /absolute/path/story.txt \
-  --duration 5 --aspect-ratio 16:9 --seed 42
 "$H3_PYTHON" -m h3_apple generate \
-  --image /absolute/path/reference.jpg --prompt-file /absolute/path/story.txt \
-  --duration 5 --aspect-ratio 16:9 --seed 42 \
-  --output /absolute/path/new-video.mp4
+  --image /absolute/path/reference.jpg --prompt-file /absolute/path/story.txt
 ```
 
-Repeat `--image` for multiple references. Python is equivalent when used with
-the same interpreter. Use public entry points, not a second renderer or direct
-native calls. Postprocessing requires its own scope.
+Repeat `--image` for multiple references. Add only the options the brief needs;
+use `resolve` when a separate input audit is useful. Carry its returned seed into
+generation if no seed was specified, so the preflight and render agree.
+Do not replace a requested production
+with a shorter or lower-resolution test. Python is equivalent with the same
+interpreter. Use public entry points, not direct engine calls or a second renderer.
 
-Keep the process alive and monitor it to completion or concrete failure. Preserve
-failed records, diagnose before retrying and use a new output path. Avoid
-unrequested seed sweeps or unchanged retries.
+Monitor the process through completion or a concrete failure. Preserve failed
+records, diagnose before retrying and use a new output path. Avoid unrequested
+seed sweeps or unchanged retries.
 
 Confirm the returned MP4 exists and its run record says `complete`.
-[Review against the brief](story-continuity.md): stream/timing checks do not prove
-creative quality. Distinguish frame inspection, listening and unverified claims.
-Deliver absolute video and record paths, settings and limitations; show the MP4
-inline where supported. Report setup and generation time separately.
-
-## X2
-
-Check the version and defaults; X2 requires 0.7.0+. Both modes use Python 3.11. SOL + X2 uses corrected premerged SOL weights and its automatically
-downloaded engine, not a VSA bundle. Old quantized SOL weights need migration.
-
-| Sampling | Landscape output | Portrait output |
-| --- | --- | --- |
-| 544p | 1920×1088 | 1088×1920 |
-| 576p | 2048×1152 | 1152×2048 |
-
-X2 is enabled by default; portrait uses `--aspect-ratio 9:16`.
-Native output requires `--resolution 768p --no-x2` or `--resolution 576p --no-x2`
-(Python: `x2=False`). For an authorized initial check, use five seconds and inspect
-task fidelity, faces, texture and motion. B32 enhancement is not included.
-See the checkout's `docs/x2.md`.
+[Review against the brief](story-continuity.md): stream and timing checks do not
+prove creative quality. Distinguish inspected frames, listening and unverified
+claims. Deliver the video and record paths, actual version/settings and relevant
+limitations. Show the MP4 inline where supported; separate setup and generation time.
 
 ## Optional super-resolution
 
-For an authorized detailed finish, use `h3 generate ... --upscale` or
-`generate(..., upscale=True)`. This selects native 768p, generates the video,
-then doubles its dimensions. Both videos and their records are saved. For
-input validation with `resolve`, use `resolution="768p", x2=False`.
+Use restoration only when requested. For an existing supported video, prefer
+`h3 upscale --input video.mp4`; no new generation is needed. For a new detailed
+video, `h3 generate ... --upscale` selects native 768p and saves both versions.
+When validating that combined path with `resolve`, use `resolution="768p", x2=False`.
 
-For an existing native 576p/768p or X2 video, use
-`h3 upscale --input video.mp4`. X2 output is restored at its full size and takes
-longer than native 768p. Output names are optional; omitted names use
-fresh `runs/` directories. Super-resolution keeps audio, requires 128 GiB memory
-and downloads separate 6.97 GB models.
-Restoration adds about 20 minutes per five-second 768p clip; this is separate
-from SOL + X2 generation time. See the [guide and component terms](https://github.com/RhinoQ/h3-apple/blob/v0.8.1/docs/upscale.md).
+Consult `docs/upscale.md` at the selected release for supported inputs, memory,
+model downloads, measured time and noncommercial terms. Restoration preserves
+audio and adds processing time; do not count it in the fast-generation headline.

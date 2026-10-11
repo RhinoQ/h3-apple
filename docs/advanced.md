@@ -50,3 +50,5 @@ $skill-installer install from https://github.com/RhinoQ/h3-apple/tree/main/skill
 ```
 
 Attach images and invoke `$h3-apple-ref2va-prompting` with your brief.
+The skill checks the latest stable release, handles compatible setup and uses
+product defaults. Requested versions and frozen experiments stay pinned.

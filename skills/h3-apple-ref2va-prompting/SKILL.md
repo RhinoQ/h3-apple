@@ -14,13 +14,18 @@ not universal prompt rules.
 
 - **Generate a video:** use the public h3-apple CLI/API through setup, rendering,
   review and delivery. Read [local generation](references/local-generation.md).
-  Reuse working installations; install missing components within authorization.
+  Check the latest stable Release and the installed version before setup.
+  Handle compatible installation or updates within the authorized task.
   A prompt or readiness check is not a finished video.
 - **Write a prompt or plan:** deliver the text without installing or running models.
 - **Review a video:** inspect the existing output; generation setup is unnecessary.
 
 Honor explicit versions and delivery settings. Large downloads and publication
 require their own authorization. Do not expand the task into engine changes.
+
+Choose the shortest supported path. Use product defaults unless the brief calls
+for a change; do not ask the user to choose versions, modes, decoders or model
+directories for routine work. Explain a material tradeoff when a decision is needed.
 
 ## Prepare inputs
 
