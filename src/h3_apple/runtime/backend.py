@@ -9,9 +9,15 @@ from ..io import digest
 def check_dependencies():
     if sys.version_info[:2] != (3, 11):
         raise RuntimeError("The MLX runtime requires Python 3.11; install h3-apple in a Python 3.11 Conda environment.")
-    expected = {"mlx": "0.32.0", "mlx-metal": "0.32.0", "numpy": "2.4.6",
-                "transformers": "5.14.1", "torch": "2.11.0", "torchvision": "0.26.0"}
-    for name, version in expected.items():
+    # Package metadata is the single source for the release's dependency pins.
+    requirements = importlib.metadata.requires("h3-apple") or []
+    pins = {name.strip(): version.strip() for requirement in requirements
+            if ";" not in requirement and "==" in requirement
+            for name, version in [requirement.split("==", 1)]}
+    for name in ("mlx", "mlx-metal", "numpy", "transformers", "torch", "torchvision"):
+        version = pins.get(name)
+        if version is None:
+            raise RuntimeError(f"Missing {name} dependency pin in h3-apple metadata. Reinstall h3-apple.")
         try:
             actual = importlib.metadata.version(name)
         except importlib.metadata.PackageNotFoundError:
