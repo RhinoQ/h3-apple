@@ -1,0 +1,105 @@
+{
+  "version": "0.8.1",
+  "status": "passed",
+  "scope": "Installed-package integration; one scene and one seed, with no new quality scores or performance ranking.",
+  "tested_source_commit": "784a2bd6719af153d8fcbf6d6febbde253772c8f",
+  "package_source_sha256": "6f655916280041222d393e5dda526018d364c8c4657c28c5ceaa002fe028fef4",
+  "tested_wheel_sha256": "d9d611bfc6d63b285b4e5ba87edb7d7a9fb65bdd3387caf77bc012889c038e20",
+  "video_integration_source_commit": "38787487faac4dbd573263768d47ddf54792c6e3",
+  "video_integration_source_sha256": "28b55aa92f890e850fa8c4c76cc5a196160253e3f41671291da0fa1cd2daca68",
+  "final_revision": "Only the unsupported-input error message changed after the full-video build. Final installed-package tests and error guidance checks passed. Inference files and model recipes are unchanged from 0.8.0.",
+  "host": "Apple M5 Max, 40 GPU cores, 128 GiB, macOS 26.6.1",
+  "environment": "Cloned the qualified 0.8.0 Conda environment; installed the 0.8.1 wheel. Declared dependencies unchanged; pip check passed. Models reused without downloads.",
+  "tests": {
+    "passed": 265,
+    "skipped": 1,
+    "skip_reason": "Optional 2.56 GB array allocation; its unchanged regression was tested for 0.8.0.",
+    "report_sha256": "3bba75b094724e198bcba79a4f1151ff2035d06ac7569d6ba6f372d1de4a9506"
+  },
+  "input": {
+    "case": "cloud-palace",
+    "prompt": {
+      "url": "https://rhinoq.github.io/h3-apple/prompts/e841c7ca6d88dffc80110d05bbd8bfaa7c4fad8fd86f792cf3a7533ba5b81681.txt",
+      "sha256": "e841c7ca6d88dffc80110d05bbd8bfaa7c4fad8fd86f792cf3a7533ba5b81681",
+      "bytes": 1442
+    },
+    "reference": {
+      "url": "https://rhinoq.github.io/h3-apple/assets/references/ab14615ca308d02f3ae323e9439a5b7aa7e6e953adb10b01cbdb637ad6989c0e.png",
+      "sha256": "ab14615ca308d02f3ae323e9439a5b7aa7e6e953adb10b01cbdb637ad6989c0e",
+      "bytes": 2012353
+    },
+    "seed": 173001
+  },
+  "fast": {
+    "sha256": "060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd",
+    "spec": {
+      "width": 1920,
+      "height": 1088,
+      "num_frames": 120,
+      "fps": 24,
+      "audio_sample_rate": 32000,
+      "audio_channels": 2
+    },
+    "rgb_sha256": "SHA256=b0d88b6e26f98ba49ca0543c25b8d491d7a6539acf97a1ece480dd6a1aa3acab",
+    "pcm_sha256": "SHA256=5a4cdd28ec821c30fa4bc8d8b53c8411189b4e95ea390c2cd4a6424c1f3fb37a",
+    "duration_and_output_omitted": true,
+    "baseline_rgb_identical": true,
+    "baseline_pcm_identical": true,
+    "whole_call_seconds": 161.6122962500085
+  },
+  "combined": {
+    "duration_and_output_omitted": true,
+    "automatic_settings": "SOL, native 768p, X2 off; then VOSR 2x",
+    "native": {
+      "sha256": "8ab0ac2e873b0497b2c2059fcdeac4391b0ab482cc410ded3e419a4761bbb7b3",
+      "spec": {
+        "width": 1366,
+        "height": 768,
+        "num_frames": 120,
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "rgb_sha256": "SHA256=6c3fa71531ecd0461fd7bbfa437ff8d3b22ab67fb64bbebcd287a7b7614474f3",
+      "pcm_sha256": "SHA256=6962071b4030be610152f95f5b2e9d2e01684f5f593cea929db99430b2e68309"
+    },
+    "restored": {
+      "sha256": "c41f688ea5847d5c7e71a28982255a33097d7ea2b330005f82e64c37c74ff304",
+      "spec": {
+        "width": 2732,
+        "height": 1536,
+        "num_frames": 120,
+        "fps": 24,
+        "audio_sample_rate": 32000,
+        "audio_channels": 2
+      },
+      "rgb_sha256": "SHA256=d15667f5ffe63684a81596efa7d40cc27bb4befe8cb5c2a260f6254d3c84a022",
+      "pcm_sha256": "SHA256=6962071b4030be610152f95f5b2e9d2e01684f5f593cea929db99430b2e68309"
+    },
+    "native_baseline_rgb_identical": true,
+    "native_baseline_pcm_identical": true,
+    "audio_preserved": true,
+    "stage_records_linked": true,
+    "whole_call_seconds": 1575.507328458014,
+    "restoration_recipe": "vosr2-native-fp16-v1"
+  },
+  "standalone": {
+    "sha256": "98dc34d457fd0ae4f2a2b161b915b4a8d044b01326bd13b537ad36af78b4dd63",
+    "spec": {
+      "width": 2732,
+      "height": 1536,
+      "num_frames": 2,
+      "fps": 24,
+      "audio_sample_rate": 32000,
+      "audio_channels": 2
+    },
+    "rgb_sha256": "SHA256=ea9dd19d32943fb44d351e003bbd93dca050a578cc2b93a3b0f3ed82c3ed90d8",
+    "pcm_sha256": "SHA256=59abe9aabac208dc4305cf794e36200eebc65e5db0f0ed1a5df1291fb8611a80",
+    "interface": "Python upscale(), output omitted, duration=2/24"
+  },
+  "reproduce": {
+    "fast": "h3 generate --image reference.png --prompt-file prompt.txt --seed 173001",
+    "combined": "h3 generate --image reference.png --prompt-file prompt.txt --seed 173001 --upscale"
+  },
+  "limits": "Full media checks cover SOL landscape. Both modes and orientations have interface tests; unchanged runtime qualification remains in the 0.8.0 evidence. Integration timings do not replace the published benchmark."
+}
