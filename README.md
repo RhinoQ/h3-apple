@@ -18,6 +18,8 @@ Turn 1–9 images and a prompt into video with stereo audio. Landscape or portra
 Showcase: native 768p + VOSR 2×, **2732×1536**. Super-resolution adds about
 **20 minutes per five-second clip**, beyond generation. [Prompts and settings](https://rhinoq.github.io/h3-apple/#showcase).
 
+<a name="install"></a>
+
 ## 1. Install
 
 **40-core M5 Max · macOS 26.2+ · 64 GiB minimum.** Tested with 128 GiB;
@@ -34,6 +36,8 @@ python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/do
 
 First use prepares models and asks before downloads over 20 GB.
 In each new terminal, run `conda activate h3`. [Installation help](docs/install.md).
+
+<a name="generate"></a>
 
 ## 2. Generate
 

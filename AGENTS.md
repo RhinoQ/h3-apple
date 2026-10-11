@@ -26,5 +26,7 @@ This is the authoritative style guide for product documentation and benchmark pa
   not imply that a showcase's extra processing is included.
 - Use one recommended installation path. Apply the same style to README, guides,
   release notes and benchmark pages, and verify every published link.
+- Keep homepage usage to installation, generation and optional super-resolution.
+  Put mode choices, decoder settings and model directories in advanced documentation.
 - Concision must preserve reproducible inputs, configuration, source identities,
   measurements, failures, review scope, upstream attribution and licenses.
