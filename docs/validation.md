@@ -2,6 +2,11 @@
 
 ## 0.8.1
 
+[Release packaging](evidence/v0.8.1-release.json): **279 tests passed** on the
+installed wheel, including GPU and large-array checks. The sole package change
+from the qualified candidate is the versioned engine download URL; engine bytes
+and all other runtime files are identical.
+
 [X2 restoration checks](evidence/v0.8.1-x2-vosr.json): **278 tests passed**, with
 one optional large-array test skipped. The installed wheel restores all eight
 supported input sizes. Default X2 uses a 24-frame landscape clip and an eight-frame

@@ -1,0 +1,38 @@
+{
+  "version": "0.8.1",
+  "status": "passed",
+  "scope": "Installed release-wheel packaging and regression checks. Existing video qualification is linked below; these tests are not new end-to-end video runs or quality scores.",
+  "source_commit": "a536fbc156ea1b36651b6a553c64c12d04799156",
+  "runtime_sha256": "03f2cf7da0023b164d048c6f4b24dccfc7c594d2946e102855a545a3a32bb1b5",
+  "runtime_files": 99,
+  "engine_sha256": "d209f718ab2940f8ee9e6d5cea601b8bf229c13574d133dce24918f1885250b7",
+  "environment": "Dedicated project Conda environment cloned from the qualified X2/VOSR environment. Removed the prior h3-apple package and installed the release wheel; pip check passed. Dependency versions and model files are unchanged.",
+  "host": "Apple M5 Max, 40 GPU cores, 128 GiB, macOS 26.6.1",
+  "tested_wheel_sha256": "2b0fbd1f3e56645008116903b928cb735ef8fcb0be875750b7da5619423e9ccc",
+  "qualified_candidate_wheel_sha256": "19e8acd27d1f6adbfdc2d696cbefb9409505ccb6fa49800280ef34b07338fc09",
+  "change_from_qualified_candidate": "Versioned engine download URL; engine bytes and all other packaged files unchanged.",
+  "checks": {
+    "installed_files_match_wheel": true,
+    "wheel_and_sdist_match_source": true,
+    "engine_archive_and_members_verified": true,
+    "local_document_links_checked_before_final_evidence": 83,
+    "twine_strict": "passed"
+  },
+  "tests": {
+    "passed": 279,
+    "skipped": 0,
+    "seconds": 37.39,
+    "includes": [
+      "Apple GPU numerical checks",
+      "2.56 GB temporal-copy regression",
+      "workflow and X2 restoration interface tests"
+    ],
+    "log_sha256": "2e63072c744912168df208e77f896aa1f811fc080f28af21c72d529f43fa758e",
+    "command": "H3_TEST_LARGE_ARRAYS=1 /path/to/project/conda/bin/python -I -m pytest tests -q"
+  },
+  "video_qualification": {
+    "five_second_native_workflow": "v0.8.1-workflow.json",
+    "eight_size_restoration": "v0.8.1-x2-vosr.json"
+  },
+  "limits": "X2 checks use short landscape/portrait clips and resized 576p format fixtures. Complete five-second X2 restoration and motion quality remain unmeasured. No new performance ranking is claimed."
+}
