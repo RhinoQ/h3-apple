@@ -20,8 +20,9 @@ def media(tmp_path, monkeypatch):
     return path, info
 
 
-@pytest.mark.parametrize('size', [(1366,768),(768,1366),(1024,576),(576,1024)])
-def test_native_shapes_and_audio(media, size):
+@pytest.mark.parametrize('size', [(1366,768),(768,1366),(1024,576),(576,1024),
+                                 (1920,1088),(1088,1920),(2048,1152),(1152,2048)])
+def test_h3_shapes_and_audio(media, size):
     path, info = media
     info['streams'][0].update(width=size[0], height=size[1])
     result = api.resolve_video(path)
@@ -31,7 +32,7 @@ def test_native_shapes_and_audio(media, size):
     assert not api.resolve_video(path)['audio']
 
 
-@pytest.mark.parametrize('change', [dict(width=1920,height=1088),dict(avg_frame_rate='25/1'),
+@pytest.mark.parametrize('change', [dict(width=1920,height=1080),dict(avg_frame_rate='25/1'),
     dict(r_frame_rate='30/1'),dict(nb_frames='361'),dict(duration='4.0'),
     dict(side_data_list=[dict(rotation=90)])])
 def test_invalid_video_is_rejected(media, change):
@@ -148,6 +149,32 @@ def test_recipe_noise_is_bound_and_finite():
             x=arrays[f'{width}x{height}']
             assert x.shape==(1,16,((height*2+15)//16)*2,((width*2+15)//16)*2)
             assert x.dtype==np.float32 and np.isfinite(x).all()
+
+
+def test_native_noise_is_unchanged():
+    import numpy as np
+    from h3_apple.super_resolution.engine import frame_noise
+    path = Path(api.__file__).parent / 'data/vosr-noise.npz'
+    with np.load(path, allow_pickle=False) as arrays:
+        for key in arrays.files:
+            width, height = map(int, key.split('x'))
+            np.testing.assert_array_equal(frame_noise(width, height).numpy(), arrays[key])
+
+
+@pytest.mark.parametrize('size', [(1920,1088),(1088,1920),(2048,1152),(1152,2048)])
+def test_x2_noise_is_repeatable_and_does_not_change_global_rng(size):
+    import torch
+    from h3_apple.super_resolution.engine import frame_noise
+    width, height = size
+    before = torch.get_rng_state().clone()
+    first = frame_noise(width, height)
+    assert torch.equal(before, torch.get_rng_state())
+    torch.rand(17)
+    second = frame_noise(width, height)
+    assert torch.equal(first, second)
+    assert first.shape == (1, 16, height // 4, width // 4)
+    assert first.dtype == torch.float32 and torch.isfinite(first).all()
+    assert abs(first.mean().item()) < .01 and .99 < first.std().item() < 1.01
 
 
 @pytest.mark.parametrize('stop', ['timeout', 'callback'])

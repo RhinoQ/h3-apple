@@ -12,6 +12,23 @@ from ._vendor.vosr import tiling
 from ._vendor.vosr.conditioning import wavelet_color_fix
 
 
+def frame_noise(width, height):
+    """Replay the original native noise; use a local fixed CPU seed for X2 sizes."""
+    path = Path(__file__).parents[1] / 'data/vosr-noise.npz'
+    from ..io import digest
+    from .assets import manifest
+    if digest(path) != manifest()['noise']['sha256']:
+        raise RuntimeError('Packaged VOSR noise checksum mismatch. Reinstall h3-apple.')
+    with np.load(path, allow_pickle=False) as arrays:
+        key = f'{width}x{height}'
+        if key in arrays:
+            return torch.from_numpy(arrays[key])
+    if (width, height) not in ((1920, 1088), (1088, 1920), (2048, 1152), (1152, 2048)):
+        raise ValueError('Unsupported VOSR frame size.')
+    shape = (1, 16, ((height * 2 + 15) // 16) * 2, ((width * 2 + 15) // 16) * 2)
+    return torch.randn(shape, generator=torch.Generator(device='cpu').manual_seed(42), dtype=torch.float32)
+
+
 def submit_after(fn):
     event = torch.mps.Event(enable_timing=False)
 
@@ -58,13 +75,7 @@ class Upscaler:
         # Only this worker's namespaced tiling function uses the submission wrapper.
         self.features = tiling.get_venc_features
         tiling.get_venc_features = submit_after(self.features)
-        path = Path(__file__).parents[1] / 'data/vosr-noise.npz'
-        from ..io import digest
-        from .assets import manifest
-        if digest(path) != manifest()['noise']['sha256']:
-            raise RuntimeError('Packaged VOSR noise checksum mismatch. Reinstall h3-apple.')
-        with np.load(path, allow_pickle=False) as arrays:
-            self.noise = torch.from_numpy(arrays[f'{width}x{height}']).to('mps')
+        self.noise = frame_noise(width, height).to('mps')
         self.finite = []
         for module in (self.restorer.vae.decoder, self.restorer.vae.quant_conv, self.restorer.model):
             module.register_forward_hook(self.check_finite)

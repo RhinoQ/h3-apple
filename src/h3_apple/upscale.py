@@ -36,10 +36,9 @@ def resolve_video(path, duration=None):
         raise ValueError('VOSR needs one video stream and at most one audio stream.')
     video = videos[0]
     width, height = video['width'], video['height']
-    if (width, height) not in ((1366, 768), (768, 1366), (1024, 576), (576, 1024)):
-        raise ValueError('VOSR accepts native 576p or 768p H3 video in either orientation. '
-                         'Use h3 generate --upscale for the complete workflow, or generate '
-                         'with --resolution 768p --no-x2 before upscaling.')
+    if (width, height) not in ((1366, 768), (768, 1366), (1024, 576), (576, 1024),
+                              (1920, 1088), (1088, 1920), (2048, 1152), (1152, 2048)):
+        raise ValueError('VOSR accepts H3 native 576p/768p or X2 544p/576p video in either orientation.')
     if any(Fraction(video.get(key, '0')) != 24 for key in ('avg_frame_rate', 'r_frame_rate')):
         raise ValueError('VOSR requires a constant 24 fps input.')
     count = int(video.get('nb_frames', 0))
@@ -90,7 +89,7 @@ def check_environment(video):
 
 
 def upscale(input, *, output=None, duration=None, model_dir=None, on_progress=None, diagnostics=False, timeout=14400):
-    """Double a native 576p/768p H3 video's dimensions with VOSR2; keep its audio."""
+    """Double an H3 video's dimensions with VOSR2; keep its audio."""
     if isinstance(timeout, bool) or not math.isfinite(timeout) or timeout <= 0:
         raise ValueError('timeout must be positive and finite.')
     if type(diagnostics) is not bool:
