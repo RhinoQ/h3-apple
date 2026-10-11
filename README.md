@@ -9,7 +9,7 @@ The benchmark retains all outputs and failures from its frozen 0.7.0 build.
 
 ## Showcases
 
-**N8 — The Celestial Hall** and **N6 — Stairway Above the Clouds** use native 768p
+**The Celestial Hall** and **Stairway Above the Clouds** use native 768p
 generation followed by VOSR 2× restoration: 2732×1536, 24 fps, original audio.
 These selected clips sit outside the scored benchmark.
 
@@ -18,8 +18,9 @@ headline measures SOL + 544p/X2 generation across the 12 benchmark scenes.
 All measurements use a 40-core M5 Max / 128 GiB.
 
 Expand either video for its prompt, original reference link and 0.8.0 commands.
-The native sources were generated with 0.7.0; N6 shows the first five seconds of
-its 15-second source. Records bind source builds, models and input/output hashes.
+The native sources were generated with 0.7.0; **Stairway Above the Clouds** shows
+the first five seconds of its 15-second source. Records bind source builds,
+models and input/output hashes.
 References retain their creators' terms and are linked at their original hosts.
 
 The selected restoration recipe was adopted in 0.8.0. A complete, method-disclosed

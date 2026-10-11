@@ -203,7 +203,7 @@ AI-generated fixtures are labeled, not assigned third-party CC0 rights. Publicat
 - SHA256: `16f868c8d62f8acc6a5488da0555683d9c4437fdc1d0b86cc60fc2ce5a6cce45`
 - Redistribution record: review_required
 
-## Showcase N8: The Celestial Hall
+## The Celestial Hall
 
 - Reference credit: Splitshire, image 2056173251
 - Source and terms: https://www.splitshire.com/images/luxurious-eastern-temple-aesthetic
@@ -211,7 +211,7 @@ AI-generated fixtures are labeled, not assigned third-party CC0 rights. Publicat
 - Reference SHA256: `32f41ccad54c035f78aaaac851f2f1881e168352e5084b8454757b19d5c80f27`
 - Selected videos and posters are derivatives, outside the scored cohort. Original image, MiniMax H3 and VOSR terms apply; VOSR includes noncommercial components.
 
-## Showcase N6: Stairway Above the Clouds
+## Stairway Above the Clouds
 
 - Reference credit: 李岳, as credited by PicX; original X post unavailable during review
 - Source and terms: https://picxstudio.com/templates/42993-oriental-fantasy-celestial-realm

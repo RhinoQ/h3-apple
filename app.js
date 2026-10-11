@@ -27,7 +27,7 @@ function renderShowcase() {
     const seconds = Math.round(s.restoration_seconds), key = s.id.toLowerCase();
     return `<article class="showcase-card" id="showcase-${esc(s.id)}">
       <video controls playsinline preload="none" poster="${esc(s.poster)}" src="${esc(s.video.path)}" aria-label="${esc(s.title)} — five-second super-resolution showcase"></video>
-      <div class="showcase-info"><p class="eyebrow">${esc(s.id)} / 5 SECONDS</p><h3>${esc(s.title)}</h3>
+      <div class="showcase-info"><p class="eyebrow">5 SECONDS</p><h3>${esc(s.title)}</h3>
       <p class="small">SOL · native 768p → VOSR 2× · ${Math.floor(seconds/60)}m ${String(seconds%60).padStart(2,'0')}s restoration${s.excerpt ? '<br>First five seconds of a 15-second generation.' : ''}</p>
       <details><summary>Prompt, reference & settings</summary>
       <p><a href="${esc(s.prompt_file)}" download>Prompt TXT ↓</a> · <a href="${esc(s.reference.url)}">Original reference ↗</a> · <a href="${esc(s.record)}">Run record ↗</a></p>
