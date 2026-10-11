@@ -1,8 +1,8 @@
 # Generate locally
 
-Use the public h3-apple CLI/API. These examples target **0.7.0**;
-[release installation](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/install.md)
-and [API](https://github.com/RhinoQ/h3-apple/blob/v0.7.0/docs/api.md) define its contract.
+Use the public h3-apple CLI/API. These examples target **0.8.0**;
+[release installation](https://github.com/RhinoQ/h3-apple/blob/v0.8.0/docs/install.md)
+and [API](https://github.com/RhinoQ/h3-apple/blob/v0.8.0/docs/api.md) define its contract.
 Honor requested versions and settings. Check that version's docs and `--help`;
 do not silently upgrade software or change model recipes.
 
@@ -24,7 +24,7 @@ If needed, create an unused project prefix:
 H3_ENV_PREFIX="$PWD/.local/envs/h3"
 conda create --prefix "$H3_ENV_PREFIX" -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 H3_PYTHON="$H3_ENV_PREFIX/bin/python"
-"$H3_PYTHON" -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
+"$H3_PYTHON" -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.0/h3_apple-0.8.0-py3-none-any.whl"
 "$H3_PYTHON" -m h3_apple --version
 ```
 
@@ -36,7 +36,7 @@ not an unverified PyPI substitute.
 
 ## Mode and models
 
-Refreshed 0.7.0 defaults to `SOL` + 544p/X2; `VSA` is optional. Carry the requested mode through
+The product defaults to `SOL` + 544p/X2; `VSA` is optional. Carry the requested mode through
 `resolve`, `prepare`, `doctor`, `verify` and `generate`, or Python's `mode`.
 Older releases such as 0.5.3 lack these flags.
 
@@ -117,3 +117,11 @@ Native output requires `--resolution 768p --no-x2` or `--resolution 576p --no-x2
 (Python: `x2=False`). For an authorized initial check, use five seconds and inspect
 task fidelity, faces, texture and motion. B32 enhancement is not included.
 See the checkout's `docs/x2.md`.
+
+## Optional super-resolution
+
+For a detailed finish, generate native 576p/768p with `x2=False`, then call
+`h3 upscale --input native.mp4 --output detailed.mp4`. It doubles dimensions,
+keeps audio, requires 128 GiB memory and downloads separate 6.97 GB models.
+Restoration adds about 20 minutes per five-second 768p clip; this is separate
+from SOL + X2 generation time. See the [guide and component terms](https://github.com/RhinoQ/h3-apple/blob/v0.8.0/docs/upscale.md).

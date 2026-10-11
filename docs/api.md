@@ -64,3 +64,8 @@ Audio is always generated. Describe speech, music, ambience or silence in the
 prompt. Exact speech, timing, identity and continuity remain model limitations.
 
 Native output requires `x2=False` and `resolution="576p"` or `"768p"`.
+
+## Super-resolution
+
+`upscale("native.mp4", output="detailed.mp4")` doubles a native video's dimensions
+and preserves audio. [Input formats, options and results](upscale.md).

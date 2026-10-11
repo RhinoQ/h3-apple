@@ -53,6 +53,18 @@ H3_TEST_LARGE_ARRAYS=1 .local/envs/h3/bin/python -m pytest tests/test_vae_chunks
 
 ## Implementation and credits
 
+**New in 0.8.0:** full-video VOSR restoration through `upscale()` and `h3 upscale`.
+The worker uses PyTorch 2.14.1 native FP16 attention, fused RMSNorm and resident
+FP16 DINO/DiT projections; VAE precision is scoped and tile submission is
+nonblocking. Sensitive normalization boundaries, blending and color processing
+remain FP32. Fixed noise preserves the qualified output across the Torch upgrade.
+
+VOSR supplies model definitions, conditioning and tiling; PyTorch supplies the
+GPU kernels. Our work covers the Mac precision/execution policy, model preparation,
+video/audio handling and validation. [File origins](evidence/v0.8.0-source-components.json)
+and [component terms](../THIRD_PARTY_NOTICES) include the inherited noncommercial
+DiT code. Models download separately; no face detector is used.
+
 **New in 0.7.0:** MLX X2 integration, SOL preparation/guards and the fixes below.
 VSA kernel work shipped in 0.6.0. H3, VSA, SOL, SageAttention, Turbo, rotated INT8
 quantization and X2 originate upstream. The table distinguishes reused code,

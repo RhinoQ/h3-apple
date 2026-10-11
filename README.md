@@ -5,16 +5,22 @@
 Turn 1–9 images and a prompt into 5–15 seconds of video with stereo audio.
 Powered by MiniMax-H3. Landscape or portrait, CLI or Python.
 
-We bring SOL and VSA acceleration, X2 decoding on Apple GPUs, and automatic model
-preparation into one Mac workflow. [What we built](docs/releases/0.7.0.md#community-and-our-contribution).
+Generate fast with SOL + X2. Add finer detail with VOSR super-resolution.
+One Mac workflow, from reference images to finished video.
+[What's new in 0.8.0](docs/releases/0.8.0.md).
 
 **3m 14s median** with SOL + 544p/X2 on a 40-core M5 Max / 128 GiB:
-12 scenes, full API calls after model setup.
+12 scenes, full API calls after model setup in the 0.7.0 benchmark.
 
-[**Watch the benchmark →**](https://rhinoq.github.io/h3-apple/) ·
-[**Install →**](#install) · [**0.7.0 release →**](docs/releases/0.7.0.md)
+[**Watch the videos →**](https://rhinoq.github.io/h3-apple/#showcase) ·
+[**Install →**](#install) · [**0.8.0 release →**](docs/releases/0.8.0.md)
 
-[![Cloud palace above the clouds](https://rhinoq.github.io/h3-apple/assets/posters/060f8e72ff066feda2174e16334d06862108b09746c788e8586b13ae9e584cdd.jpg)](https://rhinoq.github.io/h3-apple/#case=cloud-palace)
+| Celestial hall · N8 | Stairway above the clouds · N6 |
+| --- | --- |
+| [![Sunlight and silk in a celestial hall](https://rhinoq.github.io/h3-apple/assets/showcase/n8.jpg)](https://rhinoq.github.io/h3-apple/#showcase-N8) | [![A golden stairway rising through a sea of clouds](https://rhinoq.github.io/h3-apple/assets/showcase/n6.jpg)](https://rhinoq.github.io/h3-apple/#showcase-N6) |
+
+Showcase: native 768p + VOSR 2×, **2732×1536**. Super-resolution adds about
+**20 minutes per five-second clip**, beyond generation. [Prompts and settings](https://rhinoq.github.io/h3-apple/#showcase).
 
 ## Performance
 
@@ -40,7 +46,7 @@ Install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.0/h3_apple-0.8.0-py3-none-any.whl"
 ```
 
 First use prepares models and asks before downloads over 20 GB.
@@ -87,6 +93,17 @@ print(result.video_path)
 
 [API settings and first-download consent](docs/api.md)
 
+## Add detail with super-resolution
+
+Generate at native 768p with `--resolution 768p --no-x2`, then run:
+
+```sh
+h3 upscale --input native.mp4 --output detailed.mp4
+```
+
+VOSR doubles width and height while preserving audio. Requires **128 GiB memory**
+and a separate **6.97 GB** model download. [Super-resolution guide and terms](docs/upscale.md).
+
 ## Use with Codex
 
 Install the [Ref2VA skill](skills/h3-apple-ref2va-prompting/SKILL.md):
@@ -98,10 +115,11 @@ $skill-installer install from https://github.com/RhinoQ/h3-apple/tree/main/skill
 Attach images and invoke `$h3-apple-ref2va-prompting` with your brief.
 
 [Development](docs/development.md) · [Validation](docs/validation.md) ·
-[Community credits](docs/releases/0.7.0.md#community-and-our-contribution)
+[Community credits](docs/releases/0.8.0.md#what-we-built)
 
 ## License
 
 Independent community project. Original code: [Apache-2.0](LICENSE).
 Models: [MiniMax H3 Community License](licenses/MiniMax-H3.txt).
-Third-party code keeps its [own terms](THIRD_PARTY_NOTICES).
+Third-party code keeps its [own terms](THIRD_PARTY_NOTICES); VOSR includes
+components restricted to noncommercial use.

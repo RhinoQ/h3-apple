@@ -4,7 +4,7 @@
 
 - **Mac:** 40-core M5 Max, macOS 26.2+, 64 GiB minimum. Tested with 128 GiB;
   smaller-memory operation is unverified. Other GPUs are unsupported.
-- **Disk:** fresh VSA setup needs about **151 GB of downloads / 343 GB free**.
+- **Disk:** fresh SOL + X2 setup needs about **150 GB of downloads / 241 GB free**.
 - **Conda:** use your installation or [Miniforge for Apple Silicon](https://github.com/conda-forge/miniforge#miniforge3).
 
 ## 1. Install
@@ -12,7 +12,7 @@
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3_apple-0.7.0-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.0/h3_apple-0.8.0-py3-none-any.whl"
 ```
 
 One environment supports VSA, SOL and X2. No compiler is needed.
@@ -33,7 +33,7 @@ approve transfers over 20 GB. Later runs reuse the models.
 Open `first-video.mp4`. Choose a new filename for each run.
 In a new terminal, run `conda activate h3` first.
 
-[Output options](x2.md) · [Python API](api.md)
+[Output options](x2.md) · [Super-resolution](upscale.md) · [Python API](api.md)
 
 ## Optional setup
 
@@ -90,12 +90,11 @@ Add `--mode VSA` for VSA. Repeat `--reuse-dir` for multiple compatible sources.
 <summary>Upgrade h3-apple or older SOL models</summary>
 
 Activate `h3` and rerun the pip command with `--upgrade`.
-For an earlier 0.7.0 install, add `--force-reinstall --no-cache-dir`: the refreshed
-release changes defaults and removes face enhancement. For native output, specify
+For native output, specify
 `--resolution 576p --no-x2` or `--resolution 768p --no-x2`.
 Compatible VSA models are reusable.
 
-**0.7.0 rejects old quantized SOL weights.** Prepare a new directory:
+**Old quantized SOL weights need fresh preparation.** Prepare a new directory:
 
 ```sh
 h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged --plan
@@ -105,7 +104,7 @@ h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged
 To reuse original H3 weights and Turbo, add `--reuse-dir /path/to/sources` to both
 commands. Old quantized weights alone are insufficient. Pass the new `--model-dir`
 on later SOL calls. Existing models are preserved.
-[Recipe change](releases/0.7.0.md#fixes-and-lessons-that-affected-adoption).
+[Recipe change](releases/0.7.0.md#fixes-you-can-see).
 
 </details>
 

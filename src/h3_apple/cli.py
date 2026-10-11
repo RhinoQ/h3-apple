@@ -64,6 +64,17 @@ def parser():
     prepare_x2.add_argument("--model-dir")
     prepare_x2.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
     prepare_x2.add_argument("--plan", action="store_true")
+    upscale = commands.add_parser("upscale", help="Double native video dimensions with VOSR2")
+    upscale.add_argument("--input", required=True)
+    upscale.add_argument("--output", required=True)
+    upscale.add_argument("--model-dir")
+    upscale.add_argument("--diagnostics", action="store_true")
+    upscale.add_argument("--timeout", type=float, default=14400)
+    upscale.add_argument("--no-progress", action="store_true")
+    prepare_vosr = commands.add_parser("prepare-vosr", help="Prepare the 6.97 GB VOSR2 models")
+    prepare_vosr.add_argument("--model-dir")
+    prepare_vosr.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")
+    prepare_vosr.add_argument("--plan", action="store_true")
     return top
 
 
@@ -71,7 +82,12 @@ def main(argv=None):
     args = vars(parser().parse_args(argv))
     command = args.pop("command")
     try:
-        if command == "generate":
+        if command == "upscale":
+            from .upscale import upscale
+            from .progress import ProgressBar
+            with ProgressBar(enabled=not args.pop("no_progress")) as display:
+                result = asdict(upscale(**args, on_progress=display))
+        elif command == "generate":
             from .progress import ProgressBar
             with ProgressBar(enabled=not args.pop("no_progress")) as display:
                 try:
@@ -101,6 +117,10 @@ def main(argv=None):
             result = dict(status="verified", directory=data["directory"], identity=data["identity"])
         elif command == "prepare-x2":
             from .x2_assets import plan, prepare
+            show_plan = args.pop("plan")
+            result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
+        elif command == "prepare-vosr":
+            from .super_resolution.assets import plan, prepare
             show_plan = args.pop("plan")
             result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
         else:
