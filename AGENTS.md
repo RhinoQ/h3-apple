@@ -8,7 +8,8 @@
 
 ## Documentation style
 
-This is the authoritative style guide for product documentation and benchmark pages.
+Maintain these rules in both the research and product AGENTS.md files.
+Update both copies together.
 
 - Serve users and contributors: installation, requirements, interfaces, examples,
   measured performance, quality limits, development and licenses.
