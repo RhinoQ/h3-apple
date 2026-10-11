@@ -44,10 +44,10 @@ Inputs must be 24 fps, up to 15 seconds, with AAC audio or no audio. X2 videos
 are processed at their full delivered size, without shrinking or cropping.
 
 The two five-second 768p showcases took about **20 minutes each** to upscale
-on a 40-core M5 Max / 128 GiB. That is additional to generation. N8 restoration
-fell from **46m 30s to 20m 11s: 56.6% less time** than the FP32 reference.
+on a 40-core M5 Max / 128 GiB. That is additional to generation. For **Celestial Hall**,
+restoration fell from **46m 30s to 20m 11s: 56.6% less time** than the FP32 reference.
 [Measurements and limits](evidence/v0.8.0-vosr.json) ·
-[Watch N8 and N6](https://rhinoq.github.io/h3-apple/#showcase).
+[Watch the videos](https://rhinoq.github.io/h3-apple/#showcase).
 
 X2 input has more pixels and takes longer. Short landscape/portrait checks used
 about 49–56 GiB process memory on the same Mac. These are compatibility checks;

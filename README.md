@@ -11,7 +11,7 @@ Turn 1–9 images and a prompt into video with stereo audio. Landscape or portra
 [**Watch the videos →**](https://rhinoq.github.io/h3-apple/#showcase) ·
 [**Install →**](#1-install) · [**What's new →**](docs/releases/0.8.1.md)
 
-| Celestial hall · N8 | Stairway above the clouds · N6 |
+| Celestial Hall | Stairway Above the Clouds |
 | --- | --- |
 | [![Sunlight and silk in a celestial hall](https://rhinoq.github.io/h3-apple/assets/showcase/n8.jpg)](https://rhinoq.github.io/h3-apple/#showcase-N8) | [![A golden stairway rising through a sea of clouds](https://rhinoq.github.io/h3-apple/assets/showcase/n6.jpg)](https://rhinoq.github.io/h3-apple/#showcase-N6) |
 
