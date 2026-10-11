@@ -1,0 +1,55 @@
+{
+  "status": "Qualified local recipe; product installation checks are recorded separately.",
+  "host": "Apple M5 Max, 40 GPU cores, 128 GiB, macOS 26.6.1",
+  "input": "1366x768, 24 fps; 120 frames from each native clip",
+  "output": "2732x1536, 24 fps, five seconds with original audio",
+  "runtime": "PyTorch 2.14.1 and torchvision 0.29.1; native FP16/FP32 recipe vosr2-native-fp16-v1",
+  "reference_runtime": "PyTorch 2.11.0 FP32",
+  "results": [
+    {
+      "case": "N8",
+      "reference_seconds": 2790.478157958976,
+      "optimized_seconds": 1210.8708503340022,
+      "time_reduction_percent": 56.60704790394551,
+      "speedup": 2.304521706166484,
+      "reference_peak_gib": 82.49936259537935,
+      "optimized_peak_gib": 68.6591219380498,
+      "max_frame_mae_255": 0.1861284077167511,
+      "min_frame_psnr_db": 46.35307598879784
+    },
+    {
+      "case": "N6",
+      "reference_seconds": null,
+      "optimized_seconds": 1202.826072750002,
+      "time_reduction_percent": null,
+      "optimized_peak_gib": 67.64357314258814,
+      "max_frame_mae_255": 0.13006599247455597,
+      "min_frame_psnr_db": 51.29622060057534,
+      "reference": "Historical FP32 pixels; fresh FP32 rerun canceled before launch."
+    }
+  ],
+  "quality": {
+    "numeric": "All 240 frames passed MAE <=1/255 and PSNR >=40 dB.",
+    "still_review": "12 full-frame pairs and 20 native crop pairs inspected; no obvious new structural loss. Local fine texture differs.",
+    "motion_review": "On 2026-10-11 the user confirmed complete normal-speed playback of both pairs with no newly introduced problems. Methods were disclosed.",
+    "largest_fixed_crop_difference": {
+      "case": "N8",
+      "frame": 68,
+      "mae_255": 1.14995014245,
+      "psnr_db": 36.37846158
+    }
+  },
+  "timing_scope": "Imports, source decoding, model preparation, all restored frames, PNG writing and video/audio export. Model verification and subsequent quality analysis excluded.",
+  "limits": [
+    "One complete N8 reference-then-candidate pair, caches retained; compilation not separately attributed.",
+    "Two exposed regression clips; no universal quality or hardware claim.",
+    "N6 complete time is unpaired; no fresh N6 percentage.",
+    "N6 video is exactly five seconds; its existing AAC/container tail is 24 ms.",
+    "These restoration timings are additional to native video generation; the 3m14s SOL/X2 median is a separate 0.7.0 benchmark."
+  ],
+  "frozen_recipe_sha256": "22f42bc4e918acc1da686f0293bd1ecf96fc65b0feeef242df44005ba47b07df",
+  "reviewed_videos": {
+    "N8": "9d76c9159cc93a6d149c18f7141dca406dea3c858050584afe599f10c24c82ea",
+    "N6": "127476b9b83a1324105c619f9007312c92cda182dd0040ff4ebf3c0847be7e89"
+  }
+}

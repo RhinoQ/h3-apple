@@ -1,3 +1,4 @@
+include AGENTS.md
 recursive-include docs *.md *.json *.txt
 recursive-include environments *.lock
 recursive-include tools *.py *.md *.patch

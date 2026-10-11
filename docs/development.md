@@ -63,7 +63,7 @@ VOSR supplies model definitions, conditioning and tiling; PyTorch supplies the
 GPU kernels. Our work covers the Mac precision/execution policy, model preparation,
 video/audio handling and validation. [File origins](evidence/v0.8.0-source-components.json)
 and [component terms](../THIRD_PARTY_NOTICES) include the inherited noncommercial
-DiT code. Models download separately; no face detector is used.
+DiT code. Models download separately.
 
 **New in 0.7.0:** MLX X2 integration, SOL preparation/guards and the fixes below.
 VSA kernel work shipped in 0.6.0. H3, VSA, SOL, SageAttention, Turbo, rotated INT8

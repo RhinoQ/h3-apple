@@ -15,7 +15,7 @@ conda activate h3
 python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.0/h3_apple-0.8.0-py3-none-any.whl"
 ```
 
-One environment supports VSA, SOL and X2. No compiler is needed.
+One environment supports VSA, SOL, X2 and VOSR. No compiler is needed.
 
 ## 2. Generate
 

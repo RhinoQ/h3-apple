@@ -121,3 +121,44 @@ def test_recipe_noise_is_bound_and_finite():
             x=arrays[f'{width}x{height}']
             assert x.shape==(1,16,((height*2+15)//16)*2,((width*2+15)//16)*2)
             assert x.dtype==np.float32 and np.isfinite(x).all()
+
+
+@pytest.mark.parametrize('stop', ['timeout', 'callback'])
+def test_upscale_interruption_reaps_worker_and_keeps_logs(media, tmp_path, monkeypatch, stop):
+    import subprocess
+    import sys
+    from h3_apple import host
+    from h3_apple.super_resolution import assets
+    source, _ = media
+    monkeypatch.setattr(host, 'snapshot', lambda: dict(memory_bytes=128 * 1024**3))
+    monkeypatch.setattr(host, 'check_machine', lambda _: None)
+    monkeypatch.setattr(api, 'check_runtime', lambda: None)
+    monkeypatch.setattr(assets, 'prepare', lambda *a, **kw: dict(recipe='test'))
+    worker = tmp_path / 'worker.py'
+    worker.write_text("import json,sys,time\njson.loads(sys.stdin.readline())\n"
+                      "print(json.dumps({'phase':'test'}),flush=True)\ntime.sleep(60)\n")
+    real_popen = subprocess.Popen
+    children = []
+
+    def launch(args, **kwargs):
+        if args == [sys.executable, '-m', 'h3_apple.super_resolution.worker']:
+            child = real_popen([sys.executable, str(worker)], **kwargs)
+            children.append(child)
+            return child
+        return real_popen(args, **kwargs)
+
+    monkeypatch.setattr(api.subprocess, 'Popen', launch)
+
+    def cancel(event):
+        raise KeyboardInterrupt()
+
+    output = tmp_path / 'out.mp4'
+    with pytest.raises(TimeoutError if stop == 'timeout' else KeyboardInterrupt):
+        api.upscale(source, output=output, timeout=.5,
+                    on_progress=cancel if stop == 'callback' else None)
+    record = json.loads(output.with_suffix('.run.json').read_text())
+    assert record['status'] == ('failed' if stop == 'timeout' else 'cancelled')
+    assert len(children) == 1 and children[0].poll() is not None
+    assert Path(record['workspace'], 'worker.log').is_file()
+    assert Path(record['workspace'], 'source.mp4').read_bytes() == source.read_bytes()
+    assert not output.exists()
