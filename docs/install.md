@@ -63,8 +63,9 @@ five-second clip, depending on input size, beyond generation time.
 These conservative estimates include X2's 5.25 GB decoder. Caches reduce costs.
 SOL's 6.05 MB engine downloads automatically. SOL + X2 does not need VSA models.
 Fast uses the selected backend's bundle with X2; medium uses the same backend's
-bundle without X2. Both default to VSA. High uses VSA models with Dense attention
-and adds the 6.97 GB VOSR models. Switching quality between fast and medium reuses
+bundle without X2. Both default to VSA. High reuses the prepared VSA bundle for
+[Dense generation](development.md#runtime) and adds the 6.97 GB VOSR models.
+Switching quality between fast and medium reuses
 the generation bundle; changing backend may require a separate bundle. Combined
 download consent is checked before setup.
 

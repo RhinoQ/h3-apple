@@ -30,8 +30,8 @@ EXIF orientation is applied; prompt text and image order are preserved.
 | Argument | Default | Accepted values |
 | --- | --- | --- |
 | `quality` | Fast configuration | `"fast"`, `"medium"`, `"high"`; omit (`None`) to customize advanced settings |
-| `mode` | `"VSA"` | `"VSA"` or `"SOL"` for fast/medium and custom configurations; high requires VSA models |
-| `attention` | Automatic | `"vsa"` or `"dense"` with VSA models; Dense requires native 768p, 5 seconds and 128 GiB |
+| `mode` | `"VSA"` | `"VSA"` or `"SOL"` for fast/medium and custom configurations; omit for high, which selects Dense automatically |
+| `attention` | Automatic | `"vsa"` or `"dense"` with `mode="VSA"`; Dense requires native 768p, 5 seconds and 128 GiB |
 | `duration` | `5` | Fast/medium: 5–15 seconds, whole frames at 24 fps; high/Dense: 5 only |
 | `resolution` | Automatic | Selected by quality; otherwise `"544p"`, or `"768p"` with `upscale=True`; explicit `"576p"` also supported |
 | `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |

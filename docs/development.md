@@ -2,13 +2,18 @@
 
 ## Runtime
 
-| Mode | Entry | Implementation |
+| Generation | Entry | Implementation |
 | --- | --- | --- |
 | VSA, default | `runtime/engine.py` | Vendored MLX; W8A8 projections, shared QKV activation packing, INT8 QK |
-| Dense (high quality) | `runtime/engine.py` | Same VSA model bundle and W8A8 projections; BF16 full SDPA, sparse routing and gates bypassed |
+| Dense (High) | `runtime/engine.py` | W8A8 projections; BF16 full SDPA; sparse routing and gates bypassed |
 | SOL | `engine.py` | Native vpipe; INT8 GEMM, SOL and Sage attention |
 
-Both use the original LightX2V four-step adapter. SOL merges it into BF16 weights
+**Dense and VSA share prepared weights.** Internally, `mode="VSA"` selects the
+MLX runtime and model bundle; `attention="dense"` selects full attention.
+High uses this combination, bypassing VSA sparse routing and gates. Its projections
+remain W8A8: Dense describes attention coverage, not whole-model precision.
+
+All three use the original LightX2V four-step adapter. SOL merges it into BF16 weights
 in FP32, rounds to BF16, then quantizes to W8G64. Manifests bind this recipe;
 runtime reapplication is rejected. The formats are separate, with no silent fallback.
 

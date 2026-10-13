@@ -19,25 +19,28 @@ defaults to five seconds for every quality. High needs 128 GiB;
 medium above five seconds needs 96 GiB. Fast retains the 64 GiB minimum.
 Only the 128 GiB host has been tested.
 
-Choose the backend independently with `--mode VSA` or `--mode SOL`:
+For Fast and Medium, choose VSA or SOL with `--mode`:
 
 ```sh
 h3 generate --image reference.jpg --prompt-file scene.txt --quality fast --mode SOL
 h3 generate --image reference.jpg --prompt-file scene.txt --quality medium --mode SOL
 ```
 
-Omitting `--mode` uses VSA, including when `--quality` is omitted. Quality fixes
-the sampling size and decoder; mode chooses the generation backend. Both modes
-retain the same supported durations and output dimensions for each quality.
+Fast and Medium default to VSA; custom calls without `--quality` also default to
+VSA. Quality sets the sampling size and decoder. Choosing SOL preserves the
+supported durations and output dimensions for Fast and Medium.
 
-High uses BF16 full attention with the existing quantized projections and
-four-step adapter, then VOSR restoration. It can retain more detail but does not
+High uses Dense (full) attention at native 768p, then VOSR 2× restoration.
+Its projections remain quantized, and generation uses the four-step Turbo adapter.
+[How Dense reuses model weights](development.md#runtime).
+It can retain more detail but does not
 guarantee better motion, expressions or prompt adherence. Generation and
 restoration have separate timeouts and measured costs.
 
 An explicit `--quality` fixes `--attention`, `--resolution`, `--x2` and `--upscale`;
 contradicting those settings is an error. Fast and medium allow either backend;
-high requires VSA models with Dense attention and rejects `--mode SOL`.
+High selects Dense automatically; leave `--mode` unset. `--mode SOL` is rejected
+with High.
 Omit `--quality` to use the existing advanced combinations below. With no
 advanced choices, the result is the fast configuration.
 
