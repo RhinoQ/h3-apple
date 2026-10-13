@@ -13,8 +13,8 @@ The benchmark retains all outputs and failures from its frozen 0.7.0 build.
 generation followed by VOSR 2× restoration: 2732×1536, 24 fps, original audio.
 These selected clips sit outside the scored benchmark.
 
-Restoration took **20m 11s / 20m 03s**, additional to generation. The **3m 14s**
-headline measures SOL + 544p/X2 generation across the 12 benchmark scenes.
+Restoration took **20m 11s / 20m 03s**, additional to generation. The **4m 19s**
+headline measures VSA + 544p/X2 generation across the 12 benchmark scenes.
 All measurements use a 40-core M5 Max / 128 GiB.
 
 Expand either video for its prompt, original reference link and 0.8.0 commands.

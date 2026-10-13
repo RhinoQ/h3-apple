@@ -13,7 +13,7 @@
   },
   "README.md": {
     "bytes": 5853,
-    "sha256": "f660656b41eedc26629c8b4dba0bbc5bf20b0b510ce42197b60b9cde8812981b"
+    "sha256": "1bf781789fc2eb3817b29e98c2b396efbcffc15d2d2a84b71e821b3b43bf81d2"
   },
   "app.js": {
     "bytes": 18593,
@@ -1108,8 +1108,8 @@
     "sha256": "12147e681548dd7536c790497259623fea6fcd924a0ab34296d8759ad89e58a1"
   },
   "index.html": {
-    "bytes": 6536,
-    "sha256": "81a89fa57f0325b6a5e3f7f19962d41c4837a340c7727c898b1b2ebced038f06"
+    "bytes": 6535,
+    "sha256": "72206685ef735160d9f2c47346d224eaa96e8f1acf288d5df62d380bd13dd0b7"
   },
   "package.py": {
     "bytes": 6056,
