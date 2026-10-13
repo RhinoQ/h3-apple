@@ -40,6 +40,9 @@ class GenerationRequest:
     num_steps: int = 4
     mode: str = "SOL"
     x2: bool = True
+    attention: str | None = None
+    quality: str | None = None
+    upscale: bool = False
 
     def to_dict(self):
         return asdict(self)
@@ -54,13 +57,52 @@ class GenerationResult:
     native_video_path: Path | None = None
 
 
+_QUALITIES = {
+    "fast": dict(mode="SOL", resolution="544p", x2=True, attention=None, upscale=False),
+    "medium": dict(mode="VSA", resolution="768p", x2=False, attention="vsa", upscale=False),
+    "high": dict(mode="VSA", resolution="768p", x2=False, attention="dense", upscale=True),
+}
+
+
+def _configuration(quality, *, mode, resolution, x2, attention, upscale):
+    """Resolve a named quality or preserve the existing advanced settings."""
+    for name, value in (("x2", x2), ("upscale", upscale)):
+        if value is not None and type(value) is not bool:
+            raise ValueError(f"{name} must be a boolean.")
+    if quality is not None:
+        if not isinstance(quality, str) or quality not in _QUALITIES:
+            raise ValueError("quality must be 'fast', 'medium' or 'high'.")
+        chosen = _QUALITIES[quality]
+        supplied = dict(mode=mode, resolution=resolution, x2=x2, attention=attention, upscale=upscale)
+        for name, value in supplied.items():
+            if value is not None and value != chosen[name]:
+                raise ValueError(f"quality='{quality}' requires {name}={chosen[name]!r}; "
+                                 f"omit {name} or omit quality to use advanced settings.")
+        return chosen
+    upscale = False if upscale is None else upscale
+    return dict(mode="SOL" if mode is None else mode,
+                resolution=("768p" if upscale else "544p") if resolution is None else resolution,
+                x2=not upscale if x2 is None else x2, attention=attention, upscale=upscale)
+
+
 def resolve(prompt=None, *, prompt_file=None, reference_images=None,
-            resolution="544p", duration=5, seed=None, aspect_ratio="16:9", mode="SOL", x2=True):
-    """Validate inputs and resolve geometry without loading model weights."""
+            quality=None, resolution=None, duration=5, seed=None, aspect_ratio="16:9",
+            mode=None, x2=None, attention=None, upscale=None):
+    """Validate inputs and resolve generation and restoration without loading models."""
+    settings = _configuration(quality, mode=mode, resolution=resolution, x2=x2,
+                              attention=attention, upscale=upscale)
+    mode, resolution, x2, attention, upscale = (settings[key] for key in
+                                               ("mode", "resolution", "x2", "attention", "upscale"))
     if mode not in ("SOL", "VSA"):
         raise ValueError("mode must be 'SOL' or 'VSA'.")
-    if type(x2) is not bool:
-        raise ValueError("x2 must be a boolean.")
+    if attention is not None and (mode != "VSA" or attention not in ("vsa", "dense")):
+        raise ValueError("attention requires mode='VSA' and must be 'vsa' or 'dense'.")
+    attention = (attention or "vsa") if mode == "VSA" else None
+    if upscale and (x2 or resolution not in ("576p", "768p")):
+        raise ValueError("generate(upscale=True) uses native 576p or 768p. Omit resolution and x2 "
+                         "for automatic settings, or generate X2 video first and call upscale() separately.")
+    if attention == "dense" and (resolution != "768p" or x2):
+        raise ValueError("Dense attention requires native 768p (resolution='768p', x2=False).")
     if (prompt is None) == (prompt_file is None):
         raise ValueError("Provide exactly one of prompt or prompt_file.")
     if prompt_file is not None:
@@ -115,12 +157,15 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
     return GenerationRequest(prompt, references, resolution, count / 24, seed,
                              width, height, count, model_width, model_height,
                              ((count - 5 + 16) // 17) * 17 + 5, mode=mode, x2=x2,
-                             recipe="ref2va-premerged-i8-sol-sage-v2" if mode == "SOL" else "ref2va-w8a8-vsa-int8qk-v1")
+                             attention=attention, quality=quality, upscale=upscale,
+                             recipe=("ref2va-premerged-i8-sol-sage-v2" if mode == "SOL" else
+                                     "ref2va-w8a8-dense-bf16-v1" if attention == "dense" else
+                                     "ref2va-w8a8-vsa-int8qk-v1"))
 
 
 def generate(prompt=None, *, prompt_file=None, reference_images=None,
-             resolution=None, duration=5, seed=None, aspect_ratio="16:9", mode="SOL",
-             x2=None, x2_model_dir=None, upscale=False, upscale_model_dir=None,
+             quality=None, resolution=None, duration=5, seed=None, aspect_ratio="16:9", mode=None,
+             attention=None, x2=None, x2_model_dir=None, upscale=None, upscale_model_dir=None,
              upscale_timeout=14400,
              output=None, model_dir=None, on_progress=None, diagnostics=False,
              timeout=7200, allow_large_download=False):
@@ -129,23 +174,14 @@ def generate(prompt=None, *, prompt_file=None, reference_images=None,
     Model downloads over 20 GB raise DownloadApprovalRequired unless explicitly
     allowed. Importing this module and resolving inputs never download anything.
     """
-    if type(upscale) is not bool:
-        raise ValueError("upscale must be a boolean.")
-    if resolution is None:
-        resolution = "768p" if upscale else "544p"
-    if x2 is None:
-        x2 = not upscale
-    if upscale and (x2 or resolution not in ("576p", "768p")):
-        raise ValueError("generate(upscale=True) uses native 576p or 768p. Omit resolution and x2 "
-                         "for automatic settings, or generate X2 video first and call upscale() separately.")
-    if upscale and x2_model_dir is not None:
-        raise ValueError("x2_model_dir cannot be used with upscale.")
-    if not upscale and upscale_model_dir is not None:
-        raise ValueError("upscale_model_dir requires upscale=True.")
     request = resolve(prompt, prompt_file=prompt_file, reference_images=reference_images,
-                      resolution=resolution, duration=duration, seed=seed,
-                      aspect_ratio=aspect_ratio, mode=mode, x2=x2)
-    if upscale:
+                      quality=quality, resolution=resolution, duration=duration, seed=seed,
+                      aspect_ratio=aspect_ratio, mode=mode, attention=attention, x2=x2, upscale=upscale)
+    if request.upscale and x2_model_dir is not None:
+        raise ValueError("x2_model_dir cannot be used with upscale.")
+    if not request.upscale and upscale_model_dir is not None:
+        raise ValueError("upscale_model_dir requires upscale=True.")
+    if request.upscale:
         from .workflow import generate_upscaled
         return generate_upscaled(request, output=output, model_dir=model_dir,
             on_progress=on_progress, diagnostics=diagnostics, timeout=timeout,

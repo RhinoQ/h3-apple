@@ -18,10 +18,12 @@ the first five seconds.
 
 ```sh
 h3 generate --image reference.jpg \
-  --prompt "A slow cinematic push-in on Picture 1. Soft ambient music." --upscale
+  --prompt "A slow cinematic push-in on Picture 1. Soft ambient music." --quality high
 ```
 
-This selects native 768p and saves both videos. With `--output detailed.mp4`,
+This selects Dense native 768p followed by VOSR and saves both videos.
+The existing `--upscale` shortcut retains SOL native 768p + VOSR.
+With `--output detailed.mp4`,
 the original is saved as `detailed.native.mp4`. If restoration fails, retry with
 `h3 upscale --input detailed.native.mp4` without generating again.
 
@@ -65,7 +67,8 @@ result = upscale("video.mp4")
 print(result.video_path)
 ```
 
-For generation and restoration in one call, use `generate(..., upscale=True)`.
+For Dense generation and restoration in one call, use `generate(..., quality="high")`.
+The existing `generate(..., upscale=True)` call retains its SOL generation default.
 
 Optional arguments: `output=None`, `duration=None`, `model_dir`, `on_progress`, `diagnostics=False`,
 `timeout=14400` seconds. `UpscaleResult` contains `video_path`, `metadata_path`

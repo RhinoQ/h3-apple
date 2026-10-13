@@ -93,7 +93,9 @@ def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None
         raise ValueError("Generated audio is silent or video is constant.")
     phase("mux", lambda: pipeline.mux(frames, waveform, Path(output_path)))
     result = dict(timings_seconds=timings, peak_memory_gib=peaks, actual_nfe=observer.nfe,
-                video_tiles=observer.tiles, vsa=stats, sparse_implementation="direct_nax",
+                video_tiles=observer.tiles, vsa=stats,
+                sparse_implementation="direct_nax" if ref2va["attention"] == "vsa" else None,
+                attention_implementation="mlx_bf16_sdpa" if ref2va["attention"] == "dense" else "vsa_int8qk",
                 diagnostic_export_seconds=observer.export_seconds,
                 diagnostics_enabled=diagnostics_dir is not None,
                 audio_rms=audio_rms, video_std=video_std, ref2va=reference_metadata)

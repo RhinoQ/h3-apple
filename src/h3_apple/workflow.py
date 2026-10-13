@@ -60,6 +60,7 @@ def generate_upscaled(request, *, output, model_dir, on_progress, diagnostics,
     record["generation"] = dict(video_path=str(native.video_path), metadata_path=str(native.metadata_path),
                                 elapsed_seconds=native.elapsed_seconds, seed=native.seed)
     record["total_elapsed_seconds"] = elapsed
+    record["quality"] = request.quality
     write_json(restored.metadata_path, record)
     return GenerationResult(restored.video_path, restored.metadata_path, elapsed,
                             native.seed, native.video_path)

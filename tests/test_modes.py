@@ -22,9 +22,10 @@ def test_modes_keep_geometry_and_distinct_recipe(image):
     vsa = resolve('Scene', reference_images=[image], seed=1, mode='VSA')
     assert sol.mode == 'SOL' and vsa.mode == 'VSA'
     assert sol.recipe != vsa.recipe
-    assert {k: v for k, v in sol.to_dict().items() if k not in ('mode', 'recipe')} == {
-        k: v for k, v in vsa.to_dict().items() if k not in ('mode', 'recipe')}
-    for mode in ('vsa', 'sol', 'auto', None):
+    assert sol.attention is None and vsa.attention == 'vsa'
+    assert {k: v for k, v in sol.to_dict().items() if k not in ('mode', 'recipe', 'attention')} == {
+        k: v for k, v in vsa.to_dict().items() if k not in ('mode', 'recipe', 'attention')}
+    for mode in ('vsa', 'sol', 'auto'):
         with pytest.raises(ValueError, match='mode'):
             resolve('Scene', reference_images=[image], mode=mode)
 
@@ -33,7 +34,7 @@ def test_modes_keep_geometry_and_distinct_recipe(image):
 def test_cli_selects_mode_consistently(command):
     inputs = ['--image', 'ref.png', '--prompt', 'Scene'] if command in ('generate', 'resolve') else []
     assert parser().parse_args([command, *inputs, '--mode', 'VSA']).mode == 'VSA'
-    assert parser().parse_args([command, *inputs]).mode == 'SOL'
+    assert parser().parse_args([command, *inputs]).mode == (None if inputs else 'SOL')
 
 
 def test_vsa_consent_precedes_model_work_and_output(image, monkeypatch, tmp_path):

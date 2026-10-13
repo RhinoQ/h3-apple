@@ -12,9 +12,10 @@ result = generate(
 print(result.video_path, result.metadata_path)
 ```
 
-This generates five seconds and chooses a new output directory. Add `upscale=True`
-to generate native 768p and restore it at twice the dimensions. See
-[requirements and terms](upscale.md).
+This generates five seconds with the fast configuration and chooses a new output
+directory. Add `quality="medium"` for VSA native 768p or `quality="high"` for
+Dense native 768p followed by VOSR 2× restoration. High requires 128 GiB and saves
+both videos. See [requirements and terms](upscale.md).
 
 Use `prompt_file="scene.txt"` instead of `prompt` for UTF-8 files.
 Supply 1–9 still images in Picture order, with aspect ratios from 1:4 to 4:1.
@@ -24,25 +25,35 @@ EXIF orientation is applied; prompt text and image order are preserved.
 
 | Argument | Default | Accepted values |
 | --- | --- | --- |
-| `mode` | `"SOL"` | `"VSA"`, `"SOL"` |
+| `quality` | Fast configuration | `"fast"`, `"medium"`, `"high"`; omit (`None`) to customize advanced settings |
+| `mode` | Automatic | `"VSA"`, `"SOL"`; without quality, defaults to SOL |
+| `attention` | Automatic | `"vsa"` or `"dense"` with VSA models; Dense requires native 768p and 128 GiB |
 | `duration` | `5` | 5–15 seconds, whole frames at 24 fps |
-| `resolution` | Automatic | `"544p"` normally, `"768p"` with `upscale=True`; explicit `"576p"` also supported |
+| `resolution` | Automatic | Selected by quality; otherwise `"544p"`, or `"768p"` with `upscale=True`; explicit `"576p"` also supported |
 | `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |
-| `x2` | Automatic | On normally; off with `upscale=True`. Explicit `True` requires 544p/576p; restore its output with the separate `upscale()` call |
+| `x2` | Automatic | On for fast, off for medium/high; without quality, on normally or off with `upscale=True`. Explicit `True` requires 544p/576p |
 | `seed` | Random, recorded | Unsigned 32-bit integer |
 
 `resolution` sets sampling size; [X2](x2.md) doubles output dimensions.
 Both modes use four forwards. Equal seeds do not guarantee equal outputs across modes.
 
+Quality and duration are independent: `quality="high", duration=7` and
+`quality="medium", duration=8.5` are valid. Explicit settings that contradict a
+named quality raise `ValueError` before setup. Omitted advanced settings use that
+quality's values. For custom combinations, omit quality. Existing
+`generate(..., upscale=True)` retains SOL native 768p + VOSR behavior.
+
 `resolve(...)` validates generation inputs and returns a `GenerationRequest`
-without loading or downloading models. Its defaults are explicitly 544p and X2;
-the restoration workflow is selected through `generate(...)`, which also accepts:
+without loading or downloading models. It accepts the same quality, duration,
+mode, attention, resolution, X2 and restoration choices as `generate(...)`.
+Its width/height describe the generation stage; `upscale=True` doubles them in
+the final video. `generate(...)` also accepts:
 
 | Argument | Purpose |
 | --- | --- |
 | `model_dir=None` | Prepared models for the selected mode |
 | `x2_model_dir=None` | X2 decoder directory; requires `x2=True` |
-| `upscale=False` | Generate native video, then restore it with VOSR; saves both videos |
+| `upscale=None` | Automatic from quality; otherwise off. Explicit `True` generates native video then restores with VOSR |
 | `upscale_model_dir=None` | Restoration model directory; requires `upscale=True` |
 | `upscale_timeout=14400` | Restoration timeout, seconds; separate from generation |
 | `output=None` | New MP4 path; otherwise a unique folder in `runs/` |
@@ -77,7 +88,7 @@ Native output requires `x2=False` and `resolution="576p"` or `"768p"`.
 
 ## Super-resolution
 
-Use `generate(..., upscale=True)` for the complete workflow, or
+Use `generate(..., quality="high")` for Dense generation and restoration, or
 `upscale("video.mp4")` for an existing native or X2 video. Both choose a fresh output
 path unless you supply `output`. Restoration failures preserve the native video
 and report a retry command. [Input formats, options and results](upscale.md).

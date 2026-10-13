@@ -89,8 +89,14 @@ and automatic output names:
   --image /absolute/path/reference.jpg --prompt-file /absolute/path/story.txt
 ```
 
-Repeat `--image` for multiple references. Add only the options the brief needs;
-use `resolve` when a separate input audit is useful. Carry its returned seed into
+Repeat `--image` for multiple references. Add only the options the brief needs.
+When supported by the selected release, use `--quality fast|medium|high` for a
+requested quality choice. Duration is independent: h3-apple supports 5–15 seconds
+at whole 24 fps frames, not just 5/10/15. High includes Dense 768p generation and
+VOSR restoration, requires 128 GiB and can take substantially longer. Consult the
+release documentation for model costs and terms; do not silently replace an
+explicit advanced configuration with a preset.
+Use `resolve` when a separate input audit is useful. Carry its returned seed into
 generation if no seed was specified, so the preflight and render agree.
 Do not replace a requested production
 with a shorter or lower-resolution test. Python is equivalent with the same
@@ -110,8 +116,9 @@ limitations. Show the MP4 inline where supported; separate setup and generation 
 
 Use restoration only when requested. For an existing supported video, prefer
 `h3 upscale --input video.mp4`; no new generation is needed. For a new detailed
-video, `h3 generate ... --upscale` selects native 768p and saves both versions.
-When validating that combined path with `resolve`, use `resolution="768p", x2=False`.
+video, `h3 generate ... --quality high` selects Dense native 768p plus VOSR and
+saves both versions. The existing `--upscale` path retains the SOL default.
+On versions supporting qualities, validate the same choice with `resolve`.
 
 Consult `docs/upscale.md` at the selected release for supported inputs, memory,
 model downloads, measured time and noncommercial terms. Restoration preserves

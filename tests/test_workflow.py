@@ -52,16 +52,18 @@ def setup(tmp_path, monkeypatch):
     return ref, calls, base, sr
 
 
-@pytest.mark.parametrize("mode", ["SOL", "VSA"])
+@pytest.mark.parametrize("mode,quality", [("SOL", None), ("VSA", None), ("VSA", "high")])
 @pytest.mark.parametrize("aspect,shape", [("16:9", (1366, 768)), ("9:16", (768, 1366))])
-def test_one_call_restoration_preserves_native_and_records_both_stages(setup, mode, aspect, shape):
+def test_one_call_restoration_preserves_native_and_records_both_stages(setup, mode, quality, aspect, shape):
     ref, calls, _, _ = setup
-    result = generate("Scene", reference_images=[ref], upscale=True, seed=42, mode=mode, aspect_ratio=aspect)
+    result = generate("Scene", reference_images=[ref], upscale=True, quality=quality,
+                      seed=42, mode=mode, aspect_ratio=aspect)
     assert calls[:2] == ["preflight", "models"]
     _, request, options = calls[2]
     assert (request.width, request.height) == shape
     assert request.duration == 5 and request.resolution == "768p" and not request.x2
     assert request.mode == mode
+    assert request.attention == ('dense' if quality == 'high' else 'vsa' if mode == 'VSA' else None)
     assert result.video_path.read_bytes() == b"restored"
     assert result.native_video_path.read_bytes() == b"native"
     assert calls[3][1] == result.native_video_path
@@ -70,6 +72,7 @@ def test_one_call_restoration_preserves_native_and_records_both_stages(setup, mo
     assert Path(record["generation"]["metadata_path"]).is_file()
     assert result.elapsed_seconds == record["total_elapsed_seconds"] == 28
     assert record["elapsed_seconds"] == 20
+    assert record["quality"] == quality
 
 
 def test_cli_uses_automatic_paths_for_repeated_runs(setup, capsys):
@@ -124,15 +127,16 @@ def test_memory_guard_precedes_models_and_generation(setup, monkeypatch):
     assert not calls and not Path("runs").exists()
 
 
-def test_download_consent_covers_both_stages_before_any_download(setup):
+@pytest.mark.parametrize("quality", [None, "high"])
+def test_download_consent_covers_both_stages_before_any_download(setup, quality):
     ref, calls, base, sr = setup
     base["download_bytes"] = 15_000_000_000
     sr["download_bytes"] = 6_970_000_000
     with pytest.raises(DownloadApprovalRequired) as error:
-        generate("Scene", reference_images=[ref], upscale=True)
+        generate("Scene", reference_images=[ref], upscale=True, quality=quality)
     assert error.value.download_bytes == 21_970_000_000
     assert calls == ["preflight"] and not Path("runs").exists()
-    result = generate("Scene", reference_images=[ref], upscale=True, allow_large_download=True)
+    result = generate("Scene", reference_images=[ref], upscale=True, quality=quality, allow_large_download=True)
     assert result.video_path.is_file()
     assert calls[3][2]["allow_large_download"] is True
 
@@ -148,13 +152,14 @@ def test_bad_restoration_models_fail_before_generation(setup, monkeypatch):
 
 
 @pytest.mark.parametrize("failure", [RuntimeError("worker failed"), KeyboardInterrupt()])
-def test_restoration_failure_keeps_native_and_explains_retry(setup, monkeypatch, failure):
+@pytest.mark.parametrize("quality", [None, "high"])
+def test_restoration_failure_keeps_native_and_explains_retry(setup, monkeypatch, failure, quality):
     ref, calls, _, _ = setup
     def fail(*a, **kw):
         raise failure
     monkeypatch.setattr(workflow, "upscale", fail)
     with pytest.raises(type(failure), match="h3 upscale --input"):
-        generate("Scene", reference_images=[ref], upscale=True)
+        generate("Scene", reference_images=[ref], upscale=True, quality=quality)
     native = calls[2][2]["output"]
     assert native.read_bytes() == b"native" and native.with_suffix(".run.json").is_file()
     assert not native.with_name("output.mp4").exists()

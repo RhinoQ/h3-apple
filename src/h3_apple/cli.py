@@ -31,23 +31,25 @@ def parser():
         prompts.add_argument("--prompt-file")
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
-        command.add_argument("--duration", type=float, default=5, help="5–15 seconds (default: 5)")
+        command.add_argument("--quality", choices=("fast", "medium", "high"),
+                             help="fast: SOL 544p + X2 (default); medium: VSA 768p; high: Dense 768p + VOSR (128 GiB)")
+        command.add_argument("--duration", type=float, default=5,
+                             help="Any 5–15 seconds aligned to a frame at 24 fps, e.g. 7 or 8.5 (default: 5)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         advanced = command.add_argument_group("Advanced settings")
         advanced.add_argument("--resolution", choices=("544p", "576p", "768p"),
-                             default=None if name == "generate" else "544p",
-                             help=("Sampling size (default: 544p; 768p with --upscale)" if name == "generate"
-                                   else "Sampling size (default: 544p)"))
+                             help="Sampling size (automatic with --quality; otherwise 544p, or 768p with --upscale)")
         advanced.add_argument("--x2", action=argparse.BooleanOptionalAction,
-                             default=None if name == "generate" else True,
-                             help=("Double decoded dimensions (default: on; off with --upscale)" if name == "generate"
-                                   else "Double decoded dimensions (default: on)"))
+                             default=None,
+                             help="Double decoded dimensions (automatic with --quality; otherwise on, or off with --upscale)")
         advanced.add_argument("--seed", type=int)
-        advanced.add_argument("--mode", choices=("SOL", "VSA"), default="SOL",
-                             help="Generation mode (default: SOL)")
+        advanced.add_argument("--mode", choices=("SOL", "VSA"),
+                             help="Generation mode (automatic with --quality; otherwise SOL)")
+        advanced.add_argument("--attention", choices=("vsa", "dense"),
+                             help="Attention for VSA models (default: vsa; dense requires native 768p and 128 GiB)")
+        advanced.add_argument("--upscale", action=argparse.BooleanOptionalAction, default=None,
+                             help="Restore native video 2x with VOSR (automatic with --quality high; 128 GiB)")
         if name == "generate":
-            command.add_argument("--upscale", action="store_true",
-                                 help="Generate native video and upscale 2x (128 GiB; about 20 min extra per 5 s)")
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             advanced.add_argument("--model-dir")
             advanced.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from generation models)")

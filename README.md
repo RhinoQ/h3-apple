@@ -9,7 +9,7 @@ Turn 1–9 images and a prompt into video with stereo audio. Landscape or portra
 12 scenes, after model setup. [Measured settings and performance](docs/advanced.md#performance).
 
 [**Watch the videos →**](https://rhinoq.github.io/h3-apple/#showcase) ·
-[**Install →**](#1-install) · [**What's new →**](docs/releases/0.8.1.md)
+[**Install →**](#1-install) · [**What's new →**](docs/releases/0.8.2.md)
 
 | Celestial Hall | Stairway Above the Clouds |
 | --- | --- |
@@ -31,7 +31,7 @@ Install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.1/h3_apple-0.8.1-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.2/h3_apple-0.8.2-py3-none-any.whl"
 ```
 
 First use prepares models and asks before downloads over 20 GB.
@@ -49,7 +49,18 @@ h3 generate --image reference.jpg \
 ```
 
 This creates a **five-second video** in a new `runs/` folder and prints its path.
-Add `--aspect-ratio 9:16` for portrait or `--duration 15` for a longer clip.
+Choose `--quality fast`, `--quality medium` or `--quality high`:
+
+| Quality | Use it for |
+| --- | --- |
+| `fast` (default) | The quickest generation |
+| `medium` | Native 768p output |
+| `high` | Dense generation with 2× restoration; requires 128 GiB and takes longer |
+
+Add `--aspect-ratio 9:16` for portrait. Set any **5–15-second duration** aligned
+to a frame at 24 fps, such as `--duration 7` or `--duration 8.5`.
+High saves both the native and restored videos and uses the
+[super-resolution models and noncommercial terms](docs/upscale.md).
 
 [Advanced settings](docs/advanced.md) · [Python API](docs/api.md)
 

@@ -44,8 +44,8 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     if request["num_steps"] != 4:
         raise ValueError("The Ref2VA Turbo adapter requires four steps.")
     attention = options.get("attention", "vsa")
-    if attention != "vsa":
-        raise ValueError("The VSA runtime requires VSA attention.")
+    if attention not in ("vsa", "dense"):
+        raise ValueError("The Ref2VA runtime requires vsa or dense attention.")
     recipe = json.loads((Path(checkpoint) / "ref2va_recipe.json").read_text())
     if (recipe.get("schema") != "h3-apple-ref2va/v1" or recipe.get("task") != "ref2va"
             or recipe.get("lora_tensors") != 624 or recipe.get("gate_tensors") != 50
@@ -85,24 +85,28 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
         dit = load_mlx_h3_checkpoint(checkpoint)
         if not dit.vsa_capable or len(dit.blocks) != 50:
             raise ValueError("Expected the dedicated Ref2VA checkpoint with all 50 transplanted gates.")
-        dit.configure_vsa(MiniMaxH3VSAConfig(enabled=True, sparsity=.75,
+        dit.configure_vsa(MiniMaxH3VSAConfig(enabled=attention == "vsa", sparsity=.75,
                                             prefix_mode="exempt", impl="simd", routing_mode="kablex"))
         before = sparse_calls()
         from .dispatch import Dispatch
-        with Dispatch(dit) as intervention:
+        with Dispatch(dit, attention=attention) as intervention:
             video, audio = sample_image(dit, text, condition_rows, layout, initial_video,
                                        initial_audio, observer=observer)
         summary = metadata["acceleration"] = intervention.summary()
-        expected = dict(projection_calls=1200, int8_fine_calls=200,
+        expected = dict(projection_calls=1200, int8_fine_calls=200 if attention == "vsa" else 0,
+                        dense_self_attention_calls=200 if attention == "dense" else 0,
                         activation_pack_calls=800, qkv_pack_reuses=400)
         if any(summary[key] != count for key, count in expected.items()):
-            raise ValueError("Incomplete VSA W8A8 / INT8 QK dispatch.")
+            raise ValueError("Incomplete Ref2VA projection / attention dispatch.")
         stats = asdict(dit.last_vsa_stats) if dit.last_vsa_stats is not None else None
         calls = sparse_calls() - before
         if (observer.nfe, observer.blocks) != (4, 200):
             raise ValueError("Expected exactly four complete Ref2VA forwards.")
-        if calls != 200 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200:
-            raise ValueError("Expected 200 native VSA block calls without fallback.")
+        if attention == "vsa":
+            if calls != 200 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200:
+                raise ValueError("Expected 200 native VSA block calls without fallback.")
+        elif calls != 0 or stats is not None:
+            raise ValueError("Dense attention must execute zero sparse blocks and no VSA branch.")
         return video, audio, stats
 
     video, audio, stats = phase("denoise", denoise)

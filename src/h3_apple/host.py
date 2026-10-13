@@ -65,10 +65,12 @@ def check_machine(info, request=None):
     gpus = json.loads(command("/usr/sbin/system_profiler", "SPDisplaysDataType", "-json"))["SPDisplaysDataType"]
     if len(gpus) != 1 or str(gpus[0].get("sppci_cores")) != device["cores"]:
         raise RuntimeError("This H3 Apple version requires the 40-core M5 Max.")
+    if request is not None and request.get("attention") == "dense" and info["memory_bytes"] < 128 * 1024**3:
+        raise RuntimeError("Dense attention requires at least 128 GiB unified memory.")
     if (request is not None and request["resolution"] == "768p"
             and request["duration"] > 5 and info["memory_bytes"] < 96 * 1024**3):
         raise RuntimeError("768p videos longer than 5 seconds require at least 96 GiB unified memory. "
-                           "On a 64 GiB Mac, use --duration 5 or --resolution 576p.")
+                           "On a 64 GiB Mac, use --duration 5 or --quality fast.")
 
 
 @contextmanager

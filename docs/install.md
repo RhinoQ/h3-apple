@@ -12,7 +12,7 @@
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.1/h3_apple-0.8.1-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.2/h3_apple-0.8.2-py3-none-any.whl"
 ```
 
 One environment supports generation and super-resolution. No compiler is needed.
@@ -30,6 +30,8 @@ First use prepares the models. Review the download estimate and enter `y` to
 approve transfers over 20 GB. Later runs reuse the models.
 
 Each run creates a five-second video in a new `runs/` folder and prints its path.
+Choose `--quality fast|medium|high` and any 5–15-second duration aligned to
+24 fps, such as `--duration 7` or `--duration 8.5`.
 In a new terminal, run `conda activate h3` first.
 
 ## 3. Optional super-resolution
@@ -59,6 +61,9 @@ five-second clip, depending on input size, beyond generation time.
 
 These conservative estimates include X2's 5.25 GB decoder. Caches reduce costs.
 SOL's 6.05 MB engine downloads automatically. SOL + X2 does not need VSA models.
+Medium uses the VSA bundle without X2. High reuses that same VSA bundle with
+Dense attention and adds the 6.97 GB VOSR models. Switching from fast may require
+a separate generation bundle; combined download consent is checked before setup.
 
 Preview your actual costs without downloading:
 
@@ -127,6 +132,7 @@ on later SOL calls. Existing models are preserved.
 - Generation reserves 20 GiB temporary disk and stops on serious thermal pressure
   or swap growth above 2 GiB. Failed jobs retain logs.
 - Native 768p over five seconds needs 96 GiB memory.
+- High and advanced Dense attention require 128 GiB memory.
 
 </details>
 

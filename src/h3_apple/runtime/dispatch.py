@@ -7,10 +7,17 @@ _active = False
 
 
 class Dispatch:
-    def __init__(self, dit):
+    def __init__(self, dit, *, attention="vsa"):
+        if attention not in ("vsa", "dense"):
+            raise ValueError("Unknown attention implementation.")
         from .._vendor.fastvideo_mlx import minimax_h3 as model
         from . import sparse
         self.model, self.sparse, self.dit = model, sparse, dit
+        self.attention_kind = attention
+        self.dense_calls = 0
+        self.old_model_attention = model._attention
+        self.gates = {id(block["attn.to_gate_compress.weight"]) for block in dit.blocks
+                      if "attn.to_gate_compress.weight" in block}
         self.prepared = {}
         self.preparation_seconds = 0.0
         self.projection = self.attention = None
@@ -37,14 +44,19 @@ class Dispatch:
                     self.prepared[id(weight)] = self.projection.prepare(weight)
             self.preparation_seconds = time.perf_counter() - started
             self.model.linear = self.linear
-            self.attention = SmoothQKSparse(inputs_prevalidated=True)
-            self.sparse._implementation = self.attention
+            if self.attention_kind == "vsa":
+                self.attention = SmoothQKSparse(inputs_prevalidated=True)
+                self.sparse._implementation = self.attention
+            else:
+                self.model._attention = self.dense_attention
             return self
         except BaseException:
             self.__exit__(None, None, None)
             raise
 
     def linear(self, x, weight, bias=None):
+        if self.attention_kind == "dense" and id(weight) in self.gates:
+            raise RuntimeError("Dense attention must not execute VSA gate projections.")
         # Hold the input strongly. Only consecutive K/V calls for this layer and
         # this exact input may reuse Q's packed activation.
         pending, self._pending = self._pending, None
@@ -66,9 +78,18 @@ class Dispatch:
         output = self.projection(x, prepared, packed=packed)
         return output if bias is None else output + bias
 
+    def dense_attention(self, *args, **kwargs):
+        if kwargs.get("use_rope"):
+            if kwargs.get("vsa_geometry") is not None or kwargs.get("use_gate_compress"):
+                raise RuntimeError("Dense self-attention must bypass VSA geometry and gates.")
+            self.dense_calls += 1
+        return self.old_model_attention(*args, **kwargs)
+
     def summary(self):
-        return dict(mode="VSA", projection_calls=self.projection.calls,
-                    int8_fine_calls=self.attention.calls,
+        return dict(mode="VSA" if self.attention_kind == "vsa" else "DENSE",
+                    attention=self.attention_kind, dense_self_attention_calls=self.dense_calls,
+                    projection_calls=self.projection.calls,
+                    int8_fine_calls=self.attention.calls if self.attention is not None else 0,
                     preparation_seconds=self.preparation_seconds,
                     activation_pack_calls=self.projection.pack_calls,
                     qkv_pack_reuses=self.reuses, native_output_dtype="bfloat16",
@@ -78,6 +99,7 @@ class Dispatch:
         global _active
         self._pending = None
         self.model.linear = self.old_linear
+        self.model._attention = self.old_model_attention
         self.sparse._implementation = self.old_attention
         _active = False
         self.prepared.clear()

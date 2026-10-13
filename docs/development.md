@@ -5,6 +5,7 @@
 | Mode | Entry | Implementation |
 | --- | --- | --- |
 | VSA | `runtime/engine.py` | Vendored MLX; W8A8 projections, shared QKV activation packing, INT8 QK |
+| Dense (high quality) | `runtime/engine.py` | Same VSA model bundle and W8A8 projections; BF16 full SDPA, sparse routing and gates bypassed |
 | SOL, default | `engine.py` | Native vpipe; INT8 GEMM, SOL and Sage attention |
 
 Both use the original LightX2V four-step adapter. SOL merges it into BF16 weights
@@ -52,6 +53,14 @@ H3_TEST_LARGE_ARRAYS=1 .local/envs/h3/bin/python -m pytest tests/test_vae_chunks
 ```
 
 ## Implementation and credits
+
+**New in 0.8.2:** three quality choices share the CLI/API configuration resolver.
+Fast selects existing SOL 544p/X2, medium selects VSA native 768p, and high uses
+Dense native 768p followed by the existing VOSR workflow. Dense uses MLX's BF16
+scaled dot-product attention on the inherited H3 full-attention branch. The
+four-step weights and projection arithmetic are unchanged; runtime counters
+verify 200 Dense blocks and zero sparse calls. Durations remain 5–15 seconds
+at whole 24 fps frames. This does not imply uniform quality improvements.
 
 **New in 0.8.1:** VOSR accepts H3 X2 output in either orientation. For these larger
 inputs, VAE attention processes 2,048 queries at a time against the complete key

@@ -1,15 +1,41 @@
 # Advanced settings
 
-The default generates five seconds with SOL + 544p/X2. Use the
-[quick start](../README.md#2-generate) before changing settings.
+Choose a quality and duration; generation resolves the remaining settings:
+
+```sh
+h3 generate --image reference.jpg --prompt-file scene.txt --quality medium --duration 8.5
+```
+
+| Quality | Generation | Delivery, landscape |
+| --- | --- | --- |
+| `fast` (default) | SOL, 544p + X2 decoder | 1920×1088 |
+| `medium` | VSA, native 768p | 1366×768 |
+| `high` | Dense attention, native 768p + VOSR 2× | 2732×1536; also saves 1366×768 native video |
+
+Portrait swaps the dimensions. All three accept 1–9 reference images and
+**5–15 seconds at whole 24 fps frames**, including 7 and 8.5 seconds. Duration
+defaults to five seconds; it is independent of quality. High needs 128 GiB;
+medium above five seconds needs 96 GiB. Fast retains the 64 GiB minimum.
+Only the 128 GiB host has been tested.
+
+High uses BF16 full attention with the existing quantized projections and
+four-step adapter, then VOSR restoration. It can retain more detail but does not
+guarantee better motion, expressions or prompt adherence. Generation and
+restoration have separate timeouts and measured costs.
+
+An explicit `--quality` fixes its generation settings. Contradicting it with
+`--mode`, `--attention`, `--resolution`, `--x2` or `--upscale` is an error.
+Omit `--quality` to use the existing advanced combinations below. With no
+advanced choices, the result is the fast configuration.
 
 | Choice | CLI option |
 | --- | --- |
 | Portrait | `--aspect-ratio 9:16` |
-| Longer clip | `--duration 15` (5–15 seconds) |
+| Duration | `--duration 7` (5–15 seconds, whole frames at 24 fps) |
 | Generate and upscale | `--upscale`; selects native 768p + VOSR |
 | Native output only | `--resolution 768p --no-x2` or `--resolution 576p --no-x2` |
 | VSA generation | `--mode VSA` |
+| Dense without restoration | `--mode VSA --attention dense --resolution 768p --no-x2` (128 GiB) |
 | Prompt file | `--prompt-file scene.txt` instead of `--prompt` |
 | More references | Repeat `--image` in Picture order |
 | Repeat a seed | `--seed 42` |
@@ -20,7 +46,7 @@ Native 768p over five seconds requires 96 GiB memory. Super-resolution requires
 128 GiB. Use `h3 upscale --input video.mp4` for existing native or X2 output;
 the `generate --upscale` shortcut selects native 768p for the combined workflow.
 
-Outputs go into a fresh `runs/` directory unless you name a file. With `--upscale`,
+Outputs go into a fresh `runs/` directory unless you name a file. With `--quality high` or `--upscale`,
 `scene.mp4` is the final video and `scene.native.mp4` is its saved input. If
 restoration fails, retry with `h3 upscale --input scene.native.mp4`.
 
@@ -40,6 +66,9 @@ These are full API calls from the 0.7.0 benchmark: 12 scenes, one run per
 configuration. X2 delivers **2.07× VSA / 1.91× SOL** median speedups within
 matched scenes. Quality varies by scene. These times exclude VOSR restoration.
 [See all 48 videos, scores and inputs](https://rhinoq.github.io/h3-apple/#results).
+
+The fast and medium presets select the existing SOL 544p/X2 and VSA native-768p
+paths respectively. The table does not measure the high workflow.
 
 ## Use with Codex
 
