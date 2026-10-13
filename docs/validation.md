@@ -1,5 +1,26 @@
 # Validation
 
+## 0.8.2
+
+[Quality preset checks](evidence/v0.8.2-quality.json): **369 tests passed** on the
+installed wheel, including GPU numerics, large-array copies, duration limits,
+CLI/API agreement, combined download consent and restoration recovery. All 98
+package files match source, wheel and installation.
+
+Complete runs cover Fast at 7 seconds through Python (168 frames, 1920×1088),
+Medium at 8.5 seconds through the CLI (204 frames, 768×1366), and High at 5 seconds
+through the integrated Python workflow (120 frames, 1366×768 native and
+2732×1536 restored). Every output has 24 fps stereo 32 kHz audio. High preserves
+the decoded source audio exactly, uses 200 Dense blocks with zero sparse calls,
+and retains the optimized `vosr2-native-fp16-v2` restoration recipe.
+
+The real-size nine-reference Dense operator check covers both orientations;
+seven query rows across all 56 heads pass independent FP64 comparison. This is
+separate from the full workflows, which each use one reference. Agent inspection
+covers 20 sampled thumbnails for delivery corruption. Full motion, music quality,
+diverse nine-reference semantics and a general quality ranking are unscored.
+All runs use one 40-core M5 Max / 128 GiB, with no added swap.
+
 ## 0.8.1
 
 [Release packaging](evidence/v0.8.1-release.json): **279 tests passed** on the

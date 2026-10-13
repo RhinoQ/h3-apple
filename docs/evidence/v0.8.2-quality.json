@@ -1,0 +1,1114 @@
+{
+  "schema": "h3-apple-quality-qualification/v1",
+  "status": "qualified for local product integration; unpublished",
+  "version": "0.8.2",
+  "source_commit": "79dc97132ab9fa2f8eef90935e751ebfba8e6e4c",
+  "research_registration_commit": "cd240b4412376dfcd797395cb4ef609dd5c431e5",
+  "package_source_sha256": "cc63aa32cd38a46f0b81e8261e61eb2330990c2a52baeb089859f27294b85936",
+  "wheel": {
+    "path": "/Users/rhino/Projects/tqlm-h3-apple/.local/v082-dist-02/h3_apple-0.8.2-py3-none-any.whl",
+    "sha256": "66dc4722a299485d9ab69a6089db7335ea2bb2fdd485708b72c51704062cf08c"
+  },
+  "environment": {
+    "pip-freeze.txt": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/pip-freeze.txt",
+      "sha256": "23521a95129e7fd94bcd85e79bf93612e92ae2779acacafc173f128410866a08"
+    },
+    "conda-explicit.txt": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/conda-explicit.txt",
+      "sha256": "aa6cb1e86326a7346445bc52e16e9da063899c4e59947d19b277284054d65feb"
+    }
+  },
+  "tests": {
+    "passed": 369,
+    "log": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/tests.txt",
+      "sha256": "c2be3f2b3c593f0d4c74c0288476b830eecc7e1aa4ef6cfd6fe0df95e250e04a"
+    },
+    "gpu_and_large_array_checks": true,
+    "source_wheel_installed_file_count": 98,
+    "build_verification": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/.local/v082-build-verification-02.json",
+      "sha256": "3c213f46869bb089a2dbcf83af55c17eef042674fa664c546d9635226d752970"
+    }
+  },
+  "hardware": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "macos": "26.6.1",
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472,
+    "swap_bytes": 387910205,
+    "power": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7340131)\t100%; charged; 0:00 remaining present: true",
+    "thermal": {
+      "state": "nominal",
+      "low_power_mode": false
+    }
+  },
+  "duration_policy": {
+    "fast": "5\u201315 seconds, whole 24 fps frames",
+    "medium": "5\u201315 seconds, whole 24 fps frames",
+    "high": "5 seconds only",
+    "advanced_dense": "5 seconds only",
+    "default_seconds": 5,
+    "conflicts": "Rejected before input/model I/O; no truncation"
+  },
+  "inputs": {
+    "reference": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/inputs/reference.png",
+      "sha256": "ab14615ca308d02f3ae323e9439a5b7aa7e6e953adb10b01cbdb637ad6989c0e"
+    },
+    "prompt": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/inputs/prompt.txt",
+      "sha256": "430356f7ab9fa7dc187c74e6ba376af98a6b6eee9dcbe3dce42a56e1e30f7190"
+    },
+    "seed": 180001,
+    "models": {
+      "SOL": {
+        "schema": "h3-apple-model/v1",
+        "native_model": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model",
+        "files": [
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/audio_vae/config.json",
+            "bytes": 1973,
+            "mtime_ns": 1789912097985361540,
+            "sha256": "d8f3bcc62e23c7e9806970fa63cca6139c06faa3797cf9c94034f60db8512771"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/audio_vae/metadata.json",
+            "bytes": 440,
+            "mtime_ns": 1789912097985596365,
+            "sha256": "755d0529d43b2b5c83590f6f44ca659bc68e6a21b01d5669c93e8b2965749bff"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/audio_vae/model.safetensors",
+            "bytes": 605429308,
+            "mtime_ns": 1786225504402542403,
+            "sha256": "37dddc2f3e6d5d5139d823d5ea283bbf304dadcb885b1ccda818aa13dade5ea2"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/model_index.json",
+            "bytes": 707,
+            "mtime_ns": 1789912097985839566,
+            "sha256": "b160b13700bf08aea7fce1bc3dd0d3a49ea15036298c50082ec107f87843b90c"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/processor/chat_template.json",
+            "bytes": 5499,
+            "mtime_ns": 1789912097974738019,
+            "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/processor/merges.txt",
+            "bytes": 1671839,
+            "mtime_ns": 1789912097978663721,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/processor/preprocessor_config.json",
+            "bytes": 390,
+            "mtime_ns": 1789912097982990327,
+            "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/processor/tokenizer.json",
+            "bytes": 7032403,
+            "mtime_ns": 1789912097976985027,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/processor/tokenizer_config.json",
+            "bytes": 11003,
+            "mtime_ns": 1789912097973520726,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/processor/video_preprocessor_config.json",
+            "bytes": 385,
+            "mtime_ns": 1789912097981910863,
+            "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/processor/vocab.json",
+            "bytes": 2776833,
+            "mtime_ns": 1789912097981675371,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/chat_template.json",
+            "bytes": 5499,
+            "mtime_ns": 1789912097956087181,
+            "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/config.json",
+            "bytes": 1532,
+            "mtime_ns": 1789912097956345214,
+            "sha256": "0ed03708f2ac326008f7dc93a60fdd1235bbdcc305d85f86a93fe2eef7c000f7"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/merges.txt",
+            "bytes": 1671839,
+            "mtime_ns": 1789912097960154171,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00001-of-00008.safetensors",
+            "bytes": 5323269440,
+            "mtime_ns": 1789905517449418906,
+            "sha256": "7f559994c5bdc0d455bcda5f0b81d2cfc87a7226e4716195add9b8ae99a033b9"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00002-of-00008.safetensors",
+            "bytes": 5320127376,
+            "mtime_ns": 1789905518655834430,
+            "sha256": "16bf0b0851567c6d96be4741d29b9c52eb41a2cfdffb0893553fd9e6da03e9f5"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00003-of-00008.safetensors",
+            "bytes": 5367652256,
+            "mtime_ns": 1789905519877228736,
+            "sha256": "841a8f6bcb70d782e9a9f491350827889cac803713956e1ba081b5e9e5af52ad"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00004-of-00008.safetensors",
+            "bytes": 5364703360,
+            "mtime_ns": 1789905521076011323,
+            "sha256": "4d96badf7ed928bb950498155f9723baa23f9ed510d162a70450c6aaa70b1e4a"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00005-of-00008.safetensors",
+            "bytes": 5328319632,
+            "mtime_ns": 1789905522271086880,
+            "sha256": "cb296fd2dc4bd06606a59ca686b9eff75d7ad76d3f65c69a06085aec24324fa8"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00006-of-00008.safetensors",
+            "bytes": 5367652256,
+            "mtime_ns": 1789905523458330621,
+            "sha256": "7686d7ee59ea7738158923d17b3fe049ea18e609dcfff2974f6e3eb27aa792b0"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00007-of-00008.safetensors",
+            "bytes": 5331991296,
+            "mtime_ns": 1789905524670297227,
+            "sha256": "6e1bc42807330a3b40c11dbcbe1bc5f692f237a66b94eef916ff1b3002e95e98"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model-00008-of-00008.safetensors",
+            "bytes": 56040832,
+            "mtime_ns": 1789905524730688372,
+            "sha256": "93688e518be440fb0f1e3a83594d5fb73e54ad417f9e0189722817e3acbea9ff"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/model.safetensors.index.json",
+            "bytes": 172335,
+            "mtime_ns": 1789912097964300366,
+            "sha256": "53933357a309969d054acc5b6f73634bc55b96b612d63d49a02662ee9e81f937"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/preprocessor_config.json",
+            "bytes": 390,
+            "mtime_ns": 1789912097965674778,
+            "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/tokenizer.json",
+            "bytes": 7032403,
+            "mtime_ns": 1789912097957446136,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/tokenizer_config.json",
+            "bytes": 11003,
+            "mtime_ns": 1789912097955829023,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/video_preprocessor_config.json",
+            "bytes": 385,
+            "mtime_ns": 1789912097965402454,
+            "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/text_encoder/vocab.json",
+            "bytes": 2776833,
+            "mtime_ns": 1789912097963001992,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/tokenizer/merges.txt",
+            "bytes": 1671839,
+            "mtime_ns": 1789912097970376039,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/tokenizer/tokenizer.json",
+            "bytes": 7032403,
+            "mtime_ns": 1789912097967650004,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/tokenizer/tokenizer_config.json",
+            "bytes": 11003,
+            "mtime_ns": 1789912097966008851,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/tokenizer/vocab.json",
+            "bytes": 2776833,
+            "mtime_ns": 1789912097972211894,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/config.json",
+            "bytes": 694,
+            "mtime_ns": 1791529649010596014,
+            "sha256": "2fcc08e99425a26b6f0c79a6b9ed8a6e9e20eb39924f69e03c4e3aef16420dda"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model-00001-of-00007.safetensors",
+            "bytes": 5243211392,
+            "mtime_ns": 1791529646342198783,
+            "sha256": "e0a04b5f9e6f910d1b7b360a3409ba65c3fd698576aff9ab831fec2e3caaec9e"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model-00002-of-00007.safetensors",
+            "bytes": 5365354432,
+            "mtime_ns": 1791529646817844307,
+            "sha256": "ab9e17b79f99569bdfa08f122a0fefc68bfbb1c71a9a8c2feccb6c52ea182fe4"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model-00003-of-00007.safetensors",
+            "bytes": 5170871232,
+            "mtime_ns": 1791529647267064691,
+            "sha256": "1719bbd59d309c2d6f0acbb800072de75fe3a3caaf0c0e6ef3b2deec82facbfb"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model-00004-of-00007.safetensors",
+            "bytes": 5242307968,
+            "mtime_ns": 1791529647722157052,
+            "sha256": "4028d845d28c2288ee37def10abbd55a97068fbac0456a1e550c7f9cc4ae464a"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model-00005-of-00007.safetensors",
+            "bytes": 5365354432,
+            "mtime_ns": 1791529648186617939,
+            "sha256": "046d6550480ebc72df0c6570d1151a62d68c21cc696d4edda30010b6fd33f7a7"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model-00006-of-00007.safetensors",
+            "bytes": 5170871216,
+            "mtime_ns": 1791529648637239612,
+            "sha256": "da57ac03744981e634f04b7b392c59d486118d2e29c26a5b79081be3e95c5e84"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model-00007-of-00007.safetensors",
+            "bytes": 3716811792,
+            "mtime_ns": 1791529648974638853,
+            "sha256": "1a11f481ec3f2fe39840545102083c94b41acf6f43958ed50c13e359a65c9544"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/transformer/model.safetensors.index.json",
+            "bytes": 69577,
+            "mtime_ns": 1791529649009968367,
+            "sha256": "f7292d240d40adf50511a7a3c80b8d1f51ea52319c4715b51ce1d39b5bdc5402"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/video_vae/config.json",
+            "bytes": 1807,
+            "mtime_ns": 1789912097984161705,
+            "sha256": "3edd2cdd1ebc823c868be55ef917e1b3b8a398fde4d3150dae44a3bf05d9f627"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/video_vae/source/config.json",
+            "bytes": 1164,
+            "mtime_ns": 1789912097984718853,
+            "sha256": "66c68f541e6578ce613ce7a0fc985eb59097038829e49f7535e6d08e6d95ab12"
+          },
+          {
+            "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/model/video_vae/source/model.safetensors",
+            "bytes": 10415548320,
+            "mtime_ns": 1786607885073077596,
+            "sha256": "5f0c2e161d895a9fee7645ca32d4a7e3a22b90cacfcbeba62ec999cdbbefe0d3"
+          }
+        ],
+        "adapter": {
+          "path": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va/adapter.safetensors",
+          "bytes": 1383677768,
+          "mtime_ns": 1790576009205563119,
+          "sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99"
+        },
+        "recipe": {
+          "steps": 4,
+          "graph_steps": 5,
+          "video_shift": 12.0,
+          "audio_shift": 3.0,
+          "lora_scale": 1.0,
+          "adapter_application": "premerge-bf16-before-w8g64"
+        },
+        "provenance": {
+          "kind": "verified_local_reuse",
+          "model": "/Users/rhino/Projects/h3-apple/.local/worktrees/x2-product/.local/p166-premerge-reuse-01/model",
+          "download_bytes": 0
+        },
+        "identity": "3f53a3811e2a5540941379374f7de6aa54582815dc2b0222aba6d7921565557f",
+        "directory": "/Users/rhino/Models/h3-apple-premerged-sol-01/ref2va",
+        "binary": {
+          "path": "/Users/rhino/.cache/h3-apple/engines/d209f718ab2940f8ee9e6d5cea601b8bf229c13574d133dce24918f1885250b7/h3-engine",
+          "bytes": 86600,
+          "mtime_ns": 1791533188899151583,
+          "sha256": "bc28dd092486900ece7efe117e526fdf6d3afbaea55c80fdfda31d7569b955f8"
+        },
+        "library": {
+          "path": "/Users/rhino/.cache/h3-apple/engines/d209f718ab2940f8ee9e6d5cea601b8bf229c13574d133dce24918f1885250b7/libvpipe.0.dylib",
+          "bytes": 19452400,
+          "mtime_ns": 1791533188941925530,
+          "sha256": "5d3ea6466723c081392bba5c8a72a1ace65a6989bc55b5baf69e9c6848cb5599"
+        },
+        "tested_interface_commit": "f34e2cc3a3adae759eea254419f436f5b7800057",
+        "engine_capabilities": [
+          "stable-compute-v1",
+          "vae-h256-int8-v1",
+          "h3-premerge-quantize-v1"
+        ]
+      },
+      "VSA": {
+        "format_version": 3,
+        "preset": "ours",
+        "task": "ref2va",
+        "checkpoint": "/Users/rhino/Models/h3-apple-prepared-03/VSA/dit",
+        "components": "/Users/rhino/Models/h3-apple-prepared-03/VSA/components",
+        "ref2va_native": "/Users/rhino/Models/h3-apple-prepared-03/VSA/ref2va",
+        "files": [
+          {
+            "path": "dit/mlx_h3_dit.json",
+            "size": 39474,
+            "sha256": "ee6d8e8ed7d1da5a31b411c0de0cc7cf1f47a0946fe81fa2b1fc401de81b967c",
+            "mtime_ns": 1789283823225080717
+          },
+          {
+            "path": "dit/mlx_h3_dit.safetensors",
+            "size": 23608261915,
+            "sha256": "dbb554a76ea421273cd8502268c4a97ef10c2886ef44ff08500a7235eee127f3",
+            "mtime_ns": 1789283823221073697
+          },
+          {
+            "path": "dit/ref2va_recipe.json",
+            "size": 674,
+            "sha256": "ada4c964ca9b92d0c53bb9155fe609cc9ecfbd23178871d8678b4c79a9806604",
+            "mtime_ns": 1789283823225323218
+          },
+          {
+            "path": "components/text_encoder/chat_template.json",
+            "size": 5499,
+            "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce",
+            "mtime_ns": 1786188925885986930
+          },
+          {
+            "path": "components/text_encoder/config.json",
+            "size": 1474,
+            "sha256": "d2dd0c60d01b9e195d9447c52da61c7302d28828524914c044d9c6e1b81d0427",
+            "mtime_ns": 1786188925886041388
+          },
+          {
+            "path": "components/text_encoder/merges.txt",
+            "size": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+            "mtime_ns": 1786188925888405185
+          },
+          {
+            "path": "components/text_encoder/model-00001-of-00014.safetensors",
+            "size": 4932328944,
+            "sha256": "6b9dfbc930e505402ae9d7e5091a9d7d656cda5f34614f01cfe70bfb0cca27cb",
+            "mtime_ns": 1786231131184026261
+          },
+          {
+            "path": "components/text_encoder/model-00002-of-00014.safetensors",
+            "size": 4875990528,
+            "sha256": "d8bb44b4ff303fe76fe9e894022fb3dc71b15a2e716592790fe0e3c3e60478fa",
+            "mtime_ns": 1786231690048945394
+          },
+          {
+            "path": "components/text_encoder/model-00003-of-00014.safetensors",
+            "size": 4875990552,
+            "sha256": "54f22e8b3168f8dc962fac0d313607ebf52a12b433d4cf3098a0d82d9f042940",
+            "mtime_ns": 1786601810912545397
+          },
+          {
+            "path": "components/text_encoder/model-00004-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "ad09c74d3c13ee29b5d0d84548fd8a3424a651564eaccd519946c296e59c557f",
+            "mtime_ns": 1786601860576342300
+          },
+          {
+            "path": "components/text_encoder/model-00005-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "fc993c8a0e2a5b0570f383e1a95dc3a1281d1b224b6f3ee908f4827941e1dfc2",
+            "mtime_ns": 1786602094675230707
+          },
+          {
+            "path": "components/text_encoder/model-00006-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "82f05620d1f718a90c362b221d6a184ff1a0f53301d706882d3df49695fa1974",
+            "mtime_ns": 1786602317284952194
+          },
+          {
+            "path": "components/text_encoder/model-00007-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "fb91da8cb01ff4de3eef0eab1c3e769a734b3a1aafc61734068638a0d6c86934",
+            "mtime_ns": 1786602534236274181
+          },
+          {
+            "path": "components/text_encoder/model-00008-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "431ca56535c8781944ce3801f5eb61c45531e853ecc5846d936ebaf4761b764f",
+            "mtime_ns": 1786602740066810125
+          },
+          {
+            "path": "components/text_encoder/model-00009-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "3825e3f4302f4d2f7d76aa7430d2ce0864fde6b9e540a5806bf0d8e38e4d9f47",
+            "mtime_ns": 1786603007288696131
+          },
+          {
+            "path": "components/text_encoder/model-00010-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "aded5a4d1d5e22dbd8b6f79266b6eb88c840411b09527c53917a1419ace22e2f",
+            "mtime_ns": 1786603250841626616
+          },
+          {
+            "path": "components/text_encoder/model-00011-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "3820ffe8d8d6477f6fe8d614ef3c87abb264ee39accebf43a1507b970d80946f",
+            "mtime_ns": 1786603663776527930
+          },
+          {
+            "path": "components/text_encoder/model-00012-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "05ad2d08ce71963121c9b03f1d9ec5d7641052f4b23c6c12b80d71065eb8e98e",
+            "mtime_ns": 1786603937108695004
+          },
+          {
+            "path": "components/text_encoder/model-00013-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "b64f2289871261fdd1abbd3b78bcd66011b341de3dc8eeb2ed1a473ee7c8d95c",
+            "mtime_ns": 1786604214961417703
+          },
+          {
+            "path": "components/text_encoder/model-00014-of-00014.safetensors",
+            "size": 3270697008,
+            "sha256": "e45b6c9998c77ee5a6577f9f47bc76416c1d4d387169e50c4c9d3134ea51b13b",
+            "mtime_ns": 1786604363861995973
+          },
+          {
+            "path": "components/text_encoder/model.safetensors.index.json",
+            "size": 97831,
+            "sha256": "06c952c569285870b811989b794b9766493e280fb77fbcb957fc4e5fcf25403a",
+            "mtime_ns": 1786188925888497727
+          },
+          {
+            "path": "components/text_encoder/preprocessor_config.json",
+            "size": 390,
+            "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+            "mtime_ns": 1786188925888555603
+          },
+          {
+            "path": "components/text_encoder/tokenizer.json",
+            "size": 7032403,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+            "mtime_ns": 1786188925895606994
+          },
+          {
+            "path": "components/text_encoder/tokenizer_config.json",
+            "size": 11003,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68",
+            "mtime_ns": 1786188925895809952
+          },
+          {
+            "path": "components/text_encoder/video_preprocessor_config.json",
+            "size": 385,
+            "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+            "mtime_ns": 1786188925895881536
+          },
+          {
+            "path": "components/text_encoder/vocab.json",
+            "size": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+            "mtime_ns": 1786188925899547044
+          },
+          {
+            "path": "components/tokenizer/merges.txt",
+            "size": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+            "mtime_ns": 1786188925888405185
+          },
+          {
+            "path": "components/tokenizer/tokenizer.json",
+            "size": 7032403,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+            "mtime_ns": 1786188925895606994
+          },
+          {
+            "path": "components/tokenizer/tokenizer_config.json",
+            "size": 11003,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68",
+            "mtime_ns": 1786188925895809952
+          },
+          {
+            "path": "components/tokenizer/vocab.json",
+            "size": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+            "mtime_ns": 1786188925899547044
+          },
+          {
+            "path": "components/vae/config.json",
+            "size": 1893,
+            "sha256": "c5241509da95f2d32bb93f0e81abcdcc5a46f2e5d131e61876558e5055900b28",
+            "mtime_ns": 1789006268114887487
+          },
+          {
+            "path": "components/vae/diffusion_pytorch_model.safetensors",
+            "size": 9694193698,
+            "sha256": "f02599c06220afce024060b813553cc1b67200b7378181e254fa4a73ce07b58d",
+            "mtime_ns": 1789006269842846617
+          },
+          {
+            "path": "components/audio_vae/config.json",
+            "size": 2185,
+            "sha256": "8d1edec287fedf460a76ff0a35046055dce3aea57ccb57b29ea509cb003375f7",
+            "mtime_ns": 1789006269948781616
+          },
+          {
+            "path": "components/audio_vae/diffusion_pytorch_model.safetensors",
+            "size": 605429308,
+            "sha256": "37dddc2f3e6d5d5139d823d5ea283bbf304dadcb885b1ccda818aa13dade5ea2",
+            "mtime_ns": 1786225504402542403
+          },
+          {
+            "path": "ref2va/processor/chat_template.json",
+            "size": 5499,
+            "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce",
+            "mtime_ns": 1786188925872327690
+          },
+          {
+            "path": "ref2va/processor/merges.txt",
+            "size": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+            "mtime_ns": 1786188925874757488
+          },
+          {
+            "path": "ref2va/processor/preprocessor_config.json",
+            "size": 390,
+            "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+            "mtime_ns": 1786188925874833655
+          },
+          {
+            "path": "ref2va/processor/tokenizer.json",
+            "size": 7032403,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+            "mtime_ns": 1786188925881846462
+          },
+          {
+            "path": "ref2va/processor/tokenizer_config.json",
+            "size": 11003,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68",
+            "mtime_ns": 1786188925881984921
+          },
+          {
+            "path": "ref2va/processor/video_preprocessor_config.json",
+            "size": 385,
+            "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+            "mtime_ns": 1786188925882032338
+          },
+          {
+            "path": "ref2va/processor/vocab.json",
+            "size": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+            "mtime_ns": 1786188925885850805
+          },
+          {
+            "path": "ref2va/tokenizer/merges.txt",
+            "size": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+            "mtime_ns": 1786188925901912633
+          },
+          {
+            "path": "ref2va/tokenizer/tokenizer.json",
+            "size": 7032403,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+            "mtime_ns": 1786188925908864732
+          },
+          {
+            "path": "ref2va/tokenizer/tokenizer_config.json",
+            "size": 11003,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68",
+            "mtime_ns": 1786188925909017149
+          },
+          {
+            "path": "ref2va/tokenizer/vocab.json",
+            "size": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+            "mtime_ns": 1786188925912660533
+          },
+          {
+            "path": "ref2va/text_encoder/chat_template.json",
+            "size": 5499,
+            "sha256": "5c72a170d2a4a1a3bc5adad2e689ae28138a9700e5b8c96c0266331e86c0acce",
+            "mtime_ns": 1786188925885986930
+          },
+          {
+            "path": "ref2va/text_encoder/config.json",
+            "size": 1474,
+            "sha256": "d2dd0c60d01b9e195d9447c52da61c7302d28828524914c044d9c6e1b81d0427",
+            "mtime_ns": 1786188925886041388
+          },
+          {
+            "path": "ref2va/text_encoder/merges.txt",
+            "size": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+            "mtime_ns": 1786188925888405185
+          },
+          {
+            "path": "ref2va/text_encoder/model-00001-of-00014.safetensors",
+            "size": 4932328944,
+            "sha256": "6b9dfbc930e505402ae9d7e5091a9d7d656cda5f34614f01cfe70bfb0cca27cb",
+            "mtime_ns": 1786231131184026261
+          },
+          {
+            "path": "ref2va/text_encoder/model-00002-of-00014.safetensors",
+            "size": 4875990528,
+            "sha256": "d8bb44b4ff303fe76fe9e894022fb3dc71b15a2e716592790fe0e3c3e60478fa",
+            "mtime_ns": 1786231690048945394
+          },
+          {
+            "path": "ref2va/text_encoder/model-00003-of-00014.safetensors",
+            "size": 4875990552,
+            "sha256": "54f22e8b3168f8dc962fac0d313607ebf52a12b433d4cf3098a0d82d9f042940",
+            "mtime_ns": 1786601810912545397
+          },
+          {
+            "path": "ref2va/text_encoder/model-00004-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "ad09c74d3c13ee29b5d0d84548fd8a3424a651564eaccd519946c296e59c557f",
+            "mtime_ns": 1786601860576342300
+          },
+          {
+            "path": "ref2va/text_encoder/model-00005-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "fc993c8a0e2a5b0570f383e1a95dc3a1281d1b224b6f3ee908f4827941e1dfc2",
+            "mtime_ns": 1786602094675230707
+          },
+          {
+            "path": "ref2va/text_encoder/model-00006-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "82f05620d1f718a90c362b221d6a184ff1a0f53301d706882d3df49695fa1974",
+            "mtime_ns": 1786602317284952194
+          },
+          {
+            "path": "ref2va/text_encoder/model-00007-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "fb91da8cb01ff4de3eef0eab1c3e769a734b3a1aafc61734068638a0d6c86934",
+            "mtime_ns": 1786602534236274181
+          },
+          {
+            "path": "ref2va/text_encoder/model-00008-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "431ca56535c8781944ce3801f5eb61c45531e853ecc5846d936ebaf4761b764f",
+            "mtime_ns": 1786602740066810125
+          },
+          {
+            "path": "ref2va/text_encoder/model-00009-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "3825e3f4302f4d2f7d76aa7430d2ce0864fde6b9e540a5806bf0d8e38e4d9f47",
+            "mtime_ns": 1786603007288696131
+          },
+          {
+            "path": "ref2va/text_encoder/model-00010-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "aded5a4d1d5e22dbd8b6f79266b6eb88c840411b09527c53917a1419ace22e2f",
+            "mtime_ns": 1786603250841626616
+          },
+          {
+            "path": "ref2va/text_encoder/model-00011-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "3820ffe8d8d6477f6fe8d614ef3c87abb264ee39accebf43a1507b970d80946f",
+            "mtime_ns": 1786603663776527930
+          },
+          {
+            "path": "ref2va/text_encoder/model-00012-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "05ad2d08ce71963121c9b03f1d9ec5d7641052f4b23c6c12b80d71065eb8e98e",
+            "mtime_ns": 1786603937108695004
+          },
+          {
+            "path": "ref2va/text_encoder/model-00013-of-00014.safetensors",
+            "size": 4875990584,
+            "sha256": "b64f2289871261fdd1abbd3b78bcd66011b341de3dc8eeb2ed1a473ee7c8d95c",
+            "mtime_ns": 1786604214961417703
+          },
+          {
+            "path": "ref2va/text_encoder/model-00014-of-00014.safetensors",
+            "size": 3270697008,
+            "sha256": "e45b6c9998c77ee5a6577f9f47bc76416c1d4d387169e50c4c9d3134ea51b13b",
+            "mtime_ns": 1786604363861995973
+          },
+          {
+            "path": "ref2va/text_encoder/model.safetensors.index.json",
+            "size": 97831,
+            "sha256": "06c952c569285870b811989b794b9766493e280fb77fbcb957fc4e5fcf25403a",
+            "mtime_ns": 1786188925888497727
+          },
+          {
+            "path": "ref2va/text_encoder/preprocessor_config.json",
+            "size": 390,
+            "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+            "mtime_ns": 1786188925888555603
+          },
+          {
+            "path": "ref2va/text_encoder/tokenizer.json",
+            "size": 7032403,
+            "sha256": "a5d85b6dcc535e6b93115a9ef287e6132fdbf30270da6218194ba742261173c7",
+            "mtime_ns": 1786188925895606994
+          },
+          {
+            "path": "ref2va/text_encoder/tokenizer_config.json",
+            "size": 11003,
+            "sha256": "a07e942ac874baa13758de8d1fbdb186683cc03416b5589e1b6671c6b3057c68",
+            "mtime_ns": 1786188925895809952
+          },
+          {
+            "path": "ref2va/text_encoder/video_preprocessor_config.json",
+            "size": 385,
+            "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+            "mtime_ns": 1786188925895881536
+          },
+          {
+            "path": "ref2va/text_encoder/vocab.json",
+            "size": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+            "mtime_ns": 1786188925899547044
+          },
+          {
+            "path": "ref2va/video_vae/config.json",
+            "size": 1807,
+            "sha256": "3edd2cdd1ebc823c868be55ef917e1b3b8a398fde4d3150dae44a3bf05d9f627",
+            "mtime_ns": 1786188925913083492
+          },
+          {
+            "path": "ref2va/video_vae/source/config.json",
+            "size": 1164,
+            "sha256": "66c68f541e6578ce613ce7a0fc985eb59097038829e49f7535e6d08e6d95ab12",
+            "mtime_ns": 1786188925913647868
+          },
+          {
+            "path": "ref2va/video_vae/source/model.safetensors",
+            "size": 10415548320,
+            "sha256": "5f0c2e161d895a9fee7645ca32d4a7e3a22b90cacfcbeba62ec999cdbbefe0d3",
+            "mtime_ns": 1786607885073077596
+          }
+        ],
+        "derivation": {
+          "kind": "verified_local_reuse",
+          "source_identity": "ebb2fe90ef0532862ef3d66eabbbba4da278e3dc7605c3b648f6546e86f42428"
+        },
+        "identity": "7d1902498bf42540dfb3f5becde5d7cebac8d7f41e3284474a122f6ff5a1d990",
+        "directory": "/Users/rhino/Models/h3-apple-prepared-03/VSA"
+      },
+      "X2": {
+        "status": "ready",
+        "checkpoint": "/Users/rhino/Models/h3-apple-prepared-03/x2/MiniMax-H3-X2-Detail-v1.safetensors",
+        "sha256": "2296840f4acedcaa976688e7d7b97f7bf570b136e400385d3f46224011897aac",
+        "bytes": 5246877148,
+        "recipe": "h3-x2-detail-v1-fp16-linear-fp32-residual",
+        "revision": "af8c92d267c6849fec5032c35a65d5766737b338",
+        "download_bytes": 0
+      },
+      "VOSR": {
+        "directory": "/Users/rhino/Models/h3-apple-prepared-03/vosr",
+        "recipe": "vosr2-native-fp16-v2",
+        "model_revision": "f24b3061b7f350b81e1907bdcfc27f71fb4ff3f3",
+        "files": [
+          {
+            "path": "Qwen-Image-vae-2d/config.json",
+            "bytes": 811,
+            "sha256": "1e294faf15188e06fcb72ce09652e8fb7368bd77b8dd794b5b39fe77d610681b"
+          },
+          {
+            "path": "VOSR2/args.json",
+            "bytes": 816,
+            "sha256": "63b2f423eafae1f684ca860eb8fd0e81aa5fac858397f783d8f337871241c281"
+          },
+          {
+            "path": "Qwen-Image-vae-2d/diffusion_pytorch_model.safetensors",
+            "bytes": 178418892,
+            "sha256": "1dd2c67f3f29734d48709513ed181d4f351966d76ba95f77a5cff8e1daf547fa"
+          },
+          {
+            "path": "VOSR2/checkpoints/ema_model.safetensors",
+            "bytes": 5576385424,
+            "sha256": "bdcaa81e4c675b6074de643e27daafe73eb8125d4d0264d1bf30a004e9644b71"
+          },
+          {
+            "path": "torch_cache/checkpoints/dinov2_vitl14_pretrain.pth",
+            "bytes": 1217586395,
+            "sha256": "d5383ea8f4877b2472eb973e0fd72d557c7da5d3611bd527ceeb1d7162cbf428"
+          }
+        ]
+      }
+    }
+  },
+  "cases": {
+    "fast-7s": {
+      "status": "complete",
+      "case": "fast-7s",
+      "files": [
+        {
+          "label": "fast-7s",
+          "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/fast-7s.mp4",
+          "sha256": "d9583cf541dabf1d604f09868d0c6dca0e1fb8949159b3f564964126606f4630",
+          "width": 1920,
+          "height": 1088,
+          "frames": 168,
+          "fps": 24,
+          "duration_seconds": 7.0,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "audio_pcm_sha256": "f4c2962e4bc6cd789f598beedd8be633d8fbeebfb2e9c4ac7b8645f44d2c84c7",
+          "elapsed_seconds": 230.80792824999662,
+          "record": {
+            "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/fast-7s.run.json",
+            "sha256": "ec4a16ac527431befc630a19e26ea96286bd955fd3de140d826e8669daa6a32a"
+          },
+          "sampled_frames": [
+            0,
+            42,
+            84,
+            126,
+            167
+          ],
+          "preview": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/fast-7s-samples.jpg"
+        }
+      ],
+      "peak_tree_footprint_gib": 58.82390374690294,
+      "maximum_swap_growth_bytes": 0,
+      "controller_elapsed_seconds": 234.94919083401328,
+      "review_scope": "Sampled stills prepared; visual review is recorded separately. No audio quality or blind task-quality score."
+    },
+    "medium-8.5s": {
+      "status": "complete",
+      "case": "medium-8.5s",
+      "files": [
+        {
+          "label": "medium-8.5s",
+          "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/medium-8.5s.mp4",
+          "sha256": "82120fa6b2d1c894d361f763d21a6aacea60ade396af881fd7ba1ba58847037d",
+          "width": 768,
+          "height": 1366,
+          "frames": 204,
+          "fps": 24,
+          "duration_seconds": 8.5,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "audio_pcm_sha256": "e4050f04f9a5b6ad501e8d8f3254c38f372382466e442d51e7882cd7e3d93f21",
+          "elapsed_seconds": 870.8718314589933,
+          "record": {
+            "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/medium-8.5s.run.json",
+            "sha256": "a8f34d57bad11fb7daf539ad420a15c5f8b824a4e207fe607da37cf1851aff2c"
+          },
+          "sampled_frames": [
+            0,
+            51,
+            102,
+            153,
+            203
+          ],
+          "preview": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/medium-8.5s-samples.jpg"
+        }
+      ],
+      "peak_tree_footprint_gib": 41.896490551531315,
+      "maximum_swap_growth_bytes": 0,
+      "controller_elapsed_seconds": 871.5484073329717,
+      "review_scope": "Sampled stills prepared; visual review is recorded separately. No audio quality or blind task-quality score."
+    },
+    "high-5s": {
+      "status": "complete",
+      "case": "high-5s",
+      "files": [
+        {
+          "label": "high-5s.native",
+          "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/high-5s.native.mp4",
+          "sha256": "2765d601c117c907c6536914f88cab72bad0315652965eef8014445a06d6f2dc",
+          "width": 1366,
+          "height": 768,
+          "frames": 120,
+          "fps": 24,
+          "duration_seconds": 5.0,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "audio_pcm_sha256": "be6233c38705af1ecb3da112e5befe2090b664a0e713a56761e0878356788e65",
+          "elapsed_seconds": 734.1591639579856,
+          "record": {
+            "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/high-5s.native.run.json",
+            "sha256": "dac74e0ec3d9b4ebc50860a70deb092a9b8dd6a7612b89659eb995120f72386a"
+          },
+          "sampled_frames": [
+            0,
+            30,
+            60,
+            90,
+            119
+          ],
+          "preview": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/high-5s.native-samples.jpg"
+        },
+        {
+          "label": "high-5s",
+          "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/high-5s.mp4",
+          "sha256": "703e53cfebdae2ae1fa0b54ea09d9d67ee0eec6cd60b452567f2dfa9d05b25e3",
+          "width": 2732,
+          "height": 1536,
+          "frames": 120,
+          "fps": 24,
+          "duration_seconds": 5.0,
+          "audio_sample_rate": 32000,
+          "audio_channels": 2,
+          "audio_pcm_sha256": "be6233c38705af1ecb3da112e5befe2090b664a0e713a56761e0878356788e65",
+          "elapsed_seconds": 1163.6968534580083,
+          "record": {
+            "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/high-5s.run.json",
+            "sha256": "3fc6ad33e4f77d42b443bdcfea33fa0571bd71f98037bb7caadbb854f7a081fc"
+          },
+          "sampled_frames": [
+            0,
+            30,
+            60,
+            90,
+            119
+          ],
+          "preview": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/high-5s-samples.jpg"
+        }
+      ],
+      "peak_tree_footprint_gib": 69.75226225703955,
+      "maximum_swap_growth_bytes": 0,
+      "controller_elapsed_seconds": 1906.2730317920214,
+      "review_scope": "Sampled stills prepared; visual review is recorded separately. No audio quality or blind task-quality score."
+    }
+  },
+  "case_interfaces": {
+    "fast-7s": "Python generate",
+    "medium-8.5s": "CLI generate",
+    "high-5s": "Python generate with integrated restoration"
+  },
+  "high": {
+    "dense_recipe": "ref2va-w8a8-dense-bf16-v1",
+    "restoration_recipe": "vosr2-native-fp16-v2",
+    "generation_seconds": 734.1591639579856,
+    "restoration_seconds": 1163.6968534580083,
+    "total_api_seconds": 1897.8560174159938,
+    "counters": {
+      "mode": "DENSE",
+      "attention": "dense",
+      "dense_self_attention_calls": 200,
+      "projection_calls": 1200,
+      "int8_fine_calls": 0,
+      "preparation_seconds": 1.6657950829830952,
+      "activation_pack_calls": 800,
+      "qkv_pack_reuses": 400,
+      "native_output_dtype": "bfloat16",
+      "precision_contract": "Original affine weights, approximate INT8 arithmetic; no BF16 dequantization residual"
+    },
+    "source_audio_preserved": true
+  },
+  "numerical_preflight": {
+    "record": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/preflight.json",
+      "sha256": "ac2248aa96ae57ff3c86fbaa8bf903223deb2c0cfaeedbe0c7155ecc9957ca26"
+    },
+    "sequence_length": 57446,
+    "references": 9,
+    "orientations": [
+      "16:9",
+      "9:16"
+    ],
+    "full_tensor_finite": true,
+    "query_rows": [
+      0,
+      1,
+      31,
+      127,
+      28723,
+      57444,
+      57445
+    ],
+    "heads_checked": 56,
+    "max_abs_error": 6.962331861402535e-05,
+    "atol": 0.025,
+    "rtol": 0.006
+  },
+  "runtime_equivalence": {
+    "dense_inheritance_commit": "fcf27c3",
+    "files": {
+      "src/h3_apple/runtime/dispatch.py": {
+        "sha256": "aa9726de735fcb5270b25038b745d802030b0e6bf6a17655eaabf4772e5fb275",
+        "matches_fcf27c3": true
+      },
+      "src/h3_apple/runtime/engine.py": {
+        "sha256": "63197573caab970cb7d8a164dc82f4933be303b9da532a5424c2cd9bd1f3ae49",
+        "matches_fcf27c3": true
+      },
+      "src/h3_apple/runtime/ref2va_pipeline.py": {
+        "sha256": "7bb69b09ca80c28a48ca9c31bb98c9dc01d8c933d1e5ec966aa1480a0cbaa60b",
+        "matches_fcf27c3": true
+      },
+      "src/h3_apple/worker.py": {
+        "sha256": "9f9cdf03f679a7bef52a3ae6b213f7a1a71c5701fa810f76276c6917aacbef87",
+        "matches_fcf27c3": true
+      }
+    },
+    "package_changes_from_v081": [
+      "src/h3_apple/__init__.py",
+      "src/h3_apple/api.py",
+      "src/h3_apple/cli.py",
+      "src/h3_apple/data/engine.json",
+      "src/h3_apple/host.py",
+      "src/h3_apple/runtime/dispatch.py",
+      "src/h3_apple/runtime/engine.py",
+      "src/h3_apple/runtime/ref2va_pipeline.py",
+      "src/h3_apple/worker.py",
+      "src/h3_apple/workflow.py"
+    ],
+    "unchanged_restoration": true,
+    "unchanged_sol_engine": true
+  },
+  "sampled_review": {
+    "method": "Unblinded Agent inspection of 20 full-frame thumbnails, five per delivered stream, at 320-pixel width.",
+    "videos": [
+      "fast-7s",
+      "medium-8.5s",
+      "high-5s.native",
+      "high-5s"
+    ],
+    "finding": "The sampled frames contain recognizable palace scenes without blank frames, missing decoder tiles or obvious export corruption. Medium uses a substantially changing camera view; prompt adherence and temporal geometry were not scored.",
+    "limits": "No fine-detail, between-sample flicker, complete motion, audio-quality or rabbit-expression assessment. No user playback verdict has been received.",
+    "earlier_review": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/sampled-review-01.json",
+      "sha256": "da260b353507c95d9f5756e9f416ecd2031d45f1dcb3e547a78cbeb763ec6764"
+    }
+  },
+  "scope": "Integration and media delivery. One run per configuration, with different durations/orientations. Times include worker startup, loading, inference, decoding and export; initial model preparation excluded. Not a paired quality or speed ranking. Nine diverse-reference semantics, smaller-memory hosts and global facial/motion quality are unqualified.",
+  "superseded_scope": {
+    "record": {
+      "path": "/Users/rhino/Projects/tqlm-h3-apple/benchmarks/v082-quality-01/registration.json",
+      "sha256": "596a1b67a519bfa88febd1f90f40465da0f0d6917e919613f75705f5a75fc358"
+    },
+    "reason": "User limited High to five seconds. The former fifteen-second run was cancelled before native delivery/restoration and is not counted as a completed workflow or engine failure."
+  },
+  "raw_manifest": {
+    "path": "/Users/rhino/Projects/tqlm-h3-apple/output/v082-quality-20261013-02/manifest.json",
+    "sha256": "b67805c7b860e3c8954686c30ca72eda4734487c46fb0f07309647a074c391f4"
+  },
+  "research_record": {
+    "path": "/Users/rhino/Projects/tqlm-h3-apple/benchmarks/v082-quality-02/result.json",
+    "sha256": "5a9bf620a53c9f7f12dd85805def734905fb9af6d2f749bd46fe5d8b9f2a851e"
+  }
+}

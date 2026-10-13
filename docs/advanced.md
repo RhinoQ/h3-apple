@@ -71,6 +71,12 @@ matched scenes. Quality varies by scene. These times exclude VOSR restoration.
 The fast and medium presets select the existing SOL 544p/X2 and VSA native-768p
 paths respectively. The table does not measure the high workflow.
 
+One five-second High integration clip took **31m 38s** on the same 40-core M5 Max /
+128 GiB: **12m 14s** for Dense generation and **19m 24s** for optimized VOSR
+(`vosr2-native-fp16-v2`). This is a single landscape clip with one reference, after
+model setup; it is not a median. Both stages include loading, decoding and export.
+[Run configuration and checks](evidence/v0.8.2-quality.json).
+
 ## Use with Codex
 
 Install the [Ref2VA skill](../skills/h3-apple-ref2va-prompting/SKILL.md):

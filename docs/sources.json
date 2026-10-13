@@ -259,7 +259,8 @@
         "Independent MLX integration of Ref2VA LightX2V rank128/alpha8 updates plus only 50 FastH3 compression gates; 75% generated-video sparsity and ordered dense-exempt reference segments.",
         "Uses native MiniMax components and Ours quantization/decode; does not reproduce ComfyUI ConvRot or CUDA RNG.",
         "The product selects kablex routing: round non-sink top-k, retain ties, force adjacent tiles and use a single-rounding coarse add.",
-        "Public VSA uses one fixed W8A8 / INT8 QK dispatch and the worker's ordered image list."
+        "Public VSA uses one fixed W8A8 / INT8 QK dispatch and the worker's ordered image list.",
+        "Dense uses the same model and four-step recipe, bypassing VSA geometry, compression gates and coarse attention; inherited H3 full attention runs through MLX BF16 SDPA."
       ]
     },
     {
