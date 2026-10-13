@@ -1,13 +1,18 @@
 # Validation
 
-## Unreleased backend selection
+## 0.8.3
 
-[Configuration checks](evidence/quality-backend-selection.json): **420 tests
-passed**, with 16 hardware tests deselected, on a clean installed candidate wheel.
-All 98 package files match source, wheel and installation. Eight installed CLI/API
-resolve calls agree on default and explicit quality/backend choices; VSA doctor
-and dependency checks pass. The tests cover durations, High restrictions and
-download consent. No new video generation, quality or performance claim is made.
+[Release checks](evidence/v0.8.3-release.json): **436 tests passed** on the installed
+wheel, including GPU and large-array checks. All 98 package files match source,
+wheel, source distribution and installation. Eight CLI/API configuration checks
+agree; both backends reuse prepared models with no downloads.
+
+Complete five-second runs cover default Fast/VSA through the CLI (1920×1088)
+and Medium/SOL through Python (768×1366). Both deliver 120 frames at 24 fps,
+stereo 32 kHz audio and pass full decoding. Agent inspection covers ten sampled
+thumbnails for delivery corruption; motion and audio quality are unscored.
+This update changes backend selection and defaults. Numerical kernels, models,
+decoding and restoration retain the 0.8.2 implementations and qualification below.
 
 ## 0.8.2
 
