@@ -1,15 +1,15 @@
 # h3-apple
 
-**A 5-second video with sound in about 3 minutes. On your Mac.**
+**A 5-second video with sound in about 4 minutes. On your Mac.**
 
 Turn 1–9 images and a prompt into video with stereo audio. Landscape or portrait,
 5–15 seconds. Powered by MiniMax-H3.
 
-**3m 14s median** at default settings on a 40-core M5 Max / 128 GiB:
+**4m 19s median** with VSA 544p + X2 on a 40-core M5 Max / 128 GiB:
 12 scenes, after model setup. [Measured settings and performance](docs/advanced.md#performance).
 
 [**Watch the videos →**](https://rhinoq.github.io/h3-apple/#showcase) ·
-[**Install →**](#1-install) · [**What's new →**](docs/releases/0.8.2.md)
+[**Install →**](#1-install) · [**What's new →**](docs/releases/unreleased.md)
 
 | Celestial Hall | Stairway Above the Clouds |
 | --- | --- |
@@ -23,8 +23,8 @@ Showcase: native 768p + VOSR 2×, **2732×1536**. Super-resolution adds about
 ## 1. Install
 
 **40-core M5 Max · macOS 26.2+ · 64 GiB minimum.** Tested with 128 GiB;
-smaller-memory operation is unverified. Fresh setup needs about
-**150 GB of downloads and 241 GB of free disk**.
+smaller-memory operation is unverified. Fresh setup needs
+up to **156 GB of downloads and 351 GB of free disk**, depending on the backend.
 
 Install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you need Conda, then run:
 
@@ -36,6 +36,10 @@ python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/do
 
 First use prepares models and asks before downloads over 20 GB.
 In each new terminal, run `conda activate h3`. [Installation help](docs/install.md).
+
+The command installs stable 0.8.2. This source tree adds
+[backend selection](docs/releases/unreleased.md) and defaults to VSA; stable
+0.8.2 keeps SOL as its fast default. [Install from source](docs/development.md#verify-a-change).
 
 <a name="generate"></a>
 
@@ -49,18 +53,9 @@ h3 generate --image reference.jpg \
 ```
 
 This creates a **five-second video** in a new `runs/` folder and prints its path.
-Choose `--quality fast`, `--quality medium` or `--quality high`:
-
-| Quality | Use it for | Duration |
-| --- | --- | --- |
-| `fast` (default) | The quickest generation | 5–15 seconds |
-| `medium` | Native 768p output | 5–15 seconds |
-| `high` | Dense generation with 2× restoration; requires 128 GiB and takes longer | 5 seconds |
-
-Add `--aspect-ratio 9:16` for portrait. Fast and medium accept **5–15 seconds**
-at whole 24 fps frames, such as `--duration 7` or `--duration 8.5`. High is fixed at five seconds.
-High saves both the native and restored videos and uses the
-[super-resolution models and noncommercial terms](docs/upscale.md).
+Add `--aspect-ratio 9:16` for portrait or `--duration 7` for a longer video.
+Fast and medium accept **5–15 seconds** at whole 24 fps frames, including 8.5 seconds.
+See [quality and backend choices](docs/advanced.md) for other settings.
 
 [Advanced settings](docs/advanced.md) · [Python API](docs/api.md)
 

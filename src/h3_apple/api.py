@@ -33,14 +33,14 @@ class GenerationRequest:
     model_width: int
     model_height: int
     model_num_frames: int
-    recipe: str = "ref2va-premerged-i8-sol-sage-v2"
+    recipe: str = "ref2va-w8a8-vsa-int8qk-v1"
     fps: int = 24
     audio_sample_rate: int = 32000
     audio_channels: int = 2
     num_steps: int = 4
-    mode: str = "SOL"
+    mode: str = "VSA"
     x2: bool = True
-    attention: str | None = None
+    attention: str | None = "vsa"
     quality: str | None = None
     upscale: bool = False
 
@@ -58,21 +58,24 @@ class GenerationResult:
 
 
 _QUALITIES = {
-    "fast": dict(mode="SOL", resolution="544p", x2=True, attention=None, upscale=False),
+    "fast": dict(mode="VSA", resolution="544p", x2=True, attention="vsa", upscale=False),
     "medium": dict(mode="VSA", resolution="768p", x2=False, attention="vsa", upscale=False),
     "high": dict(mode="VSA", resolution="768p", x2=False, attention="dense", upscale=True),
 }
 
 
 def _configuration(quality, *, mode, resolution, x2, attention, upscale):
-    """Resolve a named quality or preserve the existing advanced settings."""
+    """Resolve delivery quality and backend, or use explicit advanced settings."""
     for name, value in (("x2", x2), ("upscale", upscale)):
         if value is not None and type(value) is not bool:
             raise ValueError(f"{name} must be a boolean.")
     if quality is not None:
         if not isinstance(quality, str) or quality not in _QUALITIES:
             raise ValueError("quality must be 'fast', 'medium' or 'high'.")
-        chosen = _QUALITIES[quality]
+        chosen = dict(_QUALITIES[quality])
+        if quality in ("fast", "medium") and mode is not None:
+            chosen["mode"] = mode
+            chosen["attention"] = "vsa" if mode == "VSA" else None
         supplied = dict(mode=mode, resolution=resolution, x2=x2, attention=attention, upscale=upscale)
         for name, value in supplied.items():
             if value is not None and value != chosen[name]:
@@ -80,7 +83,7 @@ def _configuration(quality, *, mode, resolution, x2, attention, upscale):
                                  f"omit {name} or omit quality to use advanced settings.")
         return chosen
     upscale = False if upscale is None else upscale
-    return dict(mode="SOL" if mode is None else mode,
+    return dict(mode="VSA" if mode is None else mode,
                 resolution=("768p" if upscale else "544p") if resolution is None else resolution,
                 x2=not upscale if x2 is None else x2, attention=attention, upscale=upscale)
 

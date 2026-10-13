@@ -32,7 +32,9 @@ def parser():
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--quality", choices=("fast", "medium", "high"),
-                             help="fast: SOL 544p + X2 (default); medium: VSA 768p; high: Dense 768p + VOSR (5 seconds, 128 GiB)")
+                             help="fast: 544p + X2 (default); medium: native 768p; both use VSA unless --mode SOL. High: Dense 768p + VOSR (5 seconds, 128 GiB)")
+        command.add_argument("--mode", choices=("VSA", "SOL"),
+                             help="Generation backend for fast/medium (default: VSA); high requires VSA models with Dense attention")
         command.add_argument("--duration", type=float, default=5,
                              help="Fast/medium: 5–15 seconds at whole 24 fps frames (e.g. 7 or 8.5); high/Dense: 5 only (default: 5)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
@@ -43,8 +45,6 @@ def parser():
                              default=None,
                              help="Double decoded dimensions (automatic with --quality; otherwise on, or off with --upscale)")
         advanced.add_argument("--seed", type=int)
-        advanced.add_argument("--mode", choices=("SOL", "VSA"),
-                             help="Generation mode (automatic with --quality; otherwise SOL)")
         advanced.add_argument("--attention", choices=("vsa", "dense"),
                              help="Attention for VSA models (default: vsa; dense requires native 768p, 5 seconds and 128 GiB)")
         advanced.add_argument("--upscale", action=argparse.BooleanOptionalAction, default=None,
@@ -63,7 +63,8 @@ def parser():
                                  help="Confirm first-run model downloads exceeding 20 GB")
     prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
-    prepare.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
+    prepare.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
+                         help="Model backend (default: VSA)")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
                          help="Reuse a source snapshot or an existing H3 model installation")
     prepare.add_argument("--plan", action="store_true", help="Check download and disk requirements only")
@@ -71,7 +72,8 @@ def parser():
     for name in ("doctor", "verify"):
         command = commands.add_parser(name, help="Check installation" if name == "doctor" else "Verify all model checksums")
         command.add_argument("--model-dir")
-        command.add_argument("--mode", choices=("SOL", "VSA"), default="SOL")
+        command.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
+                             help="Model backend (default: VSA)")
     prepare_x2 = commands.add_parser("prepare-x2", help="Prepare the 5.25 GB X2 decoder")
     prepare_x2.add_argument("--model-dir")
     prepare_x2.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs")

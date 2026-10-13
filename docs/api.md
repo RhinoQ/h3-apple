@@ -12,10 +12,15 @@ result = generate(
 print(result.video_path, result.metadata_path)
 ```
 
-This generates five seconds with the fast configuration and chooses a new output
-directory. Add `quality="medium"` for VSA native 768p or `quality="high"` for
+This generates five seconds with the fast configuration (VSA 544p + X2) and
+chooses a new output directory. Add `quality="medium"` for native 768p or `quality="high"` for
 Dense native 768p followed by VOSR 2× restoration. High requires 128 GiB and saves
 both videos. See [requirements and terms](upscale.md).
+
+Fast and medium both accept `mode="VSA"` or `mode="SOL"`; VSA is the default.
+For example, `generate(..., quality="medium", mode="SOL")` uses SOL at native
+768p. This describes the current source; stable 0.8.2 has the
+[previous defaults](releases/0.8.2.md).
 
 Use `prompt_file="scene.txt"` instead of `prompt` for UTF-8 files.
 Supply 1–9 still images in Picture order, with aspect ratios from 1:4 to 4:1.
@@ -26,7 +31,7 @@ EXIF orientation is applied; prompt text and image order are preserved.
 | Argument | Default | Accepted values |
 | --- | --- | --- |
 | `quality` | Fast configuration | `"fast"`, `"medium"`, `"high"`; omit (`None`) to customize advanced settings |
-| `mode` | Automatic | `"VSA"`, `"SOL"`; without quality, defaults to SOL |
+| `mode` | `"VSA"` | `"VSA"` or `"SOL"` for fast/medium and custom configurations; high requires VSA models |
 | `attention` | Automatic | `"vsa"` or `"dense"` with VSA models; Dense requires native 768p, 5 seconds and 128 GiB |
 | `duration` | `5` | Fast/medium: 5–15 seconds, whole frames at 24 fps; high/Dense: 5 only |
 | `resolution` | Automatic | Selected by quality; otherwise `"544p"`, or `"768p"` with `upscale=True`; explicit `"576p"` also supported |
@@ -39,10 +44,12 @@ Both modes use four forwards. Equal seeds do not guarantee equal outputs across 
 
 Use `quality="high"` for a five-second clip, or `quality="medium", duration=8.5`
 for a longer clip. High and advanced Dense calls reject other durations before
-reading inputs or setting up models; they never truncate the request. Explicit settings that contradict a
-named quality raise `ValueError` before setup. Omitted advanced settings use that
-quality's values. For custom combinations, omit quality. Existing
-`generate(..., upscale=True)` retains SOL native 768p + VOSR behavior.
+reading inputs or setting up models; they never truncate the request. Explicit
+resolution, decoder, attention or restoration settings that contradict a named
+quality raise `ValueError` before setup. Fast and medium allow either mode;
+omitted settings use that quality's values. For custom combinations, omit quality.
+`generate(..., upscale=True)` defaults to VSA native 768p + VOSR. Set `mode="SOL"`
+explicitly to retain SOL for existing calls.
 
 `resolve(...)` validates generation inputs and returns a `GenerationRequest`
 without loading or downloading models. It accepts the same quality, duration,

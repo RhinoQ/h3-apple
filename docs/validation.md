@@ -1,5 +1,14 @@
 # Validation
 
+## Unreleased backend selection
+
+[Configuration checks](evidence/quality-backend-selection.json): **420 tests
+passed**, with 16 hardware tests deselected, on a clean installed candidate wheel.
+All 98 package files match source, wheel and installation. Eight installed CLI/API
+resolve calls agree on default and explicit quality/backend choices; VSA doctor
+and dependency checks pass. The tests cover durations, High restrictions and
+download consent. No new video generation, quality or performance claim is made.
+
 ## 0.8.2
 
 [Quality preset checks](evidence/v0.8.2-quality.json): **369 tests passed** on the

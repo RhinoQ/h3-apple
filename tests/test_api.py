@@ -22,7 +22,7 @@ def test_default_request_is_one_ref2va_recipe(images):
     r = resolve('Picture 1 and Picture 2', reference_images=images, seed=0)
     assert r.reference_images == tuple(map(str, images))
     assert (r.width,r.height,r.num_frames,r.model_num_frames,r.num_steps) == (1920,1088,120,124,4)
-    assert (r.mode, r.resolution, r.x2, r.model_width, r.model_height) == ('SOL','544p',True,960,544)
+    assert (r.mode, r.resolution, r.x2, r.model_width, r.model_height) == ('VSA','544p',True,960,544)
     assert r.audio_channels == 2 and r.audio_sample_rate == 32000
     for function in (resolve,generate):
         assert not {'preset','task','first_frame','last_frame','reference_video','reference_audio','reference_resize'} & set(inspect.signature(function).parameters)
@@ -82,7 +82,7 @@ def test_cli_and_api_defaults_reach_the_same_fast_request(images, monkeypatch, a
         '--image',str(images[1]), '--seed','7', '--aspect-ratio',aspect]))
     args.pop('command')
     assert api == resolve(**args)
-    assert api.mode == 'SOL' and api.x2 and api.resolution == '544p'
+    assert api.mode == 'VSA' and api.x2 and api.resolution == '544p'
     assert (api.width,api.height) == output
 
 

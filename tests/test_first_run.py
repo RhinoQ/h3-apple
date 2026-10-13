@@ -30,6 +30,26 @@ def test_api_requests_consent_before_downloading_or_reserving_output(tmp_path, m
     assert not target.parent.exists()
 
 
+def test_default_fast_plans_vsa_and_x2_before_downloads(tmp_path, monkeypatch):
+    from h3_apple import vsa_preparation, x2_assets
+    image = tmp_path / 'reference.png'
+    Image.new('RGB', (32, 32)).save(image)
+    calls = []
+    monkeypatch.setattr(preparation, 'plan', lambda *a, **kw: pytest.fail('unexpected SOL preparation'))
+    monkeypatch.setattr(vsa_preparation, 'plan', lambda *a, **kw: calls.append('VSA') or dict(
+        download_bytes=19_000_000_000, additional_disk_bytes=30_000_000_000))
+    monkeypatch.setattr(x2_assets, 'plan', lambda *a, **kw: calls.append('X2') or dict(
+        download_bytes=5_250_000_000, additional_disk_bytes=5_250_000_000))
+    monkeypatch.setattr(process, 'ensure_ready', lambda *a, **kw: pytest.fail('unapproved setup'))
+    target = tmp_path / 'outputs/video.mp4'
+    with pytest.raises(DownloadApprovalRequired) as error:
+        generate('Scene', reference_images=[image], output=target)
+    assert calls == ['VSA', 'X2']
+    assert error.value.download_bytes == 24_250_000_000
+    assert error.value.additional_disk_bytes == 35_250_000_000
+    assert not target.parent.exists()
+
+
 def test_automatic_setup_shares_explicit_consent_and_progress(monkeypatch, local_setup):
     from h3_apple import media
     spec = dict(local_setup, status='preparation_required', download_bytes=145_000_000_000)

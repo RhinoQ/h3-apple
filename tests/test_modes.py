@@ -34,7 +34,8 @@ def test_modes_keep_geometry_and_distinct_recipe(image):
 def test_cli_selects_mode_consistently(command):
     inputs = ['--image', 'ref.png', '--prompt', 'Scene'] if command in ('generate', 'resolve') else []
     assert parser().parse_args([command, *inputs, '--mode', 'VSA']).mode == 'VSA'
-    assert parser().parse_args([command, *inputs]).mode == (None if inputs else 'SOL')
+    assert parser().parse_args([command, *inputs]).mode == (None if inputs else 'VSA')
+    assert parser().parse_args([command, *inputs, '--mode', 'SOL']).mode == 'SOL'
 
 
 def test_vsa_consent_precedes_model_work_and_output(image, monkeypatch, tmp_path):

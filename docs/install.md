@@ -4,7 +4,8 @@
 
 - **Mac:** 40-core M5 Max, macOS 26.2+, 64 GiB minimum. Tested with 128 GiB;
   smaller-memory operation is unverified. Other GPUs are unsupported.
-- **Disk:** fresh SOL + X2 setup needs about **150 GB of downloads / 241 GB free**.
+- **Disk:** fresh VSA + X2 setup needs about **156 GB of downloads / 351 GB free**.
+  SOL + X2 needs about **150 GB / 241 GB**. Existing caches reduce these costs.
 - **Conda:** use your installation or [Miniforge for Apple Silicon](https://github.com/conda-forge/miniforge#miniforge3).
 
 ## 1. Install
@@ -16,6 +17,9 @@ python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/do
 ```
 
 One environment supports generation and super-resolution. No compiler is needed.
+This command installs stable 0.8.2, whose fast preset uses SOL. The current source
+defaults to VSA and adds backend selection for fast/medium; see
+[unreleased changes](releases/unreleased.md) and [source installation](development.md#verify-a-change).
 
 ## 2. Generate
 
@@ -56,20 +60,22 @@ five-second clip, depending on input size, beyond generation time.
 
 | Mode | Fresh downloads | Free disk for setup |
 | --- | ---: | ---: |
-| SOL + X2, default | ~150 GB | ~241 GB |
-| VSA + X2 | ~156 GB | ~351 GB |
+| VSA + X2, current source default | ~156 GB | ~351 GB |
+| SOL + X2 | ~150 GB | ~241 GB |
 
 These conservative estimates include X2's 5.25 GB decoder. Caches reduce costs.
 SOL's 6.05 MB engine downloads automatically. SOL + X2 does not need VSA models.
-Medium uses the VSA bundle without X2. High reuses that same VSA bundle with
-Dense attention and adds the 6.97 GB VOSR models. Switching from fast may require
-a separate generation bundle; combined download consent is checked before setup.
+Fast uses the selected backend's bundle with X2; medium uses the same backend's
+bundle without X2. Both default to VSA. High uses VSA models with Dense attention
+and adds the 6.97 GB VOSR models. Switching quality between fast and medium reuses
+the generation bundle; changing backend may require a separate bundle. Combined
+download consent is checked before setup.
 
 Preview your actual costs without downloading:
 
 ```sh
 h3 prepare --plan
-h3 prepare --mode VSA --plan
+h3 prepare --mode SOL --plan
 h3 prepare-x2 --plan
 ```
 
@@ -96,7 +102,8 @@ Set the variable in each session or pass `--model-dir`. Keep formats separate.
 h3 prepare --reuse-dir /path/to/existing-models
 ```
 
-Add `--mode VSA` for VSA. Repeat `--reuse-dir` for multiple compatible sources.
+Preparation defaults to VSA. Add `--mode SOL` for SOL, and repeat `--reuse-dir`
+for multiple compatible sources.
 [Model recipes](development.md) and licenses still apply.
 
 </details>
@@ -128,7 +135,7 @@ on later SOL calls. Existing models are preserved.
 
 - `h3` not found: activate the environment or use `python -m h3_apple`.
 - `h3 doctor` checks readiness; missing models before first use are expected.
-- `h3 verify` checks all model checksums. Both default to SOL; use `--mode VSA` for VSA.
+- `h3 verify` checks all model checksums. Both default to VSA; use `--mode SOL` for SOL.
 - Generation reserves 20 GiB temporary disk and stops on serious thermal pressure
   or swap growth above 2 GiB. Failed jobs retain logs.
 - Native 768p over five seconds needs 96 GiB memory.

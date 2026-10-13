@@ -1,0 +1,129 @@
+{
+  "scope": "Unreleased Fast/Medium backend selection and VSA defaults; configuration and packaging checks only.",
+  "base_commit": "6bed79e24b07de159f7a2699626d7fcdc36845c5",
+  "candidate_branch": "codex/quality-backend-choice",
+  "source_snapshot": "/Users/rhino/Projects/h3-apple/.local/quality-backend-source-03",
+  "runtime_diff_sha256": "fd82a008a63299e940cb47ca9729f8c580562479201d6e5472d41d5f210bdea8",
+  "runtime_diff_command": "git diff 6bed79e24b07de159f7a2699626d7fcdc36845c5 -- src/h3_apple",
+  "build": {
+    "package_version": "0.8.2",
+    "wheel": "/Users/rhino/Projects/h3-apple/.local/quality-backend-dist-03/h3_apple-0.8.2-py3-none-any.whl",
+    "wheel_sha256": "caf03aa285ff4359ebe89222741e93ae9cd882071b80da7ac4f23e94f53ed227",
+    "python": "/Users/rhino/Projects/h3-apple/.local/envs/quality-backend/bin/python",
+    "installed_package": "/Users/rhino/Projects/h3-apple/.local/envs/quality-backend/lib/python3.11/site-packages/h3_apple",
+    "package_file_count": 98,
+    "package_manifest_sha256": "c030bdba67b692d61c286488ae463fc9ae6193ace02cfa3db5812d09cc338c00"
+  },
+  "package_match": "All 98 package files and the complete file set match source, clean wheel and installed package.",
+  "package_check_record": "/Users/rhino/Projects/h3-apple/.local/quality-backend-package-check-03.json",
+  "tests": {
+    "command": ".local/envs/quality-backend/bin/python -I -m pytest tests -q -m \"not hardware\"",
+    "passed": 420,
+    "deselected": 16,
+    "warnings": 4,
+    "seconds": 9.44,
+    "log": "/Users/rhino/Projects/h3-apple/.local/quality-backend-tests-03.log",
+    "log_sha256": "5acad0ec027957063b190862e564d7e892b2318e17bebdcb248d8269ab3a66d8",
+    "scope": "Quality/backend combinations, 5\u201315 s frame-aligned durations, High restrictions, validation before setup, download consent, existing configuration/workflow regressions; no new model generation."
+  },
+  "installed_cli_api": "All eight default and explicit backend/quality resolve calls agree.",
+  "resolve_cases": [
+    {
+      "quality": null,
+      "requested_mode": null,
+      "mode": "VSA",
+      "attention": "vsa",
+      "resolution": "544p",
+      "x2": true,
+      "upscale": false
+    },
+    {
+      "quality": "fast",
+      "requested_mode": null,
+      "mode": "VSA",
+      "attention": "vsa",
+      "resolution": "544p",
+      "x2": true,
+      "upscale": false
+    },
+    {
+      "quality": "fast",
+      "requested_mode": "VSA",
+      "mode": "VSA",
+      "attention": "vsa",
+      "resolution": "544p",
+      "x2": true,
+      "upscale": false
+    },
+    {
+      "quality": "fast",
+      "requested_mode": "SOL",
+      "mode": "SOL",
+      "attention": null,
+      "resolution": "544p",
+      "x2": true,
+      "upscale": false
+    },
+    {
+      "quality": "medium",
+      "requested_mode": null,
+      "mode": "VSA",
+      "attention": "vsa",
+      "resolution": "768p",
+      "x2": false,
+      "upscale": false
+    },
+    {
+      "quality": "medium",
+      "requested_mode": "VSA",
+      "mode": "VSA",
+      "attention": "vsa",
+      "resolution": "768p",
+      "x2": false,
+      "upscale": false
+    },
+    {
+      "quality": "medium",
+      "requested_mode": "SOL",
+      "mode": "SOL",
+      "attention": null,
+      "resolution": "768p",
+      "x2": false,
+      "upscale": false
+    },
+    {
+      "quality": "high",
+      "requested_mode": null,
+      "mode": "VSA",
+      "attention": "dense",
+      "resolution": "768p",
+      "x2": false,
+      "upscale": true
+    }
+  ],
+  "doctor": {
+    "path": "/Users/rhino/Projects/h3-apple/.local/quality-backend-doctor-01.json",
+    "sha256": "eafb7e96aa6a283eaa3eba20aa2607ef6430a49d9e82be7cca215c8f9e083d27",
+    "ready": true,
+    "mode": "VSA",
+    "model_identity": "7d1902498bf42540dfb3f5becde5d7cebac8d7f41e3284474a122f6ff5a1d990",
+    "chip": "Apple M5 Max",
+    "memory_bytes": 137438953472
+  },
+  "dependencies": "pip check passed in the isolated candidate Conda environment.",
+  "earlier_attempts": [
+    {
+      "log": "/Users/rhino/Projects/h3-apple/.local/quality-backend-tests-01.log",
+      "result": "419 passed, one test still relied on the old implicit SOL default. That SOL-specific test now requests mode=SOL explicitly."
+    },
+    {
+      "record": "/Users/rhino/Projects/h3-apple/.local/quality-backend-package-rejection-02.json",
+      "result": "Rejected local wheel with 27 stale build-cache files. Rebuilt from a clean tracked-source snapshot; the rejected wheel and logs are preserved."
+    }
+  ],
+  "limits": [
+    "Not a published release; the candidate retains the 0.8.2 package version only for local testing.",
+    "No new GPU correctness, video quality or generation timing claims. Inference implementations, model recipes, decoders and restoration are unchanged.",
+    "The existing published 0.8.2 Conda environment was left unchanged and still defaults to SOL."
+  ]
+}

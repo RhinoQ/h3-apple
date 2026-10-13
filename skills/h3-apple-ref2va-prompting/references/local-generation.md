@@ -92,7 +92,9 @@ and automatic output names:
 Repeat `--image` for multiple references. Add only the options the brief needs.
 When supported by the selected release, use `--quality fast|medium|high` for a
 requested quality choice. Fast and medium support 5–15 seconds at whole 24 fps
-frames, not just 5/10/15. High is fixed at five seconds and includes Dense 768p
+frames, not just 5/10/15. Releases supporting backend selection within a quality
+accept `--mode VSA|SOL` for fast/medium; carry an explicitly requested mode through
+setup and generation. Otherwise follow that release's default mode. High is fixed at five seconds and includes Dense 768p
 generation and VOSR restoration; it requires 128 GiB and can take substantially longer. Consult the
 release documentation for model costs and terms; do not silently replace an
 explicit advanced configuration with a preset.
@@ -117,7 +119,8 @@ limitations. Show the MP4 inline where supported; separate setup and generation 
 Use restoration only when requested. For an existing supported video, prefer
 `h3 upscale --input video.mp4`; no new generation is needed. For a new detailed
 video, `h3 generate ... --quality high` selects Dense native 768p plus VOSR and
-saves both versions. The existing `--upscale` path retains the SOL default.
+saves both versions. The `--upscale` shortcut uses the selected release's default
+generation mode unless the user specifies one.
 On versions supporting qualities, validate the same choice with `resolve`.
 
 Consult `docs/upscale.md` at the selected release for supported inputs, memory,

@@ -52,7 +52,7 @@ def setup(tmp_path, monkeypatch):
     return ref, calls, base, sr
 
 
-@pytest.mark.parametrize("mode,quality", [("SOL", None), ("VSA", None), ("VSA", "high")])
+@pytest.mark.parametrize("mode,quality", [(None, None), ("SOL", None), ("VSA", None), ("VSA", "high")])
 @pytest.mark.parametrize("aspect,shape", [("16:9", (1366, 768)), ("9:16", (768, 1366))])
 def test_one_call_restoration_preserves_native_and_records_both_stages(setup, mode, quality, aspect, shape):
     ref, calls, _, _ = setup
@@ -62,8 +62,8 @@ def test_one_call_restoration_preserves_native_and_records_both_stages(setup, mo
     _, request, options = calls[2]
     assert (request.width, request.height) == shape
     assert request.duration == 5 and request.resolution == "768p" and not request.x2
-    assert request.mode == mode
-    assert request.attention == ('dense' if quality == 'high' else 'vsa' if mode == 'VSA' else None)
+    assert request.mode == (mode or 'VSA')
+    assert request.attention == ('dense' if quality == 'high' else 'vsa' if mode != 'SOL' else None)
     assert result.video_path.read_bytes() == b"restored"
     assert result.native_video_path.read_bytes() == b"native"
     assert calls[3][1] == result.native_video_path

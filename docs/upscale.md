@@ -22,7 +22,8 @@ h3 generate --image reference.jpg \
 ```
 
 This selects Dense native 768p followed by VOSR and saves both videos.
-The existing `--upscale` shortcut retains SOL native 768p + VOSR.
+The `--upscale` shortcut uses VSA native 768p + VOSR by default in the current
+source; add `--mode SOL` for SOL. Stable 0.8.2 defaults to SOL for this shortcut.
 With `--output detailed.mp4`,
 the original is saved as `detailed.native.mp4`. If restoration fails, retry with
 `h3 upscale --input detailed.native.mp4` without generating again.
@@ -68,7 +69,8 @@ print(result.video_path)
 ```
 
 For Dense generation and restoration in one call, use `generate(..., quality="high")`.
-The existing `generate(..., upscale=True)` call retains its SOL generation default.
+In the current source, `generate(..., upscale=True)` defaults to VSA generation;
+pass `mode="SOL"` explicitly for SOL.
 
 Optional arguments: `output=None`, `duration=None`, `model_dir`, `on_progress`, `diagnostics=False`,
 `timeout=14400` seconds. `UpscaleResult` contains `video_path`, `metadata_path`
