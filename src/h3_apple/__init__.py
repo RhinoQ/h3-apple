@@ -4,5 +4,5 @@ from .api import DownloadApprovalRequired, GenerationRequest, GenerationResult, 
 
 from .upscale import upscale, UpscaleResult
 
-__version__ = "0.8.2"
+__version__ = "0.8.3"
 __all__ = ["generate", "resolve", "upscale", "GenerationRequest", "GenerationResult", "UpscaleResult", "DownloadApprovalRequired"]

@@ -9,7 +9,7 @@ Turn 1–9 images and a prompt into video with stereo audio. Landscape or portra
 12 scenes, after model setup. [Measured settings and performance](docs/advanced.md#performance).
 
 [**Watch the videos →**](https://rhinoq.github.io/h3-apple/#showcase) ·
-[**Install →**](#1-install) · [**What's new →**](docs/releases/unreleased.md)
+[**Install →**](#1-install) · [**What's new →**](docs/releases/0.8.3.md)
 
 | Celestial Hall | Stairway Above the Clouds |
 | --- | --- |
@@ -31,15 +31,11 @@ Install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.2/h3_apple-0.8.2-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.3/h3_apple-0.8.3-py3-none-any.whl"
 ```
 
 First use prepares models and asks before downloads over 20 GB.
 In each new terminal, run `conda activate h3`. [Installation help](docs/install.md).
-
-The command installs stable 0.8.2. This source tree adds
-[backend selection](docs/releases/unreleased.md) and defaults to VSA; stable
-0.8.2 keeps SOL as its fast default. [Install from source](docs/development.md#verify-a-change).
 
 <a name="generate"></a>
 

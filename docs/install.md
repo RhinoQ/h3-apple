@@ -13,13 +13,10 @@
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.2/h3_apple-0.8.2-py3-none-any.whl"
+python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.3/h3_apple-0.8.3-py3-none-any.whl"
 ```
 
 One environment supports generation and super-resolution. No compiler is needed.
-This command installs stable 0.8.2, whose fast preset uses SOL. The current source
-defaults to VSA and adds backend selection for fast/medium; see
-[unreleased changes](releases/unreleased.md) and [source installation](development.md#verify-a-change).
 
 ## 2. Generate
 
@@ -60,7 +57,7 @@ five-second clip, depending on input size, beyond generation time.
 
 | Mode | Fresh downloads | Free disk for setup |
 | --- | ---: | ---: |
-| VSA + X2, current source default | ~156 GB | ~351 GB |
+| VSA + X2, default | ~156 GB | ~351 GB |
 | SOL + X2 | ~150 GB | ~241 GB |
 
 These conservative estimates include X2's 5.25 GB decoder. Caches reduce costs.

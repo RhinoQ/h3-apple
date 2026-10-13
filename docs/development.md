@@ -54,11 +54,11 @@ H3_TEST_LARGE_ARRAYS=1 .local/envs/h3/bin/python -m pytest tests/test_vae_chunks
 
 ## Implementation and credits
 
-**Unreleased:** fast and medium accept either VSA or SOL through the existing
+**New in 0.8.3:** fast and medium accept either VSA or SOL through the existing
 `mode` option, defaulting to VSA. Quality sets geometry and decoding independently
 of that backend choice. Preparation and diagnostics use the same default.
 The inference implementations, weights and High workflow are unchanged.
-[Usage and migration](releases/unreleased.md).
+[Usage and migration](releases/0.8.3.md).
 
 **New in 0.8.2:** three quality choices share the CLI/API configuration resolver.
 Fast selects existing SOL 544p/X2, medium selects VSA native 768p, and high uses

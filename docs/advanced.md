@@ -1,8 +1,5 @@
 # Advanced settings
 
-The current source adds backend selection within fast and medium. Stable
-0.8.2 keeps its original presets; see the [unreleased changes](releases/unreleased.md).
-
 Choose a quality and duration; generation resolves the remaining settings:
 
 ```sh
@@ -75,7 +72,7 @@ Median time per five-second video on a 40-core M5 Max / 128 GiB, after model set
 
 | Mode | Native 768p | 544p + X2 | Tradeoff in this test |
 | --- | ---: | ---: | --- |
-| **VSA**, current source default | 8m 49s | **4m 19s** | Less memory; fewer geometry defects |
+| **VSA**, default | 8m 49s | **4m 19s** | Less memory; fewer geometry defects |
 | **SOL** | 6m 04s | **3m 14s** | Faster; better framing |
 
 These are full API calls from the 0.7.0 benchmark: 12 scenes, one run per

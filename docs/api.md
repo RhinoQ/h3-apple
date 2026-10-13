@@ -19,8 +19,7 @@ both videos. See [requirements and terms](upscale.md).
 
 Fast and medium both accept `mode="VSA"` or `mode="SOL"`; VSA is the default.
 For example, `generate(..., quality="medium", mode="SOL")` uses SOL at native
-768p. This describes the current source; stable 0.8.2 has the
-[previous defaults](releases/0.8.2.md).
+768p.
 
 Use `prompt_file="scene.txt"` instead of `prompt` for UTF-8 files.
 Supply 1–9 still images in Picture order, with aspect ratios from 1:4 to 4:1.
