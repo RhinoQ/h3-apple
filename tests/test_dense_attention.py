@@ -45,15 +45,20 @@ def test_dense_rejects_incompatible_settings(references, change):
         resolve(**dict(options(references), **change))
 
 
-@pytest.mark.parametrize('duration', [5, 7, 8.5, 10, 15])
 @pytest.mark.parametrize('aspect', ['16:9', '9:16'])
-def test_dense_supports_full_product_scope(references, duration, aspect):
+def test_dense_supports_five_seconds_in_both_orientations_with_nine_references(references, aspect):
     request = resolve(**dict(options(references), reference_images=references * 9,
-                             duration=duration, aspect_ratio=aspect), upscale=True)
-    assert request.num_frames == duration * 24
+                             aspect_ratio=aspect), upscale=True)
+    assert request.num_frames == 120
     assert request.model_num_frames >= request.num_frames
     assert request.upscale and not request.x2 and len(request.reference_images) == 9
     assert request.recipe == 'ref2va-w8a8-dense-bf16-v1'
+
+
+@pytest.mark.parametrize('duration', [6, 7, 8.5, 10, 15, 121 / 24])
+def test_advanced_dense_does_not_bypass_duration_limit(references, duration):
+    with pytest.raises(ValueError, match='Dense attention supports only duration=5'):
+        resolve(**dict(options(references), duration=duration))
 
 
 def test_dense_dispatch_guards_and_restores(monkeypatch):

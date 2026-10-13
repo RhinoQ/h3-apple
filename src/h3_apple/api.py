@@ -103,6 +103,21 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
                          "for automatic settings, or generate X2 video first and call upscale() separately.")
     if attention == "dense" and (resolution != "768p" or x2):
         raise ValueError("Dense attention requires native 768p (resolution='768p', x2=False).")
+    if isinstance(duration, bool):
+        raise ValueError("duration must be a number of seconds.")
+    try:
+        seconds = Decimal(str(duration))
+        frames = seconds * 24
+        if not seconds.is_finite() or not Decimal(5) <= seconds <= Decimal(15):
+            raise ValueError("duration must be between 5 and 15 seconds.")
+        if abs(frames - frames.to_integral_value()) > Decimal("0.000001"):
+            raise ValueError("duration must correspond to a whole frame at 24 fps.")
+    except InvalidOperation as error:
+        raise ValueError("duration must be a finite number.") from error
+    if attention == "dense" and frames.to_integral_value() != 120:
+        label = "quality='high'" if quality == "high" else "Dense attention"
+        raise ValueError(f"{label} supports only duration=5. "
+                         "Use fast or medium for 5–15-second videos.")
     if (prompt is None) == (prompt_file is None):
         raise ValueError("Provide exactly one of prompt or prompt_file.")
     if prompt_file is not None:
@@ -132,17 +147,6 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
         raise ValueError("X2 supports only 544p or 576p sampling. For 768p, set x2=False (CLI: --no-x2).")
     if aspect_ratio not in ("16:9", "9:16"):
         raise ValueError("aspect_ratio must be '16:9' or '9:16'.")
-    if isinstance(duration, bool):
-        raise ValueError("duration must be a number of seconds.")
-    try:
-        seconds = Decimal(str(duration))
-        frames = seconds * 24
-        if not seconds.is_finite() or not Decimal(5) <= seconds <= Decimal(15):
-            raise ValueError("duration must be between 5 and 15 seconds.")
-        if abs(frames - frames.to_integral_value()) > Decimal("0.000001"):
-            raise ValueError("duration must correspond to a whole frame at 24 fps.")
-    except InvalidOperation as error:
-        raise ValueError("duration must be a finite number.") from error
     if seed is None:
         seed = secrets.randbits(32)
     if type(seed) is not int or not 0 <= seed < 2**32:

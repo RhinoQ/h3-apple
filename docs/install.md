@@ -30,8 +30,8 @@ First use prepares the models. Review the download estimate and enter `y` to
 approve transfers over 20 GB. Later runs reuse the models.
 
 Each run creates a five-second video in a new `runs/` folder and prints its path.
-Choose `--quality fast|medium|high` and any 5–15-second duration aligned to
-24 fps, such as `--duration 7` or `--duration 8.5`.
+Choose `--quality fast|medium|high`. Fast and medium accept 5–15 seconds aligned
+to 24 fps, such as `--duration 7` or `--duration 8.5`; high is fixed at five seconds.
 In a new terminal, run `conda activate h3` first.
 
 ## 3. Optional super-resolution

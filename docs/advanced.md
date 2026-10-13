@@ -6,15 +6,16 @@ Choose a quality and duration; generation resolves the remaining settings:
 h3 generate --image reference.jpg --prompt-file scene.txt --quality medium --duration 8.5
 ```
 
-| Quality | Generation | Delivery, landscape |
-| --- | --- | --- |
-| `fast` (default) | SOL, 544p + X2 decoder | 1920×1088 |
-| `medium` | VSA, native 768p | 1366×768 |
-| `high` | Dense attention, native 768p + VOSR 2× | 2732×1536; also saves 1366×768 native video |
+| Quality | Generation | Duration | Delivery, landscape |
+| --- | --- | --- | --- |
+| `fast` (default) | SOL, 544p + X2 decoder | 5–15 seconds | 1920×1088 |
+| `medium` | VSA, native 768p | 5–15 seconds | 1366×768 |
+| `high` | Dense attention, native 768p + VOSR 2× | 5 seconds | 2732×1536; also saves 1366×768 native video |
 
-Portrait swaps the dimensions. All three accept 1–9 reference images and
-**5–15 seconds at whole 24 fps frames**, including 7 and 8.5 seconds. Duration
-defaults to five seconds; it is independent of quality. High needs 128 GiB;
+Portrait swaps the dimensions. All three accept 1–9 reference images. Fast and
+medium accept **5–15 seconds at whole 24 fps frames**, including 7 and 8.5 seconds.
+High is fixed at five seconds; other durations fail before model setup. Duration
+defaults to five seconds for every quality. High needs 128 GiB;
 medium above five seconds needs 96 GiB. Fast retains the 64 GiB minimum.
 Only the 128 GiB host has been tested.
 
@@ -31,11 +32,11 @@ advanced choices, the result is the fast configuration.
 | Choice | CLI option |
 | --- | --- |
 | Portrait | `--aspect-ratio 9:16` |
-| Duration | `--duration 7` (5–15 seconds, whole frames at 24 fps) |
+| Duration | `--duration 7` (fast/medium: 5–15 seconds, whole frames at 24 fps; high/Dense: 5 only) |
 | Generate and upscale | `--upscale`; selects native 768p + VOSR |
 | Native output only | `--resolution 768p --no-x2` or `--resolution 576p --no-x2` |
 | VSA generation | `--mode VSA` |
-| Dense without restoration | `--mode VSA --attention dense --resolution 768p --no-x2` (128 GiB) |
+| Dense without restoration | `--mode VSA --attention dense --resolution 768p --no-x2` (5 seconds, 128 GiB) |
 | Prompt file | `--prompt-file scene.txt` instead of `--prompt` |
 | More references | Repeat `--image` in Picture order |
 | Repeat a seed | `--seed 42` |

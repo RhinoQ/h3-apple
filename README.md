@@ -51,14 +51,14 @@ h3 generate --image reference.jpg \
 This creates a **five-second video** in a new `runs/` folder and prints its path.
 Choose `--quality fast`, `--quality medium` or `--quality high`:
 
-| Quality | Use it for |
-| --- | --- |
-| `fast` (default) | The quickest generation |
-| `medium` | Native 768p output |
-| `high` | Dense generation with 2× restoration; requires 128 GiB and takes longer |
+| Quality | Use it for | Duration |
+| --- | --- | --- |
+| `fast` (default) | The quickest generation | 5–15 seconds |
+| `medium` | Native 768p output | 5–15 seconds |
+| `high` | Dense generation with 2× restoration; requires 128 GiB and takes longer | 5 seconds |
 
-Add `--aspect-ratio 9:16` for portrait. Set any **5–15-second duration** aligned
-to a frame at 24 fps, such as `--duration 7` or `--duration 8.5`.
+Add `--aspect-ratio 9:16` for portrait. Fast and medium accept **5–15 seconds**
+at whole 24 fps frames, such as `--duration 7` or `--duration 8.5`. High is fixed at five seconds.
 High saves both the native and restored videos and uses the
 [super-resolution models and noncommercial terms](docs/upscale.md).
 

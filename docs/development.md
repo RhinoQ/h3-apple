@@ -59,8 +59,9 @@ Fast selects existing SOL 544p/X2, medium selects VSA native 768p, and high uses
 Dense native 768p followed by the existing VOSR workflow. Dense uses MLX's BF16
 scaled dot-product attention on the inherited H3 full-attention branch. The
 four-step weights and projection arithmetic are unchanged; runtime counters
-verify 200 Dense blocks and zero sparse calls. Durations remain 5–15 seconds
-at whole 24 fps frames. This does not imply uniform quality improvements.
+verify 200 Dense blocks and zero sparse calls. Fast and medium accept 5–15 seconds
+at whole 24 fps frames; high and advanced Dense calls are fixed at five seconds.
+This does not imply uniform quality improvements.
 
 **New in 0.8.1:** VOSR accepts H3 X2 output in either orientation. For these larger
 inputs, VAE attention processes 2,048 queries at a time against the complete key

@@ -27,8 +27,8 @@ EXIF orientation is applied; prompt text and image order are preserved.
 | --- | --- | --- |
 | `quality` | Fast configuration | `"fast"`, `"medium"`, `"high"`; omit (`None`) to customize advanced settings |
 | `mode` | Automatic | `"VSA"`, `"SOL"`; without quality, defaults to SOL |
-| `attention` | Automatic | `"vsa"` or `"dense"` with VSA models; Dense requires native 768p and 128 GiB |
-| `duration` | `5` | 5–15 seconds, whole frames at 24 fps |
+| `attention` | Automatic | `"vsa"` or `"dense"` with VSA models; Dense requires native 768p, 5 seconds and 128 GiB |
+| `duration` | `5` | Fast/medium: 5–15 seconds, whole frames at 24 fps; high/Dense: 5 only |
 | `resolution` | Automatic | Selected by quality; otherwise `"544p"`, or `"768p"` with `upscale=True`; explicit `"576p"` also supported |
 | `aspect_ratio` | `"16:9"` | `"16:9"`, `"9:16"` |
 | `x2` | Automatic | On for fast, off for medium/high; without quality, on normally or off with `upscale=True`. Explicit `True` requires 544p/576p |
@@ -37,8 +37,9 @@ EXIF orientation is applied; prompt text and image order are preserved.
 `resolution` sets sampling size; [X2](x2.md) doubles output dimensions.
 Both modes use four forwards. Equal seeds do not guarantee equal outputs across modes.
 
-Quality and duration are independent: `quality="high", duration=7` and
-`quality="medium", duration=8.5` are valid. Explicit settings that contradict a
+Use `quality="high"` for a five-second clip, or `quality="medium", duration=8.5`
+for a longer clip. High and advanced Dense calls reject other durations before
+reading inputs or setting up models; they never truncate the request. Explicit settings that contradict a
 named quality raise `ValueError` before setup. Omitted advanced settings use that
 quality's values. For custom combinations, omit quality. Existing
 `generate(..., upscale=True)` retains SOL native 768p + VOSR behavior.
@@ -54,7 +55,7 @@ the final video. `generate(...)` also accepts:
 | `model_dir=None` | Prepared models for the selected mode |
 | `x2_model_dir=None` | X2 decoder directory; requires `x2=True` |
 | `upscale=None` | Automatic from quality; otherwise off. Explicit `True` generates native video then restores with VOSR |
-| `upscale_model_dir=None` | Restoration model directory; requires `upscale=True` |
+| `upscale_model_dir=None` | Restoration model directory for `quality="high"` or `upscale=True` |
 | `upscale_timeout=14400` | Restoration timeout, seconds; separate from generation |
 | `output=None` | New MP4 path; otherwise a unique folder in `runs/` |
 | `on_progress=None` | Progress callback in the caller |

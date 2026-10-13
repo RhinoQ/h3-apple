@@ -91,9 +91,9 @@ and automatic output names:
 
 Repeat `--image` for multiple references. Add only the options the brief needs.
 When supported by the selected release, use `--quality fast|medium|high` for a
-requested quality choice. Duration is independent: h3-apple supports 5–15 seconds
-at whole 24 fps frames, not just 5/10/15. High includes Dense 768p generation and
-VOSR restoration, requires 128 GiB and can take substantially longer. Consult the
+requested quality choice. Fast and medium support 5–15 seconds at whole 24 fps
+frames, not just 5/10/15. High is fixed at five seconds and includes Dense 768p
+generation and VOSR restoration; it requires 128 GiB and can take substantially longer. Consult the
 release documentation for model costs and terms; do not silently replace an
 explicit advanced configuration with a preset.
 Use `resolve` when a separate input audit is useful. Carry its returned seed into

@@ -32,9 +32,9 @@ def parser():
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--quality", choices=("fast", "medium", "high"),
-                             help="fast: SOL 544p + X2 (default); medium: VSA 768p; high: Dense 768p + VOSR (128 GiB)")
+                             help="fast: SOL 544p + X2 (default); medium: VSA 768p; high: Dense 768p + VOSR (5 seconds, 128 GiB)")
         command.add_argument("--duration", type=float, default=5,
-                             help="Any 5–15 seconds aligned to a frame at 24 fps, e.g. 7 or 8.5 (default: 5)")
+                             help="Fast/medium: 5–15 seconds at whole 24 fps frames (e.g. 7 or 8.5); high/Dense: 5 only (default: 5)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
         advanced = command.add_argument_group("Advanced settings")
         advanced.add_argument("--resolution", choices=("544p", "576p", "768p"),
@@ -46,14 +46,14 @@ def parser():
         advanced.add_argument("--mode", choices=("SOL", "VSA"),
                              help="Generation mode (automatic with --quality; otherwise SOL)")
         advanced.add_argument("--attention", choices=("vsa", "dense"),
-                             help="Attention for VSA models (default: vsa; dense requires native 768p and 128 GiB)")
+                             help="Attention for VSA models (default: vsa; dense requires native 768p, 5 seconds and 128 GiB)")
         advanced.add_argument("--upscale", action=argparse.BooleanOptionalAction, default=None,
                              help="Restore native video 2x with VOSR (automatic with --quality high; 128 GiB)")
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             advanced.add_argument("--model-dir")
             advanced.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from generation models)")
-            advanced.add_argument("--upscale-model-dir", help="Optional restoration model directory; requires --upscale")
+            advanced.add_argument("--upscale-model-dir", help="Optional restoration model directory for --quality high or --upscale")
             advanced.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
             advanced.add_argument("--timeout", type=float, default=7200, help="Generation timeout in seconds")
             advanced.add_argument("--upscale-timeout", type=float, default=14400, help="Restoration timeout in seconds")

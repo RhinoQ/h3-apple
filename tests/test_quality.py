@@ -15,12 +15,15 @@ def reference(tmp_path):
     return path
 
 
-@pytest.mark.parametrize('quality,expected', [
-    ('fast', ('SOL', None, '544p', True, False, 1920, 1088)),
-    ('medium', ('VSA', 'vsa', '768p', False, False, 1366, 768)),
-    ('high', ('VSA', 'dense', '768p', False, True, 1366, 768)),
+@pytest.mark.parametrize('quality,expected,duration', [
+    (quality, expected, duration)
+    for quality, expected in [
+        ('fast', ('SOL', None, '544p', True, False, 1920, 1088)),
+        ('medium', ('VSA', 'vsa', '768p', False, False, 1366, 768)),
+        ('high', ('VSA', 'dense', '768p', False, True, 1366, 768)),
+    ]
+    for duration in ([5] if quality == 'high' else [5, 7, 8.5, 10, 15, 121 / 24])
 ])
-@pytest.mark.parametrize('duration', [5, 7, 8.5, 10, 15, 121 / 24])
 @pytest.mark.parametrize('aspect', ['16:9', '9:16'])
 def test_quality_cli_api_and_workflow_agree(reference, monkeypatch, quality, expected, duration, aspect):
     from h3_apple import process, workflow
@@ -59,9 +62,20 @@ def test_invalid_quality_fails_early(value):
 
 
 @pytest.mark.parametrize('duration', [4, 15.01, 5.01, True, float('nan'), float('inf')])
-def test_quality_preserves_frame_validation(reference, duration):
+@pytest.mark.parametrize('quality', ['fast', 'medium', 'high'])
+def test_quality_preserves_frame_validation(reference, duration, quality):
     with pytest.raises(ValueError, match='duration'):
-        resolve('Scene', reference_images=[reference], quality='high', duration=duration)
+        resolve('Scene', reference_images=[reference], quality=quality, duration=duration)
+
+
+@pytest.mark.parametrize('duration', [6, 7, 8.5, 10, 15, 121 / 24])
+def test_high_rejects_other_durations_before_inputs_or_setup(duration):
+    args = vars(parser().parse_args(['resolve', '--prompt', 'Scene', '--image', 'missing.png',
+                                    '--quality', 'high', '--duration', str(duration)]))
+    args.pop('command')
+    for entry in (resolve, generate):
+        with pytest.raises(ValueError, match="quality='high' supports only duration=5"):
+            entry(**args)
 
 
 def test_matching_advanced_settings_are_allowed(reference):
