@@ -271,21 +271,15 @@ def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source
                 gate_tensors=len(gates_consumed), timesteps=timesteps.tolist())
 
 
-def convert_components(native, output, progress):
+def convert_components(native, output, progress, *, pika=False):
     import mlx.core as mx
+    from .vsa_assets import model_notice
     from ._vendor.fastvideo_mlx.minimax_h3_audio_vae import MiniMaxH3AudioVAEConfigView
     from ._vendor.fastvideo_mlx.minimax_h3_video_vae import MiniMaxH3VideoVAEConfigView
     native, output = Path(native), Path(output)
     output.mkdir(exist_ok=False)
     shutil.copyfile(native.parent / "LICENSE", output / "LICENSE")
-    (output / "NOTICE").write_text(
-        "MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, "
-        "Copyright © 2026 MiniMax. All Rights Reserved.\n\n"
-        "Modified by H3 Apple: native DiT layout conversion, original LightX2V fusion and FastH3 gate-only "
-        "adapter fusion, affine INT8 group64 quantization and fixed AdaLN tables; "
-        "VideoVAE decoder key conversion with the image encoder omitted. "
-        "AudioVAE, text encoder and tokenizer payloads are retained unchanged. "
-        "Source checksums and converter identity are recorded in bundle.json.\n")
+    (output / "NOTICE").write_text(model_notice(pika=pika))
     for name in ("text_encoder", "tokenizer"):
         (output / name).symlink_to((native / name).resolve(), target_is_directory=True)
     video = native / "video_vae"
@@ -353,7 +347,7 @@ def main():
     dit = convert_dit(args.native / "transformer", args.adapter, args.output / "dit", progress,
                       task="ref2va", gate_source=args.gate_source, pika_manifest=args.pika_manifest)
     mx.clear_cache()
-    convert_components(args.native, args.output / "components", progress)
+    convert_components(args.native, args.output / "components", progress, pika=args.pika_manifest is not None)
     write_json(args.output / "conversion.json", dict(converter="pika-flex-ref2va-v1" if args.pika_manifest else "original-lightx2v-ref2va-v1", dit=dit,
                backend=backend, package_source_sha256=source_identity(),
                physical_host=initial, elapsed_seconds=time.monotonic() - started,

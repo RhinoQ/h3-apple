@@ -8,6 +8,22 @@ import tempfile
 
 from .assets import data_file
 from .io import digest, write_json
+from . import pika_recipe
+
+
+def model_notice(*, pika=False):
+    if pika:
+        upstream = (Path(__file__).parent / "data/Pika-H3-Flex-NOTICE.txt").read_text().rstrip()
+        adapter = "Pika H3 Flex Ref2VA"
+    else:
+        upstream = ("MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, "
+                    "Copyright © 2026 MiniMax. All Rights Reserved.")
+        adapter = "original LightX2V"
+    return (f"{upstream}\n\nModified by H3 Apple: native DiT layout conversion, {adapter} fusion and FastH3 gate-only "
+            "adapter fusion, affine INT8 group64 quantization and fixed AdaLN tables; "
+            "VideoVAE decoder key conversion with the image encoder omitted. "
+            "AudioVAE, text encoder and tokenizer payloads are retained unchanged. "
+            "Source checksums and converter identity are recorded in bundle.json.\n")
 
 
 def model_directory(value=None):
@@ -74,7 +90,8 @@ def load_assets(directory=None, *, verify=False):
                    ("checkpoint", "components", "ref2va_native")})
 
 
-def import_assets(checkpoint, components, native, directory, *, progress=None, provenance=None):
+def import_assets(checkpoint, components, native, directory, *, progress=None, provenance=None,
+                  notices_directory=None):
     """Publish a new verified bundle; retain the conversion directory on failure."""
     directory = model_directory(directory)
     if directory.exists() and any(directory.iterdir()):
@@ -111,12 +128,25 @@ def import_assets(checkpoint, components, native, directory, *, progress=None, p
                         raise ValueError(f"Model copy failed: {relative}")
                 files.append(dict(path=relative, size=stat.st_size, sha256=checksum,
                                   mtime_ns=destination.stat().st_mtime_ns))
+    pika = (provenance or {}).get("adapter_sha256") == pika_recipe.ADAPTER
     for name in ("LICENSE", "NOTICE"):
-        source = Path(components) / name
-        if source.is_file():
+        source = Path(notices_directory or components) / name
+        if name == "NOTICE" and pika:
+            existing = source.read_text() if source.is_file() else ""
+            correct = model_notice(pika=True)
+            if existing and existing != model_notice() and existing.strip() not in correct and correct not in existing:
+                correct += "\n" + existing
+            elif correct in existing:
+                correct = existing
+            (staging / name).write_text(correct)
+        elif source.is_file():
             shutil.copy2(source, staging / name)
-            stat = (staging / name).stat()
-            files.append(dict(path=name, size=stat.st_size, sha256=digest(staging / name), mtime_ns=stat.st_mtime_ns))
+        elif name == "LICENSE" and pika:
+            shutil.copyfile(Path(__file__).parent / "data/MiniMax-H3-LICENSE.txt", staging / name)
+        else:
+            continue
+        stat = (staging / name).stat()
+        files.append(dict(path=name, size=stat.st_size, sha256=digest(staging / name), mtime_ns=stat.st_mtime_ns))
     manifest = dict(format_version=3, preset="ours", task="ref2va", checkpoint="dit",
                     components="components", ref2va_native="ref2va", files=files,
                     derivation=provenance or {"input": "verified local VSA bundle"})

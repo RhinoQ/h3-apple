@@ -1,5 +1,4 @@
 """Pika H3 Flex image-reference recipe from the pinned Mellis release."""
-import numpy as np
 
 RECIPE = "pika-flex-ref2va-v1"
 ADAPTER = "eef684ba1258f0cdbbbda6128188ad2688417f2eb17ff875375e74a32b6d61b5"
@@ -8,6 +7,7 @@ KNOTS = (1000, 750, 500, 250, 100, 40, 0)
 
 
 def sigmas(shift):
+    import numpy as np
     grid = np.array(KNOTS, dtype=np.float64) / 1000
     return (shift * grid / (1 + (shift-1)*grid)).astype(np.float32)
 

@@ -40,14 +40,19 @@ def model_sources(pika):
     return base + data_file("vsa-gates.json")
 
 
+def ready_bundle(directory, pika):
+    data = load_assets(directory)
+    if (data["derivation"].get("adapter_sha256") == pika_recipe.ADAPTER) != pika:
+        raise ValueError("Generation recipe and prepared Ref2VA bundle differ.")
+    return data
+
+
 def plan(model_dir=None, reuse_dirs=(), progress=None, *, pika=False):
     progress = progress or (lambda event: None)
     directory = model_directory(model_dir)
     if (directory / "bundle.json").is_file():
-        data = load_assets(directory)
-        if (data["derivation"].get("adapter_sha256") == pika_recipe.ADAPTER) != pika:
-            raise ValueError("Generation recipe and prepared Ref2VA bundle differ.")
-        return dict(status="ready", directory=str(directory), identity=data["identity"],
+        data = ready_bundle(directory, pika)
+        return dict(status="ready", directory=str(directory), identity=data["identity"], pika=pika,
                     download_bytes=0, additional_disk_bytes=0)
     if directory.exists() and any(directory.iterdir()):
         raise FileExistsError(f"Choose an empty VSA model directory: {directory}")
@@ -68,7 +73,7 @@ def plan(model_dir=None, reuse_dirs=(), progress=None, *, pika=False):
         data = load_assets(root, verify=True)
         copies = sum(e["size"] for e in data["files"]
                      if (root / e["path"]).stat().st_dev != directory.parent.stat().st_dev)
-        return dict(status="reuse_prepared", directory=str(directory), prepared=data,
+        return dict(status="reuse_prepared", directory=str(directory), prepared=data, pika=pika,
                     download_bytes=0, additional_disk_bytes=copies + RESERVE)
     entries = model_sources(pika)
     cache = directory.parent / ".sources"
@@ -131,13 +136,19 @@ def prepare(spec, *, allow_large_download=False, progress=None):
         raise OSError("Insufficient free disk for VSA preparation; see h3 prepare --mode VSA --plan.")
     with device_lock():
         if (directory / "bundle.json").is_file():
-            return load_assets(directory)
+            if spec["status"] == "ready":
+                data = load_assets(directory)
+                if data["identity"] != spec["identity"]:
+                    raise ValueError("Prepared VSA bundle changed after planning.")
+                return data
+            prior = spec.get("prepared", {}).get("derivation", {})
+            return ready_bundle(directory, spec.get("pika", prior.get("adapter_sha256") == pika_recipe.ADAPTER))
         if spec["status"] == "reuse_prepared":
             source = load_assets(spec["prepared"]["directory"])
             if source["identity"] != spec["prepared"]["identity"]:
                 raise ValueError("VSA reuse source changed after planning.")
             return import_assets(source["checkpoint"], source["components"], source["ref2va_native"],
-                                 directory, progress=progress,
+                                 directory, progress=progress, notices_directory=source["directory"],
                                  provenance=dict(kind="verified_local_reuse", source_identity=source["identity"],
                                                  adapter_sha256=source["derivation"].get("adapter_sha256")))
         work = Path(tempfile.mkdtemp(prefix=".h3-VSA-prepare-", dir=directory.parent))
