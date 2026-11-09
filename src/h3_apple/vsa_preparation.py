@@ -8,6 +8,7 @@ import tempfile
 import time
 
 from .assets import data_file
+from . import pika_recipe
 from .host import check_machine, device_lock, snapshot
 from .io import write_json
 from .preparation import LIMIT, RESERVE, cache_path, materialize, source_plan
@@ -23,7 +24,7 @@ def ensure_ready(model_dir=None, *, allow_large_download=False, progress=None, r
     check_machine(snapshot(), request)
     check_dependencies()
     progress = progress or (lambda event: None)
-    spec = plan(model_dir, progress=progress)
+    spec = plan(model_dir, progress=progress, pika=bool(request and request.get("recipe") == pika_recipe.RECIPE))
     if spec["download_bytes"] > LIMIT and not allow_large_download:
         raise DownloadApprovalRequired(spec)
     check_runtime()
@@ -32,11 +33,20 @@ def ensure_ready(model_dir=None, *, allow_large_download=False, progress=None, r
     return prepare(spec, allow_large_download=allow_large_download, progress=progress)
 
 
-def plan(model_dir=None, reuse_dirs=(), progress=None):
+def model_sources(pika):
+    base = data_file("model-sources.json")["sources"]
+    if pika:
+        base = [entry for entry in base if entry["repo"] == "MiniMaxAI/MiniMax-H3"] + pika_recipe.sources()
+    return base + data_file("vsa-gates.json")
+
+
+def plan(model_dir=None, reuse_dirs=(), progress=None, *, pika=False):
     progress = progress or (lambda event: None)
     directory = model_directory(model_dir)
     if (directory / "bundle.json").is_file():
         data = load_assets(directory)
+        if (data["derivation"].get("adapter_sha256") == pika_recipe.ADAPTER) != pika:
+            raise ValueError("Generation recipe and prepared Ref2VA bundle differ.")
         return dict(status="ready", directory=str(directory), identity=data["identity"],
                     download_bytes=0, additional_disk_bytes=0)
     if directory.exists() and any(directory.iterdir()):
@@ -52,27 +62,31 @@ def plan(model_dir=None, reuse_dirs=(), progress=None):
             data = load_assets(root)
         except (OSError, ValueError):
             continue
+        if (data["derivation"].get("adapter_sha256") == pika_recipe.ADAPTER) != pika:
+            continue
         progress(dict(phase="checking_local_models", file=str(root)))
         data = load_assets(root, verify=True)
         copies = sum(e["size"] for e in data["files"]
                      if (root / e["path"]).stat().st_dev != directory.parent.stat().st_dev)
         return dict(status="reuse_prepared", directory=str(directory), prepared=data,
                     download_bytes=0, additional_disk_bytes=copies + RESERVE)
-    entries = data_file("model-sources.json")["sources"] + data_file("vsa-gates.json")
+    entries = model_sources(pika)
     cache = directory.parent / ".sources"
     groups, downloads, copies = source_plan(entries, cache, reuse_dirs, progress)
     # Original BF16 text and image-encoder files are hard-linked from the source
     # cache. Allow conversion scratch plus a full independent bundle as headroom.
-    return dict(status="preparation_required", directory=str(directory), cache_dir=str(cache),
+    return dict(status="preparation_required", directory=str(directory), cache_dir=str(cache), pika=pika,
                 groups=groups, download_bytes=downloads,
                 additional_disk_bytes=downloads + copies + 190 * 10**9 + RESERVE)
 
 
-def convert(native, adapter, gates, work, progress):
+def convert(native, adapter, gates, work, progress, *, pika_manifest=None):
     from .process import _stop
     output = work / "converted"
     command = [sys.executable, "-m", "h3_apple.vsa_conversion", "--native", str(native),
                "--adapter", str(adapter), "--gate-source", str(gates), "--output", str(output)]
+    if pika_manifest is not None:
+        command += ["--pika-manifest", str(pika_manifest)]
     env = dict(os.environ, MLX_ENABLE_TF32="0", MLX_METAL_GPU_ARCH="",
                HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
     initial, started = snapshot(), time.monotonic()
@@ -124,21 +138,25 @@ def prepare(spec, *, allow_large_download=False, progress=None):
                 raise ValueError("VSA reuse source changed after planning.")
             return import_assets(source["checkpoint"], source["components"], source["ref2va_native"],
                                  directory, progress=progress,
-                                 provenance=dict(kind="verified_local_reuse", source_identity=source["identity"]))
+                                 provenance=dict(kind="verified_local_reuse", source_identity=source["identity"],
+                                                 adapter_sha256=source["derivation"].get("adapter_sha256")))
         work = Path(tempfile.mkdtemp(prefix=".h3-VSA-prepare-", dir=directory.parent))
         write_json(work / "plan.json", spec)
         cache = materialize(spec, progress)
         base = next(e for e in data_file("model-sources.json")["sources"]
                     if e["filename"] == "Ref2VA/model_index.json")
         native = cache_path(cache, base).parent
-        adapter = cache_path(cache, data_file("prepared-model.json")["adapter"])
+        pika = spec.get("pika", False)
+        adapter_entry = pika_recipe.sources()[0] if pika else data_file("prepared-model.json")["adapter"]
+        adapter = cache_path(cache, adapter_entry)
         gate = next(e for e in data_file("vsa-gates.json") if e["filename"].endswith(".safetensors"))
-        converted = convert(native, adapter, cache_path(cache, gate), work, progress)
+        conversion_options = {"pika_manifest": cache_path(cache, pika_recipe.sources()[1])} if pika else {}
+        converted = convert(native, adapter, cache_path(cache, gate), work, progress, **conversion_options)
         import json
         receipt = json.loads((converted / "conversion.json").read_text())
         data = import_assets(converted / "dit", converted / "components", native, directory,
                              progress=progress, provenance=dict(kind="source_preparation", conversion=receipt,
-                             sources=data_file("model-sources.json")["sources"] + data_file("vsa-gates.json")))
+                             sources=model_sources(pika), adapter_sha256=adapter_entry["sha256"]))
         # Published files are verified hard links. Only successful scratch output
         # is removed; failed conversions and their diagnostics remain available.
         shutil.rmtree(converted)

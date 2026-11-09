@@ -32,7 +32,7 @@ def parser():
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--quality", choices=("fast", "medium", "high"),
-                             help="fast: 544p + X2 (default); medium: native 768p; both use VSA unless --mode SOL. High: Dense 768p + VOSR (5 seconds, 128 GiB)")
+                             help="fast: 544p + X2 (default); medium: native 768p; both use VSA unless --mode SOL. High: native 768p Pika Dense (5 seconds, 128 GiB)")
         command.add_argument("--mode", choices=("VSA", "SOL"),
                              help="Generation backend for fast/medium (default: VSA); high uses native six-step Pika Dense")
         command.add_argument("--duration", type=float, default=5,
@@ -53,7 +53,7 @@ def parser():
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             advanced.add_argument("--model-dir")
             advanced.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from generation models)")
-            advanced.add_argument("--upscale-model-dir", help="Optional restoration model directory for --quality high or --upscale")
+            advanced.add_argument("--upscale-model-dir", help="Optional restoration model directory for --upscale")
             advanced.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
             advanced.add_argument("--timeout", type=float, default=7200, help="Generation timeout in seconds")
             advanced.add_argument("--upscale-timeout", type=float, default=14400, help="Restoration timeout in seconds")

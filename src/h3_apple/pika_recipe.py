@@ -19,3 +19,9 @@ def update(state, velocity, ladder, index, noise):
         return clean
     sigma_next = float(ladder[index+1])
     return (1 - sigma_next) * clean + sigma_next * mx.array(noise(state.shape), dtype=mx.float32)
+
+
+def sources():
+    hub = dict(repo="Pika-Labs/Pika-H3-Flex", revision="ca45d99f9b1d1859ffb9dc1cd6bfaaa994257f56")
+    return [dict(hub, filename="ref2va/adapter.safetensors", bytes=2767274120, sha256=ADAPTER),
+            dict(hub, filename="ref2va/manifest.json", bytes=1040, sha256=MANIFEST)]

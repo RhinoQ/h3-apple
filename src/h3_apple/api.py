@@ -192,11 +192,7 @@ def generate(prompt=None, *, prompt_file=None, reference_images=None,
                       aspect_ratio=aspect_ratio, mode=mode, attention=attention, x2=x2, upscale=upscale)
     if request.quality == "high":
         from . import vsa_assets
-        from .pika_recipe import ADAPTER
         model_dir = model_dir or vsa_assets.model_directory().parent / "pika-ref2va"
-        assets = vsa_assets.load_assets(model_dir)
-        if assets["derivation"].get("adapter_sha256") != ADAPTER:
-            raise ValueError("High requires the prepared Pika H3 Flex Ref2VA bundle.")
     if request.upscale and x2_model_dir is not None:
         raise ValueError("x2_model_dir cannot be used with upscale.")
     if not request.upscale and upscale_model_dir is not None:

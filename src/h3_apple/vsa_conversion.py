@@ -336,6 +336,7 @@ def main():
     parser = argparse.ArgumentParser(description="Private VSA model conversion worker")
     for name in ("native", "adapter", "gate-source", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
+    parser.add_argument("--pika-manifest", type=Path)
     args = parser.parse_args()
     initial = snapshot()
     check_machine(initial)
@@ -350,15 +351,15 @@ def main():
     def progress(event):
         print(json.dumps(event), flush=True)
     dit = convert_dit(args.native / "transformer", args.adapter, args.output / "dit", progress,
-                      task="ref2va", gate_source=args.gate_source)
+                      task="ref2va", gate_source=args.gate_source, pika_manifest=args.pika_manifest)
     mx.clear_cache()
     convert_components(args.native, args.output / "components", progress)
-    write_json(args.output / "conversion.json", dict(converter="original-lightx2v-ref2va-v1", dit=dit,
+    write_json(args.output / "conversion.json", dict(converter="pika-flex-ref2va-v1" if args.pika_manifest else "original-lightx2v-ref2va-v1", dit=dit,
                backend=backend, package_source_sha256=source_identity(),
                physical_host=initial, elapsed_seconds=time.monotonic() - started,
                settings=dict(metal_gpu_arch_override="", tf32=False,
                              dtype="bf16", quantization="affine-int8-group64",
-                             task="ref2va", video_shift=12, audio_shift=3, num_steps=4,
+                             task="ref2va", video_shift=12, audio_shift=3, num_steps=6 if args.pika_manifest else 4,
                              video_vae_dtype="fp32"),
                peak_memory_gib=mx.get_peak_memory() / 1024**3))
 

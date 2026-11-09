@@ -28,7 +28,8 @@ def generate_upscaled(request, *, output, model_dir, on_progress, diagnostics,
         from .preparation import plan
         from .runtime.backend import check_dependencies
         check_dependencies()
-    base = plan(model_dir, progress=on_progress)
+    extra = {"pika": True} if request.quality == "high" else {}
+    base = plan(model_dir, progress=on_progress, **extra)
     restoration = assets.plan(upscale_model_dir)
     combined = {key: base[key] + restoration[key]
                 for key in ("download_bytes", "additional_disk_bytes")}
