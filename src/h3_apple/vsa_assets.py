@@ -38,8 +38,12 @@ def load_assets(directory=None, *, verify=False):
     records = {entry["path"]: entry for entry in data["files"]}
     if len(records) != len(data["files"]):
         raise ValueError("Duplicate model manifest paths.")
+    weights = records.get("dit/mlx_h3_dit.safetensors", {})
+    profiles = data_file("ref2va-adapter-locks.json")
+    profile = profiles.get(weights.get("sha256"), {})
     for expected in data_file("vsa-prepared-model.json")["files"]:
         actual = records.get(expected["path"], {})
+        expected = profile.get("files", {}).get(expected["path"], expected)
         if any(actual.get(k) != expected[k] for k in ("size", "sha256")):
             raise ValueError(f"VSA original LightX2V model differs: {expected['path']}")
     checked = set()
@@ -59,10 +63,12 @@ def load_assets(directory=None, *, verify=False):
         raise ValueError("Missing VSA recipe receipt.")
     recipe = json.loads(recipe_path.read_text())
     expected = dict(schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128,
-                    lora_alpha=8, lora_tensors=624, gate_tensors=50,
+                    lora_alpha=profile.get("alpha", 8), lora_tensors=624, gate_tensors=50,
                     precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False)
     if any(recipe.get(k) != v for k, v in expected.items()):
         raise ValueError("Expected original LightX2V four-step recipe and 50 VSA gates.")
+    if profile and data["derivation"].get("adapter_sha256") != profile["adapter_sha256"]:
+        raise ValueError("Prepared checkpoint and source adapter identities differ.")
     return dict(data, directory=str(directory),
                 **{name: str(directory / data[name]) for name in
                    ("checkpoint", "components", "ref2va_native")})

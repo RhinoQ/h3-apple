@@ -1,0 +1,16 @@
+{
+  "991c1c9a8c87694a9980debf2d54e12380b1985aacdeafdd1f55c1902e195f77": {
+    "adapter_sha256": "e470d3043fb3b8b4f8f77be39e3498071d18f09fd8658150eeb5bc6bb9a32d43",
+    "alpha": 8,
+    "files": {
+      "dit/mlx_h3_dit.json": {
+        "size": 39474,
+        "sha256": "ee6d8e8ed7d1da5a31b411c0de0cc7cf1f47a0946fe81fa2b1fc401de81b967c"
+      },
+      "dit/mlx_h3_dit.safetensors": {
+        "size": 23608261915,
+        "sha256": "991c1c9a8c87694a9980debf2d54e12380b1985aacdeafdd1f55c1902e195f77"
+      }
+    }
+  }
+}
