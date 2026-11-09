@@ -46,11 +46,11 @@ def test_quality_cli_api_and_workflow_agree(reference, monkeypatch, quality, mod
     assert (request.mode, request.attention, request.resolution, request.x2, request.upscale) == expected[:5]
     assert (request.width, request.height) == ((width, height) if aspect == '16:9' else (height, width))
     assert request.num_frames == round(duration * 24)
-    assert request.quality == quality and request.num_steps == 4
+    assert request.quality == quality and request.num_steps == (6 if quality == "high" else 4)
     assert request.recipe == {
         ('SOL', None): 'ref2va-premerged-i8-sol-sage-v2',
         ('VSA', 'vsa'): 'ref2va-w8a8-vsa-int8qk-v1',
-        ('VSA', 'dense'): 'ref2va-w8a8-dense-bf16-v1',
+        ('VSA', 'dense'): 'pika-flex-ref2va-v1',
     }[(request.mode, request.attention)]
     assert calls == ['restored' if upscale else 'native']
 
