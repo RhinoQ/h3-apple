@@ -14,8 +14,8 @@ print(result.video_path, result.metadata_path)
 
 This generates five seconds with the fast configuration (VSA 544p + X2) and
 chooses a new output directory. Add `quality="medium"` for native 768p or `quality="high"` for
-Dense native 768p followed by VOSR 2× restoration. High requires 128 GiB and saves
-both videos. See [requirements and terms](upscale.md).
+Pika six-step Dense native 768p. High requires 128 GiB. Set `quality="high", upscale=True` to save
+both the native video and a 2× restoration. See [requirements and terms](upscale.md).
 
 Fast and medium both accept `mode="VSA"` or `mode="SOL"`; VSA is the default.
 For example, `generate(..., quality="medium", mode="SOL")` uses SOL at native
@@ -39,7 +39,7 @@ EXIF orientation is applied; prompt text and image order are preserved.
 | `seed` | Random, recorded | Unsigned 32-bit integer |
 
 `resolution` sets sampling size; [X2](x2.md) doubles output dimensions.
-Both modes use four forwards. Equal seeds do not guarantee equal outputs across modes.
+Fast and medium use four forwards on both backends. High uses six Dense forwards. Equal seeds do not guarantee equal outputs across modes.
 
 Use `quality="high"` for a five-second clip, or `quality="medium", duration=8.5`
 for a longer clip. High and advanced Dense calls reject other durations before
@@ -60,8 +60,8 @@ the final video. `generate(...)` also accepts:
 | --- | --- |
 | `model_dir=None` | Prepared models for the selected mode |
 | `x2_model_dir=None` | X2 decoder directory; requires `x2=True` |
-| `upscale=None` | Automatic from quality; otherwise off. Explicit `True` generates native video then restores with VOSR |
-| `upscale_model_dir=None` | Restoration model directory for `quality="high"` or `upscale=True` |
+| `upscale=None` | Off by default. Explicit `True` generates native video then restores with VOSR |
+| `upscale_model_dir=None` | Restoration model directory for `upscale=True` |
 | `upscale_timeout=14400` | Restoration timeout, seconds; separate from generation |
 | `output=None` | New MP4 path; otherwise a unique folder in `runs/` |
 | `on_progress=None` | Progress callback in the caller |
@@ -95,7 +95,7 @@ Native output requires `x2=False` and `resolution="576p"` or `"768p"`.
 
 ## Super-resolution
 
-Use `generate(..., quality="high")` for Dense generation and restoration, or
+Use `generate(..., quality="high", upscale=True)` for Dense generation and restoration, or
 `upscale("video.mp4")` for an existing native or X2 video. Both choose a fresh output
 path unless you supply `output`. Restoration failures preserve the native video
 and report a retry command. [Input formats, options and results](upscale.md).
