@@ -34,7 +34,7 @@ def parser():
         command.add_argument("--quality", choices=("fast", "medium", "high"),
                              help="fast: 544p + X2 (default); medium: native 768p; both use VSA unless --mode SOL. High: Dense 768p + VOSR (5 seconds, 128 GiB)")
         command.add_argument("--mode", choices=("VSA", "SOL"),
-                             help="Generation backend for fast/medium (default: VSA); high requires VSA models with Dense attention")
+                             help="Generation backend for fast/medium (default: VSA); high uses native six-step Pika Dense")
         command.add_argument("--duration", type=float, default=5,
                              help="Fast/medium: 5–15 seconds at whole 24 fps frames (e.g. 7 or 8.5); high/Dense: 5 only (default: 5)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
@@ -48,7 +48,7 @@ def parser():
         advanced.add_argument("--attention", choices=("vsa", "dense"),
                              help="Attention for VSA models (default: vsa; dense requires native 768p, 5 seconds and 128 GiB)")
         advanced.add_argument("--upscale", action=argparse.BooleanOptionalAction, default=None,
-                             help="Restore native video 2x with VOSR (automatic with --quality high; 128 GiB)")
+                             help="Restore native video 2x with VOSR (optional for native High video; 128 GiB)")
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             advanced.add_argument("--model-dir")

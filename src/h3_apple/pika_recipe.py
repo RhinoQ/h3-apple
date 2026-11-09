@@ -1,0 +1,21 @@
+"""Pika H3 Flex image-reference recipe from the pinned Mellis release."""
+import numpy as np
+
+RECIPE = "pika-flex-ref2va-v1"
+ADAPTER = "eef684ba1258f0cdbbbda6128188ad2688417f2eb17ff875375e74a32b6d61b5"
+MANIFEST = "758497d3b316ea1a956a5b460d6c02ef380ecb5bf95f16f29e932d438c3ccff8"
+KNOTS = (1000, 750, 500, 250, 100, 40, 0)
+
+
+def sigmas(shift):
+    grid = np.array(KNOTS, dtype=np.float64) / 1000
+    return (shift * grid / (1 + (shift-1)*grid)).astype(np.float32)
+
+
+def update(state, velocity, ladder, index, noise):
+    import mlx.core as mx
+    clean = state.astype(mx.float32) + float(ladder[index]) * velocity.astype(mx.float32)
+    if index == len(ladder) - 2:
+        return clean
+    sigma_next = float(ladder[index+1])
+    return (1 - sigma_next) * clean + sigma_next * mx.array(noise(state.shape), dtype=mx.float32)

@@ -18,6 +18,7 @@ from .._vendor.fastvideo_mlx.minimax_h3_vsa import MiniMaxH3VSAConfig
 from ..image_inputs import prepare_reference_image
 from .ref2va import ReferenceGeometry, build_ref2va_layout
 from .ref2va_conditioning import encode_images
+from .. import pika_recipe
 from .ref2va_sampling import image_noise, sample_image
 from .sparse import sparse_calls
 
@@ -41,8 +42,10 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     This uses the Ours INT8/BF16 representation. It does not reproduce ComfyUI's
     ConvRot quantization, NVFP4 text encoder, or CUDA random-number streams.
     """
-    if request["num_steps"] != 4:
-        raise ValueError("The Ref2VA Turbo adapter requires four steps.")
+    pika = request.get("recipe") == pika_recipe.RECIPE
+    steps = 6 if pika else 4
+    if request["num_steps"] != steps:
+        raise ValueError("Ref2VA step count differs from its generation recipe.")
     attention = options.get("attention", "vsa")
     if attention not in ("vsa", "dense"):
         raise ValueError("The Ref2VA runtime requires vsa or dense attention.")
@@ -51,6 +54,11 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
             or recipe.get("lora_tensors") != 624 or recipe.get("gate_tensors") != 50
             or recipe.get("fasth3_t2va_deltas_applied") is not False):
         raise ValueError("Expected a dedicated Ref2VA + LightX2V checkpoint with gate-only transplant.")
+    if pika != (recipe.get("sampling_recipe") == pika_recipe.RECIPE):
+        raise ValueError("Selected generator and checkpoint recipe differ.")
+    if pika and (attention != "dense" or recipe.get("lora_alpha") != 128
+                 or recipe.get("manifest_sha256") != pika_recipe.MANIFEST):
+        raise ValueError("Pika High requires its pinned Ref2VA weights and Dense attention.")
     native = Path(options["native_root"])
     prepared = prepare_images(options)
     metadata = dict(task="ref2va", precision="int8_group64_bf16", attention=attention,
@@ -66,6 +74,12 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
     text, tags, reference, condition_metadata = phase("conditioning", lambda: encode_images(
         native, prepared, request["prompt"], observer))
     metadata.update(condition_metadata)
+    if pika:
+        if reference.dtype != np.float32:
+            raise ValueError("Pika reference latents require FP32 conditioning.")
+        metadata.update(sampling_recipe=pika_recipe.RECIPE, renoise_seed=request["seed"] + 1,
+                        renoise_order="PCG64 FP32, video then audio, five pairs", knots=pika_recipe.KNOTS,
+                        reference_latent_dtype=str(reference.dtype))
     gc.collect(); mx.clear_cache()
     geometry = MiniMaxH3MLXPipeline.resolve_geometry(
         request["model_height"], request["model_width"], request["model_num_frames"])
@@ -91,17 +105,18 @@ def condition_and_denoise(request, options, checkpoint, observer, phase):
         from .dispatch import Dispatch
         with Dispatch(dit, attention=attention) as intervention:
             video, audio = sample_image(dit, text, condition_rows, layout, initial_video,
-                                       initial_audio, observer=observer)
+                                       initial_audio, observer=observer,
+                                       renoise_seed=request["seed"] + 1 if pika else None)
         summary = metadata["acceleration"] = intervention.summary()
-        expected = dict(projection_calls=1200, int8_fine_calls=200 if attention == "vsa" else 0,
-                        dense_self_attention_calls=200 if attention == "dense" else 0,
-                        activation_pack_calls=800, qkv_pack_reuses=400)
+        expected = dict(projection_calls=300*steps, int8_fine_calls=50*steps if attention == "vsa" else 0,
+                        dense_self_attention_calls=50*steps if attention == "dense" else 0,
+                        activation_pack_calls=200*steps, qkv_pack_reuses=100*steps)
         if any(summary[key] != count for key, count in expected.items()):
             raise ValueError("Incomplete Ref2VA projection / attention dispatch.")
         stats = asdict(dit.last_vsa_stats) if dit.last_vsa_stats is not None else None
         calls = sparse_calls() - before
-        if (observer.nfe, observer.blocks) != (4, 200):
-            raise ValueError("Expected exactly four complete Ref2VA forwards.")
+        if (observer.nfe, observer.blocks) != (steps, 50*steps):
+            raise ValueError("Incomplete Ref2VA forwards for the selected recipe.")
         if attention == "vsa":
             if calls != 200 or stats is None or stats["fallback_reasons"] or stats["sparse_calls"] != 200:
                 raise ValueError("Expected 200 native VSA block calls without fallback.")
