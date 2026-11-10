@@ -10,31 +10,31 @@
 
 ## 1. Install
 
-From the root of this source checkout, run
+Install the 0.9.0 release wheel in a Python 3.11 Conda environment.
 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install .
+python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.9.0/h3_apple-0.9.0-py3-none-any.whl
 ```
 
 One environment supports generation and super-resolution. No compiler is needed.
 
 ## 2. Generate
 
-Replace `reference.jpg` with your image path:
+Save the sample as `rabbit.png`, or substitute your own image path. [Download the rabbit reference](https://raw.githubusercontent.com/RhinoQ/h3-apple/885a874c76664d0781337950d9ddc6ece0ee548e/features/fan-wardrobe/refs/01-rest-3d.png)
 
 ```sh
-h3 generate --image reference.jpg \
-  --prompt "A slow cinematic push-in on the scene in Picture 1. Soft ambient music."
+h3 generate --image rabbit.png --output rabbit.mp4 \
+  --prompt "The pink rabbit in Picture 1 raises one paw and waves. Its coat rustles."
 ```
 
 First use prepares the models. Review the download estimate and enter `y` to
 approve transfers over 20 GB. Later runs reuse the models.
 
-Each run creates a five-second video in a new `runs/` folder and prints its path.
-Choose `--quality fast|medium|high`. Fast and medium accept 5–15 seconds aligned
-to 24 fps, such as `--duration 7` or `--duration 8.5`; high is fixed at five seconds.
+This writes a five-second video to `rabbit.mp4`. Omitting `--output` creates
+a fresh directory under `runs/`. Fast and Medium accept 5–15 seconds aligned
+to 24 fps, such as `--duration 7` or `--duration 8.5`. High generates five seconds.
 In a new terminal, run `conda activate h3` first.
 
 ## 3. Optional super-resolution
@@ -42,7 +42,7 @@ In a new terminal, run `conda activate h3` first.
 Add detail to the saved video, including default X2 output:
 
 ```sh
-h3 upscale --input video.mp4
+h3 upscale --input rabbit.mp4 --output rabbit-2x.mp4
 ```
 
 This doubles its dimensions and preserves audio. Requires **128 GiB memory**

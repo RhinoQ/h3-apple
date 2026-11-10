@@ -1,5 +1,6 @@
 include AGENTS.md
 recursive-include docs *.md *.json *.txt
+include docs/media/four-looks-under-the-fan.jpg
 recursive-include environments *.lock
 recursive-include tools *.py *.md *.patch
 recursive-include tests *.py *.cc
