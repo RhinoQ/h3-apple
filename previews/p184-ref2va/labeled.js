@@ -66,7 +66,9 @@ function displayCase() {
   }));
   byId('prompt').textContent = row.prompt;
   byId('beats').replaceChildren(...row.beats.map(b => make('li', b)));
-  history.replaceState(null, '', '#'+c.id+'/'+row.id);
+  const url = new URL(location.href);
+  url.hash = c.id+'/'+row.id;
+  history.replaceState(null, '', url);
 }
 function chooseScene(desired) {
   const c = data.comparisons.find(x => x.id === pairs.value);
