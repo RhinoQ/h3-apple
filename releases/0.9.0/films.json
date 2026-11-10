@@ -1,0 +1,27 @@
+{
+  "version": "0.9.0",
+  "films": [
+    {
+      "id": "high-dialogue",
+      "title": "The paintbrush trade",
+      "brief": "A rabbit asks “My turn?” and trades an apple for a bear’s paintbrush at a garden fence.",
+      "quality": "High",
+      "model": "Pika H3 Flex",
+      "backend": "Dense",
+      "steps": 6,
+      "refs": 3,
+      "duration": 5.0,
+      "seed": 900103,
+      "x2": false,
+      "entrypoint": "API",
+      "native": {
+        "width": 768,
+        "height": 1366,
+        "bytes": 3035241,
+        "sha256": "3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377",
+        "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/5e13da47b8f204c7713cbb0454df527b2eafc997/films/3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377.mp4",
+        "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/5e13da47b8f204c7713cbb0454df527b2eafc997/films/3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377.jpg"
+      }
+    }
+  ]
+}
