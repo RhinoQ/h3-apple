@@ -22,6 +22,28 @@
         "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/5e13da47b8f204c7713cbb0454df527b2eafc997/films/3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377.mp4",
         "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/5e13da47b8f204c7713cbb0454df527b2eafc997/films/3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377.jpg"
       }
+    },
+    {
+      "id": "fast-long",
+      "title": "Four outfits, one room",
+      "brief": "A single overhead take follows a rabbit from sofa to rug as a wooden fan passes over four changes of clothes.",
+      "quality": "Fast",
+      "model": "LightX2V v1.0",
+      "backend": "VSA",
+      "steps": 4,
+      "refs": 6,
+      "duration": 15.0,
+      "seed": 900101,
+      "x2": true,
+      "entrypoint": "CLI",
+      "native": {
+        "width": 1088,
+        "height": 1920,
+        "bytes": 19779237,
+        "sha256": "61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8",
+        "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/bae11790db3cea7c7c5a5e35090a3036839d2932/films/61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8.mp4",
+        "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/bae11790db3cea7c7c5a5e35090a3036839d2932/films/61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8.jpg"
+      }
     }
   ]
 }
