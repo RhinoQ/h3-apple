@@ -88,6 +88,28 @@
         "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/ba85482c55751f2315a38ff949f596c0dbf9b7da/films/a6a25ebeaed0182436d442ba36ce0d03641310a0fa62791686f8641897830141.mp4",
         "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/ba85482c55751f2315a38ff949f596c0dbf9b7da/films/a6a25ebeaed0182436d442ba36ce0d03641310a0fa62791686f8641897830141.jpg"
       }
+    },
+    {
+      "id": "sol-medium-parcel",
+      "title": "Parcel 17B",
+      "brief": "Two dispatchers turn, pass and stamp a labeled parcel under blue light.",
+      "quality": "Medium",
+      "model": "LightX2V v1.0",
+      "backend": "SOL",
+      "steps": 4,
+      "refs": 3,
+      "duration": 5.0,
+      "seed": 900105,
+      "x2": false,
+      "entrypoint": "API",
+      "native": {
+        "width": 1366,
+        "height": 768,
+        "bytes": 1978396,
+        "sha256": "2b43d01f065d95036c55d7ad4c1ea9b83c19046412662ac4641721f84d355f3b",
+        "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/2f06fff016ee2b9b25d2374827633a409e502481/films/2b43d01f065d95036c55d7ad4c1ea9b83c19046412662ac4641721f84d355f3b.mp4",
+        "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/2f06fff016ee2b9b25d2374827633a409e502481/films/2b43d01f065d95036c55d7ad4c1ea9b83c19046412662ac4641721f84d355f3b.jpg"
+      }
     }
   ]
 }
