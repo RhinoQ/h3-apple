@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Ref2VA paired review</title>
+<style>
+*{box-sizing:border-box}body{margin:auto;max-width:1300px;padding:20px;background:#f5f4ef;color:#1b2925;font:16px/1.45 Inter,system-ui,sans-serif}header,nav,.pair,.refs,.scores{display:flex;gap:14px;align-items:center}.pair>section{flex:1;min-width:0}.refs img{height:90px;max-width:22%;object-fit:contain}video{display:block;width:100%;height:min(42vh,430px);background:#151515}h1{font-size:1.5rem}h2{font-size:1rem}label{display:inline-grid;gap:4px}select,button,input,textarea{font:inherit;border:1px solid #73867a;padding:6px;background:white;border-radius:4px}button{cursor:pointer}button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #127654}textarea{width:100%}.scores{align-items:stretch;flex-wrap:wrap;margin:12px 0}.scores label{min-width:140px}nav{margin-bottom:12px;flex-wrap:wrap}#status{font-weight:600}#brief{white-space:pre-wrap}.pair section h2{margin:6px 0}.aux{margin-top:8px}@media(max-width:700px){.pair{flex-direction:column}.pair>section{width:100%}video{height:28vh}.refs img{height:60px}}
+</style><link rel="stylesheet" href="../../mobile.css">
+<body>
+<a class="back" href="../../reviewer-1/">All comparisons</a><header><h1>Ref2VA paired review</h1></header>
+<p>Read the brief and inspect the references. Play both clips through with sound, one at a time. Score each clip against the brief. For a severe defect, record the side, timestamp and visible or audible failure. Complete the ballot independently.</p>
+<nav><label>Reviewer alias <input id="alias" autocomplete="off"></label><label>Case <select id="case"></select></label><button id="export">Save completed ballot</button><span id="status" role="status"></span></nav>
+<main><p id="brief"></p><div class="refs" id="refs"></div><ul id="beats"></ul><div class="pair" id="videos"></div><div class="scores" id="scores"></div>
+<label>Severe defect <select id="severe"><option value="">Select</option><option>Neither</option><option>A</option><option>B</option><option>Both</option></select></label>
+<label style="display:block">Observations and timestamps <textarea id="notes" rows="2"></textarea></label>
+<label class="aux"><span><input id="listen" type="checkbox"> I watched both full clips and listened to both audio tracks.</span></label>
+<details id="detail"><summary>Full-resolution detail comparison</summary><div class="pair" id="detailvideos"></div></details>
+</main><script src="cases.js"></script><script>
+const set=window.REVIEW, by=id=>document.getElementById(id), pick=by('case'), axes=['Task completion','Identity','Motion and temporal stability','Detail','Speech and sound sync','Overall preference'];
+const localKey='p184-review-'+set.id, draft=JSON.parse(localStorage.getItem(localKey)||'{}');
+let active=null;by('alias').value=draft.alias||'';
+const assessments=draft.assessments||{};
+const labels=['','A','B','Tie'];
+function element(tag,content){const el=document.createElement(tag);if(content!==undefined)el.textContent=content;return el}
+function save(){if(!active)return;const row=assessments[active.id]||{};row.axes=Object.fromEntries(axes.map((a,i)=>[a,by('axis'+i).value]));row.played=row.played||{};row.severe=by('severe').value;row.notes=by('notes').value;row.listened=by('listen').checked;assessments[active.id]=row;localStorage.setItem(localKey,JSON.stringify({alias:by('alias').value,assessments}));by('status').textContent=Object.values(assessments).filter(complete).length+' / '+set.cases.length+' complete'}
+function complete(r){return r&&r.listened&&r.played?.A&&r.played?.B&&axes.every(a=>r.axes?.[a])&&r.severe&&(r.severe==='Neither'||r.notes?.trim())}
+function pair(container,files,detail){container.replaceChildren();for(const side of ['A','B']){const sec=element('section');sec.append(element('h2',side));const video=element('video');video.controls=true;video.playsInline=true;video.preload='metadata';video.src=files[side];video.addEventListener('play',()=>document.querySelectorAll('video').forEach(v=>{if(v!==video)v.pause()}));if(!detail){const caseId=active.id;video.addEventListener('ended',()=>{if(active.id===caseId){save();if(!video.muted&&video.volume>0)assessments[caseId].played[side]=true;save()}})}sec.append(video);container.append(sec)}}
+function change(){save();active=set.cases[pick.selectedIndex];const row=assessments[active.id]||{};by('brief').textContent=active.prompt;by('refs').replaceChildren(...active.refs.map((r,i)=>{const img=element('img');img.src=r;img.alt='Picture '+(i+1);return img}));by('beats').replaceChildren(...active.beats.map(b=>element('li',b)));pair(by('videos'),active.media,false);by('detail').hidden=!active.detail;by('detail').open=false;if(active.detail)pair(by('detailvideos'),active.detail,true);else by('detailvideos').replaceChildren();axes.forEach((a,i)=>by('axis'+i).value=row.axes?.[a]||'');by('notes').value=row.notes||'';by('severe').value=row.severe||'';by('listen').checked=!!row.listened;save()}
+axes.forEach((a,i)=>{const l=element('label',a),s=element('select');s.id='axis'+i;for(const value of (i===4?[...labels,'No speech or timed cue']:labels)){const o=element('option',value||'Select');o.value=value;s.append(o)}l.append(s);by('scores').append(l)});
+set.cases.forEach((c,i)=>pick.append(element('option',String(i+1))));pick.onchange=change;
+for(const id of ['scores','severe','notes','listen','alias'])by(id).addEventListener('input',save);
+by('export').onclick=()=>{save();if(!by('alias').value.trim()||!set.cases.every(c=>complete(assessments[c.id]))){by('status').textContent='Enter an alias and finish every case before saving.';return}const data={schema:'p184-blind-ballot/v1',set:set.id,reviewer:by('alias').value.trim(),saved_utc:new Date().toISOString(),assessments};const link=element('a');link.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));link.download='ballot-'+set.id+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000)};
+change();
+</script><script src="../../mobile.js"></script></body></html>
