@@ -16,8 +16,8 @@
     "sha256": "1bf781789fc2eb3817b29e98c2b396efbcffc15d2d2a84b71e821b3b43bf81d2"
   },
   "app.js": {
-    "bytes": 18593,
-    "sha256": "f6497494690b48a42389560a0d84023b4e326043c60f796865bec045dc0dcebe"
+    "bytes": 57871,
+    "sha256": "70b85853cfe54063d99528bc6a6de8b0fec85294494151fe318a9d5d1456791c"
   },
   "assets/build/h3-engine-macos-arm64.zip": {
     "bytes": 6046164,
@@ -1108,8 +1108,8 @@
     "sha256": "12147e681548dd7536c790497259623fea6fcd924a0ab34296d8759ad89e58a1"
   },
   "index.html": {
-    "bytes": 6535,
-    "sha256": "72206685ef735160d9f2c47346d224eaa96e8f1acf288d5df62d380bd13dd0b7"
+    "bytes": 6824,
+    "sha256": "6cabff58497dac3f75510f743a863817e5029da39e61892e313f6961f33565d3"
   },
   "package.py": {
     "bytes": 6056,
