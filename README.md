@@ -5,11 +5,12 @@
 Turn 1–9 images and a prompt into video with stereo audio. Landscape or portrait,
 5–15 seconds. Powered by MiniMax-H3.
 
-**4m 19s median** with VSA 544p + X2 on a 40-core M5 Max / 128 GiB:
-12 scenes, after model setup. [Measured settings and performance](docs/advanced.md#performance).
+**4m 27s median** for Fast with LightX2V v1.0, VSA and 544p + X2 on a
+40-core M5 Max / 128 GiB. Eight five-second scenes, full API time after model setup.
+[Measured settings and performance](docs/advanced.md#performance).
 
 [**Watch the videos →**](https://rhinoq.github.io/h3-apple/#showcase) ·
-[**Install →**](#1-install) · [**What's new →**](docs/releases/0.8.3.md)
+[**Install →**](#1-install) · [**What's new →**](docs/releases/0.9.0.md)
 
 | Celestial Hall | Stairway Above the Clouds |
 | --- | --- |
@@ -26,12 +27,12 @@ Showcase: native 768p + VOSR 2×, **2732×1536**. Super-resolution adds about
 smaller-memory operation is unverified. Fresh setup needs
 up to **156 GB of downloads and 351 GB of free disk**, depending on the backend.
 
-Install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you need Conda, then run:
+With this source checkout open, install [Miniforge](https://github.com/conda-forge/miniforge#miniforge3) if you need Conda, then run
 
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.3/h3_apple-0.8.3-py3-none-any.whl"
+python -m pip install .
 ```
 
 First use prepares models and asks before downloads over 20 GB.

@@ -18,10 +18,10 @@ the first five seconds.
 
 ```sh
 h3 generate --image reference.jpg \
-  --prompt "A slow cinematic push-in on Picture 1. Soft ambient music." --quality high
+  --prompt "A slow cinematic push-in on Picture 1. Soft ambient music." --quality high --upscale
 ```
 
-This selects Dense native 768p followed by VOSR and saves both videos.
+This generates native 768p with six-step Pika Dense, runs VOSR and saves both videos.
 The `--upscale` shortcut uses VSA native 768p + VOSR by default;
 add `--mode SOL` for SOL.
 With `--output detailed.mp4`,
@@ -68,7 +68,7 @@ result = upscale("video.mp4")
 print(result.video_path)
 ```
 
-For Dense generation and restoration in one call, use `generate(..., quality="high")`.
+For Dense generation and restoration in one call, use `generate(..., quality="high", upscale=True)`.
 `generate(..., upscale=True)` defaults to VSA generation;
 pass `mode="SOL"` explicitly for SOL.
 

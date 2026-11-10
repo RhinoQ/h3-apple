@@ -24,8 +24,8 @@ def reference(tmp_path):
         ('medium', None, ('VSA', 'vsa', '768p', False, False, 1366, 768)),
         ('medium', 'VSA', ('VSA', 'vsa', '768p', False, False, 1366, 768)),
         ('medium', 'SOL', ('SOL', None, '768p', False, False, 1366, 768)),
-        ('high', None, ('VSA', 'dense', '768p', False, True, 1366, 768)),
-        ('high', 'VSA', ('VSA', 'dense', '768p', False, True, 1366, 768)),
+        ('high', None, ('VSA', 'dense', '768p', False, False, 1366, 768)),
+        ('high', 'VSA', ('VSA', 'dense', '768p', False, False, 1366, 768)),
     ]
     for duration in ([5] if quality == 'high' else [5, 7, 8.5, 10, 15, 121 / 24])
 ])
@@ -46,11 +46,11 @@ def test_quality_cli_api_and_workflow_agree(reference, monkeypatch, quality, mod
     assert (request.mode, request.attention, request.resolution, request.x2, request.upscale) == expected[:5]
     assert (request.width, request.height) == ((width, height) if aspect == '16:9' else (height, width))
     assert request.num_frames == round(duration * 24)
-    assert request.quality == quality and request.num_steps == 4
+    assert request.quality == quality and request.num_steps == (6 if quality == "high" else 4)
     assert request.recipe == {
         ('SOL', None): 'ref2va-premerged-i8-sol-sage-v2',
         ('VSA', 'vsa'): 'ref2va-w8a8-vsa-int8qk-v1',
-        ('VSA', 'dense'): 'ref2va-w8a8-dense-bf16-v1',
+        ('VSA', 'dense'): 'pika-flex-ref2va-v1',
     }[(request.mode, request.attention)]
     assert calls == ['restored' if upscale else 'native']
 
@@ -60,7 +60,7 @@ def test_quality_cli_api_and_workflow_agree(reference, monkeypatch, quality, mod
     ('fast', dict(mode='SOL', attention='vsa')), ('medium', dict(mode='SOL', attention='vsa')),
     ('medium', dict(resolution='544p')), ('medium', dict(upscale=True)),
     ('medium', dict(attention='dense')), ('high', dict(attention='vsa')),
-    ('high', dict(upscale=False)), ('high', dict(x2=True)), ('high', dict(mode='SOL')),
+    ('high', dict(x2=True)), ('high', dict(mode='SOL')),
 ])
 def test_conflicting_advanced_settings_fail_before_inputs_or_setup(quality, change):
     with pytest.raises(ValueError, match='omit .* or omit quality'):
@@ -137,3 +137,12 @@ def test_high_memory_guard_cannot_be_bypassed(monkeypatch, reference):
     with pytest.raises(RuntimeError, match='128 GiB'):
         host.check_machine(dict(machine, memory_bytes=96 * 1024**3), request)
     host.check_machine(dict(machine, memory_bytes=128 * 1024**3), request)
+
+
+@pytest.mark.parametrize("upscale", [False, True])
+def test_high_selects_six_steps_and_explicit_output(reference, upscale):
+    request = resolve("Scene", reference_images=[reference], quality="high", upscale=upscale)
+    assert (request.num_steps, request.recipe, request.upscale) == (6, "pika-flex-ref2va-v1", upscale)
+    historic = resolve("Scene", reference_images=[reference], mode="VSA", attention="dense",
+                       resolution="768p", x2=False, upscale=upscale)
+    assert historic.num_steps == 4 and historic.upscale == upscale

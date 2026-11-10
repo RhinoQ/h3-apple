@@ -32,9 +32,9 @@ def parser():
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--quality", choices=("fast", "medium", "high"),
-                             help="fast: 544p + X2 (default); medium: native 768p; both use VSA unless --mode SOL. High: Dense 768p + VOSR (5 seconds, 128 GiB)")
+                             help="Fast uses LightX2V v1.0 at 544p + X2 (default). Medium uses the same weights at native 768p. High uses native 768p Pika six-step Dense (5 seconds, 128 GiB).")
         command.add_argument("--mode", choices=("VSA", "SOL"),
-                             help="Generation backend for fast/medium (default: VSA); high requires VSA models with Dense attention")
+                             help="Generation backend for fast/medium (default: VSA); high uses native six-step Pika Dense")
         command.add_argument("--duration", type=float, default=5,
                              help="Fast/medium: 5–15 seconds at whole 24 fps frames (e.g. 7 or 8.5); high/Dense: 5 only (default: 5)")
         command.add_argument("--aspect-ratio", choices=("16:9", "9:16"), default="16:9")
@@ -48,12 +48,12 @@ def parser():
         advanced.add_argument("--attention", choices=("vsa", "dense"),
                              help="Attention for VSA models (default: vsa; dense requires native 768p, 5 seconds and 128 GiB)")
         advanced.add_argument("--upscale", action=argparse.BooleanOptionalAction, default=None,
-                             help="Restore native video 2x with VOSR (automatic with --quality high; 128 GiB)")
+                             help="Restore native video 2x with VOSR (optional for native High video; 128 GiB)")
         if name == "generate":
             command.add_argument("--output", help="New .mp4 path (default: unique folder in runs/)")
             advanced.add_argument("--model-dir")
             advanced.add_argument("--x2-model-dir", help="Optional X2 model directory (separate from generation models)")
-            advanced.add_argument("--upscale-model-dir", help="Optional restoration model directory for --quality high or --upscale")
+            advanced.add_argument("--upscale-model-dir", help="Optional restoration model directory for --upscale")
             advanced.add_argument("--diagnostics", action="store_true", help="Keep working files for debugging")
             advanced.add_argument("--timeout", type=float, default=7200, help="Generation timeout in seconds")
             advanced.add_argument("--upscale-timeout", type=float, default=14400, help="Restoration timeout in seconds")
@@ -63,6 +63,8 @@ def parser():
                                  help="Confirm first-run model downloads exceeding 20 GB")
     prepare = commands.add_parser("prepare", help="Download or reuse models and prepare H3 once")
     prepare.add_argument("--model-dir")
+    prepare.add_argument("--quality", choices=("fast", "medium", "high"),
+                         help="Prepare the shared Fast/Medium bundle or the separate Pika High bundle")
     prepare.add_argument("--mode", choices=("VSA", "SOL"), default="VSA",
                          help="Model backend (default: VSA)")
     prepare.add_argument("--reuse-dir", action="append", default=[], dest="reuse_dirs",
@@ -141,7 +143,15 @@ def main(argv=None):
             show_plan = args.pop("plan")
             result = plan(**args) if show_plan else prepare(**args, on_progress=progress)
         else:
-            if args.pop("mode") == "VSA":
+            mode = args.pop("mode")
+            quality = args.pop("quality", None)
+            if quality == "high":
+                if mode != "VSA":
+                    raise ValueError("High requires the VSA runtime with Dense attention.")
+                from .vsa_assets import high_directory
+                args["model_dir"] = high_directory(args["model_dir"])
+                args["pika"] = True
+            if mode == "VSA":
                 from .vsa_preparation import plan, prepare, LIMIT
             else:
                 from .preparation import plan, prepare, LIMIT

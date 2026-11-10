@@ -34,7 +34,7 @@ def data_file(name):
 
 def model_directory(value=None):
     return Path(value or os.environ.get('H3_MODEL_DIR') or
-                Path.home() / 'Models/h3-apple/ref2va').expanduser().resolve()
+                Path.home() / 'Models/h3-apple/ref2va-lightx2v-v1').expanduser().resolve()
 
 
 def identity(value):
@@ -153,7 +153,9 @@ def load_manifest(model_dir=None, *, verify=False, for_reuse=False):
     if data.get('recipe') != RECIPE:
         raise ValueError('Model manifest recipe is unsupported. Run h3 prepare in a new model directory.')
     if data.get('adapter', {}).get('sha256') != expected_adapter['sha256']:
-        raise recipe_upgrade()
+        raise ModelRecipeUpgradeRequired(
+            'This SOL bundle uses a different Ref2VA adapter. Prepare LightX2V v1.0 '
+            'in a new directory with h3 prepare --mode SOL --model-dir NEW_DIRECTORY.')
     # Only the exact premerged checkpoint and adapter can be reused together.
     model = Path(data['native_model'])
     records = [{k: entry[k] for k in ('bytes', 'sha256')} |

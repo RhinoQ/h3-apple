@@ -10,7 +10,7 @@ h3 generate --image reference.jpg --prompt-file scene.txt --quality medium --dur
 | --- | --- | --- | --- |
 | `fast` (default) | 544p + X2 decoder; VSA by default, SOL optional | 5–15 seconds | 1920×1088 |
 | `medium` | Native 768p; VSA by default, SOL optional | 5–15 seconds | 1366×768 |
-| `high` | Dense attention, native 768p + VOSR 2× | 5 seconds | 2732×1536; also saves 1366×768 native video |
+| `high` | Pika H3 Flex, Dense attention, native 768p | 5 seconds | 1366×768 |
 
 Portrait swaps the dimensions. All three accept 1–9 reference images. Fast and
 medium accept **5–15 seconds at whole 24 fps frames**, including 7 and 8.5 seconds.
@@ -26,21 +26,26 @@ h3 generate --image reference.jpg --prompt-file scene.txt --quality fast --mode 
 h3 generate --image reference.jpg --prompt-file scene.txt --quality medium --mode SOL
 ```
 
-Fast and Medium default to VSA; custom calls without `--quality` also default to
-VSA. Quality sets the sampling size and decoder. Choosing SOL preserves the
-supported durations and output dimensions for Fast and Medium.
+Fast and Medium use the dedicated LightX2V v1.0 four-step Ref2VA adapter.
+Fast keeps its integrated X2 decoder. VOSR is a separate optional restoration.
+Omitting `--mode` uses VSA, including when `--quality` is omitted. Quality fixes
+the sampling size and decoder; mode chooses the generation backend. Both modes
+retain the same supported durations and output dimensions for each quality.
 
-High uses Dense (full) attention at native 768p, then VOSR 2× restoration.
-Its projections remain quantized, and generation uses the four-step Turbo adapter.
-[How Dense reuses model weights](development.md#runtime).
-It can retain more detail but does not
-guarantee better motion, expressions or prompt adherence. Generation and
-restoration have separate timeouts and measured costs.
+High uses six Pika H3 Flex Ref2VA forwards with BF16 Dense attention and the
+quantized projections. The first High call prepares a separate Pika bundle
+under the generation model root. The Pika adapter is distributed under the
+MiniMax H3 Community License with the Mellis modification notice.
+[Pika model card and notices](https://huggingface.co/Pika-Labs/Pika-H3-Flex/tree/ca45d99f9b1d1859ffb9dc1cd6bfaaa994257f56). Add `--upscale` to save the native file and a restored file.
+Version 0.8.3 restored High automatically. For the same delivery in this version,
+use `--quality high --upscale` for Pika generation with restoration. To replay
+the older generator, use `--mode VSA --attention dense --resolution 768p --no-x2 --upscale`
+with the released four-step model directory. Landscape changes from 1366×768 to 2732×1536
+with restoration. Portrait changes from 768×1366 to 1536×2732.
+[Restoration requirements and noncommercial terms](upscale.md).
 
-An explicit `--quality` fixes `--attention`, `--resolution`, `--x2` and `--upscale`;
-contradicting those settings is an error. Fast and medium allow either backend;
-High selects Dense automatically; leave `--mode` unset. `--mode SOL` is rejected
-with High.
+An explicit `--quality` fixes attention, resolution and decoder. High accepts optional restoration. Fast and medium allow either backend;
+high requires VSA models with Dense attention and rejects `--mode SOL`.
 Omit `--quality` to use the existing advanced combinations below. With no
 advanced choices, the result is the fast configuration.
 
@@ -62,7 +67,7 @@ Native 768p over five seconds requires 96 GiB memory. Super-resolution requires
 128 GiB. Use `h3 upscale --input video.mp4` for existing native or X2 output;
 the `generate --upscale` shortcut selects native 768p for the combined workflow.
 
-Outputs go into a fresh `runs/` directory unless you name a file. With `--quality high` or `--upscale`,
+Outputs go into a fresh `runs/` directory unless you name a file. With `--upscale`,
 `scene.mp4` is the final video and `scene.native.mp4` is its saved input. If
 restoration fails, retry with `h3 upscale --input scene.native.mp4`.
 
@@ -71,7 +76,13 @@ restoration fails, retry with `h3 upscale --input scene.native.mp4`.
 
 ## Performance
 
-Median time per five-second video on a 40-core M5 Max / 128 GiB, after model setup:
+With the LightX2V v1.0 four-step weights, eight five-second scenes with three
+or four reference images took a median **4m 27s on Fast** and **9m 46s on
+Medium**. These full API times include generation, decoding and export on a
+40-core M5 Max with 128 GiB, default VSA and prepared models.
+[Compare the scenes, references and timings](https://rhinoq.github.io/h3-apple/previews/p184-ref2va/).
+
+The earlier 0.7.0 benchmark used LightX2V v0.1 on the same hardware.
 
 | Mode | Native 768p | 544p + X2 | Tradeoff in this test |
 | --- | ---: | ---: | --- |
@@ -87,7 +98,7 @@ Fast uses the selected backend at 544p/X2; medium uses it at native 768p.
 Changing the default does not change either inference implementation. The table
 does not measure the high workflow.
 
-One five-second High integration clip took **31m 38s** on the same 40-core M5 Max /
+One five-second four-step Dense clip with VOSR took **31m 38s** on the same 40-core M5 Max /
 128 GiB: **12m 14s** for Dense generation and **19m 24s** for optimized VOSR
 (`vosr2-native-fp16-v2`). This is a single landscape clip with one reference, after
 model setup; it is not a median. Both stages include loading, decoding and export.

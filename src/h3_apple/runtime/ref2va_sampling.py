@@ -4,6 +4,7 @@ import mlx.core as mx
 import numpy as np
 
 from .._vendor.fastvideo_mlx.minimax_h3 import MiniMaxH3SchedulerState
+from .. import pika_recipe
 from .ref2va import build_ref2va_timesteps, generated_rows
 
 
@@ -24,7 +25,7 @@ def image_noise(reference_rows, layout, seed):
 
 
 def sample_image(dit, text_rows, condition_rows, layout, initial_video, initial_audio, *, observer=None,
-                 video_shift=12):
+                 video_shift=12, renoise_seed=None):
     """Return only generated rows. The reference prefix never enters the solver."""
     if layout.num_condition_audio_rows or not layout.num_condition_video_rows:
         raise ValueError("This sampler supports image references only.")
@@ -42,8 +43,15 @@ def sample_image(dit, text_rows, condition_rows, layout, initial_video, initial_
         raise ValueError("Ref2VA VSA requires trained gates and explicit dense-exempt reference segments.")
     video_solver = MiniMaxH3SchedulerState.create(video_shift, 4)
     audio_solver = MiniMaxH3SchedulerState.create(3, 4)
+    times_v, times_a = video_solver.timesteps, audio_solver.timesteps
+    if renoise_seed is not None:
+        ladder_v, ladder_a = pika_recipe.sigmas(video_shift), pika_recipe.sigmas(3)
+        times_v, times_a = 1 - ladder_v[:-1], 1 - ladder_a[:-1]
+        generator = np.random.default_rng(renoise_seed)
+        def noise(shape):
+            return generator.standard_normal(shape, dtype=np.float32)
     schedule = [build_ref2va_timesteps(layout, float(v), float(a))
-                for v, a in zip(video_solver.timesteps, audio_solver.timesteps, strict=True)]
+                for v, a in zip(times_v, times_a, strict=True)]
     union = np.unique(np.concatenate([times for times, _ in schedule]))
     cache = getattr(dit, "_adaln_cache", None)
     if cache is None:
@@ -64,8 +72,12 @@ def sample_image(dit, text_rows, condition_rows, layout, initial_video, initial_
         if observer is not None:
             observer.step(index, packed_video, x_a, velocity_v, velocity_a)
         velocity_v, velocity_a = generated_rows(velocity_v, velocity_a, layout)
-        x_v = video_solver.step(velocity_v, index, x_v)
-        x_a = audio_solver.step(velocity_a, index, x_a)
+        if renoise_seed is None:
+            x_v = video_solver.step(velocity_v, index, x_v)
+            x_a = audio_solver.step(velocity_a, index, x_a)
+        else:
+            x_v = pika_recipe.update(x_v, velocity_v, ladder_v, index, noise)
+            x_a = pika_recipe.update(x_a, velocity_a, ladder_a, index, noise)
         mx.eval(x_v, x_a)
         if not all(bool(mx.all(mx.isfinite(x))) for x in (x_v, x_a)):
             raise ValueError(f"Nonfinite Ref2VA state at step {index}.")

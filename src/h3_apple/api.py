@@ -5,6 +5,8 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 import secrets
 
+from .pika_recipe import RECIPE as PIKA_RECIPE
+
 
 class DownloadApprovalRequired(RuntimeError):
     """A first-run download exceeds 20 GB and needs explicit consent."""
@@ -60,7 +62,7 @@ class GenerationResult:
 _QUALITIES = {
     "fast": dict(mode="VSA", resolution="544p", x2=True, attention="vsa", upscale=False),
     "medium": dict(mode="VSA", resolution="768p", x2=False, attention="vsa", upscale=False),
-    "high": dict(mode="VSA", resolution="768p", x2=False, attention="dense", upscale=True),
+    "high": dict(mode="VSA", resolution="768p", x2=False, attention="dense", upscale=False),
 }
 
 
@@ -76,6 +78,8 @@ def _configuration(quality, *, mode, resolution, x2, attention, upscale):
         if quality in ("fast", "medium") and mode is not None:
             chosen["mode"] = mode
             chosen["attention"] = "vsa" if mode == "VSA" else None
+        if quality == "high" and upscale is not None:
+            chosen["upscale"] = upscale
         supplied = dict(mode=mode, resolution=resolution, x2=x2, attention=attention, upscale=upscale)
         for name, value in supplied.items():
             if value is not None and value != chosen[name]:
@@ -165,7 +169,9 @@ def resolve(prompt=None, *, prompt_file=None, reference_images=None,
                              width, height, count, model_width, model_height,
                              ((count - 5 + 16) // 17) * 17 + 5, mode=mode, x2=x2,
                              attention=attention, quality=quality, upscale=upscale,
-                             recipe=("ref2va-premerged-i8-sol-sage-v2" if mode == "SOL" else
+                             num_steps=6 if quality == "high" else 4,
+                             recipe=(PIKA_RECIPE if quality == "high" else
+                                     "ref2va-premerged-i8-sol-sage-v2" if mode == "SOL" else
                                      "ref2va-w8a8-dense-bf16-v1" if attention == "dense" else
                                      "ref2va-w8a8-vsa-int8qk-v1"))
 
@@ -184,6 +190,9 @@ def generate(prompt=None, *, prompt_file=None, reference_images=None,
     request = resolve(prompt, prompt_file=prompt_file, reference_images=reference_images,
                       quality=quality, resolution=resolution, duration=duration, seed=seed,
                       aspect_ratio=aspect_ratio, mode=mode, attention=attention, x2=x2, upscale=upscale)
+    if request.quality == "high":
+        from . import vsa_assets
+        model_dir = vsa_assets.high_directory(model_dir)
     if request.upscale and x2_model_dir is not None:
         raise ValueError("x2_model_dir cannot be used with upscale.")
     if not request.upscale and upscale_model_dir is not None:

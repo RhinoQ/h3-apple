@@ -168,37 +168,37 @@
     {
       "path": "transformer/model-00001-of-00007.safetensors",
       "bytes": 5243211392,
-      "sha256": "e0a04b5f9e6f910d1b7b360a3409ba65c3fd698576aff9ab831fec2e3caaec9e"
+      "sha256": "c137c3cad300bcd9bad2fc5fa49f30425dd97a93a58a8542a6844cc7acdd4230"
     },
     {
       "path": "transformer/model-00002-of-00007.safetensors",
       "bytes": 5365354432,
-      "sha256": "ab9e17b79f99569bdfa08f122a0fefc68bfbb1c71a9a8c2feccb6c52ea182fe4"
+      "sha256": "6bf58eb76ae8abd366f1dff8b7d85396d5b0b4e7274b51b1f77f72c2916b9157"
     },
     {
       "path": "transformer/model-00003-of-00007.safetensors",
       "bytes": 5170871232,
-      "sha256": "1719bbd59d309c2d6f0acbb800072de75fe3a3caaf0c0e6ef3b2deec82facbfb"
+      "sha256": "133b3d4784a91920147e845fc425a1ac269a03c788e76f934aff6254961a14d2"
     },
     {
       "path": "transformer/model-00004-of-00007.safetensors",
       "bytes": 5242307968,
-      "sha256": "4028d845d28c2288ee37def10abbd55a97068fbac0456a1e550c7f9cc4ae464a"
+      "sha256": "41bb700bc5297aff81d37728636e508127ea9463772d6eb4ac5ba28cf48769a6"
     },
     {
       "path": "transformer/model-00005-of-00007.safetensors",
       "bytes": 5365354432,
-      "sha256": "046d6550480ebc72df0c6570d1151a62d68c21cc696d4edda30010b6fd33f7a7"
+      "sha256": "c38ebea0c11607c06fd166fe476e7e577e8ce49709f3e7b68530596bc79ada7b"
     },
     {
       "path": "transformer/model-00006-of-00007.safetensors",
       "bytes": 5170871216,
-      "sha256": "da57ac03744981e634f04b7b392c59d486118d2e29c26a5b79081be3e95c5e84"
+      "sha256": "a2345792501a6688b85d84a7d1f65539e57102714b5c4f5c5ea5064fc6818e88"
     },
     {
       "path": "transformer/model-00007-of-00007.safetensors",
       "bytes": 3716811792,
-      "sha256": "1a11f481ec3f2fe39840545102083c94b41acf6f43958ed50c13e359a65c9544"
+      "sha256": "b80e444799951f3545c9a4cdeee67e779348b2aa0c05659eac0d6dcc668ae96b"
     },
     {
       "path": "transformer/model.safetensors.index.json",
@@ -223,9 +223,9 @@
   ],
   "adapter": {
     "repo": "lightx2v/Minimax-h3-Turbo",
-    "revision": "ec01fa4c86263832faa0bd1d6d8f36a281eaabb2",
-    "filename": "minimax_h3_ref2v_turbo_4step_v0.1_bf16.safetensors",
-    "bytes": 1383677768,
-    "sha256": "9e642fc8749c74f8da5e2382877ab5c7aa37b9a73b7fd0d6d457bd1b3cb1ae99"
+    "revision": "30f485ed874aa44c8183348ad361c5eabad318da",
+    "filename": "minimax_h3_ref2v_turbo_4step_v1.0_768p_bf16.safetensors",
+    "bytes": 1383677808,
+    "sha256": "e470d3043fb3b8b4f8f77be39e3498071d18f09fd8658150eeb5bc6bb9a32d43"
   }
 }

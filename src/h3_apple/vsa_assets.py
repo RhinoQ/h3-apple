@@ -8,11 +8,31 @@ import tempfile
 
 from .assets import data_file
 from .io import digest, write_json
+from . import pika_recipe
+
+
+def model_notice(*, pika=False, light_v1=False):
+    if pika:
+        upstream = (Path(__file__).parent / "data/Pika-H3-Flex-NOTICE.txt").read_text().rstrip()
+        adapter = "Pika H3 Flex Ref2VA"
+    else:
+        upstream = ("MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, "
+                    "Copyright © 2026 MiniMax. All Rights Reserved.")
+        adapter = "LightX2V v1.0 four-step Ref2VA" if light_v1 else "original LightX2V"
+    return (f"{upstream}\n\nModified by H3 Apple: native DiT layout conversion, {adapter} fusion and FastH3 gate-only "
+            "adapter fusion, affine INT8 group64 quantization and fixed AdaLN tables; "
+            "VideoVAE decoder key conversion with the image encoder omitted. "
+            "AudioVAE, text encoder and tokenizer payloads are retained unchanged. "
+            "Source checksums and converter identity are recorded in bundle.json.\n")
 
 
 def model_directory(value=None):
     return Path(value or os.environ.get("H3_VSA_MODEL_DIR") or
-                Path.home() / "Models/h3-apple/VSA").expanduser().resolve()
+                Path.home() / "Models/h3-apple/VSA-lightx2v-v1").expanduser().resolve()
+
+
+def high_directory(value=None):
+    return model_directory(value) if value is not None else model_directory().parent / "pika-ref2va"
 
 
 def bundle_identity(manifest):
@@ -38,8 +58,12 @@ def load_assets(directory=None, *, verify=False):
     records = {entry["path"]: entry for entry in data["files"]}
     if len(records) != len(data["files"]):
         raise ValueError("Duplicate model manifest paths.")
+    weights = records.get("dit/mlx_h3_dit.safetensors", {})
+    profiles = data_file("ref2va-adapter-locks.json")
+    profile = profiles.get(weights.get("sha256"), {})
     for expected in data_file("vsa-prepared-model.json")["files"]:
         actual = records.get(expected["path"], {})
+        expected = profile.get("files", {}).get(expected["path"], expected)
         if any(actual.get(k) != expected[k] for k in ("size", "sha256")):
             raise ValueError(f"VSA original LightX2V model differs: {expected['path']}")
     checked = set()
@@ -59,16 +83,19 @@ def load_assets(directory=None, *, verify=False):
         raise ValueError("Missing VSA recipe receipt.")
     recipe = json.loads(recipe_path.read_text())
     expected = dict(schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128,
-                    lora_alpha=8, lora_tensors=624, gate_tensors=50,
+                    lora_alpha=profile.get("alpha", 8), lora_tensors=624, gate_tensors=50,
                     precision="int8_group64_bf16", fasth3_t2va_deltas_applied=False)
     if any(recipe.get(k) != v for k, v in expected.items()):
         raise ValueError("Expected original LightX2V four-step recipe and 50 VSA gates.")
-    return dict(data, directory=str(directory),
+    if profile and data["derivation"].get("adapter_sha256") != profile["adapter_sha256"]:
+        raise ValueError("Prepared checkpoint and source adapter identities differ.")
+    return dict(data, directory=str(directory), adapter_sha256=profile.get("adapter_sha256"),
                 **{name: str(directory / data[name]) for name in
                    ("checkpoint", "components", "ref2va_native")})
 
 
-def import_assets(checkpoint, components, native, directory, *, progress=None, provenance=None):
+def import_assets(checkpoint, components, native, directory, *, progress=None, provenance=None,
+                  notices_directory=None):
     """Publish a new verified bundle; retain the conversion directory on failure."""
     directory = model_directory(directory)
     if directory.exists() and any(directory.iterdir()):
@@ -105,12 +132,27 @@ def import_assets(checkpoint, components, native, directory, *, progress=None, p
                         raise ValueError(f"Model copy failed: {relative}")
                 files.append(dict(path=relative, size=stat.st_size, sha256=checksum,
                                   mtime_ns=destination.stat().st_mtime_ns))
+    adapter = (provenance or {}).get("adapter_sha256")
+    pika = adapter == pika_recipe.ADAPTER
+    light_v1 = adapter == data_file("prepared-model.json")["adapter"]["sha256"]
     for name in ("LICENSE", "NOTICE"):
-        source = Path(components) / name
-        if source.is_file():
+        source = Path(notices_directory or components) / name
+        if name == "NOTICE" and (pika or light_v1):
+            existing = source.read_text() if source.is_file() else ""
+            correct = model_notice(pika=pika, light_v1=light_v1)
+            if existing and existing != model_notice() and existing.strip() not in correct and correct not in existing:
+                correct += "\n" + existing
+            elif correct in existing:
+                correct = existing
+            (staging / name).write_text(correct)
+        elif source.is_file():
             shutil.copy2(source, staging / name)
-            stat = (staging / name).stat()
-            files.append(dict(path=name, size=stat.st_size, sha256=digest(staging / name), mtime_ns=stat.st_mtime_ns))
+        elif name == "LICENSE" and (pika or light_v1):
+            shutil.copyfile(Path(__file__).parent / "data/MiniMax-H3-LICENSE.txt", staging / name)
+        else:
+            continue
+        stat = (staging / name).stat()
+        files.append(dict(path=name, size=stat.st_size, sha256=digest(staging / name), mtime_ns=stat.st_mtime_ns))
     manifest = dict(format_version=3, preset="ours", task="ref2va", checkpoint="dit",
                     components="components", ref2va_native="ref2va", files=files,
                     derivation=provenance or {"input": "verified local VSA bundle"})

@@ -27,9 +27,13 @@ def assemble(dist, engine, output, tag):
         raise ValueError('Tag and package versions differ')
     spec = json.loads((root / 'src/h3_apple/data/engine.json').read_text())
     engine_name = 'h3-apple-engine-macos-arm64.zip'
-    expected_url = f'https://github.com/RhinoQ/h3-apple/releases/download/{tag}/{engine_name}'
+    # A package-only update can reuse an already published, checksum-pinned engine.
+    engine_tag = spec.get('release_tag', tag)
+    if not re.fullmatch(r'v\d+\.\d+\.\d+', engine_tag):
+        raise ValueError('Engine release tag is invalid')
+    expected_url = f'https://github.com/RhinoQ/h3-apple/releases/download/{engine_tag}/{engine_name}'
     if spec['url'] != expected_url:
-        raise ValueError('Engine URL does not target this release')
+        raise ValueError('Engine URL does not target the pinned release')
     data = engine.read_bytes()
     if len(data) != spec['bytes'] or sha(data) != spec['sha256']:
         raise ValueError('Engine archive checksum differs')

@@ -323,6 +323,7 @@ def prepare(spec, *, allow_large_download=False, progress=None):
         license_path = Path(__file__).parent / 'data/MiniMax-H3-LICENSE.txt'
         shutil.copy2(license_path, staging / 'LICENSE.txt')
         manifest = register_model(staging, provenance=provenance, records=records)
+        load_manifest(staging)
         # Rewrite only paths into our staging directory before the atomic move.
         destination = directory
         manifest['native_model'] = str(directory / 'model')

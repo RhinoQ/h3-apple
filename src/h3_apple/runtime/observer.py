@@ -5,7 +5,8 @@ import time
 
 
 class Observer:
-    def __init__(self, emit, directory=None):
+    def __init__(self, emit, directory=None, steps=4):
+        self.steps = steps
         self.emit = emit
         self.directory = Path(directory) if directory is not None else None
         if self.directory is not None:
@@ -30,7 +31,7 @@ class Observer:
         if mx.get_peak_memory() > 80 * 1024**3:
             raise RuntimeError("MLX peak memory exceeded 80 GiB.")
         if index % 10 == 0 or index == total:
-            self.emit({"phase": "denoise", "step": step + 1, "steps": 4,
+            self.emit({"phase": "denoise", "step": step + 1, "steps": self.steps,
                        "block": index, "blocks": total})
 
     def step(self, index, video, audio, video_velocity, audio_velocity):

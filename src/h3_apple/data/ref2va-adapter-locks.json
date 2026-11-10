@@ -1,0 +1,30 @@
+{
+  "991c1c9a8c87694a9980debf2d54e12380b1985aacdeafdd1f55c1902e195f77": {
+    "adapter_sha256": "e470d3043fb3b8b4f8f77be39e3498071d18f09fd8658150eeb5bc6bb9a32d43",
+    "alpha": 8,
+    "files": {
+      "dit/mlx_h3_dit.json": {
+        "size": 39474,
+        "sha256": "ee6d8e8ed7d1da5a31b411c0de0cc7cf1f47a0946fe81fa2b1fc401de81b967c"
+      },
+      "dit/mlx_h3_dit.safetensors": {
+        "size": 23608261915,
+        "sha256": "991c1c9a8c87694a9980debf2d54e12380b1985aacdeafdd1f55c1902e195f77"
+      }
+    }
+  },
+  "7895c7419f3eb30aa5e4a77a769b687f0e87e90655038b2062271e89b05e70bb": {
+    "adapter_sha256": "eef684ba1258f0cdbbbda6128188ad2688417f2eb17ff875375e74a32b6d61b5",
+    "alpha": 128,
+    "files": {
+      "dit/mlx_h3_dit.json": {
+        "size": 39564,
+        "sha256": "072298ad9702707ccfdd24dffe8b0cfe8290e51f17571c0efc54d8d8bd35c341"
+      },
+      "dit/mlx_h3_dit.safetensors": {
+        "size": 23647055143,
+        "sha256": "7895c7419f3eb30aa5e4a77a769b687f0e87e90655038b2062271e89b05e70bb"
+      }
+    }
+  }
+}

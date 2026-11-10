@@ -10,10 +10,12 @@
 
 ## 1. Install
 
+From the root of this source checkout, run
+
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.3/h3_apple-0.8.3-py3-none-any.whl"
+python -m pip install .
 ```
 
 One environment supports generation and super-resolution. No compiler is needed.
@@ -62,19 +64,22 @@ five-second clip, depending on input size, beyond generation time.
 
 These conservative estimates include X2's 5.25 GB decoder. Caches reduce costs.
 SOL's 6.05 MB engine downloads automatically. SOL + X2 does not need VSA models.
-Fast uses the selected backend's bundle with X2; medium uses the same backend's
-bundle without X2. Both default to VSA. High reuses the prepared VSA bundle for
-[Dense generation](development.md#runtime) and adds the 6.97 GB VOSR models.
-Switching quality between fast and medium reuses
-the generation bundle; changing backend may require a separate bundle. Combined
-download consent is checked before setup.
+Fast and Medium share the selected backend's generation bundle and default to
+VSA. Fast also uses the X2 decoder. High prepares a separate Pika H3 Flex
+bundle on first use and delivers native 768p. With the original VSA source
+files cached, High adds a 2.77 GB adapter download. Even with all sources on
+the same volume, fresh conversion checks for about 192 GB of free disk.
+Requesting VOSR 2× adds a separate 6.97 GB model. Combined downloads are
+checked before setup.
 
-Preview your actual costs without downloading:
+These commands report the four-step generation, X2 and VOSR setup costs.
 
 ```sh
 h3 prepare --plan
 h3 prepare --mode SOL --plan
+h3 prepare --quality high --plan
 h3 prepare-x2 --plan
+h3 prepare-vosr --plan
 ```
 
 Prepared bundles occupy about 111 GB for VSA with hard links (178 GB logical)
@@ -90,8 +95,9 @@ Unattended transfers over 20 GB require `--allow-large-download` after plan revi
 
 | Mode | Default directory | Override |
 | --- | --- | --- |
-| VSA | `~/Models/h3-apple/VSA` | `H3_VSA_MODEL_DIR` |
-| SOL | `~/Models/h3-apple/ref2va` | `H3_MODEL_DIR` |
+| VSA, LightX2V v1.0 | `~/Models/h3-apple/VSA-lightx2v-v1` | `H3_VSA_MODEL_DIR` |
+| SOL, LightX2V v1.0 | `~/Models/h3-apple/ref2va-lightx2v-v1` | `H3_MODEL_DIR` |
+| Pika High | `~/Models/h3-apple/pika-ref2va` | `--model-dir` on the High generation call |
 
 Set the variable in each session or pass `--model-dir`. Keep formats separate.
 [X2 has its own directory](x2.md#model-preparation).
@@ -112,7 +118,10 @@ for multiple compatible sources.
 <summary>Upgrade h3-apple or older SOL models</summary>
 
 Activate `h3` and rerun the pip command with `--upgrade`.
-Compatible VSA models are reusable.
+Fast and Medium prepare LightX2V v1.0 in new default directories using the
+shared original source cache. If a model-directory override points to v0.1,
+set it to a v1.0 bundle or choose an empty destination. The old VSA directory
+can still be passed to the [advanced four-step Dense replay](advanced.md).
 
 **Old quantized SOL weights need fresh preparation.** Prepare a new directory:
 

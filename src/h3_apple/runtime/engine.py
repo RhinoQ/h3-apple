@@ -48,7 +48,7 @@ def delivery_frames(frames, request):
 
 
 def run(request, assets, output_path, emit, diagnostics_dir=None, *, ref2va=None):
-    observer = Observer(emit, diagnostics_dir)
+    observer = Observer(emit, diagnostics_dir, request["num_steps"])
     timings = {}
     peaks = {}
     mx.set_memory_limit(80 * 1024**3)

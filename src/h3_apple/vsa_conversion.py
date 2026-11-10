@@ -119,9 +119,10 @@ def merge_parameter(base, edits: dict, tensors: dict, *, xp, consumed: set, lora
     return value.astype(base.dtype)
 
 
-def ref2va_adapter_plan(header, target_shapes: dict) -> dict:
+def ref2va_adapter_plan(header, target_shapes: dict, *, pika=False) -> dict:
     """Validate the dedicated LightX2V Ref2VA rank128/alpha8 PEFT adapter."""
-    if header.metadata.get("format") != "pt" or header.metadata.get("alpha") != "8":
+    if (header.metadata.get("format") != "pt" or
+            (header.metadata.get("modified_by") != "Mellis, Inc." if pika else header.metadata.get("alpha") != "8")):
         raise ValueError("Expected the dedicated Ref2VA PEFT adapter with alpha 8.")
     prefixes = ([f"token_refiner.refiner_blocks.{i}" for i in range(2)] +
                 [f"transformer_blocks.{i}" for i in range(50)])
@@ -187,7 +188,7 @@ def header(path):
             for key in reader.keys()})
 
 
-def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source=None):
+def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source=None, pika_manifest=None):
     """Stream transformed shards through an explicit loader, without monkeypatching."""
     import mlx.core as mx
     from ._vendor.fastvideo_mlx import minimax_h3 as h3
@@ -208,8 +209,16 @@ def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source
                 shapes[target] = ((record.shape[0] // 3, *record.shape[1:])
                                   if op in ("q", "k", "v") else record.shape)
     adapter_header = header(adapter)
-    plans = ref2va_adapter_plan(adapter_header, shapes)
+    from . import pika_recipe
+    from .io import digest
+    pika = pika_manifest is not None
+    if pika and (digest(pika_manifest) != pika_recipe.MANIFEST or digest(adapter) != pika_recipe.ADAPTER):
+        raise ValueError("Pika Ref2VA manifest or adapter checksum differs.")
+    plans = ref2va_adapter_plan(adapter_header, shapes, pika=pika)
     adapter_tensors = mx.load(str(adapter))
+    if pika:
+        adapter_tensors = {key: tensor.astype(mx.bfloat16) for key, tensor in adapter_tensors.items()}
+    alpha = 128 if pika else 8
     consumed = set()
     gates = ref2va_gate_plan(header(gate_source)) if gate_source is not None else {}
     gate_tensors = mx.load(str(gate_source)) if gates else {}
@@ -224,7 +233,7 @@ def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source
             for target, op in native_key_plan(key):
                 base = transform_native(value, op, xp=mx)
                 converted[target] = (merge_parameter(base, plans[target], adapter_tensors,
-                    xp=mx, consumed=consumed, lora_scale=8/128) if target in plans else base)
+                    xp=mx, consumed=consumed, lora_scale=alpha/128) if target in plans else base)
         if phase == "weights" and shard == shards[-1]:
             for target, edits in plans.items():
                 if "set_weight" in edits:
@@ -239,6 +248,9 @@ def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source
     timesteps = np.unique(np.concatenate([
         1 - h3.minimax_h3_sigmas(12, 4)[:-1],
         1 - h3.minimax_h3_sigmas(3, 4)[:-1], [1.0, 0.999]]).astype(np.float32))
+    if pika:
+        timesteps = np.unique(np.concatenate([timesteps, 1 - pika_recipe.sigmas(12)[:-1],
+                                               1 - pika_recipe.sigmas(3)[:-1]]))
     dit = h3.mlx_h3_dit_from_diffusers_safetensors(native, config=CONFIG, dtype="bf16",
         quantization="int8", adaln_cache_timesteps=timesteps,
         include_vsa=True, _shard_loader=load)
@@ -248,7 +260,8 @@ def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source
         raise ValueError("The converted model did not consume all selected gates.")
     h3.save_mlx_h3_checkpoint(dit, output)
     (output / "ref2va_recipe.json").write_text(json.dumps(dict(
-        schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128, lora_alpha=8,
+        schema="h3-apple-ref2va/v1", task="ref2va", lora_rank=128, lora_alpha=alpha,
+        **({"sampling_recipe": pika_recipe.RECIPE, "manifest_sha256": pika_recipe.MANIFEST} if pika else {}),
         lora_tensors=len(consumed), gate_tensors=len(gates_consumed),
         base_directory=str(native.resolve()), adapter_path=str(adapter.resolve()),
         gate_source=str(Path(gate_source).resolve()),
@@ -258,21 +271,15 @@ def convert_dit(native, adapter, output, progress, *, task="ref2va", gate_source
                 gate_tensors=len(gates_consumed), timesteps=timesteps.tolist())
 
 
-def convert_components(native, output, progress):
+def convert_components(native, output, progress, *, pika=False):
     import mlx.core as mx
+    from .vsa_assets import model_notice
     from ._vendor.fastvideo_mlx.minimax_h3_audio_vae import MiniMaxH3AudioVAEConfigView
     from ._vendor.fastvideo_mlx.minimax_h3_video_vae import MiniMaxH3VideoVAEConfigView
     native, output = Path(native), Path(output)
     output.mkdir(exist_ok=False)
     shutil.copyfile(native.parent / "LICENSE", output / "LICENSE")
-    (output / "NOTICE").write_text(
-        "MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, "
-        "Copyright © 2026 MiniMax. All Rights Reserved.\n\n"
-        "Modified by H3 Apple: native DiT layout conversion, original LightX2V fusion and FastH3 gate-only "
-        "adapter fusion, affine INT8 group64 quantization and fixed AdaLN tables; "
-        "VideoVAE decoder key conversion with the image encoder omitted. "
-        "AudioVAE, text encoder and tokenizer payloads are retained unchanged. "
-        "Source checksums and converter identity are recorded in bundle.json.\n")
+    (output / "NOTICE").write_text(model_notice(pika=pika))
     for name in ("text_encoder", "tokenizer"):
         (output / name).symlink_to((native / name).resolve(), target_is_directory=True)
     video = native / "video_vae"
@@ -323,6 +330,7 @@ def main():
     parser = argparse.ArgumentParser(description="Private VSA model conversion worker")
     for name in ("native", "adapter", "gate-source", "output"):
         parser.add_argument("--" + name, type=Path, required=True)
+    parser.add_argument("--pika-manifest", type=Path)
     args = parser.parse_args()
     initial = snapshot()
     check_machine(initial)
@@ -337,15 +345,15 @@ def main():
     def progress(event):
         print(json.dumps(event), flush=True)
     dit = convert_dit(args.native / "transformer", args.adapter, args.output / "dit", progress,
-                      task="ref2va", gate_source=args.gate_source)
+                      task="ref2va", gate_source=args.gate_source, pika_manifest=args.pika_manifest)
     mx.clear_cache()
-    convert_components(args.native, args.output / "components", progress)
-    write_json(args.output / "conversion.json", dict(converter="original-lightx2v-ref2va-v1", dit=dit,
+    convert_components(args.native, args.output / "components", progress, pika=args.pika_manifest is not None)
+    write_json(args.output / "conversion.json", dict(converter="pika-flex-ref2va-v1" if args.pika_manifest else "original-lightx2v-ref2va-v1", dit=dit,
                backend=backend, package_source_sha256=source_identity(),
                physical_host=initial, elapsed_seconds=time.monotonic() - started,
                settings=dict(metal_gpu_arch_override="", tf32=False,
                              dtype="bf16", quantization="affine-int8-group64",
-                             task="ref2va", video_shift=12, audio_shift=3, num_steps=4,
+                             task="ref2va", video_shift=12, audio_shift=3, num_steps=6 if args.pika_manifest else 4,
                              video_vae_dtype="fp32"),
                peak_memory_gib=mx.get_peak_memory() / 1024**3))
 

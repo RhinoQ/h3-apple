@@ -103,3 +103,48 @@ def test_vsa_never_treats_native_sol_model_as_prepared(tmp_path, monkeypatch):
     monkeypatch.setattr(vsa_preparation, 'source_plan', lambda *a: pytest.fail('unexpected source plan'))
     with pytest.raises(FileExistsError, match='empty VSA'):
         vsa_preparation.plan(root)
+
+
+def test_pika_preparation_rechecks_a_concurrently_published_four_step_bundle(tmp_path, monkeypatch):
+    from contextlib import nullcontext
+    from h3_apple import media
+    from h3_apple.runtime import backend
+
+    root = tmp_path / "bundle"
+    tiny_bundle(root, monkeypatch)
+    monkeypatch.setattr(vsa_preparation, "check_machine", lambda *args: None)
+    monkeypatch.setattr(vsa_preparation, "device_lock", nullcontext)
+    monkeypatch.setattr(backend, "check_dependencies", lambda: None)
+    monkeypatch.setattr(media, "check_runtime", lambda: None)
+    stale = dict(status="preparation_required", directory=str(root), pika=True,
+                 download_bytes=0, additional_disk_bytes=0)
+    with pytest.raises(ValueError, match="recipe and prepared Ref2VA"):
+        vsa_preparation.prepare(stale)
+    with pytest.raises(ValueError, match="LightX2V v1.0"):
+        vsa_preparation.prepare(dict(stale, pika=False))
+    # A caller may explicitly select the historical native Dense checkpoint.
+    legacy = vsa_preparation.plan(root, allow_legacy=True)
+    assert vsa_preparation.prepare(legacy)["identity"] == vsa_assets.load_assets(root)["identity"]
+
+
+def test_pika_import_and_reuse_keep_author_notice_and_license(tmp_path, monkeypatch):
+    from h3_apple import pika_recipe
+    from h3_apple.io import digest
+
+    components = tmp_path / "components"
+    components.mkdir()
+    (components / "NOTICE").write_text(vsa_assets.model_notice())
+    # The fixture isolates packaging. Runtime tests cover checkpoint validation separately.
+    monkeypatch.setattr(vsa_assets, "load_assets", lambda root: json.loads((root / "bundle.json").read_text()))
+    args = (tmp_path/"dit", components, tmp_path/"native")
+    provenance = {"adapter_sha256": pika_recipe.ADAPTER}
+    for name, notices in [("fresh", components), ("reuse", tmp_path/"fresh")]:
+        directory = tmp_path/name
+        manifest = vsa_assets.import_assets(*args, directory, provenance=provenance, notices_directory=notices)
+        notice = (directory/"NOTICE").read_text()
+        assert "Copyright © 2026 Mellis, Inc." in notice and "Pika H3 Flex Ref2VA" in notice
+        assert "original LightX2V" not in notice
+        assert digest(directory/"LICENSE") == digest(Path(vsa_assets.__file__).parent/"data/MiniMax-H3-LICENSE.txt")
+        entries = {row["path"]: row["sha256"] for row in manifest["files"]}
+        assert entries["NOTICE"] == digest(directory/"NOTICE") and entries["LICENSE"] == digest(directory/"LICENSE")
+    assert (components/"NOTICE").read_text() == vsa_assets.model_notice()

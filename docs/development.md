@@ -8,14 +8,15 @@
 | Dense (High) | `runtime/engine.py` | W8A8 projections; BF16 full SDPA; sparse routing and gates bypassed |
 | SOL | `engine.py` | Native vpipe; INT8 GEMM, SOL and Sage attention |
 
-**Dense and VSA share prepared weights.** Internally, `mode="VSA"` selects the
-MLX runtime and model bundle; `attention="dense"` selects full attention.
-High uses this combination, bypassing VSA sparse routing and gates. Its projections
-remain W8A8: Dense describes attention coverage, not whole-model precision.
+Fast and Medium use LightX2V v1.0 four-step Ref2VA. SOL and VSA use
+different checkpoint formats. Both fuse the adapter into the original BF16
+projections before W8G64 quantization.
 
-All three use the original LightX2V four-step adapter. SOL merges it into BF16 weights
-in FP32, rounds to BF16, then quantizes to W8G64. Manifests bind this recipe;
-runtime reapplication is rejected. The formats are separate, with no silent fallback.
+High uses a separate Pika H3 Flex Ref2VA bundle. Its six-step MLX sampler
+uses full BF16 attention with W8A8 projections, keeps reference latents in
+FP32 and re-noises both modalities between its first five predictions. The
+sixth returns the clean prediction. High delivers native video. VOSR runs
+when requested. The advanced four-step Dense path can replay a v0.1 VSA bundle.
 
 The Python facade owns validation, preparation, resource limits, progress,
 cancellation, media checks and run records. Workers isolate inference dependencies.
@@ -59,7 +60,10 @@ H3_TEST_LARGE_ARRAYS=1 .local/envs/h3/bin/python -m pytest tests/test_vae_chunks
 
 ## Implementation and credits
 
-**New in 0.8.3:** fast and medium accept either VSA or SOL through the existing
+**0.9.0** selects LightX2V v1.0 for Fast and Medium, native Pika High
+and optional restoration. [Preset and migration details](releases/0.9.0.md).
+
+**0.8.3** fast and medium accept either VSA or SOL through the existing
 `mode` option, defaulting to VSA. Quality sets geometry and decoding independently
 of that backend choice. Preparation and diagnostics use the same default.
 The inference implementations, weights and High workflow are unchanged.
@@ -99,7 +103,8 @@ algorithm references and independently written integration.
 
 | Component | Upstream | h3-apple |
 | --- | --- | --- |
-| Base model and Turbo | [MiniMax H3](https://huggingface.co/MiniMaxAI/MiniMax-H3/tree/bfc8ed0353f5a9733be73e6b2c98ec0948195b86); [LightX2V Ref2VA Turbo](https://huggingface.co/lightx2v/Minimax-h3-Turbo/tree/ec01fa4c86263832faa0bd1d6d8f36a281eaabb2), original **4-step v0.1** | Content-pinned preparation, compatible model manifests and explicit migration. |
+| Pika High | [Pika H3 Flex Ref2VA weights and notice](https://huggingface.co/Pika-Labs/Pika-H3-Flex/tree/ca45d99f9b1d1859ffb9dc1cd6bfaaa994257f56), [six-step reference sampler](https://github.com/Pika-Labs/Pika-H3-Flex/blob/6dacb6250e60b006d1df9efdaf04f0a54c1a6755/src/pika_h3/core/sampling.py) | Ported the six-step audio and video updates to MLX and verified the native checkpoints, sampling schedule and output. |
+| Base model and Turbo | [MiniMax H3](https://huggingface.co/MiniMaxAI/MiniMax-H3/tree/bfc8ed0353f5a9733be73e6b2c98ec0948195b86); [LightX2V Ref2VA Turbo](https://huggingface.co/lightx2v/Minimax-h3-Turbo/tree/30f485ed874aa44c8183348ad361c5eabad318da), four-step v1.0 | Content-pinned preparation, compatible model manifests and explicit migration. |
 | VSA runtime | Selected MLX code from [FastVideo](https://github.com/hao-ai-lab/FastVideo/tree/7bb76b5ec99807a66aa3047b901f15019abe0f00), Apache-2.0 | Ref2VA worker integration, preparation, fixed compute dispatch, delivery and reproducible source records. File-level origins/modifications are in the [source inventory](sources.json). |
 | VSA gates/routing | [Kablex Ref2VA-VSA](https://github.com/Kablex/ComfyUI-Ref2VA-VSA/blob/92e3f8357c626f63cfe3813ec914f2cf3fbc500c/nodes.py): gate-only transplant and dense-exempt reference prefix; [Comfy Kitchen](https://github.com/Comfy-Org/comfy-kitchen/blob/62c5bb4a5f2f818d4be7e2a51f83aaf1286a1243/comfy_kitchen/backends/eager/sol_attn.py): routing semantics | Mac implementation and validation of prefix offsets, valid-key masks, padded lanes, tie retention and local routing. Only 50 FastH3 gate matrices are used; its T2VA deltas are not applied. |
 | VSA sparse Metal attention | MLX / [mlx-flashattention-steel](https://github.com/marcogva-hub/mlx-flashattention-steel/tree/b1e7ac2586fde9e28412d81b62540f0bff281771) / MFA (MIT), Draw Things (BSD-3-Clause); retained [kernel notice](../src/h3_apple/runtime/metal/p085_NOTICE.txt) is authoritative | Selected-route traversal, reference-prefix handling and shape/mask adaptation with independent numerical checks. |
