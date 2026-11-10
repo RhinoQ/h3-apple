@@ -3,14 +3,16 @@
 Turn 1–9 reference images and a prompt into a video with stereo sound on your Mac.
 MiniMax-H3 generates 5–15 seconds at 24 fps, in landscape or portrait.
 
-[Watch the 0.9.0 gallery](https://rhinoq.github.io/h3-apple/?release=0.9.0) · [Install](#install) · [What's new in 0.9.0](docs/releases/0.9.0.md)
+[Install](#install) · [Generate your first clip](#generate-a-video) · [What's new in 0.9.0](docs/releases/0.9.0.md)
 
-[![Four frames from the fan film show the same pink rabbit in a trench coat, floral skirt, blue dress and denim with a burgundy bow](docs/media/four-looks-under-the-fan.jpg)](https://rhinoq.github.io/h3-apple/?release=0.9.0#fan-wardrobe~2x)
+**Wind It Up** · The 13-second h3-apple 0.9.0 release film
 
-**Four looks under the fan** is a 15-second film made from three five-second Pika High shots.
-The stills show the optional 1536×2732 VOSR 2× version. The gallery includes the native
-768×1366 film, every prompt and reference, and the commands behind each shot.
-[Watch the film](https://rhinoq.github.io/h3-apple/?release=0.9.0#fan-wardrobe~2x) · [See how it was made](https://rhinoq.github.io/h3-apple/?release=0.9.0#fan-wardrobe~2x~generation)
+https://github.com/user-attachments/assets/8e2d6b82-bfd9-4837-a469-ca3ba6a70913
+
+A die-cast rally car rolls across a paper map. Cut to the same red coupe on a snowy mountain pass.
+Three original ImageGen stills guided three five-second **Pika High** shots on a 40-core M5 Max
+with 128 GiB. The edit keeps the native **1366×768** frames and generated stereo sound, with a title added at the end.
+[Watch with sound](https://rhinoq.github.io/h3-apple/?release=0.9.0#wind-it-up) · [Get the prompts, references, timings and commands](https://rhinoq.github.io/h3-apple/?release=0.9.0#wind-it-up~native~generation)
 
 ## Install
 
@@ -28,14 +30,14 @@ python -m pip install https://github.com/RhinoQ/h3-apple/releases/download/v0.9.
 
 ## Generate a video
 
-Save the sample as `rabbit.png`, or substitute your own image path. [Download the rabbit reference](https://raw.githubusercontent.com/RhinoQ/h3-apple/885a874c76664d0781337950d9ddc6ece0ee548e/features/fan-wardrobe/refs/01-rest-3d.png)
+Save the sample as `apex.png`, or use one of your own images. [Download the rally-car reference](https://raw.githubusercontent.com/RhinoQ/h3-apple/15ceb7749aef752aa016e9b40723fb617facfbd1/features/wind-it-up/refs/apex.png)
 
 ```sh
-h3 generate --image rabbit.png --output rabbit.mp4 \
-  --prompt "The pink rabbit in Picture 1 raises one paw and waves. Its coat rustles."
+h3 generate --image apex.png --output rally.mp4 \
+  --prompt "The red coupe in Picture 1 slides around a snowy bend and accelerates past the camera. Its engine echoes across the valley."
 ```
 
-Open `rabbit.mp4` to play the five-second clip. For portrait, add `--aspect-ratio 9:16`.
+Open `rally.mp4` to play the five-second clip. For portrait, add `--aspect-ratio 9:16`.
 In a new terminal, run `conda activate h3` first.
 
 **How long does it take?** Default Fast took **4m 27s** for five seconds of video
@@ -49,12 +51,10 @@ Double the width and height of a finished clip and keep its stereo audio.
 VOSR writes a second MP4 and requires **128 GiB of unified memory** plus a **6.97 GB** model download.
 
 ```sh
-h3 upscale --input rabbit.mp4 --output rabbit-2x.mp4
+h3 upscale --input rally.mp4 --output rally-2x.mp4
 ```
 
-Restoring the 15-second fan film took **53m 58s** on the 40-core M5 Max with 128 GiB,
-after **1h 01m 52s** of native Pika generation for the three selected shots.
-[Film timings](https://rhinoq.github.io/h3-apple/?release=0.9.0#fan-wardrobe~2x~generation) · [Super-resolution guide and noncommercial terms](docs/upscale.md)
+[Super-resolution examples, timings and noncommercial terms](docs/upscale.md)
 
 ---
 
