@@ -11,6 +11,9 @@ if (new URLSearchParams(location.search).get('release') === '0.9.0') {
 const player = document.querySelector("#player");
 const nav = document.querySelector("#scenes");
 const status = document.querySelector("#status");
+const footer = document.querySelector("footer");
+const originalFooter = footer.textContent;
+const featuredFilms = [{"id": "fan-wardrobe", "title": "Four looks under the fan", "brief": "A pink rabbit rolls off the sofa. A walnut ceiling fan sweeps past to reveal a floral skirt, a blue bubble dress, and an indigo denim look with a burgundy bow.", "quality": "High", "model": "Pika H3 Flex", "backend": "Dense", "steps": 6, "shots": 3, "refs": "6 original stills + 2 continuity frames", "duration": 15, "seeds": [910901, 910902, 910903], "x2": false, "production": "Three five-second Pika shots generated on a 40-core Apple M5 Max with 128 GiB. The final frame of each preceding shot guides the next. The edit keeps the generated stereo tracks.", "native": {"url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/e7467186618f585fc43f408874357404f531a754/films/656b2bfd9d5d8b7758e8fa51da12f7b0aae6a2f81493e0d4cfec86717da4ce75.mp4", "sha256": "656b2bfd9d5d8b7758e8fa51da12f7b0aae6a2f81493e0d4cfec86717da4ce75", "bytes": 7700117, "width": 768, "height": 1366, "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/e7467186618f585fc43f408874357404f531a754/films/656b2bfd9d5d8b7758e8fa51da12f7b0aae6a2f81493e0d4cfec86717da4ce75.jpg"}}];
 let films = [];
 let currentUrl = "";
 let catalogKey = "";
@@ -54,13 +57,15 @@ function show() {
   document.querySelector("#mode").textContent = film.quality + " / " + film.model + " / " + film.steps + " steps";
   document.querySelector("#title").textContent = film.title;
   document.querySelector("#brief").textContent = film.brief;
+  footer.textContent = film.production || originalFooter;
   const delivery = upscaled ? "VOSR 2×" : film.x2 ? "544p + X2 decoder" : "Native 768p";
   const rows = [
     ["Output", media.width + " × " + media.height + " · " + delivery],
     ["Playback", film.duration + " s · 24 fps · stereo"],
-    ["Generation", film.backend + " · " + film.refs + " references"],
-    ["Seed", String(film.seed)]
+    ["Generation", film.backend + " · " + (film.shots ? film.shots + " shots" : film.refs + " references")]
   ];
+  if (film.shots) rows.push(["References", film.refs]);
+  rows.push(film.seeds ? ["Seeds", film.seeds.join(" · ")] : ["Seed", String(film.seed)]);
   document.querySelector("#settings").replaceChildren(...rows.map(([key, value]) => {
     const row = element("div"); row.append(element("dt", key), element("dd", value)); return row;
   }));
@@ -70,21 +75,23 @@ function show() {
   files.replaceChildren(original);
   if (film.restored) files.append(link(upscaled ? "Play native video" : "Play optional VOSR 2×", "#" + film.id + (upscaled ? "" : "~2x")));
   for (const tile of nav.children) {
-    if (tile.hash === "#" + film.id) tile.setAttribute("aria-current", "true");
+    if (tile.dataset.scene === film.id) tile.setAttribute("aria-current", "true");
     else tile.removeAttribute("aria-current");
   }
 }
 
 function update(data) {
   if (data.version !== "0.9.0" || !Array.isArray(data.films) || !data.films.length) throw Error("Missing gallery");
-  if (data.films.length < films.length) return;
-  if (films.some(old => old.restored && !data.films.find(film => film.id === old.id)?.restored)) return;
-  const key = data.films.map(film => film.native.sha256 + (film.restored?.sha256 || "")).join("/");
+  const all = [...data.films, ...featuredFilms];
+  if (all.length < films.length) return;
+  if (films.some(old => old.restored && !all.find(film => film.id === old.id)?.restored)) return;
+  const key = all.map(film => film.native.sha256 + (film.restored?.sha256 || "")).join("/");
   if (key === catalogKey) return;
   catalogKey = key;
-  films = data.films;
-  nav.replaceChildren(...films.map(film => {
-    const a = link("", "#" + film.id); a.className = "tile";
+  films = all;
+  nav.replaceChildren(...[...featuredFilms, ...data.films].map(film => {
+    const a = link("", "#" + film.id + (film.preferred === "2x" ? "~2x" : "")); a.className = "tile";
+    a.dataset.scene = film.id;
     const img = element("img"); img.alt = ""; img.src = film.native.poster; img.loading = "lazy";
     const label = element("span"); label.append(element("strong", film.title), element("small", film.quality + " · " + film.duration + " s"));
     a.append(img, label);
@@ -117,7 +124,8 @@ async function refreshCatalog() {
 }
 async function start() {
   update(fallbackFilms);
-  const complete = () => films.length === 6 && films.filter(film => film.restored).length === 2;
+  const complete = () => films.length === 6 + featuredFilms.length
+    && films.filter(film => film.restored && !featuredFilms.includes(film)).length === 2;
   if (complete()) return;
   await refreshCatalog();
   if (complete()) return;
