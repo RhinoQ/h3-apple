@@ -72,7 +72,7 @@ the same volume, fresh conversion checks for about 192 GB of free disk.
 Requesting VOSR 2× adds a separate 6.97 GB model. Combined downloads are
 checked before setup.
 
-These commands report the four-step generation, X2 and VOSR setup costs.
+These commands report setup costs for the selected generator, X2 and VOSR.
 
 ```sh
 h3 prepare --plan
@@ -130,7 +130,7 @@ h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged --plan
 h3 prepare --mode SOL --model-dir ~/Models/h3-apple-sol-premerged
 ```
 
-To reuse original H3 weights and Turbo, add `--reuse-dir /path/to/sources` to both
+To reuse original H3 weights and the matching v1.0 adapter, add `--reuse-dir /path/to/sources` to both
 commands. Old quantized weights alone are insufficient. Pass the new `--model-dir`
 on later SOL calls. Existing models are preserved.
 [Recipe change](releases/0.7.0.md#fixes-you-can-see).

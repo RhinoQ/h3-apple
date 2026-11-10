@@ -13,7 +13,7 @@ import pytest
 
 
 @pytest.fixture
-def release(tmp_path):
+def release(tmp_path, request):
     script = tmp_path / 'tools/release_assets.py'
     script.parent.mkdir()
     shutil.copyfile(Path(__file__).parents[1] / 'tools/release_assets.py', script)
@@ -29,10 +29,14 @@ def release(tmp_path):
     with zipfile.ZipFile(engine, 'w') as z:
         z.writestr('h3-engine', payload)
     sha = lambda data: hashlib.sha256(data).hexdigest()
-    write('src/h3_apple/data/engine.json', json.dumps(dict(
-        url='https://github.com/RhinoQ/h3-apple/releases/download/v0.7.0/h3-apple-engine-macos-arm64.zip',
+    engine_tag = getattr(request, 'param', None)
+    engine_url = f'https://github.com/RhinoQ/h3-apple/releases/download/{engine_tag or "v0.7.0"}/h3-apple-engine-macos-arm64.zip'
+    engine_spec = dict(url=engine_url,
         bytes=engine.stat().st_size, sha256=sha(engine.read_bytes()),
-        files=[dict(name='h3-engine', bytes=len(payload), sha256=sha(payload))])))
+        files=[dict(name='h3-engine', bytes=len(payload), sha256=sha(payload))])
+    if engine_tag:
+        engine_spec['release_tag'] = engine_tag
+    write('src/h3_apple/data/engine.json', json.dumps(engine_spec))
     write('skills/h3-apple-ref2va-prompting/SKILL.md', 'Test skill\n')
     write('docs/releases/0.7.0.md', '[Install](../install.md)\n')
     dist = tmp_path / 'dist'; dist.mkdir()
@@ -51,6 +55,7 @@ def release(tmp_path):
                       '--output', str(tmp_path / 'release'), '--tag', 'v0.7.0']
 
 
+@pytest.mark.parametrize('release', [None, 'v0.6.1'], indirect=True, ids=['current-engine', 'pinned-engine'])
 def test_verified_assets_have_checksums_and_versioned_links(release):
     root, command = release
     subprocess.run(command, check=True, capture_output=True)
@@ -58,6 +63,14 @@ def test_verified_assets_have_checksums_and_versioned_links(release):
         digest, name = line.split('  ')
         assert hashlib.sha256((root / 'release/assets' / name).read_bytes()).hexdigest() == digest
     assert '/blob/v0.7.0/docs/install.md' in (root / 'release/release-notes.md').read_text()
+
+
+@pytest.mark.parametrize('release', ['main'], indirect=True)
+def test_mutable_engine_ref_is_rejected(release):
+    root, command = release
+    result = subprocess.run(command, capture_output=True, text=True)
+    assert result.returncode != 0 and 'Engine release tag is invalid' in result.stderr
+    assert not (root / 'release/assets').exists()
 
 
 @pytest.mark.parametrize('corruption', ['engine', 'wheel', 'source'])

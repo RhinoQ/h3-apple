@@ -94,10 +94,10 @@ When supported by the selected release, use `--quality fast|medium|high` for a
 requested quality choice. Fast and medium support 5–15 seconds at whole 24 fps
 frames, not just 5/10/15. Releases supporting backend selection within a quality
 accept `--mode VSA|SOL` for fast/medium; carry an explicitly requested mode through
-setup and generation. Otherwise follow that release's default mode. High is fixed at five seconds and includes Dense 768p
-generation and VOSR restoration; it requires 128 GiB and can take substantially longer. Consult the
-release documentation for model costs and terms; do not silently replace an
-explicit advanced configuration with a preset.
+setup and generation. Otherwise follow that release's default mode. In 0.9.0,
+Fast and Medium use four-step LightX2V v1.0. High uses six-step Pika H3 Flex
+and delivers five seconds of native 768p video. High requires 128 GiB.
+Consult the selected release's documentation for model costs and terms.
 Use `resolve` when a separate input audit is useful. Carry its returned seed into
 generation if no seed was specified, so the preflight and render agree.
 Do not replace a requested production
@@ -116,11 +116,11 @@ limitations. Show the MP4 inline where supported; separate setup and generation 
 
 ## Optional super-resolution
 
-Use restoration only when requested. For an existing supported video, prefer
-`h3 upscale --input video.mp4`; no new generation is needed. For a new detailed
-video, `h3 generate ... --quality high` selects Dense native 768p plus VOSR and
-saves both versions. The `--upscale` shortcut uses the selected release's default
-generation mode unless the user specifies one.
+Use restoration only when requested. `h3 upscale --input video.mp4` doubles the
+dimensions of a saved Fast, Medium or High output and preserves its audio.
+In 0.9.0, `h3 generate ... --quality high --upscale` generates a native Pika
+video and saves a second restored copy. High in 0.8.2 and 0.8.3 applies VOSR
+automatically. Check the selected version when reproducing a delivery.
 On versions supporting qualities, validate the same choice with `resolve`.
 
 Consult `docs/upscale.md` at the selected release for supported inputs, memory,

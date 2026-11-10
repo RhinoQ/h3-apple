@@ -22,8 +22,8 @@ h3 generate --image reference.jpg \
 ```
 
 This generates native 768p with six-step Pika Dense, runs VOSR and saves both videos.
-The `--upscale` shortcut uses VSA native 768p + VOSR by default;
-add `--mode SOL` for SOL.
+Omitting `--quality` from this command selects four-step LightX2V at native
+768p. That configuration accepts `--mode SOL` as well as the default VSA.
 With `--output detailed.mp4`,
 the original is saved as `detailed.native.mp4`. If restoration fails, retry with
 `h3 upscale --input detailed.native.mp4` without generating again.
