@@ -3,7 +3,7 @@ if (new URLSearchParams(location.search).get('release') === '0.9.0') {
   document.querySelector('link[rel=stylesheet]').disabled = true;
   document.querySelector('meta[name=description]').content = 'Videos generated with h3-apple 0.9.0 on a Mac, including optional 2× restoration.';
   const style = document.createElement('style');
-  style.textContent = ":root{color-scheme:dark;--bg:#11161d;--surface:#1a232b;--ink:#f3f2eb;--muted:#afbec6;--line:#34434d;--mint:#9aead4;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}\n*{box-sizing:border-box}\nbody{margin:0;color:var(--ink);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;line-height:1.5}\na{color:var(--mint);text-decoration-thickness:1px;text-underline-offset:.23em}\na:focus-visible,video:focus-visible{outline:3px solid var(--mint);outline-offset:4px}\n.skip{position:absolute;top:-100px;left:12px;background:var(--bg);padding:10px;z-index:2}.skip:focus{top:5px}\nheader{border-bottom:1px solid var(--line)}.bar,main,footer{width:min(1100px,calc(100% - 64px));margin:auto}\n.bar{display:flex;align-items:center;gap:19px;min-height:70px}.brand{font-weight:760;font-size:24px;letter-spacing:-1.3px;color:var(--ink);text-decoration:none}\n.edition{font:12px/1.4 var(--mono);border-left:1px solid var(--line);padding-left:19px;color:var(--muted)}.github{margin-left:auto;font-size:14px}\n.feature{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,1fr);align-items:center;gap:clamp(28px,5.6vw,74px);margin:38px 0 40px}\n.theater{display:grid;place-items:center;background:#080b0e;border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}\nvideo{display:block;width:100%;height:clamp(330px,62svh,630px);object-fit:contain;background:#080b0e}\n.mode{color:var(--mint);margin:0 0 12px;font:13px/1.4 var(--mono)}\nh1{font-size:clamp(38px,5.3vw,73px);line-height:.99;letter-spacing:-.059em;font-weight:650;margin:0 0 20px;text-wrap:balance}\n.brief{font-size:clamp(16px,1.6vw,20px);color:var(--muted);margin:0 0 26px;max-width:42ch}\ndl{border-top:1px solid var(--line);margin:0}dl>div{display:flex;gap:15px;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding:7px 0}\ndt{color:var(--muted);font-size:13px}dd{margin:0;text-align:right;font:13px/1.45 var(--mono);overflow-wrap:anywhere}\n.files{display:flex;flex-wrap:wrap;gap:10px 18px;margin:18px 0 0}.files a{display:inline-flex;align-items:center;min-height:38px;font-size:14px}\n.collection{border-top:1px solid var(--line);padding:18px 0 0}h2{font-size:22px;letter-spacing:-.04em;margin:0 0 15px}\n#scenes{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px}.tile{display:grid;grid-template-columns:50px minmax(0,1fr);align-items:center;gap:11px;color:var(--ink);background:var(--surface);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:5px 9px 5px 5px;min-height:64px;line-height:1.25}\n.tile[aria-current=true]{border-color:var(--mint)}.tile:hover{background:#24313a}.tile img{width:50px;height:52px;object-fit:cover;border-radius:3px}\n.tile strong,.tile small{display:block}.tile strong{font-size:14px;font-weight:620}.tile small{margin-top:4px;font:11px/1.3 var(--mono);color:var(--muted)}\n#status,.noscript{color:var(--muted)}footer{margin:32px auto 26px;border-top:1px solid var(--line);padding-top:15px;font-size:12px;color:var(--muted)}\n@media(max-width:680px){.bar,main,footer{width:calc(100% - 32px)}.bar{min-height:54px;gap:12px}.brand{font-size:20px}.edition{font-size:11px;padding-left:12px}.github{font-size:12px}.feature{display:flex;flex-direction:column;align-items:stretch;gap:20px;margin:17px 0 24px}.theater{border-radius:7px}video{height:min(53svh,500px)}video.landscape{height:auto;aspect-ratio:16/9}.mode{font-size:12px;margin-bottom:7px}h1{font-size:36px;line-height:1.02;margin-bottom:10px}.brief{margin-bottom:15px;font-size:16px}.files{margin-top:10px}#scenes{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}.tile{grid-template-columns:40px minmax(0,1fr);gap:8px}.tile img{width:40px;height:46px}.tile strong{font-size:13px}}\n@media(max-width:340px){.edition{border:0;padding:0}.bar{gap:8px}#scenes{grid-template-columns:1fr}}\n";
+  style.textContent = ":root{color-scheme:dark;--bg:#11161d;--surface:#1a232b;--ink:#f3f2eb;--muted:#afbec6;--line:#34434d;--mint:#9aead4;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}\n*{box-sizing:border-box}\nbody{margin:0;color:var(--ink);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;line-height:1.5}\na{color:var(--mint);text-decoration-thickness:1px;text-underline-offset:.23em}\na:focus-visible,video:focus-visible{outline:3px solid var(--mint);outline-offset:4px}\n.skip{position:absolute;top:-100px;left:12px;background:var(--bg);padding:10px;z-index:2}.skip:focus{top:5px}\nheader{border-bottom:1px solid var(--line)}.bar,main,footer{width:min(1100px,calc(100% - 64px));margin:auto}\n.bar{display:flex;align-items:center;gap:19px;min-height:70px}.brand{font-weight:760;font-size:24px;letter-spacing:-1.3px;color:var(--ink);text-decoration:none}\n.edition{font:12px/1.4 var(--mono);border-left:1px solid var(--line);padding-left:19px;color:var(--muted)}.github{margin-left:auto;font-size:14px}\n.feature{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,1fr);align-items:center;gap:clamp(28px,5.6vw,74px);margin:38px 0 40px}\n.theater{display:grid;place-items:center;background:#080b0e;border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}\nvideo{display:block;width:100%;height:clamp(330px,62svh,630px);object-fit:contain;background:#080b0e}\n.mode{color:var(--mint);margin:0 0 12px;font:13px/1.4 var(--mono)}\nh1{font-size:clamp(38px,5.3vw,73px);line-height:.99;letter-spacing:-.059em;font-weight:650;margin:0 0 20px;text-wrap:balance}\n.brief{font-size:clamp(16px,1.6vw,20px);color:var(--muted);margin:0 0 26px;max-width:42ch}\ndl{border-top:1px solid var(--line);margin:0}dl>div{display:flex;gap:15px;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding:7px 0}\ndt{color:var(--muted);font-size:13px}dd{margin:0;text-align:right;font:13px/1.45 var(--mono);overflow-wrap:anywhere}\n.files{display:flex;flex-wrap:wrap;gap:10px 18px;margin:18px 0 0}.files a{display:inline-flex;align-items:center;min-height:38px;font-size:14px}\n.collection{border-top:1px solid var(--line);padding:18px 0 0}h2{font-size:22px;letter-spacing:-.04em;margin:0 0 15px}\n#scenes{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px}.tile{display:grid;grid-template-columns:50px minmax(0,1fr);align-items:center;gap:11px;color:var(--ink);background:var(--surface);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:5px 9px 5px 5px;min-height:64px;line-height:1.25}\n.tile[aria-current=true]{border-color:var(--mint)}.tile:hover{background:#24313a}.tile img{width:50px;height:52px;object-fit:cover;border-radius:3px}\n.tile strong,.tile small{display:block}.tile strong{font-size:14px;font-weight:620}.tile small{margin-top:4px;font:11px/1.3 var(--mono);color:var(--muted)}\n#status,.noscript{color:var(--muted)}footer{margin:32px auto 26px;border-top:1px solid var(--line);padding-top:15px;font-size:12px;color:var(--muted)}\n@media(max-width:680px){.bar,main,footer{width:calc(100% - 32px)}.bar{min-height:54px;gap:12px}.brand{font-size:20px}.edition{font-size:11px;padding-left:12px}.github{font-size:12px}.feature{display:flex;flex-direction:column;align-items:stretch;gap:20px;margin:17px 0 24px}.theater{border-radius:7px}video{height:min(53svh,500px)}video.landscape{height:auto;aspect-ratio:16/9}.mode{font-size:12px;margin-bottom:7px}h1{font-size:36px;line-height:1.02;margin-bottom:10px}.brief{margin-bottom:15px;font-size:16px}.files{margin-top:10px}#scenes{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}.tile{grid-template-columns:40px minmax(0,1fr);gap:8px}.tile img{width:40px;height:46px}.tile strong{font-size:13px}}\n@media(max-width:340px){.edition{border:0;padding:0}.bar{gap:8px}#scenes{grid-template-columns:1fr}}\n@media(max-width:680px){main{display:flex;flex-direction:column}.collection{order:-1;border:0;padding-top:12px}.collection h2{display:none}#scenes{display:flex;overflow-x:auto;overscroll-behavior-x:contain;padding:2px 1px 5px}.tile{flex:0 0 166px;min-height:48px}.tile img{height:40px}.feature{margin-top:9px}}\n";
   document.head.append(style);
   document.body.innerHTML = "\n  <a href=\"#player\" class=\"skip\">Skip to video</a>\n  <header><div class=\"bar\"><a class=\"brand\" href=\"./\">h3-apple</a><span class=\"edition\">0.9.0 video gallery</span><a class=\"github\" href=\"https://github.com/RhinoQ/h3-apple\">GitHub \u2197</a></div></header>\n  <main>\n    <article class=\"feature\" aria-labelledby=\"title\">\n      <div class=\"theater\"><video id=\"player\" controls playsinline preload=\"metadata\" aria-label=\"Scene video\"></video></div>\n      <section class=\"notes\" aria-live=\"polite\">\n        <p id=\"mode\" class=\"mode\"></p>\n        <h1 id=\"title\">The paintbrush trade</h1>\n        <p id=\"brief\" class=\"brief\" aria-label=\"Scene prompt\">A rabbit asks \u201cMy turn?\u201d and trades an apple for a bear\u2019s paintbrush at a garden fence.</p>\n        <dl id=\"settings\"></dl>\n        <div id=\"files\" class=\"files\"></div>\n      </section>\n    </article>\n    <section class=\"collection\" aria-labelledby=\"scenes-title\"><h2 id=\"scenes-title\">Scenes</h2><nav id=\"scenes\" aria-label=\"Select a scene\"></nav></section>\n    <p id=\"status\" role=\"status\"></p>\n    <noscript><p>Enable JavaScript to select a scene.</p></noscript>\n  </main>\n  <footer>Generated on a 40-core Apple M5 Max with 128 GiB of memory. Each scene is the first output from its prompt and seed.</footer>\n";
   document.documentElement.classList.remove('opening-gallery');
@@ -13,6 +13,7 @@ const nav = document.querySelector("#scenes");
 const status = document.querySelector("#status");
 let films = [];
 let currentUrl = "";
+let catalogKey = "";
 
 function element(tag, text) {
   const node = document.createElement(tag);
@@ -76,13 +77,18 @@ function show() {
 
 function update(data) {
   if (data.version !== "0.9.0" || !Array.isArray(data.films) || !data.films.length) throw Error("Missing gallery");
+  const key = data.films.map(film => film.native.sha256 + (film.restored?.sha256 || "")).join("/");
+  if (key === catalogKey) return;
+  catalogKey = key;
   films = data.films;
   nav.replaceChildren(...films.map(film => {
     const a = link("", "#" + film.id); a.className = "tile";
     const img = element("img"); img.alt = ""; img.src = film.native.poster; img.loading = "lazy";
     const label = element("span"); label.append(element("strong", film.title), element("small", film.quality + " · " + film.duration + " s"));
     a.append(img, label);
-    a.addEventListener("click", () => document.querySelector(".feature").scrollIntoView({block:"start"}));
+    a.addEventListener("click", () => {
+      if (window.matchMedia("(min-width:681px)").matches) document.querySelector(".feature").scrollIntoView({block:"start"});
+    });
     return a;
   }));
   status.textContent = "";
@@ -95,14 +101,24 @@ async function load(url) {
   update(await response.json());
 }
 window.addEventListener("hashchange", show);
-async function start() {
-  update(fallbackFilms);
+async function refreshCatalog() {
   try {
     const branch = "https://raw.githubusercontent.com/RhinoQ/h3-apple/refs/heads/codex/v090-gallery-media/films.json";
     await load(branch + "?v=" + Math.floor(Date.now() / 60000));
   } catch {
     if (!films.length) status.textContent = "The video list could not load. Refresh to try again.";
   }
+}
+async function start() {
+  update(fallbackFilms);
+  await refreshCatalog();
+  const complete = () => films.length === 6 && films.filter(film => film.restored).length === 2;
+  if (complete()) return;
+  const timer = setInterval(() => {
+    if (complete()) clearInterval(timer);
+    else if (!document.hidden) refreshCatalog();
+  }, 60000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && !complete()) refreshCatalog(); });
 }
 start();
 
