@@ -15,7 +15,7 @@
     910903
   ],
   "x2": false,
-  "production": "Three five-second Pika shots generated on a 40-core Apple M5 Max with 128 GiB. The final frame of each preceding shot guides the next. The edit keeps the generated stereo tracks.",
+  "production": "The final frames of shots 1 and 2 guide the following takes. The edit keeps all three generated stereo tracks.",
   "native": {
     "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/5f24ae4ee7ce44aa8ef82e6d067115d1341ee17a/films/2f06ad2f7f61fc97f9931aa13e11836e741e5c978172d8ac3db0398458a616e2.mp4",
     "sha256": "2f06ad2f7f61fc97f9931aa13e11836e741e5c978172d8ac3db0398458a616e2",
@@ -31,5 +31,76 @@
     "bytes": 32723817,
     "width": 1536,
     "height": 2732
+  },
+  "replay": {
+    "hardware": "Apple M5 Max, 40-core GPU, 128 GiB unified memory",
+    "nativeSeconds": 3711.59460629127,
+    "vosrSeconds": 3238.183,
+    "earlierTakeSeconds": 1199.6487609159667,
+    "pictures": {
+      "01-rest-3d.png": "Trench coat on the sofa",
+      "05-trench-rug-3d.png": "Trench coat on the rug",
+      "02-floral-3d.png": "Floral skirt",
+      "03-bubble-3d.png": "Blue bubble dress",
+      "04-bow-3d.png": "Denim and burgundy bow",
+      "06-wipe-3d.png": "Fan blade crossing the frame",
+      "01-119.png": "Last frame of shot 1",
+      "02-119.png": "Last frame of shot 2"
+    },
+    "shots": [
+      {
+        "title": "Trench to floral",
+        "start": 0,
+        "duration": 5.0,
+        "seconds": 1245.743835083209,
+        "seed": 910901,
+        "refs": [
+          "01-rest-3d.png",
+          "05-trench-rug-3d.png",
+          "02-floral-3d.png",
+          "06-wipe-3d.png"
+        ],
+        "promptFile": "prompts/01-trench-to-floral.txt",
+        "prompt": "subject_definitions:\n<Subject 1> is the one blush-pink plush rabbit in <Picture 1>, <Picture 2> and <Picture 3>. Short velvety fur, two long pink-lined ears, two matching dark bead eyes, rosy cheeks and a tiny closed stitched smile. Head, paws and boots belong to the same little body.\n<Subject 2> is the miniature room in <Picture 1>. An ivory button-tufted low sofa on the left meets a rust floral rug on the right. A broad polished walnut ceiling-fan blade rotates clockwise near the lens around a hub just outside the upper-left corner. Afternoon sunlight falls from the right.\n<Picture 1> is the opening composition and trench outfit. <Picture 2> shows her landing position on the rug in that same outfit. <Picture 3> shows the cream bow blouse, tiered floral skirt and brown Mary Janes to reveal. <Picture 4> shows the angle, wood grain and size of the foreground fan when it covers her.\n\nsummary:\n[reference generation + keyframe completion] A five-second portrait fashion film in a locked overhead shot. A pink plush rabbit rolls from the cushion onto the rug. A wooden ceiling fan sweeps across her and reveals the floral outfit. The same sunlit room fills the screen throughout.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - one pink rabbit with the same small face, fur and proportions.\n<Subject 2> (appears in [Shot 1]): fully_preserved - same sofa seam, rug edge, warm light and fan pivot.\n<Picture 1> ([Shot 1] opening): fully_preserved - face up in the tan trench and boots on the left cushion.\n<Picture 2> ([Shot 1] middle): fully_preserved - face up on the right-hand rug in the same trench.\n<Picture 3> ([Shot 1] ending): fully_preserved - cream blouse, floral skirt and brown shoes in the same room.\n<Picture 4> ([Shot 1] wipe): partially_preserved - one broad wooden paddle passes close to the lens, fully hiding the outfit for an instant.\n\ndetailed_description:\n[Shot 1] Look straight down as in <Picture 1>. Frame the rabbit from ears to boots and the cushion edge together. For the opening half-beat, her face and tan trench are clear on the sofa. She tucks her paws and knees. Her right shoulder dips over the low cushion edge, her torso and hips follow, the back of her coat and ears turn up toward us, then her opposite side meets the rug. By 2.7 seconds she has rolled through onto her back on the rug in the same trench, with the sofa still on her left. Let the hem and ears settle. The camera and rug border stay still.\nAt about 3.5 seconds a single solid walnut paddle turns through the foreground in a continuous clockwise arc, sweeping across her face, coat and boots. While the wood fills the view of her clothes they change. The trailing edge clears at about 4.2 seconds and reveals the same rabbit lying in the same spot, now wearing the cream bow blouse, tiered floral skirt and brown Mary Janes from <Picture 3>. Both paws release the skirt hem and rest beside it. Finish with her still fully visible in this outfit and the blade clear of her head. The entire image is the rendered room.\n\noverall_soundscape:\nSoft fan air and a low motor under the scene. Cloth brushes the cushion, then the rug gives a small padded thump on landing. A short wooden-blade whoosh accompanies the outfit reveal. No voices.\n\nnon_diegetic_music:\nAn original playful fashion instrumental in C major at 120 BPM, pizzicato strings, soft handclaps and warm plucked bass. A simple C–E–G–E four-note hook taps the beat. Keep the groove light and steady through the end.\n",
+        "command": "h3 generate --quality high --duration 5 --aspect-ratio 9:16 \\\n  --seed 910901 --prompt-file prompts/01-trench-to-floral.txt \\\n  --image refs/01-rest-3d.png \\\n  --image refs/05-trench-rug-3d.png \\\n  --image refs/02-floral-3d.png \\\n  --image refs/06-wipe-3d.png \\\n  --output shot-01.mp4 --timeout 7200"
+      },
+      {
+        "title": "Floral to blue",
+        "start": 5,
+        "duration": 5.0,
+        "seconds": 1224.1264672500547,
+        "seed": 910902,
+        "refs": [
+          "01-119.png",
+          "02-floral-3d.png",
+          "03-bubble-3d.png",
+          "06-wipe-3d.png"
+        ],
+        "promptFile": "prompts/02-floral-to-blue.txt",
+        "prompt": "subject_definitions:\n<Subject 1> is the single pastel-pink plush rabbit in <Picture 1>, <Picture 2> and <Picture 3>. Two upright pink-lined ears, even bead eyes, round pink cheeks, small closed stitched smile, soft short fibers.\n<Subject 2> is the exact sunlit miniature set in <Picture 1>. The fixed overhead camera sees the ivory button-tufted sofa on the left, the rust floral rug alongside it and one walnut ceiling fan close to the lens. Its hub stays just beyond the upper-left corner. Its blades turn clockwise in a flat circle.\n<Picture 1> is the first frame. Match where the rabbit, sofa seam, rug and shadows sit in this frame. <Picture 2> supplies the cream bow blouse, tiered floral skirt and brown shoes. <Picture 3> supplies the periwinkle-blue bubble dress, twin hip bows and blue Mary Janes. <Picture 4> shows the thick walnut paddle crossing in front of the rabbit.\n\nsummary:\n[reference generation + keyframe completion] A five-second portrait continuation. Lying on the rug in her floral outfit, the rabbit lifts one edge of the skirt like a little curtsy. A broad fan blade turns across her. When it clears she is wearing the blue bubble dress and raises one paw beside her cheek.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - the same one rabbit and small closed smile before and after the change.\n<Subject 2> (appears in [Shot 1]): fully_preserved - overhead camera, rug and cushion hold their positions, sunlight stays warm and still.\n<Picture 1> ([Shot 1] beginning): fully_preserved - actual opening pose, camera distance, framing and light.\n<Picture 2> ([Shot 1] first costume): fully_preserved - cream blouse, tiered print skirt and brown shoes.\n<Picture 3> ([Shot 1] second costume): fully_preserved - gathered blue dress, small bows and blue shoes.\n<Picture 4> ([Shot 1] wipe): partially_preserved - scale and solid shape of the nearby fan blade.\n\ndetailed_description:\n[Shot 1] Start exactly at <Picture 1>. From above, the rabbit lies on the rug where the cushion meets its border. Her whole face, both ears and shoes fit in frame. For the first two seconds her paws pinch and raise the sides of her floral skirt a little, spread the three tiers, then lower them back onto the rug. Her head and hips keep the same position. The overhead fan advances evenly around its upper-left pivot.\nAt about 2.5 seconds the wide end of the walnut paddle passes between the lens and her clothes. Its solid leading edge sweeps over her, shows uninterrupted wood grain across the outfit, then the trailing edge continues along the same arc. By 3.2 seconds her cream floral outfit has been replaced by the blue bubble dress and blue shoes of <Picture 3>. The outfit changes behind the wood. Her face, direction, scale and the background stay continuous. Hold the blue look in clear view for the last two beats. She raises one paw close to her cheek, points one blue shoe and looks up with both eyes open. The fan moves away toward the frame edge.\n\noverall_soundscape:\nQuiet fan air, one gentle woody whoosh on the pass and a small fabric rustle when the hem settles. No voices.\n\nnon_diegetic_music:\nContinue a light 120 BPM fashion groove in C major with pizzicato strings, soft handclaps and warm plucked bass. Repeat a four-note C–E–G–E hook. Start on the beat and carry the same gentle pulse past the reveal.\n",
+        "command": "h3 generate --quality high --duration 5 --aspect-ratio 9:16 \\\n  --seed 910902 --prompt-file prompts/02-floral-to-blue.txt \\\n  --image refs/01-119.png \\\n  --image refs/02-floral-3d.png \\\n  --image refs/03-bubble-3d.png \\\n  --image refs/06-wipe-3d.png \\\n  --output shot-02.mp4 --timeout 7200"
+      },
+      {
+        "title": "Blue to denim",
+        "start": 10,
+        "duration": 5.0,
+        "seconds": 1241.7243039580062,
+        "seed": 910903,
+        "refs": [
+          "02-119.png",
+          "03-bubble-3d.png",
+          "06-wipe-3d.png",
+          "04-bow-3d.png"
+        ],
+        "promptFile": "prompts/03-blue-to-bow-final.txt",
+        "prompt": "subject_definitions:\n<Subject 1> is the one small pastel-pink plush rabbit in <Picture 1>, <Picture 2> and <Picture 4>. Keep the same short fur, long pink-lined ears, pair of bead eyes, pink cheeks, little embroidered smile and soft paws.\n<Subject 2> is the sunlit miniature room in <Picture 1>. A stationary ivory tufted sofa fills the left side. A rust floral rug fills the right. A wide walnut ceiling paddle turns around a hub just beyond the upper-left corner.\n<Picture 1> is the exact opening frame, with the blue dress and the raised paw. <Picture 2> describes that blue bubble dress and its shoes. <Picture 3> is the single passing position of the wooden blade. <Picture 4> is the exact clear ending frame: the entire rabbit on the rug with its face, indigo jacket and shorts, large burgundy waist bow and matching red shoes visible. The last sliver of wood is confined to the upper-left corner.\n\nsummary:\n[reference generation + keyframe completion] The finale of a five-second vertical fashion film. A ceiling fan making its final slow turn wipes from a blue dress to a denim outfit. After one sweep the motor winds down. The rabbit waves and the film finishes on the fully clear burgundy bow pose in <Picture 4>.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - one rabbit, consistent face and body, lying on the rug to the right of the sofa.\n<Subject 2> (appears in [Shot 1]): fully_preserved - same overhead room, scale, wood grain, shadows, cushion buttons and rug border.\n<Picture 1> ([Shot 1] first frame): fully_preserved - opening camera position and blue-dress pose.\n<Picture 2> ([Shot 1] opening outfit): fully_preserved - gathered pale-blue skirt, small bows and matching shoes.\n<Picture 3> ([Shot 1] one moving wipe): partially_preserved - broad near-camera wooden blade hiding the clothes for one beat.\n<Picture 4> ([Shot 1] last three seconds and final frame): fully_preserved - clear full figure with the indigo denim, burgundy bow, red shoes and closed smile.\n\ndetailed_description:\n[Shot 1] Locked straight overhead. Open with exactly the framing in <Picture 1>. The rabbit in blue lowers the paw from her cheek. A single broad ceiling-fan blade sweeps between her and the camera on its final clockwise turn. At about 1.0 seconds the solid walnut paddle covers her dress as in <Picture 3>. The paddling wood immediately carries on around the hub. As its trailing edge passes, show the indigo denim jacket, shorts, big burgundy bow and red shoes. By 2.0 seconds both ears, both shoes and the whole bow are plainly visible beside the sofa.\nThe fan motor clicks off. The blade finishes its arc and coasts to rest in the upper-left corner in exactly the position in <Picture 4>. Only the rabbit and her clothes move for the final three seconds. She opens one paw in a little wave, lowers it and relaxes her ears. Warm light catches the denim stitches and the red bow. The image ends on the uninterrupted, clear full-body pose of <Picture 4>, with her face and bow plainly visible, the room still and the blade parked up in the corner.\n\noverall_soundscape:\nOne gentle fan whoosh across the transition, a very quiet motor switch click, the motor sound winding down, then cloth shifting under the small wave. The room stays quiet. No voices.\n\nnon_diegetic_music:\nKeep the light 120 BPM C-major fashion instrumental, plucked bass and soft claps. The C–E–G–E pizzicato hook settles into a short C-major ending under the clear full-body pose.\n",
+        "command": "h3 generate --quality high --duration 5 --aspect-ratio 9:16 \\\n  --seed 910903 --prompt-file prompts/03-blue-to-bow-final.txt \\\n  --image refs/02-119.png \\\n  --image refs/03-bubble-3d.png \\\n  --image refs/06-wipe-3d.png \\\n  --image refs/04-bow-3d.png \\\n  --output shot-03.mp4 --timeout 7200"
+      }
+    ],
+    "archive": "fan-wardrobe-inputs.zip",
+    "archiveBytes": 17472821,
+    "assemble": "python assemble.py fan-wardrobe.native.mp4 shot-01.mp4 shot-02.mp4 shot-03.mp4",
+    "upscale": "h3 upscale --input fan-wardrobe.native.mp4 \\\n  --output fan-wardrobe.2x.mp4 --timeout 10800",
+    "base": "https://raw.githubusercontent.com/RhinoQ/h3-apple/885a874c76664d0781337950d9ddc6ece0ee548e/features/fan-wardrobe/"
   }
 }
