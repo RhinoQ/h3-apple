@@ -24,7 +24,10 @@ def ensure_ready(model_dir=None, *, allow_large_download=False, progress=None, r
     check_machine(snapshot(), request)
     check_dependencies()
     progress = progress or (lambda event: None)
-    spec = plan(model_dir, progress=progress, pika=bool(request and request.get("recipe") == pika_recipe.RECIPE))
+    settings = request or {}
+    spec = plan(model_dir, progress=progress, pika=settings.get("recipe") == pika_recipe.RECIPE,
+                allow_legacy=bool(model_dir is not None and settings.get("attention") == "dense"
+                                  and settings.get("quality") is None))
     if spec["download_bytes"] > LIMIT and not allow_large_download:
         raise DownloadApprovalRequired(spec)
     check_runtime()
@@ -40,18 +43,24 @@ def model_sources(pika):
     return base + data_file("vsa-gates.json")
 
 
-def ready_bundle(directory, pika):
+def matches_adapter(data, pika, allow_legacy=False):
+    expected = pika_recipe.ADAPTER if pika else data_file("prepared-model.json")["adapter"]["sha256"]
+    return data["adapter_sha256"] == expected or (allow_legacy and not pika and data["adapter_sha256"] is None)
+
+
+def ready_bundle(directory, pika, allow_legacy=False):
     data = load_assets(directory)
-    if (data["derivation"].get("adapter_sha256") == pika_recipe.ADAPTER) != pika:
-        raise ValueError("Generation recipe and prepared Ref2VA bundle differ.")
+    if not matches_adapter(data, pika, allow_legacy):
+        label = "Pika H3 Flex" if pika else "LightX2V v1.0"
+        raise ValueError(f"Generation recipe and prepared Ref2VA bundle differ. Choose a {label} model directory.")
     return data
 
 
-def plan(model_dir=None, reuse_dirs=(), progress=None, *, pika=False):
+def plan(model_dir=None, reuse_dirs=(), progress=None, *, pika=False, allow_legacy=False):
     progress = progress or (lambda event: None)
     directory = model_directory(model_dir)
     if (directory / "bundle.json").is_file():
-        data = ready_bundle(directory, pika)
+        data = ready_bundle(directory, pika, allow_legacy)
         return dict(status="ready", directory=str(directory), identity=data["identity"], pika=pika,
                     download_bytes=0, additional_disk_bytes=0)
     if directory.exists() and any(directory.iterdir()):
@@ -67,7 +76,7 @@ def plan(model_dir=None, reuse_dirs=(), progress=None, *, pika=False):
             data = load_assets(root)
         except (OSError, ValueError):
             continue
-        if (data["derivation"].get("adapter_sha256") == pika_recipe.ADAPTER) != pika:
+        if not matches_adapter(data, pika):
             continue
         progress(dict(phase="checking_local_models", file=str(root)))
         data = load_assets(root, verify=True)
@@ -141,8 +150,7 @@ def prepare(spec, *, allow_large_download=False, progress=None):
                 if data["identity"] != spec["identity"]:
                     raise ValueError("Prepared VSA bundle changed after planning.")
                 return data
-            prior = spec.get("prepared", {}).get("derivation", {})
-            return ready_bundle(directory, spec.get("pika", prior.get("adapter_sha256") == pika_recipe.ADAPTER))
+            return ready_bundle(directory, spec["pika"])
         if spec["status"] == "reuse_prepared":
             source = load_assets(spec["prepared"]["directory"])
             if source["identity"] != spec["prepared"]["identity"]:

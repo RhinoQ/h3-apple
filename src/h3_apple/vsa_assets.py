@@ -11,14 +11,14 @@ from .io import digest, write_json
 from . import pika_recipe
 
 
-def model_notice(*, pika=False):
+def model_notice(*, pika=False, light_v1=False):
     if pika:
         upstream = (Path(__file__).parent / "data/Pika-H3-Flex-NOTICE.txt").read_text().rstrip()
         adapter = "Pika H3 Flex Ref2VA"
     else:
         upstream = ("MiniMax H3 is licensed under the MiniMax H3 Community License Agreement, "
                     "Copyright © 2026 MiniMax. All Rights Reserved.")
-        adapter = "original LightX2V"
+        adapter = "LightX2V v1.0 four-step Ref2VA" if light_v1 else "original LightX2V"
     return (f"{upstream}\n\nModified by H3 Apple: native DiT layout conversion, {adapter} fusion and FastH3 gate-only "
             "adapter fusion, affine INT8 group64 quantization and fixed AdaLN tables; "
             "VideoVAE decoder key conversion with the image encoder omitted. "
@@ -28,7 +28,7 @@ def model_notice(*, pika=False):
 
 def model_directory(value=None):
     return Path(value or os.environ.get("H3_VSA_MODEL_DIR") or
-                Path.home() / "Models/h3-apple/VSA").expanduser().resolve()
+                Path.home() / "Models/h3-apple/VSA-lightx2v-v1").expanduser().resolve()
 
 
 def bundle_identity(manifest):
@@ -85,7 +85,7 @@ def load_assets(directory=None, *, verify=False):
         raise ValueError("Expected original LightX2V four-step recipe and 50 VSA gates.")
     if profile and data["derivation"].get("adapter_sha256") != profile["adapter_sha256"]:
         raise ValueError("Prepared checkpoint and source adapter identities differ.")
-    return dict(data, directory=str(directory),
+    return dict(data, directory=str(directory), adapter_sha256=profile.get("adapter_sha256"),
                 **{name: str(directory / data[name]) for name in
                    ("checkpoint", "components", "ref2va_native")})
 
@@ -128,12 +128,14 @@ def import_assets(checkpoint, components, native, directory, *, progress=None, p
                         raise ValueError(f"Model copy failed: {relative}")
                 files.append(dict(path=relative, size=stat.st_size, sha256=checksum,
                                   mtime_ns=destination.stat().st_mtime_ns))
-    pika = (provenance or {}).get("adapter_sha256") == pika_recipe.ADAPTER
+    adapter = (provenance or {}).get("adapter_sha256")
+    pika = adapter == pika_recipe.ADAPTER
+    light_v1 = adapter == data_file("prepared-model.json")["adapter"]["sha256"]
     for name in ("LICENSE", "NOTICE"):
         source = Path(notices_directory or components) / name
-        if name == "NOTICE" and pika:
+        if name == "NOTICE" and (pika or light_v1):
             existing = source.read_text() if source.is_file() else ""
-            correct = model_notice(pika=True)
+            correct = model_notice(pika=pika, light_v1=light_v1)
             if existing and existing != model_notice() and existing.strip() not in correct and correct not in existing:
                 correct += "\n" + existing
             elif correct in existing:
@@ -141,7 +143,7 @@ def import_assets(checkpoint, components, native, directory, *, progress=None, p
             (staging / name).write_text(correct)
         elif source.is_file():
             shutil.copy2(source, staging / name)
-        elif name == "LICENSE" and pika:
+        elif name == "LICENSE" and (pika or light_v1):
             shutil.copyfile(Path(__file__).parent / "data/MiniMax-H3-LICENSE.txt", staging / name)
         else:
             continue

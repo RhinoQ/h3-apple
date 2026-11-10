@@ -10,10 +10,12 @@
 
 ## 1. Install
 
+From the root of this source checkout, run
+
 ```sh
 conda create -n h3 -c conda-forge python=3.11 ffmpeg=8.1.2 pip -y
 conda activate h3
-python -m pip install "h3-apple @ https://github.com/RhinoQ/h3-apple/releases/download/v0.8.3/h3_apple-0.8.3-py3-none-any.whl"
+python -m pip install .
 ```
 
 One environment supports generation and super-resolution. No compiler is needed.
@@ -92,8 +94,8 @@ Unattended transfers over 20 GB require `--allow-large-download` after plan revi
 
 | Mode | Default directory | Override |
 | --- | --- | --- |
-| VSA | `~/Models/h3-apple/VSA` | `H3_VSA_MODEL_DIR` |
-| SOL | `~/Models/h3-apple/ref2va` | `H3_MODEL_DIR` |
+| VSA, LightX2V v1.0 | `~/Models/h3-apple/VSA-lightx2v-v1` | `H3_VSA_MODEL_DIR` |
+| SOL, LightX2V v1.0 | `~/Models/h3-apple/ref2va-lightx2v-v1` | `H3_MODEL_DIR` |
 | Pika High | `~/Models/h3-apple/pika-ref2va` | `--model-dir` on the High generation call |
 
 Set the variable in each session or pass `--model-dir`. Keep formats separate.
@@ -115,7 +117,10 @@ for multiple compatible sources.
 <summary>Upgrade h3-apple or older SOL models</summary>
 
 Activate `h3` and rerun the pip command with `--upgrade`.
-Compatible VSA models are reusable.
+Fast and Medium prepare LightX2V v1.0 in new default directories using the
+shared original source cache. If a model-directory override points to v0.1,
+set it to a v1.0 bundle or choose an empty destination. The old VSA directory
+can still be passed to the [advanced four-step Dense replay](advanced.md).
 
 **Old quantized SOL weights need fresh preparation.** Prepare a new directory:
 

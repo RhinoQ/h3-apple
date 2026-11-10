@@ -39,7 +39,8 @@ EXIF orientation is applied; prompt text and image order are preserved.
 | `seed` | Random, recorded | Unsigned 32-bit integer |
 
 `resolution` sets sampling size; [X2](x2.md) doubles output dimensions.
-Fast and medium use four forwards on both backends. High uses six Dense forwards. Equal seeds do not guarantee equal outputs across modes.
+Fast and Medium use four LightX2V v1.0 forwards on both backends. High uses
+six Pika H3 Flex Dense forwards. Each recipe can produce different output for the same seed.
 
 Use `quality="high"` for a five-second clip, or `quality="medium", duration=8.5`
 for a longer clip. High and advanced Dense calls reject other durations before

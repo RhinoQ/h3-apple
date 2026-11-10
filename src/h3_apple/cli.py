@@ -32,7 +32,7 @@ def parser():
         command.add_argument("--image", action="append", required=True, dest="reference_images",
                              help="Reference image; repeat in picture-number order (1–9)")
         command.add_argument("--quality", choices=("fast", "medium", "high"),
-                             help="fast: 544p + X2 (default); medium: native 768p; both use VSA unless --mode SOL. High: native 768p Pika Dense (5 seconds, 128 GiB)")
+                             help="Fast uses LightX2V v1.0 at 544p + X2 (default). Medium uses the same weights at native 768p. High uses native 768p Pika six-step Dense (5 seconds, 128 GiB).")
         command.add_argument("--mode", choices=("VSA", "SOL"),
                              help="Generation backend for fast/medium (default: VSA); high uses native six-step Pika Dense")
         command.add_argument("--duration", type=float, default=5,

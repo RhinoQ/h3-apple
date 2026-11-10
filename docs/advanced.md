@@ -26,6 +26,8 @@ h3 generate --image reference.jpg --prompt-file scene.txt --quality fast --mode 
 h3 generate --image reference.jpg --prompt-file scene.txt --quality medium --mode SOL
 ```
 
+Fast and Medium use the dedicated LightX2V v1.0 four-step Ref2VA adapter.
+Fast keeps its integrated X2 decoder. VOSR is a separate optional restoration.
 Omitting `--mode` uses VSA, including when `--quality` is omitted. Quality fixes
 the sampling size and decoder; mode chooses the generation backend. Both modes
 retain the same supported durations and output dimensions for each quality.
@@ -74,7 +76,13 @@ restoration fails, retry with `h3 upscale --input scene.native.mp4`.
 
 ## Performance
 
-Median time per five-second video on a 40-core M5 Max / 128 GiB, after model setup:
+With the LightX2V v1.0 four-step weights, eight five-second scenes with three
+or four reference images took a median **4m 27s on Fast** and **9m 46s on
+Medium**. These full API times include generation, decoding and export on a
+40-core M5 Max with 128 GiB, default VSA and prepared models.
+[Compare the scenes, references and timings](https://rhinoq.github.io/h3-apple/previews/p184-ref2va/).
+
+The earlier 0.7.0 benchmark used LightX2V v0.1 on the same hardware.
 
 | Mode | Native 768p | 544p + X2 | Tradeoff in this test |
 | --- | ---: | ---: | --- |

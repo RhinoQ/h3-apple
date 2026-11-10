@@ -120,7 +120,11 @@ def test_pika_preparation_rechecks_a_concurrently_published_four_step_bundle(tmp
                  download_bytes=0, additional_disk_bytes=0)
     with pytest.raises(ValueError, match="recipe and prepared Ref2VA"):
         vsa_preparation.prepare(stale)
-    assert vsa_preparation.prepare(dict(stale, pika=False))["identity"] == vsa_assets.load_assets(root)["identity"]
+    with pytest.raises(ValueError, match="LightX2V v1.0"):
+        vsa_preparation.prepare(dict(stale, pika=False))
+    # A caller may explicitly select the historical native Dense checkpoint.
+    legacy = vsa_preparation.plan(root, allow_legacy=True)
+    assert vsa_preparation.prepare(legacy)["identity"] == vsa_assets.load_assets(root)["identity"]
 
 
 def test_pika_import_and_reuse_keep_author_notice_and_license(tmp_path, monkeypatch):
