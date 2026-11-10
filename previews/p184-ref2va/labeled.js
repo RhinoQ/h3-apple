@@ -7,6 +7,15 @@ const make = (tag, text) => {
 };
 const option = (value, label) => new Option(label, value);
 const pairs = byId('comparison'), scenes = byId('scene'), mobile = window.matchMedia('(max-width:700px)');
+const descriptions = {
+  fast: 'Both sample at 544p and use Fast’s built-in X2 decoder. VOSR is off.',
+  medium: 'Both generate native 768p with the same decoder. VOSR is off.',
+  'high-native': 'Both generate native 768p using Dense attention. VOSR is off.',
+  'high-delivered': 'Released High includes VOSR 2×. Pika delivers native 768p.',
+  'high-medium': 'Released Medium uses sparse attention at four steps. Pika uses Dense attention at six. Both deliver native 768p.',
+  'high-medium-new': 'Alternative Medium uses LightX2V v1.0 and sparse attention. Pika uses Dense attention. Both deliver native 768p.',
+  vosr: 'Both videos come from the same generation. The VOSR version doubles its width and height.'
+};
 let current = [], selected = 0;
 data.comparisons.forEach(c => pairs.add(option(c.id, c.title)));
 function duration(seconds) {
@@ -62,6 +71,7 @@ function displayCase() {
 function chooseScene(desired) {
   const c = data.comparisons.find(x => x.id === pairs.value);
   const available = data.scenes.filter(row => row.media[c.left] && row.media[c.right]);
+  byId('recipe').textContent = descriptions[c.id] || descriptions[c.id.split('-')[0]];
   scenes.replaceChildren(...available.map(row => option(row.id, row.title)));
   if (available.some(row => row.id === desired)) scenes.value = desired;
   byId('coverage').textContent = available.length+' of '+c.total+' scenes';
