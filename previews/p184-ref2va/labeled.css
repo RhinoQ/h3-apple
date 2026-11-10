@@ -1,0 +1,25 @@
+:root{color-scheme:light;font:16px/1.5 Inter,system-ui,sans-serif;color:#1c2b24;background:#f4f4ee}
+*{box-sizing:border-box} body{margin:0} main{max-width:1120px;margin:0 auto;padding:36px 24px}
+header{max-width:52rem} h1{font-size:clamp(2.1rem,5vw,3.7rem);letter-spacing:-.055em;line-height:1.03;margin:0 0 .65rem}
+header p,.scope,#coverage,.meta{color:#45584e} header p{margin:0 0 1.5rem}
+nav{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1rem 0;border-block:1px solid #c7d0c7}
+label{display:grid;gap:.28rem;font-size:.9rem;font-weight:650}
+select,button{font:inherit;font-size:1rem;color:inherit;min-height:44px;border:1px solid #87998b;border-radius:6px;background:#fff;padding:.45rem .55rem;max-width:100%}
+a{color:#175b45} a:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #14815b;outline-offset:2px}
+.heading{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.3rem 1rem;margin:1rem 0 .65rem}
+h2,h3{margin:0;line-height:1.25} h2{font-size:1.45rem} h3{font-size:1rem} #coverage,.meta,.scope{font-size:.88rem}
+#players{display:grid;grid-template-columns:1fr 1fr;gap:14px} article{min-width:0}
+video{display:block;width:100%;height:clamp(240px,49vh,540px);background:#101611;object-fit:contain;border-radius:6px;margin:.4rem 0}
+.meta{margin:.25rem 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.2rem .8rem}
+#switch{display:none} #refs{display:flex;gap:.45rem;margin:1.25rem 0 .5rem}
+#refs a{background:#e4e9e1;border:1px solid #cdd5cb;border-radius:4px;overflow:hidden;min-width:0}
+#refs img{display:block;width:clamp(62px,13vw,140px);height:clamp(64px,9vw,98px);object-fit:contain}
+summary{cursor:pointer;min-height:44px;padding:.6rem 0;font-weight:650} #prompt{white-space:pre-wrap;overflow-wrap:anywhere}
+.scope{border-top:1px solid #c7d0c7;padding-top:.75rem;margin:1.25rem 0 0}
+@media(max-width:700px){
+ main{padding:20px 14px} nav{gap:.55rem;grid-template-columns:1fr} header p{margin-bottom:1rem}
+ .heading{margin-top:.85rem} #players{display:block} #players article:not(.selected){display:none}
+ #players h3{display:none} #switch{display:flex;gap:5px;margin:.5rem 0} #switch button{flex:1;line-height:1.2;font-weight:550}
+ #switch button[aria-pressed=true]{color:white;background:#205743;border-color:#205743}
+ video{height:clamp(210px,47vh,465px)} #refs img{width:clamp(52px,20vw,105px);height:72px}
+}

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f4f4ee">
+<title>Ref2VA video comparisons</title>
+<link rel="stylesheet" href="labeled.css">
+<main>
+<header><h1>Ref2VA comparisons</h1><p>Five-second clips generated from the same prompt, references and seed on a 40-core M5 Max with 128 GiB.</p></header>
+<nav aria-label="Choose videos">
+  <label>Comparison<select id="comparison"></select></label>
+  <label>Scene<select id="scene"></select></label>
+</nav>
+<div class="heading"><h2 id="title"></h2><span id="coverage"></span></div>
+<div id="switch" aria-label="Choose clip"></div>
+<div id="players"></div>
+<div id="refs" aria-label="Ordered reference images"></div>
+<details><summary>Prompt and required actions</summary><p id="prompt"></p><ul id="beats"></ul></details>
+<p class="scope">Times include generation and export with prepared models. “Native worker” times the generation stage inside released High. “Standalone upscale” times restoration of an existing file.</p>
+</main>
+<script src="data.js?33585d525573"></script><script src="labeled.js"></script>
+</html>
