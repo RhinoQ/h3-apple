@@ -110,6 +110,28 @@
         "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/2f06fff016ee2b9b25d2374827633a409e502481/films/2b43d01f065d95036c55d7ad4c1ea9b83c19046412662ac4641721f84d355f3b.mp4",
         "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/2f06fff016ee2b9b25d2374827633a409e502481/films/2b43d01f065d95036c55d7ad4c1ea9b83c19046412662ac4641721f84d355f3b.jpg"
       }
+    },
+    {
+      "id": "high-jewelry-upscale",
+      "title": "The silver chain",
+      "brief": "A rabbit slides a jewelry box across the table. The bear opens it under a warm lamp and lifts the chain.",
+      "quality": "High",
+      "model": "Pika H3 Flex",
+      "backend": "Dense",
+      "steps": 6,
+      "refs": 3,
+      "duration": 5.0,
+      "seed": 900106,
+      "x2": false,
+      "entrypoint": "CLI",
+      "native": {
+        "width": 768,
+        "height": 1366,
+        "bytes": 1908183,
+        "sha256": "281b5e4cfeb2fcad4e8eba238572e2c771ddce0757bbea57f03284b2f60ea749",
+        "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/654bb0d8a943d2a69c0a4b8bd770c6ff645f2e7e/films/281b5e4cfeb2fcad4e8eba238572e2c771ddce0757bbea57f03284b2f60ea749.mp4",
+        "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/654bb0d8a943d2a69c0a4b8bd770c6ff645f2e7e/films/281b5e4cfeb2fcad4e8eba238572e2c771ddce0757bbea57f03284b2f60ea749.jpg"
+      }
     }
   ]
 }
