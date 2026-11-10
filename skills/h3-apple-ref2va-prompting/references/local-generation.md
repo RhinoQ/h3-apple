@@ -10,7 +10,9 @@ At the start of a generation or setup task, check the
 [latest stable Release](https://api.github.com/repos/RhinoQ/h3-apple/releases/latest)
 and the installed version. Check once per task, not before every shot.
 Read `tag_name`, release notes and `assets`; exclude drafts and prereleases.
-For a requested version, fetch its release by tag for matching notes and assets.
+For a published version, fetch its release by tag for matching notes and assets.
+When the user selected a newer local build, use its verified installation and
+the documentation from its matching checkout.
 Do not infer the latest version from this skill, a branch name or an old example.
 
 - **New work:** prefer the latest stable release. Reuse a current environment;
@@ -25,7 +27,7 @@ If the release check fails, say so and use a verified compatible installation;
 never call it the latest. A new installation or an explicit latest-version request
 requires a verified release before proceeding.
 
-Read `docs/install.md` and `docs/api.md` at the selected tag for requirements,
+Read `docs/install.md` and `docs/api.md` at the selected revision for requirements,
 defaults and supported options. Inspect installed `--help` when adapting commands.
 Select the release wheel from `assets[].browser_download_url`, download it and
 verify its SHA256 against that release's `SHA256SUMS`. Do not guess a wheel URL or

@@ -1,0 +1,721 @@
+{
+  "version": "0.9.0",
+  "runtime_sha256": "153784ef8932645455d9052d62c189a8d9910dfc911317f8dbde9057f6692031",
+  "runtime_commit": "365cb2af9d0f58ca81cfd340b14400a053e56a36",
+  "host": {
+    "chip": "Apple M5 Max",
+    "macos": "26.6.1",
+    "memory_bytes": 137438953472
+  },
+  "wheel_sha256": "f57fe54df12c888d7d3094580af314864c65d9dee19a06ba15df711b5b4a7a7a",
+  "render_wheel_sha256": "d83f43aa03e8e751367bcb6dff3bf84eb7114d76a5fe7db7f5b083400c6de1fe",
+  "package_files_exact": 101,
+  "wheel_build_difference": "Setuptools generator identifier and its RECORD checksum only.",
+  "tests": {
+    "passed": 441,
+    "skipped": 0,
+    "warnings": 4,
+    "seconds": 13.11,
+    "large_arrays": true,
+    "log_sha256": "e984063e608c058ecb7c6b3c83423548f5e8bf16e21771162b583a11fd637d47",
+    "pip_check": "No broken requirements found."
+  },
+  "models": {
+    "vsa": {
+      "planned": "preparation_required",
+      "download_bytes": 0,
+      "identity": "9673daca66d3ec86f2100512b46f9dd23c0e145762da0aeb1555835e91626a65",
+      "adapter": "e470d3043fb3b8b4f8f77be39e3498071d18f09fd8658150eeb5bc6bb9a32d43"
+    },
+    "pika": {
+      "planned": "reuse_prepared",
+      "download_bytes": 0,
+      "identity": "b71db1a53779a92e7e9a9a51cc814fca4d8505933c55589f8bac8b89d63416ae",
+      "adapter": "eef684ba1258f0cdbbbda6128188ad2688417f2eb17ff875375e74a32b6d61b5"
+    },
+    "sol": {
+      "planned": "reuse_prepared",
+      "download_bytes": 0,
+      "identity": "2a144aa319c7f8645110842eedd4eec09ba4bf2b46bfde8ba17514ed1f3d7931",
+      "adapter": "e470d3043fb3b8b4f8f77be39e3498071d18f09fd8658150eeb5bc6bb9a32d43"
+    }
+  },
+  "scope": "One first output per prompt/seed. All video and audio decoded. Sixteen time-stamped frames per clip, with detail checks as recorded. Unprompted on-device transcription on the dialogue clip. Timing includes generation/decoding/export after preparation. Integrated timings include restoration. Creative observations describe these inputs on this Mac.",
+  "scenes": {
+    "fast-long": {
+      "preset": "fast (default)",
+      "entrypoint": "cli",
+      "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+      "mode": "VSA",
+      "attention": "vsa",
+      "seed": 900101,
+      "evaluations": 4,
+      "model_identity": "9673daca66d3ec86f2100512b46f9dd23c0e145762da0aeb1555835e91626a65",
+      "prompt": "subject_definitions:\n<Subject 1> is the single small pastel-pink 3D rabbit shown in all the pictures: soft short fur, a round head, two long pink-lined ears, two matching glossy bead eyes, rosy round cheeks, a tiny brown nose and a small closed curved smile. All pictures depict the same rabbit in different clothes. Her face, proportions and fur remain consistent as only her clothes change.\n<Subject 2> is the miniature room in <Picture 1>: an ivory tufted low sofa on the left, a rust-colored floral rug on the right, a straight rug border and warm afternoon sunlight from the right. This is one stationary physical set for the entire video.\n<Subject 3> is the wooden ceiling fan in <Picture 6>, with broad rigid brown paddles attached to a fixed hub just above the upper-left corner. It is close to the overhead camera, between the camera and the room.\n<Subject 4> is the ordered wardrobe: beige trench coat, cream striped shirt, ocher belted skirt and brown boots from <Picture 1> and <Picture 2>; cream bow blouse, floral tiered skirt and brown shoes from <Picture 3>; pale blue bubble dress and blue shoes from <Picture 4>; blue denim outfit, large burgundy waist bow and matching burgundy shoes from <Picture 5>.\n<Picture 1> anchors the opening face-up resting pose on the sofa and the camera composition.\n<Picture 2> anchors the completed face-up landing beside the sofa, still in the trench outfit.\n<Picture 5> anchors the last outfit and a clear face-up final pose on the rug.\n<Picture 6> shows how a nearby wooden paddle briefly occludes the rabbit during a change. It does not replace the room or establish a new camera angle.\n\nsummary:\n[reference generation + keyframe completion] A fifteen-second vertical 3D animated fashion video in one continuous locked overhead shot. <Subject 1> completes one soft side roll from the sofa onto the rug, then changes through the four outfits of <Subject 4> as the continuously rotating fan <Subject 3> passes in front of her. <Subject 2> remains the same stable room throughout. The last three seconds show the final bow outfit with the whole rabbit clear of the fan.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - one consistent furry 3D rabbit throughout the roll and each clothing reveal.\n<Subject 2> (appears in [Shot 1]): fully_preserved - the same sofa buttons, rug motifs, border, camera scale and sunlight throughout.\n<Subject 3> (appears in [Shot 1]): fully_preserved - a rigid wooden fan, fixed pivot, constant clockwise rotation and recurring foreground occlusion.\n<Subject 4> (appears in [Shot 1]): fully_preserved - trench, floral, bubble dress, denim with burgundy bow, in that order.\n<Picture 1> ([Shot 1] beginning): fully_preserved - starting pose and fixed overhead composition.\n<Picture 2> ([Shot 1] completed roll): fully_preserved - the face-up landing on the rug in the first outfit.\n<Picture 5> ([Shot 1] ending): fully_preserved - final wardrobe and fully visible relaxed face-up pose.\n<Picture 6> ([Shot 1] three outfit reveals): partially_preserved - retain paddle material and foreground occlusion; its angular position follows uninterrupted clockwise motion.\n\ndetailed_description:\n[Shot 1] A static directly overhead camera shows a warm polished miniature 3D room. The ivory sofa occupies the left side and the detailed rust floral rug occupies the right side. The rabbit's entire body is visible, head toward the top of the picture and feet toward the bottom. Soft fur, cloth folds and contact shadows belong naturally to this one lit scene. The camera stays still and the sofa seams, rug border and woven floral motifs keep the same positions throughout the continuous take.\nFrom 0.0 to 0.5 seconds the rabbit rests on her back on the low sofa in the trench outfit. She gently tucks her knees and elbows and transfers her weight toward the rug on screen right.\nFrom 0.5 to 1.5 seconds her shoulder, torso, hips and boots roll together over her side toward the low cushion edge. Her shoulder and hip meet the soft rug first, the cushion rebounds as her weight leaves it, and her tucked legs follow the torso.\nFrom 1.5 to 2.5 seconds the same uninterrupted roll continues through a belly-down position. The back of the furry head, ears and trench coat are briefly visible from above, with chest and paws facing the rug. She continues over the opposite side rather than stopping midway or spinning flat on the floor.\nFrom 2.5 to 3.5 seconds she completes the full revolution and settles face-up on the rug as in <Picture 2>. Both eyes, blouse, skirt front and boot toes face the camera again. The coat tails and ears settle gently with her body weight supported by the rug. A quiet cloth rustle and padded landing accompany the action.\nThe nearby fan rotates clockwise smoothly throughout, with its hub fixed near the upper-left corner. Broad wooden blades stay straight and retain their shape and wood grain while moving along the same circular path. Their regular spacing produces a foreground pass approximately every four seconds. The opening blade is departing at the frame edge; the next broad pass reaches the rabbit only after her landing is complete.\nAround 3.8 seconds a broad paddle sweeps across the whole rabbit, as in <Picture 6>. While her body is completely hidden, the clothes change. As that same blade continues out of the way, she is revealed in the cream bow blouse and floral tiered skirt of <Picture 3>. Her head, body location and the room stay continuous across the reveal. She makes a small, relaxed outward paw gesture and displays the skirt until the next pass.\nAround 7.8 seconds the next paddle repeats the same clockwise sweep at the same speed. It covers the rabbit, then uncovers the pale blue bubble dress and matching shoes of <Picture 4>. She raises one paw beside her cheek and gently points one foot. The rest of the room remains completely still and the rabbit keeps the same face and scale.\nAround 11.8 seconds the next equally spaced paddle covers her and reveals the blue denim outfit with the large burgundy bow and burgundy shoes of <Picture 5>. Once the blade passes, the entire rabbit remains unobscured through the end at 15 seconds. She relaxes both paws and gives one small friendly wave, then rests with both eyes open and a small closed smile. Natural breathing and tiny ear settling continue; the camera ends on the clear rabbit rather than on a wooden blade. The fan continues its circular motion near the edge, with the next full pass occurring after the video ends. No captions or visible text.\n\noverall_soundscape:\nA quiet steady ceiling-fan motor and soft moving air underlie the whole shot. Cloth rustles and one muted cushioned landing accompany the roll; each passing blade has a light airy whoosh. No speech, singing or rabbit vocalization.\n\nnon_diegetic_music:\nA playful original 120 BPM fashion-pop instrumental plays continuously: a light plucked melodic hook, warm round bass, restrained kick, crisp soft claps and delicate shaker. The groove is clean, buoyant and gentle, with a small musical accent on each outfit reveal and a tidy resolving phrase beneath the final clear pose. Keep the melody and pulse continuous across the fan passes, with no dramatic stingers or restart at an outfit change.\n",
+      "prompt_sha256": "0d55cf9fec0619e678962384e18ed49929fa3b9506dd1bbdfd2dfbc6c0551b95",
+      "references": [
+        {
+          "name": "01-rest-3d.png",
+          "sha256": "c82fdfd2cd385da64d94df9754b57fa88be401526b9c78d8e57c6e8c3d8f6f70"
+        },
+        {
+          "name": "05-trench-rug-3d.png",
+          "sha256": "5f58e361a1c6cf690a92ccb973af10364dea034103096e1c873ccc6602207bd3"
+        },
+        {
+          "name": "02-floral-3d.png",
+          "sha256": "90eeee5491f8e45e0a12972180c786b7aa6608a78fd6572f5c086a855d57dca0"
+        },
+        {
+          "name": "03-bubble-3d.png",
+          "sha256": "649ddcf11879821c7f1dadb59f3bb82133f959caec128692c91d601d3c21f034"
+        },
+        {
+          "name": "04-bow-3d.png",
+          "sha256": "218ea57f5ead7c4bc4689d096e5c0a3630ec7f676ebdeaff6c7eac733e28dd02"
+        },
+        {
+          "name": "06-wipe-3d.png",
+          "sha256": "0081169944d8960219b7d92ff6ae64aa5e63f3681e02965e0821d07660ceb30c"
+        }
+      ],
+      "seconds": 1041.115,
+      "generation_seconds": 1036.747,
+      "generation_record_sha256": "069e366c8ba5d5a5f8cd6b41cfaa113fa6f6d08a16f849e9e507f451877d593f",
+      "generation_output": {
+        "bytes": 19779237,
+        "sha256": "61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8",
+        "width": 1088,
+        "height": 1920,
+        "frames": 360,
+        "fps": "24/1",
+        "audio_channels": 2,
+        "audio_rate": 32000,
+        "video_seconds": 15.0,
+        "audio_seconds": 15.0,
+        "rgb_sha256": "55c1402a4608d84ddec3d55de0e855506494bb5b0ce4ca3f20a0b29ff032faa4",
+        "pcm_sha256": "6d34ac8baf9a0b7febb5bce2ef42e9537e7080b8d232b2a16bbd10592e46cd1a",
+        "audio_packet_sha256": "b1de051d64940b9276842f0ab56795a8759742841e35b69bdc78f3c427fdf663"
+      },
+      "peak_process_tree_gib": 42.684,
+      "max_swap_growth_bytes": 0,
+      "frame_samples": [
+        0,
+        24,
+        48,
+        72,
+        96,
+        120,
+        144,
+        168,
+        191,
+        215,
+        239,
+        263,
+        287,
+        311,
+        335,
+        359
+      ],
+      "audio_rms": [
+        0.16551746428012848,
+        0.16816452145576477
+      ],
+      "observed": {
+        "actions": [
+          "The locked overhead view keeps the tufted sofa and rug aligned through all 15 seconds. The rabbit shows its back at 2.42\u20132.75 s, crosses the sofa edge behind the fan and returns face-up on the rug by 4.00 s.",
+          "All four outfits appear in order. The trench coat is visible at 5.00 s, floral skirt at 6.00\u20138.96 s, pale blue dress at 9.96\u201311.96 s and denim with burgundy bow by 12.96\u201314.96 s."
+        ],
+        "limits": "The fan hides the exact instant the rabbit meets the rug. The face-up landing arrives about half a second after its cue. At 12.96 s the blade still covers part of the final outfit, shortening the requested clear three-second hold.",
+        "detail_sheet_sha256": "022bc588f82a3f418ca2e18c475b7dc95764ef9207cca84710c257e7653c4ec4"
+      },
+      "attention_counts": {
+        "dense": 0,
+        "sparse": 200
+      }
+    },
+    "medium-nine": {
+      "preset": "medium",
+      "entrypoint": "api",
+      "recipe": "ref2va-w8a8-vsa-int8qk-v1",
+      "mode": "VSA",
+      "attention": "vsa",
+      "seed": 900102,
+      "evaluations": 4,
+      "model_identity": "9673daca66d3ec86f2100512b46f9dd23c0e145762da0aeb1555835e91626a65",
+      "prompt": "subject_definitions:\nOne pink plush rabbit packs a small navy suitcase in the room shared by Pictures 1\u20136. Picture 1 establishes the cream sofa, patterned rust rug and her tan trench coat. Picture 2 sets her scale on the rug. Pictures 3\u20135 give the floral fabric, blue cloth and burgundy bow colors of the folded items already inside the case. Picture 6 establishes the wooden fan blade passing close to the lens. Pictures 7\u20139 are flat color and silhouette references for the same rabbit and clothes. Keep the entire moving scene in the tactile 3D felt style of Pictures 1\u20136.\n\nsummary:\nIn one overhead take the rabbit moves from the sofa to the suitcase, folds a blue scarf inside, closes the case and turns one brass latch.\n\nretention_analysis:\nOne rabbit throughout, wearing the same tan trench coat. A single open navy suitcase rests on the rug to the right of the sofa. Keep the floral fabric and burgundy bow inside it. The brass latch stays attached to the near edge. The fan blade crosses the camera in the foreground.\n\ndetailed_description:\n[Shot 1] A locked, wide overhead view. For the first two seconds the rabbit rolls off the cream cushion and lands on the rug next to the open case. Both ears remain visible. She picks up one folded blue scarf and lowers it into the case. At the midpoint the wooden fan blade briefly covers her paws. When it clears, the scarf lies inside the case and her paws are empty. She closes the lid with both paws, pauses, then turns the brass latch once with her right paw. End with both paws off the closed case and the same rabbit in her tan coat. Keep the sofa edge and rug corner fixed.\n\noverall_soundscape:\nQuiet interior, soft landing on the rug, a cloth rustle while the scarf is placed, a passing whoosh during the blade wipe, then a single metallic click as the latch turns. No dialogue.\n\nnon_diegetic_music:\nNone.\n",
+      "prompt_sha256": "64f823138cd925e483ca4eccc36901e39451e4fda083e76271e5d3bbc4432f83",
+      "references": [
+        {
+          "name": "01-rest-3d.png",
+          "sha256": "c82fdfd2cd385da64d94df9754b57fa88be401526b9c78d8e57c6e8c3d8f6f70"
+        },
+        {
+          "name": "05-trench-rug-3d.png",
+          "sha256": "5f58e361a1c6cf690a92ccb973af10364dea034103096e1c873ccc6602207bd3"
+        },
+        {
+          "name": "02-floral-3d.png",
+          "sha256": "90eeee5491f8e45e0a12972180c786b7aa6608a78fd6572f5c086a855d57dca0"
+        },
+        {
+          "name": "03-bubble-3d.png",
+          "sha256": "649ddcf11879821c7f1dadb59f3bb82133f959caec128692c91d601d3c21f034"
+        },
+        {
+          "name": "04-bow-3d.png",
+          "sha256": "218ea57f5ead7c4bc4689d096e5c0a3630ec7f676ebdeaff6c7eac733e28dd02"
+        },
+        {
+          "name": "06-wipe-3d.png",
+          "sha256": "0081169944d8960219b7d92ff6ae64aa5e63f3681e02965e0821d07660ceb30c"
+        },
+        {
+          "name": "01-sofa-rest.png",
+          "sha256": "688f4ebb0ef01f9db4f92c0dfbd75569932cd790053b8eae7b900b97b96f90f5"
+        },
+        {
+          "name": "05-floral-skirt.png",
+          "sha256": "ad8f3e7ed8a75aef5e83a291fef67524dde063334e05f7f416a7c348c165ab58"
+        },
+        {
+          "name": "07-blue-bow-outfit.png",
+          "sha256": "7193c55ddbc1dedf1ef1a432983eb4047c9777ddd1d7222126c1561b5e86c711"
+        }
+      ],
+      "seconds": 1673.149,
+      "generation_seconds": 1672.345,
+      "generation_record_sha256": "57fa4261f2c38c22237afacbc575476d9bf8c0a04ac4ea49baaf5befa4b22dd7",
+      "generation_output": {
+        "bytes": 6960891,
+        "sha256": "e93f875acb598e3cf304e5d3a4e695928de542da348a837a3956f60feff674fa",
+        "width": 768,
+        "height": 1366,
+        "frames": 204,
+        "fps": "24/1",
+        "audio_channels": 2,
+        "audio_rate": 32000,
+        "video_seconds": 8.5,
+        "audio_seconds": 8.5,
+        "rgb_sha256": "1b1bea643caf73058e2e70dc50b1084194783f527e4efe02b82ab6b232ea76c4",
+        "pcm_sha256": "fbe850a6afb1b6d4a340bc91c6c829e81a718bee75c1333c6d70344bf9841261",
+        "audio_packet_sha256": "6ecd7c611bca2253558ea4a1d476b4a491202190713728e58c1d3382fdcf5208"
+      },
+      "peak_process_tree_gib": 47.531,
+      "max_swap_growth_bytes": 0,
+      "frame_samples": [
+        0,
+        14,
+        27,
+        41,
+        54,
+        68,
+        81,
+        95,
+        108,
+        122,
+        135,
+        149,
+        162,
+        176,
+        189,
+        203
+      ],
+      "audio_rms": [
+        0.049577925354242325,
+        0.048884060233831406
+      ],
+      "observed": {
+        "actions": [
+          "One tan-coated 3D rabbit, the tufted sofa, patterned rug and navy case persist across the sampled frames. Floral cloth and the burgundy bow are visible inside the case.",
+          "The rabbit holds the blue scarf by 1.71 s. A fan blade covers its paws around 3.96 s. At 4.50 s the scarf is inside the case and the paws are empty.",
+          "The lid lowers at 7.58\u20137.79 s. At 8.46 s the case is closed and both paws have withdrawn."
+        ],
+        "limits": "The rabbit stays on the sofa instead of rolling onto the rug. Between 7.79 and 8.25 s the central brass latch folds while the paw remains at the left edge. The requested right-paw latch turn is missing.",
+        "detail_sheet_sha256": "694f6c87ba7d283415f5cb496c8ba59209df76e361dbf0334f58c726f6086202"
+      },
+      "attention_counts": {
+        "dense": 0,
+        "sparse": 200
+      }
+    },
+    "high-dialogue": {
+      "preset": "high",
+      "entrypoint": "api",
+      "recipe": "pika-flex-ref2va-v1",
+      "mode": "VSA",
+      "attention": "dense",
+      "seed": 900103,
+      "evaluations": 6,
+      "model_identity": "b71db1a53779a92e7e9a9a51cc814fca4d8505933c55589f8bac8b89d63416ae",
+      "prompt": "subject_definitions:\n<Subject 1> is the pink rabbit in overalls with the red apple in <Picture 1>. <Subject 2> is the brown bear in green beside the paint pail. <Picture 2> shows the brush, apple and both costumes. <Picture 3> anchors the fence, bucket, brush scale and the rabbit's working pose.\n\nsummary:\nThe rabbit asks for a turn, trades an apple for the paintbrush, then taps the pail before touching the fence.\n\nretention_analysis:\n<Subject 1> and <Subject 2> ([Shot 1]): fully_preserved in the same sunlit yard. <Pictures 1\u20133> keep the fence direction, paint pail, one apple and one brush. The mouth of the listener stays relaxed through the line.\n\ndetailed_description:\n[Shot 1] Frame both faces and the pail. The rabbit looks at the bear and clearly asks <d>[English] My turn?</d> The bear waits for the question to end. He accepts the single red apple and offers the paintbrush handle-first. The rabbit grips the handle before he lets go. She turns to the fence, taps the ferrule once on the metal rim of the pail, then brushes one vertical white stroke. End with the apple with the bear, the brush in the rabbit's paw and the fresh stroke visible.\n\noverall_soundscape:\nOne light clear voice from the rabbit says the exact two words. After the last word and the handoff, a single metal ping at the pail, followed by soft bristles on wood. Quiet birds in the distance. No captions.\n\nnon_diegetic_music:\nNone.\n",
+      "prompt_sha256": "1334a50c0889a53bbf7df0d28fb24b2914b3025214ff091501e2f478128c62cb",
+      "references": [
+        {
+          "name": "01-reference.png",
+          "sha256": "a00f7c751ce4735a85cc91d0508c9835245b1bd4c0407bcd50d50470652a97a7"
+        },
+        {
+          "name": "01-reference.png",
+          "sha256": "eb36a1415518220cb2333b9ace06a0f1e49e01f005d35f030aa46f9647126da1"
+        },
+        {
+          "name": "01-reference.png",
+          "sha256": "244e035a5406a801f0a6c6e105b0e0fc35808ae47c3c3256b81f49555c382e55"
+        }
+      ],
+      "seconds": 1161.536,
+      "generation_seconds": 1160.784,
+      "generation_record_sha256": "4db94a0b2b8375114464425aad27ff7816af2d2297ad17023265fde3982a5cda",
+      "generation_output": {
+        "bytes": 3035241,
+        "sha256": "3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377",
+        "width": 768,
+        "height": 1366,
+        "frames": 120,
+        "fps": "24/1",
+        "audio_channels": 2,
+        "audio_rate": 32000,
+        "video_seconds": 5.0,
+        "audio_seconds": 5.0,
+        "rgb_sha256": "4a50059f605b2a74df89856e587078e0dce6ba8844a69de7777bdbd1b5b93055",
+        "pcm_sha256": "80f7f019703d0d4a55f9b072f82b42cb60c25f1576f3704c648db11af980ba65",
+        "audio_packet_sha256": "36d569b9b3c2f202a31647e0f13ea891a502c15478416e671abc099a12feff11"
+      },
+      "peak_process_tree_gib": 38.201,
+      "max_swap_growth_bytes": 0,
+      "frame_samples": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        63,
+        71,
+        79,
+        87,
+        95,
+        103,
+        111,
+        119
+      ],
+      "audio_rms": [
+        0.047063395380973816,
+        0.04759665206074715
+      ],
+      "observed": {
+        "actions": [
+          "0.00\u20131.00 s: the rabbit holds the bitten red apple and opens its mouth while the bear holds the brush.",
+          "At 1.67 s both characters reach into the exchange. At 2.00 s the bear holds the apple and the rabbit holds the paintbrush. The brush reaches the pail at 2.33 s.",
+          "At 3.96\u20134.96 s the rabbit lifts and lowers the brush against the fence. A narrow white stripe appears beside a previously white board. The bear retains the apple."
+        ],
+        "speech": "The on-device en_US recognizer returned \u201cMy turn\u201d once without the prompt.",
+        "limits": "Sampled frames establish the end owners and the fresh stroke. The exact grip-release ordering, a single pail ping and phoneme-level lip sync were not verified."
+      },
+      "attention_counts": {
+        "dense": 300,
+        "sparse": 0
+      },
+      "transcription": {
+        "method": "On-device en_US DictationTranscriber, no prompt supplied",
+        "segments": [
+          {
+            "start": 0.3,
+            "end": 3.12,
+            "text": "My turn"
+          }
+        ]
+      }
+    },
+    "sol-fast-pool": {
+      "preset": "fast",
+      "entrypoint": "cli",
+      "recipe": "ref2va-premerged-i8-sol-sage-v2",
+      "mode": "SOL",
+      "attention": null,
+      "seed": 900104,
+      "evaluations": 4,
+      "model_identity": "2a144aa319c7f8645110842eedd4eec09ba4bf2b46bfde8ba17514ed1f3d7931",
+      "prompt": "subject_definitions:\n<Subject 1> is the dark-haired woman in the light jacket from <Picture 1>. <Subject 2> is the short-haired woman in black from <Picture 2>, with the motorcycle outside the scene. <Picture 3> anchors the blue pool and lane lines. <Picture 4> anchors the tile stripe and underwater light. One yellow diving ring rests on the tile.\n\nsummary:\nA camera tracks beside two swimmers as one retrieves a ring and the other receives it across a stripe on the pool floor.\n\nretention_analysis:\n<Subject 1> and <Subject 2> ([Shot 1]): fully_preserved as two different swimmers with light and dark upper clothing respectively. <Pictures 3 and 4> ([Shot 1]): fully_preserved for lane direction, water color and the tile stripe.\n\ndetailed_description:\n[Shot 1] Stay underwater in a wide lateral tracking shot. The woman in light clothing dives a little lower and lifts the yellow ring clear of the blue tiles. Sunlight ripples across their faces. The near lane rope moves faster across the lens than the far tiles as the camera tracks right. The woman in black reaches from the far side of the stripe. Both briefly grip opposite sides of the same ring. The first releases and rises; the second swims on with the ring in one hand. End with two separate silhouettes and the empty patch of tile.\n\noverall_soundscape:\nMuffled water, bubbles on the dive and a faint scrape as the ring leaves the tile. Bubbles trail the first swimmer as she rises. No music or speech.\n\nnon_diegetic_music:\nNone.\n",
+      "prompt_sha256": "34af5bd6cfec0218f007988d90bb4e4edb8245845b6a96dadc9d6d6399aa89ce",
+      "references": [
+        {
+          "name": "df46f5f157b0bcddb603646532e9746f709d663cb4787332603c90373691a8d7.jpg",
+          "sha256": "df46f5f157b0bcddb603646532e9746f709d663cb4787332603c90373691a8d7"
+        },
+        {
+          "name": "afda45ed8f06a176c19fa9b224cb6c07467dd0d0ab2564a14c3014cc7ae34ca4.jpg",
+          "sha256": "afda45ed8f06a176c19fa9b224cb6c07467dd0d0ab2564a14c3014cc7ae34ca4"
+        },
+        {
+          "name": "97e0835a1bf64ee4c4ae0ca0d94e3262bc6bfaff79a77ec2c7155ccb26110b8c.jpg",
+          "sha256": "97e0835a1bf64ee4c4ae0ca0d94e3262bc6bfaff79a77ec2c7155ccb26110b8c"
+        },
+        {
+          "name": "939856c9964d33c9ddecac30b145b82993c5d6ba9ce6a2afcf169233ecc177e6.jpg",
+          "sha256": "939856c9964d33c9ddecac30b145b82993c5d6ba9ce6a2afcf169233ecc177e6"
+        }
+      ],
+      "seconds": 209.427,
+      "generation_seconds": 205.157,
+      "generation_record_sha256": "e2fc7d4ca25ea675c29d1fc34cbc1585013a154f955698a36763572a9c96256f",
+      "generation_output": {
+        "bytes": 12344836,
+        "sha256": "a6a25ebeaed0182436d442ba36ce0d03641310a0fa62791686f8641897830141",
+        "width": 1920,
+        "height": 1088,
+        "frames": 120,
+        "fps": "24/1",
+        "audio_channels": 2,
+        "audio_rate": 32000,
+        "video_seconds": 5.0,
+        "audio_seconds": 5.0,
+        "rgb_sha256": "129ee36a8a325a313a461e230618b308a3c7135d7ecad29b58dea1f8b56b8b73",
+        "pcm_sha256": "775ad5f9d0abdc9e27129c24311c0756a6058ece6237f5f37f6c5d7ba0f40a7f",
+        "audio_packet_sha256": "c35b3a2b54e7f758dca41d36a056348e60c9830bac6c6ce52ef1197cf8c535f2"
+      },
+      "peak_process_tree_gib": 58.426,
+      "max_swap_growth_bytes": 0,
+      "frame_samples": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        63,
+        71,
+        79,
+        87,
+        95,
+        103,
+        111,
+        119
+      ],
+      "audio_rms": [
+        0.02917841449379921,
+        0.029671259224414825
+      ],
+      "observed": {
+        "actions": [
+          "The wide underwater camera tracks laterally. The foreground swimmer reaches the single yellow ring at 1.00 s and lifts it clear of the tiles by 1.33 s.",
+          "The ring stays in her outstretched hand through about 3.62 s. The pool lines and near rope remain visible during the approach."
+        ],
+        "limits": "At 3.29\u20133.62 s a second light-clothed swimmer is visible behind the carrier alongside the dark-clothed swimmer. At 3.75\u20134.08 s the ring meets the dark swimmer\u2019s foot and stretches into yellow streaks. The requested hand-to-hand transfer and final ownership are missing.",
+        "detail_sheet_sha256": "9790e38f33038699c2e6fef294a4c60b20cc08c664212bdd82758692a50e4bb5"
+      }
+    },
+    "sol-medium-parcel": {
+      "preset": "medium",
+      "entrypoint": "api",
+      "recipe": "ref2va-premerged-i8-sol-sage-v2",
+      "mode": "SOL",
+      "attention": null,
+      "seed": 900105,
+      "evaluations": 4,
+      "model_identity": "2a144aa319c7f8645110842eedd4eec09ba4bf2b46bfde8ba17514ed1f3d7931",
+      "prompt": "subject_definitions:\n<Picture 1> defines the dark loading room, long wooden table and blue window light. <Subject 1> is the young dark-haired man in a hooded jacket from <Picture 2>. <Subject 2> is the stockier middle-aged man dressed in black from <Picture 3>. One kraft parcel carries a large white paper label printed 17B in black.\n\nsummary:\nTwo dispatchers turn a labeled parcel, pass it across a workbench, and stamp the same label after a hand briefly covers it.\n\nretention_analysis:\n<Subject 1> and <Subject 2> ([Shot 1]): fully_preserved as two distinct people, each from his own sheet. <Picture 1> fixes the workbench and side light. Preserve the orientation of the label on the same cardboard face and its three characters 17B.\n\ndetailed_description:\n[Shot 1] A three-quarter view includes both men's faces and the top of the table. The younger man on the left rotates a small kraft parcel a quarter turn until its 17B label faces the camera. He slides the parcel across the table. The older man catches it with one hand over the label, uncovering it as the box stops. With his other hand he presses one rubber stamp beside the letters and lifts it. End with one red circular mark beside an unobstructed, upright 17B. A slight camera push makes the final label readable.\n\noverall_soundscape:\nCardboard scrapes across wood, then stops. A single rubber-stamp thud occurs after the parcel stops. Low warehouse ambience, quiet voices absent.\n\nnon_diegetic_music:\nNone.\n",
+      "prompt_sha256": "d3c0de8aebd260b5104bc11c385a45b904f6a85190e35ea488592c0eafaed859",
+      "references": [
+        {
+          "name": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d.jpg",
+          "sha256": "73d036d5b9f7c0e4b79f562e6de4b9f43af49bc90924aaa689bd8a3ccda27e9d"
+        },
+        {
+          "name": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f.jpg",
+          "sha256": "3bef290949babc899992ab9f94c7348e6749e650ab8d5a7b37ce23cc52a8509f"
+        },
+        {
+          "name": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29.jpg",
+          "sha256": "32a26cf68ca25d36bf72fb5bffd6597688a87769670a7a6e08ec1df2cd2f8c29"
+        }
+      ],
+      "seconds": 399.389,
+      "generation_seconds": 398.895,
+      "generation_record_sha256": "03b9c87a83f76061179f289bbd20ef63ffb83891ccc444afd96abefbf8acf5ad",
+      "generation_output": {
+        "bytes": 1978396,
+        "sha256": "2b43d01f065d95036c55d7ad4c1ea9b83c19046412662ac4641721f84d355f3b",
+        "width": 1366,
+        "height": 768,
+        "frames": 120,
+        "fps": "24/1",
+        "audio_channels": 2,
+        "audio_rate": 32000,
+        "video_seconds": 5.0,
+        "audio_seconds": 5.0,
+        "rgb_sha256": "a91ba778bfb5501ca0cb2322fc0b77149ffa69d9a39f9b565060d72cd38237a9",
+        "pcm_sha256": "46f32031600a075a986088129d09affeaee7866cee0bb3af6e64aeef6a989cd1",
+        "audio_packet_sha256": "b3f9f61d7ad074576ad247ae275320336f1e96695e88058628d487fa4be482da"
+      },
+      "peak_process_tree_gib": 59.803,
+      "max_swap_growth_bytes": 0,
+      "frame_samples": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        63,
+        71,
+        79,
+        87,
+        95,
+        103,
+        111,
+        119
+      ],
+      "audio_rms": [
+        0.020297301933169365,
+        0.020338427275419235
+      ],
+      "observed": {
+        "actions": [
+          "The sender rotates and slides a single parcel. Its white label reads 17B by 1.00 s. The receiver's fingers cover the lettering at 2.33\u20133.00 s, and it is legible again at 3.17\u20133.50 s.",
+          "The later stamp motion reaches the stopped box at 3.79\u20133.96 s. The ending retains the same readable 17B and a red mark to its left."
+        ],
+        "limits": "There are two stamp-like contacts, the first at 2.50\u20132.67 s and the later one near 3.96 s. The final label also has a faint red diagonal smudge below the characters.",
+        "detail_sheet_sha256": "5898e65df6fd33bd5a894d0416fb279b1cedbfdef39983cf24f366c8a74758ee"
+      }
+    },
+    "high-jewelry-upscale": {
+      "preset": "high",
+      "entrypoint": "cli",
+      "recipe": "pika-flex-ref2va-v1",
+      "mode": "VSA",
+      "attention": "dense",
+      "seed": 900106,
+      "evaluations": 6,
+      "model_identity": "b71db1a53779a92e7e9a9a51cc814fca4d8505933c55589f8bac8b89d63416ae",
+      "prompt": "subject_definitions:\n<Subject 1> is the brown bear in green, seated left of the pink rabbit <Subject 2> in <Picture 1>. <Picture 2> supplies the navy box closed on the right of the oval table. <Picture 3> shows its hinged lid and the single silver chain inside. The long burgundy case stays on the left.\n\nsummary:\nA gift passes across a table. A cut during the opening of a jewelry box reveals the hanging chain and the rabbit's reaction.\n\nretention_analysis:\n<Subject 1> and <Subject 2> ([Shots 1\u20132]): fully_preserved, same outfits and seating. <Pictures 1\u20133> fix the warm lamp, wood grain, right-side navy box and left-side burgundy case. Preserve the same chain and the direction in which the lid opens.\n\ndetailed_description:\n[Shot 1] Begin on the pair across the table. The rabbit nudges the closed navy box toward the bear. He steadies its base and starts lifting the lid; the rabbit watches. [Shot 2] At 00:02.300, cut directly to a closer angle from the same side of the table while the lid is still rising. The bear pinches the end of the single silver chain and lifts it until the links hang freely. The rabbit leans closer and follows the moving links with her eyes. End with the open navy box below the hanging chain and the burgundy case still separate.\n\noverall_soundscape:\nA soft scrape under the slide, one hinge click across the edit, then a short metallic jingle as the links hang. Continuous quiet evening room tone. No dialogue.\n\nnon_diegetic_music:\nNone.\n",
+      "prompt_sha256": "2cee1de0571112164d8960bc91e7b57fbbfc09df7f421a30b59672e3a722f38b",
+      "references": [
+        {
+          "name": "01-evening-gifts.png",
+          "sha256": "13bbd7f248d7a69cbb7576c6f4a700369f83a9e3d773e46d26cb4fa919609fc3"
+        },
+        {
+          "name": "01-navy-closed.png",
+          "sha256": "7f0aa1e38aeca02e2c901f1addba9e51c3516b93870252a1c8c77148209afffe"
+        },
+        {
+          "name": "02-chain-revealed.png",
+          "sha256": "14973a5ee896817dbaf6ad5af826197f12abc660125037410042820f3b3280a1"
+        }
+      ],
+      "seconds": 2237.49,
+      "generation_seconds": 1130.311,
+      "generation_record_sha256": "3e4fbc1753d7ea02c5f0a9ae5b6b1e11d5fed980a3a2e2239b0b8f5dc194fbe0",
+      "generation_output": {
+        "bytes": 1908183,
+        "sha256": "281b5e4cfeb2fcad4e8eba238572e2c771ddce0757bbea57f03284b2f60ea749",
+        "width": 768,
+        "height": 1366,
+        "frames": 120,
+        "fps": "24/1",
+        "audio_channels": 2,
+        "audio_rate": 32000,
+        "video_seconds": 5.0,
+        "audio_seconds": 5.0,
+        "rgb_sha256": "3b4017b0191c33b82bc9192ddbd56a95307cb40a8c1a26f8d464e0e75f9b5541",
+        "pcm_sha256": "4c0aba6a289c5ecf1dab648991a5ae554282a71cb4aad0ff74fe96daabc7f2e8",
+        "audio_packet_sha256": "9be6015f2810790f7b7fdd30470554da95e854ed92c70e8f7fd6ef4fc41058a3"
+      },
+      "peak_process_tree_gib": 70.784,
+      "max_swap_growth_bytes": 0,
+      "frame_samples": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        63,
+        71,
+        79,
+        87,
+        95,
+        103,
+        111,
+        119
+      ],
+      "audio_rms": [
+        0.02322019450366497,
+        0.023413285613059998
+      ],
+      "observed": {
+        "actions": [
+          "The rabbit slides the closed navy box toward the bear at 0.33\u20131.33 s. The long burgundy case stays separate at the left of the table.",
+          "One cut at frame 54 (2.25 s) moves from the wide view to a close view on the same side of the table. The bear lifts one silver chain at 2.96\u20133.62 s. It hangs over the open box through the end."
+        ],
+        "limits": "The requested cut was at 2.30 s during the lid movement. Frames 51\u201353 already show the lid upright immediately before the cut. Precise eye tracking and individual sound cues were not verified.",
+        "detail_sheet_sha256": "b8aa14c8776be14f0b93a642a62a12cc2f3686ecad93b5c3980387109b0a99d7"
+      },
+      "attention_counts": {
+        "dense": 300,
+        "sparse": 0
+      },
+      "restoration": {
+        "identical_packet_timing": {
+          "v:0": 120,
+          "a:0": 158
+        },
+        "copied_audio_packets": true,
+        "identical_pcm": true,
+        "output": {
+          "bytes": 9569874,
+          "sha256": "810b2405e4bd30c5607e380a011b49153972029f67286f1aeac83369856cf36e",
+          "width": 1536,
+          "height": 2732,
+          "frames": 120,
+          "fps": "24/1",
+          "audio_channels": 2,
+          "audio_rate": 32000,
+          "video_seconds": 5.0,
+          "audio_seconds": 5.0,
+          "rgb_sha256": "0b69f0f48202d470e2618bdae6044a693435cf951f741362a0f8ead52c9e8b01",
+          "pcm_sha256": "4c0aba6a289c5ecf1dab648991a5ae554282a71cb4aad0ff74fe96daabc7f2e8",
+          "audio_packet_sha256": "9be6015f2810790f7b7fdd30470554da95e854ed92c70e8f7fd6ef4fc41058a3"
+        },
+        "seconds": 1098.351,
+        "record_sha256": "1749b0f8a04222b6a7b1bb5f2cf41b374b277cd0e0ddbe85f442b42a6508c9ac",
+        "identical_display_frames": 120,
+        "identical_video_packet_presentation_times": 120,
+        "identical_ordered_audio_packets": 158,
+        "video_packet_file_order_identical": true
+      }
+    }
+  },
+  "standalone_restoration": {
+    "input_scene": "high-dialogue",
+    "input_sha256": "3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377",
+    "seconds": 1090.694,
+    "time_scope": "Elapsed restoration time reported by the installed CLI.",
+    "verification_note": "The original verifier compared video PTS in compressed packet file order. H.264 can change B-frame ordering after restoration. Both original files were checked for the exact displayed frame schedule and ordered audio packet timing.",
+    "output": {
+      "bytes": 13613881,
+      "sha256": "083125d7916df6f0860037c3ac13b2c1399f6c33fdda8c81b152e2b20de09ea8",
+      "width": 1536,
+      "height": 2732,
+      "frames": 120,
+      "fps": "24/1",
+      "audio_channels": 2,
+      "audio_rate": 32000,
+      "video_seconds": 5.0,
+      "audio_seconds": 5.0,
+      "rgb_sha256": "9448f9660261397227535f8d38573d0285acafb74faae7edbb33bbbb00df0d8e",
+      "pcm_sha256": "80f7f019703d0d4a55f9b072f82b42cb60c25f1576f3704c648db11af980ba65",
+      "audio_packet_sha256": "36d569b9b3c2f202a31647e0f13ea891a502c15478416e671abc099a12feff11"
+    },
+    "record_sha256": "2832d6da0257bbffd242e6c485e8e64e05352f2c0ec971978bc73dbfb108c67c",
+    "identical_display_frames": 120,
+    "identical_video_packet_presentation_times": 120,
+    "identical_ordered_audio_packets": 158,
+    "video_packet_file_order_identical": false,
+    "copied_audio_packets": true,
+    "identical_pcm": true
+  },
+  "five_second_vsa_timings": {
+    "scope": "Prepared models, full API wall time, default VSA, 5 s with 3\u20134 references. Measured during LightX2V v1.0 integration before the versioned wheel.",
+    "fast": {
+      "median_seconds": 267.439,
+      "cases": [
+        {
+          "seed": 184201,
+          "seconds": 266.8,
+          "generation_record_sha256": "84edf59fe442f206fba8f830df9a9ce496b702b360762ba662320c78f2462ef6"
+        },
+        {
+          "seed": 184202,
+          "seconds": 267.344,
+          "generation_record_sha256": "1731e584a4b5e16f9fd5bb52b171fd8ce5d8e252284aeb90dda7ff29808020bf"
+        },
+        {
+          "seed": 184203,
+          "seconds": 267.019,
+          "generation_record_sha256": "6436b3163d2b91d32f3884c392cf39b71a0bf8e6da35bcc6a7a20a0804552281"
+        },
+        {
+          "seed": 184204,
+          "seconds": 265.486,
+          "generation_record_sha256": "3f427a6d136240d2c9827b8fb4d8953b9c083aefb052413881a5d5c0cfc9f29d"
+        },
+        {
+          "seed": 184205,
+          "seconds": 291.61,
+          "generation_record_sha256": "8fe425328b258a5164131453366ddf65dfc6e6fc3bae5ef28688c8e93aa8f46e"
+        },
+        {
+          "seed": 184206,
+          "seconds": 267.535,
+          "generation_record_sha256": "e5e6bf5bc91c7247b745a03d8a2905283dac52f2002c22f1ed198a7641325db7"
+        },
+        {
+          "seed": 184207,
+          "seconds": 268.621,
+          "generation_record_sha256": "0a8da9e26be19d18ca2e32d48cd3135f4548359d817b9294f6a9c5b4a2332e4b"
+        },
+        {
+          "seed": 184208,
+          "seconds": 268.081,
+          "generation_record_sha256": "9ec935b6d37ac8552602d728a6256d9b00df3b411efd8bb6ade3a8cd6d84d917"
+        }
+      ]
+    },
+    "medium": {
+      "median_seconds": 585.56,
+      "cases": [
+        {
+          "seed": 184201,
+          "seconds": 583.152,
+          "generation_record_sha256": "2fe26c8e691b65ba4d2a9204f11f778e5c4e5897833f953c9080649188910293"
+        },
+        {
+          "seed": 184202,
+          "seconds": 581.825,
+          "generation_record_sha256": "bdc93fcdab29d9cb766122a139e85f95b9b7e152cad55da21e49656a8be25b31"
+        },
+        {
+          "seed": 184203,
+          "seconds": 585.051,
+          "generation_record_sha256": "733e33af1f2b095b3e573ee65fe762769ba50f133900fef6dcb67b90b468f8a7"
+        },
+        {
+          "seed": 184204,
+          "seconds": 581.384,
+          "generation_record_sha256": "2036a50dffadd3d97f0810a80036235e4147d2991f8b91bef00e2b05c8d35ad0"
+        },
+        {
+          "seed": 184205,
+          "seconds": 659.087,
+          "generation_record_sha256": "7d66239e0529e21624c9f55211c8c8043bebc5fc55e7d0a6c51cea38e3eeec41"
+        },
+        {
+          "seed": 184206,
+          "seconds": 586.07,
+          "generation_record_sha256": "c0c88c94ee6595885de2a033e044ae49dd3936efc297fd629f42f39363d929ac"
+        },
+        {
+          "seed": 184207,
+          "seconds": 589.06,
+          "generation_record_sha256": "e9b30f9a4c7ba3d3106f4b231fcca15775a8b3d6badb332eb03b9e82593728b1"
+        },
+        {
+          "seed": 184208,
+          "seconds": 586.414,
+          "generation_record_sha256": "3ebfefd3eacbcd20346cd46253a0156918c74ba56383af205eb387abedb637eb"
+        }
+      ]
+    }
+  }
+}

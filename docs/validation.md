@@ -1,5 +1,45 @@
 # Validation
 
+## 0.9.0
+
+The installed 0.9.0 wheel passed **441 tests**, including GPU and large-array
+checks. All 101 package files match source and the wheel used to generate the
+six scenes below. Both CLI and Python resolved all six requests identically.
+The VSA, SOL and Pika model directories passed identity and checksum checks.
+[Full settings and measurements](evidence/v0.9.0-qualification.json) · [Watch the six scenes](https://rhinoq.github.io/h3-apple/?release=0.9.0).
+
+| Scene | Preset and interface | References | Generated output |
+| --- | --- | ---: | --- |
+| Four outfits, one room | Default Fast, CLI | 6 | 15 s, 1088×1920 |
+| The navy suitcase | Medium, Python | 9 | 8.5 s, 768×1366 |
+| The paintbrush trade | High, Python | 3 | 5 s, 768×1366 |
+| Underwater handoff | Fast with SOL, CLI | 4 | 5 s, 1920×1088 |
+| Parcel 17B | Medium with SOL, Python | 3 | 5 s, 1366×768 |
+| The silver chain | High with optional VOSR, CLI | 3 | 5 s, 768×1366 before restoration |
+
+The six first outputs contain **1,044 decoded frames** at 24 fps, each clip
+with 32 kHz stereo audio. Both four-step backends ran LightX2V v1.0. Both
+High runs recorded six Pika evaluations and 300 Dense attention calls. A
+40-core M5 Max with 128 GiB ran each case once using prepared models.
+
+Fast showed the four outfits in order. High transferred the apple and brush
+to the requested owners, painted the fence, and produced “My turn” once in an
+unprompted transcription. The jewelry scene kept its two boxes distinct and
+cut to a closer view at 2.25 s, after the lid was already upright. Medium
+placed the scarf in the suitcase and closed it, while the central latch moved
+without the rabbit's paw. The underwater clip added a swimmer and lost the
+ring at the receiver's foot. Parcel 17B kept the text readable but introduced
+an extra stamp-like contact. The evidence includes frame times and review scope.
+
+Optional VOSR delivered both High scenes at **1536×2732**. Restoration took
+**18m 11s** on the saved paintbrush video and **18m 18s** inside the combined
+jewelry command. Both copies kept all 120 displayed frame times and durations,
+158 audio packet timings, and identical encoded and decoded stereo audio.
+The standalone test also rehashed its native input. Its first timing check
+flagged a change in H.264 B-frame encoding order. The playback check used
+decoded presentation timestamps and durations. Peak sampled process-tree memory
+across the workflows was 70.8 GiB, with zero added swap.
+
 ## 0.8.3
 
 [Release checks](evidence/v0.8.3-release.json): **436 tests passed** on the installed

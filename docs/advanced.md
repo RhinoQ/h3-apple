@@ -80,7 +80,13 @@ With the LightX2V v1.0 four-step weights, eight five-second scenes with three
 or four reference images took a median **4m 27s on Fast** and **9m 46s on
 Medium**. These full API times include generation, decoding and export on a
 40-core M5 Max with 128 GiB, default VSA and prepared models.
-[Compare the scenes, references and timings](https://rhinoq.github.io/h3-apple/previews/p184-ref2va/).
+[Per-scene times and installed-version checks](evidence/v0.9.0-qualification.json).
+
+On the same Mac, a five-second Pika High dialogue scene with three references
+took **19m 22s** through the Python API. The High CLI generated and restored a
+different three-reference scene in **37m 17s**. Native generation took
+**18m 50s** and optional VOSR took **18m 18s**. Both were portrait videos.
+[Watch the High scenes](https://rhinoq.github.io/h3-apple/?release=0.9.0#high-dialogue).
 
 The earlier 0.7.0 benchmark used LightX2V v0.1 on the same hardware.
 
