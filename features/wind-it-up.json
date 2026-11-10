@@ -1,0 +1,86 @@
+{
+  "id": "wind-it-up",
+  "title": "Wind It Up",
+  "brief": "A fingertip releases a die-cast rally car on a paper map. On the next bend, a full-size coupe throws snow across an Alpine pass.",
+  "quality": "High",
+  "model": "Pika H3 Flex",
+  "backend": "Dense",
+  "steps": 6,
+  "shots": 3,
+  "refs": "3 original images · 2 per shot",
+  "duration": 13.0,
+  "seeds": [
+    901071,
+    901072,
+    901073
+  ],
+  "x2": false,
+  "production": "The three original reference stills were made with ImageGen. h3-apple generated the action and stereo audio on a 40-core Apple M5 Max with 128 GiB. The release title was added in the edit.",
+  "native": {
+    "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/15ceb7749aef752aa016e9b40723fb617facfbd1/films/09e72f6de2c04a019c207f81ab0b984be72ba085fc18d257cfe082961739c8a9.mp4",
+    "sha256": "09e72f6de2c04a019c207f81ab0b984be72ba085fc18d257cfe082961739c8a9",
+    "bytes": 7312972,
+    "width": 1366,
+    "height": 768,
+    "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/15ceb7749aef752aa016e9b40723fb617facfbd1/films/9995c443f190963fb3fba672b7324f03745653cb3069ff83a4c1820fd74a16cd.jpg"
+  },
+  "replay": {
+    "hardware": "Apple M5 Max, 40-core GPU, 128 GiB unified memory",
+    "nativeSeconds": 2901.723509124713,
+    "pictures": {
+      "map.png": "The die-cast coupe on a paper map",
+      "apex.png": "The full-size coupe on the mountain pass",
+      "road.png": "The snowy hairpin from above"
+    },
+    "shots": [
+      {
+        "title": "The wind-up",
+        "start": 0.0,
+        "duration": 3.5,
+        "seconds": 957.6382657918148,
+        "seed": 901071,
+        "refs": [
+          "map.png",
+          "apex.png"
+        ],
+        "promptFile": "prompts/01-wind.txt",
+        "prompt": "subject_definitions:\n<Subject 1> is the chipped vermilion die-cast coupe in <Picture 1>, with a single ivory stripe down its hood and roof, two amber rally lamps and small black wheels. <Picture 1> gives the opening tabletop, scale, hand and warm lighting. <Picture 2> supplies the silhouette and stripe placement of the same car design.\n\nsummary:\nA fingertip winds a tiny pull-back rally car on a mountain map and lets it race across a red-penciled bend. A tactile, photoreal opening to a rally film.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - the one toy stays hand-sized on the paper.\n<Picture 1> ([Shot 1] first frame): fully_preserved - the amber desk lamp, aged paper, low camera and fingertip.\n<Picture 2> ([Shot 1] car design): attribute_transfer - retain the coupe's paint and proportions on the toy.\n\ndetailed_description:\n[Shot 1] One continuous low macro tracking shot, with moving shadows and shallow focus. Open tight on the index fingertip touching the roof, the nose pointed screen right. The finger pulls the little car back half a car length to the left. Its spring ticks. By the second second the finger lifts clear, leaving the car free. The car shoots toward screen right, black wheels spinning, bouncing lightly over a fold in the paper. The camera tracks level beside its near front wheel. Fine blue contour lines and the red ink bend race underneath. Finish still moving right at axle height. Warm practical light, ivory paper and tactile red enamel. Clean full-bleed photographic frame.\n\noverall_soundscape:\nClose, dry spring clicks on the pullback, a crisp release, tiny metal wheels buzzing along coarse paper. The whir builds in pitch as the car picks up speed. Quiet room underneath.\n\nnon_diegetic_music:\nOnly the mechanical sounds carry the rhythm. No dialogue or score.\n",
+        "command": "h3 generate --quality high --no-upscale --duration 5 --aspect-ratio 16:9 \\\n  --seed 901071 --prompt-file prompts/01-wind.txt \\\n  --image refs/map.png \\\n  --image refs/apex.png \\\n  --output 01-wind.mp4 --timeout 7200"
+      },
+      {
+        "title": "The slide",
+        "start": 3.5,
+        "duration": 4.5,
+        "seconds": 962.4090060000308,
+        "seed": 901072,
+        "refs": [
+          "apex.png",
+          "map.png"
+        ],
+        "promptFile": "prompts/02-slide.txt",
+        "prompt": "subject_definitions:\n<Subject 1> is the full-size vermilion rally coupe from <Picture 1>: a boxy two-door body, a single broad ivory stripe on the hood and roof, two amber lamps and dark wheels. <Picture 1> also anchors the low roadside view, Alpine pass and last pink light. <Picture 2> supplies the hue of the red enamel and the stripe as continuity with the miniature.\n\nsummary:\nCut from a toy to the real thing. A full-size rally driver powerslides an alpine hairpin and catches the slide, throwing a bright, sculptural wave of powder. One continuous live-action tracking shot.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): fully_preserved - one recognizable real coupe and its lamps from approach through exit.\n<Picture 1> ([Shot 1] location and framing): fully_preserved - cold blue mountain shadows, the close front three-quarter angle and warm light on the body.\n<Picture 2> ([Shot 1] color and stripe): attribute_transfer - the same red and ivory design on the full-size body.\n\ndetailed_description:\n[Shot 1] Start in motion. At wheel height the red coupe charges through frame toward screen right. The camera pans alongside the near front fender, using the mountain peaks as a stable horizon. The nose turns into the bend as the rear wheels step outward; powder erupts behind the near rear tire in a single broad fan. The amber lamps briefly point almost into the lens. The driver countersteers and the rear settles back in line. In the last second the car gains distance, revealing fresh curved black tracks through a thinning cloud. Keep the action moving, weight in the suspension, blur on the road, sharp highlights on the red body; an uninterrupted roadside pass at blue hour.\n\noverall_soundscape:\nAn engine already at full throttle, a short gear change, tires scrubbing hard-packed snow, powder hissing past the microphone. The engine note falls away as the car exits. Wide alpine outdoor acoustics.\n\nnon_diegetic_music:\nEngine and tires make the soundtrack. No dialogue or score.\n",
+        "command": "h3 generate --quality high --no-upscale --duration 5 --aspect-ratio 16:9 \\\n  --seed 901072 --prompt-file prompts/02-slide.txt \\\n  --image refs/apex.png \\\n  --image refs/map.png \\\n  --output 02-slide.mp4 --timeout 7200"
+      },
+      {
+        "title": "The road",
+        "start": 8.0,
+        "duration": 5.0,
+        "seconds": 981.6762373328675,
+        "seed": 901073,
+        "refs": [
+          "road.png",
+          "apex.png"
+        ],
+        "promptFile": "prompts/03-road.txt",
+        "prompt": "subject_definitions:\n<Picture 1> sets the high aerial angle, blue alpine dusk and the great hairpin drawn in the snowy terrain. <Subject 1> is the one real red rally coupe on the lower leg of the road, also shown close in <Picture 2>, with a single ivory roof stripe, dark wheels and glowing amber lamps.\n\nsummary:\nFrom above, a red speck leaves an enormous white hairpin behind. Camera and car move downhill together, opening out the landscape until the road looks like the line on a paper map.\n\nretention_analysis:\n<Picture 1> ([Shot 1] first frame and landscape): fully_preserved - keep the curved road geometry and mountain scale, with dark pines along the left edge.\n<Subject 1> (appears in [Shot 1]): fully_preserved - the only car is the vermilion coupe, its hood pointing downhill.\n<Picture 2> ([Shot 1] car design): attribute_transfer - the real coupe's stripe, amber lamps and red body retain their identity at a distance.\n\ndetailed_description:\n[Shot 1] Open high and wide on <Picture 1>. The red car is already accelerating nose first downhill, following the lower leg of the hairpin toward the bottom of the image. Amber headlights skim the ice in front. A thread of lifted powder trails the rear wheels, then hangs over two dark tire marks. The camera flies smoothly backward above its path while gaining altitude. The car keeps to the road, visible lower-center, becoming smaller; the full sweep of the hairpin opens out behind it and the mountain pines throw long blue shadows. Let the composition breathe into the final second. A quiet, immense photographic closing image. Continuous shot, deep focus, no graphics.\n\noverall_soundscape:\nAn engine receding down the valley, its echo returning from the rocks, fine wind in the trees. Let the engine fade into mountain air at the tail. A spacious stereo exterior.\n\nnon_diegetic_music:\nOutdoor sound only. No dialogue, singing or score.\n",
+        "command": "h3 generate --quality high --no-upscale --duration 5 --aspect-ratio 16:9 \\\n  --seed 901073 --prompt-file prompts/03-road.txt \\\n  --image refs/road.png \\\n  --image refs/apex.png \\\n  --output 03-road.mp4 --timeout 7200"
+      }
+    ],
+    "archive": "wind-it-up-inputs.zip",
+    "archiveBytes": 5460112,
+    "assemble": "python assemble.py wind-it-up.mp4",
+    "edit": "The edit cuts between native frames, fades the generated stereo at the joins and overlays the release title on the aerial shot. The ZIP includes the edit decisions and the transparent title.",
+    "inspiration": "https://dev.pika.art/models/pika/pika-h3-flex/reference-to-video/examples",
+    "base": "https://raw.githubusercontent.com/RhinoQ/h3-apple/15ceb7749aef752aa016e9b40723fb617facfbd1/features/wind-it-up/"
+  }
+}
