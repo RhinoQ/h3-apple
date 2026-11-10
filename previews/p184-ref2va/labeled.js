@@ -13,7 +13,7 @@ const descriptions = {
   'high-native': 'Both generate native 768p using Dense attention. VOSR is off.',
   'high-delivered': 'Released High includes VOSR 2×. Pika delivers native 768p.',
   'high-medium': 'Released Medium uses sparse attention at four steps. Pika uses Dense attention at six. Both deliver native 768p.',
-  'high-medium-new': 'Alternative Medium uses LightX2V v1.0 and sparse attention. Pika uses Dense attention. Both deliver native 768p.',
+  'high-medium-new': 'Medium uses LightX2V v1.0 and sparse attention at four steps. Pika uses Dense attention at six. Both deliver native 768p.',
   vosr: 'Both videos come from the same generation. The VOSR version doubles its width and height.'
 };
 let current = [], selected = 0;
