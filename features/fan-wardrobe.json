@@ -23,5 +23,13 @@
     "width": 768,
     "height": 1366,
     "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/e7467186618f585fc43f408874357404f531a754/films/656b2bfd9d5d8b7758e8fa51da12f7b0aae6a2f81493e0d4cfec86717da4ce75.jpg"
+  },
+  "preferred": "2x",
+  "restored": {
+    "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/cc40b9bd5b21a1ddbe27ed45c956f73092dcab87/films/b38e7a69518365ea3869f9b92ad2a608dc29b9d56dce0a67e177e630a537d4f4.mp4",
+    "sha256": "b38e7a69518365ea3869f9b92ad2a608dc29b9d56dce0a67e177e630a537d4f4",
+    "bytes": 32723817,
+    "width": 1536,
+    "height": 2732
   }
 }
