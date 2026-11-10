@@ -1,0 +1,27 @@
+{
+  "id": "fan-wardrobe",
+  "title": "Four looks under the fan",
+  "brief": "A pink rabbit rolls off the sofa. A walnut ceiling fan sweeps past to reveal a floral skirt, a blue bubble dress, and an indigo denim look with a burgundy bow.",
+  "quality": "High",
+  "model": "Pika H3 Flex",
+  "backend": "Dense",
+  "steps": 6,
+  "shots": 3,
+  "refs": "6 original stills + 2 continuity frames",
+  "duration": 15,
+  "seeds": [
+    910901,
+    910902,
+    910903
+  ],
+  "x2": false,
+  "production": "Three five-second Pika shots generated on a 40-core Apple M5 Max with 128 GiB. The final frame of each preceding shot guides the next. The edit keeps the generated stereo tracks.",
+  "native": {
+    "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/e7467186618f585fc43f408874357404f531a754/films/656b2bfd9d5d8b7758e8fa51da12f7b0aae6a2f81493e0d4cfec86717da4ce75.mp4",
+    "sha256": "656b2bfd9d5d8b7758e8fa51da12f7b0aae6a2f81493e0d4cfec86717da4ce75",
+    "bytes": 7700117,
+    "width": 768,
+    "height": 1366,
+    "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/e7467186618f585fc43f408874357404f531a754/films/656b2bfd9d5d8b7758e8fa51da12f7b0aae6a2f81493e0d4cfec86717da4ce75.jpg"
+  }
+}
