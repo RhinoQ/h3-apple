@@ -1,0 +1,19 @@
+subject_definitions:
+<Subject 1> is the chipped vermilion die-cast coupe in <Picture 1>, with a single ivory stripe down its hood and roof, two amber rally lamps and small black wheels. <Picture 1> gives the opening tabletop, scale, hand and warm lighting. <Picture 2> supplies the silhouette and stripe placement of the same car design.
+
+summary:
+A fingertip winds a tiny pull-back rally car on a mountain map and lets it race across a red-penciled bend. A tactile, photoreal opening to a rally film.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - the one toy stays hand-sized on the paper.
+<Picture 1> ([Shot 1] first frame): fully_preserved - the amber desk lamp, aged paper, low camera and fingertip.
+<Picture 2> ([Shot 1] car design): attribute_transfer - retain the coupe's paint and proportions on the toy.
+
+detailed_description:
+[Shot 1] One continuous low macro tracking shot, with moving shadows and shallow focus. Open tight on the index fingertip touching the roof, the nose pointed screen right. The finger pulls the little car back half a car length to the left. Its spring ticks. By the second second the finger lifts clear, leaving the car free. The car shoots toward screen right, black wheels spinning, bouncing lightly over a fold in the paper. The camera tracks level beside its near front wheel. Fine blue contour lines and the red ink bend race underneath. Finish still moving right at axle height. Warm practical light, ivory paper and tactile red enamel. Clean full-bleed photographic frame.
+
+overall_soundscape:
+Close, dry spring clicks on the pullback, a crisp release, tiny metal wheels buzzing along coarse paper. The whir builds in pitch as the car picks up speed. Quiet room underneath.
+
+non_diegetic_music:
+Only the mechanical sounds carry the rhythm. No dialogue or score.

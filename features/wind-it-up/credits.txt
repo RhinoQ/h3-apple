@@ -1,0 +1,12 @@
+Wind It Up · h3-apple 0.9.0
+
+The three video shots and their stereo tracks use the six-step Pika H3 Flex Ref2VA adapter in h3-apple High on an Apple M5 Max. The input images were made for the film with OpenAI ImageGen. The close-up of the toy and the close-up of the real car are two panels extracted from the same original continuity board. The aerial reference was generated using the real-car panel as an appearance reference. The art directions are included in reference-art-direction.txt.
+
+Creative references: Pika's lip-gloss commercial uses macro photography and tactile action sounds. Its station dance assigns separate jobs to setting and identity references. The film, its images and its prompts are original.
+https://dev.pika.art/models/pika/pika-h3-flex/reference-to-video/examples
+Lip-gloss commercial: https://dev.pika.art/models/pika/pika-h3-flex/reference-to-video/playground?sample=62ef0a275119
+Station dance: https://dev.pika.art/models/pika/pika-h3-flex/reference-to-video/playground?sample=7100f35f00a9
+
+The closing typography was added in the edit. Barlow and Barlow Condensed were designed by Jeremy Tribby; the fonts are licensed under the SIL Open Font License. The input pack supplies the finished transparent title for the edit.
+https://github.com/google/fonts/tree/main/ofl/barlow
+https://github.com/google/fonts/tree/main/ofl/barlowcondensed

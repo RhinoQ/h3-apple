@@ -1,0 +1,19 @@
+subject_definitions:
+<Picture 1> sets the high aerial angle, blue alpine dusk and the great hairpin drawn in the snowy terrain. <Subject 1> is the one real red rally coupe on the lower leg of the road, also shown close in <Picture 2>, with a single ivory roof stripe, dark wheels and glowing amber lamps.
+
+summary:
+From above, a red speck leaves an enormous white hairpin behind. Camera and car move downhill together, opening out the landscape until the road looks like the line on a paper map.
+
+retention_analysis:
+<Picture 1> ([Shot 1] first frame and landscape): fully_preserved - keep the curved road geometry and mountain scale, with dark pines along the left edge.
+<Subject 1> (appears in [Shot 1]): fully_preserved - the only car is the vermilion coupe, its hood pointing downhill.
+<Picture 2> ([Shot 1] car design): attribute_transfer - the real coupe's stripe, amber lamps and red body retain their identity at a distance.
+
+detailed_description:
+[Shot 1] Open high and wide on <Picture 1>. The red car is already accelerating nose first downhill, following the lower leg of the hairpin toward the bottom of the image. Amber headlights skim the ice in front. A thread of lifted powder trails the rear wheels, then hangs over two dark tire marks. The camera flies smoothly backward above its path while gaining altitude. The car keeps to the road, visible lower-center, becoming smaller; the full sweep of the hairpin opens out behind it and the mountain pines throw long blue shadows. Let the composition breathe into the final second. A quiet, immense photographic closing image. Continuous shot, deep focus, no graphics.
+
+overall_soundscape:
+An engine receding down the valley, its echo returning from the rocks, fine wind in the trees. Let the engine fade into mountain air at the tail. A spacious stereo exterior.
+
+non_diegetic_music:
+Outdoor sound only. No dialogue, singing or score.

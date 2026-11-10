@@ -1,0 +1,19 @@
+subject_definitions:
+<Subject 1> is the full-size vermilion rally coupe from <Picture 1>: a boxy two-door body, a single broad ivory stripe on the hood and roof, two amber lamps and dark wheels. <Picture 1> also anchors the low roadside view, Alpine pass and last pink light. <Picture 2> supplies the hue of the red enamel and the stripe as continuity with the miniature.
+
+summary:
+Cut from a toy to the real thing. A full-size rally driver powerslides an alpine hairpin and catches the slide, throwing a bright, sculptural wave of powder. One continuous live-action tracking shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - one recognizable real coupe and its lamps from approach through exit.
+<Picture 1> ([Shot 1] location and framing): fully_preserved - cold blue mountain shadows, the close front three-quarter angle and warm light on the body.
+<Picture 2> ([Shot 1] color and stripe): attribute_transfer - the same red and ivory design on the full-size body.
+
+detailed_description:
+[Shot 1] Start in motion. At wheel height the red coupe charges through frame toward screen right. The camera pans alongside the near front fender, using the mountain peaks as a stable horizon. The nose turns into the bend as the rear wheels step outward; powder erupts behind the near rear tire in a single broad fan. The amber lamps briefly point almost into the lens. The driver countersteers and the rear settles back in line. In the last second the car gains distance, revealing fresh curved black tracks through a thinning cloud. Keep the action moving, weight in the suspension, blur on the road, sharp highlights on the red body; an uninterrupted roadside pass at blue hour.
+
+overall_soundscape:
+An engine already at full throttle, a short gear change, tires scrubbing hard-packed snow, powder hissing past the microphone. The engine note falls away as the car exits. Wide alpine outdoor acoustics.
+
+non_diegetic_music:
+Engine and tires make the soundtrack. No dialogue or score.
