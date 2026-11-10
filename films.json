@@ -66,6 +66,28 @@
         "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/3b6c5cda4c4d62b188161b2d2f5b53afcce00cab/films/e93f875acb598e3cf304e5d3a4e695928de542da348a837a3956f60feff674fa.mp4",
         "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/3b6c5cda4c4d62b188161b2d2f5b53afcce00cab/films/e93f875acb598e3cf304e5d3a4e695928de542da348a837a3956f60feff674fa.jpg"
       }
+    },
+    {
+      "id": "sol-fast-pool",
+      "title": "Underwater handoff",
+      "brief": "Two swimmers reach for the same yellow ring beneath the surface of a tiled pool.",
+      "quality": "Fast",
+      "model": "LightX2V v1.0",
+      "backend": "SOL",
+      "steps": 4,
+      "refs": 4,
+      "duration": 5.0,
+      "seed": 900104,
+      "x2": true,
+      "entrypoint": "CLI",
+      "native": {
+        "width": 1920,
+        "height": 1088,
+        "bytes": 12344836,
+        "sha256": "a6a25ebeaed0182436d442ba36ce0d03641310a0fa62791686f8641897830141",
+        "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/ba85482c55751f2315a38ff949f596c0dbf9b7da/films/a6a25ebeaed0182436d442ba36ce0d03641310a0fa62791686f8641897830141.mp4",
+        "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/ba85482c55751f2315a38ff949f596c0dbf9b7da/films/a6a25ebeaed0182436d442ba36ce0d03641310a0fa62791686f8641897830141.jpg"
+      }
     }
   ]
 }
