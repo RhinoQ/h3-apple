@@ -44,6 +44,28 @@
         "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/bae11790db3cea7c7c5a5e35090a3036839d2932/films/61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8.mp4",
         "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/bae11790db3cea7c7c5a5e35090a3036839d2932/films/61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8.jpg"
       }
+    },
+    {
+      "id": "medium-nine",
+      "title": "The navy suitcase",
+      "brief": "Nine references guide a packing scene with a tan coat, a blue scarf and a brass latch.",
+      "quality": "Medium",
+      "model": "LightX2V v1.0",
+      "backend": "VSA",
+      "steps": 4,
+      "refs": 9,
+      "duration": 8.5,
+      "seed": 900102,
+      "x2": false,
+      "entrypoint": "API",
+      "native": {
+        "width": 768,
+        "height": 1366,
+        "bytes": 6960891,
+        "sha256": "e93f875acb598e3cf304e5d3a4e695928de542da348a837a3956f60feff674fa",
+        "url": "https://raw.githubusercontent.com/RhinoQ/h3-apple/3b6c5cda4c4d62b188161b2d2f5b53afcce00cab/films/e93f875acb598e3cf304e5d3a4e695928de542da348a837a3956f60feff674fa.mp4",
+        "poster": "https://raw.githubusercontent.com/RhinoQ/h3-apple/3b6c5cda4c4d62b188161b2d2f5b53afcce00cab/films/e93f875acb598e3cf304e5d3a4e695928de542da348a837a3956f60feff674fa.jpg"
+      }
     }
   ]
 }
