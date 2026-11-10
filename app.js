@@ -1,4 +1,112 @@
 'use strict';
+if (new URLSearchParams(location.search).get('release') === '0.9.0') {
+  document.querySelector('link[rel=stylesheet]').disabled = true;
+  document.querySelector('meta[name=description]').content = 'Videos generated with h3-apple 0.9.0 on a Mac, including optional 2× restoration.';
+  const style = document.createElement('style');
+  style.textContent = ":root{color-scheme:dark;--bg:#11161d;--surface:#1a232b;--ink:#f3f2eb;--muted:#afbec6;--line:#34434d;--mint:#9aead4;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}\n*{box-sizing:border-box}\nbody{margin:0;color:var(--ink);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif;line-height:1.5}\na{color:var(--mint);text-decoration-thickness:1px;text-underline-offset:.23em}\na:focus-visible,video:focus-visible{outline:3px solid var(--mint);outline-offset:4px}\n.skip{position:absolute;top:-100px;left:12px;background:var(--bg);padding:10px;z-index:2}.skip:focus{top:5px}\nheader{border-bottom:1px solid var(--line)}.bar,main,footer{width:min(1100px,calc(100% - 64px));margin:auto}\n.bar{display:flex;align-items:center;gap:19px;min-height:70px}.brand{font-weight:760;font-size:24px;letter-spacing:-1.3px;color:var(--ink);text-decoration:none}\n.edition{font:12px/1.4 var(--mono);border-left:1px solid var(--line);padding-left:19px;color:var(--muted)}.github{margin-left:auto;font-size:14px}\n.feature{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(250px,1fr);align-items:center;gap:clamp(28px,5.6vw,74px);margin:38px 0 40px}\n.theater{display:grid;place-items:center;background:#080b0e;border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}\nvideo{display:block;width:100%;height:clamp(330px,62svh,630px);object-fit:contain;background:#080b0e}\n.mode{color:var(--mint);margin:0 0 12px;font:13px/1.4 var(--mono)}\nh1{font-size:clamp(38px,5.3vw,73px);line-height:.99;letter-spacing:-.059em;font-weight:650;margin:0 0 20px;text-wrap:balance}\n.brief{font-size:clamp(16px,1.6vw,20px);color:var(--muted);margin:0 0 26px;max-width:42ch}\ndl{border-top:1px solid var(--line);margin:0}dl>div{display:flex;gap:15px;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding:7px 0}\ndt{color:var(--muted);font-size:13px}dd{margin:0;text-align:right;font:13px/1.45 var(--mono);overflow-wrap:anywhere}\n.files{display:flex;flex-wrap:wrap;gap:10px 18px;margin:18px 0 0}.files a{display:inline-flex;align-items:center;min-height:38px;font-size:14px}\n.collection{border-top:1px solid var(--line);padding:18px 0 0}h2{font-size:22px;letter-spacing:-.04em;margin:0 0 15px}\n#scenes{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px}.tile{display:grid;grid-template-columns:50px minmax(0,1fr);align-items:center;gap:11px;color:var(--ink);background:var(--surface);text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:5px 9px 5px 5px;min-height:64px;line-height:1.25}\n.tile[aria-current=true]{border-color:var(--mint)}.tile:hover{background:#24313a}.tile img{width:50px;height:52px;object-fit:cover;border-radius:3px}\n.tile strong,.tile small{display:block}.tile strong{font-size:14px;font-weight:620}.tile small{margin-top:4px;font:11px/1.3 var(--mono);color:var(--muted)}\n#status,.noscript{color:var(--muted)}footer{margin:32px auto 26px;border-top:1px solid var(--line);padding-top:15px;font-size:12px;color:var(--muted)}\n@media(max-width:680px){.bar,main,footer{width:calc(100% - 32px)}.bar{min-height:54px;gap:12px}.brand{font-size:20px}.edition{font-size:11px;padding-left:12px}.github{font-size:12px}.feature{display:flex;flex-direction:column;align-items:stretch;gap:20px;margin:17px 0 24px}.theater{border-radius:7px}video{height:min(53svh,500px)}video.landscape{height:auto;aspect-ratio:16/9}.mode{font-size:12px;margin-bottom:7px}h1{font-size:36px;line-height:1.02;margin-bottom:10px}.brief{margin-bottom:15px;font-size:16px}.files{margin-top:10px}#scenes{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}.tile{grid-template-columns:40px minmax(0,1fr);gap:8px}.tile img{width:40px;height:46px}.tile strong{font-size:13px}}\n@media(max-width:340px){.edition{border:0;padding:0}.bar{gap:8px}#scenes{grid-template-columns:1fr}}\n";
+  document.head.append(style);
+  document.body.innerHTML = "\n  <a href=\"#player\" class=\"skip\">Skip to video</a>\n  <header><div class=\"bar\"><a class=\"brand\" href=\"./\">h3-apple</a><span class=\"edition\">0.9.0 video gallery</span><a class=\"github\" href=\"https://github.com/RhinoQ/h3-apple\">GitHub \u2197</a></div></header>\n  <main>\n    <article class=\"feature\" aria-labelledby=\"title\">\n      <div class=\"theater\"><video id=\"player\" controls playsinline preload=\"metadata\" aria-label=\"Scene video\"></video></div>\n      <section class=\"notes\" aria-live=\"polite\">\n        <p id=\"mode\" class=\"mode\"></p>\n        <h1 id=\"title\">The paintbrush trade</h1>\n        <p id=\"brief\" class=\"brief\" aria-label=\"Scene prompt\">A rabbit asks \u201cMy turn?\u201d and trades an apple for a bear\u2019s paintbrush at a garden fence.</p>\n        <dl id=\"settings\"></dl>\n        <div id=\"files\" class=\"files\"></div>\n      </section>\n    </article>\n    <section class=\"collection\" aria-labelledby=\"scenes-title\"><h2 id=\"scenes-title\">Scenes</h2><nav id=\"scenes\" aria-label=\"Select a scene\"></nav></section>\n    <p id=\"status\" role=\"status\"></p>\n    <noscript><p>Enable JavaScript to select a scene.</p></noscript>\n  </main>\n  <footer>Generated on a 40-core Apple M5 Max with 128 GiB of memory. Each scene is the first output from its prompt and seed.</footer>\n";
+  document.documentElement.classList.remove('opening-gallery');
+  const fallbackFilms = {"version":"0.9.0","films":[{"id":"high-dialogue","title":"The paintbrush trade","brief":"A rabbit asks “My turn?” and trades an apple for a bear’s paintbrush at a garden fence.","quality":"High","model":"Pika H3 Flex","backend":"Dense","steps":6,"refs":3,"duration":5.0,"seed":900103,"x2":false,"entrypoint":"API","native":{"width":768,"height":1366,"bytes":3035241,"sha256":"3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377","url":"https://raw.githubusercontent.com/RhinoQ/h3-apple/5e13da47b8f204c7713cbb0454df527b2eafc997/films/3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377.mp4","poster":"https://raw.githubusercontent.com/RhinoQ/h3-apple/5e13da47b8f204c7713cbb0454df527b2eafc997/films/3a810a43738b99954b0ff5241630a9d8d64c4ca0cd3fe753b05d6348804d1377.jpg"}},{"id":"fast-long","title":"Four outfits, one room","brief":"A single overhead take follows a rabbit from sofa to rug as a wooden fan passes over four changes of clothes.","quality":"Fast","model":"LightX2V v1.0","backend":"VSA","steps":4,"refs":6,"duration":15.0,"seed":900101,"x2":true,"entrypoint":"CLI","native":{"width":1088,"height":1920,"bytes":19779237,"sha256":"61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8","url":"https://raw.githubusercontent.com/RhinoQ/h3-apple/bae11790db3cea7c7c5a5e35090a3036839d2932/films/61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8.mp4","poster":"https://raw.githubusercontent.com/RhinoQ/h3-apple/bae11790db3cea7c7c5a5e35090a3036839d2932/films/61a564ef3da17fe66fb2b508087631a4d499e883b10a5aa036d8fb3d4f61b4e8.jpg"}}]};
+const player = document.querySelector("#player");
+const nav = document.querySelector("#scenes");
+const status = document.querySelector("#status");
+let films = [];
+let currentUrl = "";
+
+function element(tag, text) {
+  const node = document.createElement(tag);
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function link(text, url) {
+  const a = element("a", text);
+  a.href = url;
+  return a;
+}
+
+function show() {
+  if (!films.length) return;
+  const [id, version] = location.hash.slice(1).split("~");
+  const film = films.find(item => item.id === id) || films[0];
+  const upscaled = Boolean(version === "2x" && film.restored);
+  const media = upscaled ? film.restored : film.native;
+  if (currentUrl !== media.url) {
+    player.pause();
+    const source = element("source");
+    source.type = "video/mp4";
+    source.src = media.url;
+    player.replaceChildren(source);
+    if (film.id === "high-dialogue") {
+      const track = element("track");
+      Object.assign(track, {kind:"captions", label:"English dialogue", srclang:"en", src:"data:text/vtt;charset=utf-8,WEBVTT%0A%0A00%3A00%3A00.300%20--%3E%2000%3A00%3A01.300%0AMy%20turn%3F%0A"});
+      player.append(track);
+    }
+    player.poster = film.native.poster;
+    player.setAttribute("aria-label", film.title);
+    player.classList.toggle("landscape", media.width > media.height);
+    player.load();
+    currentUrl = media.url;
+  }
+  document.title = film.title + " · 0.9.0 · h3-apple";
+  document.querySelector("#mode").textContent = film.quality + " / " + film.model + " / " + film.steps + " steps";
+  document.querySelector("#title").textContent = film.title;
+  document.querySelector("#brief").textContent = film.brief;
+  const delivery = upscaled ? "VOSR 2×" : film.x2 ? "544p + X2 decoder" : "Native 768p";
+  const rows = [
+    ["Output", media.width + " × " + media.height + " · " + delivery],
+    ["Playback", film.duration + " s · 24 fps · stereo"],
+    ["Generation", film.backend + " · " + film.refs + " references"],
+    ["Seed", String(film.seed)]
+  ];
+  document.querySelector("#settings").replaceChildren(...rows.map(([key, value]) => {
+    const row = element("div"); row.append(element("dt", key), element("dd", value)); return row;
+  }));
+  const files = document.querySelector("#files");
+  const original = link("Open MP4", media.url);
+  original.target = "_blank"; original.rel = "noopener";
+  files.replaceChildren(original);
+  if (film.restored) files.append(link(upscaled ? "Play native video" : "Play optional VOSR 2×", "#" + film.id + (upscaled ? "" : "~2x")));
+  for (const tile of nav.children) {
+    if (tile.hash === "#" + film.id) tile.setAttribute("aria-current", "true");
+    else tile.removeAttribute("aria-current");
+  }
+}
+
+function update(data) {
+  if (data.version !== "0.9.0" || !Array.isArray(data.films) || !data.films.length) throw Error("Missing gallery");
+  films = data.films;
+  nav.replaceChildren(...films.map(film => {
+    const a = link("", "#" + film.id); a.className = "tile";
+    const img = element("img"); img.alt = ""; img.src = film.native.poster; img.loading = "lazy";
+    const label = element("span"); label.append(element("strong", film.title), element("small", film.quality + " · " + film.duration + " s"));
+    a.append(img, label);
+    a.addEventListener("click", () => document.querySelector(".feature").scrollIntoView({block:"start"}));
+    return a;
+  }));
+  status.textContent = "";
+  show();
+}
+
+async function load(url) {
+  const response = await fetch(url, {cache:"no-cache"});
+  if (!response.ok) throw Error("Gallery unavailable");
+  update(await response.json());
+}
+window.addEventListener("hashchange", show);
+async function start() {
+  update(fallbackFilms);
+  try {
+    const branch = "https://raw.githubusercontent.com/RhinoQ/h3-apple/refs/heads/codex/v090-gallery-media/films.json";
+    await load(branch + "?v=" + Math.floor(Date.now() / 60000));
+  } catch {
+    if (!films.length) status.textContent = "The video list could not load. Refresh to try again.";
+  }
+}
+start();
+
+} else {
 const data = window.BENCHMARK, scores = window.SCORES;
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -170,3 +278,5 @@ function renderCase() {
 for (const category of [...new Set(data.cases.map(c => c.category))]) { const option = document.createElement('option'); option.value = category; option.textContent = category; $('category').append(option); }
 for (const id of ['search','category','status','orientation']) $(id).addEventListener(id === 'search' ? 'input' : 'change',filters);
 renderShowcase(); renderScores(); filters();
+
+}
