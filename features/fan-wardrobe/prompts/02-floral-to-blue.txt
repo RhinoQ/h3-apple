@@ -1,0 +1,25 @@
+subject_definitions:
+<Subject 1> is the single pastel-pink plush rabbit in <Picture 1>, <Picture 2> and <Picture 3>. Two upright pink-lined ears, even bead eyes, round pink cheeks, small closed stitched smile, soft short fibers.
+<Subject 2> is the exact sunlit miniature set in <Picture 1>. The fixed overhead camera sees the ivory button-tufted sofa on the left, the rust floral rug alongside it and one walnut ceiling fan close to the lens. Its hub stays just beyond the upper-left corner. Its blades turn clockwise in a flat circle.
+<Picture 1> is the first frame. Match where the rabbit, sofa seam, rug and shadows sit in this frame. <Picture 2> supplies the cream bow blouse, tiered floral skirt and brown shoes. <Picture 3> supplies the periwinkle-blue bubble dress, twin hip bows and blue Mary Janes. <Picture 4> shows the thick walnut paddle crossing in front of the rabbit.
+
+summary:
+[reference generation + keyframe completion] A five-second portrait continuation. Lying on the rug in her floral outfit, the rabbit lifts one edge of the skirt like a little curtsy. A broad fan blade turns across her. When it clears she is wearing the blue bubble dress and raises one paw beside her cheek.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - the same one rabbit and small closed smile before and after the change.
+<Subject 2> (appears in [Shot 1]): fully_preserved - overhead camera, rug and cushion hold their positions, sunlight stays warm and still.
+<Picture 1> ([Shot 1] beginning): fully_preserved - actual opening pose, camera distance, framing and light.
+<Picture 2> ([Shot 1] first costume): fully_preserved - cream blouse, tiered print skirt and brown shoes.
+<Picture 3> ([Shot 1] second costume): fully_preserved - gathered blue dress, small bows and blue shoes.
+<Picture 4> ([Shot 1] wipe): partially_preserved - scale and solid shape of the nearby fan blade.
+
+detailed_description:
+[Shot 1] Start exactly at <Picture 1>. From above, the rabbit lies on the rug where the cushion meets its border. Her whole face, both ears and shoes fit in frame. For the first two seconds her paws pinch and raise the sides of her floral skirt a little, spread the three tiers, then lower them back onto the rug. Her head and hips keep the same position. The overhead fan advances evenly around its upper-left pivot.
+At about 2.5 seconds the wide end of the walnut paddle passes between the lens and her clothes. Its solid leading edge sweeps over her, shows uninterrupted wood grain across the outfit, then the trailing edge continues along the same arc. By 3.2 seconds her cream floral outfit has been replaced by the blue bubble dress and blue shoes of <Picture 3>. The outfit changes behind the wood. Her face, direction, scale and the background stay continuous. Hold the blue look in clear view for the last two beats. She raises one paw close to her cheek, points one blue shoe and looks up with both eyes open. The fan moves away toward the frame edge.
+
+overall_soundscape:
+Quiet fan air, one gentle woody whoosh on the pass and a small fabric rustle when the hem settles. No voices.
+
+non_diegetic_music:
+Continue a light 120 BPM fashion groove in C major with pizzicato strings, soft handclaps and warm plucked bass. Repeat a four-note C–E–G–E hook. Start on the beat and carry the same gentle pulse past the reveal.

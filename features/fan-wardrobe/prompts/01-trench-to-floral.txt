@@ -1,0 +1,25 @@
+subject_definitions:
+<Subject 1> is the one blush-pink plush rabbit in <Picture 1>, <Picture 2> and <Picture 3>. Short velvety fur, two long pink-lined ears, two matching dark bead eyes, rosy cheeks and a tiny closed stitched smile. Head, paws and boots belong to the same little body.
+<Subject 2> is the miniature room in <Picture 1>. An ivory button-tufted low sofa on the left meets a rust floral rug on the right. A broad polished walnut ceiling-fan blade rotates clockwise near the lens around a hub just outside the upper-left corner. Afternoon sunlight falls from the right.
+<Picture 1> is the opening composition and trench outfit. <Picture 2> shows her landing position on the rug in that same outfit. <Picture 3> shows the cream bow blouse, tiered floral skirt and brown Mary Janes to reveal. <Picture 4> shows the angle, wood grain and size of the foreground fan when it covers her.
+
+summary:
+[reference generation + keyframe completion] A five-second portrait fashion film in a locked overhead shot. A pink plush rabbit rolls from the cushion onto the rug. A wooden ceiling fan sweeps across her and reveals the floral outfit. The same sunlit room fills the screen throughout.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - one pink rabbit with the same small face, fur and proportions.
+<Subject 2> (appears in [Shot 1]): fully_preserved - same sofa seam, rug edge, warm light and fan pivot.
+<Picture 1> ([Shot 1] opening): fully_preserved - face up in the tan trench and boots on the left cushion.
+<Picture 2> ([Shot 1] middle): fully_preserved - face up on the right-hand rug in the same trench.
+<Picture 3> ([Shot 1] ending): fully_preserved - cream blouse, floral skirt and brown shoes in the same room.
+<Picture 4> ([Shot 1] wipe): partially_preserved - one broad wooden paddle passes close to the lens, fully hiding the outfit for an instant.
+
+detailed_description:
+[Shot 1] Look straight down as in <Picture 1>. Frame the rabbit from ears to boots and the cushion edge together. For the opening half-beat, her face and tan trench are clear on the sofa. She tucks her paws and knees. Her right shoulder dips over the low cushion edge, her torso and hips follow, the back of her coat and ears turn up toward us, then her opposite side meets the rug. By 2.7 seconds she has rolled through onto her back on the rug in the same trench, with the sofa still on her left. Let the hem and ears settle. The camera and rug border stay still.
+At about 3.5 seconds a single solid walnut paddle turns through the foreground in a continuous clockwise arc, sweeping across her face, coat and boots. While the wood fills the view of her clothes they change. The trailing edge clears at about 4.2 seconds and reveals the same rabbit lying in the same spot, now wearing the cream bow blouse, tiered floral skirt and brown Mary Janes from <Picture 3>. Both paws release the skirt hem and rest beside it. Finish with her still fully visible in this outfit and the blade clear of her head. The entire image is the rendered room.
+
+overall_soundscape:
+Soft fan air and a low motor under the scene. Cloth brushes the cushion, then the rug gives a small padded thump on landing. A short wooden-blade whoosh accompanies the outfit reveal. No voices.
+
+non_diegetic_music:
+An original playful fashion instrumental in C major at 120 BPM, pizzicato strings, soft handclaps and warm plucked bass. A simple C–E–G–E four-note hook taps the beat. Keep the groove light and steady through the end.

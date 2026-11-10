@@ -1,0 +1,25 @@
+subject_definitions:
+<Subject 1> is the one small pastel-pink plush rabbit in <Picture 1>, <Picture 2> and <Picture 4>. Keep the same short fur, long pink-lined ears, pair of bead eyes, pink cheeks, little embroidered smile and soft paws.
+<Subject 2> is the sunlit miniature room in <Picture 1>. A stationary ivory tufted sofa fills the left side. A rust floral rug fills the right. A wide walnut ceiling paddle turns around a hub just beyond the upper-left corner.
+<Picture 1> is the exact opening frame, with the blue dress and the raised paw. <Picture 2> describes that blue bubble dress and its shoes. <Picture 3> is the single passing position of the wooden blade. <Picture 4> is the exact clear ending frame: the entire rabbit on the rug with its face, indigo jacket and shorts, large burgundy waist bow and matching red shoes visible. The last sliver of wood is confined to the upper-left corner.
+
+summary:
+[reference generation + keyframe completion] The finale of a five-second vertical fashion film. A ceiling fan making its final slow turn wipes from a blue dress to a denim outfit. After one sweep the motor winds down. The rabbit waves and the film finishes on the fully clear burgundy bow pose in <Picture 4>.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - one rabbit, consistent face and body, lying on the rug to the right of the sofa.
+<Subject 2> (appears in [Shot 1]): fully_preserved - same overhead room, scale, wood grain, shadows, cushion buttons and rug border.
+<Picture 1> ([Shot 1] first frame): fully_preserved - opening camera position and blue-dress pose.
+<Picture 2> ([Shot 1] opening outfit): fully_preserved - gathered pale-blue skirt, small bows and matching shoes.
+<Picture 3> ([Shot 1] one moving wipe): partially_preserved - broad near-camera wooden blade hiding the clothes for one beat.
+<Picture 4> ([Shot 1] last three seconds and final frame): fully_preserved - clear full figure with the indigo denim, burgundy bow, red shoes and closed smile.
+
+detailed_description:
+[Shot 1] Locked straight overhead. Open with exactly the framing in <Picture 1>. The rabbit in blue lowers the paw from her cheek. A single broad ceiling-fan blade sweeps between her and the camera on its final clockwise turn. At about 1.0 seconds the solid walnut paddle covers her dress as in <Picture 3>. The paddling wood immediately carries on around the hub. As its trailing edge passes, show the indigo denim jacket, shorts, big burgundy bow and red shoes. By 2.0 seconds both ears, both shoes and the whole bow are plainly visible beside the sofa.
+The fan motor clicks off. The blade finishes its arc and coasts to rest in the upper-left corner in exactly the position in <Picture 4>. Only the rabbit and her clothes move for the final three seconds. She opens one paw in a little wave, lowers it and relaxes her ears. Warm light catches the denim stitches and the red bow. The image ends on the uninterrupted, clear full-body pose of <Picture 4>, with her face and bow plainly visible, the room still and the blade parked up in the corner.
+
+overall_soundscape:
+One gentle fan whoosh across the transition, a very quiet motor switch click, the motor sound winding down, then cloth shifting under the small wave. The room stays quiet. No voices.
+
+non_diegetic_music:
+Keep the light 120 BPM C-major fashion instrumental, plucked bass and soft claps. The C–E–G–E pizzicato hook settles into a short C-major ending under the clear full-body pose.
